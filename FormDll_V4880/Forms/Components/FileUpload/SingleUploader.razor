@@ -1,0 +1,535 @@
+﻿@using Microsoft.AspNetCore.Components.Forms
+@using Newtonsoft.Json
+
+@namespace SingleFileUpload
+
+
+@if (htmlTemplate is not null && uploadedLink is not null)
+{
+    @((MarkupString)htmlTemplate.Replace("##url##", @uploadedLink))
+    <div class="text-center my-1">
+        @if (Editable)
+        {
+            <button class="btn btn-sm btn-red" @onclick="RemoveFile">حذف فایل</button>
+        }
+    </div>
+}
+
+@if (Editable && uploadedLink is null)
+{
+    <div id=@(Id) class="card mb-2 @(_Visible?"":"d-none") UploadFileBox @CssClass">
+        <div id=@(Id + "Caption") class="card-header mt-0">@Caption</div>
+        @if (!string.IsNullOrEmpty(ErrorMessage))
+        {
+            <div id=@(Id + "ErrorMessage") class="alert alert-danger" role="alert">
+                @ErrorMessage
+            </div>
+        }
+
+        <div class="card-body" id=@(Id + "CardBodyInputFile")>
+            <div id=@(Id + "DivInputFile") class="dropzone text-center @dropClass ">
+                <label id=@(Id + "labelInputFile")>
+                    <span class="fal fa-2x fa-upload"></span>
+                    <span id=@(Id + "SpanlabelInputFile")>بارگذاری فایل</span>
+
+                </label>
+                <InputFile id=@(Id + "InputFile") OnChange="AddFilesToQueue"
+                           @attributes="@_Attributes"
+                           class="@InputClass"
+                           disabled="@isUploading"
+                           style="position: absolute;top: 0;left: 0;right: 0;opacity: 0;height:130px;cursor: pointer;"
+                           accept="@Accept"
+                           multiple />
+            </div>
+        </div>
+
+
+        @if (filesQueue is not null)
+        {
+            var size = Math.Round((filesQueue.Size / 1024.00));
+            var percentage = Math.Round(filesQueue.UploadedPercentage);
+
+            <span class="px-2">@($"{percentage}%")</span>
+            <progress value="@filesQueue.UploadedBytes" max="@filesQueue.Size" class="fileProgress mx-2"></progress>
+            <sapn class="px-2">@filesQueue.FileName</sapn>
+        }
+
+    </div>
+}
+
+@code {
+    [Parameter] public string? Id { get; set; }
+    #region variable
+    public bool isUploading = false;
+    public string ErrorMessage = string.Empty;
+    public string dropClass = string.Empty;
+    public int maxAllowedFiles = 3;
+    //public List<FileUploadProgress> filesQueue { get; set; } = new List<FileUploadProgress>();
+    public FileUploadProgress? filesQueue { get; set; }
+    #endregion
+
+    #region Param
+
+    [Parameter]
+    public string? uploadedLink { get; set; }
+    [Parameter]
+    public string? uploadUrl { get; set; }
+    [Parameter]
+    public string? htmlTemplate { get; set; }
+    [Parameter]
+    public string? Caption { get; set; }
+    [Parameter]
+    public string? MaxSize { get; set; }
+    [Parameter]
+    public string? MinSize { get; set; }
+    [Parameter]
+    public bool Editable { get; set; } = true;
+    [Parameter]
+    public string? Accept { get; set; }
+    [Parameter] public bool Visible { get; set; } = true;
+    public bool _Visible { get; set; }
+    [Parameter]
+    public bool Disabled { get; set; } = false;
+    private bool _Disabled { get; set; }
+
+    [Parameter] public Dictionary<string, object>? Attributes { get; set; } = new Dictionary<string, object>();
+    public Dictionary<string, object>? _Attributes { get; set; } = new Dictionary<string, object>();
+
+    [Parameter] public string? CssClass { get; set; }
+    private string? InputClass { get; set; }
+    public EventCallback<string?> ClassChanged { get; set; }
+    [Parameter]
+    public EventCallback<string> FileChanged { get; set; }
+    #endregion
+
+
+    async override protected Task OnInitializedAsync()
+    {
+        //set attributes
+        if (Attributes.Keys.Count > 0)
+        {
+            foreach (var item in Attributes)
+            {
+                _Attributes.Add(item.Key, item.Value);
+            }
+        }
+
+        isUploading = Disabled;
+        _Visible = Visible;
+
+    }
+
+
+    public class _File
+    {
+        /// <summary>
+        /// Gets the name of the file as specified by the browser.
+        /// </summary>
+        public string Name { get; set; }
+
+        /// <summary>
+        /// Gets the last modified date as specified by the browser.
+        /// </summary>
+        public string LastModified { get; set; }
+
+        /// <summary>
+        /// Gets the size of the file in bytes as specified by the browser.
+        /// </summary>
+        public long Size { get; set; }
+
+        /// <summary>
+        /// Gets the MIME type of the file as specified by the browser.
+        /// </summary>
+        public string ContentType { get; set; }
+
+    }
+
+
+    /// <summary>
+    /// افزودن فایل داخل صف
+    /// </summary>
+    /// <param name="e"></param>
+    public async void AddFilesToQueue(InputFileChangeEventArgs e)
+    {
+
+        dropClass = string.Empty;
+        ErrorMessage = string.Empty;
+        long _MinSize = 0;
+        long _MaxSize = 1000000000;
+        ///اضافه کردن اندازه فایل در صورت وجود
+        if (!string.IsNullOrEmpty(MinSize))
+        {
+            _MinSize = ConvertToBytes(MinSize);
+        }
+        if (!string.IsNullOrEmpty(MaxSize))
+        {
+            _MaxSize = ConvertToBytes(MaxSize);
+        }
+
+        var files = e.File;
+
+        //var fileCount = filesQueue.Count;
+
+        // foreach (var file in files)
+        //{
+
+        var _file = await Utility.JSON.ToObject<_File>(await Utility.JSON.ToJson(files));
+
+        if ((files.Size < _MinSize) || (files.Size > _MaxSize))
+        {
+
+            ErrorMessage = $"حداکثر فایل {MaxSize} و حداقل  {MinSize} باید باشد.";
+            return;
+        }
+
+
+        filesQueue = new FileUploadProgress(files, _file.Name, files.Size, "");
+
+        await UploadFileQueue();
+
+    } //PlaceFilesInQue
+
+
+    public async Task UploadFileQueue()
+    {
+        isUploading = true;
+        await InvokeAsync(StateHasChanged);
+
+
+        if (!filesQueue.HasBeenUploaded)
+        {
+            await UploadChunks(filesQueue);
+            filesQueue.HasBeenUploaded = true;
+        }
+
+
+        isUploading = false;
+        await InvokeAsync(StateHasChanged);
+    } //UploadFileQueue
+
+
+    #region Classes
+
+
+
+    protected override void OnParametersSet()
+    {
+        Disabled = isUploading;
+    }
+
+    public class FileDetails
+    {
+        public string? url { get; set; }
+        public string? name { get; set; }
+        public string? size { get; set; }
+    }
+    public long ConvertToBytes(string size_)
+    {
+        string unit = Right(size_, 2);
+        string size = Left(size_, size_.Length - 2);
+        switch (unit.ToLower())
+        {
+            case "mb":
+                return long.Parse(size) * 1024 * 1024;
+            case "kb":
+                return long.Parse(size) * 1024;
+            case "gb":
+                return long.Parse(size) * 1024 * 1024 * 1024;
+            default:
+                throw new ArgumentException("Invalid unit provided.");
+        }
+    }
+    public string Right(string str, int length)
+    {
+        return str.Substring(str.Length - length, length);
+    }
+    public string Left(string str, int length)
+    {
+        str = (str ?? string.Empty);
+        return str.Substring(0, Math.Min(length, str.Length));
+    }
+    #endregion
+
+    HttpClient client = new();
+
+    private async Task UploadChunks(FileUploadProgress file)
+    {
+        try
+        {
+            MultipartFormDataContent formData = new MultipartFormDataContent();
+            var fileContent = new StreamContent(file.FileData.OpenReadStream(maxAllowedFiles = 32000000));
+
+            formData.Add(fileContent, "file", file.FileName);
+
+            var response = await client.PostAsync(uploadUrl, formData);
+            var responseContent = await response.Content.ReadAsStringAsync();
+            FileDetails fileDetails = JsonConvert.DeserializeObject<FileDetails>(responseContent);
+            if (response.IsSuccessStatusCode)
+            {
+                file.UploadedBytes = file.Size;
+                uploadedLink = fileDetails.url;
+                await FileChanged.InvokeAsync(uploadedLink);
+                StateHasChanged();
+
+                // فایل با موفقیت آپلود شد
+            }
+            else
+            {
+                file.UploadedBytes = 0;
+                // خطا در آپلود فایل
+            }
+            await InvokeAsync(StateHasChanged);
+        }
+        catch (Exception e)
+        {
+            ErrorMessage = "خطا در بارگذاری" + "\n" + e.Message;
+        }
+
+    } //UploadChunks
+
+
+
+    public record FileUploadProgress(IBrowserFile File, string FileName, long Size, string? url)
+    {
+        public IBrowserFile FileData { get; set; } = File;
+
+        public long UploadedBytes { get; set; }
+        public double UploadedPercentage => (double)UploadedBytes / (double)Size * 100d;
+        public bool HasBeenUploaded { get; set; } = false;
+        public string url { get; set; } = url;
+    } //FileUploadProgress
+
+
+
+    public class FileChunkDto
+    {
+        public string FileName { get; set; } = "";
+        public long Offset { get; set; }
+        public byte[]? Data { get; set; }
+        public bool FirstChunk = false;
+    }
+    public interface IFilesManager
+    {
+        Task<bool> UploadFileChunk(FileChunkDto fileChunkDto);
+        Task<List<string>> GetFileNames();
+    }
+
+    /// <summary>
+    /// حذف فایل آپلود شده
+    /// </summary>
+    public async Task RemoveFile()
+    {
+        uploadedLink = null;
+        filesQueue = null;
+        await FileChanged.InvokeAsync(uploadedLink);
+        StateHasChanged();
+    }
+
+    #region Class
+    public bool AddAttribute(string? Key, string? Value)
+    {
+        try
+        {
+            var Attr = _Attributes.FirstOrDefault(p => p.Key == Key);
+            if (Attr.Key is null)
+            {
+                _Attributes.Add(Key, (!string.IsNullOrEmpty(Value)) ? (object)Value : null);
+            }
+            else
+            {
+                RemoveAttribute(Attr.Key);
+                _Attributes.Add(Key, (!string.IsNullOrEmpty(Value)) ? (object)Value : null);
+            }
+
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine("Error In AddAttribute " + ex.Message);
+            return false;
+        }
+        return true;
+    }
+
+    public bool RemoveAttribute(string? Key)
+    {
+        try
+        {
+            var Attr = _Attributes.Where(p => p.Key == Key);
+            if (Attr.Count() > 0)
+            {
+                foreach (var item in Attr)
+                {
+                    if (item.Key is not null)
+                    {
+                        _Attributes.Remove(_Attributes.FirstOrDefault(p => p.Key == Key).Key);
+                    }
+                }
+            }
+
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine("Error In RemoveAttribute " + ex.Message);
+            return false;
+        }
+        return true;
+    }
+
+    public bool ToggleAttribute(string? Key, string? Value)
+    {
+        var Attr = _Attributes.FirstOrDefault(p => p.Key == Key);
+        try
+        {
+            if (Attr.Key is null)
+            {
+                _Attributes.Add(Key, (!string.IsNullOrEmpty(Value)) ? (object)Value : null);
+            }
+            else
+            {
+                _Attributes.Remove(_Attributes.FirstOrDefault(p => p.Key == Key).Key);
+            }
+
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine("Error In ToggleAttribute " + ex.Message);
+            return false;
+        }
+        return true;
+    }
+
+    public bool AddClassInput(string _NewClass)
+    {
+        try
+        {
+            if (!string.IsNullOrEmpty(_NewClass))
+            {
+                InputClass += " " + _NewClass;
+                ClassChanged.InvokeAsync(InputClass);
+            }
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine("Error In AddClassInput " + ex.Message);
+            return false;
+        }
+        return true;
+
+
+    }
+
+    public bool RemoveClassInput(string _Class)
+    {
+        try
+        {
+            if (!string.IsNullOrEmpty(InputClass))
+            {
+                InputClass = InputClass.Replace(" " + _Class, string.Empty);
+                ClassChanged.InvokeAsync(InputClass);
+            }
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine("Error In RemoveClassInput " + ex.Message);
+            return false;
+        }
+
+        return true;
+    }
+
+    public bool ToggleClassInput(string _Class)
+    {
+        try
+        {
+            if ((!string.IsNullOrEmpty(InputClass)) && InputClass.Contains(_Class))
+            {
+                RemoveClassInput(_Class);
+            }
+            else
+            {
+                AddClassInput(_Class);
+            }
+
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine("Error In ToggleClassInput " + ex.Message);
+            return false;
+        }
+        return true;
+    }
+
+    public bool AddClass(string _NewClass)
+    {
+        try
+        {
+            CssClass += " " + _NewClass;
+            ClassChanged.InvokeAsync(CssClass);
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine("Error In AddClass " + ex.Message);
+            return false;
+        }
+        return true;
+    }
+
+    public bool RemoveClass(string _Class)
+    {
+        try
+        {
+            if (!string.IsNullOrEmpty(CssClass))
+            {
+                CssClass = CssClass.Replace(" " + _Class, string.Empty);
+                ClassChanged.InvokeAsync(CssClass);
+            }
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine("Error In RemoveClass " + ex.Message);
+            return false;
+        }
+        return true;
+    }
+    public bool ToggleClass(string _Class)
+    {
+        try
+        {
+            if ((!string.IsNullOrEmpty(CssClass)) && CssClass.Contains(_Class))
+            {
+                RemoveClass(_Class);
+            }
+            else
+            {
+                AddClass(_Class);
+            }
+
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine("Error In ToggleClass " + ex.Message);
+            return false;
+        }
+        return true;
+    }
+    /// <summary>
+    /// تغییر فعال یا غیر فعال بودن کامپوننت
+    /// </summary>
+    /// <param name="val"></param>
+    public void SetDisabled(bool val)
+    {
+        isUploading = val;
+
+    }
+    /// <summary>
+    /// نمایش یا عدم نمایش کامپوننت
+    /// </summary>
+    /// <param name="val"></param>
+    public void SetVisible(bool val)
+    {
+        _Visible = val;
+        //در صورتی که فیلد نمایش داده نشود کامپوننت آن غیر فعال میشود تا اگر اجباری بود در نظر گرفته نشود
+        isUploading = !val;
+    }
+    #endregion
+}

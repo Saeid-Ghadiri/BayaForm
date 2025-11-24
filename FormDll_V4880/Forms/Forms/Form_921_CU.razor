@@ -1,0 +1,1104 @@
+@inherits Forms.Forms.Form_921_CUBase
+@namespace FormsPage
+
+@using AKSoftware.Localization.MultiLanguages.Blazor
+@using Baya.Models.Utility;
+@using Baya.Models.ORM
+@using Microsoft.AspNetCore.Components.Forms
+@using Microsoft.AspNetCore.Components.Authorization;
+@using System.Security.Claims
+@using System.Net
+@using Microsoft.JSInterop
+@using Baya.Models.ViewEngine
+@using Forms.Domain.Utility
+@using Castle.DynamicLinqQueryBuilder
+<style>
+    /* ************************************************** */
+.detailArea form div:not(.devdrop) {
+    margin-top: .1rem;
+}
+
+/* ************************************************** */
+
+.form-header {
+    background: linear-gradient(to bottom, #6c5ffc, #0d1a52);
+    color: white;
+    padding: 1.5rem 2rem;
+    border-radius: 0.5rem 0.5rem 0 0;
+    margin-bottom: 0;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+    transition: all 0.3s ease;
+}
+
+.form-header:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 25px rgba(0, 0, 0, 0.2);
+}
+
+.form-header h2 {
+    font-weight: 700;
+    margin-bottom: 0;
+    display: flex;
+    align-items: center;
+    position: relative;
+    z-index: 2;
+}
+
+.form-header .icon {
+    font-size: 1.8rem;
+    margin-left: 15px;
+    animation: float 3s ease-in-out infinite;
+}
+
+.form-header::before {
+    content: "";
+    position: absolute;
+    top: -50%;
+    right: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0) 70%);
+    transform: rotate(45deg);
+    z-index: 1;
+    transition: all 0.5s ease;
+}
+
+.form-header:hover::before {
+    transform: rotate(45deg) translate(20px, 20px);
+}
+
+.form-header .decoration {
+    position: absolute;
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.05);
+    z-index: 1;
+}
+
+.form-header .decoration-1 {
+    top: -30px;
+    left: -30px;
+    width: 120px;
+    height: 120px;
+}
+
+.form-header .decoration-2 {
+    bottom: -40px;
+    right: -20px;
+    width: 80px;
+    height: 80px;
+}
+
+@@keyframes float {
+    0% {
+        transform: translateY(0px);
+    }
+
+    50% {
+        transform: translateY(-5px);
+    }
+
+    100% {
+        transform: translateY(0px);
+    }
+}
+
+@@keyframes pulse {
+    0% {
+        opacity: 0.3;
+    }
+
+    50% {
+        opacity: 0.1;
+    }
+
+    100% {
+        opacity: 0.3;
+    }
+}
+
+.pulse-animation {
+    animation: pulse 4s ease-in-out infinite;
+}
+
+/* ************************************************** */
+</style>
+
+<Plugins.Tools.ConfirmDialog @ref="Confirm" />
+
+<span class="d-none">VersionForm:@VersionForm</span>
+@*
+@if (!string.IsNullOrEmpty(SumaryMessage))
+{
+    <div>
+        @SumaryMessage
+    </div>
+} *@
+
+@* <EditForm @ref="_Form" Model="_Entity" OnValidSubmit="ValidFormSubmitted" OnInvalidSubmit="InvalidFormSubmitted" OnSubmit="Submit"> *@
+<div class="@(ReadOnly?"FormReadOnly":"")">
+    <EditForm @ref="_Form" Model="_Entity" OnSubmit="Submit">
+        
+<div class="row ">
+    
+<div class="col-md-12">
+    <div  class="">
+    <header class="form-header">
+  <!-- عناصر تزئینی -->
+  <div class="decoration decoration-1"></div>
+  <div class="decoration decoration-2 pulse-animation"></div>
+  
+  <!-- محتوای هدر -->
+  <h5>
+      <i class="fal fa-project-diagram icon"></i>
+      اطلاعات شهر - منطقه
+  </h5>
+</header>
+</div>
+
+</div>
+
+<div class="col-md-6">
+     
+ 
+@code {
+    Baya.Models.ViewEngine.View_Component Component_BaseInfo_CitiesAreasBaseInfo_ProvincesId = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"EntityName\":\"حذف --- شهر - منطقه\",\"primaryKey\":false,\"EntityID\":679,\"FieldId\":19443,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":921,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":false,\"RelationParentName\":\"BaseInfo_Provinces\",\"RelationParentModel\":\"BaseInfo_Provinces\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/BaseInfo_Provinces/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.Title}} </span>\",\"FieldsTemplate\":[{\"key\":\"Title\",\"value\":\"nvarchar(Max)\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"modal\":true,\"label\":\"استان\",\"tableView\":true,\"key\":\"BaseInfo_ProvincesId\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"19443?EId=679&SubId=30\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
+}
+
+    <Dropdown Id=BaseInfo_ProvincesId  @ref="Ref_BaseInfo_ProvincesId" Label="استان" CssClass=""  DisplayFormat="DropDown" ExternalApi=true NotMapped=false TextGrid=false Text="" Value="@_Entity.BaseInfo_ProvincesId" FieldName="BaseInfo_ProvincesId" OnItemSelected="ItemSelected_BaseInfo_CitiesAreasBaseInfo_ProvincesId" Component="Component_BaseInfo_CitiesAreasBaseInfo_ProvincesId" _Entity="_Entity" >
+</Dropdown>
+@code {
+    public async Task ItemSelected_BaseInfo_CitiesAreasBaseInfo_ProvincesId(object _Item)
+    {
+        var Selected = Utility.JSON.ToObject<dynamic>(Utility.JSON.ToJson(_Item).Result).Result;
+     var Item = _Entity;
+
+      //Todo
+ //برای اینکه آی دی تغییر کند اینجا نیز باید تغییر کند
+ //بهتر است از پرایمیری کی استفاده شود
+ Item.BaseInfo_ProvincesId = Selected.Id;
+ Item.BaseInfo_Provinces = await Utility.JSON.ToObject<Entity.BaseInfo_Provinces>(await Utility.JSON.ToJson(_Item));
+
+    
+
+    
+    }
+} 
+ 
+ 
+@code {
+    Baya.Models.ViewEngine.View_Component Component_BaseInfo_CitiesAreasParentId = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"EntityName\":\"حذف --- شهر - منطقه\",\"primaryKey\":false,\"EntityID\":679,\"FieldId\":19442,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":921,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":false,\"RelationParentName\":\"Parent\",\"RelationParentModel\":\"BaseInfo_CitiesAreas\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/BaseInfo_CitiesAreas/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.Title}} {{item.ParentId}} </span>\",\"FieldsTemplate\":[{\"key\":\"Title\",\"value\":\"nvarchar(Max)\"},{\"key\":\"ParentId\",\"value\":\"uniqueidentifier\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"modal\":true,\"label\":\"شناسه والد منطقه شهری\",\"tableView\":true,\"key\":\"ParentId\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"19442?EId=679&SubId=30\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
+}
+
+    <Dropdown Id=ParentId  @ref="Ref_ParentId" Label="شناسه والد منطقه شهری" CssClass=""  DisplayFormat="DropDown" ExternalApi=true NotMapped=false TextGrid=false Text="" Value="@_Entity.ParentId" FieldName="ParentId" OnItemSelected="ItemSelected_BaseInfo_CitiesAreasParentId" Component="Component_BaseInfo_CitiesAreasParentId" _Entity="_Entity" >
+</Dropdown>
+@code {
+    public async Task ItemSelected_BaseInfo_CitiesAreasParentId(object _Item)
+    {
+        var Selected = Utility.JSON.ToObject<dynamic>(Utility.JSON.ToJson(_Item).Result).Result;
+     var Item = _Entity;
+
+      //Todo
+ //برای اینکه آی دی تغییر کند اینجا نیز باید تغییر کند
+ //بهتر است از پرایمیری کی استفاده شود
+ Item.ParentId = Selected.Id;
+ Item.Parent = await Utility.JSON.ToObject<Entity.BaseInfo_CitiesAreas>(await Utility.JSON.ToJson(_Item));
+
+    
+
+    
+    }
+} 
+
+<Input Id="Title" @ref="Ref_Title" Label="عنوان"     @bind-Value="_Entity.Title" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"maxlength\":\"75\"}").Result))></Input>
+
+</div>
+
+<div class="col-md-6">
+    
+</div>
+
+<div class="col-md-12">
+    
+</div>
+
+</div>
+
+<Input Id="Id" @ref="Ref_Id"   CssClass="d-none"   @bind-Value="_Entity.Id" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+<label for="InverseParent_GridParentId_679">شهر - منطقه
+   
+    
+</label>
+
+<DxGrid @ref="Grid_InverseParent" Data="_Entity.InverseParent" KeyFieldName="_Id" EditMode="GridEditMode.PopupEditForm"
+        EditModelSaving="OnEditModelSavingInverseParent"
+        DataItemDeleting="OnDataItemDeletingInverseParent"
+        PopupEditFormCssClass="ModalWidth"
+        PopupEditFormHeaderText="شهر - منطقه"
+        EditFormButtonsVisible="false"
+        CustomizeEditModel="CustomizeEditGrid_InverseParent"
+        CustomizeElement="CustomizeRowsGrid_InverseParent" 
+        Component="@((Utility.JSON.ToObject<View_Component>("{\"primaryKey\":false,\"EntityID\":679,\"FieldId\":679,\"NotNull\":false,\"ViewId\":0,\"NotMapped\":false,\"Relation\":false,\"RelationExternal\":false,\"RelationChildModel\":\"InverseParent\",\"GridMainModel\":\"BaseInfo_CitiesAreas\",\"widget\":{\"altInput\":false,\"allowInput\":false,\"clickOpens\":false,\"enableDate\":false,\"enableTime\":false,\"noCalendar\":false,\"useLocaleSettings\":false,\"hourIncrement\":0,\"minuteIncrement\":0,\"time_24hr\":false},\"wysiwyg\":false,\"data\":{},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"FieldsTemplate\":[],\"refreshOn\":\"data\",\"reorder\":false,\"addAnotherPosition\":\"bottom\",\"layoutFixed\":false,\"enableRowGroups\":false,\"initEmpty\":false,\"disabled\":true,\"modal\":true,\"label\":\"شهر - منطقه\",\"tableView\":true,\"key\":\"GridParentId_679\",\"type\":\"datagrid\",\"input\":true,\"placeholder\":\"GridParentId_679\",\"modalEdit\":true,\"customClass\":\"d-none\",\"FieldUrl\":\"679?EId=679&SubId=30\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result))"
+        CssClass="d-none" >
+    <Columns>
+    
+<DxGridCommandColumn Width="70px">
+    <HeaderTemplate Context="HeaderContext">
+       
+<a id=InverseParent_GridParentId_679ButtonNew class="btn btn-sm btn-green btnGridAddData" @onclick="@(() => StartEditNewRowAsync_Grid_InverseParent())" style="text-decoration: none;" href="javascript:void(0);">
+    <span class="fal fa-plus-circle btnicon"></span>
+    <span>@languageContainer.Keys["DXGrid:New"]</span>
+</a>
+
+    </HeaderTemplate>
+    <CellDisplayTemplate Context="CellContext">
+       
+<a id=InverseParent_GridParentId_679ButtonEdit class="btn btn-sm btn-yellow-light btnEditGridData" @onclick="@(() => StartModalGrid_InverseParent(CellContext))" style="text-decoration: none;" href="javascript:void(0);">
+    <span class="fal fa-pencil btnicon"></span>
+</a>
+
+       
+<a class="btn btn-sm btn-red-light btnDeleteGridData" @onclick="@(() => OnDeleteButtonClickGrid_InverseParent(CellContext))" style="text-decoration: none;" href="javascript:void(0);">
+    <span class="fal fa-times-circle btnicon"></span>
+</a>
+
+    </CellDisplayTemplate>
+</DxGridCommandColumn>
+
+    <DxGridCommandColumn   Width="60px">
+           <HeaderTemplate Context="HeaderContext">
+               <a    style="text-decoration: none;"  >
+                
+                   <span>ردیف</span>
+               </a>
+           </HeaderTemplate>
+           <CellDisplayTemplate Context="CellContext">
+            @if (CellContext.VisibleIndex > 9){
+                <p>@(CellContext.VisibleIndex + 1)</p>
+            }else{
+                <p>@(((CellContext.Grid.PageIndex * CellContext.Grid.PageSize) + (CellContext.VisibleIndex + 1)))</p>
+            }
+          
+           </CellDisplayTemplate>
+     </DxGridCommandColumn>
+    <DxGridDataColumn  Caption="Id" Visible=false FieldName="Id" />
+
+<DxGridDataColumn  Caption="RequestID" Visible=false FieldName="RequestID" />
+
+<DxGridDataColumn  Caption="CreateUser" Visible=false FieldName="CreateUser" />
+
+<DxGridDataColumn  Caption="UpdateUser" Visible=false FieldName="UpdateUser" />
+
+<DxGridDataColumn  Caption="CreateDate" Visible=false FieldName="CreateDate" />
+
+<DxGridDataColumn  Caption="UpdateDate" Visible=false FieldName="UpdateDate" />
+
+<DxGridDataColumn  Caption="IsDelete" Visible=false FieldName="IsDelete" />
+
+<DxGridDataColumn  Caption="عنوان"  FieldName="Title" />
+
+<DxGridDataColumn Context="BaseInfo_ProvincesId_" Caption="استان" >
+    <CellDisplayTemplate>
+       
+@{
+    Baya.Models.ViewEngine.View_Component HeaderBaseInfo_ProvincesId = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"primaryKey\":false,\"EntityID\":679,\"FieldId\":19443,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":921,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":false,\"RelationParentName\":\"BaseInfo_Provinces\",\"RelationParentModel\":\"BaseInfo_Provinces\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/BaseInfo_Provinces/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.Title}} </span>\",\"FieldsTemplate\":[{\"key\":\"Title\",\"value\":\"nvarchar(Max)\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"modal\":true,\"label\":\"استان\",\"tableView\":true,\"key\":\"BaseInfo_ProvincesId\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"19443?EId=679&SubId=30\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
+    var RowBaseInfo_ProvincesId = ((Entity.BaseInfo_CitiesAreas)BaseInfo_ProvincesId_.DataItem).BaseInfo_ProvincesId;
+}
+
+<Dropdown ExternalApi=false NotMapped=false TextGrid=true Value="@RowBaseInfo_ProvincesId"   FieldName="BaseInfo_ProvincesId" OnItemSelected="ItemSelected_BaseInfo_CitiesAreasBaseInfo_ProvincesId_Header" Component="HeaderBaseInfo_ProvincesId">
+</Dropdown>
+@code {
+    public async Task ItemSelected_BaseInfo_CitiesAreasBaseInfo_ProvincesId_Header(object _Item)
+    {
+      //  var Selected = Utility.JSON.ToObject<dynamic>(Utility.JSON.ToJson(_Item).Result).Result;
+  //   BaseInfo_ProvincesId
+
+  //  #CustomCode
+
+ //   
+
+  //  #OnItemSelected
+    }
+}
+
+    </CellDisplayTemplate>
+</DxGridDataColumn>
+<DxGridDataColumn  Caption="شناسه والد منطقه شهری"  FieldName="ParentId" />
+
+
+</Columns>
+
+    <EditFormTemplate Context="EditFormContextBaseInfo_CitiesAreas">
+    @{
+        InverseParent  = (Entity.BaseInfo_CitiesAreas)EditFormContextBaseInfo_CitiesAreas.EditModel;
+    }
+    <DxFormLayout>
+        <DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextBaseInfo_CitiesAreas">
+    
+<Input Id="InverseParent_Id" @ref="Ref_InverseParent_Id"   CssClass="d-none"   @bind-Value="InverseParent.Id" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+</DxFormLayoutItem>
+
+<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextBaseInfo_CitiesAreas">
+    
+<Input Id="InverseParent_RequestID" @ref="Ref_InverseParent_RequestID"      @bind-Value="InverseParent.RequestID" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+</DxFormLayoutItem>
+
+<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextBaseInfo_CitiesAreas">
+    
+<Input Id="InverseParent_CreateUser" @ref="Ref_InverseParent_CreateUser"      @bind-Value="InverseParent.CreateUser" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+</DxFormLayoutItem>
+
+<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextBaseInfo_CitiesAreas">
+    
+<Input Id="InverseParent_UpdateUser" @ref="Ref_InverseParent_UpdateUser"      @bind-Value="InverseParent.UpdateUser" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+</DxFormLayoutItem>
+
+<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextBaseInfo_CitiesAreas">
+    
+<Input Id="InverseParent_CreateDate" @ref="Ref_InverseParent_CreateDate"   CssClass="d-none"   @bind-Value="InverseParent.CreateDate" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+</DxFormLayoutItem>
+
+<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextBaseInfo_CitiesAreas">
+    
+<Input Id="InverseParent_UpdateDate" @ref="Ref_InverseParent_UpdateDate"   CssClass="d-none"   @bind-Value="InverseParent.UpdateDate" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+</DxFormLayoutItem>
+
+<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextBaseInfo_CitiesAreas">
+    
+<Input Id="InverseParent_IsDelete" @ref="Ref_InverseParent_IsDelete"   CssClass="d-none"   @bind-Value="InverseParent.IsDelete" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+</DxFormLayoutItem>
+
+<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextBaseInfo_CitiesAreas">
+    
+<Input Id="InverseParent_Title" @ref="Ref_InverseParent_Title" Label="عنوان"     @bind-Value="InverseParent.Title" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"maxlength\":\"75\"}").Result))></Input>
+
+</DxFormLayoutItem>
+
+<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextBaseInfo_CitiesAreas">
+     
+ 
+@code {
+    Baya.Models.ViewEngine.View_Component Component_InverseParentBaseInfo_ProvincesId = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"primaryKey\":false,\"EntityID\":679,\"FieldId\":19443,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":921,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":false,\"RelationParentName\":\"BaseInfo_Provinces\",\"RelationParentModel\":\"BaseInfo_Provinces\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/BaseInfo_Provinces/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.Title}} </span>\",\"FieldsTemplate\":[{\"key\":\"Title\",\"value\":\"nvarchar(Max)\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"modal\":true,\"label\":\"استان\",\"tableView\":true,\"key\":\"BaseInfo_ProvincesId\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"19443?EId=679&SubId=30\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
+}
+
+    <Dropdown Id=InverseParent_BaseInfo_ProvincesId  @ref="Ref_InverseParent_BaseInfo_ProvincesId" Label="استان" CssClass=""  DisplayFormat="DropDown" ExternalApi=true NotMapped=false TextGrid=false Text="" Value="@InverseParent.BaseInfo_ProvincesId" FieldName="BaseInfo_ProvincesId" OnItemSelected="ItemSelected_InverseParentBaseInfo_ProvincesId" Component="Component_InverseParentBaseInfo_ProvincesId" _Entity="_Entity" _EntityRow=InverseParent>
+</Dropdown>
+@code {
+    public async Task ItemSelected_InverseParentBaseInfo_ProvincesId(object _Item)
+    {
+        var Selected = Utility.JSON.ToObject<dynamic>(Utility.JSON.ToJson(_Item).Result).Result;
+     var Item = InverseParent;
+
+      //Todo
+ //برای اینکه آی دی تغییر کند اینجا نیز باید تغییر کند
+ //بهتر است از پرایمیری کی استفاده شود
+ Item.BaseInfo_ProvincesId = Selected.Id;
+ Item.BaseInfo_Provinces = await Utility.JSON.ToObject<Entity.BaseInfo_Provinces>(await Utility.JSON.ToJson(_Item));
+
+    
+
+    
+    }
+} 
+
+</DxFormLayoutItem>
+
+<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextBaseInfo_CitiesAreas">
+    
+<Input Id="InverseParent_ParentId" @ref="Ref_InverseParent_ParentId" Label="شناسه والد منطقه شهری"     @bind-Value="InverseParent.ParentId" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+</DxFormLayoutItem>
+
+
+        <DxFormLayoutItem ColSpanMd="12" Context="FormLayoutContextBaseInfo_CitiesAreas" CssClass="btn-modal-custom">
+            <DxButton Id="InverseParent_GridParentId_679ButtonSave" Click="@(() => SaveModalGrid_InverseParent(EditFormContextBaseInfo_CitiesAreas))" Text="@languageContainer.Keys["DXGrid:Save"]" CssClass="btn btn-green px-5" />
+            
+<DxButton id="InverseParent_GridParentId_679ButtonSaveAndNew"    Text="ذخیره و جدید" Click="@(() => SaveAndNewGrid_InverseParent(EditFormContextBaseInfo_CitiesAreas))" CssClass="btn btn-green" />
+
+
+            <DxButton Id="InverseParent_GridParentId_679ButtonCancel" Click="@(() => Grid_InverseParent.CancelEditAsync())" Text="@languageContainer.Keys["DXGrid:Cancel"]" CssClass="btn btn-red" />
+            <button id="click_s"  hidden>submit</button>
+             <span>|</span>
+           
+            <DxButton Id="InverseParent_GridParentId_679ButtonBefore" Click="@(() => Dialog_Grid_InverseParent(0,IndexGrid_InverseParent,EditFormContextBaseInfo_CitiesAreas))" Text="قبلی" CssClass="btn btn-purple" />@* @languageContainer.Keys["DXGrid:??"] *@
+         
+            <DxButton Id="InverseParent_GridParentId_679ButtonNext" Click="@(() => Dialog_Grid_InverseParent(1,IndexGrid_InverseParent,EditFormContextBaseInfo_CitiesAreas))" Text="بعدی" CssClass="btn btn-purple" />
+
+        </DxFormLayoutItem>
+    </DxFormLayout>
+
+</EditFormTemplate>
+
+</DxGrid>
+
+<DxPopup @bind-Visible="@ConfirmationShownInverseParent" HeaderText="@languageContainer.Keys["DXGrid:DeleteItem"]" Width="350px" CloseOnOutsideClick="false">
+
+    <BodyContentTemplate Context="EditFormContext">
+        <div class="py-3 px-5 text-center">
+            <p>@languageContainer.Keys["DXGrid:DeleteItemHint"]</p>
+            <div class="confirm-dialog-buttons">
+                <DxButton Text="@languageContainer.Keys["DXGrid:Yes"]" CssClass="btn btn-red px-4" Click="@OnYesButtonClickGrid_InverseParent" />
+                <DxButton Text="@languageContainer.Keys["DXGrid:No"]" CssClass="btn btn-purple-light px-4" Click="@OnNoButtonClickGrid_InverseParent" />
+            </div>
+        </div>
+    </BodyContentTemplate>
+</DxPopup>
+
+<DxPopup @bind-Visible="@ConfirmationInverseParent" HeaderText="هشدار" Width="350px" CloseOnOutsideClick="false">
+    <BodyContentTemplate Context="EditFormContext">
+        <div class="py-3 px-5 text-center"> 
+            <p>اطلاعات این فرم تغییر کرده است آیا تغییرات ذخیره شود؟</p>
+            <div class="confirm-dialog-buttons">
+                <DxButton Text="بله" CssClass="btn btn-red px-4" Click="@OnYesButtonInverseParent" />
+                <DxButton Text="خیر" CssClass="btn btn-purple-light px-4" Click="@OnNoButtonInverseParent" />
+            </div>
+        </div>
+    </BodyContentTemplate>
+</DxPopup>
+@code {
+    // DxGrid? Grid_InverseParent;
+    Entity.BaseInfo_CitiesAreas InverseParent;
+    bool ConfirmationShownInverseParent { get; set; } = false;
+    public Entity.BaseInfo_CitiesAreas SelectedItemGrid_InverseParent { get; set; } = new Entity.BaseInfo_CitiesAreas();
+    /// <summary>
+    /// شماره ستون
+    /// </summary>
+    public int IndexGrid_InverseParent { get; set; }
+
+    ///////////////////////
+    bool ConfirmationInverseParent { get; set; } = false;
+    GridEditFormTemplateContext? _ContextFormTemplateInverseParent { get; set; }
+    public int OpenDialogCodeInverseParent { get; set; } = 0;
+    ////////////////////////
+
+    async Task OnEditModelSavingInverseParent(GridEditModelSavingEventArgs arg)
+    {
+        var e = arg.EditModel;
+    bool NotValid = false;
+    //events
+       
+        
+      if (!NotValid)
+     {
+      SaveGrid_InverseParent(arg.DataItem, arg.EditModel);
+     }
+}
+
+async void Dialog_Grid_InverseParent(int _OpenDialogCode, int VisibleIndex, GridEditFormTemplateContext e)
+{
+    OpenDialogCodeInverseParent = _OpenDialogCode;
+    if (!CheckChangedData(await Utility.JSON.ToJson(e.EditModel)))
+    {
+    _ContextFormTemplateInverseParent = e;
+    ConfirmationInverseParent = true;
+    }
+    else
+    {
+    await OnNoButtonInverseParent();
+    }
+}
+async Task OnYesButtonInverseParent()
+{
+
+    ConfirmationInverseParent = false;
+    await Task.Delay(1500);
+    //bool FormValidate = await JSO.InvokeAsync<bool>("submitForm");
+    bool FormValidate =  await JS.InvokeAsync<bool>("submitForm");
+    if (FormValidate)
+    {
+        bool NotValid = false;
+    var e = _ContextFormTemplateInverseParent.EditModel;
+         //events
+         
+
+        if (!NotValid)
+         {
+        SaveGrid_InverseParent(_ContextFormTemplateInverseParent.DataItem, _ContextFormTemplateInverseParent.EditModel);
+            await Grid_InverseParent.CancelEditAsync();
+         await ChangePageGrid_InverseParent();
+         await SetEditFormContextGrid_InverseParent();
+         }
+          
+    }
+
+}
+async Task OnNoButtonInverseParent()
+{
+    ConfirmationInverseParent = false;
+    await ChangePageGrid_InverseParent();
+    await SetEditFormContextGrid_InverseParent();
+
+}
+async Task SetEditFormContextGrid_InverseParent()
+{
+    var e = (Entity.BaseInfo_CitiesAreas)Grid_InverseParent.GetDataItem(IndexGrid_InverseParent);
+    JsonData = await Utility.JSON.ToJson(e);
+}
+
+async Task ChangePageGrid_InverseParent()
+{
+    int VisibleIndex = IndexGrid_InverseParent;
+    try
+    {
+    if (OpenDialogCodeInverseParent == 1)
+    {
+        if (VisibleIndex != (Grid_InverseParent.GetVisibleRowCount() - 1))
+    { 
+            Grid_InverseParent.CancelEditAsync();
+            IndexGrid_InverseParent = VisibleIndex + 1;
+    Grid_InverseParent.StartEditRowAsync(IndexGrid_InverseParent);
+    }
+    }
+    else if (OpenDialogCodeInverseParent == 0)
+    {
+        if (VisibleIndex != 0)
+        {
+
+            Grid_InverseParent.CancelEditAsync();
+            IndexGrid_InverseParent = VisibleIndex - 1;
+    Grid_InverseParent.StartEditRowAsync(IndexGrid_InverseParent);
+    }
+
+    }
+    var e = (Entity.BaseInfo_CitiesAreas)Grid_InverseParent.GetDataItem(IndexGrid_InverseParent);
+    JsonData = await Utility.JSON.ToJson(e);
+    await Task.Delay(300);
+    
+    StateHasChanged();
+    }
+    catch (Exception ex)
+    {
+
+    Console.WriteLine("error in ChagePage" + ex.Message);
+    }
+
+}
+
+async Task StartEditNewRowAsync_Grid_InverseParent()
+{
+    IndexGrid_InverseParent = Grid_InverseParent.GetVisibleRowCount();
+Grid_InverseParent.StartEditNewRowAsync().GetAwaiter();
+var e = new Entity.BaseInfo_CitiesAreas();
+JsonData = await Utility.JSON.ToJson(e);
+await Task.Delay(300);
+
+}
+
+async Task StartModalGrid_InverseParent(GridCommandColumnCellDisplayTemplateContext Context)
+{
+    IndexGrid_InverseParent = Context.VisibleIndex;
+Grid_InverseParent.StartEditRowAsync(Context.VisibleIndex).GetAwaiter();
+var e = (Entity.BaseInfo_CitiesAreas)Context.DataItem;
+JsonData = await Utility.JSON.ToJson(e);
+await Task.Delay(300);
+
+   // await Task.Delay(500);
+}
+public async Task SaveModalGrid_InverseParent(GridEditFormTemplateContext arg)
+{
+     //bool FormValidate = await JSO.InvokeAsync<bool>("submitForm");
+     bool FormValidate =  await JS.InvokeAsync<bool>("submitForm");
+
+    if(FormValidate){
+
+    var e = arg.EditModel;
+    bool NotValid = false;
+    //events
+    
+    if (!NotValid)
+    {
+        SaveGrid_InverseParent(arg.DataItem, arg.EditModel);
+
+     await arg.Grid.CancelEditAsync(); 
+
+    }
+
+    }
+
+}
+public async Task SaveAndNewGrid_InverseParent(GridEditFormTemplateContext arg)
+{ 
+     //bool FormValidate = await JSO.InvokeAsync<bool>("submitForm");
+     bool FormValidate = await JS.InvokeAsync<bool>("submitForm");
+     
+    if(FormValidate){
+       
+         var e = arg.EditModel;
+          bool NotValid = false;
+     //events
+    
+    if (!NotValid)
+    {
+        SaveGrid_InverseParent(arg.DataItem, arg.EditModel);
+
+         await arg.Grid.CancelEditAsync();
+        await StartEditNewRowAsync_Grid_InverseParent();
+
+    }
+          
+    }
+   
+}
+
+void PerviousPageGrid_InverseParent(int VisibleIndex)
+{
+    try
+     {
+    if (VisibleIndex == 0)
+    {
+        Console.WriteLine(VisibleIndex.ToString());
+    }
+    else
+    {
+Grid_InverseParent.CancelEditAsync();
+        IndexGrid_InverseParent = VisibleIndex - 1;
+         Grid_InverseParent.StartEditRowAsync(IndexGrid_InverseParent);
+     }
+    }
+     catch (Exception e)
+     {
+    Console.WriteLine("PerviousPage Message");
+    Console.WriteLine(e.Message);
+    }
+
+}
+
+void NextPageGrid_InverseParent(int VisibleIndex)
+{
+
+    if (VisibleIndex == Grid_InverseParent.GetVisibleRowCount() - 1)
+    {
+    Console.WriteLine(VisibleIndex.ToString());
+    }
+    else
+    {
+    Console.WriteLine("NextPage Start Grid_InverseParent ");
+    try
+    {
+Grid_InverseParent.CancelEditAsync();
+        IndexGrid_InverseParent = VisibleIndex + 1;
+         Grid_InverseParent.StartEditRowAsync(IndexGrid_InverseParent);
+     }
+    catch (Exception e)
+    {
+        Console.WriteLine("NextPage Message");
+        Console.WriteLine(e.Message);
+    }
+
+    }
+}
+
+public void SaveGrid_InverseParent(object DataItem, object EditModel)
+{
+    var ListEntity = _Entity.InverseParent;
+    var MainModel = (Entity.BaseInfo_CitiesAreas)DataItem;
+    if (MainModel != null)
+    {
+MainModel.Id = ((Entity.BaseInfo_CitiesAreas)EditModel).Id;
+MainModel.RequestID = ((Entity.BaseInfo_CitiesAreas)EditModel).RequestID;
+MainModel.CreateUser = ((Entity.BaseInfo_CitiesAreas)EditModel).CreateUser;
+MainModel.UpdateUser = ((Entity.BaseInfo_CitiesAreas)EditModel).UpdateUser;
+MainModel.CreateDate = ((Entity.BaseInfo_CitiesAreas)EditModel).CreateDate;
+MainModel.UpdateDate = ((Entity.BaseInfo_CitiesAreas)EditModel).UpdateDate;
+MainModel.IsDelete = ((Entity.BaseInfo_CitiesAreas)EditModel).IsDelete;
+MainModel.Title = ((Entity.BaseInfo_CitiesAreas)EditModel).Title;
+MainModel.BaseInfo_ProvincesId = ((Entity.BaseInfo_CitiesAreas)EditModel).BaseInfo_ProvincesId;
+MainModel.BaseInfo_Provinces = ((Entity.BaseInfo_CitiesAreas)EditModel).BaseInfo_Provinces;
+MainModel.ParentId = ((Entity.BaseInfo_CitiesAreas)EditModel).ParentId;
+
+    }
+    else
+    {
+    ListEntity.Add((Entity.BaseInfo_CitiesAreas)EditModel);
+    }
+}
+
+async Task OnDataItemDeletingInverseParent(GridDataItemDeletingEventArgs e)
+    {
+    var ListEntity = _Entity.InverseParent;
+    ListEntity.Remove((Entity.BaseInfo_CitiesAreas)e.DataItem);
+}
+async void OnDeleteButtonClickGrid_InverseParent (GridCommandColumnCellDisplayTemplateContext ex)
+{
+    SelectedItemGrid_InverseParent = (ex.DataItem as Entity.BaseInfo_CitiesAreas);
+    var e =SelectedItemGrid_InverseParent;
+    
+     
+    Console.WriteLine("end OnDeleteButtonClickGrid_test_OrderBody 0");
+    ConfirmationShownInverseParent = true;
+    await Task.Yield();
+     await InvokeAsync(StateHasChanged);
+    
+    Console.WriteLine("end OnDeleteButtonClickGrid_test_OrderBody 1");
+}
+async void OnYesButtonClickGrid_InverseParent ()
+{
+       if (SelectedItemGrid_InverseParent != null)
+    {
+      if (SelectedItemGrid_InverseParent.Id == Guid.Empty)
+      {
+          var ListEntity = _Entity.InverseParent;
+        ListEntity.Remove((Entity.BaseInfo_CitiesAreas)SelectedItemGrid_InverseParent);
+     
+      }
+      else
+      {
+        var cleanModel = new Entity.BaseInfo_CitiesAreas();
+      // چک کن آیا پراپرتی IsDelete در این نوع وجود دارد؟
+        var prop = typeof(Entity.BaseInfo_CitiesAreas).GetProperty("IsDelete");
+        if (prop != null && prop.CanRead && prop.CanWrite)
+        {
+            // مقدار فعلی را بگیر
+            var currentValue = prop.GetValue(SelectedItemGrid_InverseParent);
+
+            if (currentValue is bool boolValue)
+            {
+                // مقدار را معکوس کن
+                var newValue = !boolValue;
+
+                // روی هر دو شیء تنظیم کن
+                prop.SetValue(SelectedItemGrid_InverseParent, newValue);
+                prop.SetValue(cleanModel, newValue);
+            }
+        }
+        EntityHelper.SetPropertyValue(cleanModel, cleanModel._GetIdName, SelectedItemGrid_InverseParent._Id);
+    
+       
+       
+      }
+    }
+    var e= SelectedItemGrid_InverseParent;
+    
+    Grid_InverseParent.Reload();
+    ConfirmationShownInverseParent = false;
+     await Task.Yield();
+    await InvokeAsync(StateHasChanged);
+
+}
+void OnNoButtonClickGrid_InverseParent ()
+{
+    ConfirmationShownInverseParent = false;
+}
+
+void CustomizeRowsGrid_InverseParent(GridCustomizeElementEventArgs e)
+{
+    ///استایل سطر
+    if (e.ElementType == GridElementType.DataRow)
+    {
+    var item = ((Entity.BaseInfo_CitiesAreas)e.Grid.GetDataItem(e.VisibleIndex));
+
+       if (item.IsDelete == true)
+       {
+           e.CssClass = "bg-lightred disablediv";
+       }
+    }
+}
+
+async void CustomizeEditGrid_InverseParent(GridCustomizeEditModelEventArgs e)
+{
+
+    if (e.IsNew)
+    {
+
+    var newRow = (Entity.BaseInfo_CitiesAreas)e.EditModel;
+
+     
+
+    }
+
+
+}
+public async void RowClickGrid_InverseParent(GridRowClickEventArgs e)
+{
+
+}
+
+public async void RowDubbleClickGrid_InverseParent(GridRowClickEventArgs e)
+{
+
+}
+}
+
+<Input Id="RequestID" @ref="Ref_RequestID"      @bind-Value="_Entity.RequestID" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+<Input Id="CreateUser" @ref="Ref_CreateUser"      @bind-Value="_Entity.CreateUser" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+<Input Id="UpdateUser" @ref="Ref_UpdateUser"      @bind-Value="_Entity.UpdateUser" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+<Input Id="CreateDate" @ref="Ref_CreateDate"   CssClass="d-none"   @bind-Value="_Entity.CreateDate" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+<Input Id="UpdateDate" @ref="Ref_UpdateDate"   CssClass="d-none"   @bind-Value="_Entity.UpdateDate" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+<Input Id="IsDelete" @ref="Ref_IsDelete"   CssClass="d-none"   @bind-Value="_Entity.IsDelete" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+    </EditForm>
+</div>
+
+@if (ShowSubmit)
+{
+    <button class="btn btn-sm btn-green" @onclick=Submit>ذخیره</button>
+}
+
+@code {
+    #region Function
+
+    //todo  جا به جا شود برده شود تو فایل  Peropeties
+    protected override async Task OnInitializedAsync()
+    {
+        Console.WriteLine("#log OnInitializedAsync");
+
+        TableGet = await Utility.JSON.ToObject<Table>("{\"Name\":\"BaseInfo_CitiesAreas\",\"GetNameAs\":\"BaseInfo_CitiesAreas\",\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"RequestID\",\"GetNameAs\":\"RequestID\"},{\"Name\":\"CreateUser\",\"GetNameAs\":\"CreateUser\"},{\"Name\":\"UpdateUser\",\"GetNameAs\":\"UpdateUser\"},{\"Name\":\"CreateDate\",\"GetNameAs\":\"CreateDate\"},{\"Name\":\"UpdateDate\",\"GetNameAs\":\"UpdateDate\"},{\"Name\":\"IsDelete\",\"GetNameAs\":\"IsDelete\"},{\"Name\":\"Title\",\"GetNameAs\":\"Title\"},{\"Name\":\"ParentId\",\"GetNameAs\":\"ParentId\"},{\"Name\":\"BaseInfo_ProvincesId\",\"GetNameAs\":\"BaseInfo_ProvincesId\"}],\"Relation\":[{\"Name\":\"BaseInfo_Provinces\",\"GetNameAs\":\"BaseInfo_Provinces\",\"ModeErtebat\":1,\"Column\":[{\"Name\":\"BaseInfo_CountriesId\",\"GetNameAs\":\"BaseInfo_CountriesId\"},{\"Name\":\"Title\",\"GetNameAs\":\"Title\"},{\"Name\":\"Tel_Code\",\"GetNameAs\":\"Tel_Code\"},{\"Name\":\"Description\",\"GetNameAs\":\"Description\"}],\"Relation\":[]},{\"Name\":\"Parent\",\"GetNameAs\":\"Parent\",\"ModeErtebat\":1,\"Column\":[{\"Name\":\"BaseInfo_ProvincesId\",\"GetNameAs\":\"BaseInfo_ProvincesId\"},{\"Name\":\"Title\",\"GetNameAs\":\"Title\"},{\"Name\":\"ParentId\",\"GetNameAs\":\"ParentId\"}],\"Relation\":[]}]}");
+        TablePost = await Utility.JSON.ToObject<Table>("{\"Name\":\"BaseInfo_CitiesAreas\",\"GetNameAs\":\"BaseInfo_CitiesAreas\",\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"RequestID\",\"GetNameAs\":\"RequestID\"},{\"Name\":\"CreateUser\",\"GetNameAs\":\"CreateUser\"},{\"Name\":\"UpdateUser\",\"GetNameAs\":\"UpdateUser\"},{\"Name\":\"CreateDate\",\"GetNameAs\":\"CreateDate\"},{\"Name\":\"UpdateDate\",\"GetNameAs\":\"UpdateDate\"},{\"Name\":\"IsDelete\",\"GetNameAs\":\"IsDelete\"},{\"Name\":\"Title\",\"GetNameAs\":\"Title\"},{\"Name\":\"ParentId\",\"GetNameAs\":\"ParentId\"},{\"Name\":\"BaseInfo_ProvincesId\",\"GetNameAs\":\"BaseInfo_ProvincesId\"}],\"Relation\":[]}");
+
+        config = CKEditorBundleOptions.DefaultConfig.WithHtmlEditing();
+        config.Language = "fa";
+
+        //بعداد اگه نیاز شد فرمی رو تو حالت غیر لاگین شده نمایش بدیم باید این  کد تغیر کنه
+        var user = (await _authenticationStateProvider.GetAuthenticationStateAsync()).User;
+        string UserID = user.FindFirst(c => c.Type == ClaimTypes.NameIdentifier).Value;
+        //داینامیک بشه
+        Dictionary<string, object> List = new Dictionary<string, object>();
+        //List.Add("UserID", Guid.Parse(UserID));
+        List.Add("UserID", UserID);
+        _User = await Domain.Utility.ConvertParameter.ConvertToObject(List);
+
+        Console.WriteLine("#log OnInitializedAsync End");
+
+        await base.OnInitializedAsync();
+    }
+
+    //todo  جا به جا شود برده شود تو فایل  Peropeties
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            Console.WriteLine("#log OnAfterRenderAsync");
+            await base.BeforGetData();
+
+            var Result = await GetData();
+
+            await base.AfterGetData();
+
+            StateHasChanged();
+
+            await OnFormloaded.InvokeAsync(Result);
+        }
+
+        await base.OnAfterRenderAsync(firstRender);
+    }
+
+    /// <summary>
+    /// دریافت داده
+    /// </summary>
+    /// <returns></returns>
+    public async Task<Baya.Models.Utility.Result> GetData()
+    {
+        await BeforGetData();
+
+        var DataResult = await ApiServer.External.Services.Data.Get(TableGet, QueryFilter, TableGet.Name, null);
+        
+        Baya.Models.Utility.Result Result = new Baya.Models.Utility.Result();
+
+        if (DataResult != null && DataResult.Status == HttpStatusCode.OK)
+        {
+            if (DataResult.Content != null)
+            {
+                string Data = DataResult.Content.ToString();
+                if (Data is not null)
+                {
+                    _Entity = await Utility.JSON.ToObject < Entity.BaseInfo_CitiesAreas>(Data);
+        }
+            }
+            else
+            {
+                _Entity = new Entity.BaseInfo_CitiesAreas();
+            //todo تشخیص دهد که داده ای وجود ندارد و دفه اول هست که فرم لود میشود
+            //todo اگه نیاز شد دالخ ORm خروجیش متفاوت باشه
+            //ست کردن دیفالت های فرم
+            if (true)
+                {//
+
+
+                    //نمونه ست کردن پارامتر روش اول
+                    //_Entity.InstantDelivery = _RequestParameters.UserId;
+
+                    //نمونه کد برای ست کردن پارامتر روش دوم
+                    //_Entity.InstantDelivery = await GetParameter("@@UserId@@");
+                }
+
+                SumaryMessage = "داده لود شده معتبر نمی باشد";
+                Result.Status = HttpStatusCode.InternalServerError;
+            }
+        }
+        else
+        {
+            SumaryMessage = "داده لود نشد";
+            Result.Status = HttpStatusCode.InternalServerError;
+        }
+
+        Result.Message = SumaryMessage;
+
+        StateHasChanged();
+
+        await AfterGetData();
+
+        return Result;
+    }
+
+    public override async Task SetParametersAsync(ParameterView parameters)
+    {
+        await base.SetParametersAsync(parameters);
+    }
+
+    protected override void OnInitialized()
+    {
+        //todo این خط برده شود داخل تابع پاینی ببینیم خطا داره یا نه
+        languageContainer.InitLocalizedComponent(this);
+    }
+
+
+    /// <summary>
+    /// بررسی تغییر دیتا
+    /// </summary>
+    /// <param name="Json"></param>
+    /// <returns></returns>
+    public bool CheckChangedData(string? Json)
+    {
+        if (string.Equals(JsonData, Json)) return true;
+        return false;
+    }
+
+    /// <summary>
+    /// ارسال داده
+    /// </summary>
+    /// <returns></returns>
+    public override async Task<Baya.Models.Utility.Result> Submit()
+    {
+        SumaryMessage = "";
+        Baya.Models.Utility.Result Result = new Baya.Models.Utility.Result();
+
+        if (!await FormValidator())
+        {
+            StateHasChanged();
+            Result.Status = HttpStatusCode.InternalServerError;
+            return Result;
+        }
+
+        if ((await BeforSubmit()).Status != HttpStatusCode.OK)
+        {
+            StateHasChanged();
+            Result.Status = HttpStatusCode.InternalServerError;
+            return Result;
+        }
+
+        _loadingService.Show();
+        var Resualt = await PostData();
+
+        if (Resualt)
+        {
+            Result.Status = HttpStatusCode.OK;
+
+            SumaryMessage = "داده ها با موفقیت ثبت شد";
+        }
+        else
+        {
+            Result.Status = HttpStatusCode.InternalServerError;
+            SumaryMessage = "ذخیره داده با مشکل مواجه شد";
+        }
+
+        Result.Message = SumaryMessage;
+
+        switch ((int)Result.Status)
+        {
+            case 200:
+                toastService.ShowSuccess(Result.Message);
+                break;
+            case 500:
+                toastService.ShowError(Result.Message);
+                break;
+            default:
+                break;
+        } 
+        _loadingService.Hide();
+        await AfterSubmit();
+
+        return Result;
+    }
+
+    /// <summary>
+    /// ارسال داده
+    /// </summary>
+    /// <returns></returns>
+    private async Task<bool> PostData()
+    {
+        string Data = await Utility.JSON.ToJson(_Entity);
+
+        bool IsOk = false;
+        var Model = await ApiServer.External.Services.Data.Put(Data, TablePost.Name, TablePost, RequestID?.ToString(), _User.UserID.ToString());
+        // بررسی وضعیت پاسخ
+        if (Model?.Status == HttpStatusCode.OK)
+        {
+            if (Model.Content != null && !IndependentForm)
+                { 
+                    string NewData = Model.Content.ToString();
+                    if (NewData is not null)
+                    {
+                        var NewEntity = await Utility.JSON.ToObject < Entity.BaseInfo_CitiesAreas>(NewData);
+                     await  GetDataForm(NewEntity._Id);
+                    }
+
+                }
+                IsOk = true;
+
+        }
+        return IsOk;
+    }
+
+
+    void SetLanguage(string language)
+    {
+        languageContainer.SetLanguage(System.Globalization.CultureInfo.GetCultureInfo(language));
+    }
+
+    // public void ValidFormSubmitted(EditContext editContext)
+    // {
+
+    // }
+
+    // public void InvalidFormSubmitted(EditContext editContext)
+    // {
+
+    // }
+    public async Task GetDataForm(object Id)
+    {
+        Type type = Id.GetType();
+        string TypeToQueryBuilder = Utility.TypeConverterQueryBuilder.ConvertCSharpTypeToQueryBuilder(type);
+        var NewQuery = new QueryBuilderFilterRule() { Condition = "AND" };
+        NewQuery.Rules = new List<QueryBuilderFilterRule>
+            {
+                    new QueryBuilderFilterRule()
+                    {
+                        Field = _Entity._GetIdName,
+                        Id = _Entity._GetIdName,
+                        Input = "text",
+                        Operator = "equal",
+                        Type =  TypeToQueryBuilder,
+                        Value = new string[]{ Id.ToString() },
+                    }
+            };
+        QueryFilter = NewQuery;
+        await GetData();
+        StateHasChanged();
+    }
+    #endregion
+}

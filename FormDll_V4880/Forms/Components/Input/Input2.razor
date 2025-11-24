@@ -1,0 +1,178 @@
+﻿@using Baya.Models.ViewEngine
+@using Newtonsoft.Json
+@using Newtonsoft.Json.Linq
+@using Microsoft.JSInterop
+ @inject IJSRuntime JS
+@namespace InputPage2
+
+<div id="@Id" class="@(Visible?"":"d-none") @CssClass">
+    @if (!string.IsNullOrEmpty(Label))
+    {
+        <label id=@(Id + "label") for=@(Id + "Input")>
+            @Label
+            @if (Required.HasValue && Required == true)
+            {
+                <span id=@(Id + "SpanLabel") class="text-danger">*</span>
+            }
+            @if (!string.IsNullOrEmpty(ToolTip))
+            {
+                <i id=@(Id + "ToolTipLabel") class="bi bi-question-circle text-muted" data-bs-toggle="tooltip" data-bs-title="@ToolTip" title="@ToolTip"></i>
+            }
+        </label>
+    }
+    @if (type == "textarea")
+    {
+        <textarea id=@(Id + "Input")  rows="@(Rows.HasValue ? Rows : 3)" type="@type" placeholder="@placeholder" class="@InputClass" required="@Required"
+                  @attributes="@Attributes"
+                  @onchange="@((ChangeEventArgs e) => Value =e.Value.ToString())" ></textarea>
+                 
+                     
+    }
+    else
+    {
+        <input id=@(Id + "Input")  type="@type" placeholder="@placeholder" class="@InputClass" required="@Required"
+               @onchange="@((ChangeEventArgs e) => Value =e.Value.ToString())"
+               @oninput="@oninput" @oncut="@oncut" @oncopy="@oncopy" @onpaste="@onpaste"
+               @onselect="@onselect" @oninvalid="@oninvalid" @onfocus="@onfocus"
+               @onkeydown="@onkeydown" @onkeypress="@onkeypress" @onkeyup="@onkeyup"
+               @onclick="@onclick" @attributes="@Attributes"   />
+
+
+    }
+
+</div>
+
+
+@code {
+    #region bind
+   
+    public string? Value;
+    #endregion
+    #region ParameterPublic
+    [Parameter]
+    public bool Visible
+    {
+        get
+        {
+            return _Visible;
+        }
+        set
+        {
+            if (!value)
+            {
+                _Disabled = true;
+            }
+            else
+            {
+                _Disabled = false;
+            }
+
+            _Visible = value;
+        }
+
+    }
+    public bool _Visible { get; set; } = true;
+    [Parameter] public string? CssClass { get; set; }
+    [Parameter] public string? Label { get; set; }
+    [Parameter] public string? type { get; set; }
+    [Parameter] public string? placeholder { get; set; }
+    [Parameter] public string? Id { get; set; }
+    [Parameter] public string? IdInput { get; set; }
+    [Parameter] public bool? Required { get; set; }
+    [Parameter] public string? ToolTip { get; set; }
+    [Parameter] public Dictionary<string, object>? Attributes { get; set; } = new Dictionary<string, object>();
+   
+    [Parameter]
+    public bool Disabled { get; set; } = false; 
+ 
+    private string? InputClass { get; set; }
+    #endregion
+    #region events
+    [Parameter] public EventCallback<ChangeEventArgs> oninput { get; set; }
+
+    [Parameter] public EventCallback<ClipboardEventArgs> oncut { get; set; }
+    [Parameter] public EventCallback<ClipboardEventArgs> oncopy { get; set; }
+    [Parameter] public EventCallback<ClipboardEventArgs> onpaste { get; set; }
+
+    [Parameter] public EventCallback<EventArgs> onselect { get; set; }
+    [Parameter] public EventCallback<EventArgs> oninvalid { get; set; }
+
+    [Parameter] public EventCallback<FocusEventArgs> onfocus { get; set; }
+
+    [Parameter] public EventCallback<KeyboardEventArgs> onkeydown { get; set; }
+    [Parameter] public EventCallback<KeyboardEventArgs> onkeypress { get; set; }
+    [Parameter] public EventCallback<KeyboardEventArgs> onkeyup { get; set; }
+
+    [Parameter] public EventCallback<MouseEventArgs> onclick { get; set; }
+    #endregion
+    #region ParameterTextArea
+    [Parameter] public int? Rows { get; set; }
+    #endregion
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+
+            await JS.InvokeVoidAsync("noPersian");
+            await JS.InvokeVoidAsync("onlyNumber");
+
+            IdInput = $"f_{Guid.NewGuid().ToString("N")}";
+            if (type == "hidden") { Visible = false; }
+            if (type == "checkbox")
+            {
+                InputClass = "form-check-input";
+            }
+            else
+            {
+                InputClass = "form-control";
+            }
+
+            StateHasChanged();
+        }
+    }
+
+
+    protected override void OnInitialized()
+    {
+         
+    }
+
+
+    #region class
+   
+    /// <summary>
+    /// دسیبل کردن اتوماتیک
+    /// </summary>
+    private bool _Disabled
+    {
+        set
+        {
+            Disabled = value;
+            var Attr = Attributes.FirstOrDefault(p => p.Key == "disabled");
+            if (value)
+            {
+                try
+                {
+                    if (Attr.Key is null)
+                    {
+                        Attributes.Add("disabled", (object)true);
+                    }
+
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.Message);
+                }
+            }
+            else
+            {
+                if (Attr.Key is not null)
+                {
+                    Attributes.Remove(Attributes.FirstOrDefault(p => p.Key == "disabled").Key);
+                }
+            }
+        }
+    }
+    #endregion
+}

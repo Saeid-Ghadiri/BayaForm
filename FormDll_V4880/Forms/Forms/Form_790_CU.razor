@@ -1,0 +1,683 @@
+@inherits Forms.Forms.Form_790_CUBase
+@namespace FormsPage
+
+@using AKSoftware.Localization.MultiLanguages.Blazor
+@using Baya.Models.Utility;
+@using Baya.Models.ORM
+@using Microsoft.AspNetCore.Components.Forms
+@using Microsoft.AspNetCore.Components.Authorization;
+@using System.Security.Claims
+@using System.Net
+@using Microsoft.JSInterop
+@using Baya.Models.ViewEngine
+@using Forms.Domain.Utility
+@using Castle.DynamicLinqQueryBuilder
+<style>
+    .EMP_bg {
+    border: 1px dashed rgb(255, 208, 139);
+    background: rgba(255, 193, 7, 0.04);
+    margin-left: 2px;
+    margin-right: 2px;
+    padding-bottom: 16px;
+    border-radius: var(--bs-border-radius) !important;
+    margin-top: 0.20rem !important;
+}
+</style>
+
+<Plugins.Tools.ConfirmDialog @ref="Confirm" />
+
+<span class="d-none">VersionForm:@VersionForm</span>
+@*
+@if (!string.IsNullOrEmpty(SumaryMessage))
+{
+    <div>
+        @SumaryMessage
+    </div>
+} *@
+
+@* <EditForm @ref="_Form" Model="_Entity" OnValidSubmit="ValidFormSubmitted" OnInvalidSubmit="InvalidFormSubmitted" OnSubmit="Submit"> *@
+<div class="@(ReadOnly?"FormReadOnly":"")">
+    <EditForm @ref="_Form" Model="_Entity" OnSubmit="Submit">
+        <div  class="">
+    <div class="card border-0 shadow-sm rounded-3 mb-4">
+    <div class="card-header bg-gradient bg-light yellow text-dark fw-bold fs-5 rounded-top-3">
+        <i class="bi bi-info-circle me-2"></i> درخواست جذب نیرو انسانی
+    </div>
+</div>
+</div>
+
+<div class="row EMP_bg">
+    
+<div class="col-md-3">
+     
+ 
+@code {
+    Baya.Models.ViewEngine.View_Component Component_HR_RMS_RecruitmentRequestsRequestUserId = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"EntityName\":\"درخواست جذب نیرو انسانی\",\"primaryKey\":false,\"EntityID\":407,\"FieldId\":18590,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":790,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":false,\"RelationParentName\":\"RequestUser\",\"RelationParentModel\":\"AspNetUsers\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/AspNetUsers/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.FAMILY}} {{item.NAME}} {{item.EMP_NO}} </span>\",\"FieldsTemplate\":[],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"modal\":true,\"label\":\"کاربر درخواست کننده\",\"tableView\":true,\"key\":\"RequestUserId\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"18590?EId=407&SubId=15\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
+}
+
+    <Dropdown Id=RequestUserId  @ref="Ref_RequestUserId" Label="کاربر درخواست کننده" CssClass=""  DisplayFormat="DropDown" ExternalApi=true NotMapped=false TextGrid=false Text="" Value="@_Entity.RequestUserId" FieldName="RequestUserId" OnItemSelected="ItemSelected_HR_RMS_RecruitmentRequestsRequestUserId" Component="Component_HR_RMS_RecruitmentRequestsRequestUserId" _Entity="_Entity" >
+</Dropdown>
+@code {
+    public async Task ItemSelected_HR_RMS_RecruitmentRequestsRequestUserId(object _Item)
+    {
+        var Selected = Utility.JSON.ToObject<dynamic>(Utility.JSON.ToJson(_Item).Result).Result;
+     var Item = _Entity;
+
+      //Todo
+ //برای اینکه آی دی تغییر کند اینجا نیز باید تغییر کند
+ //بهتر است از پرایمیری کی استفاده شود
+ Item.RequestUserId = Selected.Id;
+ Item.RequestUser = await Utility.JSON.ToObject<Entity.AspNetUsers>(await Utility.JSON.ToJson(_Item));
+
+    
+
+    
+    }
+} 
+ 
+ 
+@code {
+    Baya.Models.ViewEngine.View_Component Component_HR_RMS_RecruitmentRequestsHR_ReasonRequestRecruitmentId = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"EntityName\":\"درخواست جذب نیرو انسانی\",\"primaryKey\":false,\"EntityID\":407,\"FieldId\":15998,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":790,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":false,\"RelationParentName\":\"HR_ReasonRequestRecruitment\",\"RelationParentModel\":\"HR_ReasonRequestRecruitment\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/HR_ReasonRequestRecruitment/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.Title}} </span>\",\"FieldsTemplate\":[{\"key\":\"Title\",\"value\":\"int\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"modal\":true,\"label\":\"علت درخواست\",\"tableView\":true,\"key\":\"HR_ReasonRequestRecruitmentId\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"15998?EId=407&SubId=15\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
+}
+
+    <Dropdown Id=HR_ReasonRequestRecruitmentId  @ref="Ref_HR_ReasonRequestRecruitmentId" Label="علت درخواست" CssClass=""  DisplayFormat="DropDown" ExternalApi=true NotMapped=false TextGrid=false Text="" Value="@_Entity.HR_ReasonRequestRecruitmentId" FieldName="HR_ReasonRequestRecruitmentId" OnItemSelected="ItemSelected_HR_RMS_RecruitmentRequestsHR_ReasonRequestRecruitmentId" Component="Component_HR_RMS_RecruitmentRequestsHR_ReasonRequestRecruitmentId" _Entity="_Entity" >
+</Dropdown>
+@code {
+    public async Task ItemSelected_HR_RMS_RecruitmentRequestsHR_ReasonRequestRecruitmentId(object _Item)
+    {
+        var Selected = Utility.JSON.ToObject<dynamic>(Utility.JSON.ToJson(_Item).Result).Result;
+     var Item = _Entity;
+
+      //Todo
+ //برای اینکه آی دی تغییر کند اینجا نیز باید تغییر کند
+ //بهتر است از پرایمیری کی استفاده شود
+ Item.HR_ReasonRequestRecruitmentId = Selected.Id;
+ Item.HR_ReasonRequestRecruitment = await Utility.JSON.ToObject<Entity.HR_ReasonRequestRecruitment>(await Utility.JSON.ToJson(_Item));
+
+    
+
+    
+    }
+} 
+
+<Input Id="RequiredDocuments" @ref="Ref_RequiredDocuments" Label="مدارک موردنیاز"     @bind-Value="_Entity.RequiredDocuments" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"maxlength\":\"500\"}").Result))></Input>
+
+<Input Id="FromAge" @ref="Ref_FromAge" Label="از سن"     @bind-Value="_Entity.FromAge" type="number"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+</div>
+
+<div class="col-md-3">
+    
+<Input Id="RegisterTimeRequestUserId" @ref="Ref_RegisterTimeRequestUserId" Label="زمان درخواست کننده"  CssClass=" PersianDatePicker"   @bind-Value="_Entity.RegisterTimeRequestUserId" type="textfield"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"data-jdp\":\"  \"}").Result))></Input>
+ 
+ 
+@code {
+    Baya.Models.ViewEngine.View_Component Component_HR_RMS_RecruitmentRequestsHR_ORG_SectionsId = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"EntityName\":\"درخواست جذب نیرو انسانی\",\"primaryKey\":false,\"EntityID\":407,\"FieldId\":16009,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":790,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":false,\"RelationParentName\":\"HR_ORG_Sections\",\"RelationParentModel\":\"HR_ORG_Sections\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/HR_ORG_Sections/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.Title}} </span>\",\"FieldsTemplate\":[],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"modal\":true,\"label\":\"سریال قسمت\",\"tableView\":true,\"key\":\"HR_ORG_SectionsId\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"16009?EId=407&SubId=15\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
+}
+
+    <Dropdown Id=HR_ORG_SectionsId  @ref="Ref_HR_ORG_SectionsId" Label="سریال قسمت" CssClass=""  DisplayFormat="DropDown" ExternalApi=true NotMapped=false TextGrid=false Text="" Value="@_Entity.HR_ORG_SectionsId" FieldName="HR_ORG_SectionsId" OnItemSelected="ItemSelected_HR_RMS_RecruitmentRequestsHR_ORG_SectionsId" Component="Component_HR_RMS_RecruitmentRequestsHR_ORG_SectionsId" _Entity="_Entity" >
+</Dropdown>
+@code {
+    public async Task ItemSelected_HR_RMS_RecruitmentRequestsHR_ORG_SectionsId(object _Item)
+    {
+        var Selected = Utility.JSON.ToObject<dynamic>(Utility.JSON.ToJson(_Item).Result).Result;
+     var Item = _Entity;
+
+      //Todo
+ //برای اینکه آی دی تغییر کند اینجا نیز باید تغییر کند
+ //بهتر است از پرایمیری کی استفاده شود
+ Item.HR_ORG_SectionsId = Selected.Id;
+ Item.HR_ORG_Sections = await Utility.JSON.ToObject<Entity.HR_ORG_Sections>(await Utility.JSON.ToJson(_Item));
+
+    
+
+    
+    }
+} 
+ 
+ 
+@code {
+    Baya.Models.ViewEngine.View_Component Component_HR_RMS_RecruitmentRequestsHR_Base_FieldOfStudyId = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"EntityName\":\"درخواست جذب نیرو انسانی\",\"primaryKey\":false,\"EntityID\":407,\"FieldId\":16012,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":790,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":false,\"RelationParentName\":\"HR_Base_FieldOfStudy\",\"RelationParentModel\":\"HR_Base_FieldOfStudy\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/HR_Base_FieldOfStudy/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.Title}} </span>\",\"FieldsTemplate\":[{\"key\":\"Title\",\"value\":\"int\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"modal\":true,\"label\":\"رشته تحصیلی\",\"tableView\":true,\"key\":\"HR_Base_FieldOfStudyId\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"16012?EId=407&SubId=15\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
+}
+
+    <Dropdown Id=HR_Base_FieldOfStudyId  @ref="Ref_HR_Base_FieldOfStudyId" Label="رشته تحصیلی" CssClass=""  DisplayFormat="DropDown" ExternalApi=true NotMapped=false TextGrid=false Text="" Value="@_Entity.HR_Base_FieldOfStudyId" FieldName="HR_Base_FieldOfStudyId" OnItemSelected="ItemSelected_HR_RMS_RecruitmentRequestsHR_Base_FieldOfStudyId" Component="Component_HR_RMS_RecruitmentRequestsHR_Base_FieldOfStudyId" _Entity="_Entity" >
+</Dropdown>
+@code {
+    public async Task ItemSelected_HR_RMS_RecruitmentRequestsHR_Base_FieldOfStudyId(object _Item)
+    {
+        var Selected = Utility.JSON.ToObject<dynamic>(Utility.JSON.ToJson(_Item).Result).Result;
+     var Item = _Entity;
+
+      //Todo
+ //برای اینکه آی دی تغییر کند اینجا نیز باید تغییر کند
+ //بهتر است از پرایمیری کی استفاده شود
+ Item.HR_Base_FieldOfStudyId = Selected.Id;
+ Item.HR_Base_FieldOfStudy = await Utility.JSON.ToObject<Entity.HR_Base_FieldOfStudy>(await Utility.JSON.ToJson(_Item));
+
+    
+
+    
+    }
+} 
+
+<Input Id="ToAge" @ref="Ref_ToAge" Label="تا سن"     @bind-Value="_Entity.ToAge" type="number"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+</div>
+
+<div class="col-md-3">
+    
+<Input Id="DescriptionRequest" @ref="Ref_DescriptionRequest" Label="توضیحات درخواست کننده"     @bind-Value="_Entity.DescriptionRequest" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"maxlength\":\"500\"}").Result))></Input>
+ 
+ 
+@code {
+    Baya.Models.ViewEngine.View_Component Component_HR_RMS_RecruitmentRequestsHR_ORG_PostsId = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"EntityName\":\"درخواست جذب نیرو انسانی\",\"primaryKey\":false,\"EntityID\":407,\"FieldId\":16010,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":790,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":false,\"RelationParentName\":\"HR_ORG_Posts\",\"RelationParentModel\":\"HR_ORG_Posts\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/HR_ORG_Posts/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.Title}} </span>\",\"FieldsTemplate\":[{\"key\":\"Title\",\"value\":\"int\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"modal\":true,\"label\":\"سریال پست\",\"tableView\":true,\"key\":\"HR_ORG_PostsId\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"16010?EId=407&SubId=15\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
+}
+
+    <Dropdown Id=HR_ORG_PostsId  @ref="Ref_HR_ORG_PostsId" Label="سریال پست" CssClass=""  DisplayFormat="DropDown" ExternalApi=true NotMapped=false TextGrid=false Text="" Value="@_Entity.HR_ORG_PostsId" FieldName="HR_ORG_PostsId" OnItemSelected="ItemSelected_HR_RMS_RecruitmentRequestsHR_ORG_PostsId" Component="Component_HR_RMS_RecruitmentRequestsHR_ORG_PostsId" _Entity="_Entity" >
+</Dropdown>
+@code {
+    public async Task ItemSelected_HR_RMS_RecruitmentRequestsHR_ORG_PostsId(object _Item)
+    {
+        var Selected = Utility.JSON.ToObject<dynamic>(Utility.JSON.ToJson(_Item).Result).Result;
+     var Item = _Entity;
+
+      //Todo
+ //برای اینکه آی دی تغییر کند اینجا نیز باید تغییر کند
+ //بهتر است از پرایمیری کی استفاده شود
+ Item.HR_ORG_PostsId = Selected.Id;
+ Item.HR_ORG_Posts = await Utility.JSON.ToObject<Entity.HR_ORG_Posts>(await Utility.JSON.ToJson(_Item));
+
+    
+
+    
+    }
+} 
+
+<Input Id="Skills" @ref="Ref_Skills" Label="مهارتهای مورد نیاز"     @bind-Value="_Entity.Skills" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"maxlength\":\"500\"}").Result))></Input>
+
+<Input Id="MinimumRequirement" @ref="Ref_MinimumRequirement" Label="حداقل سابقه مورد نیاز(سال)"     @bind-Value="_Entity.MinimumRequirement" type="number"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+</div>
+
+<div class="col-md-3">
+     
+ 
+@code {
+    Baya.Models.ViewEngine.View_Component Component_HR_RMS_RecruitmentRequestsHR_ApplicationStatusRecruitmentId = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"EntityName\":\"درخواست جذب نیرو انسانی\",\"primaryKey\":false,\"EntityID\":407,\"FieldId\":16008,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":790,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":false,\"RelationParentName\":\"HR_ApplicationStatusRecruitment\",\"RelationParentModel\":\"HR_ApplicationStatusRecruitment\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/HR_ApplicationStatusRecruitment/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.Title}} </span>\",\"FieldsTemplate\":[{\"key\":\"Title\",\"value\":\"int\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"modal\":true,\"label\":\"وضعیت درخواست\",\"tableView\":true,\"key\":\"HR_ApplicationStatusRecruitmentId\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"16008?EId=407&SubId=15\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
+}
+
+    <Dropdown Id=HR_ApplicationStatusRecruitmentId  @ref="Ref_HR_ApplicationStatusRecruitmentId" Label="وضعیت درخواست" CssClass=""  DisplayFormat="DropDown" ExternalApi=true NotMapped=false TextGrid=false Text="" Value="@_Entity.HR_ApplicationStatusRecruitmentId" FieldName="HR_ApplicationStatusRecruitmentId" OnItemSelected="ItemSelected_HR_RMS_RecruitmentRequestsHR_ApplicationStatusRecruitmentId" Component="Component_HR_RMS_RecruitmentRequestsHR_ApplicationStatusRecruitmentId" _Entity="_Entity" >
+</Dropdown>
+@code {
+    public async Task ItemSelected_HR_RMS_RecruitmentRequestsHR_ApplicationStatusRecruitmentId(object _Item)
+    {
+        var Selected = Utility.JSON.ToObject<dynamic>(Utility.JSON.ToJson(_Item).Result).Result;
+     var Item = _Entity;
+
+      //Todo
+ //برای اینکه آی دی تغییر کند اینجا نیز باید تغییر کند
+ //بهتر است از پرایمیری کی استفاده شود
+ Item.HR_ApplicationStatusRecruitmentId = Selected.Id;
+ Item.HR_ApplicationStatusRecruitment = await Utility.JSON.ToObject<Entity.HR_ApplicationStatusRecruitment>(await Utility.JSON.ToJson(_Item));
+
+    
+
+    
+    }
+} 
+ 
+ 
+@code {
+    Baya.Models.ViewEngine.View_Component Component_HR_RMS_RecruitmentRequestsHR_Base_GenderId = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"EntityName\":\"درخواست جذب نیرو انسانی\",\"primaryKey\":false,\"EntityID\":407,\"FieldId\":16017,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":790,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":false,\"RelationParentName\":\"HR_Base_Gender\",\"RelationParentModel\":\"HR_Base_Gender\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/HR_Base_Gender/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.Title}} </span>\",\"FieldsTemplate\":[{\"key\":\"Title\",\"value\":\"int\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"modal\":true,\"label\":\"جنسیت مورد نیاز\",\"tableView\":true,\"key\":\"HR_Base_GenderId\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"16017?EId=407&SubId=15\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
+}
+
+    <Dropdown Id=HR_Base_GenderId  @ref="Ref_HR_Base_GenderId" Label="جنسیت مورد نیاز" CssClass=""  DisplayFormat="DropDown" ExternalApi=true NotMapped=false TextGrid=false Text="" Value="@_Entity.HR_Base_GenderId" FieldName="HR_Base_GenderId" OnItemSelected="ItemSelected_HR_RMS_RecruitmentRequestsHR_Base_GenderId" Component="Component_HR_RMS_RecruitmentRequestsHR_Base_GenderId" _Entity="_Entity" >
+</Dropdown>
+@code {
+    public async Task ItemSelected_HR_RMS_RecruitmentRequestsHR_Base_GenderId(object _Item)
+    {
+        var Selected = Utility.JSON.ToObject<dynamic>(Utility.JSON.ToJson(_Item).Result).Result;
+     var Item = _Entity;
+
+      //Todo
+ //برای اینکه آی دی تغییر کند اینجا نیز باید تغییر کند
+ //بهتر است از پرایمیری کی استفاده شود
+ Item.HR_Base_GenderId = Selected.Id;
+ Item.HR_Base_Gender = await Utility.JSON.ToObject<Entity.HR_Base_Gender>(await Utility.JSON.ToJson(_Item));
+
+    
+
+    
+    }
+} 
+
+<Input Id="RequiredNumber" @ref="Ref_RequiredNumber" Label="تعداد مورد نیاز"     @bind-Value="_Entity.RequiredNumber" type="number"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+</div>
+
+</div>
+
+<div class="card" >
+    <div  aria-controls="panel-panel" aria-expanded="true" role="button" class="card-header">
+        <span class="mb-0 card-title">
+            اطلاعات تائید کنندگان
+        </span>
+    </div>
+    <div id="panel-panel" class="card-body"> 
+            <div tabindex="-1"  >
+                
+<div class="row ">
+    
+<div class="col-md-3">
+     
+ 
+@code {
+    Baya.Models.ViewEngine.View_Component Component_HR_RMS_RecruitmentRequestsUnitManagerUserId = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"EntityName\":\"درخواست جذب نیرو انسانی\",\"primaryKey\":false,\"EntityID\":407,\"FieldId\":18591,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":790,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":false,\"RelationParentName\":\"UnitManagerUser\",\"RelationParentModel\":\"AspNetUsers\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/AspNetUsers/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.FAMILY}} {{item.NAME}} {{item.EMP_NO}} </span>\",\"FieldsTemplate\":[],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"modal\":true,\"label\":\"تائیدامور مربوطه\",\"tableView\":true,\"key\":\"UnitManagerUserId\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"18591?EId=407&SubId=15\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
+}
+
+    <Dropdown Id=UnitManagerUserId  @ref="Ref_UnitManagerUserId" Label="تائیدامور مربوطه" CssClass=""  DisplayFormat="DropDown" ExternalApi=true NotMapped=false TextGrid=false Text="" Value="@_Entity.UnitManagerUserId" FieldName="UnitManagerUserId" OnItemSelected="ItemSelected_HR_RMS_RecruitmentRequestsUnitManagerUserId" Component="Component_HR_RMS_RecruitmentRequestsUnitManagerUserId" _Entity="_Entity" >
+</Dropdown>
+@code {
+    public async Task ItemSelected_HR_RMS_RecruitmentRequestsUnitManagerUserId(object _Item)
+    {
+        var Selected = Utility.JSON.ToObject<dynamic>(Utility.JSON.ToJson(_Item).Result).Result;
+     var Item = _Entity;
+
+      //Todo
+ //برای اینکه آی دی تغییر کند اینجا نیز باید تغییر کند
+ //بهتر است از پرایمیری کی استفاده شود
+ Item.UnitManagerUserId = Selected.Id;
+ Item.UnitManagerUser = await Utility.JSON.ToObject<Entity.AspNetUsers>(await Utility.JSON.ToJson(_Item));
+
+    
+
+    
+    }
+} 
+
+<Input Id="RegisterTimeUserManger" @ref="Ref_RegisterTimeUserManger" Label="زمان تائید امور مربوطه"  CssClass=" PersianDatePicker"   @bind-Value="_Entity.RegisterTimeUserManger" type="textfield"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+<Input Id="DescriptionUnitManager" @ref="Ref_DescriptionUnitManager" Label="توضیحات مدیر امورمربوطه"     @bind-Value="_Entity.DescriptionUnitManager" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"maxlength\":\"500\"}").Result))></Input>
+
+</div>
+
+<div class="col-md-3">
+     
+ 
+@code {
+    Baya.Models.ViewEngine.View_Component Component_HR_RMS_RecruitmentRequestsFactoryManagerUserId = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"EntityName\":\"درخواست جذب نیرو انسانی\",\"primaryKey\":false,\"EntityID\":407,\"FieldId\":18593,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":790,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":false,\"RelationParentName\":\"FactoryManagerUser\",\"RelationParentModel\":\"AspNetUsers\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/AspNetUsers/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.FAMILY}} {{item.NAME}} {{item.EMP_NO}} </span>\",\"FieldsTemplate\":[],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"modal\":true,\"label\":\"تائید مدیرکارخانه\",\"tableView\":true,\"key\":\"FactoryManagerUserId\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"18593?EId=407&SubId=15\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
+}
+
+    <Dropdown Id=FactoryManagerUserId  @ref="Ref_FactoryManagerUserId" Label="تائید مدیرکارخانه" CssClass=""  DisplayFormat="DropDown" ExternalApi=true NotMapped=false TextGrid=false Text="" Value="@_Entity.FactoryManagerUserId" FieldName="FactoryManagerUserId" OnItemSelected="ItemSelected_HR_RMS_RecruitmentRequestsFactoryManagerUserId" Component="Component_HR_RMS_RecruitmentRequestsFactoryManagerUserId" _Entity="_Entity" >
+</Dropdown>
+@code {
+    public async Task ItemSelected_HR_RMS_RecruitmentRequestsFactoryManagerUserId(object _Item)
+    {
+        var Selected = Utility.JSON.ToObject<dynamic>(Utility.JSON.ToJson(_Item).Result).Result;
+     var Item = _Entity;
+
+      //Todo
+ //برای اینکه آی دی تغییر کند اینجا نیز باید تغییر کند
+ //بهتر است از پرایمیری کی استفاده شود
+ Item.FactoryManagerUserId = Selected.Id;
+ Item.FactoryManagerUser = await Utility.JSON.ToObject<Entity.AspNetUsers>(await Utility.JSON.ToJson(_Item));
+
+    
+
+    
+    }
+} 
+
+<Input Id="DescriptionFactoryManager" @ref="Ref_DescriptionFactoryManager" Label="توضیحات مدیرکارخانه"     @bind-Value="_Entity.DescriptionFactoryManager" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"maxlength\":\"500\"}").Result))></Input>
+
+<Input Id="RegisterTimeFactoryManager" @ref="Ref_RegisterTimeFactoryManager" Label="زمان تائید مدیرکارخانه"  CssClass=" PersianDatePicker"   @bind-Value="_Entity.RegisterTimeFactoryManager" type="textfield"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+</div>
+
+<div class="col-md-3">
+     
+ 
+@code {
+    Baya.Models.ViewEngine.View_Component Component_HR_RMS_RecruitmentRequestsHumanResourcesManagerUserId = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"EntityName\":\"درخواست جذب نیرو انسانی\",\"primaryKey\":false,\"EntityID\":407,\"FieldId\":18592,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":790,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":false,\"RelationParentName\":\"HumanResourcesManagerUser\",\"RelationParentModel\":\"AspNetUsers\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/AspNetUsers/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.FAMILY}} {{item.NAME}} </span>\",\"FieldsTemplate\":[],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"modal\":true,\"label\":\"تائید کننده منابع انسانی\",\"tableView\":true,\"key\":\"HumanResourcesManagerUserId\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"18592?EId=407&SubId=15\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
+}
+
+    <Dropdown Id=HumanResourcesManagerUserId  @ref="Ref_HumanResourcesManagerUserId" Label="تائید کننده منابع انسانی" CssClass=""  DisplayFormat="DropDown" ExternalApi=true NotMapped=false TextGrid=false Text="" Value="@_Entity.HumanResourcesManagerUserId" FieldName="HumanResourcesManagerUserId" OnItemSelected="ItemSelected_HR_RMS_RecruitmentRequestsHumanResourcesManagerUserId" Component="Component_HR_RMS_RecruitmentRequestsHumanResourcesManagerUserId" _Entity="_Entity" >
+</Dropdown>
+@code {
+    public async Task ItemSelected_HR_RMS_RecruitmentRequestsHumanResourcesManagerUserId(object _Item)
+    {
+        var Selected = Utility.JSON.ToObject<dynamic>(Utility.JSON.ToJson(_Item).Result).Result;
+     var Item = _Entity;
+
+      //Todo
+ //برای اینکه آی دی تغییر کند اینجا نیز باید تغییر کند
+ //بهتر است از پرایمیری کی استفاده شود
+ Item.HumanResourcesManagerUserId = Selected.Id;
+ Item.HumanResourcesManagerUser = await Utility.JSON.ToObject<Entity.AspNetUsers>(await Utility.JSON.ToJson(_Item));
+
+    
+
+    
+    }
+} 
+
+<Input Id="DescriptionSectionHumanResourcesManager" @ref="Ref_DescriptionSectionHumanResourcesManager" Label="توضیحات تائیدکننده منابع انسانی"     @bind-Value="_Entity.DescriptionSectionHumanResourcesManager" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"maxlength\":\"50\"}").Result))></Input>
+
+<Input Id="RegisterTimeHumanResourcesManager" @ref="Ref_RegisterTimeHumanResourcesManager" Label="زمان تائیدکننده منابع انسانی"  CssClass=" PersianDatePicker"   @bind-Value="_Entity.RegisterTimeHumanResourcesManager" type="textfield"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+</div>
+
+<div class="col-md-3">
+     
+ 
+@code {
+    Baya.Models.ViewEngine.View_Component Component_HR_RMS_RecruitmentRequestsFinalApproverUserId = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"EntityName\":\"درخواست جذب نیرو انسانی\",\"primaryKey\":false,\"EntityID\":407,\"FieldId\":18594,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":790,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":false,\"RelationParentName\":\"FinalApproverUser\",\"RelationParentModel\":\"AspNetUsers\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/AspNetUsers/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.FAMILY}} {{item.NAME}} {{item.EMP_NO}} </span>\",\"FieldsTemplate\":[],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"modal\":true,\"label\":\"تائید کننده نهایی\",\"tableView\":true,\"key\":\"FinalApproverUserId\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"18594?EId=407&SubId=15\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
+}
+
+    <Dropdown Id=FinalApproverUserId  @ref="Ref_FinalApproverUserId" Label="تائید کننده نهایی" CssClass=""  DisplayFormat="DropDown" ExternalApi=true NotMapped=false TextGrid=false Text="" Value="@_Entity.FinalApproverUserId" FieldName="FinalApproverUserId" OnItemSelected="ItemSelected_HR_RMS_RecruitmentRequestsFinalApproverUserId" Component="Component_HR_RMS_RecruitmentRequestsFinalApproverUserId" _Entity="_Entity" >
+</Dropdown>
+@code {
+    public async Task ItemSelected_HR_RMS_RecruitmentRequestsFinalApproverUserId(object _Item)
+    {
+        var Selected = Utility.JSON.ToObject<dynamic>(Utility.JSON.ToJson(_Item).Result).Result;
+     var Item = _Entity;
+
+      //Todo
+ //برای اینکه آی دی تغییر کند اینجا نیز باید تغییر کند
+ //بهتر است از پرایمیری کی استفاده شود
+ Item.FinalApproverUserId = Selected.Id;
+ Item.FinalApproverUser = await Utility.JSON.ToObject<Entity.AspNetUsers>(await Utility.JSON.ToJson(_Item));
+
+    
+
+    
+    }
+} 
+
+<Input Id="DescriptionFinalApprover" @ref="Ref_DescriptionFinalApprover" Label="توضیحات تائید نهایی"     @bind-Value="_Entity.DescriptionFinalApprover" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"maxlength\":\"12\"}").Result))></Input>
+
+<Input Id="RegisterTimeFinalApprover" @ref="Ref_RegisterTimeFinalApprover" Label="زمان تائید نهایی"  CssClass=" PersianDatePicker"   @bind-Value="_Entity.RegisterTimeFinalApprover" type="textfield"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+</div>
+
+</div>
+
+            </div> 
+    </div>
+</div>
+
+<Input Id="CreateUser" @ref="Ref_CreateUser"      @bind-Value="_Entity.CreateUser" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+<Input Id="UpdateUser" @ref="Ref_UpdateUser"      @bind-Value="_Entity.UpdateUser" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+<Input Id="RequestID" @ref="Ref_RequestID"      @bind-Value="_Entity.RequestID" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+<Input Id="CreateDate" @ref="Ref_CreateDate"   CssClass="d-none"   @bind-Value="_Entity.CreateDate" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+<Input Id="UpdateDate" @ref="Ref_UpdateDate"   CssClass="d-none"   @bind-Value="_Entity.UpdateDate" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+<Input Id="IsDelete" @ref="Ref_IsDelete"   CssClass="d-none"   @bind-Value="_Entity.IsDelete" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+<Input Id="Id" @ref="Ref_Id"   CssClass="d-none"   @bind-Value="_Entity.Id" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+    </EditForm>
+</div>
+
+@if (ShowSubmit)
+{
+    <button class="btn btn-sm btn-green" @onclick=Submit>ذخیره</button>
+}
+
+@code {
+    #region Function
+
+    //todo  جا به جا شود برده شود تو فایل  Peropeties
+    protected override async Task OnInitializedAsync()
+    {
+        Console.WriteLine("#log OnInitializedAsync");
+
+        TableGet = await Utility.JSON.ToObject<Table>("{\"Name\":\"HR_RMS_RecruitmentRequests\",\"GetNameAs\":\"HR_RMS_RecruitmentRequests\",\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"RequestID\",\"GetNameAs\":\"RequestID\"},{\"Name\":\"CreateUser\",\"GetNameAs\":\"CreateUser\"},{\"Name\":\"UpdateUser\",\"GetNameAs\":\"UpdateUser\"},{\"Name\":\"CreateDate\",\"GetNameAs\":\"CreateDate\"},{\"Name\":\"UpdateDate\",\"GetNameAs\":\"UpdateDate\"},{\"Name\":\"IsDelete\",\"GetNameAs\":\"IsDelete\"},{\"Name\":\"HR_ReasonRequestRecruitmentId\",\"GetNameAs\":\"HR_ReasonRequestRecruitmentId\"},{\"Name\":\"HR_ApplicationStatusRecruitmentId\",\"GetNameAs\":\"HR_ApplicationStatusRecruitmentId\"},{\"Name\":\"HR_ORG_SectionsId\",\"GetNameAs\":\"HR_ORG_SectionsId\"},{\"Name\":\"HR_ORG_PostsId\",\"GetNameAs\":\"HR_ORG_PostsId\"},{\"Name\":\"RequiredDocuments\",\"GetNameAs\":\"RequiredDocuments\"},{\"Name\":\"HR_Base_FieldOfStudyId\",\"GetNameAs\":\"HR_Base_FieldOfStudyId\"},{\"Name\":\"Skills\",\"GetNameAs\":\"Skills\"},{\"Name\":\"FromAge\",\"GetNameAs\":\"FromAge\"},{\"Name\":\"ToAge\",\"GetNameAs\":\"ToAge\"},{\"Name\":\"MinimumRequirement\",\"GetNameAs\":\"MinimumRequirement\"},{\"Name\":\"HR_Base_GenderId\",\"GetNameAs\":\"HR_Base_GenderId\"},{\"Name\":\"RequiredNumber\",\"GetNameAs\":\"RequiredNumber\"},{\"Name\":\"DescriptionRequest\",\"GetNameAs\":\"DescriptionRequest\"},{\"Name\":\"DescriptionUnitManager\",\"GetNameAs\":\"DescriptionUnitManager\"},{\"Name\":\"RegisterTimeUserManger\",\"GetNameAs\":\"RegisterTimeUserManger\"},{\"Name\":\"DescriptionSectionHumanResourcesManager\",\"GetNameAs\":\"DescriptionSectionHumanResourcesManager\"},{\"Name\":\"RegisterTimeHumanResourcesManager\",\"GetNameAs\":\"RegisterTimeHumanResourcesManager\"},{\"Name\":\"DescriptionFactoryManager\",\"GetNameAs\":\"DescriptionFactoryManager\"},{\"Name\":\"RegisterTimeFactoryManager\",\"GetNameAs\":\"RegisterTimeFactoryManager\"},{\"Name\":\"DescriptionFinalApprover\",\"GetNameAs\":\"DescriptionFinalApprover\"},{\"Name\":\"RegisterTimeFinalApprover\",\"GetNameAs\":\"RegisterTimeFinalApprover\"},{\"Name\":\"RequestUserId\",\"GetNameAs\":\"RequestUserId\"},{\"Name\":\"UnitManagerUserId\",\"GetNameAs\":\"UnitManagerUserId\"},{\"Name\":\"HumanResourcesManagerUserId\",\"GetNameAs\":\"HumanResourcesManagerUserId\"},{\"Name\":\"FactoryManagerUserId\",\"GetNameAs\":\"FactoryManagerUserId\"},{\"Name\":\"FinalApproverUserId\",\"GetNameAs\":\"FinalApproverUserId\"},{\"Name\":\"RegisterTimeRequestUserId\",\"GetNameAs\":\"RegisterTimeRequestUserId\"}],\"Relation\":[{\"Name\":\"HR_ReasonRequestRecruitment\",\"GetNameAs\":\"HR_ReasonRequestRecruitment\",\"ModeErtebat\":1,\"Column\":[{\"Name\":\"Code\",\"GetNameAs\":\"Code\"},{\"Name\":\"Title\",\"GetNameAs\":\"Title\"}],\"Relation\":[]},{\"Name\":\"HR_ApplicationStatusRecruitment\",\"GetNameAs\":\"HR_ApplicationStatusRecruitment\",\"ModeErtebat\":1,\"Column\":[{\"Name\":\"Code\",\"GetNameAs\":\"Code\"},{\"Name\":\"Title\",\"GetNameAs\":\"Title\"}],\"Relation\":[]},{\"Name\":\"HR_ORG_Posts\",\"GetNameAs\":\"HR_ORG_Posts\",\"ModeErtebat\":1,\"Column\":[{\"Name\":\"State\",\"GetNameAs\":\"State\"},{\"Name\":\"Title\",\"GetNameAs\":\"Title\"},{\"Name\":\"TitleEn\",\"GetNameAs\":\"TitleEn\"},{\"Name\":\"DeleteDateTime\",\"GetNameAs\":\"DeleteDateTime\"},{\"Name\":\"Code\",\"GetNameAs\":\"Code\"},{\"Name\":\"Description\",\"GetNameAs\":\"Description\"},{\"Name\":\"AteyehSaz_InsuranceId\",\"GetNameAs\":\"AteyehSaz_InsuranceId\"},{\"Name\":\"HR_ORG_PositionsId\",\"GetNameAs\":\"HR_ORG_PositionsId\"},{\"Name\":\"HR_Base_InsuranceJobsId\",\"GetNameAs\":\"HR_Base_InsuranceJobsId\"},{\"Name\":\"PostCode\",\"GetNameAs\":\"PostCode\"}],\"Relation\":[]},{\"Name\":\"HR_Base_FieldOfStudy\",\"GetNameAs\":\"HR_Base_FieldOfStudy\",\"ModeErtebat\":1,\"Column\":[{\"Name\":\"Title\",\"GetNameAs\":\"Title\"},{\"Name\":\"DeleteDateTime\",\"GetNameAs\":\"DeleteDateTime\"},{\"Name\":\"IsActive\",\"GetNameAs\":\"IsActive\"}],\"Relation\":[]},{\"Name\":\"HR_Base_Gender\",\"GetNameAs\":\"HR_Base_Gender\",\"ModeErtebat\":1,\"Column\":[{\"Name\":\"Code\",\"GetNameAs\":\"Code\"},{\"Name\":\"Title\",\"GetNameAs\":\"Title\"}],\"Relation\":[]},{\"Name\":\"HR_ORG_Sections\",\"GetNameAs\":\"HR_ORG_Sections\",\"ModeErtebat\":1,\"Column\":[{\"Name\":\"HR_EMP_EmployeesId\",\"GetNameAs\":\"HR_EMP_EmployeesId\"},{\"Name\":\"Status\",\"GetNameAs\":\"Status\"},{\"Name\":\"Title\",\"GetNameAs\":\"Title\"},{\"Name\":\"TitleEn\",\"GetNameAs\":\"TitleEn\"},{\"Name\":\"Description\",\"GetNameAs\":\"Description\"},{\"Name\":\"Code\",\"GetNameAs\":\"Code\"},{\"Name\":\"DeleteDateTime\",\"GetNameAs\":\"DeleteDateTime\"},{\"Name\":\"HR_ORG_SitesId\",\"GetNameAs\":\"HR_ORG_SitesId\"},{\"Name\":\"HR_ORG_SectionTypesId\",\"GetNameAs\":\"HR_ORG_SectionTypesId\"},{\"Name\":\"HR_Base_TaxCategoryId\",\"GetNameAs\":\"HR_Base_TaxCategoryId\"},{\"Name\":\"HR_ORG_SectionStatusId\",\"GetNameAs\":\"HR_ORG_SectionStatusId\"},{\"Name\":\"ParentId\",\"GetNameAs\":\"ParentId\"},{\"Name\":\"BaseInfo_ORG_SitesId\",\"GetNameAs\":\"BaseInfo_ORG_SitesId\"},{\"Name\":\"BaseInfo_TaxCategoryId\",\"GetNameAs\":\"BaseInfo_TaxCategoryId\"},{\"Name\":\"BaseInfo_ORG_CompaniesId\",\"GetNameAs\":\"BaseInfo_ORG_CompaniesId\"}],\"Relation\":[]},{\"Name\":\"FinalApproverUser\",\"GetNameAs\":\"FinalApproverUser\",\"ModeErtebat\":1,\"Column\":[{\"Name\":\"AccessFailedCount\",\"GetNameAs\":\"AccessFailedCount\"},{\"Name\":\"ConcurrencyStamp\",\"GetNameAs\":\"ConcurrencyStamp\"},{\"Name\":\"Discriminator\",\"GetNameAs\":\"Discriminator\"},{\"Name\":\"Email\",\"GetNameAs\":\"Email\"},{\"Name\":\"EmailConfirmed\",\"GetNameAs\":\"EmailConfirmed\"},{\"Name\":\"LockoutEnabled\",\"GetNameAs\":\"LockoutEnabled\"},{\"Name\":\"LockoutEnd\",\"GetNameAs\":\"LockoutEnd\"},{\"Name\":\"NormalizedEmail\",\"GetNameAs\":\"NormalizedEmail\"},{\"Name\":\"NormalizedUserName\",\"GetNameAs\":\"NormalizedUserName\"},{\"Name\":\"PasswordHash\",\"GetNameAs\":\"PasswordHash\"},{\"Name\":\"PhoneNumber\",\"GetNameAs\":\"PhoneNumber\"},{\"Name\":\"PhoneNumberConfirmed\",\"GetNameAs\":\"PhoneNumberConfirmed\"},{\"Name\":\"SecurityStamp\",\"GetNameAs\":\"SecurityStamp\"},{\"Name\":\"TwoFactorEnabled\",\"GetNameAs\":\"TwoFactorEnabled\"},{\"Name\":\"UserName\",\"GetNameAs\":\"UserName\"},{\"Name\":\"Address\",\"GetNameAs\":\"Address\"},{\"Name\":\"BirthDate\",\"GetNameAs\":\"BirthDate\"},{\"Name\":\"BirthDateString\",\"GetNameAs\":\"BirthDateString\"},{\"Name\":\"BirthPlace\",\"GetNameAs\":\"BirthPlace\"},{\"Name\":\"CodeMelli\",\"GetNameAs\":\"CodeMelli\"},{\"Name\":\"CompanyEmploymentDate\",\"GetNameAs\":\"CompanyEmploymentDate\"},{\"Name\":\"CompanyEmploymentDateString\",\"GetNameAs\":\"CompanyEmploymentDateString\"},{\"Name\":\"CompanyID\",\"GetNameAs\":\"CompanyID\"},{\"Name\":\"EMP_NO\",\"GetNameAs\":\"EMP_NO\"},{\"Name\":\"EmploymentStatus\",\"GetNameAs\":\"EmploymentStatus\"},{\"Name\":\"FAMILY\",\"GetNameAs\":\"FAMILY\"},{\"Name\":\"FatherName\",\"GetNameAs\":\"FatherName\"},{\"Name\":\"IndustrialComplexEmploymentDate\",\"GetNameAs\":\"IndustrialComplexEmploymentDate\"},{\"Name\":\"IndustrialComplexEmploymentDateString\",\"GetNameAs\":\"IndustrialComplexEmploymentDateString\"},{\"Name\":\"IsActive\",\"GetNameAs\":\"IsActive\"},{\"Name\":\"IsCut\",\"GetNameAs\":\"IsCut\"},{\"Name\":\"JobTitle\",\"GetNameAs\":\"JobTitle\"},{\"Name\":\"LastEducationalCertificate\",\"GetNameAs\":\"LastEducationalCertificate\"},{\"Name\":\"MaritalStatus\",\"GetNameAs\":\"MaritalStatus\"},{\"Name\":\"NAME\",\"GetNameAs\":\"NAME\"},{\"Name\":\"OrganizationalUnit\",\"GetNameAs\":\"OrganizationalUnit\"},{\"Name\":\"OstanID\",\"GetNameAs\":\"OstanID\"},{\"Name\":\"PERS_NO\",\"GetNameAs\":\"PERS_NO\"},{\"Name\":\"Part\",\"GetNameAs\":\"Part\"},{\"Name\":\"PlaceofIssue\",\"GetNameAs\":\"PlaceofIssue\"},{\"Name\":\"PostTitle\",\"GetNameAs\":\"PostTitle\"},{\"Name\":\"ResetPassword\",\"GetNameAs\":\"ResetPassword\"},{\"Name\":\"SEX\",\"GetNameAs\":\"SEX\"},{\"Name\":\"SYSUserName\",\"GetNameAs\":\"SYSUserName\"},{\"Name\":\"SectionID\",\"GetNameAs\":\"SectionID\"},{\"Name\":\"ShomareShenasname\",\"GetNameAs\":\"ShomareShenasname\"},{\"Name\":\"Signature\",\"GetNameAs\":\"Signature\"},{\"Name\":\"StudyField\",\"GetNameAs\":\"StudyField\"},{\"Name\":\"UserImage\",\"GetNameAs\":\"UserImage\"}],\"Relation\":[]},{\"Name\":\"HumanResourcesManagerUser\",\"GetNameAs\":\"HumanResourcesManagerUser\",\"ModeErtebat\":1,\"Column\":[{\"Name\":\"AccessFailedCount\",\"GetNameAs\":\"AccessFailedCount\"},{\"Name\":\"ConcurrencyStamp\",\"GetNameAs\":\"ConcurrencyStamp\"},{\"Name\":\"Discriminator\",\"GetNameAs\":\"Discriminator\"},{\"Name\":\"Email\",\"GetNameAs\":\"Email\"},{\"Name\":\"EmailConfirmed\",\"GetNameAs\":\"EmailConfirmed\"},{\"Name\":\"LockoutEnabled\",\"GetNameAs\":\"LockoutEnabled\"},{\"Name\":\"LockoutEnd\",\"GetNameAs\":\"LockoutEnd\"},{\"Name\":\"NormalizedEmail\",\"GetNameAs\":\"NormalizedEmail\"},{\"Name\":\"NormalizedUserName\",\"GetNameAs\":\"NormalizedUserName\"},{\"Name\":\"PasswordHash\",\"GetNameAs\":\"PasswordHash\"},{\"Name\":\"PhoneNumber\",\"GetNameAs\":\"PhoneNumber\"},{\"Name\":\"PhoneNumberConfirmed\",\"GetNameAs\":\"PhoneNumberConfirmed\"},{\"Name\":\"SecurityStamp\",\"GetNameAs\":\"SecurityStamp\"},{\"Name\":\"TwoFactorEnabled\",\"GetNameAs\":\"TwoFactorEnabled\"},{\"Name\":\"UserName\",\"GetNameAs\":\"UserName\"},{\"Name\":\"Address\",\"GetNameAs\":\"Address\"},{\"Name\":\"BirthDate\",\"GetNameAs\":\"BirthDate\"},{\"Name\":\"BirthDateString\",\"GetNameAs\":\"BirthDateString\"},{\"Name\":\"BirthPlace\",\"GetNameAs\":\"BirthPlace\"},{\"Name\":\"CodeMelli\",\"GetNameAs\":\"CodeMelli\"},{\"Name\":\"CompanyEmploymentDate\",\"GetNameAs\":\"CompanyEmploymentDate\"},{\"Name\":\"CompanyEmploymentDateString\",\"GetNameAs\":\"CompanyEmploymentDateString\"},{\"Name\":\"CompanyID\",\"GetNameAs\":\"CompanyID\"},{\"Name\":\"EMP_NO\",\"GetNameAs\":\"EMP_NO\"},{\"Name\":\"EmploymentStatus\",\"GetNameAs\":\"EmploymentStatus\"},{\"Name\":\"FAMILY\",\"GetNameAs\":\"FAMILY\"},{\"Name\":\"FatherName\",\"GetNameAs\":\"FatherName\"},{\"Name\":\"IndustrialComplexEmploymentDate\",\"GetNameAs\":\"IndustrialComplexEmploymentDate\"},{\"Name\":\"IndustrialComplexEmploymentDateString\",\"GetNameAs\":\"IndustrialComplexEmploymentDateString\"},{\"Name\":\"IsActive\",\"GetNameAs\":\"IsActive\"},{\"Name\":\"IsCut\",\"GetNameAs\":\"IsCut\"},{\"Name\":\"JobTitle\",\"GetNameAs\":\"JobTitle\"},{\"Name\":\"LastEducationalCertificate\",\"GetNameAs\":\"LastEducationalCertificate\"},{\"Name\":\"MaritalStatus\",\"GetNameAs\":\"MaritalStatus\"},{\"Name\":\"NAME\",\"GetNameAs\":\"NAME\"},{\"Name\":\"OrganizationalUnit\",\"GetNameAs\":\"OrganizationalUnit\"},{\"Name\":\"OstanID\",\"GetNameAs\":\"OstanID\"},{\"Name\":\"PERS_NO\",\"GetNameAs\":\"PERS_NO\"},{\"Name\":\"Part\",\"GetNameAs\":\"Part\"},{\"Name\":\"PlaceofIssue\",\"GetNameAs\":\"PlaceofIssue\"},{\"Name\":\"PostTitle\",\"GetNameAs\":\"PostTitle\"},{\"Name\":\"ResetPassword\",\"GetNameAs\":\"ResetPassword\"},{\"Name\":\"SEX\",\"GetNameAs\":\"SEX\"},{\"Name\":\"SYSUserName\",\"GetNameAs\":\"SYSUserName\"},{\"Name\":\"SectionID\",\"GetNameAs\":\"SectionID\"},{\"Name\":\"ShomareShenasname\",\"GetNameAs\":\"ShomareShenasname\"},{\"Name\":\"Signature\",\"GetNameAs\":\"Signature\"},{\"Name\":\"StudyField\",\"GetNameAs\":\"StudyField\"},{\"Name\":\"UserImage\",\"GetNameAs\":\"UserImage\"}],\"Relation\":[]},{\"Name\":\"RequestUser\",\"GetNameAs\":\"RequestUser\",\"ModeErtebat\":1,\"Column\":[{\"Name\":\"AccessFailedCount\",\"GetNameAs\":\"AccessFailedCount\"},{\"Name\":\"ConcurrencyStamp\",\"GetNameAs\":\"ConcurrencyStamp\"},{\"Name\":\"Discriminator\",\"GetNameAs\":\"Discriminator\"},{\"Name\":\"Email\",\"GetNameAs\":\"Email\"},{\"Name\":\"EmailConfirmed\",\"GetNameAs\":\"EmailConfirmed\"},{\"Name\":\"LockoutEnabled\",\"GetNameAs\":\"LockoutEnabled\"},{\"Name\":\"LockoutEnd\",\"GetNameAs\":\"LockoutEnd\"},{\"Name\":\"NormalizedEmail\",\"GetNameAs\":\"NormalizedEmail\"},{\"Name\":\"NormalizedUserName\",\"GetNameAs\":\"NormalizedUserName\"},{\"Name\":\"PasswordHash\",\"GetNameAs\":\"PasswordHash\"},{\"Name\":\"PhoneNumber\",\"GetNameAs\":\"PhoneNumber\"},{\"Name\":\"PhoneNumberConfirmed\",\"GetNameAs\":\"PhoneNumberConfirmed\"},{\"Name\":\"SecurityStamp\",\"GetNameAs\":\"SecurityStamp\"},{\"Name\":\"TwoFactorEnabled\",\"GetNameAs\":\"TwoFactorEnabled\"},{\"Name\":\"UserName\",\"GetNameAs\":\"UserName\"},{\"Name\":\"Address\",\"GetNameAs\":\"Address\"},{\"Name\":\"BirthDate\",\"GetNameAs\":\"BirthDate\"},{\"Name\":\"BirthDateString\",\"GetNameAs\":\"BirthDateString\"},{\"Name\":\"BirthPlace\",\"GetNameAs\":\"BirthPlace\"},{\"Name\":\"CodeMelli\",\"GetNameAs\":\"CodeMelli\"},{\"Name\":\"CompanyEmploymentDate\",\"GetNameAs\":\"CompanyEmploymentDate\"},{\"Name\":\"CompanyEmploymentDateString\",\"GetNameAs\":\"CompanyEmploymentDateString\"},{\"Name\":\"CompanyID\",\"GetNameAs\":\"CompanyID\"},{\"Name\":\"EMP_NO\",\"GetNameAs\":\"EMP_NO\"},{\"Name\":\"EmploymentStatus\",\"GetNameAs\":\"EmploymentStatus\"},{\"Name\":\"FAMILY\",\"GetNameAs\":\"FAMILY\"},{\"Name\":\"FatherName\",\"GetNameAs\":\"FatherName\"},{\"Name\":\"IndustrialComplexEmploymentDate\",\"GetNameAs\":\"IndustrialComplexEmploymentDate\"},{\"Name\":\"IndustrialComplexEmploymentDateString\",\"GetNameAs\":\"IndustrialComplexEmploymentDateString\"},{\"Name\":\"IsActive\",\"GetNameAs\":\"IsActive\"},{\"Name\":\"IsCut\",\"GetNameAs\":\"IsCut\"},{\"Name\":\"JobTitle\",\"GetNameAs\":\"JobTitle\"},{\"Name\":\"LastEducationalCertificate\",\"GetNameAs\":\"LastEducationalCertificate\"},{\"Name\":\"MaritalStatus\",\"GetNameAs\":\"MaritalStatus\"},{\"Name\":\"NAME\",\"GetNameAs\":\"NAME\"},{\"Name\":\"OrganizationalUnit\",\"GetNameAs\":\"OrganizationalUnit\"},{\"Name\":\"OstanID\",\"GetNameAs\":\"OstanID\"},{\"Name\":\"PERS_NO\",\"GetNameAs\":\"PERS_NO\"},{\"Name\":\"Part\",\"GetNameAs\":\"Part\"},{\"Name\":\"PlaceofIssue\",\"GetNameAs\":\"PlaceofIssue\"},{\"Name\":\"PostTitle\",\"GetNameAs\":\"PostTitle\"},{\"Name\":\"ResetPassword\",\"GetNameAs\":\"ResetPassword\"},{\"Name\":\"SEX\",\"GetNameAs\":\"SEX\"},{\"Name\":\"SYSUserName\",\"GetNameAs\":\"SYSUserName\"},{\"Name\":\"SectionID\",\"GetNameAs\":\"SectionID\"},{\"Name\":\"ShomareShenasname\",\"GetNameAs\":\"ShomareShenasname\"},{\"Name\":\"Signature\",\"GetNameAs\":\"Signature\"},{\"Name\":\"StudyField\",\"GetNameAs\":\"StudyField\"},{\"Name\":\"UserImage\",\"GetNameAs\":\"UserImage\"}],\"Relation\":[]},{\"Name\":\"UnitManagerUser\",\"GetNameAs\":\"UnitManagerUser\",\"ModeErtebat\":1,\"Column\":[{\"Name\":\"AccessFailedCount\",\"GetNameAs\":\"AccessFailedCount\"},{\"Name\":\"ConcurrencyStamp\",\"GetNameAs\":\"ConcurrencyStamp\"},{\"Name\":\"Discriminator\",\"GetNameAs\":\"Discriminator\"},{\"Name\":\"Email\",\"GetNameAs\":\"Email\"},{\"Name\":\"EmailConfirmed\",\"GetNameAs\":\"EmailConfirmed\"},{\"Name\":\"LockoutEnabled\",\"GetNameAs\":\"LockoutEnabled\"},{\"Name\":\"LockoutEnd\",\"GetNameAs\":\"LockoutEnd\"},{\"Name\":\"NormalizedEmail\",\"GetNameAs\":\"NormalizedEmail\"},{\"Name\":\"NormalizedUserName\",\"GetNameAs\":\"NormalizedUserName\"},{\"Name\":\"PasswordHash\",\"GetNameAs\":\"PasswordHash\"},{\"Name\":\"PhoneNumber\",\"GetNameAs\":\"PhoneNumber\"},{\"Name\":\"PhoneNumberConfirmed\",\"GetNameAs\":\"PhoneNumberConfirmed\"},{\"Name\":\"SecurityStamp\",\"GetNameAs\":\"SecurityStamp\"},{\"Name\":\"TwoFactorEnabled\",\"GetNameAs\":\"TwoFactorEnabled\"},{\"Name\":\"UserName\",\"GetNameAs\":\"UserName\"},{\"Name\":\"Address\",\"GetNameAs\":\"Address\"},{\"Name\":\"BirthDate\",\"GetNameAs\":\"BirthDate\"},{\"Name\":\"BirthDateString\",\"GetNameAs\":\"BirthDateString\"},{\"Name\":\"BirthPlace\",\"GetNameAs\":\"BirthPlace\"},{\"Name\":\"CodeMelli\",\"GetNameAs\":\"CodeMelli\"},{\"Name\":\"CompanyEmploymentDate\",\"GetNameAs\":\"CompanyEmploymentDate\"},{\"Name\":\"CompanyEmploymentDateString\",\"GetNameAs\":\"CompanyEmploymentDateString\"},{\"Name\":\"CompanyID\",\"GetNameAs\":\"CompanyID\"},{\"Name\":\"EMP_NO\",\"GetNameAs\":\"EMP_NO\"},{\"Name\":\"EmploymentStatus\",\"GetNameAs\":\"EmploymentStatus\"},{\"Name\":\"FAMILY\",\"GetNameAs\":\"FAMILY\"},{\"Name\":\"FatherName\",\"GetNameAs\":\"FatherName\"},{\"Name\":\"IndustrialComplexEmploymentDate\",\"GetNameAs\":\"IndustrialComplexEmploymentDate\"},{\"Name\":\"IndustrialComplexEmploymentDateString\",\"GetNameAs\":\"IndustrialComplexEmploymentDateString\"},{\"Name\":\"IsActive\",\"GetNameAs\":\"IsActive\"},{\"Name\":\"IsCut\",\"GetNameAs\":\"IsCut\"},{\"Name\":\"JobTitle\",\"GetNameAs\":\"JobTitle\"},{\"Name\":\"LastEducationalCertificate\",\"GetNameAs\":\"LastEducationalCertificate\"},{\"Name\":\"MaritalStatus\",\"GetNameAs\":\"MaritalStatus\"},{\"Name\":\"NAME\",\"GetNameAs\":\"NAME\"},{\"Name\":\"OrganizationalUnit\",\"GetNameAs\":\"OrganizationalUnit\"},{\"Name\":\"OstanID\",\"GetNameAs\":\"OstanID\"},{\"Name\":\"PERS_NO\",\"GetNameAs\":\"PERS_NO\"},{\"Name\":\"Part\",\"GetNameAs\":\"Part\"},{\"Name\":\"PlaceofIssue\",\"GetNameAs\":\"PlaceofIssue\"},{\"Name\":\"PostTitle\",\"GetNameAs\":\"PostTitle\"},{\"Name\":\"ResetPassword\",\"GetNameAs\":\"ResetPassword\"},{\"Name\":\"SEX\",\"GetNameAs\":\"SEX\"},{\"Name\":\"SYSUserName\",\"GetNameAs\":\"SYSUserName\"},{\"Name\":\"SectionID\",\"GetNameAs\":\"SectionID\"},{\"Name\":\"ShomareShenasname\",\"GetNameAs\":\"ShomareShenasname\"},{\"Name\":\"Signature\",\"GetNameAs\":\"Signature\"},{\"Name\":\"StudyField\",\"GetNameAs\":\"StudyField\"},{\"Name\":\"UserImage\",\"GetNameAs\":\"UserImage\"}],\"Relation\":[]},{\"Name\":\"FactoryManagerUser\",\"GetNameAs\":\"FactoryManagerUser\",\"ModeErtebat\":1,\"Column\":[{\"Name\":\"AccessFailedCount\",\"GetNameAs\":\"AccessFailedCount\"},{\"Name\":\"ConcurrencyStamp\",\"GetNameAs\":\"ConcurrencyStamp\"},{\"Name\":\"Discriminator\",\"GetNameAs\":\"Discriminator\"},{\"Name\":\"Email\",\"GetNameAs\":\"Email\"},{\"Name\":\"EmailConfirmed\",\"GetNameAs\":\"EmailConfirmed\"},{\"Name\":\"LockoutEnabled\",\"GetNameAs\":\"LockoutEnabled\"},{\"Name\":\"LockoutEnd\",\"GetNameAs\":\"LockoutEnd\"},{\"Name\":\"NormalizedEmail\",\"GetNameAs\":\"NormalizedEmail\"},{\"Name\":\"NormalizedUserName\",\"GetNameAs\":\"NormalizedUserName\"},{\"Name\":\"PasswordHash\",\"GetNameAs\":\"PasswordHash\"},{\"Name\":\"PhoneNumber\",\"GetNameAs\":\"PhoneNumber\"},{\"Name\":\"PhoneNumberConfirmed\",\"GetNameAs\":\"PhoneNumberConfirmed\"},{\"Name\":\"SecurityStamp\",\"GetNameAs\":\"SecurityStamp\"},{\"Name\":\"TwoFactorEnabled\",\"GetNameAs\":\"TwoFactorEnabled\"},{\"Name\":\"UserName\",\"GetNameAs\":\"UserName\"},{\"Name\":\"Address\",\"GetNameAs\":\"Address\"},{\"Name\":\"BirthDate\",\"GetNameAs\":\"BirthDate\"},{\"Name\":\"BirthDateString\",\"GetNameAs\":\"BirthDateString\"},{\"Name\":\"BirthPlace\",\"GetNameAs\":\"BirthPlace\"},{\"Name\":\"CodeMelli\",\"GetNameAs\":\"CodeMelli\"},{\"Name\":\"CompanyEmploymentDate\",\"GetNameAs\":\"CompanyEmploymentDate\"},{\"Name\":\"CompanyEmploymentDateString\",\"GetNameAs\":\"CompanyEmploymentDateString\"},{\"Name\":\"CompanyID\",\"GetNameAs\":\"CompanyID\"},{\"Name\":\"EMP_NO\",\"GetNameAs\":\"EMP_NO\"},{\"Name\":\"EmploymentStatus\",\"GetNameAs\":\"EmploymentStatus\"},{\"Name\":\"FAMILY\",\"GetNameAs\":\"FAMILY\"},{\"Name\":\"FatherName\",\"GetNameAs\":\"FatherName\"},{\"Name\":\"IndustrialComplexEmploymentDate\",\"GetNameAs\":\"IndustrialComplexEmploymentDate\"},{\"Name\":\"IndustrialComplexEmploymentDateString\",\"GetNameAs\":\"IndustrialComplexEmploymentDateString\"},{\"Name\":\"IsActive\",\"GetNameAs\":\"IsActive\"},{\"Name\":\"IsCut\",\"GetNameAs\":\"IsCut\"},{\"Name\":\"JobTitle\",\"GetNameAs\":\"JobTitle\"},{\"Name\":\"LastEducationalCertificate\",\"GetNameAs\":\"LastEducationalCertificate\"},{\"Name\":\"MaritalStatus\",\"GetNameAs\":\"MaritalStatus\"},{\"Name\":\"NAME\",\"GetNameAs\":\"NAME\"},{\"Name\":\"OrganizationalUnit\",\"GetNameAs\":\"OrganizationalUnit\"},{\"Name\":\"OstanID\",\"GetNameAs\":\"OstanID\"},{\"Name\":\"PERS_NO\",\"GetNameAs\":\"PERS_NO\"},{\"Name\":\"Part\",\"GetNameAs\":\"Part\"},{\"Name\":\"PlaceofIssue\",\"GetNameAs\":\"PlaceofIssue\"},{\"Name\":\"PostTitle\",\"GetNameAs\":\"PostTitle\"},{\"Name\":\"ResetPassword\",\"GetNameAs\":\"ResetPassword\"},{\"Name\":\"SEX\",\"GetNameAs\":\"SEX\"},{\"Name\":\"SYSUserName\",\"GetNameAs\":\"SYSUserName\"},{\"Name\":\"SectionID\",\"GetNameAs\":\"SectionID\"},{\"Name\":\"ShomareShenasname\",\"GetNameAs\":\"ShomareShenasname\"},{\"Name\":\"Signature\",\"GetNameAs\":\"Signature\"},{\"Name\":\"StudyField\",\"GetNameAs\":\"StudyField\"},{\"Name\":\"UserImage\",\"GetNameAs\":\"UserImage\"}],\"Relation\":[]}]}");
+        TablePost = await Utility.JSON.ToObject<Table>("{\"Name\":\"HR_RMS_RecruitmentRequests\",\"GetNameAs\":\"HR_RMS_RecruitmentRequests\",\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"RequestID\",\"GetNameAs\":\"RequestID\"},{\"Name\":\"CreateUser\",\"GetNameAs\":\"CreateUser\"},{\"Name\":\"UpdateUser\",\"GetNameAs\":\"UpdateUser\"},{\"Name\":\"CreateDate\",\"GetNameAs\":\"CreateDate\"},{\"Name\":\"UpdateDate\",\"GetNameAs\":\"UpdateDate\"},{\"Name\":\"IsDelete\",\"GetNameAs\":\"IsDelete\"},{\"Name\":\"HR_ReasonRequestRecruitmentId\",\"GetNameAs\":\"HR_ReasonRequestRecruitmentId\"},{\"Name\":\"HR_ApplicationStatusRecruitmentId\",\"GetNameAs\":\"HR_ApplicationStatusRecruitmentId\"},{\"Name\":\"HR_ORG_SectionsId\",\"GetNameAs\":\"HR_ORG_SectionsId\"},{\"Name\":\"HR_ORG_PostsId\",\"GetNameAs\":\"HR_ORG_PostsId\"},{\"Name\":\"RequiredDocuments\",\"GetNameAs\":\"RequiredDocuments\"},{\"Name\":\"HR_Base_FieldOfStudyId\",\"GetNameAs\":\"HR_Base_FieldOfStudyId\"},{\"Name\":\"Skills\",\"GetNameAs\":\"Skills\"},{\"Name\":\"FromAge\",\"GetNameAs\":\"FromAge\"},{\"Name\":\"ToAge\",\"GetNameAs\":\"ToAge\"},{\"Name\":\"MinimumRequirement\",\"GetNameAs\":\"MinimumRequirement\"},{\"Name\":\"HR_Base_GenderId\",\"GetNameAs\":\"HR_Base_GenderId\"},{\"Name\":\"RequiredNumber\",\"GetNameAs\":\"RequiredNumber\"},{\"Name\":\"DescriptionRequest\",\"GetNameAs\":\"DescriptionRequest\"},{\"Name\":\"DescriptionUnitManager\",\"GetNameAs\":\"DescriptionUnitManager\"},{\"Name\":\"RegisterTimeUserManger\",\"GetNameAs\":\"RegisterTimeUserManger\"},{\"Name\":\"DescriptionSectionHumanResourcesManager\",\"GetNameAs\":\"DescriptionSectionHumanResourcesManager\"},{\"Name\":\"RegisterTimeHumanResourcesManager\",\"GetNameAs\":\"RegisterTimeHumanResourcesManager\"},{\"Name\":\"DescriptionFactoryManager\",\"GetNameAs\":\"DescriptionFactoryManager\"},{\"Name\":\"RegisterTimeFactoryManager\",\"GetNameAs\":\"RegisterTimeFactoryManager\"},{\"Name\":\"DescriptionFinalApprover\",\"GetNameAs\":\"DescriptionFinalApprover\"},{\"Name\":\"RegisterTimeFinalApprover\",\"GetNameAs\":\"RegisterTimeFinalApprover\"},{\"Name\":\"RequestUserId\",\"GetNameAs\":\"RequestUserId\"},{\"Name\":\"UnitManagerUserId\",\"GetNameAs\":\"UnitManagerUserId\"},{\"Name\":\"HumanResourcesManagerUserId\",\"GetNameAs\":\"HumanResourcesManagerUserId\"},{\"Name\":\"FactoryManagerUserId\",\"GetNameAs\":\"FactoryManagerUserId\"},{\"Name\":\"FinalApproverUserId\",\"GetNameAs\":\"FinalApproverUserId\"},{\"Name\":\"RegisterTimeRequestUserId\",\"GetNameAs\":\"RegisterTimeRequestUserId\"}],\"Relation\":[]}");
+
+        config = CKEditorBundleOptions.DefaultConfig.WithHtmlEditing();
+        config.Language = "fa";
+
+        //بعداد اگه نیاز شد فرمی رو تو حالت غیر لاگین شده نمایش بدیم باید این  کد تغیر کنه
+        var user = (await _authenticationStateProvider.GetAuthenticationStateAsync()).User;
+        string UserID = user.FindFirst(c => c.Type == ClaimTypes.NameIdentifier).Value;
+        //داینامیک بشه
+        Dictionary<string, object> List = new Dictionary<string, object>();
+        //List.Add("UserID", Guid.Parse(UserID));
+        List.Add("UserID", UserID);
+        _User = await Domain.Utility.ConvertParameter.ConvertToObject(List);
+
+        Console.WriteLine("#log OnInitializedAsync End");
+
+        await base.OnInitializedAsync();
+    }
+
+    //todo  جا به جا شود برده شود تو فایل  Peropeties
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            Console.WriteLine("#log OnAfterRenderAsync");
+            await base.BeforGetData();
+
+            var Result = await GetData();
+
+            await base.AfterGetData();
+
+            StateHasChanged();
+
+            await OnFormloaded.InvokeAsync(Result);
+        }
+
+        await base.OnAfterRenderAsync(firstRender);
+    }
+
+    /// <summary>
+    /// دریافت داده
+    /// </summary>
+    /// <returns></returns>
+    public async Task<Baya.Models.Utility.Result> GetData()
+    {
+        await BeforGetData();
+
+        var DataResult = await ApiServer.External.Services.Data.Get(TableGet, QueryFilter, TableGet.Name, null);
+        
+        Baya.Models.Utility.Result Result = new Baya.Models.Utility.Result();
+
+        if (DataResult != null && DataResult.Status == HttpStatusCode.OK)
+        {
+            if (DataResult.Content != null)
+            {
+                string Data = DataResult.Content.ToString();
+                if (Data is not null)
+                {
+                    _Entity = await Utility.JSON.ToObject < Entity.HR_RMS_RecruitmentRequests>(Data);
+        }
+            }
+            else
+            {
+                _Entity = new Entity.HR_RMS_RecruitmentRequests();
+            //todo تشخیص دهد که داده ای وجود ندارد و دفه اول هست که فرم لود میشود
+            //todo اگه نیاز شد دالخ ORm خروجیش متفاوت باشه
+            //ست کردن دیفالت های فرم
+            if (true)
+                {//
+
+
+                    //نمونه ست کردن پارامتر روش اول
+                    //_Entity.InstantDelivery = _RequestParameters.UserId;
+
+                    //نمونه کد برای ست کردن پارامتر روش دوم
+                    //_Entity.InstantDelivery = await GetParameter("@@UserId@@");
+                }
+
+                SumaryMessage = "داده لود شده معتبر نمی باشد";
+                Result.Status = HttpStatusCode.InternalServerError;
+            }
+        }
+        else
+        {
+            SumaryMessage = "داده لود نشد";
+            Result.Status = HttpStatusCode.InternalServerError;
+        }
+
+        Result.Message = SumaryMessage;
+
+        StateHasChanged();
+
+        await AfterGetData();
+
+        return Result;
+    }
+
+    public override async Task SetParametersAsync(ParameterView parameters)
+    {
+        await base.SetParametersAsync(parameters);
+    }
+
+    protected override void OnInitialized()
+    {
+        //todo این خط برده شود داخل تابع پاینی ببینیم خطا داره یا نه
+        languageContainer.InitLocalizedComponent(this);
+    }
+
+
+    /// <summary>
+    /// بررسی تغییر دیتا
+    /// </summary>
+    /// <param name="Json"></param>
+    /// <returns></returns>
+    public bool CheckChangedData(string? Json)
+    {
+        if (string.Equals(JsonData, Json)) return true;
+        return false;
+    }
+
+    /// <summary>
+    /// ارسال داده
+    /// </summary>
+    /// <returns></returns>
+    public override async Task<Baya.Models.Utility.Result> Submit()
+    {
+        SumaryMessage = "";
+        Baya.Models.Utility.Result Result = new Baya.Models.Utility.Result();
+
+        if (!await FormValidator())
+        {
+            StateHasChanged();
+            Result.Status = HttpStatusCode.InternalServerError;
+            return Result;
+        }
+
+        if ((await BeforSubmit()).Status != HttpStatusCode.OK)
+        {
+            StateHasChanged();
+            Result.Status = HttpStatusCode.InternalServerError;
+            return Result;
+        }
+
+        _loadingService.Show();
+        var Resualt = await PostData();
+
+        if (Resualt)
+        {
+            Result.Status = HttpStatusCode.OK;
+
+            SumaryMessage = "داده ها با موفقیت ثبت شد";
+        }
+        else
+        {
+            Result.Status = HttpStatusCode.InternalServerError;
+            SumaryMessage = "ذخیره داده با مشکل مواجه شد";
+        }
+
+        Result.Message = SumaryMessage;
+
+        switch ((int)Result.Status)
+        {
+            case 200:
+                toastService.ShowSuccess(Result.Message);
+                break;
+            case 500:
+                toastService.ShowError(Result.Message);
+                break;
+            default:
+                break;
+        } 
+        _loadingService.Hide();
+        await AfterSubmit();
+
+        return Result;
+    }
+
+    /// <summary>
+    /// ارسال داده
+    /// </summary>
+    /// <returns></returns>
+    private async Task<bool> PostData()
+    {
+        string Data = await Utility.JSON.ToJson(_Entity);
+
+        bool IsOk = false;
+        var Model = await ApiServer.External.Services.Data.Put(Data, TablePost.Name, TablePost, RequestID?.ToString(), _User.UserID.ToString());
+        // بررسی وضعیت پاسخ
+        if (Model?.Status == HttpStatusCode.OK)
+        {
+            if (Model.Content != null && !IndependentForm)
+                { 
+                    string NewData = Model.Content.ToString();
+                    if (NewData is not null)
+                    {
+                        var NewEntity = await Utility.JSON.ToObject < Entity.HR_RMS_RecruitmentRequests>(NewData);
+                     await  GetDataForm(NewEntity._Id);
+                    }
+
+                }
+                IsOk = true;
+
+        }
+        return IsOk;
+    }
+
+
+    void SetLanguage(string language)
+    {
+        languageContainer.SetLanguage(System.Globalization.CultureInfo.GetCultureInfo(language));
+    }
+
+    // public void ValidFormSubmitted(EditContext editContext)
+    // {
+
+    // }
+
+    // public void InvalidFormSubmitted(EditContext editContext)
+    // {
+
+    // }
+    public async Task GetDataForm(object Id)
+    {
+        Type type = Id.GetType();
+        string TypeToQueryBuilder = Utility.TypeConverterQueryBuilder.ConvertCSharpTypeToQueryBuilder(type);
+        var NewQuery = new QueryBuilderFilterRule() { Condition = "AND" };
+        NewQuery.Rules = new List<QueryBuilderFilterRule>
+            {
+                    new QueryBuilderFilterRule()
+                    {
+                        Field = _Entity._GetIdName,
+                        Id = _Entity._GetIdName,
+                        Input = "text",
+                        Operator = "equal",
+                        Type =  TypeToQueryBuilder,
+                        Value = new string[]{ Id.ToString() },
+                    }
+            };
+        QueryFilter = NewQuery;
+        await GetData();
+        StateHasChanged();
+    }
+    #endregion
+}

@@ -1,0 +1,400 @@
+﻿@using System.Reflection
+@using Baya.Models.ViewEngine
+@using Domain.Utility
+@using Microsoft.JSInterop
+@* @inherits DataGridBase *@
+@namespace DataGridPage
+@* https://docs.devexpress.com/Blazor/DevExpress.Blazor.DxGrid.PagerVisible *@
+
+<input id=@(Id + "Search") @oninput=SearchInput value="@SearchText" class="form-control mb-2 fcbg" placeholder="جستجو..." />
+<DxGrid id=@(Id + "Grid")  @ref=DxGrid Data="@Data"
+        ShowSearchBox="false"
+        SearchTextParseMode=GridSearchTextParseMode.ExactMatch
+        PagerVisible="false"
+        AllowSort="false"
+        PageSize="PageSize"
+        AllowSelectRowByClick="true"
+        SelectedDataItemChanged="_SelectedDataItem"
+        PopupEditFormCssClass="ModalWidth" >
+    <Columns>
+        @BuildColumnsGrid
+    </Columns>
+</DxGrid>
+<DxPager @ref=DxPager VisibleNumericButtonCount="1" SwitchToInputBoxButtonCount="3" PageCount="100" NavigationMode="PagerNavigationMode.NumericButtons" ActivePageIndexChanged="PageIndexChanged" />
+
+<span class="d-none">@(Utility.JSON.ToJson(SelectedDataItem).Result)</span>
+
+@code {
+    [Parameter] public string? Id { get; set; }   
+
+    DxPager DxPager { get; set; }
+
+    DxGrid DxGrid { get; set; }
+
+    //Type Type { get; set; }
+
+    List<View_values> ListColumn { get; set; } = new List<View_values>();
+
+    object Data { get; set; }
+
+    int PageIndex { get; set; }
+
+    int PageSize { get; set; } = 10;
+
+    static int VALIDATION_DELAY = 500;
+    System.Threading.Timer timer = null;
+
+    private IJSObjectReference? module;
+
+    [Inject]
+    IJSRuntime JS { get; set; }
+
+    //با این روش نتونستیم داده دریافت کنم تو سرور تو لوکال اوکی بودش!
+    //[Inject]
+    //public HttpClient Http { get; set; }
+
+    /// <summary>
+    /// ایونت انتخاب
+    /// </summary>
+    [Parameter]
+    public EventCallback<object> OnItemSelected { get; set; }
+
+    /// <summary>
+    /// لیست تنظیمات کامپوننت
+    /// </summary>
+    [Parameter]
+    public Baya.Models.ViewEngine.View_Component Component { get; set; }
+
+    [Parameter]
+    public object SelectedDataItem { get; set; }
+
+    /// <summary>
+    /// ابجکت اصلی موجودیت
+    /// </summary>
+    [Parameter]
+    public object _Entity { get; set; }
+
+    [Parameter] public EventCallback<object?> ValueChanged { get; set; }
+    public object? __Entity;
+    /// <summary>
+    /// ابجکت درون گرید - یک ردیف
+    /// </summary>
+    [Parameter]
+    public object _EntityRow { get; set; }
+
+
+    //IEnumerable<Entity.Priority> Data { get; set; }
+
+    //[DefaultValue(null)]
+    [Parameter]
+    public string SearchText { get; set; }
+
+
+    RenderFragment BuildColumnsGrid
+    {
+        get
+        {  // به جای این کار میشه لیست ستون های مورد نیازو از بیرون گرفت
+            RenderFragment columns = b =>
+            {
+                foreach (var item in ListColumn)
+                {
+                    b.OpenComponent(0, typeof(DxGridDataColumn));
+                    b.AddAttribute(0, "FieldName", item.key);
+                    b.AddAttribute(0, "Caption", item.label);
+                    b.CloseComponent();
+                }
+            };
+            return columns;
+        }
+    }
+
+    protected override void OnInitialized()
+    {
+        //Set First Model
+        __Entity = _Entity;
+    }
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            await LoadData();
+        }
+    }
+
+    // /// <summary>
+    // /// درست کردن کالمن های گرید
+    // /// </summary>
+    // /// <returns></returns>
+    // private RenderFragment _BuildColumnsGrid()
+    // {
+    //     // به جای این کار میشه لیست ستون های مورد نیازو از بیرون گرفت
+    //     RenderFragment columns = b =>
+    //     {
+    //         foreach (var item in ListColumn)
+    //         {
+    //             b.OpenComponent(0, typeof(DxGridDataColumn));
+    //             b.AddAttribute(0, "FieldName", item.key);
+    //             b.AddAttribute(0, "lable", item.label);
+    //             b.CloseComponent();
+    //         }
+    //     };
+    //     return columns;
+
+    //     //این روش هر ستونی که موجودیت داشته باشه در میاره و نشون میده
+    //     // PropertyInfo[] props = Type.GetProperties();
+    //     // RenderFragment columns = b =>
+    //     // {
+    //     //     foreach (var prop in props)
+    //     //     {
+    //     //         if (prop.PropertyType == typeof(string))
+    //     //         {
+    //     //             b.OpenComponent(0, typeof(DxGridDataColumn));
+    //     //             b.AddAttribute(0, "FieldName", prop.Name);
+    //     //             b.CloseComponent();
+    //     //         }
+    //     //     }
+    //     // };
+    //     // return columns;
+    // }
+
+    async Task PageIndexChanged(int Index)
+    {
+        PageIndex = Index;
+
+        await LoadData();
+    }
+
+    async Task SearchInput(ChangeEventArgs args)
+    {
+        SearchText = args.Value.ToString();
+        DisposeTimer();
+        timer = new System.Threading.Timer(TimerElapsed, null, VALIDATION_DELAY, VALIDATION_DELAY);
+    }
+
+    private void TimerElapsed(Object obj)
+    {
+        LoadData();
+        DisposeTimer();
+    }
+
+    private void DisposeTimer()
+    {
+        if (timer != null)
+        {
+            timer.Dispose();
+            timer = null;
+        }
+    }
+
+    public async Task LoadData()
+    {
+
+
+        ListColumn = new List<View_values>();
+        if (Component.data is not null && !string.IsNullOrEmpty(Component.data.url))
+        {//اگه لود با URL هست
+
+            int skip = (PageIndex * PageSize);
+
+            //todo بعدا باید عوض بشه و مدلش تغیر کنه
+            //لیست ستون ها در بیاد
+            //<span>{{item.PriorityTitle}} </span>
+            //<span>{{item.Title}} {{item.Id}} </span>
+            //<span>{{item.Title:عنوان}} {{item.Id:آیدی}} </span>
+            //<span>{{item.PriorityTitle}} {{item.PriorityDescription}} </span>
+            var template = Component.template;
+            template = template.Replace("<span>", "");
+            template = template.Replace("</span>", "");
+            template = template.Replace("item.", "");
+            template = template.Replace("&#160;", "");
+            template = template.Trim();
+            var List = template.Split(" ").ToList();
+
+
+            //List = List.Select(x => x.Replace("{{", "").Replace("}}", "")).ToList();
+            List<KeyValuePair<string, string>> list =  ConvertParameter.GetTemplate(Component.template).Result;
+
+            foreach (var item in list)
+            {
+                //عنوان رو نشون بدیم
+                //ListColumn.Add(new View_values() { key = "PriorityTitle", label = "عنوان" });
+                 ListColumn.Add(new View_values() { key = item.Key, label = item.Value });
+            }
+
+            string Url = Component.data.url;
+            if (!Url.Contains("?"))
+            { Url += "?"; }
+            else
+            { Url += "&"; }
+
+
+
+            //todo فیلتر
+            //Global_CountryId={{data.Global_CountryId}}
+            //splite =
+
+            var QueryString = Url.Split("?")[1];
+            var ListQueryString = QueryString.Split("=");
+
+            foreach (var item in ListQueryString)
+            { 
+                if (item.Contains("{{"))
+                {//اگه پارامتر داشت
+                    //حذف کاراکتر های اضافه
+                    string KeyName = item.Replace("&", "").Replace("{", "").Replace("}", "");
+                    //بیایم پارامتر رو بگیریم و مقدارشو از موجودیت یا رکورد گرید بگیریم
+
+                    //data.Global_CountryId
+                    //data.Global_CountryId.Id
+                    //row.Global_CountryId
+                    //row.Global_CountryId.Id
+
+                    //_Entity
+                    if (KeyName.StartsWith("data."))
+                    {//موجودیت اصلی
+                        KeyName = KeyName.Replace("data.", "");
+
+                        string Value = await GetValueFromObject(__Entity, KeyName);
+                        //جایگزینی مقدار داخل ادرس
+                        Url = Url.Replace("{{data." + KeyName + "}}", Value);
+                    }
+
+                    //_EntityRow
+                    if (KeyName.StartsWith("row."))
+                    {//موجودیت گرید ایتیم گرید
+                        KeyName = KeyName.Replace("row.", "");
+
+                        string Value = await GetValueFromObject(_EntityRow, KeyName);
+                        //جایگزینی مقدار داخل ادرس
+                        Url = Url.Replace("{{row." + KeyName + "}}", Value);
+                    }
+
+
+
+
+
+
+
+                }
+            }
+
+
+
+            Url += "limit=" + PageSize + "&skip=" + skip;
+
+
+            if (!string.IsNullOrEmpty(SearchText))
+            {//اگه تکست جستجو پره اونم ارسال کنه
+
+                var searchfieldsList = Component.searchField.Split(",").ToList();
+                string Filter = "{\"condition\":\"OR\",\"rules\":[";
+                foreach (var item in searchfieldsList)
+                {
+                    Filter += "{\"id\":\"" + item + "\",\"field\":\"" + item + "\",\"type\":\"string\",\"input\":\"text\",\"operator\":\"contains\",\"value\":[\"" + SearchText + "\"]},";
+                }
+                Filter += "],\"not\":false,\"valid\":true}";
+                Url += "&Filter=" + Filter;
+            }
+
+            //روشی که جواب نداد درون سرور داخل لوکال درست بود
+            //var GetData = await Http.GetStringAsync(Url);
+            //Data = (await Utility.JSON.ToObject<List<object>>(GetData));
+
+            var R = await ApiServer.External.Send.GetAsync(Url);
+            if (R is not null)
+            {//اگه داده گرفته
+
+                if (R.Status == System.Net.HttpStatusCode.OK)
+                {
+                    //Data = R.Content;
+                    Data = (await Utility.JSON.ToObject<List<object>>(R.Content?.ToString()));
+                }
+                else
+                {
+                    Console.WriteLine("#Log LoadData Error:");
+                    Console.WriteLine(R.Status);
+                    Console.WriteLine(R.Content);
+                    Console.WriteLine(R.Message);
+                }
+            }
+
+
+            //todo
+            // var _list = List.Skip(skip).Take(PageSize).ToList();
+            // if (_list.Count == 0)
+            // {//اگه داده نداره
+            //  //todo PageCount بشه تنظیم کرد که داده ای نداشت دیگه صفحه بعدش غیر فعال باشه
+            //     DxPager.PageCount = 5;
+            //     DxPager.VisibleNumericButtonCount = 2;
+            //     StateHasChanged();
+            // }
+        }
+
+        if (Component.data is not null && Component.data.values is not null)
+        {//اگه لیست دیکشنریش پره
+         //Type = typeof(Blazor.FormBuilderTest.Models.View_values);
+
+            //فیل لیبل رو نشون بدیم
+            ListColumn.Add(new View_values() { key = "label", label = "عنوان" });
+
+            PageSize = Component.data.values.Count;
+            Data = Component.data.values;
+        }
+
+        StateHasChanged();
+    }
+
+
+    async Task _SelectedDataItem(object Selected)
+    {
+        SelectedDataItem = Selected;
+
+
+        await OnItemSelected.InvokeAsync(Selected);
+    }
+
+
+    /// <summary>
+    /// دریافت مقدار یک فیلد از موجودیت
+    /// </summary>
+    /// <param name="Entity">ابجکت موجودیت</param>
+    /// <param name="KeyName">اسم فیلدی که میخوایم مقدارشو بگیریم</param>
+    /// <returns></returns>
+    public async Task<string> GetValueFromObject(object Entity, string KeyName)
+    {
+        if (Entity == null)
+        {//موجودیت داده شده نال بود خالی برگردون
+            return "";
+        } 
+        if (KeyName.Contains("."))
+        {//وقتی اسم موجودیت در موجودیت هستش
+         //اگه چند اسمی بودش
+         //Global_CountryId.Id
+         //todo
+            string newKeyName = "";
+            object newEntity = null; 
+            return await GetValueFromObject(newEntity, newKeyName);
+        } 
+        var type = Entity.GetType();
+        string Value = "";
+
+        var FindedProperty = type.GetProperties().FirstOrDefault(x => x.Name == KeyName);
+        if (FindedProperty != null)
+        {//فیلد رو پیدا کرد
+            var FindedValue = FindedProperty.GetValue(Entity);
+
+            if (FindedValue != null)
+            {//مقدارش نال نبود
+                Value = FindedValue.ToString();
+            }
+        }
+
+        return Value;
+    }
+    public void SetEntity(object t)
+    {
+        __Entity = t;
+        StateHasChanged();
+    }
+
+}
