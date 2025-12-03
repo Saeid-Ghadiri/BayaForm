@@ -1,0 +1,1975 @@
+@inherits Forms.Forms.Form_1010Base
+@namespace FormsPage
+
+@using AKSoftware.Localization.MultiLanguages.Blazor
+@using Baya.Models.Utility;
+@using Baya.Models.ORM
+@using Microsoft.AspNetCore.Components.Forms
+@using Microsoft.AspNetCore.Components.Authorization;
+@using System.Security.Claims
+@using System.Net
+@using Microsoft.JSInterop
+@using Baya.Models.ViewEngine
+@using Forms.Domain.Utility
+@using Castle.DynamicLinqQueryBuilder
+<style>
+    .form-check-input[type=checkbox] {
+  margin-inline-start: 5px !important;
+}
+
+.form-check-input:checked {
+  margin-inline-start: 5px !important;
+  border: none;
+  background-color: #00237c;
+}
+
+
+.dir_lrt .dxbl-scroll-viewer-content .dxbl-grid-table{
+  direction: ltr;
+}
+</style>
+
+<Plugins.Tools.ConfirmDialog @ref="Confirm" />
+
+<span class="d-none">VersionForm:@VersionForm</span>
+@*
+@if (!string.IsNullOrEmpty(SumaryMessage))
+{
+    <div>
+        @SumaryMessage
+    </div>
+} *@
+
+@* <EditForm @ref="_Form" Model="_Entity" OnValidSubmit="ValidFormSubmitted" OnInvalidSubmit="InvalidFormSubmitted" OnSubmit="Submit"> *@
+<div class="@(ReadOnly?"FormReadOnly":"")">
+    <EditForm @ref="_Form" Model="_Entity" OnSubmit="Submit">
+        
+<div class="">
+    
+</div>
+
+<div class="row ">
+    
+<div class="col-md-6">
+    
+<div class="row  card flex-row pb-2 m-1 border-0 bg-lightblue">
+    
+<div class="col-md-12">
+    <div  class="">
+    <div class="fw-black fs-6 rounded p-2 mt-2" style="background-color: #258999; color: #fff;">
+  کاربر درخواست دهنده
+</div>
+</div>
+
+</div>
+
+<div class="col-md-3">
+    
+<Input Id="UserStarterFullName" @ref="Ref_UserStarterFullName" Label="کاربر"   Disabled=true  @bind-Value="_Entity.UserStarterFullName" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"maxlength\":\"400\"}").Result))></Input>
+
+</div>
+
+<div class="col-md-3">
+    
+<Input Id="UserStarterCompanyName" @ref="Ref_UserStarterCompanyName" Label="شرکت کاربر	"   Disabled=true  @bind-Value="_Entity.UserStarterCompanyName" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"maxlength\":\"250\"}").Result))></Input>
+
+</div>
+
+<div class="col-md-3">
+    
+<Input Id="UserStarterUnitName" @ref="Ref_UserStarterUnitName" Label="واحد کاربر"   Disabled=true  @bind-Value="_Entity.UserStarterUnitName" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"maxlength\":\"250\"}").Result))></Input>
+
+</div>
+
+<div class="col-md-3">
+    
+<Input Id="UserStarterSectionName" @ref="Ref_UserStarterSectionName" Label="قسمت کاربر"   Disabled=true  @bind-Value="_Entity.UserStarterSectionName" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"maxlength\":\"250\"}").Result))></Input>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="col-md-6">
+    
+<Input Id="RequestTrakingCode" @ref="Ref_RequestTrakingCode" Label="کد پیگیری سیستمی"  CssClass="d-none" Disabled=true  @bind-Value="_Entity.RequestTrakingCode" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"maxlength\":\"250\"}").Result))></Input>
+
+<Input Id="ProcessVersionID" @ref="Ref_ProcessVersionID" Label="شناسه نسخه فرآیند جاری"  CssClass="d-none" Disabled=true  @bind-Value="_Entity.ProcessVersionID" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"maxlength\":\"250\"}").Result))></Input>
+
+<Input Id="UserStarterID" @ref="Ref_UserStarterID" Label="شناسه کاربر درخواست دهنده"  CssClass="d-none" Disabled=true  @bind-Value="_Entity.UserStarterID" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"maxlength\":\"100\"}").Result))></Input>
+
+</div>
+
+</div>
+<div  class="">
+    <hr class="hrdash bg-lighpurple">
+</div>
+
+<div class="row ">
+    
+<div class="col-md-3">
+    
+<Input Id="IsResultOfAnotherProcess" @ref="Ref_IsResultOfAnotherProcess" Label="آیا این فرایند منتج از فرایند دیگری است؟"     @bind-Value="_Entity.IsResultOfAnotherProcess" type="checkbox"    oninput="@(e => IsResultOfAnotherProcess_oninput(e ))"  Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+</div>
+
+<div class="col-md-3">
+     
+ 
+@code {
+    Baya.Models.ViewEngine.View_Component Component_IDMS_RDC_MasterTrackingCode = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"EntityName\":\"بخش اصلی سیستم تحقیق و توسعه\",\"primaryKey\":false,\"EntityID\":740,\"FieldId\":30798,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":1010,\"NotMapped\":true,\"Relation\":true,\"RelationExternal\":true,\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/IDMS_RDC_Master/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.RequestTrakingCode}} </span>\",\"FieldsTemplate\":[{\"key\":\"RequestTrakingCode\",\"value\":\"nvarchar(Max)\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"searchField\":\"RequestTrakingCode\",\"modal\":true,\"label\":\"کد پیگیری\",\"tableView\":true,\"key\":\"TrackingCode\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"30798?EId=740&SubId=31\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true,\"onitemselected\":\"TrackingCode_onitemselected\"}").Result;
+}
+
+    <Dropdown Id=TrackingCode  @ref="Ref_TrackingCode" Label="کد پیگیری" CssClass=""  DisplayFormat="DropDown" ExternalApi=true NotMapped=true TextGrid=false   FieldName="TrackingCode" OnItemSelected="ItemSelected_IDMS_RDC_MasterTrackingCode" Component="Component_IDMS_RDC_MasterTrackingCode" _Entity="_Entity" >
+</Dropdown>
+@code {
+    public async Task ItemSelected_IDMS_RDC_MasterTrackingCode(object _Item)
+    {
+        var Selected = Utility.JSON.ToObject<dynamic>(Utility.JSON.ToJson(_Item).Result).Result;
+     var Item = _Entity;
+
+    
+
+    
+
+    await TrackingCode_onitemselected( Selected);
+    }
+} 
+
+</div>
+
+<div class="col-md-3">
+    
+</div>
+
+<div class="col-md-3">
+    
+</div>
+
+</div>
+ 
+ 
+@code {
+    Baya.Models.ViewEngine.View_Component Component_IDMS_RDC_MasterIDMS_RDC_AllData = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"EntityName\":\"بخش اصلی سیستم تحقیق و توسعه\",\"primaryKey\":false,\"EntityID\":740,\"FieldId\":30793,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":1010,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":true,\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/IDMS_RDCAllData/GetList?RequestTrakingCode={{data.RequestTrakingCode}}\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"inputFormat\":\"DataGrid\",\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"MasterId\",\"template\":\"<span>{{item.RequestTrakingCode}} {{item.UserStarterFullName}} {{item.UserStarterCompanyName}} {{item.UserStarterUnitName}} {{item.UserStarterSectionName}} {{item.ProductCategoryTitle}} {{item.ProductTitle}} </span>\",\"FieldsTemplate\":[{\"key\":\"RequestTrakingCode\",\"value\":\"nvarchar(Max)\"},{\"key\":\"UserStarterFullName\",\"value\":\"nvarchar(Max)\"},{\"key\":\"UserStarterCompanyName\",\"value\":\"nvarchar(Max)\"},{\"key\":\"UserStarterUnitName\",\"value\":\"nvarchar(Max)\"},{\"key\":\"UserStarterSectionName\",\"value\":\"nvarchar(Max)\"}],\"dataSrc\":\"url\",\"refreshOn\":\"IDMS_RDC_Master.RequestTrakingCode\",\"searchField\":\"MasterId,RequestTrakingCode\",\"clearOnRefresh\":true,\"disabled\":true,\"modal\":true,\"label\":\"اطلاعات جداول اصلی و جزئیات درخواست\",\"tableView\":true,\"key\":\"IDMS_RDC_AllData\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"30793?EId=740&SubId=31\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
+}
+
+    <Dropdown Id=IDMS_RDC_AllData Disabled=true @ref="Ref_IDMS_RDC_AllData" Label="اطلاعات جداول اصلی و جزئیات درخواست" CssClass=""  DisplayFormat="DataGrid" ExternalApi=true NotMapped=false TextGrid=false  Value="@_Entity.IDMS_RDC_AllData" FieldName="IDMS_RDC_AllData" OnItemSelected="ItemSelected_IDMS_RDC_MasterIDMS_RDC_AllData" Component="Component_IDMS_RDC_MasterIDMS_RDC_AllData" _Entity="_Entity" >
+</Dropdown>
+@code {
+    public async Task ItemSelected_IDMS_RDC_MasterIDMS_RDC_AllData(object _Item)
+    {
+        var Selected = Utility.JSON.ToObject<dynamic>(Utility.JSON.ToJson(_Item).Result).Result;
+     var Item = _Entity;
+
+    Item.IDMS_RDC_AllData = Selected.MasterId;
+
+
+    
+
+    
+    }
+} 
+<div  class="">
+    <hr class="hrdash bg-lighpurple">
+</div>
+<label for="IDMS_RDC_Details_GridIDMS_RDC_MasterId_741">بخش جزئیات سیستم تحقیق و توسعه
+   
+    
+</label>
+
+<DxGrid @ref="Grid_IDMS_RDC_Details" Data="_Entity.IDMS_RDC_Details" KeyFieldName="_Id" EditMode="GridEditMode.PopupEditForm"
+        EditModelSaving="OnEditModelSavingIDMS_RDC_Details"
+        DataItemDeleting="OnDataItemDeletingIDMS_RDC_Details"
+        PopupEditFormCssClass="ModalWidth"
+        PopupEditFormHeaderText="بخش جزئیات سیستم تحقیق و توسعه"
+        EditFormButtonsVisible="false"
+        CustomizeEditModel="CustomizeEditGrid_IDMS_RDC_Details"
+        CustomizeElement="CustomizeRowsGrid_IDMS_RDC_Details" 
+        Component="@((Utility.JSON.ToObject<View_Component>("{\"primaryKey\":false,\"EntityID\":741,\"FieldId\":741,\"NotNull\":false,\"ViewId\":0,\"NotMapped\":false,\"Relation\":false,\"RelationExternal\":false,\"RelationChildModel\":\"IDMS_RDC_Details\",\"GridMainModel\":\"IDMS_RDC_Details\",\"widget\":{\"altInput\":false,\"allowInput\":false,\"clickOpens\":false,\"enableDate\":false,\"enableTime\":false,\"noCalendar\":false,\"useLocaleSettings\":false,\"hourIncrement\":0,\"minuteIncrement\":0,\"time_24hr\":false},\"wysiwyg\":false,\"data\":{},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"FieldsTemplate\":[],\"refreshOn\":\"data\",\"reorder\":false,\"addAnotherPosition\":\"bottom\",\"layoutFixed\":false,\"enableRowGroups\":false,\"initEmpty\":false,\"disabled\":true,\"modal\":true,\"label\":\"بخش جزئیات سیستم تحقیق و توسعه\",\"tableView\":true,\"key\":\"GridIDMS_RDC_MasterId_741\",\"type\":\"datagrid\",\"input\":true,\"placeholder\":\"GridIDMS_RDC_MasterId_741\",\"modalEdit\":true,\"FieldUrl\":\"741?EId=741&SubId=31\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":false,\"AccessEdit\":true,\"AccessNew\":true,\"editmodelsaving\":\"GridIDMS_RDC_MasterId_741_editmodelsaving\",\"afterrendermodal\":\"GridIDMS_RDC_MasterId_741_afterrendermodal\"}").Result))"
+         >
+    <Columns>
+    
+<DxGridCommandColumn Width="70px">
+    <HeaderTemplate Context="HeaderContext">
+       
+<a id=IDMS_RDC_Details_GridIDMS_RDC_MasterId_741ButtonNew class="btn btn-sm btn-green btnGridAddData" @onclick="@(() => StartEditNewRowAsync_Grid_IDMS_RDC_Details())" style="text-decoration: none;" href="javascript:void(0);">
+    <span class="fal fa-plus-circle btnicon"></span>
+    <span>@languageContainer.Keys["DXGrid:New"]</span>
+</a>
+
+    </HeaderTemplate>
+    <CellDisplayTemplate Context="CellContext">
+       
+<a id=IDMS_RDC_Details_GridIDMS_RDC_MasterId_741ButtonEdit class="btn btn-sm btn-yellow-light btnEditGridData" @onclick="@(() => StartModalGrid_IDMS_RDC_Details(CellContext))" style="text-decoration: none;" href="javascript:void(0);">
+    <span class="fal fa-pencil btnicon"></span>
+</a>
+
+       
+    </CellDisplayTemplate>
+</DxGridCommandColumn>
+
+    <DxGridCommandColumn   Width="60px">
+           <HeaderTemplate Context="HeaderContext">
+               <a    style="text-decoration: none;"  >
+                
+                   <span>ردیف</span>
+               </a>
+           </HeaderTemplate>
+           <CellDisplayTemplate Context="CellContext">
+            @if (CellContext.VisibleIndex > 9){
+                <p>@(CellContext.VisibleIndex + 1)</p>
+            }else{
+                <p>@(((CellContext.Grid.PageIndex * CellContext.Grid.PageSize) + (CellContext.VisibleIndex + 1)))</p>
+            }
+          
+           </CellDisplayTemplate>
+     </DxGridCommandColumn>
+    <DxGridDataColumn Context="IDMS_ProductCategoriesId_" Caption="دسته بندی محصولات" >
+    <CellDisplayTemplate>
+       
+@{
+    Baya.Models.ViewEngine.View_Component HeaderIDMS_ProductCategoriesId = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"primaryKey\":false,\"EntityID\":741,\"FieldId\":30701,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":1010,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":false,\"RelationParentName\":\"IDMS_ProductCategories\",\"RelationParentModel\":\"IDMS_ProductCategories\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/View_IDMS_ProductCategories_Root/GetList\"},\"validate\":{\"required\":true,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.Root}} </span>\",\"FieldsTemplate\":[{\"key\":\"Root\",\"value\":\"nvarchar(Max)\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"searchField\":\"Root\",\"disableLimit\":false,\"noRefreshOnScroll\":false,\"modal\":true,\"label\":\"دسته بندی محصولات\",\"tableView\":true,\"key\":\"IDMS_ProductCategoriesId\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"customClass\":\"dir_lrt Gcol-sm-8 Gcol-md-6 Gcol-lg-3\",\"FieldUrl\":\"30701?EId=741&SubId=31\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
+    var RowIDMS_ProductCategoriesId = ((Entity.IDMS_RDC_Details)IDMS_ProductCategoriesId_.DataItem).IDMS_ProductCategoriesId;
+}
+
+<Dropdown ExternalApi=false NotMapped=false TextGrid=true Value="@RowIDMS_ProductCategoriesId"   FieldName="IDMS_ProductCategoriesId" OnItemSelected="ItemSelected_IDMS_RDC_DetailsIDMS_ProductCategoriesId_Header" Component="HeaderIDMS_ProductCategoriesId">
+</Dropdown>
+@code {
+    public async Task ItemSelected_IDMS_RDC_DetailsIDMS_ProductCategoriesId_Header(object _Item)
+    {
+      //  var Selected = Utility.JSON.ToObject<dynamic>(Utility.JSON.ToJson(_Item).Result).Result;
+  //   IDMS_ProductCategoriesId
+
+  //  #CustomCode
+
+ //   
+
+  //  #OnItemSelected
+    }
+}
+
+    </CellDisplayTemplate>
+</DxGridDataColumn>
+<DxGridDataColumn Context="IDMS_ProductsId_" Caption="محصولات" >
+    <CellDisplayTemplate>
+       
+@{
+    Baya.Models.ViewEngine.View_Component HeaderIDMS_ProductsId = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"primaryKey\":false,\"EntityID\":741,\"FieldId\":30702,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":1010,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":false,\"RelationParentName\":\"IDMS_Products\",\"RelationParentModel\":\"IDMS_Products\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/IDMS_Products/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.ProductCode}} {{item.ProductTitle}} </span>\",\"FieldsTemplate\":[{\"key\":\"ProductCode\",\"value\":\"int\"},{\"key\":\"ProductTitle\",\"value\":\"nvarchar(Max)\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"searchField\":\"ProductCode,ProductTitle\",\"disableLimit\":false,\"noRefreshOnScroll\":false,\"modal\":true,\"label\":\"محصولات\",\"tableView\":true,\"key\":\"IDMS_ProductsId\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"customClass\":\"Gcol-sm-8 Gcol-md-6 Gcol-lg-3\",\"FieldUrl\":\"30702?EId=741&SubId=31\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
+    var RowIDMS_ProductsId = ((Entity.IDMS_RDC_Details)IDMS_ProductsId_.DataItem).IDMS_ProductsId;
+}
+
+<Dropdown ExternalApi=false NotMapped=false TextGrid=true Value="@RowIDMS_ProductsId"   FieldName="IDMS_ProductsId" OnItemSelected="ItemSelected_IDMS_RDC_DetailsIDMS_ProductsId_Header" Component="HeaderIDMS_ProductsId">
+</Dropdown>
+@code {
+    public async Task ItemSelected_IDMS_RDC_DetailsIDMS_ProductsId_Header(object _Item)
+    {
+      //  var Selected = Utility.JSON.ToObject<dynamic>(Utility.JSON.ToJson(_Item).Result).Result;
+  //   IDMS_ProductsId
+
+  //  #CustomCode
+
+ //   
+
+  //  #OnItemSelected
+    }
+}
+
+    </CellDisplayTemplate>
+</DxGridDataColumn>
+<DxGridDataColumn Context="IDMS_CustomerId_" Caption="مشتری" >
+    <CellDisplayTemplate>
+       
+@{
+    Baya.Models.ViewEngine.View_Component HeaderIDMS_CustomerId = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"primaryKey\":false,\"EntityID\":741,\"FieldId\":30712,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":1010,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":false,\"RelationParentName\":\"IDMS_Customer\",\"RelationParentModel\":\"IDMS_Customer\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/IDMS_Customer/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.CustomerCode}} {{item.CustomerTitle}} </span>\",\"FieldsTemplate\":[{\"key\":\"CustomerCode\",\"value\":\"int\"},{\"key\":\"CustomerTitle\",\"value\":\"nvarchar(Max)\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"searchField\":\"CustomerCode,CustomerTitle\",\"disableLimit\":false,\"noRefreshOnScroll\":false,\"modal\":true,\"label\":\"مشتری\",\"tableView\":true,\"key\":\"IDMS_CustomerId\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"customClass\":\"Gcol-sm-8 Gcol-md-6 Gcol-lg-3\",\"FieldUrl\":\"30712?EId=741&SubId=31\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
+    var RowIDMS_CustomerId = ((Entity.IDMS_RDC_Details)IDMS_CustomerId_.DataItem).IDMS_CustomerId;
+}
+
+<Dropdown ExternalApi=false NotMapped=false TextGrid=true Value="@RowIDMS_CustomerId"   FieldName="IDMS_CustomerId" OnItemSelected="ItemSelected_IDMS_RDC_DetailsIDMS_CustomerId_Header" Component="HeaderIDMS_CustomerId">
+</Dropdown>
+@code {
+    public async Task ItemSelected_IDMS_RDC_DetailsIDMS_CustomerId_Header(object _Item)
+    {
+      //  var Selected = Utility.JSON.ToObject<dynamic>(Utility.JSON.ToJson(_Item).Result).Result;
+  //   IDMS_CustomerId
+
+  //  #CustomCode
+
+ //   
+
+  //  #OnItemSelected
+    }
+}
+
+    </CellDisplayTemplate>
+</DxGridDataColumn>
+<DxGridDataColumn Context="IDMS_ResultingFromId_" Caption="منتج از " >
+    <CellDisplayTemplate>
+       
+@{
+    Baya.Models.ViewEngine.View_Component HeaderIDMS_ResultingFromId = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"primaryKey\":false,\"EntityID\":741,\"FieldId\":30722,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":1010,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":false,\"RelationParentName\":\"IDMS_ResultingFrom\",\"RelationParentModel\":\"IDMS_ResultingFrom\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/IDMS_ResultingFrom/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.ResultingFromCode}} {{item.ResultingFromTitle}} </span>\",\"FieldsTemplate\":[{\"key\":\"ResultingFromCode\",\"value\":\"int\"},{\"key\":\"ResultingFromTitle\",\"value\":\"nvarchar(Max)\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"searchField\":\"ResultingFromCode,ResultingFromTitle\",\"disableLimit\":false,\"noRefreshOnScroll\":false,\"modal\":true,\"label\":\"منتج از \",\"tableView\":true,\"key\":\"IDMS_ResultingFromId\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"customClass\":\"Gcol-sm-8 Gcol-md-6 Gcol-lg-3\",\"FieldUrl\":\"30722?EId=741&SubId=31\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
+    var RowIDMS_ResultingFromId = ((Entity.IDMS_RDC_Details)IDMS_ResultingFromId_.DataItem).IDMS_ResultingFromId;
+}
+
+<Dropdown ExternalApi=false NotMapped=false TextGrid=true Value="@RowIDMS_ResultingFromId"   FieldName="IDMS_ResultingFromId" OnItemSelected="ItemSelected_IDMS_RDC_DetailsIDMS_ResultingFromId_Header" Component="HeaderIDMS_ResultingFromId">
+</Dropdown>
+@code {
+    public async Task ItemSelected_IDMS_RDC_DetailsIDMS_ResultingFromId_Header(object _Item)
+    {
+      //  var Selected = Utility.JSON.ToObject<dynamic>(Utility.JSON.ToJson(_Item).Result).Result;
+  //   IDMS_ResultingFromId
+
+  //  #CustomCode
+
+ //   
+
+  //  #OnItemSelected
+    }
+}
+
+    </CellDisplayTemplate>
+</DxGridDataColumn>
+<DxGridDataColumn  Caption="تاریخ پیشنهادی انجام کار"  FieldName="RequestedDueDate_Fa" />
+
+<DxGridDataColumn  Caption="توضیحات"  FieldName="Description" />
+
+<DxGridDataColumn  Caption="Id" Visible=false FieldName="Id" />
+
+<DxGridDataColumn  Caption="RequestID" Visible=false FieldName="RequestID" />
+
+<DxGridDataColumn  Caption="CreateUser" Visible=false FieldName="CreateUser" />
+
+<DxGridDataColumn  Caption="UpdateUser" Visible=false FieldName="UpdateUser" />
+
+<DxGridDataColumn  Caption="CreateDate" Visible=false FieldName="CreateDate" />
+
+<DxGridDataColumn  Caption="UpdateDate" Visible=false FieldName="UpdateDate" />
+
+<DxGridDataColumn  Caption="IsDelete" Visible=false FieldName="IsDelete" />
+
+<DxGridDataColumn  Caption="تاریخ پیشنهادی انجام کار - میلادی" Visible=false FieldName="RequestedDueDate" />
+
+
+</Columns>
+
+    <EditFormTemplate Context="EditFormContextIDMS_RDC_Details">
+    @{
+        IDMS_RDC_Details  = (Entity.IDMS_RDC_Details)EditFormContextIDMS_RDC_Details.EditModel;
+    }
+    <DxFormLayout>
+        <DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextIDMS_RDC_Details">
+     
+ 
+@code {
+    Baya.Models.ViewEngine.View_Component Component_IDMS_RDC_DetailsIDMS_ProductCategoriesId = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"primaryKey\":false,\"EntityID\":741,\"FieldId\":30701,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":1010,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":false,\"RelationParentName\":\"IDMS_ProductCategories\",\"RelationParentModel\":\"IDMS_ProductCategories\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/View_IDMS_ProductCategories_Root/GetList\"},\"validate\":{\"required\":true,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.Root}} </span>\",\"FieldsTemplate\":[{\"key\":\"Root\",\"value\":\"nvarchar(Max)\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"searchField\":\"Root\",\"disableLimit\":false,\"noRefreshOnScroll\":false,\"modal\":true,\"label\":\"دسته بندی محصولات\",\"tableView\":true,\"key\":\"IDMS_ProductCategoriesId\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"customClass\":\"dir_lrt Gcol-sm-8 Gcol-md-6 Gcol-lg-3\",\"FieldUrl\":\"30701?EId=741&SubId=31\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
+}
+
+    <Dropdown Id=IDMS_RDC_Details_IDMS_ProductCategoriesId  @ref="Ref_IDMS_RDC_Details_IDMS_ProductCategoriesId" Label="دسته بندی محصولات" CssClass="dir_lrt Gcol-sm-8 Gcol-md-6 Gcol-lg-3" Required=true DisplayFormat="DropDown" ExternalApi=true NotMapped=false TextGrid=false Text="" Value="@IDMS_RDC_Details.IDMS_ProductCategoriesId" FieldName="IDMS_ProductCategoriesId" OnItemSelected="ItemSelected_IDMS_RDC_DetailsIDMS_ProductCategoriesId" Component="Component_IDMS_RDC_DetailsIDMS_ProductCategoriesId" _Entity="_Entity" _EntityRow=IDMS_RDC_Details>
+</Dropdown>
+@code {
+    public async Task ItemSelected_IDMS_RDC_DetailsIDMS_ProductCategoriesId(object _Item)
+    {
+        var Selected = Utility.JSON.ToObject<dynamic>(Utility.JSON.ToJson(_Item).Result).Result;
+     var Item = IDMS_RDC_Details;
+
+      //Todo
+ //برای اینکه آی دی تغییر کند اینجا نیز باید تغییر کند
+ //بهتر است از پرایمیری کی استفاده شود
+ Item.IDMS_ProductCategoriesId = Selected.Id;
+ Item.IDMS_ProductCategories = await Utility.JSON.ToObject<Entity.IDMS_ProductCategories>(await Utility.JSON.ToJson(_Item));
+
+    
+
+    
+    }
+} 
+
+</DxFormLayoutItem>
+
+<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextIDMS_RDC_Details">
+     
+ 
+@code {
+    Baya.Models.ViewEngine.View_Component Component_IDMS_RDC_DetailsIDMS_ProductsId = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"primaryKey\":false,\"EntityID\":741,\"FieldId\":30702,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":1010,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":false,\"RelationParentName\":\"IDMS_Products\",\"RelationParentModel\":\"IDMS_Products\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/IDMS_Products/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.ProductCode}} {{item.ProductTitle}} </span>\",\"FieldsTemplate\":[{\"key\":\"ProductCode\",\"value\":\"int\"},{\"key\":\"ProductTitle\",\"value\":\"nvarchar(Max)\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"searchField\":\"ProductCode,ProductTitle\",\"disableLimit\":false,\"noRefreshOnScroll\":false,\"modal\":true,\"label\":\"محصولات\",\"tableView\":true,\"key\":\"IDMS_ProductsId\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"customClass\":\"Gcol-sm-8 Gcol-md-6 Gcol-lg-3\",\"FieldUrl\":\"30702?EId=741&SubId=31\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
+}
+
+    <Dropdown Id=IDMS_RDC_Details_IDMS_ProductsId  @ref="Ref_IDMS_RDC_Details_IDMS_ProductsId" Label="محصولات" CssClass="Gcol-sm-8 Gcol-md-6 Gcol-lg-3"  DisplayFormat="DropDown" ExternalApi=true NotMapped=false TextGrid=false Text="" Value="@IDMS_RDC_Details.IDMS_ProductsId" FieldName="IDMS_ProductsId" OnItemSelected="ItemSelected_IDMS_RDC_DetailsIDMS_ProductsId" Component="Component_IDMS_RDC_DetailsIDMS_ProductsId" _Entity="_Entity" _EntityRow=IDMS_RDC_Details>
+</Dropdown>
+@code {
+    public async Task ItemSelected_IDMS_RDC_DetailsIDMS_ProductsId(object _Item)
+    {
+        var Selected = Utility.JSON.ToObject<dynamic>(Utility.JSON.ToJson(_Item).Result).Result;
+     var Item = IDMS_RDC_Details;
+
+      //Todo
+ //برای اینکه آی دی تغییر کند اینجا نیز باید تغییر کند
+ //بهتر است از پرایمیری کی استفاده شود
+ Item.IDMS_ProductsId = Selected.Id;
+ Item.IDMS_Products = await Utility.JSON.ToObject<Entity.IDMS_Products>(await Utility.JSON.ToJson(_Item));
+
+    
+
+    
+    }
+} 
+
+</DxFormLayoutItem>
+
+<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextIDMS_RDC_Details">
+     
+ 
+@code {
+    Baya.Models.ViewEngine.View_Component Component_IDMS_RDC_DetailsIDMS_CustomerId = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"primaryKey\":false,\"EntityID\":741,\"FieldId\":30712,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":1010,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":false,\"RelationParentName\":\"IDMS_Customer\",\"RelationParentModel\":\"IDMS_Customer\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/IDMS_Customer/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.CustomerCode}} {{item.CustomerTitle}} </span>\",\"FieldsTemplate\":[{\"key\":\"CustomerCode\",\"value\":\"int\"},{\"key\":\"CustomerTitle\",\"value\":\"nvarchar(Max)\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"searchField\":\"CustomerCode,CustomerTitle\",\"disableLimit\":false,\"noRefreshOnScroll\":false,\"modal\":true,\"label\":\"مشتری\",\"tableView\":true,\"key\":\"IDMS_CustomerId\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"customClass\":\"Gcol-sm-8 Gcol-md-6 Gcol-lg-3\",\"FieldUrl\":\"30712?EId=741&SubId=31\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
+}
+
+    <Dropdown Id=IDMS_RDC_Details_IDMS_CustomerId  @ref="Ref_IDMS_RDC_Details_IDMS_CustomerId" Label="مشتری" CssClass="Gcol-sm-8 Gcol-md-6 Gcol-lg-3"  DisplayFormat="DropDown" ExternalApi=true NotMapped=false TextGrid=false Text="" Value="@IDMS_RDC_Details.IDMS_CustomerId" FieldName="IDMS_CustomerId" OnItemSelected="ItemSelected_IDMS_RDC_DetailsIDMS_CustomerId" Component="Component_IDMS_RDC_DetailsIDMS_CustomerId" _Entity="_Entity" _EntityRow=IDMS_RDC_Details>
+</Dropdown>
+@code {
+    public async Task ItemSelected_IDMS_RDC_DetailsIDMS_CustomerId(object _Item)
+    {
+        var Selected = Utility.JSON.ToObject<dynamic>(Utility.JSON.ToJson(_Item).Result).Result;
+     var Item = IDMS_RDC_Details;
+
+      //Todo
+ //برای اینکه آی دی تغییر کند اینجا نیز باید تغییر کند
+ //بهتر است از پرایمیری کی استفاده شود
+ Item.IDMS_CustomerId = Selected.Id;
+ Item.IDMS_Customer = await Utility.JSON.ToObject<Entity.IDMS_Customer>(await Utility.JSON.ToJson(_Item));
+
+    
+
+    
+    }
+} 
+
+</DxFormLayoutItem>
+
+<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextIDMS_RDC_Details">
+     
+ 
+@code {
+    Baya.Models.ViewEngine.View_Component Component_IDMS_RDC_DetailsIDMS_ResultingFromId = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"primaryKey\":false,\"EntityID\":741,\"FieldId\":30722,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":1010,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":false,\"RelationParentName\":\"IDMS_ResultingFrom\",\"RelationParentModel\":\"IDMS_ResultingFrom\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/IDMS_ResultingFrom/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.ResultingFromCode}} {{item.ResultingFromTitle}} </span>\",\"FieldsTemplate\":[{\"key\":\"ResultingFromCode\",\"value\":\"int\"},{\"key\":\"ResultingFromTitle\",\"value\":\"nvarchar(Max)\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"searchField\":\"ResultingFromCode,ResultingFromTitle\",\"disableLimit\":false,\"noRefreshOnScroll\":false,\"modal\":true,\"label\":\"منتج از \",\"tableView\":true,\"key\":\"IDMS_ResultingFromId\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"customClass\":\"Gcol-sm-8 Gcol-md-6 Gcol-lg-3\",\"FieldUrl\":\"30722?EId=741&SubId=31\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
+}
+
+    <Dropdown Id=IDMS_RDC_Details_IDMS_ResultingFromId  @ref="Ref_IDMS_RDC_Details_IDMS_ResultingFromId" Label="منتج از " CssClass="Gcol-sm-8 Gcol-md-6 Gcol-lg-3"  DisplayFormat="DropDown" ExternalApi=true NotMapped=false TextGrid=false Text="" Value="@IDMS_RDC_Details.IDMS_ResultingFromId" FieldName="IDMS_ResultingFromId" OnItemSelected="ItemSelected_IDMS_RDC_DetailsIDMS_ResultingFromId" Component="Component_IDMS_RDC_DetailsIDMS_ResultingFromId" _Entity="_Entity" _EntityRow=IDMS_RDC_Details>
+</Dropdown>
+@code {
+    public async Task ItemSelected_IDMS_RDC_DetailsIDMS_ResultingFromId(object _Item)
+    {
+        var Selected = Utility.JSON.ToObject<dynamic>(Utility.JSON.ToJson(_Item).Result).Result;
+     var Item = IDMS_RDC_Details;
+
+      //Todo
+ //برای اینکه آی دی تغییر کند اینجا نیز باید تغییر کند
+ //بهتر است از پرایمیری کی استفاده شود
+ Item.IDMS_ResultingFromId = Selected.Id;
+ Item.IDMS_ResultingFrom = await Utility.JSON.ToObject<Entity.IDMS_ResultingFrom>(await Utility.JSON.ToJson(_Item));
+
+    
+
+    
+    }
+} 
+
+</DxFormLayoutItem>
+
+<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextIDMS_RDC_Details">
+    
+<Input Id="IDMS_RDC_Details_RequestedDueDate_Fa" @ref="Ref_IDMS_RDC_Details_RequestedDueDate_Fa" Label="تاریخ پیشنهادی انجام کار"  CssClass=" PersianDatePicker Gcol-sm-8 Gcol-md-6 Gcol-lg-3"   @bind-Value="IDMS_RDC_Details.RequestedDueDate_Fa" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"data-jdp\":\"  \",\"data-jdp-only-date\":\"   \"}").Result))></Input>
+
+</DxFormLayoutItem>
+
+<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextIDMS_RDC_Details">
+    
+<Input Id="IDMS_RDC_Details_Description" @ref="Ref_IDMS_RDC_Details_Description" Label="توضیحات"  CssClass="Gcol-sm-8 Gcol-md-6 Gcol-lg-12"   @bind-Value="IDMS_RDC_Details.Description" type="textarea"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"maxlength\":\"1500\"}").Result))></Input>
+
+</DxFormLayoutItem>
+
+<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextIDMS_RDC_Details">
+    
+<Input Id="IDMS_RDC_Details_Id" @ref="Ref_IDMS_RDC_Details_Id"   CssClass="d-none"   @bind-Value="IDMS_RDC_Details.Id" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+</DxFormLayoutItem>
+
+<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextIDMS_RDC_Details">
+    
+<Input Id="IDMS_RDC_Details_RequestID" @ref="Ref_IDMS_RDC_Details_RequestID"      @bind-Value="IDMS_RDC_Details.RequestID" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+</DxFormLayoutItem>
+
+<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextIDMS_RDC_Details">
+    
+<Input Id="IDMS_RDC_Details_CreateUser" @ref="Ref_IDMS_RDC_Details_CreateUser"      @bind-Value="IDMS_RDC_Details.CreateUser" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+</DxFormLayoutItem>
+
+<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextIDMS_RDC_Details">
+    
+<Input Id="IDMS_RDC_Details_UpdateUser" @ref="Ref_IDMS_RDC_Details_UpdateUser"      @bind-Value="IDMS_RDC_Details.UpdateUser" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+</DxFormLayoutItem>
+
+<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextIDMS_RDC_Details">
+    
+<Input Id="IDMS_RDC_Details_CreateDate" @ref="Ref_IDMS_RDC_Details_CreateDate"   CssClass="d-none"   @bind-Value="IDMS_RDC_Details.CreateDate" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+</DxFormLayoutItem>
+
+<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextIDMS_RDC_Details">
+    
+<Input Id="IDMS_RDC_Details_UpdateDate" @ref="Ref_IDMS_RDC_Details_UpdateDate"   CssClass="d-none"   @bind-Value="IDMS_RDC_Details.UpdateDate" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+</DxFormLayoutItem>
+
+<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextIDMS_RDC_Details">
+    
+<Input Id="IDMS_RDC_Details_IsDelete" @ref="Ref_IDMS_RDC_Details_IsDelete"   CssClass="d-none"   @bind-Value="IDMS_RDC_Details.IsDelete" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+</DxFormLayoutItem>
+
+<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextIDMS_RDC_Details">
+    
+<Input Id="IDMS_RDC_Details_RequestedDueDate" @ref="Ref_IDMS_RDC_Details_RequestedDueDate" Label="تاریخ پیشنهادی انجام کار - میلادی"  CssClass="d-none" Disabled=true  @bind-Value="IDMS_RDC_Details.RequestedDueDate" type="datetime-local"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+</DxFormLayoutItem>
+
+
+        <DxFormLayoutItem ColSpanMd="12" Context="FormLayoutContextIDMS_RDC_Details" CssClass="btn-modal-custom">
+            <DxButton Id="IDMS_RDC_Details_GridIDMS_RDC_MasterId_741ButtonSave" Click="@(() => SaveModalGrid_IDMS_RDC_Details(EditFormContextIDMS_RDC_Details))" Text="@languageContainer.Keys["DXGrid:Save"]" CssClass="btn btn-green px-5" />
+            
+<DxButton id="IDMS_RDC_Details_GridIDMS_RDC_MasterId_741ButtonSaveAndNew"    Text="ذخیره و جدید" Click="@(() => SaveAndNewGrid_IDMS_RDC_Details(EditFormContextIDMS_RDC_Details))" CssClass="btn btn-green" />
+
+
+            <DxButton Id="IDMS_RDC_Details_GridIDMS_RDC_MasterId_741ButtonCancel" Click="@(() => Grid_IDMS_RDC_Details.CancelEditAsync())" Text="@languageContainer.Keys["DXGrid:Cancel"]" CssClass="btn btn-red" />
+            <button id="click_s"  hidden>submit</button>
+             <span>|</span>
+           
+            <DxButton Id="IDMS_RDC_Details_GridIDMS_RDC_MasterId_741ButtonBefore" Click="@(() => Dialog_Grid_IDMS_RDC_Details(0,IndexGrid_IDMS_RDC_Details,EditFormContextIDMS_RDC_Details))" Text="قبلی" CssClass="btn btn-purple" />@* @languageContainer.Keys["DXGrid:??"] *@
+         
+            <DxButton Id="IDMS_RDC_Details_GridIDMS_RDC_MasterId_741ButtonNext" Click="@(() => Dialog_Grid_IDMS_RDC_Details(1,IndexGrid_IDMS_RDC_Details,EditFormContextIDMS_RDC_Details))" Text="بعدی" CssClass="btn btn-purple" />
+
+        </DxFormLayoutItem>
+    </DxFormLayout>
+
+</EditFormTemplate>
+
+</DxGrid>
+
+<DxPopup @bind-Visible="@ConfirmationShownIDMS_RDC_Details" HeaderText="@languageContainer.Keys["DXGrid:DeleteItem"]" Width="350px" CloseOnOutsideClick="false">
+
+    <BodyContentTemplate Context="EditFormContext">
+        <div class="py-3 px-5 text-center">
+            <p>@languageContainer.Keys["DXGrid:DeleteItemHint"]</p>
+            <div class="confirm-dialog-buttons">
+                <DxButton Text="@languageContainer.Keys["DXGrid:Yes"]" CssClass="btn btn-red px-4" Click="@OnYesButtonClickGrid_IDMS_RDC_Details" />
+                <DxButton Text="@languageContainer.Keys["DXGrid:No"]" CssClass="btn btn-purple-light px-4" Click="@OnNoButtonClickGrid_IDMS_RDC_Details" />
+            </div>
+        </div>
+    </BodyContentTemplate>
+</DxPopup>
+
+<DxPopup @bind-Visible="@ConfirmationIDMS_RDC_Details" HeaderText="هشدار" Width="350px" CloseOnOutsideClick="false">
+    <BodyContentTemplate Context="EditFormContext">
+        <div class="py-3 px-5 text-center"> 
+            <p>اطلاعات این فرم تغییر کرده است آیا تغییرات ذخیره شود؟</p>
+            <div class="confirm-dialog-buttons">
+                <DxButton Text="بله" CssClass="btn btn-red px-4" Click="@OnYesButtonIDMS_RDC_Details" />
+                <DxButton Text="خیر" CssClass="btn btn-purple-light px-4" Click="@OnNoButtonIDMS_RDC_Details" />
+            </div>
+        </div>
+    </BodyContentTemplate>
+</DxPopup>
+@code {
+    // DxGrid? Grid_IDMS_RDC_Details;
+    Entity.IDMS_RDC_Details IDMS_RDC_Details;
+    bool ConfirmationShownIDMS_RDC_Details { get; set; } = false;
+    public Entity.IDMS_RDC_Details SelectedItemGrid_IDMS_RDC_Details { get; set; } = new Entity.IDMS_RDC_Details();
+    /// <summary>
+    /// شماره ستون
+    /// </summary>
+    public int IndexGrid_IDMS_RDC_Details { get; set; }
+
+    ///////////////////////
+    bool ConfirmationIDMS_RDC_Details { get; set; } = false;
+    GridEditFormTemplateContext? _ContextFormTemplateIDMS_RDC_Details { get; set; }
+    public int OpenDialogCodeIDMS_RDC_Details { get; set; } = 0;
+    ////////////////////////
+
+    async Task OnEditModelSavingIDMS_RDC_Details(GridEditModelSavingEventArgs arg)
+    {
+        var e = arg.EditModel;
+    bool NotValid = false;
+    //events
+       NotValid = await GridIDMS_RDC_MasterId_741_editmodelsaving(e);
+        
+      if (!NotValid)
+     {
+      SaveGrid_IDMS_RDC_Details(arg.DataItem, arg.EditModel);
+     }
+}
+
+async void Dialog_Grid_IDMS_RDC_Details(int _OpenDialogCode, int VisibleIndex, GridEditFormTemplateContext e)
+{
+    OpenDialogCodeIDMS_RDC_Details = _OpenDialogCode;
+    if (!CheckChangedData(await Utility.JSON.ToJson(e.EditModel)))
+    {
+    _ContextFormTemplateIDMS_RDC_Details = e;
+    ConfirmationIDMS_RDC_Details = true;
+    }
+    else
+    {
+    await OnNoButtonIDMS_RDC_Details();
+    }
+}
+async Task OnYesButtonIDMS_RDC_Details()
+{
+
+    ConfirmationIDMS_RDC_Details = false;
+    await Task.Delay(1500);
+    //bool FormValidate = await JSO.InvokeAsync<bool>("submitForm");
+    bool FormValidate =  await JS.InvokeAsync<bool>("submitForm");
+    if (FormValidate)
+    {
+        bool NotValid = false;
+    var e = _ContextFormTemplateIDMS_RDC_Details.EditModel;
+         //events
+         NotValid = await GridIDMS_RDC_MasterId_741_editmodelsaving(e);
+
+        if (!NotValid)
+         {
+        SaveGrid_IDMS_RDC_Details(_ContextFormTemplateIDMS_RDC_Details.DataItem, _ContextFormTemplateIDMS_RDC_Details.EditModel);
+            await Grid_IDMS_RDC_Details.CancelEditAsync();
+         await ChangePageGrid_IDMS_RDC_Details();
+         await SetEditFormContextGrid_IDMS_RDC_Details();
+         }
+          
+    }
+
+}
+async Task OnNoButtonIDMS_RDC_Details()
+{
+    ConfirmationIDMS_RDC_Details = false;
+    await ChangePageGrid_IDMS_RDC_Details();
+    await SetEditFormContextGrid_IDMS_RDC_Details();
+
+}
+async Task SetEditFormContextGrid_IDMS_RDC_Details()
+{
+    var e = (Entity.IDMS_RDC_Details)Grid_IDMS_RDC_Details.GetDataItem(IndexGrid_IDMS_RDC_Details);
+    JsonData = await Utility.JSON.ToJson(e);
+}
+
+async Task ChangePageGrid_IDMS_RDC_Details()
+{
+    int VisibleIndex = IndexGrid_IDMS_RDC_Details;
+    try
+    {
+    if (OpenDialogCodeIDMS_RDC_Details == 1)
+    {
+        if (VisibleIndex != (Grid_IDMS_RDC_Details.GetVisibleRowCount() - 1))
+    { 
+            Grid_IDMS_RDC_Details.CancelEditAsync();
+            IndexGrid_IDMS_RDC_Details = VisibleIndex + 1;
+    Grid_IDMS_RDC_Details.StartEditRowAsync(IndexGrid_IDMS_RDC_Details);
+    }
+    }
+    else if (OpenDialogCodeIDMS_RDC_Details == 0)
+    {
+        if (VisibleIndex != 0)
+        {
+
+            Grid_IDMS_RDC_Details.CancelEditAsync();
+            IndexGrid_IDMS_RDC_Details = VisibleIndex - 1;
+    Grid_IDMS_RDC_Details.StartEditRowAsync(IndexGrid_IDMS_RDC_Details);
+    }
+
+    }
+    var e = (Entity.IDMS_RDC_Details)Grid_IDMS_RDC_Details.GetDataItem(IndexGrid_IDMS_RDC_Details);
+    JsonData = await Utility.JSON.ToJson(e);
+    await Task.Delay(300);
+    await GridIDMS_RDC_MasterId_741_afterrendermodal(e);
+    StateHasChanged();
+    }
+    catch (Exception ex)
+    {
+
+    Console.WriteLine("error in ChagePage" + ex.Message);
+    }
+
+}
+
+async Task StartEditNewRowAsync_Grid_IDMS_RDC_Details()
+{
+    IndexGrid_IDMS_RDC_Details = Grid_IDMS_RDC_Details.GetVisibleRowCount();
+Grid_IDMS_RDC_Details.StartEditNewRowAsync().GetAwaiter();
+var e = new Entity.IDMS_RDC_Details();
+JsonData = await Utility.JSON.ToJson(e);
+await Task.Delay(300);
+await GridIDMS_RDC_MasterId_741_afterrendermodal(e);
+}
+
+async Task StartModalGrid_IDMS_RDC_Details(GridCommandColumnCellDisplayTemplateContext Context)
+{
+    IndexGrid_IDMS_RDC_Details = Context.VisibleIndex;
+Grid_IDMS_RDC_Details.StartEditRowAsync(Context.VisibleIndex).GetAwaiter();
+var e = (Entity.IDMS_RDC_Details)Context.DataItem;
+JsonData = await Utility.JSON.ToJson(e);
+await Task.Delay(300);
+await GridIDMS_RDC_MasterId_741_afterrendermodal(e);
+   // await Task.Delay(500);
+}
+public async Task SaveModalGrid_IDMS_RDC_Details(GridEditFormTemplateContext arg)
+{
+     //bool FormValidate = await JSO.InvokeAsync<bool>("submitForm");
+     bool FormValidate =  await JS.InvokeAsync<bool>("submitForm");
+
+    if(FormValidate){
+
+    var e = arg.EditModel;
+    bool NotValid = false;
+    //events
+    NotValid = await GridIDMS_RDC_MasterId_741_editmodelsaving(e);
+    if (!NotValid)
+    {
+        SaveGrid_IDMS_RDC_Details(arg.DataItem, arg.EditModel);
+
+     await arg.Grid.CancelEditAsync(); 
+
+    }
+
+    }
+
+}
+public async Task SaveAndNewGrid_IDMS_RDC_Details(GridEditFormTemplateContext arg)
+{ 
+     //bool FormValidate = await JSO.InvokeAsync<bool>("submitForm");
+     bool FormValidate = await JS.InvokeAsync<bool>("submitForm");
+     
+    if(FormValidate){
+       
+         var e = arg.EditModel;
+          bool NotValid = false;
+     //events
+    NotValid = await GridIDMS_RDC_MasterId_741_editmodelsaving(e);
+    if (!NotValid)
+    {
+        SaveGrid_IDMS_RDC_Details(arg.DataItem, arg.EditModel);
+
+         await arg.Grid.CancelEditAsync();
+        await StartEditNewRowAsync_Grid_IDMS_RDC_Details();
+
+    }
+          
+    }
+   
+}
+
+void PerviousPageGrid_IDMS_RDC_Details(int VisibleIndex)
+{
+    try
+     {
+    if (VisibleIndex == 0)
+    {
+        Console.WriteLine(VisibleIndex.ToString());
+    }
+    else
+    {
+Grid_IDMS_RDC_Details.CancelEditAsync();
+        IndexGrid_IDMS_RDC_Details = VisibleIndex - 1;
+         Grid_IDMS_RDC_Details.StartEditRowAsync(IndexGrid_IDMS_RDC_Details);
+     }
+    }
+     catch (Exception e)
+     {
+    Console.WriteLine("PerviousPage Message");
+    Console.WriteLine(e.Message);
+    }
+
+}
+
+void NextPageGrid_IDMS_RDC_Details(int VisibleIndex)
+{
+
+    if (VisibleIndex == Grid_IDMS_RDC_Details.GetVisibleRowCount() - 1)
+    {
+    Console.WriteLine(VisibleIndex.ToString());
+    }
+    else
+    {
+    Console.WriteLine("NextPage Start Grid_IDMS_RDC_Details ");
+    try
+    {
+Grid_IDMS_RDC_Details.CancelEditAsync();
+        IndexGrid_IDMS_RDC_Details = VisibleIndex + 1;
+         Grid_IDMS_RDC_Details.StartEditRowAsync(IndexGrid_IDMS_RDC_Details);
+     }
+    catch (Exception e)
+    {
+        Console.WriteLine("NextPage Message");
+        Console.WriteLine(e.Message);
+    }
+
+    }
+}
+
+public void SaveGrid_IDMS_RDC_Details(object DataItem, object EditModel)
+{
+    var ListEntity = _Entity.IDMS_RDC_Details;
+    var MainModel = (Entity.IDMS_RDC_Details)DataItem;
+    if (MainModel != null)
+    {
+MainModel.IDMS_ProductCategoriesId = ((Entity.IDMS_RDC_Details)EditModel).IDMS_ProductCategoriesId;
+MainModel.IDMS_ProductCategories = ((Entity.IDMS_RDC_Details)EditModel).IDMS_ProductCategories;
+MainModel.IDMS_ProductsId = ((Entity.IDMS_RDC_Details)EditModel).IDMS_ProductsId;
+MainModel.IDMS_Products = ((Entity.IDMS_RDC_Details)EditModel).IDMS_Products;
+MainModel.IDMS_CustomerId = ((Entity.IDMS_RDC_Details)EditModel).IDMS_CustomerId;
+MainModel.IDMS_Customer = ((Entity.IDMS_RDC_Details)EditModel).IDMS_Customer;
+MainModel.IDMS_ResultingFromId = ((Entity.IDMS_RDC_Details)EditModel).IDMS_ResultingFromId;
+MainModel.IDMS_ResultingFrom = ((Entity.IDMS_RDC_Details)EditModel).IDMS_ResultingFrom;
+MainModel.RequestedDueDate_Fa = ((Entity.IDMS_RDC_Details)EditModel).RequestedDueDate_Fa;
+MainModel.Description = ((Entity.IDMS_RDC_Details)EditModel).Description;
+MainModel.Id = ((Entity.IDMS_RDC_Details)EditModel).Id;
+MainModel.RequestID = ((Entity.IDMS_RDC_Details)EditModel).RequestID;
+MainModel.CreateUser = ((Entity.IDMS_RDC_Details)EditModel).CreateUser;
+MainModel.UpdateUser = ((Entity.IDMS_RDC_Details)EditModel).UpdateUser;
+MainModel.CreateDate = ((Entity.IDMS_RDC_Details)EditModel).CreateDate;
+MainModel.UpdateDate = ((Entity.IDMS_RDC_Details)EditModel).UpdateDate;
+MainModel.IsDelete = ((Entity.IDMS_RDC_Details)EditModel).IsDelete;
+MainModel.RequestedDueDate = ((Entity.IDMS_RDC_Details)EditModel).RequestedDueDate;
+
+    }
+    else
+    {
+    ListEntity.Add((Entity.IDMS_RDC_Details)EditModel);
+    }
+}
+
+async Task OnDataItemDeletingIDMS_RDC_Details(GridDataItemDeletingEventArgs e)
+    {
+    var ListEntity = _Entity.IDMS_RDC_Details;
+    ListEntity.Remove((Entity.IDMS_RDC_Details)e.DataItem);
+}
+async void OnDeleteButtonClickGrid_IDMS_RDC_Details (GridCommandColumnCellDisplayTemplateContext ex)
+{
+    SelectedItemGrid_IDMS_RDC_Details = (ex.DataItem as Entity.IDMS_RDC_Details);
+    var e =SelectedItemGrid_IDMS_RDC_Details;
+    
+     
+    Console.WriteLine("end OnDeleteButtonClickGrid_test_OrderBody 0");
+    ConfirmationShownIDMS_RDC_Details = true;
+    await Task.Yield();
+     await InvokeAsync(StateHasChanged);
+    
+    Console.WriteLine("end OnDeleteButtonClickGrid_test_OrderBody 1");
+}
+async void OnYesButtonClickGrid_IDMS_RDC_Details ()
+{
+       if (SelectedItemGrid_IDMS_RDC_Details != null)
+    {
+      if (SelectedItemGrid_IDMS_RDC_Details.Id == Guid.Empty)
+      {
+          var ListEntity = _Entity.IDMS_RDC_Details;
+        ListEntity.Remove((Entity.IDMS_RDC_Details)SelectedItemGrid_IDMS_RDC_Details);
+     
+      }
+      else
+      {
+        var cleanModel = new Entity.IDMS_RDC_Details();
+      // چک کن آیا پراپرتی IsDelete در این نوع وجود دارد؟
+        var prop = typeof(Entity.IDMS_RDC_Details).GetProperty("IsDelete");
+        if (prop != null && prop.CanRead && prop.CanWrite)
+        {
+            // مقدار فعلی را بگیر
+            var currentValue = prop.GetValue(SelectedItemGrid_IDMS_RDC_Details);
+
+            if (currentValue is bool boolValue)
+            {
+                // مقدار را معکوس کن
+                var newValue = !boolValue;
+
+                // روی هر دو شیء تنظیم کن
+                prop.SetValue(SelectedItemGrid_IDMS_RDC_Details, newValue);
+                prop.SetValue(cleanModel, newValue);
+            }
+        }
+        EntityHelper.SetPropertyValue(cleanModel, cleanModel._GetIdName, SelectedItemGrid_IDMS_RDC_Details._Id);
+    
+       
+       
+      }
+    }
+    var e= SelectedItemGrid_IDMS_RDC_Details;
+    
+    Grid_IDMS_RDC_Details.Reload();
+    ConfirmationShownIDMS_RDC_Details = false;
+     await Task.Yield();
+    await InvokeAsync(StateHasChanged);
+
+}
+void OnNoButtonClickGrid_IDMS_RDC_Details ()
+{
+    ConfirmationShownIDMS_RDC_Details = false;
+}
+
+void CustomizeRowsGrid_IDMS_RDC_Details(GridCustomizeElementEventArgs e)
+{
+    ///استایل سطر
+    if (e.ElementType == GridElementType.DataRow)
+    {
+    var item = ((Entity.IDMS_RDC_Details)e.Grid.GetDataItem(e.VisibleIndex));
+
+       if (item.IsDelete == true)
+       {
+           e.CssClass = "bg-lightred disablediv";
+       }
+    }
+}
+
+async void CustomizeEditGrid_IDMS_RDC_Details(GridCustomizeEditModelEventArgs e)
+{
+
+    if (e.IsNew)
+    {
+
+    var newRow = (Entity.IDMS_RDC_Details)e.EditModel;
+
+     
+
+    }
+
+
+}
+public async void RowClickGrid_IDMS_RDC_Details(GridRowClickEventArgs e)
+{
+
+}
+
+public async void RowDubbleClickGrid_IDMS_RDC_Details(GridRowClickEventArgs e)
+{
+
+}
+}
+<label for="IDMS_TestModel_GridIDMS_RDC_MasterId_753">مدل آزمون 
+   
+    
+</label>
+
+<DxGrid @ref="Grid_IDMS_TestModel" Data="_Entity.IDMS_TestModel" KeyFieldName="_Id" EditMode="GridEditMode.PopupEditForm"
+        EditModelSaving="OnEditModelSavingIDMS_TestModel"
+        DataItemDeleting="OnDataItemDeletingIDMS_TestModel"
+        PopupEditFormCssClass="ModalWidth"
+        PopupEditFormHeaderText="مدل آزمون "
+        EditFormButtonsVisible="false"
+        CustomizeEditModel="CustomizeEditGrid_IDMS_TestModel"
+        CustomizeElement="CustomizeRowsGrid_IDMS_TestModel" 
+        Component="@((Utility.JSON.ToObject<View_Component>("{\"primaryKey\":false,\"EntityID\":753,\"FieldId\":753,\"NotNull\":false,\"ViewId\":0,\"NotMapped\":false,\"Relation\":false,\"RelationExternal\":false,\"RelationChildModel\":\"IDMS_TestModel\",\"GridMainModel\":\"IDMS_TestModel\",\"widget\":{\"altInput\":false,\"allowInput\":false,\"clickOpens\":false,\"enableDate\":false,\"enableTime\":false,\"noCalendar\":false,\"useLocaleSettings\":false,\"hourIncrement\":0,\"minuteIncrement\":0,\"time_24hr\":false},\"wysiwyg\":false,\"data\":{},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"FieldsTemplate\":[],\"refreshOn\":\"data\",\"reorder\":false,\"addAnotherPosition\":\"bottom\",\"layoutFixed\":false,\"enableRowGroups\":false,\"initEmpty\":false,\"disabled\":true,\"modal\":true,\"label\":\"مدل آزمون \",\"tableView\":true,\"key\":\"GridIDMS_RDC_MasterId_753\",\"type\":\"datagrid\",\"input\":true,\"placeholder\":\"GridIDMS_RDC_MasterId_753\",\"modalEdit\":true,\"FieldUrl\":\"753?EId=753&SubId=31\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true,\"customizeeditmodel\":\"GridIDMS_RDC_MasterId_753_customizeeditmodel\",\"editmodelsaving\":\"GridIDMS_RDC_MasterId_753_editmodelsaving\",\"afterrendermodal\":\"GridIDMS_RDC_MasterId_753_afterrendermodal\"}").Result))"
+         >
+    <Columns>
+    
+<DxGridCommandColumn Width="70px">
+    <HeaderTemplate Context="HeaderContext">
+       
+<a id=IDMS_TestModel_GridIDMS_RDC_MasterId_753ButtonNew class="btn btn-sm btn-green btnGridAddData" @onclick="@(() => StartEditNewRowAsync_Grid_IDMS_TestModel())" style="text-decoration: none;" href="javascript:void(0);">
+    <span class="fal fa-plus-circle btnicon"></span>
+    <span>@languageContainer.Keys["DXGrid:New"]</span>
+</a>
+
+    </HeaderTemplate>
+    <CellDisplayTemplate Context="CellContext">
+       
+<a id=IDMS_TestModel_GridIDMS_RDC_MasterId_753ButtonEdit class="btn btn-sm btn-yellow-light btnEditGridData" @onclick="@(() => StartModalGrid_IDMS_TestModel(CellContext))" style="text-decoration: none;" href="javascript:void(0);">
+    <span class="fal fa-pencil btnicon"></span>
+</a>
+
+       
+<a class="btn btn-sm btn-red-light btnDeleteGridData" @onclick="@(() => OnDeleteButtonClickGrid_IDMS_TestModel(CellContext))" style="text-decoration: none;" href="javascript:void(0);">
+    <span class="fal fa-times-circle btnicon"></span>
+</a>
+
+    </CellDisplayTemplate>
+</DxGridCommandColumn>
+
+    <DxGridCommandColumn   Width="60px">
+           <HeaderTemplate Context="HeaderContext">
+               <a    style="text-decoration: none;"  >
+                
+                   <span>ردیف</span>
+               </a>
+           </HeaderTemplate>
+           <CellDisplayTemplate Context="CellContext">
+            @if (CellContext.VisibleIndex > 9){
+                <p>@(CellContext.VisibleIndex + 1)</p>
+            }else{
+                <p>@(((CellContext.Grid.PageIndex * CellContext.Grid.PageSize) + (CellContext.VisibleIndex + 1)))</p>
+            }
+          
+           </CellDisplayTemplate>
+     </DxGridCommandColumn>
+    <DxGridDataColumn Context="IDMS_RDC_MasterId_" Caption="شناسه IDMS_RDC_Master" >
+    <CellDisplayTemplate>
+       
+@{
+    Baya.Models.ViewEngine.View_Component HeaderIDMS_RDC_MasterId = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"primaryKey\":false,\"EntityID\":753,\"FieldId\":30752,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":1010,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":false,\"RelationParentName\":\"IDMS_RDC_Master\",\"RelationParentModel\":\"IDMS_RDC_Master\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/IDMS_RDC_Master/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.Id}} </span>\",\"FieldsTemplate\":[{\"key\":\"Id\",\"value\":\"uniqueidentifier\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"searchField\":\"Id\",\"disableLimit\":false,\"noRefreshOnScroll\":false,\"disabled\":true,\"modal\":true,\"label\":\"شناسه IDMS_RDC_Master\",\"tableView\":true,\"key\":\"IDMS_RDC_MasterId\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"customClass\":\"Gcol-sm-8 Gcol-md-6 Gcol-lg-4\",\"FieldUrl\":\"30752?EId=753&SubId=31\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
+    var RowIDMS_RDC_MasterId = ((Entity.IDMS_TestModel)IDMS_RDC_MasterId_.DataItem).IDMS_RDC_MasterId;
+}
+
+<Dropdown ExternalApi=false NotMapped=false TextGrid=true Value="@RowIDMS_RDC_MasterId"   FieldName="IDMS_RDC_MasterId" OnItemSelected="ItemSelected_IDMS_TestModelIDMS_RDC_MasterId_Header" Component="HeaderIDMS_RDC_MasterId">
+</Dropdown>
+@code {
+    public async Task ItemSelected_IDMS_TestModelIDMS_RDC_MasterId_Header(object _Item)
+    {
+      //  var Selected = Utility.JSON.ToObject<dynamic>(Utility.JSON.ToJson(_Item).Result).Result;
+  //   IDMS_RDC_MasterId
+
+  //  #CustomCode
+
+ //   
+
+  //  #OnItemSelected
+    }
+}
+
+    </CellDisplayTemplate>
+</DxGridDataColumn>
+<DxGridDataColumn Context="html_" Caption="HTML" >
+    <CellDisplayTemplate>
+      <div  class="Gcol-sm-8 Gcol-md-6 Gcol-lg-8">
+    
+</div>
+
+    </CellDisplayTemplate>
+</DxGridDataColumn>
+<DxGridDataColumn Context="IDMS_RDC_DetailsId_" Caption="شناسه IDMS_RDC_Details" >
+    <CellDisplayTemplate>
+       
+@{
+    Baya.Models.ViewEngine.View_Component HeaderIDMS_RDC_DetailsId = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"primaryKey\":false,\"EntityID\":753,\"FieldId\":30753,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":1010,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":false,\"RelationParentName\":\"IDMS_RDC_Details\",\"RelationParentModel\":\"IDMS_RDC_Details\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/IDMS_RDC_Details/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.Id}} </span>\",\"FieldsTemplate\":[{\"key\":\"Id\",\"value\":\"uniqueidentifier\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"searchField\":\"Id\",\"disableLimit\":false,\"noRefreshOnScroll\":false,\"modal\":true,\"label\":\"شناسه IDMS_RDC_Details\",\"tableView\":true,\"key\":\"IDMS_RDC_DetailsId\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"customClass\":\"Gcol-sm-8 Gcol-md-6 Gcol-lg-4\",\"FieldUrl\":\"30753?EId=753&SubId=31\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
+    var RowIDMS_RDC_DetailsId = ((Entity.IDMS_TestModel)IDMS_RDC_DetailsId_.DataItem).IDMS_RDC_DetailsId;
+}
+
+<Dropdown ExternalApi=false NotMapped=false TextGrid=true Value="@RowIDMS_RDC_DetailsId"   FieldName="IDMS_RDC_DetailsId" OnItemSelected="ItemSelected_IDMS_TestModelIDMS_RDC_DetailsId_Header" Component="HeaderIDMS_RDC_DetailsId">
+</Dropdown>
+@code {
+    public async Task ItemSelected_IDMS_TestModelIDMS_RDC_DetailsId_Header(object _Item)
+    {
+      //  var Selected = Utility.JSON.ToObject<dynamic>(Utility.JSON.ToJson(_Item).Result).Result;
+  //   IDMS_RDC_DetailsId
+
+  //  #CustomCode
+
+ //   
+
+  //  #OnItemSelected
+    }
+}
+
+    </CellDisplayTemplate>
+</DxGridDataColumn>
+<DxGridDataColumn Context="html1_" Caption="HTML" >
+    <CellDisplayTemplate>
+      <div  class="Gcol-sm-8 Gcol-md-6 Gcol-lg-8">
+    
+</div>
+
+    </CellDisplayTemplate>
+</DxGridDataColumn>
+<DxGridDataColumn Context="IDMS_TestModelObjId_" Caption="عنوان مدل آزمون" >
+    <CellDisplayTemplate>
+       
+@{
+    Baya.Models.ViewEngine.View_Component HeaderIDMS_TestModelObjId = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"primaryKey\":false,\"EntityID\":753,\"FieldId\":30767,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":1010,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":false,\"RelationParentName\":\"IDMS_TestModelObj\",\"RelationParentModel\":\"IDMS_TestModelObj\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/IDMS_TestModelObj/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.Code}} {{item.Title}} </span>\",\"FieldsTemplate\":[{\"key\":\"Code\",\"value\":\"int\"},{\"key\":\"Title\",\"value\":\"nvarchar(Max)\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"searchField\":\"Code,Title\",\"disableLimit\":false,\"noRefreshOnScroll\":false,\"modal\":true,\"label\":\"عنوان مدل آزمون\",\"tableView\":true,\"key\":\"IDMS_TestModelObjId\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"customClass\":\"Gcol-sm-8 Gcol-md-6 Gcol-lg-4\",\"FieldUrl\":\"30767?EId=753&SubId=31\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
+    var RowIDMS_TestModelObjId = ((Entity.IDMS_TestModel)IDMS_TestModelObjId_.DataItem).IDMS_TestModelObjId;
+}
+
+<Dropdown ExternalApi=false NotMapped=false TextGrid=true Value="@RowIDMS_TestModelObjId"   FieldName="IDMS_TestModelObjId" OnItemSelected="ItemSelected_IDMS_TestModelIDMS_TestModelObjId_Header" Component="HeaderIDMS_TestModelObjId">
+</Dropdown>
+@code {
+    public async Task ItemSelected_IDMS_TestModelIDMS_TestModelObjId_Header(object _Item)
+    {
+      //  var Selected = Utility.JSON.ToObject<dynamic>(Utility.JSON.ToJson(_Item).Result).Result;
+  //   IDMS_TestModelObjId
+
+  //  #CustomCode
+
+ //   
+
+  //  #OnItemSelected
+    }
+}
+
+    </CellDisplayTemplate>
+</DxGridDataColumn>
+<DxGridDataColumn Context="html2_" Caption="HTML" >
+    <CellDisplayTemplate>
+      <div  class="Gcol-sm-8 Gcol-md-6 Gcol-lg-8">
+    
+</div>
+
+    </CellDisplayTemplate>
+</DxGridDataColumn>
+<DxGridDataColumn  Caption="Id" Visible=false FieldName="Id" />
+
+<DxGridDataColumn  Caption="RequestID" Visible=false FieldName="RequestID" />
+
+<DxGridDataColumn  Caption="CreateUser" Visible=false FieldName="CreateUser" />
+
+<DxGridDataColumn  Caption="UpdateUser" Visible=false FieldName="UpdateUser" />
+
+<DxGridDataColumn  Caption="CreateDate" Visible=false FieldName="CreateDate" />
+
+<DxGridDataColumn  Caption="UpdateDate" Visible=false FieldName="UpdateDate" />
+
+<DxGridDataColumn  Caption="IsDelete" Visible=false FieldName="IsDelete" />
+
+
+</Columns>
+
+    <EditFormTemplate Context="EditFormContextIDMS_TestModel">
+    @{
+        IDMS_TestModel  = (Entity.IDMS_TestModel)EditFormContextIDMS_TestModel.EditModel;
+    }
+    <DxFormLayout>
+        <DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextIDMS_TestModel">
+     
+ 
+@code {
+    Baya.Models.ViewEngine.View_Component Component_IDMS_TestModelIDMS_RDC_MasterId = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"primaryKey\":false,\"EntityID\":753,\"FieldId\":30752,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":1010,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":false,\"RelationParentName\":\"IDMS_RDC_Master\",\"RelationParentModel\":\"IDMS_RDC_Master\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/IDMS_RDC_Master/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.Id}} </span>\",\"FieldsTemplate\":[{\"key\":\"Id\",\"value\":\"uniqueidentifier\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"searchField\":\"Id\",\"disableLimit\":false,\"noRefreshOnScroll\":false,\"disabled\":true,\"modal\":true,\"label\":\"شناسه IDMS_RDC_Master\",\"tableView\":true,\"key\":\"IDMS_RDC_MasterId\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"customClass\":\"Gcol-sm-8 Gcol-md-6 Gcol-lg-4\",\"FieldUrl\":\"30752?EId=753&SubId=31\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
+}
+
+    <Dropdown Id=IDMS_TestModel_IDMS_RDC_MasterId Disabled=true @ref="Ref_IDMS_TestModel_IDMS_RDC_MasterId" Label="شناسه IDMS_RDC_Master" CssClass="Gcol-sm-8 Gcol-md-6 Gcol-lg-4"  DisplayFormat="DropDown" ExternalApi=true NotMapped=false TextGrid=false Text="" Value="@IDMS_TestModel.IDMS_RDC_MasterId" FieldName="IDMS_RDC_MasterId" OnItemSelected="ItemSelected_IDMS_TestModelIDMS_RDC_MasterId" Component="Component_IDMS_TestModelIDMS_RDC_MasterId" _Entity="_Entity" _EntityRow=IDMS_TestModel>
+</Dropdown>
+@code {
+    public async Task ItemSelected_IDMS_TestModelIDMS_RDC_MasterId(object _Item)
+    {
+        var Selected = Utility.JSON.ToObject<dynamic>(Utility.JSON.ToJson(_Item).Result).Result;
+     var Item = IDMS_TestModel;
+
+      //Todo
+ //برای اینکه آی دی تغییر کند اینجا نیز باید تغییر کند
+ //بهتر است از پرایمیری کی استفاده شود
+ Item.IDMS_RDC_MasterId = Selected.Id;
+ Item.IDMS_RDC_Master = await Utility.JSON.ToObject<Entity.IDMS_RDC_Master>(await Utility.JSON.ToJson(_Item));
+
+    
+
+    
+    }
+} 
+
+</DxFormLayoutItem>
+
+<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextIDMS_TestModel">
+    <div  class="Gcol-sm-8 Gcol-md-6 Gcol-lg-8">
+    
+</div>
+
+</DxFormLayoutItem>
+
+<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextIDMS_TestModel">
+     
+ 
+@code {
+    Baya.Models.ViewEngine.View_Component Component_IDMS_TestModelIDMS_RDC_DetailsId = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"primaryKey\":false,\"EntityID\":753,\"FieldId\":30753,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":1010,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":false,\"RelationParentName\":\"IDMS_RDC_Details\",\"RelationParentModel\":\"IDMS_RDC_Details\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/IDMS_RDC_Details/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.Id}} </span>\",\"FieldsTemplate\":[{\"key\":\"Id\",\"value\":\"uniqueidentifier\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"searchField\":\"Id\",\"disableLimit\":false,\"noRefreshOnScroll\":false,\"modal\":true,\"label\":\"شناسه IDMS_RDC_Details\",\"tableView\":true,\"key\":\"IDMS_RDC_DetailsId\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"customClass\":\"Gcol-sm-8 Gcol-md-6 Gcol-lg-4\",\"FieldUrl\":\"30753?EId=753&SubId=31\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
+}
+
+    <Dropdown Id=IDMS_TestModel_IDMS_RDC_DetailsId  @ref="Ref_IDMS_TestModel_IDMS_RDC_DetailsId" Label="شناسه IDMS_RDC_Details" CssClass="Gcol-sm-8 Gcol-md-6 Gcol-lg-4"  DisplayFormat="DropDown" ExternalApi=true NotMapped=false TextGrid=false Text="" Value="@IDMS_TestModel.IDMS_RDC_DetailsId" FieldName="IDMS_RDC_DetailsId" OnItemSelected="ItemSelected_IDMS_TestModelIDMS_RDC_DetailsId" Component="Component_IDMS_TestModelIDMS_RDC_DetailsId" _Entity="_Entity" _EntityRow=IDMS_TestModel>
+</Dropdown>
+@code {
+    public async Task ItemSelected_IDMS_TestModelIDMS_RDC_DetailsId(object _Item)
+    {
+        var Selected = Utility.JSON.ToObject<dynamic>(Utility.JSON.ToJson(_Item).Result).Result;
+     var Item = IDMS_TestModel;
+
+      //Todo
+ //برای اینکه آی دی تغییر کند اینجا نیز باید تغییر کند
+ //بهتر است از پرایمیری کی استفاده شود
+ Item.IDMS_RDC_DetailsId = Selected.Id;
+ Item.IDMS_RDC_Details = await Utility.JSON.ToObject<Entity.IDMS_RDC_Details>(await Utility.JSON.ToJson(_Item));
+
+    
+
+    
+    }
+} 
+
+</DxFormLayoutItem>
+
+<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextIDMS_TestModel">
+    <div  class="Gcol-sm-8 Gcol-md-6 Gcol-lg-8">
+    
+</div>
+
+</DxFormLayoutItem>
+
+<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextIDMS_TestModel">
+     
+ 
+@code {
+    Baya.Models.ViewEngine.View_Component Component_IDMS_TestModelIDMS_TestModelObjId = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"primaryKey\":false,\"EntityID\":753,\"FieldId\":30767,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":1010,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":false,\"RelationParentName\":\"IDMS_TestModelObj\",\"RelationParentModel\":\"IDMS_TestModelObj\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/IDMS_TestModelObj/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.Code}} {{item.Title}} </span>\",\"FieldsTemplate\":[{\"key\":\"Code\",\"value\":\"int\"},{\"key\":\"Title\",\"value\":\"nvarchar(Max)\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"searchField\":\"Code,Title\",\"disableLimit\":false,\"noRefreshOnScroll\":false,\"modal\":true,\"label\":\"عنوان مدل آزمون\",\"tableView\":true,\"key\":\"IDMS_TestModelObjId\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"customClass\":\"Gcol-sm-8 Gcol-md-6 Gcol-lg-4\",\"FieldUrl\":\"30767?EId=753&SubId=31\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
+}
+
+    <Dropdown Id=IDMS_TestModel_IDMS_TestModelObjId  @ref="Ref_IDMS_TestModel_IDMS_TestModelObjId" Label="عنوان مدل آزمون" CssClass="Gcol-sm-8 Gcol-md-6 Gcol-lg-4"  DisplayFormat="DropDown" ExternalApi=true NotMapped=false TextGrid=false Text="" Value="@IDMS_TestModel.IDMS_TestModelObjId" FieldName="IDMS_TestModelObjId" OnItemSelected="ItemSelected_IDMS_TestModelIDMS_TestModelObjId" Component="Component_IDMS_TestModelIDMS_TestModelObjId" _Entity="_Entity" _EntityRow=IDMS_TestModel>
+</Dropdown>
+@code {
+    public async Task ItemSelected_IDMS_TestModelIDMS_TestModelObjId(object _Item)
+    {
+        var Selected = Utility.JSON.ToObject<dynamic>(Utility.JSON.ToJson(_Item).Result).Result;
+     var Item = IDMS_TestModel;
+
+      //Todo
+ //برای اینکه آی دی تغییر کند اینجا نیز باید تغییر کند
+ //بهتر است از پرایمیری کی استفاده شود
+ Item.IDMS_TestModelObjId = Selected.Id;
+ Item.IDMS_TestModelObj = await Utility.JSON.ToObject<Entity.IDMS_TestModelObj>(await Utility.JSON.ToJson(_Item));
+
+    
+
+    
+    }
+} 
+
+</DxFormLayoutItem>
+
+<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextIDMS_TestModel">
+    <div  class="Gcol-sm-8 Gcol-md-6 Gcol-lg-8">
+    
+</div>
+
+</DxFormLayoutItem>
+
+<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextIDMS_TestModel">
+    
+<Input Id="IDMS_TestModel_Id" @ref="Ref_IDMS_TestModel_Id"   CssClass="d-none"   @bind-Value="IDMS_TestModel.Id" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+</DxFormLayoutItem>
+
+<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextIDMS_TestModel">
+    
+<Input Id="IDMS_TestModel_RequestID" @ref="Ref_IDMS_TestModel_RequestID"      @bind-Value="IDMS_TestModel.RequestID" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+</DxFormLayoutItem>
+
+<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextIDMS_TestModel">
+    
+<Input Id="IDMS_TestModel_CreateUser" @ref="Ref_IDMS_TestModel_CreateUser"      @bind-Value="IDMS_TestModel.CreateUser" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+</DxFormLayoutItem>
+
+<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextIDMS_TestModel">
+    
+<Input Id="IDMS_TestModel_UpdateUser" @ref="Ref_IDMS_TestModel_UpdateUser"      @bind-Value="IDMS_TestModel.UpdateUser" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+</DxFormLayoutItem>
+
+<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextIDMS_TestModel">
+    
+<Input Id="IDMS_TestModel_CreateDate" @ref="Ref_IDMS_TestModel_CreateDate"   CssClass="d-none"   @bind-Value="IDMS_TestModel.CreateDate" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+</DxFormLayoutItem>
+
+<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextIDMS_TestModel">
+    
+<Input Id="IDMS_TestModel_UpdateDate" @ref="Ref_IDMS_TestModel_UpdateDate"   CssClass="d-none"   @bind-Value="IDMS_TestModel.UpdateDate" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+</DxFormLayoutItem>
+
+<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextIDMS_TestModel">
+    
+<Input Id="IDMS_TestModel_IsDelete" @ref="Ref_IDMS_TestModel_IsDelete"   CssClass="d-none"   @bind-Value="IDMS_TestModel.IsDelete" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+</DxFormLayoutItem>
+
+
+        <DxFormLayoutItem ColSpanMd="12" Context="FormLayoutContextIDMS_TestModel" CssClass="btn-modal-custom">
+            <DxButton Id="IDMS_TestModel_GridIDMS_RDC_MasterId_753ButtonSave" Click="@(() => SaveModalGrid_IDMS_TestModel(EditFormContextIDMS_TestModel))" Text="@languageContainer.Keys["DXGrid:Save"]" CssClass="btn btn-green px-5" />
+            
+<DxButton id="IDMS_TestModel_GridIDMS_RDC_MasterId_753ButtonSaveAndNew"    Text="ذخیره و جدید" Click="@(() => SaveAndNewGrid_IDMS_TestModel(EditFormContextIDMS_TestModel))" CssClass="btn btn-green" />
+
+
+            <DxButton Id="IDMS_TestModel_GridIDMS_RDC_MasterId_753ButtonCancel" Click="@(() => Grid_IDMS_TestModel.CancelEditAsync())" Text="@languageContainer.Keys["DXGrid:Cancel"]" CssClass="btn btn-red" />
+            <button id="click_s"  hidden>submit</button>
+             <span>|</span>
+           
+            <DxButton Id="IDMS_TestModel_GridIDMS_RDC_MasterId_753ButtonBefore" Click="@(() => Dialog_Grid_IDMS_TestModel(0,IndexGrid_IDMS_TestModel,EditFormContextIDMS_TestModel))" Text="قبلی" CssClass="btn btn-purple" />@* @languageContainer.Keys["DXGrid:??"] *@
+         
+            <DxButton Id="IDMS_TestModel_GridIDMS_RDC_MasterId_753ButtonNext" Click="@(() => Dialog_Grid_IDMS_TestModel(1,IndexGrid_IDMS_TestModel,EditFormContextIDMS_TestModel))" Text="بعدی" CssClass="btn btn-purple" />
+
+        </DxFormLayoutItem>
+    </DxFormLayout>
+
+</EditFormTemplate>
+
+</DxGrid>
+
+<DxPopup @bind-Visible="@ConfirmationShownIDMS_TestModel" HeaderText="@languageContainer.Keys["DXGrid:DeleteItem"]" Width="350px" CloseOnOutsideClick="false">
+
+    <BodyContentTemplate Context="EditFormContext">
+        <div class="py-3 px-5 text-center">
+            <p>@languageContainer.Keys["DXGrid:DeleteItemHint"]</p>
+            <div class="confirm-dialog-buttons">
+                <DxButton Text="@languageContainer.Keys["DXGrid:Yes"]" CssClass="btn btn-red px-4" Click="@OnYesButtonClickGrid_IDMS_TestModel" />
+                <DxButton Text="@languageContainer.Keys["DXGrid:No"]" CssClass="btn btn-purple-light px-4" Click="@OnNoButtonClickGrid_IDMS_TestModel" />
+            </div>
+        </div>
+    </BodyContentTemplate>
+</DxPopup>
+
+<DxPopup @bind-Visible="@ConfirmationIDMS_TestModel" HeaderText="هشدار" Width="350px" CloseOnOutsideClick="false">
+    <BodyContentTemplate Context="EditFormContext">
+        <div class="py-3 px-5 text-center"> 
+            <p>اطلاعات این فرم تغییر کرده است آیا تغییرات ذخیره شود؟</p>
+            <div class="confirm-dialog-buttons">
+                <DxButton Text="بله" CssClass="btn btn-red px-4" Click="@OnYesButtonIDMS_TestModel" />
+                <DxButton Text="خیر" CssClass="btn btn-purple-light px-4" Click="@OnNoButtonIDMS_TestModel" />
+            </div>
+        </div>
+    </BodyContentTemplate>
+</DxPopup>
+@code {
+    // DxGrid? Grid_IDMS_TestModel;
+    Entity.IDMS_TestModel IDMS_TestModel;
+    bool ConfirmationShownIDMS_TestModel { get; set; } = false;
+    public Entity.IDMS_TestModel SelectedItemGrid_IDMS_TestModel { get; set; } = new Entity.IDMS_TestModel();
+    /// <summary>
+    /// شماره ستون
+    /// </summary>
+    public int IndexGrid_IDMS_TestModel { get; set; }
+
+    ///////////////////////
+    bool ConfirmationIDMS_TestModel { get; set; } = false;
+    GridEditFormTemplateContext? _ContextFormTemplateIDMS_TestModel { get; set; }
+    public int OpenDialogCodeIDMS_TestModel { get; set; } = 0;
+    ////////////////////////
+
+    async Task OnEditModelSavingIDMS_TestModel(GridEditModelSavingEventArgs arg)
+    {
+        var e = arg.EditModel;
+    bool NotValid = false;
+    //events
+       NotValid = await GridIDMS_RDC_MasterId_753_editmodelsaving(e);
+        
+      if (!NotValid)
+     {
+      SaveGrid_IDMS_TestModel(arg.DataItem, arg.EditModel);
+     }
+}
+
+async void Dialog_Grid_IDMS_TestModel(int _OpenDialogCode, int VisibleIndex, GridEditFormTemplateContext e)
+{
+    OpenDialogCodeIDMS_TestModel = _OpenDialogCode;
+    if (!CheckChangedData(await Utility.JSON.ToJson(e.EditModel)))
+    {
+    _ContextFormTemplateIDMS_TestModel = e;
+    ConfirmationIDMS_TestModel = true;
+    }
+    else
+    {
+    await OnNoButtonIDMS_TestModel();
+    }
+}
+async Task OnYesButtonIDMS_TestModel()
+{
+
+    ConfirmationIDMS_TestModel = false;
+    await Task.Delay(1500);
+    //bool FormValidate = await JSO.InvokeAsync<bool>("submitForm");
+    bool FormValidate =  await JS.InvokeAsync<bool>("submitForm");
+    if (FormValidate)
+    {
+        bool NotValid = false;
+    var e = _ContextFormTemplateIDMS_TestModel.EditModel;
+         //events
+         NotValid = await GridIDMS_RDC_MasterId_753_editmodelsaving(e);
+
+        if (!NotValid)
+         {
+        SaveGrid_IDMS_TestModel(_ContextFormTemplateIDMS_TestModel.DataItem, _ContextFormTemplateIDMS_TestModel.EditModel);
+            await Grid_IDMS_TestModel.CancelEditAsync();
+         await ChangePageGrid_IDMS_TestModel();
+         await SetEditFormContextGrid_IDMS_TestModel();
+         }
+          
+    }
+
+}
+async Task OnNoButtonIDMS_TestModel()
+{
+    ConfirmationIDMS_TestModel = false;
+    await ChangePageGrid_IDMS_TestModel();
+    await SetEditFormContextGrid_IDMS_TestModel();
+
+}
+async Task SetEditFormContextGrid_IDMS_TestModel()
+{
+    var e = (Entity.IDMS_TestModel)Grid_IDMS_TestModel.GetDataItem(IndexGrid_IDMS_TestModel);
+    JsonData = await Utility.JSON.ToJson(e);
+}
+
+async Task ChangePageGrid_IDMS_TestModel()
+{
+    int VisibleIndex = IndexGrid_IDMS_TestModel;
+    try
+    {
+    if (OpenDialogCodeIDMS_TestModel == 1)
+    {
+        if (VisibleIndex != (Grid_IDMS_TestModel.GetVisibleRowCount() - 1))
+    { 
+            Grid_IDMS_TestModel.CancelEditAsync();
+            IndexGrid_IDMS_TestModel = VisibleIndex + 1;
+    Grid_IDMS_TestModel.StartEditRowAsync(IndexGrid_IDMS_TestModel);
+    }
+    }
+    else if (OpenDialogCodeIDMS_TestModel == 0)
+    {
+        if (VisibleIndex != 0)
+        {
+
+            Grid_IDMS_TestModel.CancelEditAsync();
+            IndexGrid_IDMS_TestModel = VisibleIndex - 1;
+    Grid_IDMS_TestModel.StartEditRowAsync(IndexGrid_IDMS_TestModel);
+    }
+
+    }
+    var e = (Entity.IDMS_TestModel)Grid_IDMS_TestModel.GetDataItem(IndexGrid_IDMS_TestModel);
+    JsonData = await Utility.JSON.ToJson(e);
+    await Task.Delay(300);
+    await GridIDMS_RDC_MasterId_753_afterrendermodal(e);
+    StateHasChanged();
+    }
+    catch (Exception ex)
+    {
+
+    Console.WriteLine("error in ChagePage" + ex.Message);
+    }
+
+}
+
+async Task StartEditNewRowAsync_Grid_IDMS_TestModel()
+{
+    IndexGrid_IDMS_TestModel = Grid_IDMS_TestModel.GetVisibleRowCount();
+Grid_IDMS_TestModel.StartEditNewRowAsync().GetAwaiter();
+var e = new Entity.IDMS_TestModel();
+JsonData = await Utility.JSON.ToJson(e);
+await Task.Delay(300);
+await GridIDMS_RDC_MasterId_753_afterrendermodal(e);
+}
+
+async Task StartModalGrid_IDMS_TestModel(GridCommandColumnCellDisplayTemplateContext Context)
+{
+    IndexGrid_IDMS_TestModel = Context.VisibleIndex;
+Grid_IDMS_TestModel.StartEditRowAsync(Context.VisibleIndex).GetAwaiter();
+var e = (Entity.IDMS_TestModel)Context.DataItem;
+JsonData = await Utility.JSON.ToJson(e);
+await Task.Delay(300);
+await GridIDMS_RDC_MasterId_753_afterrendermodal(e);
+   // await Task.Delay(500);
+}
+public async Task SaveModalGrid_IDMS_TestModel(GridEditFormTemplateContext arg)
+{
+     //bool FormValidate = await JSO.InvokeAsync<bool>("submitForm");
+     bool FormValidate =  await JS.InvokeAsync<bool>("submitForm");
+
+    if(FormValidate){
+
+    var e = arg.EditModel;
+    bool NotValid = false;
+    //events
+    NotValid = await GridIDMS_RDC_MasterId_753_editmodelsaving(e);
+    if (!NotValid)
+    {
+        SaveGrid_IDMS_TestModel(arg.DataItem, arg.EditModel);
+
+     await arg.Grid.CancelEditAsync(); 
+
+    }
+
+    }
+
+}
+public async Task SaveAndNewGrid_IDMS_TestModel(GridEditFormTemplateContext arg)
+{ 
+     //bool FormValidate = await JSO.InvokeAsync<bool>("submitForm");
+     bool FormValidate = await JS.InvokeAsync<bool>("submitForm");
+     
+    if(FormValidate){
+       
+         var e = arg.EditModel;
+          bool NotValid = false;
+     //events
+    NotValid = await GridIDMS_RDC_MasterId_753_editmodelsaving(e);
+    if (!NotValid)
+    {
+        SaveGrid_IDMS_TestModel(arg.DataItem, arg.EditModel);
+
+         await arg.Grid.CancelEditAsync();
+        await StartEditNewRowAsync_Grid_IDMS_TestModel();
+
+    }
+          
+    }
+   
+}
+
+void PerviousPageGrid_IDMS_TestModel(int VisibleIndex)
+{
+    try
+     {
+    if (VisibleIndex == 0)
+    {
+        Console.WriteLine(VisibleIndex.ToString());
+    }
+    else
+    {
+Grid_IDMS_TestModel.CancelEditAsync();
+        IndexGrid_IDMS_TestModel = VisibleIndex - 1;
+         Grid_IDMS_TestModel.StartEditRowAsync(IndexGrid_IDMS_TestModel);
+     }
+    }
+     catch (Exception e)
+     {
+    Console.WriteLine("PerviousPage Message");
+    Console.WriteLine(e.Message);
+    }
+
+}
+
+void NextPageGrid_IDMS_TestModel(int VisibleIndex)
+{
+
+    if (VisibleIndex == Grid_IDMS_TestModel.GetVisibleRowCount() - 1)
+    {
+    Console.WriteLine(VisibleIndex.ToString());
+    }
+    else
+    {
+    Console.WriteLine("NextPage Start Grid_IDMS_TestModel ");
+    try
+    {
+Grid_IDMS_TestModel.CancelEditAsync();
+        IndexGrid_IDMS_TestModel = VisibleIndex + 1;
+         Grid_IDMS_TestModel.StartEditRowAsync(IndexGrid_IDMS_TestModel);
+     }
+    catch (Exception e)
+    {
+        Console.WriteLine("NextPage Message");
+        Console.WriteLine(e.Message);
+    }
+
+    }
+}
+
+public void SaveGrid_IDMS_TestModel(object DataItem, object EditModel)
+{
+    var ListEntity = _Entity.IDMS_TestModel;
+    var MainModel = (Entity.IDMS_TestModel)DataItem;
+    if (MainModel != null)
+    {
+MainModel.IDMS_RDC_MasterId = ((Entity.IDMS_TestModel)EditModel).IDMS_RDC_MasterId;
+MainModel.IDMS_RDC_Master = ((Entity.IDMS_TestModel)EditModel).IDMS_RDC_Master;
+MainModel.IDMS_RDC_DetailsId = ((Entity.IDMS_TestModel)EditModel).IDMS_RDC_DetailsId;
+MainModel.IDMS_RDC_Details = ((Entity.IDMS_TestModel)EditModel).IDMS_RDC_Details;
+MainModel.IDMS_TestModelObjId = ((Entity.IDMS_TestModel)EditModel).IDMS_TestModelObjId;
+MainModel.IDMS_TestModelObj = ((Entity.IDMS_TestModel)EditModel).IDMS_TestModelObj;
+MainModel.Id = ((Entity.IDMS_TestModel)EditModel).Id;
+MainModel.RequestID = ((Entity.IDMS_TestModel)EditModel).RequestID;
+MainModel.CreateUser = ((Entity.IDMS_TestModel)EditModel).CreateUser;
+MainModel.UpdateUser = ((Entity.IDMS_TestModel)EditModel).UpdateUser;
+MainModel.CreateDate = ((Entity.IDMS_TestModel)EditModel).CreateDate;
+MainModel.UpdateDate = ((Entity.IDMS_TestModel)EditModel).UpdateDate;
+MainModel.IsDelete = ((Entity.IDMS_TestModel)EditModel).IsDelete;
+
+    }
+    else
+    {
+    ListEntity.Add((Entity.IDMS_TestModel)EditModel);
+    }
+}
+
+async Task OnDataItemDeletingIDMS_TestModel(GridDataItemDeletingEventArgs e)
+    {
+    var ListEntity = _Entity.IDMS_TestModel;
+    ListEntity.Remove((Entity.IDMS_TestModel)e.DataItem);
+}
+async void OnDeleteButtonClickGrid_IDMS_TestModel (GridCommandColumnCellDisplayTemplateContext ex)
+{
+    SelectedItemGrid_IDMS_TestModel = (ex.DataItem as Entity.IDMS_TestModel);
+    var e =SelectedItemGrid_IDMS_TestModel;
+    
+     
+    Console.WriteLine("end OnDeleteButtonClickGrid_test_OrderBody 0");
+    ConfirmationShownIDMS_TestModel = true;
+    await Task.Yield();
+     await InvokeAsync(StateHasChanged);
+    
+    Console.WriteLine("end OnDeleteButtonClickGrid_test_OrderBody 1");
+}
+async void OnYesButtonClickGrid_IDMS_TestModel ()
+{
+       if (SelectedItemGrid_IDMS_TestModel != null)
+    {
+      if (SelectedItemGrid_IDMS_TestModel.Id == Guid.Empty)
+      {
+          var ListEntity = _Entity.IDMS_TestModel;
+        ListEntity.Remove((Entity.IDMS_TestModel)SelectedItemGrid_IDMS_TestModel);
+     
+      }
+      else
+      {
+        var cleanModel = new Entity.IDMS_TestModel();
+      // چک کن آیا پراپرتی IsDelete در این نوع وجود دارد؟
+        var prop = typeof(Entity.IDMS_TestModel).GetProperty("IsDelete");
+        if (prop != null && prop.CanRead && prop.CanWrite)
+        {
+            // مقدار فعلی را بگیر
+            var currentValue = prop.GetValue(SelectedItemGrid_IDMS_TestModel);
+
+            if (currentValue is bool boolValue)
+            {
+                // مقدار را معکوس کن
+                var newValue = !boolValue;
+
+                // روی هر دو شیء تنظیم کن
+                prop.SetValue(SelectedItemGrid_IDMS_TestModel, newValue);
+                prop.SetValue(cleanModel, newValue);
+            }
+        }
+        EntityHelper.SetPropertyValue(cleanModel, cleanModel._GetIdName, SelectedItemGrid_IDMS_TestModel._Id);
+    
+       
+       
+      }
+    }
+    var e= SelectedItemGrid_IDMS_TestModel;
+    
+    Grid_IDMS_TestModel.Reload();
+    ConfirmationShownIDMS_TestModel = false;
+     await Task.Yield();
+    await InvokeAsync(StateHasChanged);
+
+}
+void OnNoButtonClickGrid_IDMS_TestModel ()
+{
+    ConfirmationShownIDMS_TestModel = false;
+}
+
+void CustomizeRowsGrid_IDMS_TestModel(GridCustomizeElementEventArgs e)
+{
+    ///استایل سطر
+    if (e.ElementType == GridElementType.DataRow)
+    {
+    var item = ((Entity.IDMS_TestModel)e.Grid.GetDataItem(e.VisibleIndex));
+
+       if (item.IsDelete == true)
+       {
+           e.CssClass = "bg-lightred disablediv";
+       }
+    }
+}
+
+async void CustomizeEditGrid_IDMS_TestModel(GridCustomizeEditModelEventArgs e)
+{
+
+    if (e.IsNew)
+    {
+
+    var newRow = (Entity.IDMS_TestModel)e.EditModel;
+
+     
+
+    }
+GridIDMS_RDC_MasterId_753_customizeeditmodel(e);
+
+}
+public async void RowClickGrid_IDMS_TestModel(GridRowClickEventArgs e)
+{
+
+}
+
+public async void RowDubbleClickGrid_IDMS_TestModel(GridRowClickEventArgs e)
+{
+
+}
+}
+
+<Input Id="Id" @ref="Ref_Id"   CssClass="d-none"   @bind-Value="_Entity.Id" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+<Input Id="RequestID" @ref="Ref_RequestID"      @bind-Value="_Entity.RequestID" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+<Input Id="CreateUser" @ref="Ref_CreateUser"      @bind-Value="_Entity.CreateUser" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+<Input Id="UpdateUser" @ref="Ref_UpdateUser"      @bind-Value="_Entity.UpdateUser" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+<Input Id="CreateDate" @ref="Ref_CreateDate"   CssClass="d-none"   @bind-Value="_Entity.CreateDate" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+<Input Id="UpdateDate" @ref="Ref_UpdateDate"   CssClass="d-none"   @bind-Value="_Entity.UpdateDate" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+<Input Id="IsDelete" @ref="Ref_IsDelete"   CssClass="d-none"   @bind-Value="_Entity.IsDelete" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+    </EditForm>
+</div>
+
+@if (ShowSubmit)
+{
+    <button class="btn btn-sm btn-green" @onclick=Submit>ذخیره</button>
+}
+
+@code {
+    #region Function
+
+    //todo  جا به جا شود برده شود تو فایل  Peropeties
+    protected override async Task OnInitializedAsync()
+    {
+        Console.WriteLine("#log OnInitializedAsync");
+
+        TableGet = await Utility.JSON.ToObject<Table>("{\"Name\":\"IDMS_RDC_Master\",\"GetNameAs\":\"IDMS_RDC_Master\",\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"RequestID\",\"GetNameAs\":\"RequestID\"},{\"Name\":\"CreateUser\",\"GetNameAs\":\"CreateUser\"},{\"Name\":\"UpdateUser\",\"GetNameAs\":\"UpdateUser\"},{\"Name\":\"CreateDate\",\"GetNameAs\":\"CreateDate\"},{\"Name\":\"UpdateDate\",\"GetNameAs\":\"UpdateDate\"},{\"Name\":\"IsDelete\",\"GetNameAs\":\"IsDelete\"},{\"Name\":\"UserStarterFullName\",\"GetNameAs\":\"UserStarterFullName\"},{\"Name\":\"UserStarterCompanyName\",\"GetNameAs\":\"UserStarterCompanyName\"},{\"Name\":\"UserStarterUnitName\",\"GetNameAs\":\"UserStarterUnitName\"},{\"Name\":\"UserStarterSectionName\",\"GetNameAs\":\"UserStarterSectionName\"},{\"Name\":\"RequestTrakingCode\",\"GetNameAs\":\"RequestTrakingCode\"},{\"Name\":\"ProcessVersionID\",\"GetNameAs\":\"ProcessVersionID\"},{\"Name\":\"IsResultOfAnotherProcess\",\"GetNameAs\":\"IsResultOfAnotherProcess\"},{\"Name\":\"UserStarterID\",\"GetNameAs\":\"UserStarterID\"},{\"Name\":\"IDMS_RDC_AllData\",\"GetNameAs\":\"IDMS_RDC_AllData\"}],\"Relation\":[{\"Name\":\"IDMS_RDC_Master_TrackingCodeNavigation\",\"GetNameAs\":\"IDMS_RDC_Master_TrackingCodeNavigation\",\"ModeErtebat\":1,\"Column\":[{\"Name\":\"UserStarterFullName\",\"GetNameAs\":\"UserStarterFullName\"},{\"Name\":\"UserStarterCompanyName\",\"GetNameAs\":\"UserStarterCompanyName\"},{\"Name\":\"UserStarterUnitName\",\"GetNameAs\":\"UserStarterUnitName\"},{\"Name\":\"UserStarterSectionName\",\"GetNameAs\":\"UserStarterSectionName\"},{\"Name\":\"RequestTrakingCode\",\"GetNameAs\":\"RequestTrakingCode\"},{\"Name\":\"ProcessVersionID\",\"GetNameAs\":\"ProcessVersionID\"},{\"Name\":\"ProcessInitiator\",\"GetNameAs\":\"ProcessInitiator\"},{\"Name\":\"IsResultOfAnotherProcess\",\"GetNameAs\":\"IsResultOfAnotherProcess\"},{\"Name\":\"IDMS_RDC_Master_TrackingCode\",\"GetNameAs\":\"IDMS_RDC_Master_TrackingCode\"},{\"Name\":\"UserStarterID\",\"GetNameAs\":\"UserStarterID\"},{\"Name\":\"IDMS_RDC_AllData\",\"GetNameAs\":\"IDMS_RDC_AllData\"},{\"Name\":\"TrackingCode\",\"GetNameAs\":\"TrackingCode\"}],\"Relation\":[]},{\"Name\":\"IDMS_RDC_Details\",\"GetNameAs\":\"IDMS_RDC_Details\",\"ModeErtebat\":2,\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"RequestID\",\"GetNameAs\":\"RequestID\"},{\"Name\":\"CreateUser\",\"GetNameAs\":\"CreateUser\"},{\"Name\":\"UpdateUser\",\"GetNameAs\":\"UpdateUser\"},{\"Name\":\"CreateDate\",\"GetNameAs\":\"CreateDate\"},{\"Name\":\"UpdateDate\",\"GetNameAs\":\"UpdateDate\"},{\"Name\":\"IsDelete\",\"GetNameAs\":\"IsDelete\"},{\"Name\":\"IDMS_ProductCategoriesId\",\"GetNameAs\":\"IDMS_ProductCategoriesId\"},{\"Name\":\"IDMS_ProductsId\",\"GetNameAs\":\"IDMS_ProductsId\"},{\"Name\":\"IDMS_CustomerId\",\"GetNameAs\":\"IDMS_CustomerId\"},{\"Name\":\"IDMS_ResultingFromId\",\"GetNameAs\":\"IDMS_ResultingFromId\"},{\"Name\":\"Description\",\"GetNameAs\":\"Description\"},{\"Name\":\"RequestedDueDate_Fa\",\"GetNameAs\":\"RequestedDueDate_Fa\"},{\"Name\":\"RequestedDueDate\",\"GetNameAs\":\"RequestedDueDate\"}],\"Relation\":[{\"Name\":\"IDMS_ProductCategories\",\"GetNameAs\":\"IDMS_ProductCategories\",\"ModeErtebat\":1,\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"ProductCategoryCode\",\"GetNameAs\":\"ProductCategoryCode\"},{\"Name\":\"ProductCategoryTitle\",\"GetNameAs\":\"ProductCategoryTitle\"},{\"Name\":\"ParentId\",\"GetNameAs\":\"ParentId\"}]},{\"Name\":\"IDMS_Products\",\"GetNameAs\":\"IDMS_Products\",\"ModeErtebat\":1,\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"ProductCode\",\"GetNameAs\":\"ProductCode\"},{\"Name\":\"ProductTitle\",\"GetNameAs\":\"ProductTitle\"}]},{\"Name\":\"IDMS_Customer\",\"GetNameAs\":\"IDMS_Customer\",\"ModeErtebat\":1,\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"CustomerCode\",\"GetNameAs\":\"CustomerCode\"},{\"Name\":\"CustomerTitle\",\"GetNameAs\":\"CustomerTitle\"}]},{\"Name\":\"IDMS_ResultingFrom\",\"GetNameAs\":\"IDMS_ResultingFrom\",\"ModeErtebat\":1,\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"ResultingFromCode\",\"GetNameAs\":\"ResultingFromCode\"},{\"Name\":\"ResultingFromTitle\",\"GetNameAs\":\"ResultingFromTitle\"}]}]},{\"Name\":\"IDMS_TestModel\",\"GetNameAs\":\"IDMS_TestModel\",\"ModeErtebat\":2,\"Column\":[{\"Name\":\"IDMS_RDC_MasterId\",\"GetNameAs\":\"IDMS_RDC_MasterId\"},{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"RequestID\",\"GetNameAs\":\"RequestID\"},{\"Name\":\"CreateUser\",\"GetNameAs\":\"CreateUser\"},{\"Name\":\"UpdateUser\",\"GetNameAs\":\"UpdateUser\"},{\"Name\":\"CreateDate\",\"GetNameAs\":\"CreateDate\"},{\"Name\":\"UpdateDate\",\"GetNameAs\":\"UpdateDate\"},{\"Name\":\"IsDelete\",\"GetNameAs\":\"IsDelete\"},{\"Name\":\"IDMS_RDC_DetailsId\",\"GetNameAs\":\"IDMS_RDC_DetailsId\"},{\"Name\":\"IDMS_TestModelObjId\",\"GetNameAs\":\"IDMS_TestModelObjId\"}],\"Relation\":[{\"Name\":\"IDMS_RDC_Master\",\"GetNameAs\":\"IDMS_RDC_Master\",\"ModeErtebat\":1,\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"UserStarterFullName\",\"GetNameAs\":\"UserStarterFullName\"},{\"Name\":\"UserStarterCompanyName\",\"GetNameAs\":\"UserStarterCompanyName\"},{\"Name\":\"UserStarterUnitName\",\"GetNameAs\":\"UserStarterUnitName\"},{\"Name\":\"UserStarterSectionName\",\"GetNameAs\":\"UserStarterSectionName\"},{\"Name\":\"RequestTrakingCode\",\"GetNameAs\":\"RequestTrakingCode\"},{\"Name\":\"ProcessVersionID\",\"GetNameAs\":\"ProcessVersionID\"},{\"Name\":\"ProcessInitiator\",\"GetNameAs\":\"ProcessInitiator\"},{\"Name\":\"IsResultOfAnotherProcess\",\"GetNameAs\":\"IsResultOfAnotherProcess\"},{\"Name\":\"IDMS_RDC_Master_TrackingCode\",\"GetNameAs\":\"IDMS_RDC_Master_TrackingCode\"},{\"Name\":\"UserStarterID\",\"GetNameAs\":\"UserStarterID\"},{\"Name\":\"IDMS_RDC_AllData\",\"GetNameAs\":\"IDMS_RDC_AllData\"},{\"Name\":\"TrackingCode\",\"GetNameAs\":\"TrackingCode\"}]},{\"Name\":\"IDMS_RDC_Details\",\"GetNameAs\":\"IDMS_RDC_Details\",\"ModeErtebat\":1,\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"IDMS_RDC_MasterId\",\"GetNameAs\":\"IDMS_RDC_MasterId\"},{\"Name\":\"IDMS_ProductCategoriesId\",\"GetNameAs\":\"IDMS_ProductCategoriesId\"},{\"Name\":\"IDMS_ProductsId\",\"GetNameAs\":\"IDMS_ProductsId\"},{\"Name\":\"IDMS_CustomerId\",\"GetNameAs\":\"IDMS_CustomerId\"},{\"Name\":\"IDMS_ResultingFromId\",\"GetNameAs\":\"IDMS_ResultingFromId\"},{\"Name\":\"Description\",\"GetNameAs\":\"Description\"},{\"Name\":\"RequestedDueDate_Fa\",\"GetNameAs\":\"RequestedDueDate_Fa\"},{\"Name\":\"RequestedDueDate\",\"GetNameAs\":\"RequestedDueDate\"},{\"Name\":\"RDC_ActualCompletionDate_Fa\",\"GetNameAs\":\"RDC_ActualCompletionDate_Fa\"},{\"Name\":\"RDC_ActualCompletionDate\",\"GetNameAs\":\"RDC_ActualCompletionDate\"}]},{\"Name\":\"IDMS_TestModelObj\",\"GetNameAs\":\"IDMS_TestModelObj\",\"ModeErtebat\":1,\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"Code\",\"GetNameAs\":\"Code\"},{\"Name\":\"Title\",\"GetNameAs\":\"Title\"}]}]}]}");
+        TablePost = await Utility.JSON.ToObject<Table>("{\"Name\":\"IDMS_RDC_Master\",\"GetNameAs\":\"IDMS_RDC_Master\",\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"RequestID\",\"GetNameAs\":\"RequestID\"},{\"Name\":\"CreateUser\",\"GetNameAs\":\"CreateUser\"},{\"Name\":\"UpdateUser\",\"GetNameAs\":\"UpdateUser\"},{\"Name\":\"CreateDate\",\"GetNameAs\":\"CreateDate\"},{\"Name\":\"UpdateDate\",\"GetNameAs\":\"UpdateDate\"},{\"Name\":\"IsDelete\",\"GetNameAs\":\"IsDelete\"},{\"Name\":\"UserStarterFullName\",\"GetNameAs\":\"UserStarterFullName\"},{\"Name\":\"UserStarterCompanyName\",\"GetNameAs\":\"UserStarterCompanyName\"},{\"Name\":\"UserStarterUnitName\",\"GetNameAs\":\"UserStarterUnitName\"},{\"Name\":\"UserStarterSectionName\",\"GetNameAs\":\"UserStarterSectionName\"},{\"Name\":\"RequestTrakingCode\",\"GetNameAs\":\"RequestTrakingCode\"},{\"Name\":\"ProcessVersionID\",\"GetNameAs\":\"ProcessVersionID\"},{\"Name\":\"IsResultOfAnotherProcess\",\"GetNameAs\":\"IsResultOfAnotherProcess\"},{\"Name\":\"UserStarterID\",\"GetNameAs\":\"UserStarterID\"},{\"Name\":\"IDMS_RDC_AllData\",\"GetNameAs\":\"IDMS_RDC_AllData\"}],\"Relation\":[{\"Name\":\"IDMS_RDC_Details\",\"GetNameAs\":\"IDMS_RDC_Details\",\"ModeErtebat\":2,\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"RequestID\",\"GetNameAs\":\"RequestID\"},{\"Name\":\"CreateUser\",\"GetNameAs\":\"CreateUser\"},{\"Name\":\"UpdateUser\",\"GetNameAs\":\"UpdateUser\"},{\"Name\":\"CreateDate\",\"GetNameAs\":\"CreateDate\"},{\"Name\":\"UpdateDate\",\"GetNameAs\":\"UpdateDate\"},{\"Name\":\"IsDelete\",\"GetNameAs\":\"IsDelete\"},{\"Name\":\"IDMS_ProductCategoriesId\",\"GetNameAs\":\"IDMS_ProductCategoriesId\"},{\"Name\":\"IDMS_ProductsId\",\"GetNameAs\":\"IDMS_ProductsId\"},{\"Name\":\"IDMS_CustomerId\",\"GetNameAs\":\"IDMS_CustomerId\"},{\"Name\":\"IDMS_ResultingFromId\",\"GetNameAs\":\"IDMS_ResultingFromId\"},{\"Name\":\"Description\",\"GetNameAs\":\"Description\"},{\"Name\":\"RequestedDueDate_Fa\",\"GetNameAs\":\"RequestedDueDate_Fa\"},{\"Name\":\"RequestedDueDate\",\"GetNameAs\":\"RequestedDueDate\"}],\"Relation\":[]},{\"Name\":\"IDMS_TestModel\",\"GetNameAs\":\"IDMS_TestModel\",\"ModeErtebat\":2,\"Column\":[{\"Name\":\"IDMS_RDC_MasterId\",\"GetNameAs\":\"IDMS_RDC_MasterId\"},{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"RequestID\",\"GetNameAs\":\"RequestID\"},{\"Name\":\"CreateUser\",\"GetNameAs\":\"CreateUser\"},{\"Name\":\"UpdateUser\",\"GetNameAs\":\"UpdateUser\"},{\"Name\":\"CreateDate\",\"GetNameAs\":\"CreateDate\"},{\"Name\":\"UpdateDate\",\"GetNameAs\":\"UpdateDate\"},{\"Name\":\"IsDelete\",\"GetNameAs\":\"IsDelete\"},{\"Name\":\"IDMS_RDC_DetailsId\",\"GetNameAs\":\"IDMS_RDC_DetailsId\"},{\"Name\":\"IDMS_TestModelObjId\",\"GetNameAs\":\"IDMS_TestModelObjId\"}],\"Relation\":[]}]}");
+
+        config = CKEditorBundleOptions.DefaultConfig.WithHtmlEditing();
+        config.Language = "fa";
+
+        //بعداد اگه نیاز شد فرمی رو تو حالت غیر لاگین شده نمایش بدیم باید این  کد تغیر کنه
+        var user = (await _authenticationStateProvider.GetAuthenticationStateAsync()).User;
+        string UserID = user.FindFirst(c => c.Type == ClaimTypes.NameIdentifier).Value;
+        //داینامیک بشه
+        Dictionary<string, object> List = new Dictionary<string, object>();
+        //List.Add("UserID", Guid.Parse(UserID));
+        List.Add("UserID", UserID);
+        _User = await Domain.Utility.ConvertParameter.ConvertToObject(List);
+
+        Console.WriteLine("#log OnInitializedAsync End");
+
+        await base.OnInitializedAsync();
+    }
+
+    //todo  جا به جا شود برده شود تو فایل  Peropeties
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            Console.WriteLine("#log OnAfterRenderAsync");
+            await base.BeforGetData();
+
+            var Result = await GetData();
+
+            await base.AfterGetData();
+
+            StateHasChanged();
+
+            await OnFormloaded.InvokeAsync(Result);
+        }
+
+        await base.OnAfterRenderAsync(firstRender);
+    }
+
+    /// <summary>
+    /// دریافت داده
+    /// </summary>
+    /// <returns></returns>
+    public async Task<Baya.Models.Utility.Result> GetData()
+    {
+        await BeforGetData();
+
+        var DataResult = await ApiServer.External.Services.Data.Get(TableGet, QueryFilter, TableGet.Name, null);
+        
+        Baya.Models.Utility.Result Result = new Baya.Models.Utility.Result();
+
+        if (DataResult != null && DataResult.Status == HttpStatusCode.OK)
+        {
+            if (DataResult.Content != null)
+            {
+                string Data = DataResult.Content.ToString();
+                if (Data is not null)
+                {
+                    _Entity = await Utility.JSON.ToObject < Entity.IDMS_RDC_Master>(Data);
+        }
+            }
+            else
+            {
+                _Entity = new Entity.IDMS_RDC_Master();
+            //todo تشخیص دهد که داده ای وجود ندارد و دفه اول هست که فرم لود میشود
+            //todo اگه نیاز شد دالخ ORm خروجیش متفاوت باشه
+            //ست کردن دیفالت های فرم
+            if (true)
+                {//
+_Entity.UserStarterFullName = _RequestParameters.UserStarterFullName;
+_Entity.UserStarterCompanyName = _RequestParameters.UserStarterCompanyName;
+_Entity.UserStarterUnitName = _RequestParameters.UserStarterUnitName;
+_Entity.UserStarterSectionName = _RequestParameters.UserStarterSectionName;
+_Entity.RequestTrakingCode = _RequestParameters.RequestTrakingCode;
+_Entity.ProcessVersionID = _RequestParameters.ProcessVersionID;
+_Entity.UserStarterID = _RequestParameters.UserStarterID;
+
+
+                    //نمونه ست کردن پارامتر روش اول
+                    //_Entity.InstantDelivery = _RequestParameters.UserId;
+
+                    //نمونه کد برای ست کردن پارامتر روش دوم
+                    //_Entity.InstantDelivery = await GetParameter("@@UserId@@");
+                }
+
+                SumaryMessage = "داده لود شده معتبر نمی باشد";
+                Result.Status = HttpStatusCode.InternalServerError;
+            }
+        }
+        else
+        {
+            SumaryMessage = "داده لود نشد";
+            Result.Status = HttpStatusCode.InternalServerError;
+        }
+
+        Result.Message = SumaryMessage;
+
+        StateHasChanged();
+
+        await AfterGetData();
+
+        return Result;
+    }
+
+    public override async Task SetParametersAsync(ParameterView parameters)
+    {
+        await base.SetParametersAsync(parameters);
+    }
+
+    protected override void OnInitialized()
+    {
+        //todo این خط برده شود داخل تابع پاینی ببینیم خطا داره یا نه
+        languageContainer.InitLocalizedComponent(this);
+    }
+
+
+    /// <summary>
+    /// بررسی تغییر دیتا
+    /// </summary>
+    /// <param name="Json"></param>
+    /// <returns></returns>
+    public bool CheckChangedData(string? Json)
+    {
+        if (string.Equals(JsonData, Json)) return true;
+        return false;
+    }
+
+    /// <summary>
+    /// ارسال داده
+    /// </summary>
+    /// <returns></returns>
+    public override async Task<Baya.Models.Utility.Result> Submit()
+    {
+        SumaryMessage = "";
+        Baya.Models.Utility.Result Result = new Baya.Models.Utility.Result();
+
+        if (!await FormValidator())
+        {
+            StateHasChanged();
+            Result.Status = HttpStatusCode.InternalServerError;
+            return Result;
+        }
+
+        if ((await BeforSubmit()).Status != HttpStatusCode.OK)
+        {
+            StateHasChanged();
+            Result.Status = HttpStatusCode.InternalServerError;
+            return Result;
+        }
+
+        _loadingService.Show();
+        var Resualt = await PostData();
+
+        if (Resualt)
+        {
+            Result.Status = HttpStatusCode.OK;
+
+            SumaryMessage = "داده ها با موفقیت ثبت شد";
+        }
+        else
+        {
+            Result.Status = HttpStatusCode.InternalServerError;
+            SumaryMessage = "ذخیره داده با مشکل مواجه شد";
+        }
+
+        Result.Message = SumaryMessage;
+
+        switch ((int)Result.Status)
+        {
+            case 200:
+                toastService.ShowSuccess(Result.Message);
+                break;
+            case 500:
+                toastService.ShowError(Result.Message);
+                break;
+            default:
+                break;
+        } 
+        _loadingService.Hide();
+        await AfterSubmit();
+
+        return Result;
+    }
+
+    /// <summary>
+    /// ارسال داده
+    /// </summary>
+    /// <returns></returns>
+    private async Task<bool> PostData()
+    {
+        string Data = await Utility.JSON.ToJson(_Entity);
+
+        bool IsOk = false;
+        var Model = await ApiServer.External.Services.Data.Put(Data, TablePost.Name, TablePost, RequestID?.ToString(), _User.UserID.ToString());
+        // بررسی وضعیت پاسخ
+        if (Model?.Status == HttpStatusCode.OK)
+        {
+            if (Model.Content != null && !IndependentForm)
+                { 
+                    string NewData = Model.Content.ToString();
+                    if (NewData is not null)
+                    {
+                        var NewEntity = await Utility.JSON.ToObject < Entity.IDMS_RDC_Master>(NewData);
+                     await  GetDataForm(NewEntity._Id);
+                    }
+
+                }
+                IsOk = true;
+
+        }
+        return IsOk;
+    }
+
+
+    void SetLanguage(string language)
+    {
+        languageContainer.SetLanguage(System.Globalization.CultureInfo.GetCultureInfo(language));
+    }
+
+    // public void ValidFormSubmitted(EditContext editContext)
+    // {
+
+    // }
+
+    // public void InvalidFormSubmitted(EditContext editContext)
+    // {
+
+    // }
+    public async Task GetDataForm(object Id)
+    {
+        Type type = Id.GetType();
+        string TypeToQueryBuilder = Utility.TypeConverterQueryBuilder.ConvertCSharpTypeToQueryBuilder(type);
+        var NewQuery = new QueryBuilderFilterRule() { Condition = "AND" };
+        NewQuery.Rules = new List<QueryBuilderFilterRule>
+            {
+                    new QueryBuilderFilterRule()
+                    {
+                        Field = _Entity._GetIdName,
+                        Id = _Entity._GetIdName,
+                        Input = "text",
+                        Operator = "equal",
+                        Type =  TypeToQueryBuilder,
+                        Value = new string[]{ Id.ToString() },
+                    }
+            };
+        QueryFilter = NewQuery;
+        await GetData();
+        StateHasChanged();
+    }
+    #endregion
+}

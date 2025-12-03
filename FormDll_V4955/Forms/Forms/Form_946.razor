@@ -1,0 +1,993 @@
+@inherits Forms.Forms.Form_946Base
+@namespace FormsPage
+
+@using AKSoftware.Localization.MultiLanguages.Blazor
+@using Baya.Models.Utility;
+@using Baya.Models.ORM
+@using Microsoft.AspNetCore.Components.Forms
+@using Microsoft.AspNetCore.Components.Authorization;
+@using System.Security.Claims
+@using System.Net
+@using Microsoft.JSInterop
+@using Baya.Models.ViewEngine
+@using Forms.Domain.Utility
+@using Castle.DynamicLinqQueryBuilder
+<style>
+    /* ************************************************** */
+.detailArea form div:not(.devdrop) {
+  margin-top: .1rem;
+}
+
+/* ************************************************** */
+/* استایل اصلی هدر */
+.interview-header {
+  background: linear-gradient(135deg, #0f4c81 0%, #1a237e 100%);
+  color: white;
+  padding: 1.5rem;
+  border-radius: 10px 10px 0 0;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 5px 20px rgba(15, 76, 129, 0.3);
+  margin-bottom: 1.5rem;
+}
+
+/* محتوای هدر */
+.interview-content {
+  display: flex;
+  align-items: center;
+  position: relative;
+  z-index: 3;
+  gap: 1.2rem;
+}
+
+.interview-icon {
+  font-size: 2.2rem;
+  color: #ffd600;
+  filter: drop-shadow(0 2px 3px rgba(0, 0, 0, 0.3));
+  transition: all 0.3s ease;
+}
+
+.interview-text h2 {
+  font-weight: 600;
+  margin-bottom: 0.3rem;
+  font-size: 1.4rem;
+}
+
+.interview-text p {
+  margin: 0;
+  opacity: 0.9;
+  font-size: 0.85rem;
+}
+
+/* عناصر تزئینی */
+.interview-decoration {
+  position: absolute;
+  z-index: 1;
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.interview-dots {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  top: -30px;
+  left: -30px;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.15) 20%, transparent 70%);
+}
+
+.interview-ring {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  bottom: -20px;
+  right: -20px;
+  border: 5px solid rgba(255, 214, 0, 0.2);
+  background: transparent;
+}
+
+/* انیمیشن‌ها */
+@@keyframes swing {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  15% {
+    transform: rotate(8deg);
+  }
+
+  30% {
+    transform: rotate(-6deg);
+  }
+
+  45% {
+    transform: rotate(4deg);
+  }
+
+  60% {
+    transform: rotate(-2deg);
+  }
+
+  75% {
+    transform: rotate(1deg);
+  }
+
+  100% {
+    transform: rotate(0deg);
+  }
+}
+
+@@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(5px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@@keyframes pulse {
+  0% {
+    transform: scale(0.95);
+    opacity: 0.7;
+  }
+
+  50% {
+    transform: scale(1.05);
+    opacity: 0.3;
+  }
+
+  100% {
+    transform: scale(0.95);
+    opacity: 0.7;
+  }
+}
+
+.swing-animation {
+  animation: swing 2s ease-in-out infinite;
+}
+
+.fade-animation {
+  animation: fadeIn 1.2s ease-out forwards;
+}
+
+.pulse-animation {
+  animation: pulse 5s ease-in-out infinite;
+}
+
+/* افکت‌های تعاملی */
+.interview-icon:hover {
+  transform: scale(1.1) rotate(10deg);
+  color: #ffeb3b;
+}
+
+.interview-header:hover .interview-dots {
+  transform: translate(5px, 5px);
+}
+</style>
+
+<Plugins.Tools.ConfirmDialog @ref="Confirm" />
+
+<span class="d-none">VersionForm:@VersionForm</span>
+@*
+@if (!string.IsNullOrEmpty(SumaryMessage))
+{
+    <div>
+        @SumaryMessage
+    </div>
+} *@
+
+@* <EditForm @ref="_Form" Model="_Entity" OnValidSubmit="ValidFormSubmitted" OnInvalidSubmit="InvalidFormSubmitted" OnSubmit="Submit"> *@
+<div class="@(ReadOnly?"FormReadOnly":"")">
+    <EditForm @ref="_Form" Model="_Entity" OnSubmit="Submit">
+        
+<div class="row ">
+    
+<div class="col-md-12">
+    <div  class="">
+    
+<header class="interview-header">
+
+  <div class="interview-decoration interview-dots"></div>
+  <div class="interview-decoration interview-ring pulse-animation"></div>
+  
+  <div class="interview-content">
+    <i class="fas fa-handshake interview-icon swing-animation"></i>
+    <div class="interview-text">
+      <h4>مصاحبه استخدامی</h4>
+      <p class="fade-animation">فرم ارزیابی و ثبت اطلاعات داوطلبان</p>
+    </div>
+  </div>
+  
+</header>
+</div>
+
+</div>
+
+<div class="col-md-12">
+    <div  class="">
+    <div class="pt-2 px-2 pb-2 bg-lightpurple rounded fs-5 fw-bold mb-2">
+  اطلاعات کارجو
+</div>
+</div>
+
+</div>
+
+<div class="col-md-3">
+     
+ 
+@code {
+    Baya.Models.ViewEngine.View_Component Component_HR_JobInterviewHR_InterviewResumeSiteId = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"EntityName\":\"مصاحبه استخدامی\",\"primaryKey\":false,\"EntityID\":684,\"FieldId\":19559,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":946,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":false,\"RelationParentName\":\"HR_InterviewResumeSite\",\"RelationParentModel\":\"HR_InterviewResumeSite\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/HR_InterviewResumeSite/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.Title}} {{item.URL}} </span>\",\"FieldsTemplate\":[{\"key\":\"Title\",\"value\":\"nvarchar(Max)\"},{\"key\":\"URL\",\"value\":\"nvarchar(Max)\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"disabled\":true,\"modal\":true,\"label\":\"سایت دریافت رزومه مصاحبه\",\"tableView\":true,\"key\":\"HR_InterviewResumeSiteId\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"19559?EId=684&SubId=15\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
+}
+
+    <Dropdown Id=HR_InterviewResumeSiteId Disabled=true @ref="Ref_HR_InterviewResumeSiteId" Label="سایت دریافت رزومه مصاحبه" CssClass=""  DisplayFormat="DropDown" ExternalApi=true NotMapped=false TextGrid=false Text="" Value="@_Entity.HR_InterviewResumeSiteId" FieldName="HR_InterviewResumeSiteId" OnItemSelected="ItemSelected_HR_JobInterviewHR_InterviewResumeSiteId" Component="Component_HR_JobInterviewHR_InterviewResumeSiteId" _Entity="_Entity" >
+</Dropdown>
+@code {
+    public async Task ItemSelected_HR_JobInterviewHR_InterviewResumeSiteId(object _Item)
+    {
+        var Selected = Utility.JSON.ToObject<dynamic>(Utility.JSON.ToJson(_Item).Result).Result;
+     var Item = _Entity;
+
+      //Todo
+ //برای اینکه آی دی تغییر کند اینجا نیز باید تغییر کند
+ //بهتر است از پرایمیری کی استفاده شود
+ Item.HR_InterviewResumeSiteId = Selected.Id;
+ Item.HR_InterviewResumeSite = await Utility.JSON.ToObject<Entity.HR_InterviewResumeSite>(await Utility.JSON.ToJson(_Item));
+
+    
+
+    
+    }
+} 
+
+<Input Id="Telephone" @ref="Ref_Telephone" Label="تلفن ثابت"   Disabled=true  @bind-Value="_Entity.Telephone" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"maxlength\":\"50\"}").Result))></Input>
+
+<Input Id="Location" @ref="Ref_Location" Label="موقیت مکانی فعلی کارجو"   Disabled=true  @bind-Value="_Entity.Location" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"maxlength\":\"30\"}").Result))></Input>
+
+<Input Id="PortfolioURL" @ref="Ref_PortfolioURL" Label="نشانی اینترنتی نمونه کار"   Disabled=true  @bind-Value="_Entity.PortfolioURL" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"maxlength\":\"150\"}").Result))></Input>
+
+</div>
+
+<div class="col-md-3">
+    
+<Input Id="FirstName" @ref="Ref_FirstName" Label="نام"   Disabled=true  @bind-Value="_Entity.FirstName" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"maxlength\":\"100\"}").Result))></Input>
+ 
+ 
+@code {
+    Baya.Models.ViewEngine.View_Component Component_HR_JobInterviewBaseInfo_MilitaryStatusId = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"EntityName\":\"مصاحبه استخدامی\",\"primaryKey\":false,\"EntityID\":684,\"FieldId\":29724,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":946,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":false,\"RelationParentName\":\"BaseInfo_MilitaryStatus\",\"RelationParentModel\":\"BaseInfo_MilitaryStatus\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/BaseInfo_MilitaryStatus/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.Title}} </span>\",\"FieldsTemplate\":[{\"key\":\"Title\",\"value\":\"nvarchar(Max)\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"disabled\":true,\"modal\":true,\"label\":\"وضعیت نظام وظیفه\",\"tableView\":true,\"key\":\"BaseInfo_MilitaryStatusId\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"29724?EId=684&SubId=15\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
+}
+
+    <Dropdown Id=BaseInfo_MilitaryStatusId Disabled=true @ref="Ref_BaseInfo_MilitaryStatusId" Label="وضعیت نظام وظیفه" CssClass=""  DisplayFormat="DropDown" ExternalApi=true NotMapped=false TextGrid=false Text="" Value="@_Entity.BaseInfo_MilitaryStatusId" FieldName="BaseInfo_MilitaryStatusId" OnItemSelected="ItemSelected_HR_JobInterviewBaseInfo_MilitaryStatusId" Component="Component_HR_JobInterviewBaseInfo_MilitaryStatusId" _Entity="_Entity" >
+</Dropdown>
+@code {
+    public async Task ItemSelected_HR_JobInterviewBaseInfo_MilitaryStatusId(object _Item)
+    {
+        var Selected = Utility.JSON.ToObject<dynamic>(Utility.JSON.ToJson(_Item).Result).Result;
+     var Item = _Entity;
+
+      //Todo
+ //برای اینکه آی دی تغییر کند اینجا نیز باید تغییر کند
+ //بهتر است از پرایمیری کی استفاده شود
+ Item.BaseInfo_MilitaryStatusId = Selected.Id;
+ Item.BaseInfo_MilitaryStatus = await Utility.JSON.ToObject<Entity.BaseInfo_MilitaryStatus>(await Utility.JSON.ToJson(_Item));
+
+    
+
+    
+    }
+} 
+
+<Input Id="Age" @ref="Ref_Age" Label="سن"   Disabled=true  @bind-Value="_Entity.Age" type="number"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+ 
+ 
+@code {
+    Baya.Models.ViewEngine.View_Component Component_HR_JobInterviewHR_JobIntervieweTitleId = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"EntityName\":\"مصاحبه استخدامی\",\"primaryKey\":false,\"EntityID\":684,\"FieldId\":19571,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":946,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":false,\"RelationParentName\":\"HR_JobIntervieweTitle\",\"RelationParentModel\":\"HR_JobIntervieweTitle\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/HR_JobIntervieweTitle/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.Title}} </span>\",\"FieldsTemplate\":[{\"key\":\"Title\",\"value\":\"nvarchar(Max)\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"disabled\":true,\"modal\":true,\"label\":\"عنوان مصاحبه شغلی\",\"tableView\":true,\"key\":\"HR_JobIntervieweTitleId\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"19571?EId=684&SubId=15\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
+}
+
+    <Dropdown Id=HR_JobIntervieweTitleId Disabled=true @ref="Ref_HR_JobIntervieweTitleId" Label="عنوان مصاحبه شغلی" CssClass=""  DisplayFormat="DropDown" ExternalApi=true NotMapped=false TextGrid=false Text="" Value="@_Entity.HR_JobIntervieweTitleId" FieldName="HR_JobIntervieweTitleId" OnItemSelected="ItemSelected_HR_JobInterviewHR_JobIntervieweTitleId" Component="Component_HR_JobInterviewHR_JobIntervieweTitleId" _Entity="_Entity" >
+</Dropdown>
+@code {
+    public async Task ItemSelected_HR_JobInterviewHR_JobIntervieweTitleId(object _Item)
+    {
+        var Selected = Utility.JSON.ToObject<dynamic>(Utility.JSON.ToJson(_Item).Result).Result;
+     var Item = _Entity;
+
+      //Todo
+ //برای اینکه آی دی تغییر کند اینجا نیز باید تغییر کند
+ //بهتر است از پرایمیری کی استفاده شود
+ Item.HR_JobIntervieweTitleId = Selected.Id;
+ Item.HR_JobIntervieweTitle = await Utility.JSON.ToObject<Entity.HR_JobIntervieweTitle>(await Utility.JSON.ToJson(_Item));
+
+    
+
+    
+    }
+} 
+
+</div>
+
+<div class="col-md-3">
+    
+<Input Id="LastName" @ref="Ref_LastName" Label="نام خانوادگی"   Disabled=true  @bind-Value="_Entity.LastName" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"maxlength\":\"100\"}").Result))></Input>
+
+<RadioBoolean @ref="Ref_MaritalStatus" InLine=true Id="MaritalStatus"   LabelTrue="مجرد" LabelFalse="متاهل" Label="وضعیت تاهل" @bind-Value="_Entity.MaritalStatus" CssClass="" Disabled=true></RadioBoolean>
+ 
+ 
+@code {
+    Baya.Models.ViewEngine.View_Component Component_HR_JobInterviewJobInterviewAcceptingCompany = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"EntityName\":\"مصاحبه استخدامی\",\"primaryKey\":false,\"EntityID\":684,\"FieldId\":19573,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":946,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":true,\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/Companies/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"CompanyID\",\"template\":\"<span>{{item.CompanyID}} {{item.Name}} </span>\",\"FieldsTemplate\":[{\"key\":\"CompanyID\",\"value\":\"int\"},{\"key\":\"Name\",\"value\":\"nvarchar(Max)\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"disabled\":true,\"modal\":true,\"label\":\"شرکت استخدام کننده\",\"tableView\":true,\"key\":\"JobInterviewAcceptingCompany\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"19573?EId=684&SubId=15\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
+}
+
+    <Dropdown Id=JobInterviewAcceptingCompany Disabled=true @ref="Ref_JobInterviewAcceptingCompany" Label="شرکت استخدام کننده" CssClass=""  DisplayFormat="DropDown" ExternalApi=true NotMapped=false TextGrid=false  Value="@_Entity.JobInterviewAcceptingCompany" FieldName="JobInterviewAcceptingCompany" OnItemSelected="ItemSelected_HR_JobInterviewJobInterviewAcceptingCompany" Component="Component_HR_JobInterviewJobInterviewAcceptingCompany" _Entity="_Entity" >
+</Dropdown>
+@code {
+    public async Task ItemSelected_HR_JobInterviewJobInterviewAcceptingCompany(object _Item)
+    {
+        var Selected = Utility.JSON.ToObject<dynamic>(Utility.JSON.ToJson(_Item).Result).Result;
+     var Item = _Entity;
+
+    Item.JobInterviewAcceptingCompany = Selected.CompanyID;
+
+
+    
+
+    
+    }
+} 
+
+<RadioBoolean @ref="Ref_IsEmployed" InLine=true Id="IsEmployed"   LabelTrue="بله" LabelFalse="خیر" Label="آیا مشغول به کار است" @bind-Value="_Entity.IsEmployed" CssClass="" Disabled=true></RadioBoolean>
+
+</div>
+
+<div class="col-md-3">
+    
+<Input Id="CellphoneNo" @ref="Ref_CellphoneNo" Label="شماره تلفن همراه"   Disabled=true  @bind-Value="_Entity.CellphoneNo" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"maxlength\":\"11\"}").Result))></Input>
+
+<RadioBoolean @ref="Ref_Gender" InLine=true Id="Gender"   LabelTrue="مرد" LabelFalse="زن" Label="جنسیت" @bind-Value="_Entity.Gender" CssClass="" Disabled=true></RadioBoolean>
+ 
+ 
+@code {
+    Baya.Models.ViewEngine.View_Component Component_HR_JobInterviewHR_JobInterviewContractTypeId = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"EntityName\":\"مصاحبه استخدامی\",\"primaryKey\":false,\"EntityID\":684,\"FieldId\":19561,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":946,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":false,\"RelationParentName\":\"HR_JobInterviewContractType\",\"RelationParentModel\":\"HR_JobInterviewContractType\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/HR_JobInterviewContractType/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.Title}} </span>\",\"FieldsTemplate\":[{\"key\":\"Title\",\"value\":\"nvarchar(Max)\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"disabled\":true,\"modal\":true,\"label\":\"نوع قرارداد مصاحبه شغلی\",\"tableView\":true,\"key\":\"HR_JobInterviewContractTypeId\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"19561?EId=684&SubId=15\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
+}
+
+    <Dropdown Id=HR_JobInterviewContractTypeId Disabled=true @ref="Ref_HR_JobInterviewContractTypeId" Label="نوع قرارداد مصاحبه شغلی" CssClass=""  DisplayFormat="DropDown" ExternalApi=true NotMapped=false TextGrid=false Text="" Value="@_Entity.HR_JobInterviewContractTypeId" FieldName="HR_JobInterviewContractTypeId" OnItemSelected="ItemSelected_HR_JobInterviewHR_JobInterviewContractTypeId" Component="Component_HR_JobInterviewHR_JobInterviewContractTypeId" _Entity="_Entity" >
+</Dropdown>
+@code {
+    public async Task ItemSelected_HR_JobInterviewHR_JobInterviewContractTypeId(object _Item)
+    {
+        var Selected = Utility.JSON.ToObject<dynamic>(Utility.JSON.ToJson(_Item).Result).Result;
+     var Item = _Entity;
+
+      //Todo
+ //برای اینکه آی دی تغییر کند اینجا نیز باید تغییر کند
+ //بهتر است از پرایمیری کی استفاده شود
+ Item.HR_JobInterviewContractTypeId = Selected.Id;
+ Item.HR_JobInterviewContractType = await Utility.JSON.ToObject<Entity.HR_JobInterviewContractType>(await Utility.JSON.ToJson(_Item));
+
+    
+
+    
+    }
+} 
+
+<Input Id="LastCompany" @ref="Ref_LastCompany" Label="آخرین شرکت مشغول به کار"   Disabled=true  @bind-Value="_Entity.LastCompany" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"maxlength\":\"53\"}").Result))></Input>
+
+</div>
+
+<div class="col-md-3">
+    
+<Input Id="Referral" @ref="Ref_Referral" Label="نحوه آشنایی"   Disabled=true  @bind-Value="_Entity.Referral" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"maxlength\":\"50\"}").Result))></Input>
+
+<Input Id="Code" @ref="Ref_Code" Label="کد آگهی استخدامی"   Disabled=true  @bind-Value="_Entity.Code" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"maxlength\":\"50\"}").Result))></Input>
+
+</div>
+
+<div class="col-md-9">
+    <Uploader Id=HR_JobInterview_JobInterviewResumeFile  @ref="Ref_HR_JobInterview_JobInterviewResumeFile" Disabled=true  Accept="image/* , application/pdf , .doc,.docx" MinSize="1KB" MaxSize="5MB" Caption="فایل رزومه مصاحبه شونده" Data="_Entity.HR_JobInterview_JobInterviewResumeFile" Url="https://File.workcv.ir/fa/api/v1/File/Post" TItem="Entity.HR_JobInterview_JobInterviewResumeFile"></Uploader>
+
+</div>
+
+<div class="col-md-12">
+    
+<Input Id="RequestDescription" @ref="Ref_RequestDescription" Label="توضیحات درخواست دهنده"   Disabled=true  @bind-Value="_Entity.RequestDescription" type="textarea"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+<Input Id="Skills" @ref="Ref_Skills" Label="مهارت‌های کلیدی موردنیاز"   Disabled=true  @bind-Value="_Entity.Skills" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"maxlength\":\"100\"}").Result))></Input>
+
+</div>
+
+</div>
+
+<div class="row ">
+    
+<div class="col-md-12">
+    <div  class="">
+    <div class="pt-2 px-2 pb-2 bg-lightpurple rounded fs-5 fw-bold mt-2 mb-2">
+  اطلاعات مصاحبه
+</div>
+</div>
+
+</div>
+
+<div class="col-md-3">
+    
+<Input Id="JobSeekerNotAvailable" @ref="Ref_JobSeekerNotAvailable" Label="آیا کارجو تمایلی به مصاحبه ندارد"   Disabled=true  @bind-Value="_Entity.JobSeekerNotAvailable" type="checkbox"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+</div>
+
+<div class="col-md-9">
+    
+</div>
+
+</div>
+
+<div class="row ">
+    
+<div class="col-md-3">
+     
+ 
+@code {
+    Baya.Models.ViewEngine.View_Component Component_HR_JobInterviewHR_InterviewTypeId = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"EntityName\":\"مصاحبه استخدامی\",\"primaryKey\":false,\"EntityID\":684,\"FieldId\":19560,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":946,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":false,\"RelationParentName\":\"HR_InterviewType\",\"RelationParentModel\":\"HR_InterviewType\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/HR_InterviewType/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.Tilte}} </span>\",\"FieldsTemplate\":[{\"key\":\"Tilte\",\"value\":\"nvarchar(Max)\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"disabled\":true,\"modal\":true,\"label\":\"نوع مصاحبه استخدامی\",\"tableView\":true,\"key\":\"HR_InterviewTypeId\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"19560?EId=684&SubId=15\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
+}
+
+    <Dropdown Id=HR_InterviewTypeId Disabled=true @ref="Ref_HR_InterviewTypeId" Label="نوع مصاحبه استخدامی" CssClass=""  DisplayFormat="DropDown" ExternalApi=true NotMapped=false TextGrid=false Text="" Value="@_Entity.HR_InterviewTypeId" FieldName="HR_InterviewTypeId" OnItemSelected="ItemSelected_HR_JobInterviewHR_InterviewTypeId" Component="Component_HR_JobInterviewHR_InterviewTypeId" _Entity="_Entity" >
+</Dropdown>
+@code {
+    public async Task ItemSelected_HR_JobInterviewHR_InterviewTypeId(object _Item)
+    {
+        var Selected = Utility.JSON.ToObject<dynamic>(Utility.JSON.ToJson(_Item).Result).Result;
+     var Item = _Entity;
+
+      //Todo
+ //برای اینکه آی دی تغییر کند اینجا نیز باید تغییر کند
+ //بهتر است از پرایمیری کی استفاده شود
+ Item.HR_InterviewTypeId = Selected.Id;
+ Item.HR_InterviewType = await Utility.JSON.ToObject<Entity.HR_InterviewType>(await Utility.JSON.ToJson(_Item));
+
+    
+
+    
+    }
+} 
+
+<Input Id="InterviewLocation" @ref="Ref_InterviewLocation" Label="محل مصاحبه"   Disabled=true  @bind-Value="_Entity.InterviewLocation" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"maxlength\":\"100\"}").Result))></Input>
+
+<Input Id="InterviewDateTime" @ref="Ref_InterviewDateTime" Label="تاریخ و زمان مصاحبه"  CssClass=" PersianDatePicker" Disabled=true  @bind-Value="_Entity.InterviewDateTime" type="textfield"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"data-jdp\":\"  \"}").Result))></Input>
+
+<Input Id="DontAnswered" @ref="Ref_DontAnswered" Label="عدم پاسخگویی کارجو"   Disabled=true  @bind-Value="_Entity.DontAnswered" type="checkbox"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+</div>
+
+<div class="col-md-9">
+    
+<Input Id="MeetingLink" @ref="Ref_MeetingLink" Label="نشانی اینترنتی مصاحبه"   Disabled=true  @bind-Value="_Entity.MeetingLink" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"maxlength\":\"500\"}").Result))></Input>
+
+<Input Id="GoogleMeetUserName" @ref="Ref_GoogleMeetUserName" Label="نام کاربری"   Disabled=true  @bind-Value="_Entity.GoogleMeetUserName" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"maxlength\":\"150\"}").Result))></Input>
+
+<Input Id="GoogleMeetPassword" @ref="Ref_GoogleMeetPassword" Label="پسورد"   Disabled=true  @bind-Value="_Entity.GoogleMeetPassword" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"maxlength\":\"150\"}").Result))></Input>
+
+<Input Id="CoordinatorDescription" @ref="Ref_CoordinatorDescription" Label="توضیحات هماهنگ کننده"   Disabled=true  @bind-Value="_Entity.CoordinatorDescription" type="textarea"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"maxlength\":\"2000\"}").Result))></Input>
+
+</div>
+
+</div>
+
+<div class="row ">
+    
+<div class="col-md-12">
+    <div  class="">
+    <div class="pt-2 px-2 pb-2 bg-lightpurple rounded fs-5 fw-bold mt-2 mb-2">
+  اطلاعات مصاحبه کننده
+</div>
+</div>
+
+</div>
+
+<div class="col-md-3">
+     
+ 
+@code {
+    Baya.Models.ViewEngine.View_Component Component_HR_JobInterviewJobInterviewer1 = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"EntityName\":\"مصاحبه استخدامی\",\"primaryKey\":false,\"EntityID\":684,\"FieldId\":19542,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":946,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":true,\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/vw_AspNetUsers/GetList?IsCut=false&CompanyID=1001&UnitID=154\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.FullName}} </span>\",\"FieldsTemplate\":[{\"key\":\"FullName\",\"value\":\"nvarchar(Max)\"}],\"dataSrc\":\"url\",\"refreshOn\":\"HR_JobInterview.IsCut\",\"searchField\":\"FullName\",\"clearOnRefresh\":true,\"disableLimit\":false,\"noRefreshOnScroll\":false,\"disabled\":true,\"modal\":true,\"label\":\"کاربر مصاحبه کننده\",\"tableView\":true,\"key\":\"JobInterviewer1\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"19542?EId=684&SubId=15\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
+}
+
+    <Dropdown Id=JobInterviewer1 Disabled=true @ref="Ref_JobInterviewer1" Label="کاربر مصاحبه کننده" CssClass=""  DisplayFormat="DropDown" ExternalApi=true NotMapped=false TextGrid=false  Value="@_Entity.JobInterviewer1" FieldName="JobInterviewer1" OnItemSelected="ItemSelected_HR_JobInterviewJobInterviewer1" Component="Component_HR_JobInterviewJobInterviewer1" _Entity="_Entity" >
+</Dropdown>
+@code {
+    public async Task ItemSelected_HR_JobInterviewJobInterviewer1(object _Item)
+    {
+        var Selected = Utility.JSON.ToObject<dynamic>(Utility.JSON.ToJson(_Item).Result).Result;
+     var Item = _Entity;
+
+    Item.JobInterviewer1 = Selected.Id;
+
+
+    
+
+    
+    }
+} 
+
+</div>
+
+<div class="col-md-3">
+    
+</div>
+
+<div class="col-md-3">
+    
+</div>
+
+<div class="col-md-3">
+    
+</div>
+
+</div>
+
+<div class="row ">
+    
+<div class="col-md-12">
+    <div  class="">
+    <div class="pt-2 px-2 pb-2 bg-lightpurple rounded fs-5 fw-bold mt-2 mb-2">
+  نتیجه مصاحبه کننده
+</div>
+</div>
+
+</div>
+
+<div class="col-md-3">
+    
+<Time Id="InterviewDuration" DisplayFormat ="HH:mm:ss" @ref="Ref_InterviewDuration" Label="مدت مصاحبه"  CssClass=" PersianDatePicker" Disabled=true  @bind-Value="_Entity.InterviewDuration" type="text"    Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"data-jdp\":\"  \",\"data-jdp-only-time\":\"   \"}").Result))></Time>
+
+</div>
+
+<div class="col-md-3">
+     
+ 
+@code {
+    Baya.Models.ViewEngine.View_Component Component_HR_JobInterviewHR_EmploymentOffersId = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"EntityName\":\"مصاحبه استخدامی\",\"primaryKey\":false,\"EntityID\":684,\"FieldId\":29759,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":946,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":false,\"RelationParentName\":\"HR_EmploymentOffers\",\"RelationParentModel\":\"HR_EmploymentOffers\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/HR_EmploymentOffers/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.Title}} {{item.Code}} </span>\",\"FieldsTemplate\":[{\"key\":\"Title\",\"value\":\"nvarchar(Max)\"},{\"key\":\"Code\",\"value\":\"int\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"disabled\":true,\"modal\":true,\"label\":\"پیشنهاد برای استخدام\",\"tableView\":true,\"key\":\"HR_EmploymentOffersId\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"29759?EId=684&SubId=15\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
+}
+
+    <Dropdown Id=HR_EmploymentOffersId Disabled=true @ref="Ref_HR_EmploymentOffersId" Label="پیشنهاد برای استخدام" CssClass=""  DisplayFormat="DropDown" ExternalApi=true NotMapped=false TextGrid=false Text="" Value="@_Entity.HR_EmploymentOffersId" FieldName="HR_EmploymentOffersId" OnItemSelected="ItemSelected_HR_JobInterviewHR_EmploymentOffersId" Component="Component_HR_JobInterviewHR_EmploymentOffersId" _Entity="_Entity" >
+</Dropdown>
+@code {
+    public async Task ItemSelected_HR_JobInterviewHR_EmploymentOffersId(object _Item)
+    {
+        var Selected = Utility.JSON.ToObject<dynamic>(Utility.JSON.ToJson(_Item).Result).Result;
+     var Item = _Entity;
+
+      //Todo
+ //برای اینکه آی دی تغییر کند اینجا نیز باید تغییر کند
+ //بهتر است از پرایمیری کی استفاده شود
+ Item.HR_EmploymentOffersId = Selected.Id;
+ Item.HR_EmploymentOffers = await Utility.JSON.ToObject<Entity.HR_EmploymentOffers>(await Utility.JSON.ToJson(_Item));
+
+    
+
+    
+    }
+} 
+
+</div>
+
+<div class="col-md-3">
+     
+ 
+@code {
+    Baya.Models.ViewEngine.View_Component Component_HR_JobInterviewHR_InterviewItemsId = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"EntityName\":\"مصاحبه استخدامی\",\"primaryKey\":false,\"EntityID\":684,\"FieldId\":29760,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":946,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":false,\"RelationParentName\":\"HR_InterviewItems\",\"RelationParentModel\":\"HR_InterviewItems\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/HR_InterviewItems/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.Title}} {{item.Code}} </span>\",\"FieldsTemplate\":[{\"key\":\"Title\",\"value\":\"nvarchar(Max)\"},{\"key\":\"Code\",\"value\":\"int\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"disabled\":true,\"modal\":true,\"label\":\"آیا مهارت‌های کارجو با نیاز شغلی منطبق است؟\",\"tableView\":true,\"key\":\"HR_InterviewItemsId\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"29760?EId=684&SubId=15\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
+}
+
+    <Dropdown Id=HR_InterviewItemsId Disabled=true @ref="Ref_HR_InterviewItemsId" Label="آیا مهارت‌های کارجو با نیاز شغلی منطبق است؟" CssClass=""  DisplayFormat="DropDown" ExternalApi=true NotMapped=false TextGrid=false Text="" Value="@_Entity.HR_InterviewItemsId" FieldName="HR_InterviewItemsId" OnItemSelected="ItemSelected_HR_JobInterviewHR_InterviewItemsId" Component="Component_HR_JobInterviewHR_InterviewItemsId" _Entity="_Entity" >
+</Dropdown>
+@code {
+    public async Task ItemSelected_HR_JobInterviewHR_InterviewItemsId(object _Item)
+    {
+        var Selected = Utility.JSON.ToObject<dynamic>(Utility.JSON.ToJson(_Item).Result).Result;
+     var Item = _Entity;
+
+      //Todo
+ //برای اینکه آی دی تغییر کند اینجا نیز باید تغییر کند
+ //بهتر است از پرایمیری کی استفاده شود
+ Item.HR_InterviewItemsId = Selected.Id;
+ Item.HR_InterviewItems = await Utility.JSON.ToObject<Entity.HR_InterviewItems>(await Utility.JSON.ToJson(_Item));
+
+    
+
+    
+    }
+} 
+
+</div>
+
+<div class="col-md-3">
+     
+ 
+@code {
+    Baya.Models.ViewEngine.View_Component Component_HR_JobInterviewInterviewLevelItemsId = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"EntityName\":\"مصاحبه استخدامی\",\"primaryKey\":false,\"EntityID\":684,\"FieldId\":29761,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":946,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":false,\"RelationParentName\":\"InterviewLevelItems\",\"RelationParentModel\":\"HR_InterviewItems\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/HR_InterviewItems/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.Title}} {{item.Code}} </span>\",\"FieldsTemplate\":[{\"key\":\"Title\",\"value\":\"nvarchar(Max)\"},{\"key\":\"Code\",\"value\":\"int\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"disabled\":true,\"modal\":true,\"label\":\"سطح تخصص مورد نیاز پوشش داده می‌شود؟\",\"tableView\":true,\"key\":\"InterviewLevelItemsId\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"29761?EId=684&SubId=15\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
+}
+
+    <Dropdown Id=InterviewLevelItemsId Disabled=true @ref="Ref_InterviewLevelItemsId" Label="سطح تخصص مورد نیاز پوشش داده می‌شود؟" CssClass=""  DisplayFormat="DropDown" ExternalApi=true NotMapped=false TextGrid=false Text="" Value="@_Entity.InterviewLevelItemsId" FieldName="InterviewLevelItemsId" OnItemSelected="ItemSelected_HR_JobInterviewInterviewLevelItemsId" Component="Component_HR_JobInterviewInterviewLevelItemsId" _Entity="_Entity" >
+</Dropdown>
+@code {
+    public async Task ItemSelected_HR_JobInterviewInterviewLevelItemsId(object _Item)
+    {
+        var Selected = Utility.JSON.ToObject<dynamic>(Utility.JSON.ToJson(_Item).Result).Result;
+     var Item = _Entity;
+
+      //Todo
+ //برای اینکه آی دی تغییر کند اینجا نیز باید تغییر کند
+ //بهتر است از پرایمیری کی استفاده شود
+ Item.InterviewLevelItemsId = Selected.Id;
+ Item.InterviewLevelItems = await Utility.JSON.ToObject<Entity.HR_InterviewItems>(await Utility.JSON.ToJson(_Item));
+
+    
+
+    
+    }
+} 
+
+</div>
+
+</div>
+
+<div class="row ">
+    
+<div class="col-md-3">
+    
+<RadioBoolean @ref="Ref_IsApproved" InLine=true Id="IsApproved"   LabelTrue="بله" LabelFalse="خیر" Label="مورد تایید است؟" @bind-Value="_Entity.IsApproved" CssClass="" Disabled=true></RadioBoolean>
+
+</div>
+
+<div class="col-md-9">
+    
+</div>
+
+</div>
+
+<div class="row ">
+    
+<div class="col-md-12">
+    <div  class="">
+    <p></p>
+</div>
+
+</div>
+
+<div class="col-md-12">
+    
+<Input Id="InterviewerDescription" @ref="Ref_InterviewerDescription" Label="توضیحات مصاحبه کننده"   Disabled=true  @bind-Value="_Entity.InterviewerDescription" type="textarea"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"maxlength\":\"2000\"}").Result))></Input>
+
+</div>
+
+<div class="col-md-6">
+    
+</div>
+
+<div class="col-md-6">
+    
+</div>
+
+<div class="col-md-12">
+    <div  class="">
+    <hr class="hrdash">
+</div>
+
+</div>
+
+</div>
+
+<div class="row ">
+    
+<div class="col-md-12">
+    <div  class="">
+    <div class="pt-2 px-2 pb-2 bg-lightpurple rounded fs-5 fw-bold mb-2">
+  نظر سرپرست
+</div>
+</div>
+
+</div>
+
+<div class="col-md-4">
+    
+<Input Id="IsReInterview" @ref="Ref_IsReInterview" Label="آیا مصاحبه مجدد انجام می‌شود؟"     @bind-Value="_Entity.IsReInterview" type="checkbox"    oninput="@(e => IsReInterview_oninput(e ))"  Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+</div>
+
+<div class="col-md-4">
+    
+</div>
+
+<div class="col-md-4">
+    
+<Input Id="AvailabilityToStartWork" @ref="Ref_AvailabilityToStartWork" Label="زمان در دسترس بودن برای شروع همکاری"  CssClass=" PersianDatePicker"   @bind-Value="_Entity.AvailabilityToStartWork" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"data-jdp\":\"  \",\"data-jdp-only-date\":\"   \"}").Result))></Input>
+
+</div>
+
+<div class="col-md-3">
+    
+<RadioBoolean @ref="Ref_SupervisorApprove" InLine=true Id="SupervisorApprove"   LabelTrue="بله" LabelFalse="خیر" Label="تاییدیه سرپرست" @bind-Value="_Entity.SupervisorApprove" CssClass="" ></RadioBoolean>
+
+</div>
+
+<div class="col-md-9">
+    
+<Input Id="SupervisorComment" @ref="Ref_SupervisorComment" Label="نظر سرپرست"     @bind-Value="_Entity.SupervisorComment" type="textarea"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+</div>
+
+</div>
+
+<Input Id="IsDelete" @ref="Ref_IsDelete"   CssClass="d-none"   @bind-Value="_Entity.IsDelete" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+<Input Id="Id" @ref="Ref_Id"   CssClass="d-none"   @bind-Value="_Entity.Id" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+<Input Id="RequestID" @ref="Ref_RequestID"      @bind-Value="_Entity.RequestID" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+<Input Id="CreateUser" @ref="Ref_CreateUser"      @bind-Value="_Entity.CreateUser" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+<Input Id="UpdateUser" @ref="Ref_UpdateUser"      @bind-Value="_Entity.UpdateUser" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+<Input Id="CreateDate" @ref="Ref_CreateDate"   CssClass="d-none"   @bind-Value="_Entity.CreateDate" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+<Input Id="UpdateDate" @ref="Ref_UpdateDate"   CssClass="d-none"   @bind-Value="_Entity.UpdateDate" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+    </EditForm>
+</div>
+
+@if (ShowSubmit)
+{
+    <button class="btn btn-sm btn-green" @onclick=Submit>ذخیره</button>
+}
+
+@code {
+    #region Function
+
+    //todo  جا به جا شود برده شود تو فایل  Peropeties
+    protected override async Task OnInitializedAsync()
+    {
+        Console.WriteLine("#log OnInitializedAsync");
+
+        TableGet = await Utility.JSON.ToObject<Table>("{\"Name\":\"HR_JobInterview\",\"GetNameAs\":\"HR_JobInterview\",\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"RequestID\",\"GetNameAs\":\"RequestID\"},{\"Name\":\"CreateUser\",\"GetNameAs\":\"CreateUser\"},{\"Name\":\"UpdateUser\",\"GetNameAs\":\"UpdateUser\"},{\"Name\":\"CreateDate\",\"GetNameAs\":\"CreateDate\"},{\"Name\":\"UpdateDate\",\"GetNameAs\":\"UpdateDate\"},{\"Name\":\"IsDelete\",\"GetNameAs\":\"IsDelete\"},{\"Name\":\"Code\",\"GetNameAs\":\"Code\"},{\"Name\":\"FirstName\",\"GetNameAs\":\"FirstName\"},{\"Name\":\"LastName\",\"GetNameAs\":\"LastName\"},{\"Name\":\"CellphoneNo\",\"GetNameAs\":\"CellphoneNo\"},{\"Name\":\"JobInterviewer1\",\"GetNameAs\":\"JobInterviewer1\"},{\"Name\":\"HR_InterviewResumeSiteId\",\"GetNameAs\":\"HR_InterviewResumeSiteId\"},{\"Name\":\"HR_InterviewTypeId\",\"GetNameAs\":\"HR_InterviewTypeId\"},{\"Name\":\"HR_JobInterviewContractTypeId\",\"GetNameAs\":\"HR_JobInterviewContractTypeId\"},{\"Name\":\"HR_JobIntervieweTitleId\",\"GetNameAs\":\"HR_JobIntervieweTitleId\"},{\"Name\":\"InterviewDateTime\",\"GetNameAs\":\"InterviewDateTime\"},{\"Name\":\"JobInterviewAcceptingCompany\",\"GetNameAs\":\"JobInterviewAcceptingCompany\"},{\"Name\":\"InterviewerDescription\",\"GetNameAs\":\"InterviewerDescription\"},{\"Name\":\"MeetingLink\",\"GetNameAs\":\"MeetingLink\"},{\"Name\":\"IsReInterview\",\"GetNameAs\":\"IsReInterview\"},{\"Name\":\"IsApproved\",\"GetNameAs\":\"IsApproved\"},{\"Name\":\"PortfolioURL\",\"GetNameAs\":\"PortfolioURL\"},{\"Name\":\"GoogleMeetUserName\",\"GetNameAs\":\"GoogleMeetUserName\"},{\"Name\":\"GoogleMeetPassword\",\"GetNameAs\":\"GoogleMeetPassword\"},{\"Name\":\"SupervisorComment\",\"GetNameAs\":\"SupervisorComment\"},{\"Name\":\"SupervisorApprove\",\"GetNameAs\":\"SupervisorApprove\"},{\"Name\":\"JobSeekerNotAvailable\",\"GetNameAs\":\"JobSeekerNotAvailable\"},{\"Name\":\"RequestDescription\",\"GetNameAs\":\"RequestDescription\"},{\"Name\":\"Age\",\"GetNameAs\":\"Age\"},{\"Name\":\"MaritalStatus\",\"GetNameAs\":\"MaritalStatus\"},{\"Name\":\"Gender\",\"GetNameAs\":\"Gender\"},{\"Name\":\"Location\",\"GetNameAs\":\"Location\"},{\"Name\":\"Referral\",\"GetNameAs\":\"Referral\"},{\"Name\":\"InterviewLocation\",\"GetNameAs\":\"InterviewLocation\"},{\"Name\":\"BaseInfo_MilitaryStatusId\",\"GetNameAs\":\"BaseInfo_MilitaryStatusId\"},{\"Name\":\"Telephone\",\"GetNameAs\":\"Telephone\"},{\"Name\":\"IsEmployed\",\"GetNameAs\":\"IsEmployed\"},{\"Name\":\"LastCompany\",\"GetNameAs\":\"LastCompany\"},{\"Name\":\"Skills\",\"GetNameAs\":\"Skills\"},{\"Name\":\"InterviewDuration\",\"GetNameAs\":\"InterviewDuration\"},{\"Name\":\"HR_EmploymentOffersId\",\"GetNameAs\":\"HR_EmploymentOffersId\"},{\"Name\":\"HR_InterviewItemsId\",\"GetNameAs\":\"HR_InterviewItemsId\"},{\"Name\":\"InterviewLevelItemsId\",\"GetNameAs\":\"InterviewLevelItemsId\"},{\"Name\":\"AvailabilityToStartWork\",\"GetNameAs\":\"AvailabilityToStartWork\"},{\"Name\":\"DontAnswered\",\"GetNameAs\":\"DontAnswered\"},{\"Name\":\"CoordinatorDescription\",\"GetNameAs\":\"CoordinatorDescription\"}],\"Relation\":[{\"Name\":\"HR_InterviewResumeSite\",\"GetNameAs\":\"HR_InterviewResumeSite\",\"ModeErtebat\":1,\"Column\":[{\"Name\":\"Title\",\"GetNameAs\":\"Title\"},{\"Name\":\"URL\",\"GetNameAs\":\"URL\"}],\"Relation\":[]},{\"Name\":\"HR_InterviewType\",\"GetNameAs\":\"HR_InterviewType\",\"ModeErtebat\":1,\"Column\":[{\"Name\":\"Code\",\"GetNameAs\":\"Code\"},{\"Name\":\"Tilte\",\"GetNameAs\":\"Tilte\"}],\"Relation\":[]},{\"Name\":\"HR_JobInterviewContractType\",\"GetNameAs\":\"HR_JobInterviewContractType\",\"ModeErtebat\":1,\"Column\":[{\"Name\":\"Code\",\"GetNameAs\":\"Code\"},{\"Name\":\"Title\",\"GetNameAs\":\"Title\"}],\"Relation\":[]},{\"Name\":\"HR_JobIntervieweTitle\",\"GetNameAs\":\"HR_JobIntervieweTitle\",\"ModeErtebat\":1,\"Column\":[{\"Name\":\"Code\",\"GetNameAs\":\"Code\"},{\"Name\":\"Title\",\"GetNameAs\":\"Title\"}],\"Relation\":[]},{\"Name\":\"BaseInfo_MilitaryStatus\",\"GetNameAs\":\"BaseInfo_MilitaryStatus\",\"ModeErtebat\":1,\"Column\":[{\"Name\":\"Code\",\"GetNameAs\":\"Code\"},{\"Name\":\"Title\",\"GetNameAs\":\"Title\"},{\"Name\":\"IsActive\",\"GetNameAs\":\"IsActive\"}],\"Relation\":[]},{\"Name\":\"HR_InterviewStatus\",\"GetNameAs\":\"HR_InterviewStatus\",\"ModeErtebat\":1,\"Column\":[{\"Name\":\"Title\",\"GetNameAs\":\"Title\"},{\"Name\":\"Code\",\"GetNameAs\":\"Code\"}],\"Relation\":[]},{\"Name\":\"HR_EmploymentOffers\",\"GetNameAs\":\"HR_EmploymentOffers\",\"ModeErtebat\":1,\"Column\":[{\"Name\":\"Title\",\"GetNameAs\":\"Title\"},{\"Name\":\"Code\",\"GetNameAs\":\"Code\"}],\"Relation\":[]},{\"Name\":\"HR_InterviewItems\",\"GetNameAs\":\"HR_InterviewItems\",\"ModeErtebat\":1,\"Column\":[{\"Name\":\"Title\",\"GetNameAs\":\"Title\"},{\"Name\":\"Code\",\"GetNameAs\":\"Code\"}],\"Relation\":[]},{\"Name\":\"InterviewLevelItems\",\"GetNameAs\":\"InterviewLevelItems\",\"ModeErtebat\":1,\"Column\":[{\"Name\":\"Title\",\"GetNameAs\":\"Title\"},{\"Name\":\"Code\",\"GetNameAs\":\"Code\"}],\"Relation\":[]},{\"Name\":\"HR_JobInterview_JobInterviewResumeFile\",\"GetNameAs\":\"HR_JobInterview_JobInterviewResumeFile\",\"ModeErtebat\":2,\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"HR_JobInterviewId\",\"GetNameAs\":\"HR_JobInterviewId\"},{\"Name\":\"storage\",\"GetNameAs\":\"storage\"},{\"Name\":\"name\",\"GetNameAs\":\"name\"},{\"Name\":\"url\",\"GetNameAs\":\"url\"},{\"Name\":\"size\",\"GetNameAs\":\"size\"},{\"Name\":\"type\",\"GetNameAs\":\"type\"},{\"Name\":\"originalName\",\"GetNameAs\":\"originalName\"},{\"Name\":\"hash\",\"GetNameAs\":\"hash\"},{\"Name\":\"RequestID\",\"GetNameAs\":\"RequestID\"},{\"Name\":\"CreateUser\",\"GetNameAs\":\"CreateUser\"},{\"Name\":\"UpdateUser\",\"GetNameAs\":\"UpdateUser\"},{\"Name\":\"CreateDate\",\"GetNameAs\":\"CreateDate\"},{\"Name\":\"UpdateDate\",\"GetNameAs\":\"UpdateDate\"},{\"Name\":\"IsDelete\",\"GetNameAs\":\"IsDelete\"}]}]}");
+        TablePost = await Utility.JSON.ToObject<Table>("{\"Name\":\"HR_JobInterview\",\"GetNameAs\":\"HR_JobInterview\",\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"RequestID\",\"GetNameAs\":\"RequestID\"},{\"Name\":\"CreateUser\",\"GetNameAs\":\"CreateUser\"},{\"Name\":\"UpdateUser\",\"GetNameAs\":\"UpdateUser\"},{\"Name\":\"CreateDate\",\"GetNameAs\":\"CreateDate\"},{\"Name\":\"UpdateDate\",\"GetNameAs\":\"UpdateDate\"},{\"Name\":\"IsDelete\",\"GetNameAs\":\"IsDelete\"},{\"Name\":\"Code\",\"GetNameAs\":\"Code\"},{\"Name\":\"FirstName\",\"GetNameAs\":\"FirstName\"},{\"Name\":\"LastName\",\"GetNameAs\":\"LastName\"},{\"Name\":\"CellphoneNo\",\"GetNameAs\":\"CellphoneNo\"},{\"Name\":\"JobInterviewer1\",\"GetNameAs\":\"JobInterviewer1\"},{\"Name\":\"HR_InterviewResumeSiteId\",\"GetNameAs\":\"HR_InterviewResumeSiteId\"},{\"Name\":\"HR_InterviewTypeId\",\"GetNameAs\":\"HR_InterviewTypeId\"},{\"Name\":\"HR_JobInterviewContractTypeId\",\"GetNameAs\":\"HR_JobInterviewContractTypeId\"},{\"Name\":\"HR_JobIntervieweTitleId\",\"GetNameAs\":\"HR_JobIntervieweTitleId\"},{\"Name\":\"InterviewDateTime\",\"GetNameAs\":\"InterviewDateTime\"},{\"Name\":\"JobInterviewAcceptingCompany\",\"GetNameAs\":\"JobInterviewAcceptingCompany\"},{\"Name\":\"InterviewerDescription\",\"GetNameAs\":\"InterviewerDescription\"},{\"Name\":\"MeetingLink\",\"GetNameAs\":\"MeetingLink\"},{\"Name\":\"IsReInterview\",\"GetNameAs\":\"IsReInterview\"},{\"Name\":\"IsApproved\",\"GetNameAs\":\"IsApproved\"},{\"Name\":\"PortfolioURL\",\"GetNameAs\":\"PortfolioURL\"},{\"Name\":\"GoogleMeetUserName\",\"GetNameAs\":\"GoogleMeetUserName\"},{\"Name\":\"GoogleMeetPassword\",\"GetNameAs\":\"GoogleMeetPassword\"},{\"Name\":\"SupervisorComment\",\"GetNameAs\":\"SupervisorComment\"},{\"Name\":\"SupervisorApprove\",\"GetNameAs\":\"SupervisorApprove\"},{\"Name\":\"JobSeekerNotAvailable\",\"GetNameAs\":\"JobSeekerNotAvailable\"},{\"Name\":\"RequestDescription\",\"GetNameAs\":\"RequestDescription\"},{\"Name\":\"Age\",\"GetNameAs\":\"Age\"},{\"Name\":\"MaritalStatus\",\"GetNameAs\":\"MaritalStatus\"},{\"Name\":\"Gender\",\"GetNameAs\":\"Gender\"},{\"Name\":\"Location\",\"GetNameAs\":\"Location\"},{\"Name\":\"Referral\",\"GetNameAs\":\"Referral\"},{\"Name\":\"InterviewLocation\",\"GetNameAs\":\"InterviewLocation\"},{\"Name\":\"BaseInfo_MilitaryStatusId\",\"GetNameAs\":\"BaseInfo_MilitaryStatusId\"},{\"Name\":\"Telephone\",\"GetNameAs\":\"Telephone\"},{\"Name\":\"IsEmployed\",\"GetNameAs\":\"IsEmployed\"},{\"Name\":\"LastCompany\",\"GetNameAs\":\"LastCompany\"},{\"Name\":\"Skills\",\"GetNameAs\":\"Skills\"},{\"Name\":\"InterviewDuration\",\"GetNameAs\":\"InterviewDuration\"},{\"Name\":\"HR_EmploymentOffersId\",\"GetNameAs\":\"HR_EmploymentOffersId\"},{\"Name\":\"HR_InterviewItemsId\",\"GetNameAs\":\"HR_InterviewItemsId\"},{\"Name\":\"InterviewLevelItemsId\",\"GetNameAs\":\"InterviewLevelItemsId\"},{\"Name\":\"AvailabilityToStartWork\",\"GetNameAs\":\"AvailabilityToStartWork\"},{\"Name\":\"DontAnswered\",\"GetNameAs\":\"DontAnswered\"},{\"Name\":\"CoordinatorDescription\",\"GetNameAs\":\"CoordinatorDescription\"}],\"Relation\":[{\"Name\":\"HR_JobInterview_JobInterviewResumeFile\",\"GetNameAs\":\"HR_JobInterview_JobInterviewResumeFile\",\"ModeErtebat\":2,\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"HR_JobInterviewId\",\"GetNameAs\":\"HR_JobInterviewId\"},{\"Name\":\"storage\",\"GetNameAs\":\"storage\"},{\"Name\":\"name\",\"GetNameAs\":\"name\"},{\"Name\":\"url\",\"GetNameAs\":\"url\"},{\"Name\":\"size\",\"GetNameAs\":\"size\"},{\"Name\":\"type\",\"GetNameAs\":\"type\"},{\"Name\":\"originalName\",\"GetNameAs\":\"originalName\"},{\"Name\":\"hash\",\"GetNameAs\":\"hash\"},{\"Name\":\"RequestID\",\"GetNameAs\":\"RequestID\"},{\"Name\":\"CreateUser\",\"GetNameAs\":\"CreateUser\"},{\"Name\":\"UpdateUser\",\"GetNameAs\":\"UpdateUser\"},{\"Name\":\"CreateDate\",\"GetNameAs\":\"CreateDate\"},{\"Name\":\"UpdateDate\",\"GetNameAs\":\"UpdateDate\"},{\"Name\":\"IsDelete\",\"GetNameAs\":\"IsDelete\"}]}]}");
+
+        config = CKEditorBundleOptions.DefaultConfig.WithHtmlEditing();
+        config.Language = "fa";
+
+        //بعداد اگه نیاز شد فرمی رو تو حالت غیر لاگین شده نمایش بدیم باید این  کد تغیر کنه
+        var user = (await _authenticationStateProvider.GetAuthenticationStateAsync()).User;
+        string UserID = user.FindFirst(c => c.Type == ClaimTypes.NameIdentifier).Value;
+        //داینامیک بشه
+        Dictionary<string, object> List = new Dictionary<string, object>();
+        //List.Add("UserID", Guid.Parse(UserID));
+        List.Add("UserID", UserID);
+        _User = await Domain.Utility.ConvertParameter.ConvertToObject(List);
+
+        Console.WriteLine("#log OnInitializedAsync End");
+
+        await base.OnInitializedAsync();
+    }
+
+    //todo  جا به جا شود برده شود تو فایل  Peropeties
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            Console.WriteLine("#log OnAfterRenderAsync");
+            await base.BeforGetData();
+
+            var Result = await GetData();
+
+            await base.AfterGetData();
+
+            StateHasChanged();
+
+            await OnFormloaded.InvokeAsync(Result);
+        }
+
+        await base.OnAfterRenderAsync(firstRender);
+    }
+
+    /// <summary>
+    /// دریافت داده
+    /// </summary>
+    /// <returns></returns>
+    public async Task<Baya.Models.Utility.Result> GetData()
+    {
+        await BeforGetData();
+
+        var DataResult = await ApiServer.External.Services.Data.Get(TableGet, QueryFilter, TableGet.Name, null);
+        
+        Baya.Models.Utility.Result Result = new Baya.Models.Utility.Result();
+
+        if (DataResult != null && DataResult.Status == HttpStatusCode.OK)
+        {
+            if (DataResult.Content != null)
+            {
+                string Data = DataResult.Content.ToString();
+                if (Data is not null)
+                {
+                    _Entity = await Utility.JSON.ToObject < Entity.HR_JobInterview>(Data);
+        }
+            }
+            else
+            {
+                _Entity = new Entity.HR_JobInterview();
+            //todo تشخیص دهد که داده ای وجود ندارد و دفه اول هست که فرم لود میشود
+            //todo اگه نیاز شد دالخ ORm خروجیش متفاوت باشه
+            //ست کردن دیفالت های فرم
+            if (true)
+                {//
+
+
+                    //نمونه ست کردن پارامتر روش اول
+                    //_Entity.InstantDelivery = _RequestParameters.UserId;
+
+                    //نمونه کد برای ست کردن پارامتر روش دوم
+                    //_Entity.InstantDelivery = await GetParameter("@@UserId@@");
+                }
+
+                SumaryMessage = "داده لود شده معتبر نمی باشد";
+                Result.Status = HttpStatusCode.InternalServerError;
+            }
+        }
+        else
+        {
+            SumaryMessage = "داده لود نشد";
+            Result.Status = HttpStatusCode.InternalServerError;
+        }
+
+        Result.Message = SumaryMessage;
+
+        StateHasChanged();
+
+        await AfterGetData();
+
+        return Result;
+    }
+
+    public override async Task SetParametersAsync(ParameterView parameters)
+    {
+        await base.SetParametersAsync(parameters);
+    }
+
+    protected override void OnInitialized()
+    {
+        //todo این خط برده شود داخل تابع پاینی ببینیم خطا داره یا نه
+        languageContainer.InitLocalizedComponent(this);
+    }
+
+
+    /// <summary>
+    /// بررسی تغییر دیتا
+    /// </summary>
+    /// <param name="Json"></param>
+    /// <returns></returns>
+    public bool CheckChangedData(string? Json)
+    {
+        if (string.Equals(JsonData, Json)) return true;
+        return false;
+    }
+
+    /// <summary>
+    /// ارسال داده
+    /// </summary>
+    /// <returns></returns>
+    public override async Task<Baya.Models.Utility.Result> Submit()
+    {
+        SumaryMessage = "";
+        Baya.Models.Utility.Result Result = new Baya.Models.Utility.Result();
+
+        if (!await FormValidator())
+        {
+            StateHasChanged();
+            Result.Status = HttpStatusCode.InternalServerError;
+            return Result;
+        }
+
+        if ((await BeforSubmit()).Status != HttpStatusCode.OK)
+        {
+            StateHasChanged();
+            Result.Status = HttpStatusCode.InternalServerError;
+            return Result;
+        }
+
+        _loadingService.Show();
+        var Resualt = await PostData();
+
+        if (Resualt)
+        {
+            Result.Status = HttpStatusCode.OK;
+
+            SumaryMessage = "داده ها با موفقیت ثبت شد";
+        }
+        else
+        {
+            Result.Status = HttpStatusCode.InternalServerError;
+            SumaryMessage = "ذخیره داده با مشکل مواجه شد";
+        }
+
+        Result.Message = SumaryMessage;
+
+        switch ((int)Result.Status)
+        {
+            case 200:
+                toastService.ShowSuccess(Result.Message);
+                break;
+            case 500:
+                toastService.ShowError(Result.Message);
+                break;
+            default:
+                break;
+        } 
+        _loadingService.Hide();
+        await AfterSubmit();
+
+        return Result;
+    }
+
+    /// <summary>
+    /// ارسال داده
+    /// </summary>
+    /// <returns></returns>
+    private async Task<bool> PostData()
+    {
+        string Data = await Utility.JSON.ToJson(_Entity);
+
+        bool IsOk = false;
+        var Model = await ApiServer.External.Services.Data.Put(Data, TablePost.Name, TablePost, RequestID?.ToString(), _User.UserID.ToString());
+        // بررسی وضعیت پاسخ
+        if (Model?.Status == HttpStatusCode.OK)
+        {
+            if (Model.Content != null && !IndependentForm)
+                { 
+                    string NewData = Model.Content.ToString();
+                    if (NewData is not null)
+                    {
+                        var NewEntity = await Utility.JSON.ToObject < Entity.HR_JobInterview>(NewData);
+                     await  GetDataForm(NewEntity._Id);
+                    }
+
+                }
+                IsOk = true;
+
+        }
+        return IsOk;
+    }
+
+
+    void SetLanguage(string language)
+    {
+        languageContainer.SetLanguage(System.Globalization.CultureInfo.GetCultureInfo(language));
+    }
+
+    // public void ValidFormSubmitted(EditContext editContext)
+    // {
+
+    // }
+
+    // public void InvalidFormSubmitted(EditContext editContext)
+    // {
+
+    // }
+    public async Task GetDataForm(object Id)
+    {
+        Type type = Id.GetType();
+        string TypeToQueryBuilder = Utility.TypeConverterQueryBuilder.ConvertCSharpTypeToQueryBuilder(type);
+        var NewQuery = new QueryBuilderFilterRule() { Condition = "AND" };
+        NewQuery.Rules = new List<QueryBuilderFilterRule>
+            {
+                    new QueryBuilderFilterRule()
+                    {
+                        Field = _Entity._GetIdName,
+                        Id = _Entity._GetIdName,
+                        Input = "text",
+                        Operator = "equal",
+                        Type =  TypeToQueryBuilder,
+                        Value = new string[]{ Id.ToString() },
+                    }
+            };
+        QueryFilter = NewQuery;
+        await GetData();
+        StateHasChanged();
+    }
+    #endregion
+}

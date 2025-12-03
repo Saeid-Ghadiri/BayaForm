@@ -1,0 +1,343 @@
+@inherits Forms.Forms.Form_792_CUBase
+@namespace FormsPage
+
+@using AKSoftware.Localization.MultiLanguages.Blazor
+@using Baya.Models.Utility;
+@using Baya.Models.ORM
+@using Microsoft.AspNetCore.Components.Forms
+@using Microsoft.AspNetCore.Components.Authorization;
+@using System.Security.Claims
+@using System.Net
+@using Microsoft.JSInterop
+@using Baya.Models.ViewEngine
+@using Forms.Domain.Utility
+@using Castle.DynamicLinqQueryBuilder
+<style>
+    
+</style>
+
+<Plugins.Tools.ConfirmDialog @ref="Confirm" />
+
+<span class="d-none">VersionForm:@VersionForm</span>
+@*
+@if (!string.IsNullOrEmpty(SumaryMessage))
+{
+    <div>
+        @SumaryMessage
+    </div>
+} *@
+
+@* <EditForm @ref="_Form" Model="_Entity" OnValidSubmit="ValidFormSubmitted" OnInvalidSubmit="InvalidFormSubmitted" OnSubmit="Submit"> *@
+<div class="@(ReadOnly?"FormReadOnly":"")">
+    <EditForm @ref="_Form" Model="_Entity" OnSubmit="Submit">
+        
+<Input Id="Id" @ref="Ref_Id"   CssClass="d-none"   @bind-Value="_Entity.Id" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+<Input Id="RequestID" @ref="Ref_RequestID"      @bind-Value="_Entity.RequestID" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+<Input Id="CreateUser" @ref="Ref_CreateUser"      @bind-Value="_Entity.CreateUser" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+<Input Id="UpdateUser" @ref="Ref_UpdateUser"      @bind-Value="_Entity.UpdateUser" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+<Input Id="CreateDate" @ref="Ref_CreateDate"   CssClass="d-none"   @bind-Value="_Entity.CreateDate" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+<Input Id="UpdateDate" @ref="Ref_UpdateDate"   CssClass="d-none"   @bind-Value="_Entity.UpdateDate" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+<Input Id="IsDelete" @ref="Ref_IsDelete"   CssClass="d-none"   @bind-Value="_Entity.IsDelete" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+ 
+ 
+@code {
+    Baya.Models.ViewEngine.View_Component Component_HR_RMS_TrainingCoursesHR_RMS_HiringQuestionnaireId = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"EntityName\":\"دوره های آموزشی\",\"primaryKey\":false,\"EntityID\":431,\"FieldId\":16330,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":792,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":false,\"RelationParentName\":\"HR_RMS_HiringQuestionnaire\",\"RelationParentModel\":\"HR_RMS_HiringQuestionnaire\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/HR_RMS_HiringQuestionnaire/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.Id}} </span>\",\"FieldsTemplate\":[{\"key\":\"Id\",\"value\":\"int\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"disabled\":false,\"modal\":true,\"label\":\"شماره پرسشنامه\",\"tableView\":true,\"key\":\"HR_RMS_HiringQuestionnaireId\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"16330?EId=431&SubId=15\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
+}
+
+    <Dropdown Id=HR_RMS_HiringQuestionnaireId  @ref="Ref_HR_RMS_HiringQuestionnaireId" Label="شماره پرسشنامه" CssClass=""  DisplayFormat="DropDown" ExternalApi=true NotMapped=false TextGrid=false Text="" Value="@_Entity.HR_RMS_HiringQuestionnaireId" FieldName="HR_RMS_HiringQuestionnaireId" OnItemSelected="ItemSelected_HR_RMS_TrainingCoursesHR_RMS_HiringQuestionnaireId" Component="Component_HR_RMS_TrainingCoursesHR_RMS_HiringQuestionnaireId" _Entity="_Entity" >
+</Dropdown>
+@code {
+    public async Task ItemSelected_HR_RMS_TrainingCoursesHR_RMS_HiringQuestionnaireId(object _Item)
+    {
+        var Selected = Utility.JSON.ToObject<dynamic>(Utility.JSON.ToJson(_Item).Result).Result;
+     var Item = _Entity;
+
+      //Todo
+ //برای اینکه آی دی تغییر کند اینجا نیز باید تغییر کند
+ //بهتر است از پرایمیری کی استفاده شود
+ Item.HR_RMS_HiringQuestionnaireId = Selected.Id;
+ Item.HR_RMS_HiringQuestionnaire = await Utility.JSON.ToObject<Entity.HR_RMS_HiringQuestionnaire>(await Utility.JSON.ToJson(_Item));
+
+    
+
+    
+    }
+} 
+
+<Input Id="TitleCourse" @ref="Ref_TitleCourse" Label="عنوان دوره"     @bind-Value="_Entity.TitleCourse" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"maxlength\":\"250\"}").Result))></Input>
+
+<Input Id="EducationalInstitution" @ref="Ref_EducationalInstitution" Label="نام موسسه آموزشی"     @bind-Value="_Entity.EducationalInstitution" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"maxlength\":\"250\"}").Result))></Input>
+
+<Input Id="CourseYear" @ref="Ref_CourseYear" Label="سال دوره"     @bind-Value="_Entity.CourseYear" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"maxlength\":\"4\"}").Result))></Input>
+
+<Input Id="CourseDuration" @ref="Ref_CourseDuration" Label="مدت دوره"     @bind-Value="_Entity.CourseDuration" type="number"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+<RadioBoolean @ref="Ref_HasCertificate" InLine=true Id="HasCertificate"   LabelTrue="گواهی دارد" LabelFalse="گواهی ندارد" Label="گواهی دوره" @bind-Value="_Entity.HasCertificate" CssClass="" ></RadioBoolean>
+
+    </EditForm>
+</div>
+
+@if (ShowSubmit)
+{
+    <button class="btn btn-sm btn-green" @onclick=Submit>ذخیره</button>
+}
+
+@code {
+    #region Function
+
+    //todo  جا به جا شود برده شود تو فایل  Peropeties
+    protected override async Task OnInitializedAsync()
+    {
+        Console.WriteLine("#log OnInitializedAsync");
+
+        TableGet = await Utility.JSON.ToObject<Table>("{\"Name\":\"HR_RMS_TrainingCourses\",\"GetNameAs\":\"HR_RMS_TrainingCourses\",\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"RequestID\",\"GetNameAs\":\"RequestID\"},{\"Name\":\"CreateUser\",\"GetNameAs\":\"CreateUser\"},{\"Name\":\"UpdateUser\",\"GetNameAs\":\"UpdateUser\"},{\"Name\":\"CreateDate\",\"GetNameAs\":\"CreateDate\"},{\"Name\":\"UpdateDate\",\"GetNameAs\":\"UpdateDate\"},{\"Name\":\"IsDelete\",\"GetNameAs\":\"IsDelete\"},{\"Name\":\"HR_RMS_HiringQuestionnaireId\",\"GetNameAs\":\"HR_RMS_HiringQuestionnaireId\"},{\"Name\":\"TitleCourse\",\"GetNameAs\":\"TitleCourse\"},{\"Name\":\"EducationalInstitution\",\"GetNameAs\":\"EducationalInstitution\"},{\"Name\":\"CourseYear\",\"GetNameAs\":\"CourseYear\"},{\"Name\":\"CourseDuration\",\"GetNameAs\":\"CourseDuration\"},{\"Name\":\"HasCertificate\",\"GetNameAs\":\"HasCertificate\"}],\"Relation\":[{\"Name\":\"HR_RMS_HiringQuestionnaire\",\"GetNameAs\":\"HR_RMS_HiringQuestionnaire\",\"ModeErtebat\":1,\"Column\":[{\"Name\":\"Gender\",\"GetNameAs\":\"Gender\"},{\"Name\":\"HR_RMS_HiringtQuestionnaireAnnouncemenId\",\"GetNameAs\":\"HR_RMS_HiringtQuestionnaireAnnouncemenId\"},{\"Name\":\"FirstName\",\"GetNameAs\":\"FirstName\"},{\"Name\":\"Lastname\",\"GetNameAs\":\"Lastname\"},{\"Name\":\"FatherName\",\"GetNameAs\":\"FatherName\"},{\"Name\":\"BirthDate\",\"GetNameAs\":\"BirthDate\"},{\"Name\":\"NationalCode\",\"GetNameAs\":\"NationalCode\"},{\"Name\":\"BirthCertificateNumber\",\"GetNameAs\":\"BirthCertificateNumber\"},{\"Name\":\"HR_Base_CitiesId\",\"GetNameAs\":\"HR_Base_CitiesId\"},{\"Name\":\"Married\",\"GetNameAs\":\"Married\"},{\"Name\":\"PhoneNumber\",\"GetNameAs\":\"PhoneNumber\"},{\"Name\":\"NumberChildren\",\"GetNameAs\":\"NumberChildren\"},{\"Name\":\"Weight\",\"GetNameAs\":\"Weight\"},{\"Name\":\"Height\",\"GetNameAs\":\"Height\"},{\"Name\":\"HR_Base_BloodGroupId\",\"GetNameAs\":\"HR_Base_BloodGroupId\"},{\"Name\":\"HR_HousingSituationId\",\"GetNameAs\":\"HR_HousingSituationId\"},{\"Name\":\"Village\",\"GetNameAs\":\"Village\"},{\"Name\":\"Street\",\"GetNameAs\":\"Street\"},{\"Name\":\"Alley\",\"GetNameAs\":\"Alley\"},{\"Name\":\"HouseNumber\",\"GetNameAs\":\"HouseNumber\"},{\"Name\":\"Floor\",\"GetNameAs\":\"Floor\"},{\"Name\":\"Unit\",\"GetNameAs\":\"Unit\"},{\"Name\":\"MilitaryServiceStatus\",\"GetNameAs\":\"MilitaryServiceStatus\"},{\"Name\":\"MilitaryServicesPlace\",\"GetNameAs\":\"MilitaryServicesPlace\"},{\"Name\":\"MilitaryServicesTime\",\"GetNameAs\":\"MilitaryServicesTime\"},{\"Name\":\"MilitaryServicesStartDate\",\"GetNameAs\":\"MilitaryServicesStartDate\"},{\"Name\":\"MilitaryServicesEndDate\",\"GetNameAs\":\"MilitaryServicesEndDate\"},{\"Name\":\"HR_MilitaryServicesExemptionTypeId\",\"GetNameAs\":\"HR_MilitaryServicesExemptionTypeId\"},{\"Name\":\"EducationalStatus\",\"GetNameAs\":\"EducationalStatus\"},{\"Name\":\"AcademicDegrees\",\"GetNameAs\":\"AcademicDegrees\"},{\"Name\":\"YearEntry\",\"GetNameAs\":\"YearEntry\"},{\"Name\":\"DecisionToContinueStudying\",\"GetNameAs\":\"DecisionToContinueStudying\"},{\"Name\":\"FamilyRelationship\",\"GetNameAs\":\"FamilyRelationship\"},{\"Name\":\"FullNameFamily\",\"GetNameAs\":\"FullNameFamily\"},{\"Name\":\"PhoneNumberFamily\",\"GetNameAs\":\"PhoneNumberFamily\"},{\"Name\":\"HR_HowToKnowCompanyId\",\"GetNameAs\":\"HR_HowToKnowCompanyId\"},{\"Name\":\"FamiliarPersonInsideTheCompany\",\"GetNameAs\":\"FamiliarPersonInsideTheCompany\"},{\"Name\":\"FamiliarPersonFullName\",\"GetNameAs\":\"FamiliarPersonFullName\"},{\"Name\":\"MedicalSurgery\",\"GetNameAs\":\"MedicalSurgery\"},{\"Name\":\"ExplanationMedicalSurgery\",\"GetNameAs\":\"ExplanationMedicalSurgery\"},{\"Name\":\"HistorySpecificMedicalDiseases\",\"GetNameAs\":\"HistorySpecificMedicalDiseases\"},{\"Name\":\"ExplanationMedicalDiseases\",\"GetNameAs\":\"ExplanationMedicalDiseases\"},{\"Name\":\"OrganFailure\",\"GetNameAs\":\"OrganFailure\"},{\"Name\":\"ExplanationOrganFailure\",\"GetNameAs\":\"ExplanationOrganFailure\"},{\"Name\":\"UseGlasses\",\"GetNameAs\":\"UseGlasses\"},{\"Name\":\"ExplanationUseGlasses\",\"GetNameAs\":\"ExplanationUseGlasses\"},{\"Name\":\"Smoking\",\"GetNameAs\":\"Smoking\"},{\"Name\":\"ExplanationSmoking\",\"GetNameAs\":\"ExplanationSmoking\"},{\"Name\":\"IndividualStrengths\",\"GetNameAs\":\"IndividualStrengths\"},{\"Name\":\"FeaturesThatCanBeImproved\",\"GetNameAs\":\"FeaturesThatCanBeImproved\"},{\"Name\":\"LeisureTime\",\"GetNameAs\":\"LeisureTime\"},{\"Name\":\"HR_SocialActivityId\",\"GetNameAs\":\"HR_SocialActivityId\"},{\"Name\":\"ExplanationSocialActivity\",\"GetNameAs\":\"ExplanationSocialActivity\"},{\"Name\":\"DriverLicense\",\"GetNameAs\":\"DriverLicense\"},{\"Name\":\"ExplanationDriverLicense\",\"GetNameAs\":\"ExplanationDriverLicense\"},{\"Name\":\"CriminalConviction\",\"GetNameAs\":\"CriminalConviction\"},{\"Name\":\"ExplanationCriminalConviction\",\"GetNameAs\":\"ExplanationCriminalConviction\"},{\"Name\":\"FinancialCommitment\",\"GetNameAs\":\"FinancialCommitment\"},{\"Name\":\"Type1FinancialCommitment\",\"GetNameAs\":\"Type1FinancialCommitment\"},{\"Name\":\"Amount1FinancialCommitment\",\"GetNameAs\":\"Amount1FinancialCommitment\"},{\"Name\":\"Installments1FinancialCommitment\",\"GetNameAs\":\"Installments1FinancialCommitment\"},{\"Name\":\"Type2FinancialCommitment\",\"GetNameAs\":\"Type2FinancialCommitment\"},{\"Name\":\"Amount2FinancialCommitment\",\"GetNameAs\":\"Amount2FinancialCommitment\"},{\"Name\":\"Installments2FinancialCommitment\",\"GetNameAs\":\"Installments2FinancialCommitment\"},{\"Name\":\"Type3FinancialCommitment\",\"GetNameAs\":\"Type3FinancialCommitment\"},{\"Name\":\"Amount3FinancialCommitment\",\"GetNameAs\":\"Amount3FinancialCommitment\"},{\"Name\":\"Installments3FinancialCommitment\",\"GetNameAs\":\"Installments3FinancialCommitment\"},{\"Name\":\"ReasonLeavingCurrentJob\",\"GetNameAs\":\"ReasonLeavingCurrentJob\"},{\"Name\":\"ReasonChoosingCompany\",\"GetNameAs\":\"ReasonChoosingCompany\"},{\"Name\":\"InterestAbility\",\"GetNameAs\":\"InterestAbility\"},{\"Name\":\"DesireShiftWork\",\"GetNameAs\":\"DesireShiftWork\"},{\"Name\":\"BusyWithWorking\",\"GetNameAs\":\"BusyWithWorking\"},{\"Name\":\"FromDate\",\"GetNameAs\":\"FromDate\"},{\"Name\":\"RequestedMonthlySalary\",\"GetNameAs\":\"RequestedMonthlySalary\"},{\"Name\":\"SuggestedJob\",\"GetNameAs\":\"SuggestedJob\"},{\"Name\":\"RegisterUserId\",\"GetNameAs\":\"RegisterUserId\"},{\"Name\":\"HR_Base_ReligionId\",\"GetNameAs\":\"HR_Base_ReligionId\"},{\"Name\":\"HR_Base_CountriesId\",\"GetNameAs\":\"HR_Base_CountriesId\"},{\"Name\":\"HR_Base_CitiesAddressId\",\"GetNameAs\":\"HR_Base_CitiesAddressId\"},{\"Name\":\"HR_Base_MilitaryStatusId\",\"GetNameAs\":\"HR_Base_MilitaryStatusId\"},{\"Name\":\"BaseInfo_CitiesId\",\"GetNameAs\":\"BaseInfo_CitiesId\"},{\"Name\":\"BaseInfo_BloodGroupId\",\"GetNameAs\":\"BaseInfo_BloodGroupId\"},{\"Name\":\"BaseInfo_ReligionId\",\"GetNameAs\":\"BaseInfo_ReligionId\"},{\"Name\":\"BaseInfo_CitiesAddressId\",\"GetNameAs\":\"BaseInfo_CitiesAddressId\"},{\"Name\":\"BaseInfo_MilitaryStatusId\",\"GetNameAs\":\"BaseInfo_MilitaryStatusId\"},{\"Name\":\"BaseInfo_GenderId\",\"GetNameAs\":\"BaseInfo_GenderId\"}],\"Relation\":[]}]}");
+        TablePost = await Utility.JSON.ToObject<Table>("{\"Name\":\"HR_RMS_TrainingCourses\",\"GetNameAs\":\"HR_RMS_TrainingCourses\",\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"RequestID\",\"GetNameAs\":\"RequestID\"},{\"Name\":\"CreateUser\",\"GetNameAs\":\"CreateUser\"},{\"Name\":\"UpdateUser\",\"GetNameAs\":\"UpdateUser\"},{\"Name\":\"CreateDate\",\"GetNameAs\":\"CreateDate\"},{\"Name\":\"UpdateDate\",\"GetNameAs\":\"UpdateDate\"},{\"Name\":\"IsDelete\",\"GetNameAs\":\"IsDelete\"},{\"Name\":\"HR_RMS_HiringQuestionnaireId\",\"GetNameAs\":\"HR_RMS_HiringQuestionnaireId\"},{\"Name\":\"TitleCourse\",\"GetNameAs\":\"TitleCourse\"},{\"Name\":\"EducationalInstitution\",\"GetNameAs\":\"EducationalInstitution\"},{\"Name\":\"CourseYear\",\"GetNameAs\":\"CourseYear\"},{\"Name\":\"CourseDuration\",\"GetNameAs\":\"CourseDuration\"},{\"Name\":\"HasCertificate\",\"GetNameAs\":\"HasCertificate\"}],\"Relation\":[]}");
+
+        config = CKEditorBundleOptions.DefaultConfig.WithHtmlEditing();
+        config.Language = "fa";
+
+        //بعداد اگه نیاز شد فرمی رو تو حالت غیر لاگین شده نمایش بدیم باید این  کد تغیر کنه
+        var user = (await _authenticationStateProvider.GetAuthenticationStateAsync()).User;
+        string UserID = user.FindFirst(c => c.Type == ClaimTypes.NameIdentifier).Value;
+        //داینامیک بشه
+        Dictionary<string, object> List = new Dictionary<string, object>();
+        //List.Add("UserID", Guid.Parse(UserID));
+        List.Add("UserID", UserID);
+        _User = await Domain.Utility.ConvertParameter.ConvertToObject(List);
+
+        Console.WriteLine("#log OnInitializedAsync End");
+
+        await base.OnInitializedAsync();
+    }
+
+    //todo  جا به جا شود برده شود تو فایل  Peropeties
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            Console.WriteLine("#log OnAfterRenderAsync");
+            await base.BeforGetData();
+
+            var Result = await GetData();
+
+            await base.AfterGetData();
+
+            StateHasChanged();
+
+            await OnFormloaded.InvokeAsync(Result);
+        }
+
+        await base.OnAfterRenderAsync(firstRender);
+    }
+
+    /// <summary>
+    /// دریافت داده
+    /// </summary>
+    /// <returns></returns>
+    public async Task<Baya.Models.Utility.Result> GetData()
+    {
+        await BeforGetData();
+
+        var DataResult = await ApiServer.External.Services.Data.Get(TableGet, QueryFilter, TableGet.Name, null);
+        
+        Baya.Models.Utility.Result Result = new Baya.Models.Utility.Result();
+
+        if (DataResult != null && DataResult.Status == HttpStatusCode.OK)
+        {
+            if (DataResult.Content != null)
+            {
+                string Data = DataResult.Content.ToString();
+                if (Data is not null)
+                {
+                    _Entity = await Utility.JSON.ToObject < Entity.HR_RMS_TrainingCourses>(Data);
+        }
+            }
+            else
+            {
+                _Entity = new Entity.HR_RMS_TrainingCourses();
+            //todo تشخیص دهد که داده ای وجود ندارد و دفه اول هست که فرم لود میشود
+            //todo اگه نیاز شد دالخ ORm خروجیش متفاوت باشه
+            //ست کردن دیفالت های فرم
+            if (true)
+                {//
+
+
+                    //نمونه ست کردن پارامتر روش اول
+                    //_Entity.InstantDelivery = _RequestParameters.UserId;
+
+                    //نمونه کد برای ست کردن پارامتر روش دوم
+                    //_Entity.InstantDelivery = await GetParameter("@@UserId@@");
+                }
+
+                SumaryMessage = "داده لود شده معتبر نمی باشد";
+                Result.Status = HttpStatusCode.InternalServerError;
+            }
+        }
+        else
+        {
+            SumaryMessage = "داده لود نشد";
+            Result.Status = HttpStatusCode.InternalServerError;
+        }
+
+        Result.Message = SumaryMessage;
+
+        StateHasChanged();
+
+        await AfterGetData();
+
+        return Result;
+    }
+
+    public override async Task SetParametersAsync(ParameterView parameters)
+    {
+        await base.SetParametersAsync(parameters);
+    }
+
+    protected override void OnInitialized()
+    {
+        //todo این خط برده شود داخل تابع پاینی ببینیم خطا داره یا نه
+        languageContainer.InitLocalizedComponent(this);
+    }
+
+
+    /// <summary>
+    /// بررسی تغییر دیتا
+    /// </summary>
+    /// <param name="Json"></param>
+    /// <returns></returns>
+    public bool CheckChangedData(string? Json)
+    {
+        if (string.Equals(JsonData, Json)) return true;
+        return false;
+    }
+
+    /// <summary>
+    /// ارسال داده
+    /// </summary>
+    /// <returns></returns>
+    public override async Task<Baya.Models.Utility.Result> Submit()
+    {
+        SumaryMessage = "";
+        Baya.Models.Utility.Result Result = new Baya.Models.Utility.Result();
+
+        if (!await FormValidator())
+        {
+            StateHasChanged();
+            Result.Status = HttpStatusCode.InternalServerError;
+            return Result;
+        }
+
+        if ((await BeforSubmit()).Status != HttpStatusCode.OK)
+        {
+            StateHasChanged();
+            Result.Status = HttpStatusCode.InternalServerError;
+            return Result;
+        }
+
+        _loadingService.Show();
+        var Resualt = await PostData();
+
+        if (Resualt)
+        {
+            Result.Status = HttpStatusCode.OK;
+
+            SumaryMessage = "داده ها با موفقیت ثبت شد";
+        }
+        else
+        {
+            Result.Status = HttpStatusCode.InternalServerError;
+            SumaryMessage = "ذخیره داده با مشکل مواجه شد";
+        }
+
+        Result.Message = SumaryMessage;
+
+        switch ((int)Result.Status)
+        {
+            case 200:
+                toastService.ShowSuccess(Result.Message);
+                break;
+            case 500:
+                toastService.ShowError(Result.Message);
+                break;
+            default:
+                break;
+        } 
+        _loadingService.Hide();
+        await AfterSubmit();
+
+        return Result;
+    }
+
+    /// <summary>
+    /// ارسال داده
+    /// </summary>
+    /// <returns></returns>
+    private async Task<bool> PostData()
+    {
+        string Data = await Utility.JSON.ToJson(_Entity);
+
+        bool IsOk = false;
+        var Model = await ApiServer.External.Services.Data.Put(Data, TablePost.Name, TablePost, RequestID?.ToString(), _User.UserID.ToString());
+        // بررسی وضعیت پاسخ
+        if (Model?.Status == HttpStatusCode.OK)
+        {
+            if (Model.Content != null && !IndependentForm)
+                { 
+                    string NewData = Model.Content.ToString();
+                    if (NewData is not null)
+                    {
+                        var NewEntity = await Utility.JSON.ToObject < Entity.HR_RMS_TrainingCourses>(NewData);
+                     await  GetDataForm(NewEntity._Id);
+                    }
+
+                }
+                IsOk = true;
+
+        }
+        return IsOk;
+    }
+
+
+    void SetLanguage(string language)
+    {
+        languageContainer.SetLanguage(System.Globalization.CultureInfo.GetCultureInfo(language));
+    }
+
+    // public void ValidFormSubmitted(EditContext editContext)
+    // {
+
+    // }
+
+    // public void InvalidFormSubmitted(EditContext editContext)
+    // {
+
+    // }
+    public async Task GetDataForm(object Id)
+    {
+        Type type = Id.GetType();
+        string TypeToQueryBuilder = Utility.TypeConverterQueryBuilder.ConvertCSharpTypeToQueryBuilder(type);
+        var NewQuery = new QueryBuilderFilterRule() { Condition = "AND" };
+        NewQuery.Rules = new List<QueryBuilderFilterRule>
+            {
+                    new QueryBuilderFilterRule()
+                    {
+                        Field = _Entity._GetIdName,
+                        Id = _Entity._GetIdName,
+                        Input = "text",
+                        Operator = "equal",
+                        Type =  TypeToQueryBuilder,
+                        Value = new string[]{ Id.ToString() },
+                    }
+            };
+        QueryFilter = NewQuery;
+        await GetData();
+        StateHasChanged();
+    }
+    #endregion
+}

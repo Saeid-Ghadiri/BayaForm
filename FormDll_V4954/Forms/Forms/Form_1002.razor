@@ -1,0 +1,1690 @@
+@inherits Forms.Forms.Form_1002Base
+@namespace FormsPage
+
+@using AKSoftware.Localization.MultiLanguages.Blazor
+@using Baya.Models.ORM
+@using Castle.DynamicLinqQueryBuilder
+@using Microsoft.AspNetCore.Components.Forms
+@using Microsoft.AspNetCore.Components.Authorization;
+@using System.Security.Claims
+@using System.Net
+@using Microsoft.JSInterop
+@using Forms
+@using Utility
+@using Baya.Models.ViewEngine
+@using Forms.Domain.Utility
+<style>
+    /* ************************************************** */
+.detailArea form div:not(.devdrop) {
+    margin-top: .1rem;
+}
+
+/* ************************************************** */
+
+purple_bg {
+    background: #93b0ff0d;
+    border: 1px dashed #6c5ffc45;
+}
+
+/* ************************************************** */
+.form-header {
+    background: linear-gradient(to bottom, #6c5ffc, #0d1a52);
+    color: white;
+    padding: 1.5rem 2rem;
+    border-radius: 0.5rem 0.5rem 0 0;
+    margin-bottom: 0;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+    transition: all 0.3s ease;
+}
+
+.form-header:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 25px rgba(0, 0, 0, 0.2);
+}
+
+.form-header h2 {
+    font-weight: 700;
+    margin-bottom: 0;
+    display: flex;
+    align-items: center;
+    position: relative;
+    z-index: 2;
+}
+
+.form-header .icon {
+    font-size: 1.8rem;
+    margin-left: 15px;
+    animation: float 3s ease-in-out infinite;
+}
+
+.form-header::before {
+    content: "";
+    position: absolute;
+    top: -50%;
+    right: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0) 70%);
+    transform: rotate(45deg);
+    z-index: 1;
+    transition: all 0.5s ease;
+}
+
+.form-header:hover::before {
+    transform: rotate(45deg) translate(20px, 20px);
+}
+
+.form-header .decoration {
+    position: absolute;
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.05);
+    z-index: 1;
+}
+
+.form-header .decoration-1 {
+    top: -30px;
+    left: -30px;
+    width: 120px;
+    height: 120px;
+}
+
+.form-header .decoration-2 {
+    bottom: -40px;
+    right: -20px;
+    width: 80px;
+    height: 80px;
+}
+
+@@keyframes float {
+    0% {
+        transform: translateY(0px);
+    }
+
+    50% {
+        transform: translateY(-5px);
+    }
+
+    100% {
+        transform: translateY(0px);
+    }
+}
+
+@@keyframes pulse {
+    0% {
+        opacity: 0.3;
+    }
+
+    50% {
+        opacity: 0.1;
+    }
+
+    100% {
+        opacity: 0.3;
+    }
+}
+
+.pulse-animation {
+    animation: pulse 4s ease-in-out infinite;
+}
+
+/* ************************************************** */
+
+/* Id: TypeBonusPaymentRadioButton */
+.radioinlineblock #TypeBonusPaymentRadioButton {
+    display: inline-block;
+}
+
+/* ************************************************** */
+.input-ymd input {
+    display: inline-block;
+    max-width: 100%;
+    background: none !important;
+    border: none;
+    color: #6c5ffc;
+    font-size: 18px;
+    text-align: center;
+    font-weight: 650;
+}
+
+/* ************************************************** */
+</style>
+
+<div class="@(ReadOnly?"FormReadOnly":"")">
+
+
+    <span class="d-none">VersionForm:@VersionForm</span>
+
+    <div class="formListi mt-3">
+        <div class="masterArea">
+            <div class="p-2 cardbox">
+
+                @*فیلد های مستر اگه نیاز شد اینجا قرار گیرد *@
+
+
+                <Form_1002_Filter @ref="RefListFilter" OnSearch="@(f => SearchFilter(f))" _RequestParameters="@_RequestParameters" _CartablesParameters="@_CartablesParameters"></Form_1002_Filter>
+
+
+                <div class="gridArea">
+
+                    @*
+                    فیلتر و گرید با یک لیست داده کار میکنند
+                    *@
+
+                    <label for="HR_CVR_VerdictRecruiting_HR_CVR_VerdictRecruiting">حکم کارگزینی
+   
+    
+</label>
+
+<DxGrid @ref="Grid_HR_CVR_VerdictRecruiting" Data="_Entity" KeyFieldName="_Id" 
+        EditModelSaving="OnEditModelSavingHR_CVR_VerdictRecruiting"
+        DataItemDeleting="OnDataItemDeletingHR_CVR_VerdictRecruiting"
+        PopupEditFormCssClass="ModalWidth"
+        PopupEditFormHeaderText="حکم کارگزینی"
+        EditFormButtonsVisible="false"
+        CustomizeEditModel="CustomizeEditGrid_HR_CVR_VerdictRecruiting"
+        CustomizeElement="CustomizeRowsGrid_HR_CVR_VerdictRecruiting" 
+        Component="@((Utility.JSON.ToObject<View_Component>("{\"primaryKey\":false,\"EntityID\":440,\"FieldId\":0,\"ViewId\":736,\"NotMapped\":false,\"Relation\":false,\"RelationExternal\":false,\"RelationChildModel\":\"HR_CVR_VerdictRecruiting\",\"GridMainModel\":\"HR_CVR_VerdictRecruiting\",\"widget\":{\"altInput\":false,\"allowInput\":false,\"clickOpens\":false,\"enableDate\":false,\"enableTime\":false,\"noCalendar\":false,\"useLocaleSettings\":false,\"hourIncrement\":0,\"minuteIncrement\":0,\"time_24hr\":false},\"data\":{},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"FieldsTemplate\":[],\"refreshOn\":\"data\",\"reorder\":false,\"addAnotherPosition\":\"bottom\",\"layoutFixed\":false,\"enableRowGroups\":false,\"initEmpty\":false,\"modal\":true,\"StartCustomDataGrid\":true,\"label\":\"حکم کارگزینی\",\"tableView\":false,\"key\":\"HR_CVR_VerdictRecruiting\",\"type\":\"datagrid\",\"input\":true,\"modalEdit\":false,\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result))"
+         >
+    <Columns>
+    
+<DxGridCommandColumn Width="70px">
+    <HeaderTemplate Context="HeaderContext">
+       
+<a id=HR_CVR_VerdictRecruiting_HR_CVR_VerdictRecruitingButtonNew class="btn btn-sm btn-green btnGridAddData" @onclick="@(() => StartEditNewRowAsync_Grid_HR_CVR_VerdictRecruiting())" style="text-decoration: none;" href="javascript:void(0);">
+    <span class="fal fa-plus-circle btnicon"></span>
+    <span>@languageContainer.Keys["DXGrid:New"]</span>
+</a>
+
+    </HeaderTemplate>
+    <CellDisplayTemplate Context="CellContext">
+       
+<a id=HR_CVR_VerdictRecruiting_HR_CVR_VerdictRecruitingButtonEdit class="btn btn-sm btn-yellow-light btnEditGridData" @onclick="@(() => StartModalGrid_HR_CVR_VerdictRecruiting(CellContext))" style="text-decoration: none;" href="javascript:void(0);">
+    <span class="fal fa-pencil btnicon"></span>
+</a>
+
+       
+<a class="btn btn-sm btn-red-light btnDeleteGridData" @onclick="@(() => OnDeleteButtonClickGrid_HR_CVR_VerdictRecruiting(CellContext))" style="text-decoration: none;" href="javascript:void(0);">
+    <span class="fal fa-times-circle btnicon"></span>
+</a>
+
+    </CellDisplayTemplate>
+</DxGridCommandColumn>
+
+    <DxGridCommandColumn   Width="60px">
+           <HeaderTemplate Context="HeaderContext">
+               <a    style="text-decoration: none;"  >
+                
+                   <span>ردیف</span>
+               </a>
+           </HeaderTemplate>
+           <CellDisplayTemplate Context="CellContext">
+            @if (CellContext.VisibleIndex > 9){
+                <p>@(CellContext.VisibleIndex + 1)</p>
+            }else{
+                <p>@(((CellContext.Grid.PageIndex * CellContext.Grid.PageSize) + (CellContext.VisibleIndex + 1)))</p>
+            }
+          
+           </CellDisplayTemplate>
+     </DxGridCommandColumn>
+    <DxGridDataColumn  Caption="Id" Visible=false FieldName="Id" />
+
+<DxGridDataColumn  Caption="RequestID" Visible=false FieldName="RequestID" />
+
+<DxGridDataColumn  Caption="CreateUser" Visible=false FieldName="CreateUser" />
+
+<DxGridDataColumn  Caption="UpdateUser" Visible=false FieldName="UpdateUser" />
+
+<DxGridDataColumn  Caption="CreateDate" Visible=false FieldName="CreateDate" />
+
+<DxGridDataColumn  Caption="UpdateDate" Visible=false FieldName="UpdateDate" />
+
+<DxGridDataColumn  Caption="IsDelete" Visible=false FieldName="IsDelete" />
+
+<DxGridDataColumn Context="HR_CVR_PersonnelContractId_" Caption="اطلاعات قرارداد کارمند" >
+    <CellDisplayTemplate>
+       
+@{
+    Baya.Models.ViewEngine.View_Component HeaderHR_CVR_PersonnelContractId = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"primaryKey\":false,\"EntityID\":440,\"FieldId\":16443,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":1002,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":false,\"RelationParentName\":\"HR_CVR_PersonnelContract\",\"RelationParentModel\":\"HR_CVR_PersonnelContract\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/View_HR_CVR_PersonnelContract/GetList?HR_EMP_EmployeesId={{data.Employee_NotMaped}}\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"inputFormat\":\"DropDown\",\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.ContractNo}} {{item.StartDate_Fa}} {{item.EndDate_Fa}} {{item.HR_EMP_EmployeesId}} </span>\",\"FieldsTemplate\":[{\"key\":\"ContractNo\",\"value\":\"nvarchar(Max)\"},{\"key\":\"StartDate_Fa\",\"value\":\"nvarchar(Max)\"},{\"key\":\"EndDate_Fa\",\"value\":\"nvarchar(Max)\"},{\"key\":\"HR_EMP_EmployeesId\",\"value\":\"nvarchar(Max)\"}],\"dataSrc\":\"url\",\"refreshOn\":\"HR_CVR_VerdictRecruiting.HR_EMP_EmployeesId\",\"clearOnRefresh\":true,\"modal\":true,\"label\":\"اطلاعات قرارداد کارمند\",\"tableView\":true,\"key\":\"HR_CVR_PersonnelContractId\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"16443?EId=440&SubId=15\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
+    var RowHR_CVR_PersonnelContractId = ((Entity.HR_CVR_VerdictRecruiting)HR_CVR_PersonnelContractId_.DataItem).HR_CVR_PersonnelContractId;
+}
+
+<Dropdown ExternalApi=false NotMapped=false TextGrid=true Value="@RowHR_CVR_PersonnelContractId"   FieldName="HR_CVR_PersonnelContractId" OnItemSelected="ItemSelected_HR_CVR_VerdictRecruitingHR_CVR_PersonnelContractId_Header" Component="HeaderHR_CVR_PersonnelContractId">
+</Dropdown>
+@code {
+    public async Task ItemSelected_HR_CVR_VerdictRecruitingHR_CVR_PersonnelContractId_Header(object _Item)
+    {
+      //  var Selected = Utility.JSON.ToObject<dynamic>(Utility.JSON.ToJson(_Item).Result).Result;
+  //   HR_CVR_PersonnelContractId
+
+  //  #CustomCode
+
+ //   
+
+  //  #OnItemSelected
+    }
+}
+
+    </CellDisplayTemplate>
+</DxGridDataColumn>
+<DxGridDataColumn Context="HR_CVR_TypesRulingsId_" Caption="نوع حکم کارمند" >
+    <CellDisplayTemplate>
+       
+@{
+    Baya.Models.ViewEngine.View_Component HeaderHR_CVR_TypesRulingsId = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"primaryKey\":false,\"EntityID\":440,\"FieldId\":16444,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":1002,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":false,\"RelationParentName\":\"HR_CVR_TypesRulings\",\"RelationParentModel\":\"HR_CVR_TypesRulings\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/HR_CVR_TypesRulings/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.Title}} </span>\",\"FieldsTemplate\":[],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"modal\":true,\"label\":\"نوع حکم کارمند\",\"tableView\":true,\"key\":\"HR_CVR_TypesRulingsId\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"16444?EId=440&SubId=15\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
+    var RowHR_CVR_TypesRulingsId = ((Entity.HR_CVR_VerdictRecruiting)HR_CVR_TypesRulingsId_.DataItem).HR_CVR_TypesRulingsId;
+}
+
+<Dropdown ExternalApi=false NotMapped=false TextGrid=true Value="@RowHR_CVR_TypesRulingsId"   FieldName="HR_CVR_TypesRulingsId" OnItemSelected="ItemSelected_HR_CVR_VerdictRecruitingHR_CVR_TypesRulingsId_Header" Component="HeaderHR_CVR_TypesRulingsId">
+</Dropdown>
+@code {
+    public async Task ItemSelected_HR_CVR_VerdictRecruitingHR_CVR_TypesRulingsId_Header(object _Item)
+    {
+      //  var Selected = Utility.JSON.ToObject<dynamic>(Utility.JSON.ToJson(_Item).Result).Result;
+  //   HR_CVR_TypesRulingsId
+
+  //  #CustomCode
+
+ //   
+
+  //  #OnItemSelected
+    }
+}
+
+    </CellDisplayTemplate>
+</DxGridDataColumn>
+<DxGridDataColumn  Caption="شماره بیمه"  FieldName="InsuranceNumber" />
+
+<DxGridDataColumn Context="TypeBonusPayment_" Caption="نوع پرداخت آکورد" >
+    <CellDisplayTemplate>
+       
+@{
+    var HR_CVR_VerdictRecruiting_TypeBonusPayment = ((Entity.HR_CVR_VerdictRecruiting)TypeBonusPayment_.DataItem).TypeBonusPayment;
+}
+
+<p class="text-center " hidden="@(HR_CVR_VerdictRecruiting_TypeBonusPayment !=null ? !HR_CVR_VerdictRecruiting_TypeBonusPayment : true)">پرداخت گردد</p>
+
+<p class="text-center" hidden="@(HR_CVR_VerdictRecruiting_TypeBonusPayment !=null ? HR_CVR_VerdictRecruiting_TypeBonusPayment : true)">پرداخت نگردد</p>
+
+
+    </CellDisplayTemplate>
+</DxGridDataColumn>
+<DxGridDataColumn DisplayFormat="0" Caption="رتبه"  FieldName="Rank" />
+
+<DxGridDataColumn  Caption="تاریخ اجرای حکم - میلادی" Visible=false FieldName="ExecutionDateSentence" />
+
+<DxGridDataColumn  Caption="تاریخ و زمان تنظیم حکم"  FieldName="RegisterTime" />
+
+<DxGridDataColumn  Caption="تاریخ و زمان تایید حکم"  FieldName="ConfirmerTime" />
+
+<DxGridDataColumn  Caption="تاریخ و زمان تصویب حکم"  FieldName="ApproverTime" />
+
+<DxGridDataColumn  Caption="تاریخ و زمان ابطال حکم"  FieldName="NullifierTime" />
+
+<DxGridDataColumn Context="HR_StatusVerdictRecruitingId_" Caption="وضعیت" >
+    <CellDisplayTemplate>
+       
+@{
+    Baya.Models.ViewEngine.View_Component HeaderHR_StatusVerdictRecruitingId = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"primaryKey\":false,\"EntityID\":440,\"FieldId\":16486,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":1002,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":false,\"RelationParentName\":\"HR_StatusVerdictRecruiting\",\"RelationParentModel\":\"HR_StatusVerdictRecruiting\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/HR_StatusVerdictRecruiting/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.Title}} </span>\",\"FieldsTemplate\":[{\"key\":\"Title\",\"value\":\"int\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"modal\":true,\"label\":\"وضعیت\",\"tableView\":true,\"key\":\"HR_StatusVerdictRecruitingId\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"16486?EId=440&SubId=15\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
+    var RowHR_StatusVerdictRecruitingId = ((Entity.HR_CVR_VerdictRecruiting)HR_StatusVerdictRecruitingId_.DataItem).HR_StatusVerdictRecruitingId;
+}
+
+<Dropdown ExternalApi=false NotMapped=false TextGrid=true Value="@RowHR_StatusVerdictRecruitingId"   FieldName="HR_StatusVerdictRecruitingId" OnItemSelected="ItemSelected_HR_CVR_VerdictRecruitingHR_StatusVerdictRecruitingId_Header" Component="HeaderHR_StatusVerdictRecruitingId">
+</Dropdown>
+@code {
+    public async Task ItemSelected_HR_CVR_VerdictRecruitingHR_StatusVerdictRecruitingId_Header(object _Item)
+    {
+      //  var Selected = Utility.JSON.ToObject<dynamic>(Utility.JSON.ToJson(_Item).Result).Result;
+  //   HR_StatusVerdictRecruitingId
+
+  //  #CustomCode
+
+ //   
+
+  //  #OnItemSelected
+    }
+}
+
+    </CellDisplayTemplate>
+</DxGridDataColumn>
+<DxGridDataColumn Context="HR_CVR_VerdictRecruitingId_" Caption="حکم قبلی کارمند" >
+    <CellDisplayTemplate>
+       
+@{
+    Baya.Models.ViewEngine.View_Component HeaderHR_CVR_VerdictRecruitingId = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"primaryKey\":false,\"EntityID\":440,\"FieldId\":18577,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":1002,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":true,\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/View_HR_CVR_VerdictRecruiting/GetList?Employee_NotMaped={{data.Employee_NotMaped}}\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.HR_CVR_PersonnelContractId}} {{item.HR_CVR_TypesRulingsTitle}} {{item.HR_CVR_DescriptionRulingsTitle}} {{item.HR_CVR_JobTitle}} {{item.HR_CVR_TypesRulingsTitle}} {{item.HR_CVR_VerdictRecruitingId}} {{item.HR_StatusVerdictRecruitingTitle}} </span>\",\"FieldsTemplate\":[{\"key\":\"HR_CVR_PersonnelContractId\",\"value\":\"nvarchar(Max)\"},{\"key\":\"HR_CVR_TypesRulingsTitle\",\"value\":\"nvarchar(Max)\"},{\"key\":\"HR_CVR_DescriptionRulingsTitle\",\"value\":\"nvarchar(Max)\"},{\"key\":\"HR_CVR_JobTitle\",\"value\":\"nvarchar(Max)\"},{\"key\":\"HR_CVR_TypesRulingsTitle\",\"value\":\"nvarchar(Max)\"},{\"key\":\"HR_CVR_VerdictRecruitingId\",\"value\":\"nvarchar(Max)\"},{\"key\":\"HR_StatusVerdictRecruitingTitle\",\"value\":\"nvarchar(Max)\"}],\"dataSrc\":\"url\",\"refreshOn\":\"HR_CVR_VerdictRecruiting.Employee_NotMaped\",\"clearOnRefresh\":true,\"modal\":true,\"label\":\"حکم قبلی کارمند\",\"tableView\":true,\"key\":\"HR_CVR_VerdictRecruitingId\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"18577?EId=440&SubId=15\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
+    var RowHR_CVR_VerdictRecruitingId = ((Entity.HR_CVR_VerdictRecruiting)HR_CVR_VerdictRecruitingId_.DataItem).HR_CVR_VerdictRecruitingId;
+}
+
+<Dropdown ExternalApi=true NotMapped=false TextGrid=true Value="@RowHR_CVR_VerdictRecruitingId"   FieldName="HR_CVR_VerdictRecruitingId" OnItemSelected="ItemSelected_HR_CVR_VerdictRecruitingHR_CVR_VerdictRecruitingId_Header" Component="HeaderHR_CVR_VerdictRecruitingId">
+</Dropdown>
+@code {
+    public async Task ItemSelected_HR_CVR_VerdictRecruitingHR_CVR_VerdictRecruitingId_Header(object _Item)
+    {
+      //  var Selected = Utility.JSON.ToObject<dynamic>(Utility.JSON.ToJson(_Item).Result).Result;
+  //   HR_CVR_VerdictRecruitingId
+
+  //  #CustomCode
+
+ //   
+
+  //  #OnItemSelected
+    }
+}
+
+    </CellDisplayTemplate>
+</DxGridDataColumn>
+<DxGridDataColumn Context="RegisterUserId_" Caption="تنظیم کننده" >
+    <CellDisplayTemplate>
+       
+@{
+    Baya.Models.ViewEngine.View_Component HeaderRegisterUserId = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"primaryKey\":false,\"EntityID\":440,\"FieldId\":18580,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":1002,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":false,\"RelationParentName\":\"RegisterUser\",\"RelationParentModel\":\"AspNetUsers\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/AspNetUsers/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.FAMILY}} {{item.NAME}} </span>\",\"FieldsTemplate\":[],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"modal\":true,\"label\":\"تنظیم کننده\",\"tableView\":true,\"key\":\"RegisterUserId\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"18580?EId=440&SubId=15\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
+    var RowRegisterUserId = ((Entity.HR_CVR_VerdictRecruiting)RegisterUserId_.DataItem).RegisterUserId;
+}
+
+<Dropdown ExternalApi=false NotMapped=false TextGrid=true Value="@RowRegisterUserId"   FieldName="RegisterUserId" OnItemSelected="ItemSelected_HR_CVR_VerdictRecruitingRegisterUserId_Header" Component="HeaderRegisterUserId">
+</Dropdown>
+@code {
+    public async Task ItemSelected_HR_CVR_VerdictRecruitingRegisterUserId_Header(object _Item)
+    {
+      //  var Selected = Utility.JSON.ToObject<dynamic>(Utility.JSON.ToJson(_Item).Result).Result;
+  //   RegisterUserId
+
+  //  #CustomCode
+
+ //   
+
+  //  #OnItemSelected
+    }
+}
+
+    </CellDisplayTemplate>
+</DxGridDataColumn>
+<DxGridDataColumn Context="ConfirmerUserId_" Caption="تائید کننده" >
+    <CellDisplayTemplate>
+       
+@{
+    Baya.Models.ViewEngine.View_Component HeaderConfirmerUserId = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"primaryKey\":false,\"EntityID\":440,\"FieldId\":18581,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":1002,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":false,\"RelationParentName\":\"ConfirmerUser\",\"RelationParentModel\":\"AspNetUsers\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/AspNetUsers/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.FAMILY}} {{item.NAME}} </span>\",\"FieldsTemplate\":[],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"modal\":true,\"label\":\"تائید کننده\",\"tableView\":true,\"key\":\"ConfirmerUserId\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"18581?EId=440&SubId=15\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
+    var RowConfirmerUserId = ((Entity.HR_CVR_VerdictRecruiting)ConfirmerUserId_.DataItem).ConfirmerUserId;
+}
+
+<Dropdown ExternalApi=false NotMapped=false TextGrid=true Value="@RowConfirmerUserId"   FieldName="ConfirmerUserId" OnItemSelected="ItemSelected_HR_CVR_VerdictRecruitingConfirmerUserId_Header" Component="HeaderConfirmerUserId">
+</Dropdown>
+@code {
+    public async Task ItemSelected_HR_CVR_VerdictRecruitingConfirmerUserId_Header(object _Item)
+    {
+      //  var Selected = Utility.JSON.ToObject<dynamic>(Utility.JSON.ToJson(_Item).Result).Result;
+  //   ConfirmerUserId
+
+  //  #CustomCode
+
+ //   
+
+  //  #OnItemSelected
+    }
+}
+
+    </CellDisplayTemplate>
+</DxGridDataColumn>
+<DxGridDataColumn Context="ApproverUserId_" Caption="تصویب کننده" >
+    <CellDisplayTemplate>
+       
+@{
+    Baya.Models.ViewEngine.View_Component HeaderApproverUserId = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"primaryKey\":false,\"EntityID\":440,\"FieldId\":18582,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":1002,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":false,\"RelationParentName\":\"ApproverUser\",\"RelationParentModel\":\"AspNetUsers\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/AspNetUsers/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.FAMILY}} {{item.NAME}} </span>\",\"FieldsTemplate\":[],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"modal\":true,\"label\":\"تصویب کننده\",\"tableView\":true,\"key\":\"ApproverUserId\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"18582?EId=440&SubId=15\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
+    var RowApproverUserId = ((Entity.HR_CVR_VerdictRecruiting)ApproverUserId_.DataItem).ApproverUserId;
+}
+
+<Dropdown ExternalApi=false NotMapped=false TextGrid=true Value="@RowApproverUserId"   FieldName="ApproverUserId" OnItemSelected="ItemSelected_HR_CVR_VerdictRecruitingApproverUserId_Header" Component="HeaderApproverUserId">
+</Dropdown>
+@code {
+    public async Task ItemSelected_HR_CVR_VerdictRecruitingApproverUserId_Header(object _Item)
+    {
+      //  var Selected = Utility.JSON.ToObject<dynamic>(Utility.JSON.ToJson(_Item).Result).Result;
+  //   ApproverUserId
+
+  //  #CustomCode
+
+ //   
+
+  //  #OnItemSelected
+    }
+}
+
+    </CellDisplayTemplate>
+</DxGridDataColumn>
+<DxGridDataColumn Context="NullifierUserId_" Caption="باطل کننده" >
+    <CellDisplayTemplate>
+       
+@{
+    Baya.Models.ViewEngine.View_Component HeaderNullifierUserId = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"primaryKey\":false,\"EntityID\":440,\"FieldId\":18583,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":1002,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":false,\"RelationParentName\":\"NullifierUser\",\"RelationParentModel\":\"AspNetUsers\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/AspNetUsers/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.FAMILY}} {{item.NAME}} </span>\",\"FieldsTemplate\":[],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"modal\":true,\"label\":\"باطل کننده\",\"tableView\":true,\"key\":\"NullifierUserId\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"18583?EId=440&SubId=15\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
+    var RowNullifierUserId = ((Entity.HR_CVR_VerdictRecruiting)NullifierUserId_.DataItem).NullifierUserId;
+}
+
+<Dropdown ExternalApi=false NotMapped=false TextGrid=true Value="@RowNullifierUserId"   FieldName="NullifierUserId" OnItemSelected="ItemSelected_HR_CVR_VerdictRecruitingNullifierUserId_Header" Component="HeaderNullifierUserId">
+</Dropdown>
+@code {
+    public async Task ItemSelected_HR_CVR_VerdictRecruitingNullifierUserId_Header(object _Item)
+    {
+      //  var Selected = Utility.JSON.ToObject<dynamic>(Utility.JSON.ToJson(_Item).Result).Result;
+  //   NullifierUserId
+
+  //  #CustomCode
+
+ //   
+
+  //  #OnItemSelected
+    }
+}
+
+    </CellDisplayTemplate>
+</DxGridDataColumn>
+<DxGridDataColumn Context="HR_CVR_JobId_" Caption="شغل کارمند" >
+    <CellDisplayTemplate>
+       
+@{
+    Baya.Models.ViewEngine.View_Component HeaderHR_CVR_JobId = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"primaryKey\":false,\"EntityID\":440,\"FieldId\":18610,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":1002,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":true,\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/View_HR_CVR_Job_JobGroup/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.JobCategoryTitle}} {{item.JobCode}} {{item.JobTitle}} {{item.JobGroupTitle}} </span>\",\"FieldsTemplate\":[],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"searchField\":\"HR_CVR_JobCategoryTitle,Code,Title\",\"modal\":true,\"label\":\"شغل کارمند\",\"tableView\":true,\"key\":\"HR_CVR_JobId\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"18610?EId=440&SubId=15\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
+    var RowHR_CVR_JobId = ((Entity.HR_CVR_VerdictRecruiting)HR_CVR_JobId_.DataItem).HR_CVR_JobId;
+}
+
+<Dropdown ExternalApi=true NotMapped=false TextGrid=true Value="@RowHR_CVR_JobId"   FieldName="HR_CVR_JobId" OnItemSelected="ItemSelected_HR_CVR_VerdictRecruitingHR_CVR_JobId_Header" Component="HeaderHR_CVR_JobId">
+</Dropdown>
+@code {
+    public async Task ItemSelected_HR_CVR_VerdictRecruitingHR_CVR_JobId_Header(object _Item)
+    {
+      //  var Selected = Utility.JSON.ToObject<dynamic>(Utility.JSON.ToJson(_Item).Result).Result;
+  //   HR_CVR_JobId
+
+  //  #CustomCode
+
+ //   
+
+  //  #OnItemSelected
+    }
+}
+
+    </CellDisplayTemplate>
+</DxGridDataColumn>
+<DxGridDataColumn Context="HR_Base_InsuranceTypesId_" Caption="نوع بیمه کارمند" >
+    <CellDisplayTemplate>
+       
+@{
+    Baya.Models.ViewEngine.View_Component HeaderHR_Base_InsuranceTypesId = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"primaryKey\":false,\"EntityID\":440,\"FieldId\":18611,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":1002,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":false,\"RelationParentName\":\"HR_Base_InsuranceTypes\",\"RelationParentModel\":\"HR_Base_InsuranceTypes\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/HR_Base_InsuranceTypes/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.Title}} </span>\",\"FieldsTemplate\":[],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"modal\":true,\"label\":\"نوع بیمه کارمند\",\"tableView\":true,\"key\":\"HR_Base_InsuranceTypesId\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"18611?EId=440&SubId=15\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
+    var RowHR_Base_InsuranceTypesId = ((Entity.HR_CVR_VerdictRecruiting)HR_Base_InsuranceTypesId_.DataItem).HR_Base_InsuranceTypesId;
+}
+
+<Dropdown ExternalApi=false NotMapped=false TextGrid=true Value="@RowHR_Base_InsuranceTypesId"   FieldName="HR_Base_InsuranceTypesId" OnItemSelected="ItemSelected_HR_CVR_VerdictRecruitingHR_Base_InsuranceTypesId_Header" Component="HeaderHR_Base_InsuranceTypesId">
+</Dropdown>
+@code {
+    public async Task ItemSelected_HR_CVR_VerdictRecruitingHR_Base_InsuranceTypesId_Header(object _Item)
+    {
+      //  var Selected = Utility.JSON.ToObject<dynamic>(Utility.JSON.ToJson(_Item).Result).Result;
+  //   HR_Base_InsuranceTypesId
+
+  //  #CustomCode
+
+ //   
+
+  //  #OnItemSelected
+    }
+}
+
+    </CellDisplayTemplate>
+</DxGridDataColumn>
+<DxGridDataColumn  Caption="تاریخ اجرای حکم"  FieldName="ExecutionDateSentence_Fa" />
+
+<DxGridDataColumn Context="HR_CVR_JobGroupId_" Caption="گروه شغلی" >
+    <CellDisplayTemplate>
+       
+@{
+    Baya.Models.ViewEngine.View_Component HeaderHR_CVR_JobGroupId = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"primaryKey\":false,\"EntityID\":440,\"FieldId\":30513,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":1002,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":false,\"RelationParentName\":\"HR_CVR_JobGroup\",\"RelationParentModel\":\"HR_CVR_JobGroup\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/HR_CVR_JobGroup/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.Title}} </span>\",\"FieldsTemplate\":[{\"key\":\"Title\",\"value\":\"nvarchar(Max)\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"searchField\":\"Title\",\"modal\":true,\"label\":\"گروه شغلی\",\"tableView\":true,\"key\":\"HR_CVR_JobGroupId\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"30513?EId=440&SubId=15\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
+    var RowHR_CVR_JobGroupId = ((Entity.HR_CVR_VerdictRecruiting)HR_CVR_JobGroupId_.DataItem).HR_CVR_JobGroupId;
+}
+
+<Dropdown ExternalApi=false NotMapped=false TextGrid=true Value="@RowHR_CVR_JobGroupId"   FieldName="HR_CVR_JobGroupId" OnItemSelected="ItemSelected_HR_CVR_VerdictRecruitingHR_CVR_JobGroupId_Header" Component="HeaderHR_CVR_JobGroupId">
+</Dropdown>
+@code {
+    public async Task ItemSelected_HR_CVR_VerdictRecruitingHR_CVR_JobGroupId_Header(object _Item)
+    {
+      //  var Selected = Utility.JSON.ToObject<dynamic>(Utility.JSON.ToJson(_Item).Result).Result;
+  //   HR_CVR_JobGroupId
+
+  //  #CustomCode
+
+ //   
+
+  //  #OnItemSelected
+    }
+}
+
+    </CellDisplayTemplate>
+</DxGridDataColumn>
+<DxGridDataColumn Context="HR_EMP_EmployeesId_" Caption="اطلاعات کارمند" >
+    <CellDisplayTemplate>
+       
+@{
+    Baya.Models.ViewEngine.View_Component HeaderHR_EMP_EmployeesId = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"primaryKey\":false,\"EntityID\":440,\"FieldId\":30515,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":1002,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":false,\"RelationParentName\":\"HR_EMP_Employees\",\"RelationParentModel\":\"HR_EMP_Employees\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/HR_EMP_Employees/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.FirstName}} {{item.LastName}} {{item.EmployeeNo}} </span>\",\"FieldsTemplate\":[{\"key\":\"FirstName\",\"value\":\"nvarchar(Max)\"},{\"key\":\"LastName\",\"value\":\"nvarchar(Max)\"},{\"key\":\"EmployeeNo\",\"value\":\"nvarchar(Max)\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"searchField\":\"FirstName,LastName,EmployeeNo\",\"modal\":true,\"label\":\"اطلاعات کارمند\",\"tableView\":true,\"key\":\"HR_EMP_EmployeesId\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"30515?EId=440&SubId=15\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
+    var RowHR_EMP_EmployeesId = ((Entity.HR_CVR_VerdictRecruiting)HR_EMP_EmployeesId_.DataItem).HR_EMP_EmployeesId;
+}
+
+<Dropdown ExternalApi=false NotMapped=false TextGrid=true Value="@RowHR_EMP_EmployeesId"   FieldName="HR_EMP_EmployeesId" OnItemSelected="ItemSelected_HR_CVR_VerdictRecruitingHR_EMP_EmployeesId_Header" Component="HeaderHR_EMP_EmployeesId">
+</Dropdown>
+@code {
+    public async Task ItemSelected_HR_CVR_VerdictRecruitingHR_EMP_EmployeesId_Header(object _Item)
+    {
+      //  var Selected = Utility.JSON.ToObject<dynamic>(Utility.JSON.ToJson(_Item).Result).Result;
+  //   HR_EMP_EmployeesId
+
+  //  #CustomCode
+
+ //   
+
+  //  #OnItemSelected
+    }
+}
+
+    </CellDisplayTemplate>
+</DxGridDataColumn>
+
+</Columns>
+
+    
+</DxGrid>
+
+<DxPopup @bind-Visible="@ConfirmationShownHR_CVR_VerdictRecruiting" HeaderText="@languageContainer.Keys["DXGrid:DeleteItem"]" Width="350px" CloseOnOutsideClick="false">
+
+    <BodyContentTemplate Context="EditFormContext">
+        <div class="py-3 px-5 text-center">
+            <p>@languageContainer.Keys["DXGrid:DeleteItemHint"]</p>
+            <div class="confirm-dialog-buttons">
+                <DxButton Text="@languageContainer.Keys["DXGrid:Yes"]" CssClass="btn btn-red px-4" Click="@OnYesButtonClickGrid_HR_CVR_VerdictRecruiting" />
+                <DxButton Text="@languageContainer.Keys["DXGrid:No"]" CssClass="btn btn-purple-light px-4" Click="@OnNoButtonClickGrid_HR_CVR_VerdictRecruiting" />
+            </div>
+        </div>
+    </BodyContentTemplate>
+</DxPopup>
+
+<DxPopup @bind-Visible="@ConfirmationHR_CVR_VerdictRecruiting" HeaderText="هشدار" Width="350px" CloseOnOutsideClick="false">
+    <BodyContentTemplate Context="EditFormContext">
+        <div class="py-3 px-5 text-center"> 
+            <p>اطلاعات این فرم تغییر کرده است آیا تغییرات ذخیره شود؟</p>
+            <div class="confirm-dialog-buttons">
+                <DxButton Text="بله" CssClass="btn btn-red px-4" Click="@OnYesButtonHR_CVR_VerdictRecruiting" />
+                <DxButton Text="خیر" CssClass="btn btn-purple-light px-4" Click="@OnNoButtonHR_CVR_VerdictRecruiting" />
+            </div>
+        </div>
+    </BodyContentTemplate>
+</DxPopup>
+@code {
+    // DxGrid? Grid_HR_CVR_VerdictRecruiting;
+    Entity.HR_CVR_VerdictRecruiting HR_CVR_VerdictRecruiting;
+    bool ConfirmationShownHR_CVR_VerdictRecruiting { get; set; } = false;
+    public Entity.HR_CVR_VerdictRecruiting SelectedItemGrid_HR_CVR_VerdictRecruiting { get; set; } = new Entity.HR_CVR_VerdictRecruiting();
+    /// <summary>
+    /// شماره ستون
+    /// </summary>
+    public int IndexGrid_HR_CVR_VerdictRecruiting { get; set; }
+
+    ///////////////////////
+    bool ConfirmationHR_CVR_VerdictRecruiting { get; set; } = false;
+    GridEditFormTemplateContext? _ContextFormTemplateHR_CVR_VerdictRecruiting { get; set; }
+    public int OpenDialogCodeHR_CVR_VerdictRecruiting { get; set; } = 0;
+    ////////////////////////
+
+    async Task OnEditModelSavingHR_CVR_VerdictRecruiting(GridEditModelSavingEventArgs arg)
+    {
+        var e = arg.EditModel;
+    bool NotValid = false;
+    //events
+       
+        
+      if (!NotValid)
+     {
+      SaveGrid_HR_CVR_VerdictRecruiting(arg.DataItem, arg.EditModel);
+     }
+}
+
+async void Dialog_Grid_HR_CVR_VerdictRecruiting(int _OpenDialogCode, int VisibleIndex, GridEditFormTemplateContext e)
+{
+    OpenDialogCodeHR_CVR_VerdictRecruiting = _OpenDialogCode;
+    if (!CheckChangedData(await Utility.JSON.ToJson(e.EditModel)))
+    {
+    _ContextFormTemplateHR_CVR_VerdictRecruiting = e;
+    ConfirmationHR_CVR_VerdictRecruiting = true;
+    }
+    else
+    {
+    await OnNoButtonHR_CVR_VerdictRecruiting();
+    }
+}
+async Task OnYesButtonHR_CVR_VerdictRecruiting()
+{
+
+    ConfirmationHR_CVR_VerdictRecruiting = false;
+    await Task.Delay(1500);
+    //bool FormValidate = await JSO.InvokeAsync<bool>("submitForm");
+    bool FormValidate =  await JS.InvokeAsync<bool>("submitForm");
+    if (FormValidate)
+    {
+        bool NotValid = false;
+    var e = _ContextFormTemplateHR_CVR_VerdictRecruiting.EditModel;
+         //events
+         
+
+        if (!NotValid)
+         {
+        SaveGrid_HR_CVR_VerdictRecruiting(_ContextFormTemplateHR_CVR_VerdictRecruiting.DataItem, _ContextFormTemplateHR_CVR_VerdictRecruiting.EditModel);
+            await Grid_HR_CVR_VerdictRecruiting.CancelEditAsync();
+         await ChangePageGrid_HR_CVR_VerdictRecruiting();
+         await SetEditFormContextGrid_HR_CVR_VerdictRecruiting();
+         }
+          
+    }
+
+}
+async Task OnNoButtonHR_CVR_VerdictRecruiting()
+{
+    ConfirmationHR_CVR_VerdictRecruiting = false;
+    await ChangePageGrid_HR_CVR_VerdictRecruiting();
+    await SetEditFormContextGrid_HR_CVR_VerdictRecruiting();
+
+}
+async Task SetEditFormContextGrid_HR_CVR_VerdictRecruiting()
+{
+    var e = (Entity.HR_CVR_VerdictRecruiting)Grid_HR_CVR_VerdictRecruiting.GetDataItem(IndexGrid_HR_CVR_VerdictRecruiting);
+    JsonData = await Utility.JSON.ToJson(e);
+}
+
+async Task ChangePageGrid_HR_CVR_VerdictRecruiting()
+{
+    int VisibleIndex = IndexGrid_HR_CVR_VerdictRecruiting;
+    try
+    {
+    if (OpenDialogCodeHR_CVR_VerdictRecruiting == 1)
+    {
+        if (VisibleIndex != (Grid_HR_CVR_VerdictRecruiting.GetVisibleRowCount() - 1))
+    { 
+            Grid_HR_CVR_VerdictRecruiting.CancelEditAsync();
+            IndexGrid_HR_CVR_VerdictRecruiting = VisibleIndex + 1;
+    Grid_HR_CVR_VerdictRecruiting.StartEditRowAsync(IndexGrid_HR_CVR_VerdictRecruiting);
+    }
+    }
+    else if (OpenDialogCodeHR_CVR_VerdictRecruiting == 0)
+    {
+        if (VisibleIndex != 0)
+        {
+
+            Grid_HR_CVR_VerdictRecruiting.CancelEditAsync();
+            IndexGrid_HR_CVR_VerdictRecruiting = VisibleIndex - 1;
+    Grid_HR_CVR_VerdictRecruiting.StartEditRowAsync(IndexGrid_HR_CVR_VerdictRecruiting);
+    }
+
+    }
+    var e = (Entity.HR_CVR_VerdictRecruiting)Grid_HR_CVR_VerdictRecruiting.GetDataItem(IndexGrid_HR_CVR_VerdictRecruiting);
+    JsonData = await Utility.JSON.ToJson(e);
+    await Task.Delay(300);
+    
+    StateHasChanged();
+    }
+    catch (Exception ex)
+    {
+
+    Console.WriteLine("error in ChagePage" + ex.Message);
+    }
+
+}
+
+async Task StartEditNewRowAsync_Grid_HR_CVR_VerdictRecruiting()
+{
+    //تعداد سطرهای کل
+_VisibleIndex = Grid_HR_CVR_VerdictRecruiting.GetVisibleRowCount();
+setFocusOff();
+IsNew = true;
+await ShowFormCU(null);
+var e = new Entity.HR_CVR_VerdictRecruiting();
+await Task.Delay(300);
+
+}
+
+async Task StartModalGrid_HR_CVR_VerdictRecruiting(GridCommandColumnCellDisplayTemplateContext Context)
+{
+    IsNew = false;
+setFocusOn();
+_VisibleIndex = Context.VisibleIndex;
+await ShowFormCU(Context.DataItem);
+var e = (Entity.HR_CVR_VerdictRecruiting)Context.DataItem;
+await Task.Delay(300);
+
+   // await Task.Delay(500);
+}
+public async Task SaveModalGrid_HR_CVR_VerdictRecruiting(GridEditFormTemplateContext arg)
+{
+     //bool FormValidate = await JSO.InvokeAsync<bool>("submitForm");
+     bool FormValidate =  await JS.InvokeAsync<bool>("submitForm");
+
+    if(FormValidate){
+
+    var e = arg.EditModel;
+    bool NotValid = false;
+    //events
+    
+    if (!NotValid)
+    {
+        SaveGrid_HR_CVR_VerdictRecruiting(arg.DataItem, arg.EditModel);
+
+     await arg.Grid.CancelEditAsync(); 
+
+    }
+
+    }
+
+}
+public async Task SaveAndNewGrid_HR_CVR_VerdictRecruiting(GridEditFormTemplateContext arg)
+{ 
+     //bool FormValidate = await JSO.InvokeAsync<bool>("submitForm");
+     bool FormValidate = await JS.InvokeAsync<bool>("submitForm");
+     
+    if(FormValidate){
+       
+         var e = arg.EditModel;
+          bool NotValid = false;
+     //events
+    
+    if (!NotValid)
+    {
+        SaveGrid_HR_CVR_VerdictRecruiting(arg.DataItem, arg.EditModel);
+
+         await arg.Grid.CancelEditAsync();
+        await StartEditNewRowAsync_Grid_HR_CVR_VerdictRecruiting();
+
+    }
+          
+    }
+   
+}
+
+void PerviousPageGrid_HR_CVR_VerdictRecruiting(int VisibleIndex)
+{
+    try
+     {
+    if (VisibleIndex == 0)
+    {
+        Console.WriteLine(VisibleIndex.ToString());
+    }
+    else
+    {
+Grid_HR_CVR_VerdictRecruiting.CancelEditAsync();
+        IndexGrid_HR_CVR_VerdictRecruiting = VisibleIndex - 1;
+         Grid_HR_CVR_VerdictRecruiting.StartEditRowAsync(IndexGrid_HR_CVR_VerdictRecruiting);
+     }
+    }
+     catch (Exception e)
+     {
+    Console.WriteLine("PerviousPage Message");
+    Console.WriteLine(e.Message);
+    }
+
+}
+
+void NextPageGrid_HR_CVR_VerdictRecruiting(int VisibleIndex)
+{
+
+    if (VisibleIndex == Grid_HR_CVR_VerdictRecruiting.GetVisibleRowCount() - 1)
+    {
+    Console.WriteLine(VisibleIndex.ToString());
+    }
+    else
+    {
+    Console.WriteLine("NextPage Start Grid_HR_CVR_VerdictRecruiting ");
+    try
+    {
+Grid_HR_CVR_VerdictRecruiting.CancelEditAsync();
+        IndexGrid_HR_CVR_VerdictRecruiting = VisibleIndex + 1;
+         Grid_HR_CVR_VerdictRecruiting.StartEditRowAsync(IndexGrid_HR_CVR_VerdictRecruiting);
+     }
+    catch (Exception e)
+    {
+        Console.WriteLine("NextPage Message");
+        Console.WriteLine(e.Message);
+    }
+
+    }
+}
+
+public void SaveGrid_HR_CVR_VerdictRecruiting(object DataItem, object EditModel)
+{
+    var ListEntity = _Entity;
+    var MainModel = (Entity.HR_CVR_VerdictRecruiting)DataItem;
+    if (MainModel != null)
+    {
+MainModel.Id = ((Entity.HR_CVR_VerdictRecruiting)EditModel).Id;
+MainModel.RequestID = ((Entity.HR_CVR_VerdictRecruiting)EditModel).RequestID;
+MainModel.CreateUser = ((Entity.HR_CVR_VerdictRecruiting)EditModel).CreateUser;
+MainModel.UpdateUser = ((Entity.HR_CVR_VerdictRecruiting)EditModel).UpdateUser;
+MainModel.CreateDate = ((Entity.HR_CVR_VerdictRecruiting)EditModel).CreateDate;
+MainModel.UpdateDate = ((Entity.HR_CVR_VerdictRecruiting)EditModel).UpdateDate;
+MainModel.IsDelete = ((Entity.HR_CVR_VerdictRecruiting)EditModel).IsDelete;
+MainModel.HR_CVR_PersonnelContractId = ((Entity.HR_CVR_VerdictRecruiting)EditModel).HR_CVR_PersonnelContractId;
+MainModel.HR_CVR_PersonnelContract = ((Entity.HR_CVR_VerdictRecruiting)EditModel).HR_CVR_PersonnelContract;
+MainModel.HR_CVR_TypesRulingsId = ((Entity.HR_CVR_VerdictRecruiting)EditModel).HR_CVR_TypesRulingsId;
+MainModel.HR_CVR_TypesRulings = ((Entity.HR_CVR_VerdictRecruiting)EditModel).HR_CVR_TypesRulings;
+MainModel.InsuranceNumber = ((Entity.HR_CVR_VerdictRecruiting)EditModel).InsuranceNumber;
+MainModel.TypeBonusPayment = ((Entity.HR_CVR_VerdictRecruiting)EditModel).TypeBonusPayment;
+MainModel.Rank = ((Entity.HR_CVR_VerdictRecruiting)EditModel).Rank;
+MainModel.ExecutionDateSentence = ((Entity.HR_CVR_VerdictRecruiting)EditModel).ExecutionDateSentence;
+MainModel.RegisterTime = ((Entity.HR_CVR_VerdictRecruiting)EditModel).RegisterTime;
+MainModel.ConfirmerTime = ((Entity.HR_CVR_VerdictRecruiting)EditModel).ConfirmerTime;
+MainModel.ApproverTime = ((Entity.HR_CVR_VerdictRecruiting)EditModel).ApproverTime;
+MainModel.NullifierTime = ((Entity.HR_CVR_VerdictRecruiting)EditModel).NullifierTime;
+MainModel.HR_StatusVerdictRecruitingId = ((Entity.HR_CVR_VerdictRecruiting)EditModel).HR_StatusVerdictRecruitingId;
+MainModel.HR_StatusVerdictRecruiting = ((Entity.HR_CVR_VerdictRecruiting)EditModel).HR_StatusVerdictRecruiting;
+MainModel.HR_CVR_VerdictRecruitingId = ((Entity.HR_CVR_VerdictRecruiting)EditModel).HR_CVR_VerdictRecruitingId;
+MainModel.RegisterUserId = ((Entity.HR_CVR_VerdictRecruiting)EditModel).RegisterUserId;
+MainModel.RegisterUser = ((Entity.HR_CVR_VerdictRecruiting)EditModel).RegisterUser;
+MainModel.ConfirmerUserId = ((Entity.HR_CVR_VerdictRecruiting)EditModel).ConfirmerUserId;
+MainModel.ConfirmerUser = ((Entity.HR_CVR_VerdictRecruiting)EditModel).ConfirmerUser;
+MainModel.ApproverUserId = ((Entity.HR_CVR_VerdictRecruiting)EditModel).ApproverUserId;
+MainModel.ApproverUser = ((Entity.HR_CVR_VerdictRecruiting)EditModel).ApproverUser;
+MainModel.NullifierUserId = ((Entity.HR_CVR_VerdictRecruiting)EditModel).NullifierUserId;
+MainModel.NullifierUser = ((Entity.HR_CVR_VerdictRecruiting)EditModel).NullifierUser;
+MainModel.HR_CVR_JobId = ((Entity.HR_CVR_VerdictRecruiting)EditModel).HR_CVR_JobId;
+MainModel.HR_Base_InsuranceTypesId = ((Entity.HR_CVR_VerdictRecruiting)EditModel).HR_Base_InsuranceTypesId;
+MainModel.HR_Base_InsuranceTypes = ((Entity.HR_CVR_VerdictRecruiting)EditModel).HR_Base_InsuranceTypes;
+MainModel.ExecutionDateSentence_Fa = ((Entity.HR_CVR_VerdictRecruiting)EditModel).ExecutionDateSentence_Fa;
+MainModel.HR_CVR_JobGroupId = ((Entity.HR_CVR_VerdictRecruiting)EditModel).HR_CVR_JobGroupId;
+MainModel.HR_CVR_JobGroup = ((Entity.HR_CVR_VerdictRecruiting)EditModel).HR_CVR_JobGroup;
+MainModel.HR_EMP_EmployeesId = ((Entity.HR_CVR_VerdictRecruiting)EditModel).HR_EMP_EmployeesId;
+MainModel.HR_EMP_Employees = ((Entity.HR_CVR_VerdictRecruiting)EditModel).HR_EMP_Employees;
+
+    }
+    else
+    {
+    ListEntity.Add((Entity.HR_CVR_VerdictRecruiting)EditModel);
+    }
+}
+
+async Task OnDataItemDeletingHR_CVR_VerdictRecruiting(GridDataItemDeletingEventArgs e)
+    {
+    var ListEntity = _Entity;
+    ListEntity.Remove((Entity.HR_CVR_VerdictRecruiting)e.DataItem);
+}
+async void OnDeleteButtonClickGrid_HR_CVR_VerdictRecruiting (GridCommandColumnCellDisplayTemplateContext ex)
+{
+    SelectedItemGrid_HR_CVR_VerdictRecruiting = (ex.DataItem as Entity.HR_CVR_VerdictRecruiting);
+    var e =SelectedItemGrid_HR_CVR_VerdictRecruiting;
+    
+     
+    Console.WriteLine("end OnDeleteButtonClickGrid_test_OrderBody 0");
+    ConfirmationShownHR_CVR_VerdictRecruiting = true;
+    await Task.Yield();
+     await InvokeAsync(StateHasChanged);
+    
+    Console.WriteLine("end OnDeleteButtonClickGrid_test_OrderBody 1");
+}
+async void OnYesButtonClickGrid_HR_CVR_VerdictRecruiting ()
+{
+       if (SelectedItemGrid_HR_CVR_VerdictRecruiting != null)
+    {
+      if (SelectedItemGrid_HR_CVR_VerdictRecruiting.Id == Guid.Empty)
+      {
+          var ListEntity = _Entity;
+        ListEntity.Remove((Entity.HR_CVR_VerdictRecruiting)SelectedItemGrid_HR_CVR_VerdictRecruiting);
+     
+      }
+      else
+      {
+        var cleanModel = new Entity.HR_CVR_VerdictRecruiting();
+      // چک کن آیا پراپرتی IsDelete در این نوع وجود دارد؟
+        var prop = typeof(Entity.HR_CVR_VerdictRecruiting).GetProperty("IsDelete");
+        if (prop != null && prop.CanRead && prop.CanWrite)
+        {
+            // مقدار فعلی را بگیر
+            var currentValue = prop.GetValue(SelectedItemGrid_HR_CVR_VerdictRecruiting);
+
+            if (currentValue is bool boolValue)
+            {
+                // مقدار را معکوس کن
+                var newValue = !boolValue;
+
+                // روی هر دو شیء تنظیم کن
+                prop.SetValue(SelectedItemGrid_HR_CVR_VerdictRecruiting, newValue);
+                prop.SetValue(cleanModel, newValue);
+            }
+        }
+        EntityHelper.SetPropertyValue(cleanModel, cleanModel._GetIdName, SelectedItemGrid_HR_CVR_VerdictRecruiting._Id);
+    
+      await PostDataDelete(cleanModel); 
+       
+      }
+    }
+    var e= SelectedItemGrid_HR_CVR_VerdictRecruiting;
+    
+    Grid_HR_CVR_VerdictRecruiting.Reload();
+    ConfirmationShownHR_CVR_VerdictRecruiting = false;
+     await Task.Yield();
+    await InvokeAsync(StateHasChanged);
+
+}
+void OnNoButtonClickGrid_HR_CVR_VerdictRecruiting ()
+{
+    ConfirmationShownHR_CVR_VerdictRecruiting = false;
+}
+
+void CustomizeRowsGrid_HR_CVR_VerdictRecruiting(GridCustomizeElementEventArgs e)
+{
+    ///استایل سطر
+    if (e.ElementType == GridElementType.DataRow)
+    {
+    var item = ((Entity.HR_CVR_VerdictRecruiting)e.Grid.GetDataItem(e.VisibleIndex));
+
+       if (item.IsDelete == true)
+       {
+           e.CssClass = "bg-lightred disablediv";
+       }
+    }
+}
+
+async void CustomizeEditGrid_HR_CVR_VerdictRecruiting(GridCustomizeEditModelEventArgs e)
+{
+
+    if (e.IsNew)
+    {
+
+    var newRow = (Entity.HR_CVR_VerdictRecruiting)e.EditModel;
+
+     
+
+    }
+
+await ShowFormCU(e);
+}
+public async void RowClickGrid_HR_CVR_VerdictRecruiting(GridRowClickEventArgs e)
+{
+if (!e.Grid.FocusedRowEnabled)
+{
+    setFocusOn();
+}
+IsNew = false;
+_VisibleIndex = e.VisibleIndex;
+ShowFormCU(e.Grid.GetDataItem(e.VisibleIndex));
+e.Grid.SetFocusedRowIndex(e.VisibleIndex);
+}
+
+public async void RowDubbleClickGrid_HR_CVR_VerdictRecruiting(GridRowClickEventArgs e)
+{
+
+}
+}
+
+
+                    <DxPager @ref=DxPager VisibleNumericButtonCount="1" SwitchToInputBoxButtonCount="3" PageCount="@PageCount" NavigationMode="PagerNavigationMode.NumericButtons" ActivePageIndexChanged="PageIndexChanged" />
+                    @* دیالوگ برای سابمیت *@
+                    <DxPopup @bind-Visible="@Confirmation_Submit" HeaderText="Save" Width="350px" CloseOnOutsideClick="false">
+                        <BodyContentTemplate Context="EditFormContext">
+                            <div class="py-3 px-5 text-center">
+                                <p>آیا از ذخیره این رکورد مطمئن هستید</p>
+                                <div class="confirm-dialog-buttons">
+
+
+                                    <DxButton Text="Yes" Enabled="!isSending" CssClass="btn btn-red px-4" Click="@OnYesSubmitClick">
+                                        @* تبدیل دکمه به لود  *@
+                                        <DxWaitIndicator Visible="isSending" />
+                                        <span class="mx-2">@((isSending ? "Sending..." : "Send"))</span>
+
+                                    </DxButton>
+                                    <DxButton Text="No" CssClass="btn btn-purple-light px-4" Click="@OnNoSubmitClick" />
+                                </div>
+                            </div>
+                        </BodyContentTemplate>
+                    </DxPopup>
+                    @* دیالوگ برای ذخیره و رکورد جدید *@
+                    <DxPopup @bind-Visible="@Confirmation_SubmitNew" HeaderText="Save" Width="350px" CloseOnOutsideClick="false">
+
+                        <BodyContentTemplate Context="EditFormContext">
+                            <div class="py-3 px-5 text-center">
+                                <p>آیا از ذخیره این رکورد مطمئن هستید</p>
+                                <div class="confirm-dialog-buttons">
+                                    <DxButton Text="Yes" Enabled="!isSending" CssClass="btn btn-red px-4" Click="@OnYesSubmitNewClick">
+                                        <DxWaitIndicator Visible="isSending" />
+                                        <span class="mx-2">@((isSending ? "Sending..." : "Send"))</span>
+
+                                    </DxButton>
+                                    <DxButton Text="No" CssClass="btn btn-purple-light px-4" Click="@OnNoSubmitNewClick" />
+                                </div>
+                            </div>
+                        </BodyContentTemplate>
+                    </DxPopup>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="modal fade xyz-in @(ShowForm?"show d-block":"")" id="DetailDialog" tabindex="-1" aria-labelledby="DetailDialog2Label" aria-hidden="true" style="z-index:1049">
+        <div class="modal-dialog modal-fullscreen" style="z-index:1049;">
+            <div class="modal-content" xyz="fade up-25% perspective-2 stagger">
+                <div class="modal-header xyz-nested py-1" xyz="up-100% in-delay-3">
+                    <h1 class="modal-title fs-5 fw-black">جزئیات</h1>
+                    <button type="button" class="btn" @onclick="()=>ShowForm=false">
+                        <span class="fa fa-times"></span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="detailArea">
+                        @*
+            @if (Id != null)
+            {
+            <h3>Row Id: @Id </h3>
+            }
+
+            <div>
+            برای ایجاد هم از همین اصتفاده میشه
+            باید وقتی داخل گرید سطری انتخاب شد برای ویرایش
+            ارسال بشه به این فرم
+            فرم وقتی ویرایش کرد داده رو به ORM ارسال کنه برای ذخیره داده
+            و موجودیت بروز شده رو برگردونه که گرید هم بروز کنه داده رو
+            ***تغیراتی داخل فرم پاین نیاز هست اعمال شود
+            </div> *@
+
+                        <Form_1002_CU @ref="RefForm" IndependentForm=false _CartablesParameters="_CartablesParameters" _RequestParameters="_RequestParameters"></Form_1002_CU>
+                        <div class="mt-3">
+
+                            @if (DtComponent is not null && DtComponent.AccessEdit)
+                            {
+
+                                <DxButton Enabled="!isSending" id="btn_listi_Save" CssClass="btn btn-sm btn-green" Click="@OnYesSubmitClick">
+                                    @* تبدیل دکمه به لود  *@
+                                    <DxWaitIndicator Visible="isSending" />
+                                    <span class="mx-2">@((isSending ? "Sending..." : "ذخیره"))</span>
+
+                                </DxButton>
+
+                                <DxButton Enabled="!isSending" id="btn_listi_Save_close" CssClass="btn btn-sm btn-green" Click="@OnSubmitCloseClick">
+                                    @* تبدیل دکمه به لود  *@
+                                    <DxWaitIndicator Visible="isSending" />
+                                    <span class="mx-2">@((isSending ? "Sending..." : "ذخیره و بستن"))</span>
+
+                                </DxButton>
+                                @if (DtComponent.AccessNew)
+                                {
+                                    <DxButton Enabled="!isSending" id="btn_listi_Save_New" CssClass="btn btn-sm btn-green" Click="@OnYesSubmitNewClick">
+                                        @* تبدیل دکمه به لود  *@
+                                        <DxWaitIndicator Visible="isSending" />
+                                        <span class="mx-2">@((isSending ? "Sending..." : "ذخیره و جدید"))</span>
+
+                                    </DxButton>
+                                }
+                            }
+                            <button class="btn btn-sm btn-red" @onclick=SubmitCancell>انصراف</button>
+                            |
+
+                            <DxButton Text="Yes" Enabled="!isSending" id="btn_listi_Previous" CssClass="btn btn-sm btn-purple" Click="@BackRow">
+                                @* تبدیل دکمه به لود  *@
+                                <DxWaitIndicator Visible="isSending" />
+                                <span class="bi bi-chevron-right btnicon"></span>
+                                <span>@((isSending ? "wait..." : "قبلی"))</span>
+
+                            </DxButton>
+                            <DxButton Text="Yes" Enabled="!isSending" id="btn_listi_Next" CssClass="btn btn-sm btn-purple" Click="@NextRow">
+                                @* تبدیل دکمه به لود  *@
+                                <DxWaitIndicator Visible="isSending" />
+                                <span>@((isSending ? "wait..." : "بعدی"))</span>
+                                <span class="bi bi-chevron-left btnicon"></span>
+                            </DxButton>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal-backdrop fade @(ShowForm?"show":"")" style="z-index:1048"></div>
+    </div>
+
+</div>
+
+
+
+@code {
+    /// <summary>
+    /// مقداردهی بر اساس ایندکس فعال
+    /// </summary>
+    protected int? _VisibleIndex { get; set; }
+    //// <summary>
+    /// نمایش دیالوگ ذخیره
+    /// </summary>
+
+    public bool Confirmation_Submit { get; set; } = false;
+    /// <summary>
+    /// نمایش دیالوگ ذخیره و فرم جدید
+    /// </summary>
+    public bool Confirmation_SubmitNew { get; set; } = false;
+    /// <summary>
+    /// کامپوننت دیتاگرید
+    /// </summary>
+    public View_Component DtComponent { get; set; } = new View_Component();
+
+    //// <summary>
+    /// نمایش لودینگ
+    /// </summary>
+    public bool isSending { get; set; } = false;
+    /// <summary>
+    /// رکورد جدید می باشد یا ویرایش
+    /// </summary>
+
+    public bool IsNew { get; set; }
+
+    protected override void OnInitialized()
+    {
+        //todo این خط برده شود داخل تابع پاینی ببینیم خطا داره یا نه
+        languageContainer.InitLocalizedComponent(this);
+        //   RefListFilter = new();
+    }
+    protected override async Task OnInitializedAsync()
+    {
+        //بعداد اگه نیاز شد فرمی رو تو حالت غیر لاگین شده نمایش بدیم باید این  کد تغیر کنه
+        var user = (await _authenticationStateProvider.GetAuthenticationStateAsync()).User;
+        string UserID = user.FindFirst(c => c.Type == ClaimTypes.NameIdentifier).Value;
+        //داینامیک بشه
+        Dictionary<string, object> List = new Dictionary<string, object>();
+        List.Add("UserID", UserID);
+        _User = await Domain.Utility.ConvertParameter.ConvertToObject(List);
+
+        //     RefListFilter = new();
+        await base.OnInitializedAsync();
+    }
+
+    public override async Task SetParametersAsync(ParameterView parameters)
+    {
+        await base.SetParametersAsync(parameters);
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            await Task.Yield();
+            StateHasChanged();
+            if (Grid_HR_CVR_VerdictRecruiting is not null)
+    {
+                DtComponent = (View_Component)Grid_HR_CVR_VerdictRecruiting.Attributes.GetValueOrDefault("Component");
+    }
+
+            //JSO = await JS.InvokeAsync<IJSObjectReference>("import", "./js/FormFunctions.js?ver=1.2");
+
+            /*             var ResultConvert = await Forms.Domain.Utility.ConvertParameter.ConvertParametersToDaunamic(RequestParameters, CartablesParameters);
+            _RequestParameters = ResultConvert._RequestParameters;
+            _CartablesParameters = ResultConvert._CartablesParameters; */
+
+            /*    RefForm.CartablesParameters = CartablesParameters;
+            RefForm.RequestParameters = RequestParameters; */
+
+            await InvokeAsync(StateHasChanged);
+            await Task.Yield();
+            QueryFilter = new QueryBuilderFilterRule();
+            if ("{\"Condition\":\"AND\",\"Rules\":[{\"Field\":\"HR_CVR_TypesRulingsId\",\"Id\":\"16444\",\"Input\":\"text\",\"Operator\":\"contains\",\"Type\":\"string\",\"Value\":[]}]}" != "null" || "{\"Condition\":\"AND\",\"Rules\":[{\"Field\":\"HR_CVR_TypesRulingsId\",\"Id\":\"16444\",\"Input\":\"text\",\"Operator\":\"contains\",\"Type\":\"string\",\"Value\":[]}]}" != "{}")
+            {
+                QueryFilter = await JSON.ToObject<QueryBuilderFilterRule>("{\"Condition\":\"AND\",\"Rules\":[{\"Field\":\"HR_CVR_TypesRulingsId\",\"Id\":\"16444\",\"Input\":\"text\",\"Operator\":\"contains\",\"Type\":\"string\",\"Value\":[]}]}");
+
+            }
+
+
+            if (RefListFilter == null)
+            {
+
+                RefListFilter = new();
+            }
+
+            await InvokeAsync(StateHasChanged);
+            await Task.Yield();
+
+            RefListFilter.QueryFilter = QueryFilter;//برای این گذاشتم که فیلتر نال نره تو پکامپوننتش
+
+            await base.BeforGetData();
+            await InvokeAsync(StateHasChanged);
+            await Task.Yield();
+
+            await RefListFilter.SearchFilter();
+            await base.AfterGetData();
+            //ست کردن شماره صفحه به گرید
+            await SetPageIndex(0);
+
+            //          if (Grid_HR_CVR_VerdictRecruiting.GetDataItem(0) != null)
+            //  {
+            //              await ShowFormCU(Grid_HR_CVR_VerdictRecruiting.GetDataItem(0));
+            //  }
+        }
+
+        await base.OnAfterRenderAsync(firstRender);
+    }
+
+
+    public async Task SearchFilter(QueryBuilderFilterRule? Filter)
+    {
+
+        SearchQueryFilter = Filter;
+
+        //ریست پیج بندی
+        if (PageReset)
+            PageIndex = 0;
+        //
+        //فیلتر ارسال بشه برای ORM
+        //لیست ردیافتی بایند بشه تو لیست ListData
+        await LoadData();
+        PageReset = true;
+        StateHasChanged();
+    }
+
+    /// <summary>
+    /// لود دیتا گرید
+    /// </summary>
+    /// <returns></returns>
+    public async Task LoadData()
+    {
+
+        //string Url = "https://bayaorm.workcv.ir/fa/api/v1/HR_CVR_VerdictRecruiting/GetList";
+        //string Url = "https://testorm.workcv.ir/fa/api/v1/HR_CVR_VerdictRecruiting/GetList";
+        // string Url = "https://bayaorm.workcv.ir/fa/api/v1/HR_CVR_VerdictRecruiting/GetList";
+
+        int skip = (PageIndex * PageSize);
+
+        var pagedResult = new PagedResult();
+
+        pagedResult.PageSize = PageSize;
+
+        pagedResult.PageNumber = skip;
+        await FillTableGet();
+
+        var R = await ApiServer.External.Services.Data.GetListPost(TableGet, SearchQueryFilter, pagedResult, "HR_CVR_VerdictRecruiting");
+
+
+        if (R is not null)
+        {//اگه داده گرفته 
+            if (R.Status == System.Net.HttpStatusCode.OK)
+            {
+
+
+                var page = await Utility.JSON.ToObject<PagedResult>(R.Content?.ToString());
+
+                if (page?.Items != null)
+                {
+                    // مستقیم به لیست مدل تبدیل کن
+                    _Entity = await Utility.JSON.ToObject<List<Entity.HR_CVR_VerdictRecruiting>>(
+               await Utility.JSON.ToJson(page.Items)
+                    );
+
+
+                }
+                if (page?.PagesCount != null)
+                {
+                    PageCount = page.PagesCount;
+                }
+      
+                //  _Entity = (await Utility.JSON.ToObject<List<Entity.HR_CVR_VerdictRecruiting>>(R.Content?.ToString()));
+            }
+            else
+            {
+                Console.WriteLine("#Log LoadData Error:");
+              //  Console.WriteLine(R.Status);
+                Console.WriteLine(R.Content);
+                Console.WriteLine(R.Message);
+            }
+          
+            //await OnFormloaded.InvokeAsync(Result);
+        }
+        
+    }
+
+    /// <summary>
+    /// تابع پیج بندی
+    /// </summary>
+    /// <param name="Index"></param>
+    /// <returns></returns>
+    public async Task PageIndexChanged(int Index)
+    {
+        await SetPageIndex(Index);
+
+        await LoadData();
+    }
+
+
+    /// <summary>
+    /// دریافت داده فرم سمت راست CU
+    /// </summary>
+    /// <param name="Id"></param>
+    /// <returns></returns>
+    public async Task GetDataForm(object Id)
+    {
+        ShowForm = true;
+        Type type = Id.GetType();
+        string TypeToQueryBuilder = Utility.TypeConverterQueryBuilder.ConvertCSharpTypeToQueryBuilder(type);
+        var NewQuery = new QueryBuilderFilterRule() { Condition = "AND" };
+        NewQuery.Rules = new List<QueryBuilderFilterRule>
+            {
+                    new QueryBuilderFilterRule()
+                    {
+                        Field = PrimaryFieldName,
+                        Id = PrimaryFieldName,
+                        Input = "text",
+                        Operator = "equal",
+                        Type =  TypeToQueryBuilder,
+                        Value = new string[]{ Id.ToString() },
+                    }
+            };
+        RefForm.QueryFilter = NewQuery;
+        await RefForm.GetData();
+        StateHasChanged();
+    }
+    /// <summary>
+    /// بررسی تغییر دیتا
+    /// </summary>
+    /// <param name="Json"></param>
+    /// <returns></returns>
+    public bool CheckChangedData(string? Json)
+    {
+        if (string.Equals(JsonData, Json)) return true;
+        return false;
+    }
+    /// <summary>
+    /// سامبیت فرم
+    /// </summary>
+    /// <returns></returns>
+    public async Task Submit()
+    {
+        Confirmation_Submit = true;
+        // var R = await RefForm.Submit();
+
+        // if (R.Status != System.Net.HttpStatusCode.OK)
+        // {
+        //     toastService.ShowError("ذخیره سازی دچار خطا شد");
+        // }
+    }
+    /// <summary>
+    /// تایید ذخیره فرم
+    /// </summary>
+    /// <returns></returns>
+    public async Task OnYesSubmitClick()
+    {
+        PageReset = false;
+        await RefForm.Submit();
+        await RefListFilter.SearchFilter();
+        var PageIndex = Grid_HR_CVR_VerdictRecruiting.PageIndex;
+    //اگر جدید بود برو بر روی خود رکورد جدید
+  // if (IsNew)
+  //     {
+  //         if (_VisibleIndex == (Grid_HR_CVR_VerdictRecruiting.GetVisibleRowCount() - 1))
+  // {
+  //             PageIndex = PageIndex + 1;
+  //             _VisibleIndex = 0;
+  //         }
+  //         else
+  //         {
+  //             _VisibleIndex = _VisibleIndex.Value + 1;
+  //         }
+  //
+  //     }
+  //     await SelectRecord(PageIndex, _VisibleIndex.Value);
+    }
+
+    /// <summary>
+    /// ذخیره و بستن فرم
+    /// </summary>
+    /// <returns></returns>
+    public async Task OnSubmitCloseClick()
+    {
+        PageReset = false;
+        await SubmitAndRefreshData();
+        ShowForm = false;
+        await InvokeAsync(StateHasChanged);
+    }
+
+    /// <summary>
+    /// تایید ذخیره فرم
+    /// </summary>
+    /// <returns></returns>
+    public async Task OnYesSubmitNewClick()
+    {
+        PageReset = false;
+        await SubmitAndRefreshData();
+        StartEditNewRowAsync_Grid_HR_CVR_VerdictRecruiting();
+    }
+
+    public async Task SubmitAndRefreshData()
+    {
+        isSending = true;
+        await RefForm.Submit();
+        await RefListFilter.SearchFilter();
+        await InvokeAsync(StateHasChanged);
+        Confirmation_SubmitNew = false;
+        isSending = false;
+    }
+
+    /// <summary>
+    /// انصراف ذخیره فرم
+    /// </summary>
+    /// <returns></returns>
+    public async Task OnNoSubmitClick()
+    {
+        Confirmation_Submit = false;
+    }
+
+    //// <summary>
+    /// فعال شدن دیالوگ ذخیره و فرم جدید
+    /// </summary>
+    /// <returns></returns>
+    public async Task SubmitNew()
+    {
+        Confirmation_SubmitNew = true;
+    }
+
+
+    /// <summary>
+    /// انصراف ذخیره فرم
+    /// </summary>
+    /// <returns></returns>
+    public async Task OnNoSubmitNewClick()
+    {
+        Confirmation_Submit = false;
+    }
+
+    /// <summary>
+    /// انصراف از ذخیره فرم
+    /// </summary>
+    /// <returns></returns>
+    public async Task SubmitCancell()
+    {
+       // await GetDataForm(null);
+        ShowForm = false;
+        PageReset = false;
+        await RefListFilter.SearchFilter();
+    }
+    /// <summary>
+    /// رکورد بعدی
+    /// </summary>
+    /// <returns></returns>
+    public async Task NextRow()
+    {
+
+
+        if (_VisibleIndex is null)
+        {
+            _VisibleIndex = 0;
+        }
+        else if (_VisibleIndex == (Grid_HR_CVR_VerdictRecruiting.GetVisibleRowCount() - 1))
+    {
+            if (PageIndex < DxPager.PageCount)
+            {
+                PageIndex = PageIndex + 1;
+            }
+            else
+            {
+                PageIndex = 0;
+            }
+            _VisibleIndex = 0;
+        }
+        else
+        {
+            _VisibleIndex = _VisibleIndex.Value + 1;
+        }
+        await SelectRecord(PageIndex, _VisibleIndex.Value);
+
+    }
+    /// <summary>
+    /// رکورد قبلی
+    /// </summary>
+    /// <returns></returns>
+    public async Task BackRow()
+    {
+        if (_VisibleIndex is null)
+        {
+            _VisibleIndex = 0;
+        }
+        if (_VisibleIndex == 0)
+        {
+            if (PageIndex > 0)
+            {
+                PageIndex = PageIndex - 1;
+                _VisibleIndex = Grid_HR_CVR_VerdictRecruiting.PageSize - 1;
+    }
+        }
+        else
+        {
+
+            _VisibleIndex = _VisibleIndex.Value - 1;
+        }
+        await SelectRecord(PageIndex, _VisibleIndex.Value);
+    }
+
+    void SetLanguage(string language)
+    {
+        languageContainer.SetLanguage(System.Globalization.CultureInfo.GetCultureInfo(language));
+    }
+
+
+    /// <summary>
+    /// نمایش دادن فرم CU برای ویرایش و ضافه کردن رکورد
+    /// </summary>
+    /// <param name="e"></param>
+    // public async Task ShowFormCU(GridCustomizeEditModelEventArgs e)
+    // {
+    //     Guid Id = Guid.Empty;
+    //     if (!e.IsNew)
+    //     {
+    //         var newRow = (Entity.HR_CVR_VerdictRecruiting)e.EditModel;
+    //         Id = newRow.Id;
+    //     }
+    //     await GetDataForm(Id);
+    // }
+
+    /// <summary>
+    /// نمایش دادن فرم CU برای ویرایش و ضافه کردن رکورد
+    /// </summary>
+    /// <param name="e"></param>
+    public async Task ShowFormCU(object e)
+    {
+        await InvokeAsync(StateHasChanged);
+        await Task.Yield();
+        object Id = null;
+        Type type = null;
+        ShowForm = true;
+        await InvokeAsync(StateHasChanged);
+        await Task.Yield();
+        if (!IsNew)
+        {
+            var newRow = (Entity.HR_CVR_VerdictRecruiting)e;
+    Id = newRow._Id;
+            await InvokeAsync(StateHasChanged);
+            await Task.Yield();
+        }
+        else
+        {
+            var newRow = new Entity.HR_CVR_VerdictRecruiting();
+    Id = newRow._Id;
+        }
+        await InvokeAsync(StateHasChanged);
+        await Task.Yield();
+        await GetDataForm(Id);
+    }
+    /// <summary>
+    /// خاموش کردن فوکوس گرید
+    /// </summary>
+    /// <returns></returns>
+    public async Task setFocusOff()
+    {
+        //اگر فوکوس روشن بود خاموشش کن
+        if (Grid_HR_CVR_VerdictRecruiting.FocusedRowEnabled)
+    {
+            //به علت یروزرسانی دیتاگرید و اینکه فوکوس باید مقدار اولیه داده شود از خط زیر استفاده می شود
+            Grid_HR_CVR_VerdictRecruiting.BeginUpdate();
+    Grid_HR_CVR_VerdictRecruiting.FocusedRowEnabled = false;
+    Grid_HR_CVR_VerdictRecruiting.EndUpdate();
+    }
+
+    }
+    /// <summary>
+    /// فعال کردن فوکوس گرید
+    /// </summary>
+    /// <returns></returns>
+    public async Task setFocusOn()
+    {
+        if (!Grid_HR_CVR_VerdictRecruiting.FocusedRowEnabled)
+    {
+            Grid_HR_CVR_VerdictRecruiting.BeginUpdate();
+    Grid_HR_CVR_VerdictRecruiting.FocusedRowEnabled = true;
+
+    Grid_HR_CVR_VerdictRecruiting.EndUpdate();
+    }
+
+    }
+
+    public async Task SelectRecord(int PageIndex, int __VisibleIndex)
+    {
+
+        isSending = true;
+        await setFocusOn();
+        PageIndexChanged(PageIndex);
+        await ShowFormCU(Grid_HR_CVR_VerdictRecruiting.GetDataItem(__VisibleIndex));
+    DxPager.ActivePageIndex = PageIndex;
+        Grid_HR_CVR_VerdictRecruiting.BeginUpdate();
+    Grid_HR_CVR_VerdictRecruiting.PageIndex = PageIndex;
+    Grid_HR_CVR_VerdictRecruiting.EndUpdate();
+    Grid_HR_CVR_VerdictRecruiting.SetFocusedRowIndex(__VisibleIndex);
+
+    isSending = false;
+    }
+
+    public async Task SetPageIndex(int Index)
+    {
+        PageIndex = Index;
+        Grid_HR_CVR_VerdictRecruiting.BeginUpdate();
+    Grid_HR_CVR_VerdictRecruiting.PageIndex = Index;
+    Grid_HR_CVR_VerdictRecruiting.EndUpdate();
+    }
+    /// <summary>
+    /// ارسال داده
+    /// </summary>
+    /// <returns></returns>
+    private async Task<bool> PostDataDelete(Entity.HR_CVR_VerdictRecruiting _entity)
+    {
+        string Data = await Utility.JSON.ToJson(_entity);
+
+        var TablePost = new Table();
+        TablePost.Name = "HR_CVR_VerdictRecruiting";
+        TablePost.Column = new List<Coulmn>
+                    {
+                    new Coulmn {Name=_entity._GetIdName  , NameAs= _entity._GetIdName},
+                    new Coulmn {Name ="IsDelete",NameAs="IsDelete" }
+
+                    };
+        bool IsOk = false;
+        var Model = await ApiServer.External.Services.Data.Put(Data, TablePost.Name, TablePost, null, _User.UserID.ToString());
+        if (Model?.Status == HttpStatusCode.OK)
+        {
+            IsOk = true;
+        }
+
+        return IsOk;
+    }
+}

@@ -1,0 +1,510 @@
+@inherits Forms.Forms.Form_470_FilterBase
+@namespace FormsPage
+
+@using AKSoftware.Localization.MultiLanguages.Blazor
+@using Baya.Models.ORM
+@using Castle.DynamicLinqQueryBuilder
+@using Microsoft.AspNetCore.Components.Forms
+@using Microsoft.AspNetCore.Components.Authorization;
+@using System.Security.Claims
+@using System.Net
+@using Microsoft.JSInterop
+@using   System.Dynamic
+<style>
+    /* ************************************************** */
+.detailArea form div:not(.devdrop) {
+    margin-top: .1rem;
+}
+
+/* ************************************************** */
+:root {
+    --dark-blue: #0f172a;
+    --purple: #6d28d9;
+    --light-blue: #38bdf8;
+    --accent-color: #818cf8;
+    --text-color: #f8fafc;
+}
+
+.phonebook-header {
+    background: linear-gradient(135deg, var(--dark-blue), var(--purple));
+    color: var(--text-color);
+    padding: 3rem 0;
+    position: relative;
+    overflow: hidden;
+    border-radius: 10px 10px 10px 10px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+.blob-1,
+.blob-2 {
+    position: absolute;
+    border-radius: 50%;
+    background: rgba(129, 140, 248, 0.1);
+    filter: blur(30px);
+}
+
+.blob-1 {
+    width: 300px;
+    height: 300px;
+    top: -100px;
+    left: -100px;
+}
+
+.blob-2 {
+    width: 200px;
+    height: 200px;
+    bottom: -50px;
+    right: -50px;
+}
+
+.header-content {
+    text-align: right;
+    padding: 1rem;
+    position: relative;
+    z-index: 2;
+}
+
+.icon-wrapper {
+    width: 80px;
+    height: 80px;
+    background: linear-gradient(135deg, var(--light-blue), var(--accent-color));
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1.5rem;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+.main-icon {
+    font-size: 2.5rem;
+    color: white;
+}
+
+.phonebook-header h1 {
+    font-size: 2.5rem;
+    font-weight: 800;
+    margin-bottom: 1rem;
+    color: white;
+}
+
+.phonebook-header h1 span {
+    color: var(--light-blue);
+    position: relative;
+}
+
+.phonebook-header h1 span::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    right: 0;
+    width: 100%;
+    height: 3px;
+    background: var(--light-blue);
+    border-radius: 3px;
+}
+
+.tagline {
+    font-size: 1.2rem;
+    opacity: 0.9;
+    color: rgba(248, 250, 252, 0.9);
+    position: relative;
+    padding-right: 1rem;
+}
+
+.tagline::before {
+    content: '';
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 5px;
+    height: 20px;
+    background: var(--accent-color);
+    border-radius: 5px;
+}
+
+.header-image {
+    text-align: center;
+    position: relative;
+}
+
+.header-image img {
+    max-height: 200px;
+    width: auto;
+    filter: drop-shadow(0 10px 20px rgba(0, 0, 0, 0.3));
+    transition: transform 0.3s ease;
+}
+
+.header-image:hover img {
+    transform: scale(1.05) rotate(-5deg);
+}
+
+/* انیمیشن‌ها */
+.animate-float {
+    animation: float 6s ease-in-out infinite;
+}
+
+.animate-slide {
+    animation: slideIn 1s ease-out forwards;
+    opacity: 0;
+    transform: translateX(20px);
+}
+
+.delay-1 {
+    animation-delay: 0.3s;
+}
+
+.animate-pop {
+    animation: popIn 1s ease-out forwards;
+    opacity: 0;
+    transform: scale(0.8);
+}
+
+@@keyframes float {
+    0% {
+        transform: translateY(0px);
+    }
+
+    50% {
+        transform: translateY(-15px);
+    }
+
+    100% {
+        transform: translateY(0px);
+    }
+}
+
+@@keyframes slideIn {
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@@keyframes popIn {
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+@@media (max-width: 992px) {
+    .phonebook-header {
+        padding: 2rem 0;
+        border-radius: 0 0 20px 20px;
+    }
+
+    .header-content {
+        text-align: center;
+    }
+
+    .icon-wrapper {
+        margin: 0 auto 1.5rem;
+    }
+
+    .phonebook-header h1 {
+        font-size: 2rem;
+    }
+
+    .tagline {
+        font-size: 1rem;
+        padding-right: 0;
+        padding-left: 1rem;
+    }
+
+    .tagline::before {
+        right: auto;
+        left: 0;
+    }
+
+    .header-image img {
+        max-height: 150px;
+        margin-top: 1.5rem;
+    }
+}
+</style>
+<div class="filterbox @(ShowFilterBar ? "" : "d-none")">
+<div class="row justify-content-center">
+
+
+<Input2 id="UserFullName" @ref="Ref_UserFullName" Label="نام و نام خانوادگی کاربر"  CssClass="filterCol"       type="text"    Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input2>
+
+
+        <div class="col-xl-2 col-lg-2 col-md-auto mt-2 align-content-end">
+            <button class="btn btn-sm btn-purple" @onclick=SearchFilter>
+                <span class="bi bi-funnel btnicon"></span>
+                <span>اعمال</span>
+            </button>
+        </div>
+    </div>
+</div>
+
+
+@code {
+    protected override void OnInitialized()
+    {
+        //todo این خط برده شود داخل تابع پاینی ببینیم خطا داره یا نه
+        languageContainer.InitLocalizedComponent(this);
+    }
+    protected override async Task OnInitializedAsync()
+    {
+        
+
+        //بعداد اگه نیاز شد فرمی رو تو حالت غیر لاگین شده نمایش بدیم باید این  کد تغیر کنه
+        var user = (await _authenticationStateProvider.GetAuthenticationStateAsync()).User;
+        string UserID = user.FindFirst(c => c.Type == ClaimTypes.NameIdentifier).Value;
+        //داینامیک بشه
+        Dictionary<string, object> List = new Dictionary<string, object>();
+        List.Add("UserID", UserID);
+        _User = await Domain.Utility.ConvertParameter.ConvertToObject(List);
+
+
+        await base.OnInitializedAsync();
+    }
+
+    public override async Task SetParametersAsync(ParameterView parameters)
+    {
+        await base.SetParametersAsync(parameters);
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+
+
+            //  JSO = await JS.InvokeAsync<IJSObjectReference>("import", "./js/FormFunctions.js?ver=1.2");
+
+            /*           var ResultConvert = await Forms.Domain.Utility.ConvertParameter.ConvertParametersToDaunamic(RequestParameters, CartablesParameters);
+                      _RequestParameters = ResultConvert._RequestParameters;
+                      _CartablesParameters = ResultConvert._CartablesParameters; */
+
+            StateHasChanged();
+        }
+
+        await base.OnAfterRenderAsync(firstRender);
+    }
+
+
+
+    public async Task SearchFilter()
+    {
+        //todo برای هر کنترل یک رف درست بشه
+
+       
+        //todo حلقه شود این بخش یا به تعداد کنترل ها تکرار شود خط پایین
+        //که مقدار هاشو بتونیم بگیریم
+        //بفرستیم به یک تابع به همراه اسم فیلد
+        //تا اون ریپلیس کنه تو فیلتر ها Filter
+        //await ReplaceInFilter("SCM_ProductRequestDetails.ProductNameText", "ماوس", QueryFilter);
+        //await ReplaceInFilter("52255", Ref_SCM_ProductRequestDetails_ProductName_NotMapped.Value, QueryFilter);
+        
+await ReplaceInFilter("14031", Ref_UserFullName.Value, QueryFilter);
+
+ 
+        await ReplaceSystemParametrInFilter(QueryFilter);
+           await ShowFilterTemplate(QueryFilter);
+
+      
+        var _Filter = await RemoveFilter(QueryFilter);
+    
+           
+            await OnSearch.InvokeAsync(_Filter);
+        
+        
+
+    }
+    /// <summary>
+    ///جایگزی متغیر فیلد سیستمی با مقدار  آن
+    /// </summary>
+    /// <param name="Filter"></param>
+    /// <returns></returns>
+    public async Task ReplaceSystemParametrInFilter(QueryBuilderFilterRule Filter)
+    {
+        
+        if (Filter.Rules == null)
+            return;
+        
+        foreach (var item in Filter.Rules)
+        {
+            if (item.Rules != null && item.Rules.Count > 0)
+            {
+                await ReplaceSystemParametrInFilter(item);
+            }
+            
+            if (string.IsNullOrEmpty(item.Field) || item.Value == null || !item.Value.Any(x => !string.IsNullOrEmpty(x)))
+            { 
+                continue;
+            }
+                
+            string rawValue = item.Value.FirstOrDefault();
+            string nameParametr = string.Empty; 
+
+            if (rawValue.StartsWith("@@"))
+                nameParametr = rawValue.Replace("@", "");
+            else if (rawValue.StartsWith("$"))
+                nameParametr = rawValue.Replace("$", "");
+             
+            if (string.IsNullOrEmpty(nameParametr))
+                continue;
+
+             
+            var jsonCartable = await Utility.JSON.ToJson<object>(_CartablesParameters);
+             
+            var ObjectCartable = await Utility.JSON.ToObject<Dictionary<string, object>>(jsonCartable);
+             
+             
+            try
+            {
+
+                string resolvedValue = string.Empty;
+
+                // حالت دیکشنری
+                if (ObjectCartable is IDictionary<string, object> dict && dict.ContainsKey(nameParametr))
+                {
+                    
+                    resolvedValue = dict[nameParametr]?.ToString() ?? string.Empty;
+                }
+                else
+                { 
+                    // حالت کلاس Strongly Typed → با Reflection
+                    var prop = ObjectCartable?.GetType().GetProperty(nameParametr); 
+                   
+                    if (prop != null)
+                    { 
+                        var val = prop.GetValue(ObjectCartable); 
+                        resolvedValue = val?.ToString() ?? string.Empty; 
+                    } 
+                }
+
+                if (!string.IsNullOrEmpty(resolvedValue))
+                    item.Value = new string[] { resolvedValue };
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("error in ReplaceSystemParametrInFilter: " + ex.Message);
+            }
+        }
+    }
+
+    /// <summary>
+    ///نمایش فیلتر
+    /// </summary>
+    /// <param name="Filter"></param>
+    /// <returns></returns>
+    public async Task ShowFilterTemplate(QueryBuilderFilterRule Filter)
+    {
+        if (Filter.Rules == null){ 
+            return;
+        }
+
+        foreach (var item in Filter.Rules)
+        {
+
+            if (string.IsNullOrEmpty(item.Field) || item.Value == null || !item.Value.Any(x => !string.IsNullOrEmpty(x)))
+            {
+                ShowFilterBar = true;
+                break;
+            }
+            if (item.Rules != null && item.Rules.Count > 0)
+            {
+                await ShowFilterTemplate(item);
+            }
+
+        }
+    }
+
+
+    /// <summary>
+    /// ریختن مقدار یک فیلد داخل فیلتر
+    /// </summary>
+    /// <param name="FieladId"></param>
+    /// <param name="Value"></param>
+    /// <param name="Filter"></param>
+    /// <returns></returns>
+    public async Task ReplaceInFilter(string FieladId, object Value, QueryBuilderFilterRule Filter)
+    {
+        //بفرستیم به یک تابع به همراه اسم فیلد
+        //تا اون ریپلیس کنه تو فیلتر ها Filter
+
+        if (Filter.Id == FieladId)
+        {
+            Filter.Value = new string[] { Value == null ? null : Value.ToString() };
+        }
+        if (Filter.Rules != null)
+        {
+            foreach (var item in Filter.Rules)
+            {
+                await ReplaceInFilter(FieladId, Value, item);
+            }
+        }
+    }
+
+    /// <summary>
+    /// حذف فیلتر هایی که مقدارشون نال هست
+    /// </summary>
+    /// <param name="Filter"></param>
+    /// <returns></returns>
+    public async Task<QueryBuilderFilterRule> RemoveFilter(QueryBuilderFilterRule Filter)
+    {
+
+        QueryBuilderFilterRule FilterNew = new QueryBuilderFilterRule();
+        FilterNew.Condition = Filter.Condition;
+
+        if (string.IsNullOrEmpty(Filter.Condition))
+        {
+            FilterNew.Field = Filter.Field;
+            FilterNew.Id = Filter.Id;
+            FilterNew.Input = Filter.Input;
+            FilterNew.Operator = Filter.Operator;
+            FilterNew.Type = Filter.Type;
+            FilterNew.Value = Filter.Value;
+        }
+
+
+        FilterNew.Rules = new List<QueryBuilderFilterRule>();
+        if (Filter.Rules != null)
+        {
+            foreach (var item in Filter.Rules)
+            {
+                //اگه مقدارش نال هست اضافه نکنه
+                //if (!string.IsNullOrEmpty(item.Field) && item.Value != null && item.Value.Any(x => x != null))
+                if (!string.IsNullOrEmpty(item.Field) && item.Value != null && item.Value.Any(x => !string.IsNullOrEmpty(x)))
+                {
+                    string Field = item.Field;
+
+                    QueryBuilderFilterRule ItemChild = new QueryBuilderFilterRule();
+
+                    ItemChild.Field = item.Field;
+                    ItemChild.Id = item.Id;
+                    ItemChild.Input = item.Input;
+                    ItemChild.Operator = item.Operator;
+                    ItemChild.Type = item.Type;
+                    ItemChild.Value = item.Value;
+
+                    FilterNew.Rules.Add(ItemChild);
+                }
+                else if (item.Rules != null)
+                {//اگه فرزند هم داره مجدد اونا رو هم درست کنه
+                    var Sub = await RemoveFilter(item);
+                    if ((!string.IsNullOrEmpty(Sub.Condition) && Sub.Rules.Count > 0))
+                    {
+                        if (string.IsNullOrEmpty(item.Condition))
+                        {
+                            FilterNew.Condition = item.Condition;
+                        }
+                        FilterNew.Rules.Add(Sub);
+                    }
+                }
+            }
+        }
+
+        return FilterNew;
+    }
+
+    void SetLanguage(string language)
+    {
+        languageContainer.SetLanguage(System.Globalization.CultureInfo.GetCultureInfo(language));
+    }
+}

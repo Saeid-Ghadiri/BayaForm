@@ -1,0 +1,1541 @@
+@inherits Forms.Forms.Form_790Base
+@namespace FormsPage
+
+@using AKSoftware.Localization.MultiLanguages.Blazor
+@using Baya.Models.ORM
+@using Castle.DynamicLinqQueryBuilder
+@using Microsoft.AspNetCore.Components.Forms
+@using Microsoft.AspNetCore.Components.Authorization;
+@using System.Security.Claims
+@using System.Net
+@using Microsoft.JSInterop
+@using Forms
+@using Utility
+@using Baya.Models.ViewEngine
+@using Forms.Domain.Utility
+<style>
+    .EMP_bg {
+    border: 1px dashed rgb(255, 208, 139);
+    background: rgba(255, 193, 7, 0.04);
+    margin-left: 2px;
+    margin-right: 2px;
+    padding-bottom: 16px;
+    border-radius: var(--bs-border-radius) !important;
+    margin-top: 0.20rem !important;
+}
+</style>
+
+<div class="@(ReadOnly?"FormReadOnly":"")">
+
+
+    <span class="d-none">VersionForm:@VersionForm</span>
+
+    <div class="formListi mt-3">
+        <div class="masterArea">
+            <div class="p-2 cardbox">
+
+                @*فیلد های مستر اگه نیاز شد اینجا قرار گیرد *@
+
+
+                <Form_790_Filter @ref="RefListFilter" OnSearch="@(f => SearchFilter(f))" _RequestParameters="@_RequestParameters" _CartablesParameters="@_CartablesParameters"></Form_790_Filter>
+
+
+                <div class="gridArea">
+
+                    @*
+                    فیلتر و گرید با یک لیست داده کار میکنند
+                    *@
+
+                    <label for="HR_RMS_RecruitmentRequests_HR_RMS_RecruitmentRequests">درخواست جذب نیرو انسانی
+   
+    
+</label>
+
+<DxGrid @ref="Grid_HR_RMS_RecruitmentRequests" Data="_Entity" KeyFieldName="_Id" 
+        EditModelSaving="OnEditModelSavingHR_RMS_RecruitmentRequests"
+        DataItemDeleting="OnDataItemDeletingHR_RMS_RecruitmentRequests"
+        PopupEditFormCssClass="ModalWidth"
+        PopupEditFormHeaderText="درخواست جذب نیرو انسانی"
+        EditFormButtonsVisible="false"
+        CustomizeEditModel="CustomizeEditGrid_HR_RMS_RecruitmentRequests"
+        CustomizeElement="CustomizeRowsGrid_HR_RMS_RecruitmentRequests" 
+        Component="@((Utility.JSON.ToObject<View_Component>("{\"primaryKey\":false,\"EntityID\":407,\"FieldId\":0,\"ViewId\":790,\"NotMapped\":false,\"Relation\":false,\"RelationExternal\":false,\"RelationChildModel\":\"HR_RMS_RecruitmentRequests\",\"GridMainModel\":\"HR_RMS_RecruitmentRequests\",\"widget\":{\"altInput\":false,\"allowInput\":false,\"clickOpens\":false,\"enableDate\":false,\"enableTime\":false,\"noCalendar\":false,\"useLocaleSettings\":false,\"hourIncrement\":0,\"minuteIncrement\":0,\"time_24hr\":false},\"data\":{},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"FieldsTemplate\":[],\"refreshOn\":\"data\",\"reorder\":false,\"addAnotherPosition\":\"bottom\",\"layoutFixed\":false,\"enableRowGroups\":false,\"initEmpty\":false,\"modal\":true,\"StartCustomDataGrid\":true,\"label\":\"درخواست جذب نیرو انسانی\",\"tableView\":false,\"key\":\"HR_RMS_RecruitmentRequests\",\"type\":\"datagrid\",\"input\":true,\"modalEdit\":false,\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":false,\"AccessEdit\":true,\"AccessNew\":true}").Result))"
+         >
+    <Columns>
+    
+<DxGridCommandColumn Width="70px">
+    <HeaderTemplate Context="HeaderContext">
+       
+<a id=HR_RMS_RecruitmentRequests_HR_RMS_RecruitmentRequestsButtonNew class="btn btn-sm btn-green btnGridAddData" @onclick="@(() => StartEditNewRowAsync_Grid_HR_RMS_RecruitmentRequests())" style="text-decoration: none;" href="javascript:void(0);">
+    <span class="fal fa-plus-circle btnicon"></span>
+    <span>@languageContainer.Keys["DXGrid:New"]</span>
+</a>
+
+    </HeaderTemplate>
+    <CellDisplayTemplate Context="CellContext">
+       
+<a id=HR_RMS_RecruitmentRequests_HR_RMS_RecruitmentRequestsButtonEdit class="btn btn-sm btn-yellow-light btnEditGridData" @onclick="@(() => StartModalGrid_HR_RMS_RecruitmentRequests(CellContext))" style="text-decoration: none;" href="javascript:void(0);">
+    <span class="fal fa-pencil btnicon"></span>
+</a>
+
+       
+    </CellDisplayTemplate>
+</DxGridCommandColumn>
+
+    <DxGridCommandColumn   Width="60px">
+           <HeaderTemplate Context="HeaderContext">
+               <a    style="text-decoration: none;"  >
+                
+                   <span>ردیف</span>
+               </a>
+           </HeaderTemplate>
+           <CellDisplayTemplate Context="CellContext">
+            @if (CellContext.VisibleIndex > 9){
+                <p>@(CellContext.VisibleIndex + 1)</p>
+            }else{
+                <p>@(((CellContext.Grid.PageIndex * CellContext.Grid.PageSize) + (CellContext.VisibleIndex + 1)))</p>
+            }
+          
+           </CellDisplayTemplate>
+     </DxGridCommandColumn>
+    <DxGridDataColumn  Caption="Id" Visible=false FieldName="Id" />
+
+<DxGridDataColumn  Caption="RequestID" Visible=false FieldName="RequestID" />
+
+<DxGridDataColumn  Caption="CreateUser" Visible=false FieldName="CreateUser" />
+
+<DxGridDataColumn  Caption="UpdateUser" Visible=false FieldName="UpdateUser" />
+
+<DxGridDataColumn  Caption="CreateDate" Visible=false FieldName="CreateDate" />
+
+<DxGridDataColumn  Caption="UpdateDate" Visible=false FieldName="UpdateDate" />
+
+<DxGridDataColumn  Caption="IsDelete" Visible=false FieldName="IsDelete" />
+
+<DxGridDataColumn Context="HR_ReasonRequestRecruitmentId_" Caption="علت درخواست" >
+    <CellDisplayTemplate>
+       
+@{
+    Baya.Models.ViewEngine.View_Component HeaderHR_ReasonRequestRecruitmentId = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"primaryKey\":false,\"EntityID\":407,\"FieldId\":15998,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":790,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":false,\"RelationParentName\":\"HR_ReasonRequestRecruitment\",\"RelationParentModel\":\"HR_ReasonRequestRecruitment\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/HR_ReasonRequestRecruitment/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.Title}} </span>\",\"FieldsTemplate\":[{\"key\":\"Title\",\"value\":\"int\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"modal\":true,\"label\":\"علت درخواست\",\"tableView\":true,\"key\":\"HR_ReasonRequestRecruitmentId\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"15998?EId=407&SubId=15\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
+    var RowHR_ReasonRequestRecruitmentId = ((Entity.HR_RMS_RecruitmentRequests)HR_ReasonRequestRecruitmentId_.DataItem).HR_ReasonRequestRecruitmentId;
+}
+
+<Dropdown ExternalApi=false NotMapped=false TextGrid=true Value="@RowHR_ReasonRequestRecruitmentId"   FieldName="HR_ReasonRequestRecruitmentId" OnItemSelected="ItemSelected_HR_RMS_RecruitmentRequestsHR_ReasonRequestRecruitmentId_Header" Component="HeaderHR_ReasonRequestRecruitmentId">
+</Dropdown>
+@code {
+    public async Task ItemSelected_HR_RMS_RecruitmentRequestsHR_ReasonRequestRecruitmentId_Header(object _Item)
+    {
+      //  var Selected = Utility.JSON.ToObject<dynamic>(Utility.JSON.ToJson(_Item).Result).Result;
+  //   HR_ReasonRequestRecruitmentId
+
+  //  #CustomCode
+
+ //   
+
+  //  #OnItemSelected
+    }
+}
+
+    </CellDisplayTemplate>
+</DxGridDataColumn>
+<DxGridDataColumn Context="HR_ApplicationStatusRecruitmentId_" Caption="وضعیت درخواست" >
+    <CellDisplayTemplate>
+       
+@{
+    Baya.Models.ViewEngine.View_Component HeaderHR_ApplicationStatusRecruitmentId = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"primaryKey\":false,\"EntityID\":407,\"FieldId\":16008,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":790,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":false,\"RelationParentName\":\"HR_ApplicationStatusRecruitment\",\"RelationParentModel\":\"HR_ApplicationStatusRecruitment\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/HR_ApplicationStatusRecruitment/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.Title}} </span>\",\"FieldsTemplate\":[{\"key\":\"Title\",\"value\":\"int\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"modal\":true,\"label\":\"وضعیت درخواست\",\"tableView\":true,\"key\":\"HR_ApplicationStatusRecruitmentId\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"16008?EId=407&SubId=15\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
+    var RowHR_ApplicationStatusRecruitmentId = ((Entity.HR_RMS_RecruitmentRequests)HR_ApplicationStatusRecruitmentId_.DataItem).HR_ApplicationStatusRecruitmentId;
+}
+
+<Dropdown ExternalApi=false NotMapped=false TextGrid=true Value="@RowHR_ApplicationStatusRecruitmentId"   FieldName="HR_ApplicationStatusRecruitmentId" OnItemSelected="ItemSelected_HR_RMS_RecruitmentRequestsHR_ApplicationStatusRecruitmentId_Header" Component="HeaderHR_ApplicationStatusRecruitmentId">
+</Dropdown>
+@code {
+    public async Task ItemSelected_HR_RMS_RecruitmentRequestsHR_ApplicationStatusRecruitmentId_Header(object _Item)
+    {
+      //  var Selected = Utility.JSON.ToObject<dynamic>(Utility.JSON.ToJson(_Item).Result).Result;
+  //   HR_ApplicationStatusRecruitmentId
+
+  //  #CustomCode
+
+ //   
+
+  //  #OnItemSelected
+    }
+}
+
+    </CellDisplayTemplate>
+</DxGridDataColumn>
+<DxGridDataColumn Context="HR_ORG_SectionsId_" Caption="سریال قسمت" >
+    <CellDisplayTemplate>
+       
+@{
+    Baya.Models.ViewEngine.View_Component HeaderHR_ORG_SectionsId = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"primaryKey\":false,\"EntityID\":407,\"FieldId\":16009,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":790,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":false,\"RelationParentName\":\"HR_ORG_Sections\",\"RelationParentModel\":\"HR_ORG_Sections\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/HR_ORG_Sections/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.Title}} </span>\",\"FieldsTemplate\":[],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"modal\":true,\"label\":\"سریال قسمت\",\"tableView\":true,\"key\":\"HR_ORG_SectionsId\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"16009?EId=407&SubId=15\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
+    var RowHR_ORG_SectionsId = ((Entity.HR_RMS_RecruitmentRequests)HR_ORG_SectionsId_.DataItem).HR_ORG_SectionsId;
+}
+
+<Dropdown ExternalApi=false NotMapped=false TextGrid=true Value="@RowHR_ORG_SectionsId"   FieldName="HR_ORG_SectionsId" OnItemSelected="ItemSelected_HR_RMS_RecruitmentRequestsHR_ORG_SectionsId_Header" Component="HeaderHR_ORG_SectionsId">
+</Dropdown>
+@code {
+    public async Task ItemSelected_HR_RMS_RecruitmentRequestsHR_ORG_SectionsId_Header(object _Item)
+    {
+      //  var Selected = Utility.JSON.ToObject<dynamic>(Utility.JSON.ToJson(_Item).Result).Result;
+  //   HR_ORG_SectionsId
+
+  //  #CustomCode
+
+ //   
+
+  //  #OnItemSelected
+    }
+}
+
+    </CellDisplayTemplate>
+</DxGridDataColumn>
+<DxGridDataColumn Context="HR_ORG_PostsId_" Caption="سریال پست" >
+    <CellDisplayTemplate>
+       
+@{
+    Baya.Models.ViewEngine.View_Component HeaderHR_ORG_PostsId = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"primaryKey\":false,\"EntityID\":407,\"FieldId\":16010,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":790,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":false,\"RelationParentName\":\"HR_ORG_Posts\",\"RelationParentModel\":\"HR_ORG_Posts\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/HR_ORG_Posts/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.Title}} </span>\",\"FieldsTemplate\":[{\"key\":\"Title\",\"value\":\"int\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"modal\":true,\"label\":\"سریال پست\",\"tableView\":true,\"key\":\"HR_ORG_PostsId\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"16010?EId=407&SubId=15\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
+    var RowHR_ORG_PostsId = ((Entity.HR_RMS_RecruitmentRequests)HR_ORG_PostsId_.DataItem).HR_ORG_PostsId;
+}
+
+<Dropdown ExternalApi=false NotMapped=false TextGrid=true Value="@RowHR_ORG_PostsId"   FieldName="HR_ORG_PostsId" OnItemSelected="ItemSelected_HR_RMS_RecruitmentRequestsHR_ORG_PostsId_Header" Component="HeaderHR_ORG_PostsId">
+</Dropdown>
+@code {
+    public async Task ItemSelected_HR_RMS_RecruitmentRequestsHR_ORG_PostsId_Header(object _Item)
+    {
+      //  var Selected = Utility.JSON.ToObject<dynamic>(Utility.JSON.ToJson(_Item).Result).Result;
+  //   HR_ORG_PostsId
+
+  //  #CustomCode
+
+ //   
+
+  //  #OnItemSelected
+    }
+}
+
+    </CellDisplayTemplate>
+</DxGridDataColumn>
+<DxGridDataColumn  Caption="مدارک موردنیاز"  FieldName="RequiredDocuments" />
+
+<DxGridDataColumn Context="HR_Base_FieldOfStudyId_" Caption="رشته تحصیلی" >
+    <CellDisplayTemplate>
+       
+@{
+    Baya.Models.ViewEngine.View_Component HeaderHR_Base_FieldOfStudyId = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"primaryKey\":false,\"EntityID\":407,\"FieldId\":16012,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":790,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":false,\"RelationParentName\":\"HR_Base_FieldOfStudy\",\"RelationParentModel\":\"HR_Base_FieldOfStudy\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/HR_Base_FieldOfStudy/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.Title}} </span>\",\"FieldsTemplate\":[{\"key\":\"Title\",\"value\":\"int\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"modal\":true,\"label\":\"رشته تحصیلی\",\"tableView\":true,\"key\":\"HR_Base_FieldOfStudyId\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"16012?EId=407&SubId=15\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
+    var RowHR_Base_FieldOfStudyId = ((Entity.HR_RMS_RecruitmentRequests)HR_Base_FieldOfStudyId_.DataItem).HR_Base_FieldOfStudyId;
+}
+
+<Dropdown ExternalApi=false NotMapped=false TextGrid=true Value="@RowHR_Base_FieldOfStudyId"   FieldName="HR_Base_FieldOfStudyId" OnItemSelected="ItemSelected_HR_RMS_RecruitmentRequestsHR_Base_FieldOfStudyId_Header" Component="HeaderHR_Base_FieldOfStudyId">
+</Dropdown>
+@code {
+    public async Task ItemSelected_HR_RMS_RecruitmentRequestsHR_Base_FieldOfStudyId_Header(object _Item)
+    {
+      //  var Selected = Utility.JSON.ToObject<dynamic>(Utility.JSON.ToJson(_Item).Result).Result;
+  //   HR_Base_FieldOfStudyId
+
+  //  #CustomCode
+
+ //   
+
+  //  #OnItemSelected
+    }
+}
+
+    </CellDisplayTemplate>
+</DxGridDataColumn>
+<DxGridDataColumn  Caption="مهارتهای مورد نیاز"  FieldName="Skills" />
+
+<DxGridDataColumn DisplayFormat="0" Caption="از سن"  FieldName="FromAge" />
+
+<DxGridDataColumn DisplayFormat="0" Caption="تا سن"  FieldName="ToAge" />
+
+<DxGridDataColumn DisplayFormat="0" Caption="حداقل سابقه مورد نیاز(سال)"  FieldName="MinimumRequirement" />
+
+<DxGridDataColumn Context="HR_Base_GenderId_" Caption="جنسیت مورد نیاز" >
+    <CellDisplayTemplate>
+       
+@{
+    Baya.Models.ViewEngine.View_Component HeaderHR_Base_GenderId = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"primaryKey\":false,\"EntityID\":407,\"FieldId\":16017,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":790,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":false,\"RelationParentName\":\"HR_Base_Gender\",\"RelationParentModel\":\"HR_Base_Gender\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/HR_Base_Gender/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.Title}} </span>\",\"FieldsTemplate\":[{\"key\":\"Title\",\"value\":\"int\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"modal\":true,\"label\":\"جنسیت مورد نیاز\",\"tableView\":true,\"key\":\"HR_Base_GenderId\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"16017?EId=407&SubId=15\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
+    var RowHR_Base_GenderId = ((Entity.HR_RMS_RecruitmentRequests)HR_Base_GenderId_.DataItem).HR_Base_GenderId;
+}
+
+<Dropdown ExternalApi=false NotMapped=false TextGrid=true Value="@RowHR_Base_GenderId"   FieldName="HR_Base_GenderId" OnItemSelected="ItemSelected_HR_RMS_RecruitmentRequestsHR_Base_GenderId_Header" Component="HeaderHR_Base_GenderId">
+</Dropdown>
+@code {
+    public async Task ItemSelected_HR_RMS_RecruitmentRequestsHR_Base_GenderId_Header(object _Item)
+    {
+      //  var Selected = Utility.JSON.ToObject<dynamic>(Utility.JSON.ToJson(_Item).Result).Result;
+  //   HR_Base_GenderId
+
+  //  #CustomCode
+
+ //   
+
+  //  #OnItemSelected
+    }
+}
+
+    </CellDisplayTemplate>
+</DxGridDataColumn>
+<DxGridDataColumn DisplayFormat="0" Caption="تعداد مورد نیاز"  FieldName="RequiredNumber" />
+
+<DxGridDataColumn  Caption="توضیحات درخواست کننده"  FieldName="DescriptionRequest" />
+
+<DxGridDataColumn  Caption="توضیحات مدیر امورمربوطه"  FieldName="DescriptionUnitManager" />
+
+<DxGridDataColumn  Caption="زمان تائید امور مربوطه"  FieldName="RegisterTimeUserManger" />
+
+<DxGridDataColumn  Caption="توضیحات تائیدکننده منابع انسانی"  FieldName="DescriptionSectionHumanResourcesManager" />
+
+<DxGridDataColumn  Caption="زمان تائیدکننده منابع انسانی"  FieldName="RegisterTimeHumanResourcesManager" />
+
+<DxGridDataColumn  Caption="توضیحات مدیرکارخانه"  FieldName="DescriptionFactoryManager" />
+
+<DxGridDataColumn  Caption="زمان تائید مدیرکارخانه"  FieldName="RegisterTimeFactoryManager" />
+
+<DxGridDataColumn  Caption="توضیحات تائید نهایی"  FieldName="DescriptionFinalApprover" />
+
+<DxGridDataColumn  Caption="زمان تائید نهایی"  FieldName="RegisterTimeFinalApprover" />
+
+<DxGridDataColumn Context="RequestUserId_" Caption="کاربر درخواست کننده" >
+    <CellDisplayTemplate>
+       
+@{
+    Baya.Models.ViewEngine.View_Component HeaderRequestUserId = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"primaryKey\":false,\"EntityID\":407,\"FieldId\":18590,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":790,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":false,\"RelationParentName\":\"RequestUser\",\"RelationParentModel\":\"AspNetUsers\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/AspNetUsers/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.FAMILY}} {{item.NAME}} {{item.EMP_NO}} </span>\",\"FieldsTemplate\":[],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"modal\":true,\"label\":\"کاربر درخواست کننده\",\"tableView\":true,\"key\":\"RequestUserId\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"18590?EId=407&SubId=15\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
+    var RowRequestUserId = ((Entity.HR_RMS_RecruitmentRequests)RequestUserId_.DataItem).RequestUserId;
+}
+
+<Dropdown ExternalApi=false NotMapped=false TextGrid=true Value="@RowRequestUserId"   FieldName="RequestUserId" OnItemSelected="ItemSelected_HR_RMS_RecruitmentRequestsRequestUserId_Header" Component="HeaderRequestUserId">
+</Dropdown>
+@code {
+    public async Task ItemSelected_HR_RMS_RecruitmentRequestsRequestUserId_Header(object _Item)
+    {
+      //  var Selected = Utility.JSON.ToObject<dynamic>(Utility.JSON.ToJson(_Item).Result).Result;
+  //   RequestUserId
+
+  //  #CustomCode
+
+ //   
+
+  //  #OnItemSelected
+    }
+}
+
+    </CellDisplayTemplate>
+</DxGridDataColumn>
+<DxGridDataColumn Context="UnitManagerUserId_" Caption="تائیدامور مربوطه" >
+    <CellDisplayTemplate>
+       
+@{
+    Baya.Models.ViewEngine.View_Component HeaderUnitManagerUserId = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"primaryKey\":false,\"EntityID\":407,\"FieldId\":18591,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":790,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":false,\"RelationParentName\":\"UnitManagerUser\",\"RelationParentModel\":\"AspNetUsers\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/AspNetUsers/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.FAMILY}} {{item.NAME}} {{item.EMP_NO}} </span>\",\"FieldsTemplate\":[],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"modal\":true,\"label\":\"تائیدامور مربوطه\",\"tableView\":true,\"key\":\"UnitManagerUserId\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"18591?EId=407&SubId=15\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
+    var RowUnitManagerUserId = ((Entity.HR_RMS_RecruitmentRequests)UnitManagerUserId_.DataItem).UnitManagerUserId;
+}
+
+<Dropdown ExternalApi=false NotMapped=false TextGrid=true Value="@RowUnitManagerUserId"   FieldName="UnitManagerUserId" OnItemSelected="ItemSelected_HR_RMS_RecruitmentRequestsUnitManagerUserId_Header" Component="HeaderUnitManagerUserId">
+</Dropdown>
+@code {
+    public async Task ItemSelected_HR_RMS_RecruitmentRequestsUnitManagerUserId_Header(object _Item)
+    {
+      //  var Selected = Utility.JSON.ToObject<dynamic>(Utility.JSON.ToJson(_Item).Result).Result;
+  //   UnitManagerUserId
+
+  //  #CustomCode
+
+ //   
+
+  //  #OnItemSelected
+    }
+}
+
+    </CellDisplayTemplate>
+</DxGridDataColumn>
+<DxGridDataColumn Context="HumanResourcesManagerUserId_" Caption="تائید کننده منابع انسانی" >
+    <CellDisplayTemplate>
+       
+@{
+    Baya.Models.ViewEngine.View_Component HeaderHumanResourcesManagerUserId = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"primaryKey\":false,\"EntityID\":407,\"FieldId\":18592,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":790,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":false,\"RelationParentName\":\"HumanResourcesManagerUser\",\"RelationParentModel\":\"AspNetUsers\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/AspNetUsers/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.FAMILY}} {{item.NAME}} </span>\",\"FieldsTemplate\":[],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"modal\":true,\"label\":\"تائید کننده منابع انسانی\",\"tableView\":true,\"key\":\"HumanResourcesManagerUserId\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"18592?EId=407&SubId=15\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
+    var RowHumanResourcesManagerUserId = ((Entity.HR_RMS_RecruitmentRequests)HumanResourcesManagerUserId_.DataItem).HumanResourcesManagerUserId;
+}
+
+<Dropdown ExternalApi=false NotMapped=false TextGrid=true Value="@RowHumanResourcesManagerUserId"   FieldName="HumanResourcesManagerUserId" OnItemSelected="ItemSelected_HR_RMS_RecruitmentRequestsHumanResourcesManagerUserId_Header" Component="HeaderHumanResourcesManagerUserId">
+</Dropdown>
+@code {
+    public async Task ItemSelected_HR_RMS_RecruitmentRequestsHumanResourcesManagerUserId_Header(object _Item)
+    {
+      //  var Selected = Utility.JSON.ToObject<dynamic>(Utility.JSON.ToJson(_Item).Result).Result;
+  //   HumanResourcesManagerUserId
+
+  //  #CustomCode
+
+ //   
+
+  //  #OnItemSelected
+    }
+}
+
+    </CellDisplayTemplate>
+</DxGridDataColumn>
+<DxGridDataColumn Context="FactoryManagerUserId_" Caption="تائید مدیرکارخانه" >
+    <CellDisplayTemplate>
+       
+@{
+    Baya.Models.ViewEngine.View_Component HeaderFactoryManagerUserId = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"primaryKey\":false,\"EntityID\":407,\"FieldId\":18593,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":790,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":false,\"RelationParentName\":\"FactoryManagerUser\",\"RelationParentModel\":\"AspNetUsers\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/AspNetUsers/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.FAMILY}} {{item.NAME}} {{item.EMP_NO}} </span>\",\"FieldsTemplate\":[],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"modal\":true,\"label\":\"تائید مدیرکارخانه\",\"tableView\":true,\"key\":\"FactoryManagerUserId\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"18593?EId=407&SubId=15\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
+    var RowFactoryManagerUserId = ((Entity.HR_RMS_RecruitmentRequests)FactoryManagerUserId_.DataItem).FactoryManagerUserId;
+}
+
+<Dropdown ExternalApi=false NotMapped=false TextGrid=true Value="@RowFactoryManagerUserId"   FieldName="FactoryManagerUserId" OnItemSelected="ItemSelected_HR_RMS_RecruitmentRequestsFactoryManagerUserId_Header" Component="HeaderFactoryManagerUserId">
+</Dropdown>
+@code {
+    public async Task ItemSelected_HR_RMS_RecruitmentRequestsFactoryManagerUserId_Header(object _Item)
+    {
+      //  var Selected = Utility.JSON.ToObject<dynamic>(Utility.JSON.ToJson(_Item).Result).Result;
+  //   FactoryManagerUserId
+
+  //  #CustomCode
+
+ //   
+
+  //  #OnItemSelected
+    }
+}
+
+    </CellDisplayTemplate>
+</DxGridDataColumn>
+<DxGridDataColumn Context="FinalApproverUserId_" Caption="تائید کننده نهایی" >
+    <CellDisplayTemplate>
+       
+@{
+    Baya.Models.ViewEngine.View_Component HeaderFinalApproverUserId = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"primaryKey\":false,\"EntityID\":407,\"FieldId\":18594,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":790,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":false,\"RelationParentName\":\"FinalApproverUser\",\"RelationParentModel\":\"AspNetUsers\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/AspNetUsers/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.FAMILY}} {{item.NAME}} {{item.EMP_NO}} </span>\",\"FieldsTemplate\":[],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"modal\":true,\"label\":\"تائید کننده نهایی\",\"tableView\":true,\"key\":\"FinalApproverUserId\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"18594?EId=407&SubId=15\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
+    var RowFinalApproverUserId = ((Entity.HR_RMS_RecruitmentRequests)FinalApproverUserId_.DataItem).FinalApproverUserId;
+}
+
+<Dropdown ExternalApi=false NotMapped=false TextGrid=true Value="@RowFinalApproverUserId"   FieldName="FinalApproverUserId" OnItemSelected="ItemSelected_HR_RMS_RecruitmentRequestsFinalApproverUserId_Header" Component="HeaderFinalApproverUserId">
+</Dropdown>
+@code {
+    public async Task ItemSelected_HR_RMS_RecruitmentRequestsFinalApproverUserId_Header(object _Item)
+    {
+      //  var Selected = Utility.JSON.ToObject<dynamic>(Utility.JSON.ToJson(_Item).Result).Result;
+  //   FinalApproverUserId
+
+  //  #CustomCode
+
+ //   
+
+  //  #OnItemSelected
+    }
+}
+
+    </CellDisplayTemplate>
+</DxGridDataColumn>
+<DxGridDataColumn  Caption="زمان درخواست کننده"  FieldName="RegisterTimeRequestUserId" />
+
+
+</Columns>
+
+    
+</DxGrid>
+
+<DxPopup @bind-Visible="@ConfirmationShownHR_RMS_RecruitmentRequests" HeaderText="@languageContainer.Keys["DXGrid:DeleteItem"]" Width="350px" CloseOnOutsideClick="false">
+
+    <BodyContentTemplate Context="EditFormContext">
+        <div class="py-3 px-5 text-center">
+            <p>@languageContainer.Keys["DXGrid:DeleteItemHint"]</p>
+            <div class="confirm-dialog-buttons">
+                <DxButton Text="@languageContainer.Keys["DXGrid:Yes"]" CssClass="btn btn-red px-4" Click="@OnYesButtonClickGrid_HR_RMS_RecruitmentRequests" />
+                <DxButton Text="@languageContainer.Keys["DXGrid:No"]" CssClass="btn btn-purple-light px-4" Click="@OnNoButtonClickGrid_HR_RMS_RecruitmentRequests" />
+            </div>
+        </div>
+    </BodyContentTemplate>
+</DxPopup>
+
+<DxPopup @bind-Visible="@ConfirmationHR_RMS_RecruitmentRequests" HeaderText="هشدار" Width="350px" CloseOnOutsideClick="false">
+    <BodyContentTemplate Context="EditFormContext">
+        <div class="py-3 px-5 text-center"> 
+            <p>اطلاعات این فرم تغییر کرده است آیا تغییرات ذخیره شود؟</p>
+            <div class="confirm-dialog-buttons">
+                <DxButton Text="بله" CssClass="btn btn-red px-4" Click="@OnYesButtonHR_RMS_RecruitmentRequests" />
+                <DxButton Text="خیر" CssClass="btn btn-purple-light px-4" Click="@OnNoButtonHR_RMS_RecruitmentRequests" />
+            </div>
+        </div>
+    </BodyContentTemplate>
+</DxPopup>
+@code {
+    // DxGrid? Grid_HR_RMS_RecruitmentRequests;
+    Entity.HR_RMS_RecruitmentRequests HR_RMS_RecruitmentRequests;
+    bool ConfirmationShownHR_RMS_RecruitmentRequests { get; set; } = false;
+    public Entity.HR_RMS_RecruitmentRequests SelectedItemGrid_HR_RMS_RecruitmentRequests { get; set; } = new Entity.HR_RMS_RecruitmentRequests();
+    /// <summary>
+    /// شماره ستون
+    /// </summary>
+    public int IndexGrid_HR_RMS_RecruitmentRequests { get; set; }
+
+    ///////////////////////
+    bool ConfirmationHR_RMS_RecruitmentRequests { get; set; } = false;
+    GridEditFormTemplateContext? _ContextFormTemplateHR_RMS_RecruitmentRequests { get; set; }
+    public int OpenDialogCodeHR_RMS_RecruitmentRequests { get; set; } = 0;
+    ////////////////////////
+
+    async Task OnEditModelSavingHR_RMS_RecruitmentRequests(GridEditModelSavingEventArgs arg)
+    {
+        var e = arg.EditModel;
+    bool NotValid = false;
+    //events
+       
+        
+      if (!NotValid)
+     {
+      SaveGrid_HR_RMS_RecruitmentRequests(arg.DataItem, arg.EditModel);
+     }
+}
+
+async void Dialog_Grid_HR_RMS_RecruitmentRequests(int _OpenDialogCode, int VisibleIndex, GridEditFormTemplateContext e)
+{
+    OpenDialogCodeHR_RMS_RecruitmentRequests = _OpenDialogCode;
+    if (!CheckChangedData(await Utility.JSON.ToJson(e.EditModel)))
+    {
+    _ContextFormTemplateHR_RMS_RecruitmentRequests = e;
+    ConfirmationHR_RMS_RecruitmentRequests = true;
+    }
+    else
+    {
+    await OnNoButtonHR_RMS_RecruitmentRequests();
+    }
+}
+async Task OnYesButtonHR_RMS_RecruitmentRequests()
+{
+
+    ConfirmationHR_RMS_RecruitmentRequests = false;
+    await Task.Delay(1500);
+    //bool FormValidate = await JSO.InvokeAsync<bool>("submitForm");
+    bool FormValidate =  await JS.InvokeAsync<bool>("submitForm");
+    if (FormValidate)
+    {
+        bool NotValid = false;
+    var e = _ContextFormTemplateHR_RMS_RecruitmentRequests.EditModel;
+         //events
+         
+
+        if (!NotValid)
+         {
+        SaveGrid_HR_RMS_RecruitmentRequests(_ContextFormTemplateHR_RMS_RecruitmentRequests.DataItem, _ContextFormTemplateHR_RMS_RecruitmentRequests.EditModel);
+            await Grid_HR_RMS_RecruitmentRequests.CancelEditAsync();
+         await ChangePageGrid_HR_RMS_RecruitmentRequests();
+         await SetEditFormContextGrid_HR_RMS_RecruitmentRequests();
+         }
+          
+    }
+
+}
+async Task OnNoButtonHR_RMS_RecruitmentRequests()
+{
+    ConfirmationHR_RMS_RecruitmentRequests = false;
+    await ChangePageGrid_HR_RMS_RecruitmentRequests();
+    await SetEditFormContextGrid_HR_RMS_RecruitmentRequests();
+
+}
+async Task SetEditFormContextGrid_HR_RMS_RecruitmentRequests()
+{
+    var e = (Entity.HR_RMS_RecruitmentRequests)Grid_HR_RMS_RecruitmentRequests.GetDataItem(IndexGrid_HR_RMS_RecruitmentRequests);
+    JsonData = await Utility.JSON.ToJson(e);
+}
+
+async Task ChangePageGrid_HR_RMS_RecruitmentRequests()
+{
+    int VisibleIndex = IndexGrid_HR_RMS_RecruitmentRequests;
+    try
+    {
+    if (OpenDialogCodeHR_RMS_RecruitmentRequests == 1)
+    {
+        if (VisibleIndex != (Grid_HR_RMS_RecruitmentRequests.GetVisibleRowCount() - 1))
+    { 
+            Grid_HR_RMS_RecruitmentRequests.CancelEditAsync();
+            IndexGrid_HR_RMS_RecruitmentRequests = VisibleIndex + 1;
+    Grid_HR_RMS_RecruitmentRequests.StartEditRowAsync(IndexGrid_HR_RMS_RecruitmentRequests);
+    }
+    }
+    else if (OpenDialogCodeHR_RMS_RecruitmentRequests == 0)
+    {
+        if (VisibleIndex != 0)
+        {
+
+            Grid_HR_RMS_RecruitmentRequests.CancelEditAsync();
+            IndexGrid_HR_RMS_RecruitmentRequests = VisibleIndex - 1;
+    Grid_HR_RMS_RecruitmentRequests.StartEditRowAsync(IndexGrid_HR_RMS_RecruitmentRequests);
+    }
+
+    }
+    var e = (Entity.HR_RMS_RecruitmentRequests)Grid_HR_RMS_RecruitmentRequests.GetDataItem(IndexGrid_HR_RMS_RecruitmentRequests);
+    JsonData = await Utility.JSON.ToJson(e);
+    await Task.Delay(300);
+    
+    StateHasChanged();
+    }
+    catch (Exception ex)
+    {
+
+    Console.WriteLine("error in ChagePage" + ex.Message);
+    }
+
+}
+
+async Task StartEditNewRowAsync_Grid_HR_RMS_RecruitmentRequests()
+{
+    //تعداد سطرهای کل
+_VisibleIndex = Grid_HR_RMS_RecruitmentRequests.GetVisibleRowCount();
+setFocusOff();
+IsNew = true;
+await ShowFormCU(null);
+var e = new Entity.HR_RMS_RecruitmentRequests();
+await Task.Delay(300);
+
+}
+
+async Task StartModalGrid_HR_RMS_RecruitmentRequests(GridCommandColumnCellDisplayTemplateContext Context)
+{
+    IsNew = false;
+setFocusOn();
+_VisibleIndex = Context.VisibleIndex;
+await ShowFormCU(Context.DataItem);
+var e = (Entity.HR_RMS_RecruitmentRequests)Context.DataItem;
+await Task.Delay(300);
+
+   // await Task.Delay(500);
+}
+public async Task SaveModalGrid_HR_RMS_RecruitmentRequests(GridEditFormTemplateContext arg)
+{
+     //bool FormValidate = await JSO.InvokeAsync<bool>("submitForm");
+     bool FormValidate =  await JS.InvokeAsync<bool>("submitForm");
+
+    if(FormValidate){
+
+    var e = arg.EditModel;
+    bool NotValid = false;
+    //events
+    
+    if (!NotValid)
+    {
+        SaveGrid_HR_RMS_RecruitmentRequests(arg.DataItem, arg.EditModel);
+
+     await arg.Grid.CancelEditAsync(); 
+
+    }
+
+    }
+
+}
+public async Task SaveAndNewGrid_HR_RMS_RecruitmentRequests(GridEditFormTemplateContext arg)
+{ 
+     //bool FormValidate = await JSO.InvokeAsync<bool>("submitForm");
+     bool FormValidate = await JS.InvokeAsync<bool>("submitForm");
+     
+    if(FormValidate){
+       
+         var e = arg.EditModel;
+          bool NotValid = false;
+     //events
+    
+    if (!NotValid)
+    {
+        SaveGrid_HR_RMS_RecruitmentRequests(arg.DataItem, arg.EditModel);
+
+         await arg.Grid.CancelEditAsync();
+        await StartEditNewRowAsync_Grid_HR_RMS_RecruitmentRequests();
+
+    }
+          
+    }
+   
+}
+
+void PerviousPageGrid_HR_RMS_RecruitmentRequests(int VisibleIndex)
+{
+    try
+     {
+    if (VisibleIndex == 0)
+    {
+        Console.WriteLine(VisibleIndex.ToString());
+    }
+    else
+    {
+Grid_HR_RMS_RecruitmentRequests.CancelEditAsync();
+        IndexGrid_HR_RMS_RecruitmentRequests = VisibleIndex - 1;
+         Grid_HR_RMS_RecruitmentRequests.StartEditRowAsync(IndexGrid_HR_RMS_RecruitmentRequests);
+     }
+    }
+     catch (Exception e)
+     {
+    Console.WriteLine("PerviousPage Message");
+    Console.WriteLine(e.Message);
+    }
+
+}
+
+void NextPageGrid_HR_RMS_RecruitmentRequests(int VisibleIndex)
+{
+
+    if (VisibleIndex == Grid_HR_RMS_RecruitmentRequests.GetVisibleRowCount() - 1)
+    {
+    Console.WriteLine(VisibleIndex.ToString());
+    }
+    else
+    {
+    Console.WriteLine("NextPage Start Grid_HR_RMS_RecruitmentRequests ");
+    try
+    {
+Grid_HR_RMS_RecruitmentRequests.CancelEditAsync();
+        IndexGrid_HR_RMS_RecruitmentRequests = VisibleIndex + 1;
+         Grid_HR_RMS_RecruitmentRequests.StartEditRowAsync(IndexGrid_HR_RMS_RecruitmentRequests);
+     }
+    catch (Exception e)
+    {
+        Console.WriteLine("NextPage Message");
+        Console.WriteLine(e.Message);
+    }
+
+    }
+}
+
+public void SaveGrid_HR_RMS_RecruitmentRequests(object DataItem, object EditModel)
+{
+    var ListEntity = _Entity;
+    var MainModel = (Entity.HR_RMS_RecruitmentRequests)DataItem;
+    if (MainModel != null)
+    {
+MainModel.Id = ((Entity.HR_RMS_RecruitmentRequests)EditModel).Id;
+MainModel.RequestID = ((Entity.HR_RMS_RecruitmentRequests)EditModel).RequestID;
+MainModel.CreateUser = ((Entity.HR_RMS_RecruitmentRequests)EditModel).CreateUser;
+MainModel.UpdateUser = ((Entity.HR_RMS_RecruitmentRequests)EditModel).UpdateUser;
+MainModel.CreateDate = ((Entity.HR_RMS_RecruitmentRequests)EditModel).CreateDate;
+MainModel.UpdateDate = ((Entity.HR_RMS_RecruitmentRequests)EditModel).UpdateDate;
+MainModel.IsDelete = ((Entity.HR_RMS_RecruitmentRequests)EditModel).IsDelete;
+MainModel.HR_ReasonRequestRecruitmentId = ((Entity.HR_RMS_RecruitmentRequests)EditModel).HR_ReasonRequestRecruitmentId;
+MainModel.HR_ReasonRequestRecruitment = ((Entity.HR_RMS_RecruitmentRequests)EditModel).HR_ReasonRequestRecruitment;
+MainModel.HR_ApplicationStatusRecruitmentId = ((Entity.HR_RMS_RecruitmentRequests)EditModel).HR_ApplicationStatusRecruitmentId;
+MainModel.HR_ApplicationStatusRecruitment = ((Entity.HR_RMS_RecruitmentRequests)EditModel).HR_ApplicationStatusRecruitment;
+MainModel.HR_ORG_SectionsId = ((Entity.HR_RMS_RecruitmentRequests)EditModel).HR_ORG_SectionsId;
+MainModel.HR_ORG_Sections = ((Entity.HR_RMS_RecruitmentRequests)EditModel).HR_ORG_Sections;
+MainModel.HR_ORG_PostsId = ((Entity.HR_RMS_RecruitmentRequests)EditModel).HR_ORG_PostsId;
+MainModel.HR_ORG_Posts = ((Entity.HR_RMS_RecruitmentRequests)EditModel).HR_ORG_Posts;
+MainModel.RequiredDocuments = ((Entity.HR_RMS_RecruitmentRequests)EditModel).RequiredDocuments;
+MainModel.HR_Base_FieldOfStudyId = ((Entity.HR_RMS_RecruitmentRequests)EditModel).HR_Base_FieldOfStudyId;
+MainModel.HR_Base_FieldOfStudy = ((Entity.HR_RMS_RecruitmentRequests)EditModel).HR_Base_FieldOfStudy;
+MainModel.Skills = ((Entity.HR_RMS_RecruitmentRequests)EditModel).Skills;
+MainModel.FromAge = ((Entity.HR_RMS_RecruitmentRequests)EditModel).FromAge;
+MainModel.ToAge = ((Entity.HR_RMS_RecruitmentRequests)EditModel).ToAge;
+MainModel.MinimumRequirement = ((Entity.HR_RMS_RecruitmentRequests)EditModel).MinimumRequirement;
+MainModel.HR_Base_GenderId = ((Entity.HR_RMS_RecruitmentRequests)EditModel).HR_Base_GenderId;
+MainModel.HR_Base_Gender = ((Entity.HR_RMS_RecruitmentRequests)EditModel).HR_Base_Gender;
+MainModel.RequiredNumber = ((Entity.HR_RMS_RecruitmentRequests)EditModel).RequiredNumber;
+MainModel.DescriptionRequest = ((Entity.HR_RMS_RecruitmentRequests)EditModel).DescriptionRequest;
+MainModel.DescriptionUnitManager = ((Entity.HR_RMS_RecruitmentRequests)EditModel).DescriptionUnitManager;
+MainModel.RegisterTimeUserManger = ((Entity.HR_RMS_RecruitmentRequests)EditModel).RegisterTimeUserManger;
+MainModel.DescriptionSectionHumanResourcesManager = ((Entity.HR_RMS_RecruitmentRequests)EditModel).DescriptionSectionHumanResourcesManager;
+MainModel.RegisterTimeHumanResourcesManager = ((Entity.HR_RMS_RecruitmentRequests)EditModel).RegisterTimeHumanResourcesManager;
+MainModel.DescriptionFactoryManager = ((Entity.HR_RMS_RecruitmentRequests)EditModel).DescriptionFactoryManager;
+MainModel.RegisterTimeFactoryManager = ((Entity.HR_RMS_RecruitmentRequests)EditModel).RegisterTimeFactoryManager;
+MainModel.DescriptionFinalApprover = ((Entity.HR_RMS_RecruitmentRequests)EditModel).DescriptionFinalApprover;
+MainModel.RegisterTimeFinalApprover = ((Entity.HR_RMS_RecruitmentRequests)EditModel).RegisterTimeFinalApprover;
+MainModel.RequestUserId = ((Entity.HR_RMS_RecruitmentRequests)EditModel).RequestUserId;
+MainModel.RequestUser = ((Entity.HR_RMS_RecruitmentRequests)EditModel).RequestUser;
+MainModel.UnitManagerUserId = ((Entity.HR_RMS_RecruitmentRequests)EditModel).UnitManagerUserId;
+MainModel.UnitManagerUser = ((Entity.HR_RMS_RecruitmentRequests)EditModel).UnitManagerUser;
+MainModel.HumanResourcesManagerUserId = ((Entity.HR_RMS_RecruitmentRequests)EditModel).HumanResourcesManagerUserId;
+MainModel.HumanResourcesManagerUser = ((Entity.HR_RMS_RecruitmentRequests)EditModel).HumanResourcesManagerUser;
+MainModel.FactoryManagerUserId = ((Entity.HR_RMS_RecruitmentRequests)EditModel).FactoryManagerUserId;
+MainModel.FactoryManagerUser = ((Entity.HR_RMS_RecruitmentRequests)EditModel).FactoryManagerUser;
+MainModel.FinalApproverUserId = ((Entity.HR_RMS_RecruitmentRequests)EditModel).FinalApproverUserId;
+MainModel.FinalApproverUser = ((Entity.HR_RMS_RecruitmentRequests)EditModel).FinalApproverUser;
+MainModel.RegisterTimeRequestUserId = ((Entity.HR_RMS_RecruitmentRequests)EditModel).RegisterTimeRequestUserId;
+
+    }
+    else
+    {
+    ListEntity.Add((Entity.HR_RMS_RecruitmentRequests)EditModel);
+    }
+}
+
+async Task OnDataItemDeletingHR_RMS_RecruitmentRequests(GridDataItemDeletingEventArgs e)
+    {
+    var ListEntity = _Entity;
+    ListEntity.Remove((Entity.HR_RMS_RecruitmentRequests)e.DataItem);
+}
+async void OnDeleteButtonClickGrid_HR_RMS_RecruitmentRequests (GridCommandColumnCellDisplayTemplateContext ex)
+{
+    SelectedItemGrid_HR_RMS_RecruitmentRequests = (ex.DataItem as Entity.HR_RMS_RecruitmentRequests);
+    var e =SelectedItemGrid_HR_RMS_RecruitmentRequests;
+    
+     
+    Console.WriteLine("end OnDeleteButtonClickGrid_test_OrderBody 0");
+    ConfirmationShownHR_RMS_RecruitmentRequests = true;
+    await Task.Yield();
+     await InvokeAsync(StateHasChanged);
+    
+    Console.WriteLine("end OnDeleteButtonClickGrid_test_OrderBody 1");
+}
+async void OnYesButtonClickGrid_HR_RMS_RecruitmentRequests ()
+{
+       if (SelectedItemGrid_HR_RMS_RecruitmentRequests != null)
+    {
+      if (SelectedItemGrid_HR_RMS_RecruitmentRequests.Id == Guid.Empty)
+      {
+          var ListEntity = _Entity;
+        ListEntity.Remove((Entity.HR_RMS_RecruitmentRequests)SelectedItemGrid_HR_RMS_RecruitmentRequests);
+     
+      }
+      else
+      {
+        var cleanModel = new Entity.HR_RMS_RecruitmentRequests();
+      // چک کن آیا پراپرتی IsDelete در این نوع وجود دارد؟
+        var prop = typeof(Entity.HR_RMS_RecruitmentRequests).GetProperty("IsDelete");
+        if (prop != null && prop.CanRead && prop.CanWrite)
+        {
+            // مقدار فعلی را بگیر
+            var currentValue = prop.GetValue(SelectedItemGrid_HR_RMS_RecruitmentRequests);
+
+            if (currentValue is bool boolValue)
+            {
+                // مقدار را معکوس کن
+                var newValue = !boolValue;
+
+                // روی هر دو شیء تنظیم کن
+                prop.SetValue(SelectedItemGrid_HR_RMS_RecruitmentRequests, newValue);
+                prop.SetValue(cleanModel, newValue);
+            }
+        }
+        EntityHelper.SetPropertyValue(cleanModel, cleanModel._GetIdName, SelectedItemGrid_HR_RMS_RecruitmentRequests._Id);
+    
+      await PostDataDelete(cleanModel); 
+       
+      }
+    }
+    var e= SelectedItemGrid_HR_RMS_RecruitmentRequests;
+    
+    Grid_HR_RMS_RecruitmentRequests.Reload();
+    ConfirmationShownHR_RMS_RecruitmentRequests = false;
+     await Task.Yield();
+    await InvokeAsync(StateHasChanged);
+
+}
+void OnNoButtonClickGrid_HR_RMS_RecruitmentRequests ()
+{
+    ConfirmationShownHR_RMS_RecruitmentRequests = false;
+}
+
+void CustomizeRowsGrid_HR_RMS_RecruitmentRequests(GridCustomizeElementEventArgs e)
+{
+    ///استایل سطر
+    if (e.ElementType == GridElementType.DataRow)
+    {
+    var item = ((Entity.HR_RMS_RecruitmentRequests)e.Grid.GetDataItem(e.VisibleIndex));
+
+       if (item.IsDelete == true)
+       {
+           e.CssClass = "bg-lightred disablediv";
+       }
+    }
+}
+
+async void CustomizeEditGrid_HR_RMS_RecruitmentRequests(GridCustomizeEditModelEventArgs e)
+{
+
+    if (e.IsNew)
+    {
+
+    var newRow = (Entity.HR_RMS_RecruitmentRequests)e.EditModel;
+
+     
+
+    }
+
+await ShowFormCU(e);
+}
+public async void RowClickGrid_HR_RMS_RecruitmentRequests(GridRowClickEventArgs e)
+{
+if (!e.Grid.FocusedRowEnabled)
+{
+    setFocusOn();
+}
+IsNew = false;
+_VisibleIndex = e.VisibleIndex;
+ShowFormCU(e.Grid.GetDataItem(e.VisibleIndex));
+e.Grid.SetFocusedRowIndex(e.VisibleIndex);
+}
+
+public async void RowDubbleClickGrid_HR_RMS_RecruitmentRequests(GridRowClickEventArgs e)
+{
+
+}
+}
+
+
+                    <DxPager @ref=DxPager VisibleNumericButtonCount="1" SwitchToInputBoxButtonCount="3" PageCount="@PageCount" NavigationMode="PagerNavigationMode.NumericButtons" ActivePageIndexChanged="PageIndexChanged" />
+                    @* دیالوگ برای سابمیت *@
+                    <DxPopup @bind-Visible="@Confirmation_Submit" HeaderText="Save" Width="350px" CloseOnOutsideClick="false">
+                        <BodyContentTemplate Context="EditFormContext">
+                            <div class="py-3 px-5 text-center">
+                                <p>آیا از ذخیره این رکورد مطمئن هستید</p>
+                                <div class="confirm-dialog-buttons">
+
+
+                                    <DxButton Text="Yes" Enabled="!isSending" CssClass="btn btn-red px-4" Click="@OnYesSubmitClick">
+                                        @* تبدیل دکمه به لود  *@
+                                        <DxWaitIndicator Visible="isSending" />
+                                        <span class="mx-2">@((isSending ? "Sending..." : "Send"))</span>
+
+                                    </DxButton>
+                                    <DxButton Text="No" CssClass="btn btn-purple-light px-4" Click="@OnNoSubmitClick" />
+                                </div>
+                            </div>
+                        </BodyContentTemplate>
+                    </DxPopup>
+                    @* دیالوگ برای ذخیره و رکورد جدید *@
+                    <DxPopup @bind-Visible="@Confirmation_SubmitNew" HeaderText="Save" Width="350px" CloseOnOutsideClick="false">
+
+                        <BodyContentTemplate Context="EditFormContext">
+                            <div class="py-3 px-5 text-center">
+                                <p>آیا از ذخیره این رکورد مطمئن هستید</p>
+                                <div class="confirm-dialog-buttons">
+                                    <DxButton Text="Yes" Enabled="!isSending" CssClass="btn btn-red px-4" Click="@OnYesSubmitNewClick">
+                                        <DxWaitIndicator Visible="isSending" />
+                                        <span class="mx-2">@((isSending ? "Sending..." : "Send"))</span>
+
+                                    </DxButton>
+                                    <DxButton Text="No" CssClass="btn btn-purple-light px-4" Click="@OnNoSubmitNewClick" />
+                                </div>
+                            </div>
+                        </BodyContentTemplate>
+                    </DxPopup>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="modal fade xyz-in @(ShowForm?"show d-block":"")" id="DetailDialog" tabindex="-1" aria-labelledby="DetailDialog2Label" aria-hidden="true" style="z-index:1049">
+        <div class="modal-dialog modal-fullscreen" style="z-index:1049;">
+            <div class="modal-content" xyz="fade up-25% perspective-2 stagger">
+                <div class="modal-header xyz-nested py-1" xyz="up-100% in-delay-3">
+                    <h1 class="modal-title fs-5 fw-black">جزئیات</h1>
+                    <button type="button" class="btn" @onclick="()=>ShowForm=false">
+                        <span class="fa fa-times"></span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="detailArea">
+                        @*
+            @if (Id != null)
+            {
+            <h3>Row Id: @Id </h3>
+            }
+
+            <div>
+            برای ایجاد هم از همین اصتفاده میشه
+            باید وقتی داخل گرید سطری انتخاب شد برای ویرایش
+            ارسال بشه به این فرم
+            فرم وقتی ویرایش کرد داده رو به ORM ارسال کنه برای ذخیره داده
+            و موجودیت بروز شده رو برگردونه که گرید هم بروز کنه داده رو
+            ***تغیراتی داخل فرم پاین نیاز هست اعمال شود
+            </div> *@
+
+                        <Form_790_CU @ref="RefForm" IndependentForm=false _CartablesParameters="_CartablesParameters" _RequestParameters="_RequestParameters"></Form_790_CU>
+                        <div class="mt-3">
+
+                            @if (DtComponent is not null && DtComponent.AccessEdit)
+                            {
+
+                                <DxButton Enabled="!isSending" id="btn_listi_Save" CssClass="btn btn-sm btn-green" Click="@OnYesSubmitClick">
+                                    @* تبدیل دکمه به لود  *@
+                                    <DxWaitIndicator Visible="isSending" />
+                                    <span class="mx-2">@((isSending ? "Sending..." : "ذخیره"))</span>
+
+                                </DxButton>
+
+                                <DxButton Enabled="!isSending" id="btn_listi_Save_close" CssClass="btn btn-sm btn-green" Click="@OnSubmitCloseClick">
+                                    @* تبدیل دکمه به لود  *@
+                                    <DxWaitIndicator Visible="isSending" />
+                                    <span class="mx-2">@((isSending ? "Sending..." : "ذخیره و بستن"))</span>
+
+                                </DxButton>
+                                @if (DtComponent.AccessNew)
+                                {
+                                    <DxButton Enabled="!isSending" id="btn_listi_Save_New" CssClass="btn btn-sm btn-green" Click="@OnYesSubmitNewClick">
+                                        @* تبدیل دکمه به لود  *@
+                                        <DxWaitIndicator Visible="isSending" />
+                                        <span class="mx-2">@((isSending ? "Sending..." : "ذخیره و جدید"))</span>
+
+                                    </DxButton>
+                                }
+                            }
+                            <button class="btn btn-sm btn-red" @onclick=SubmitCancell>انصراف</button>
+                            |
+
+                            <DxButton Text="Yes" Enabled="!isSending" id="btn_listi_Previous" CssClass="btn btn-sm btn-purple" Click="@BackRow">
+                                @* تبدیل دکمه به لود  *@
+                                <DxWaitIndicator Visible="isSending" />
+                                <span class="bi bi-chevron-right btnicon"></span>
+                                <span>@((isSending ? "wait..." : "قبلی"))</span>
+
+                            </DxButton>
+                            <DxButton Text="Yes" Enabled="!isSending" id="btn_listi_Next" CssClass="btn btn-sm btn-purple" Click="@NextRow">
+                                @* تبدیل دکمه به لود  *@
+                                <DxWaitIndicator Visible="isSending" />
+                                <span>@((isSending ? "wait..." : "بعدی"))</span>
+                                <span class="bi bi-chevron-left btnicon"></span>
+                            </DxButton>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal-backdrop fade @(ShowForm?"show":"")" style="z-index:1048"></div>
+    </div>
+
+</div>
+
+
+
+@code {
+    /// <summary>
+    /// مقداردهی بر اساس ایندکس فعال
+    /// </summary>
+    protected int? _VisibleIndex { get; set; }
+    //// <summary>
+    /// نمایش دیالوگ ذخیره
+    /// </summary>
+
+    public bool Confirmation_Submit { get; set; } = false;
+    /// <summary>
+    /// نمایش دیالوگ ذخیره و فرم جدید
+    /// </summary>
+    public bool Confirmation_SubmitNew { get; set; } = false;
+    /// <summary>
+    /// کامپوننت دیتاگرید
+    /// </summary>
+    public View_Component DtComponent { get; set; } = new View_Component();
+
+    //// <summary>
+    /// نمایش لودینگ
+    /// </summary>
+    public bool isSending { get; set; } = false;
+    /// <summary>
+    /// رکورد جدید می باشد یا ویرایش
+    /// </summary>
+
+    public bool IsNew { get; set; }
+
+    protected override void OnInitialized()
+    {
+        //todo این خط برده شود داخل تابع پاینی ببینیم خطا داره یا نه
+        languageContainer.InitLocalizedComponent(this);
+        //   RefListFilter = new();
+    }
+    protected override async Task OnInitializedAsync()
+    {
+        //بعداد اگه نیاز شد فرمی رو تو حالت غیر لاگین شده نمایش بدیم باید این  کد تغیر کنه
+        var user = (await _authenticationStateProvider.GetAuthenticationStateAsync()).User;
+        string UserID = user.FindFirst(c => c.Type == ClaimTypes.NameIdentifier).Value;
+        //داینامیک بشه
+        Dictionary<string, object> List = new Dictionary<string, object>();
+        List.Add("UserID", UserID);
+        _User = await Domain.Utility.ConvertParameter.ConvertToObject(List);
+
+        //     RefListFilter = new();
+        await base.OnInitializedAsync();
+    }
+
+    public override async Task SetParametersAsync(ParameterView parameters)
+    {
+        await base.SetParametersAsync(parameters);
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            await Task.Yield();
+            StateHasChanged();
+            if (Grid_HR_RMS_RecruitmentRequests is not null)
+    {
+                DtComponent = (View_Component)Grid_HR_RMS_RecruitmentRequests.Attributes.GetValueOrDefault("Component");
+    }
+
+            //JSO = await JS.InvokeAsync<IJSObjectReference>("import", "./js/FormFunctions.js?ver=1.2");
+
+            /*             var ResultConvert = await Forms.Domain.Utility.ConvertParameter.ConvertParametersToDaunamic(RequestParameters, CartablesParameters);
+            _RequestParameters = ResultConvert._RequestParameters;
+            _CartablesParameters = ResultConvert._CartablesParameters; */
+
+            /*    RefForm.CartablesParameters = CartablesParameters;
+            RefForm.RequestParameters = RequestParameters; */
+
+            await InvokeAsync(StateHasChanged);
+            await Task.Yield();
+            QueryFilter = new QueryBuilderFilterRule();
+            if ("{}" != "null" || "{}" != "{}")
+            {
+                QueryFilter = await JSON.ToObject<QueryBuilderFilterRule>("{}");
+
+            }
+
+
+            if (RefListFilter == null)
+            {
+
+                RefListFilter = new();
+            }
+
+            await InvokeAsync(StateHasChanged);
+            await Task.Yield();
+
+            RefListFilter.QueryFilter = QueryFilter;//برای این گذاشتم که فیلتر نال نره تو پکامپوننتش
+
+            await base.BeforGetData();
+            await InvokeAsync(StateHasChanged);
+            await Task.Yield();
+
+            await RefListFilter.SearchFilter();
+            await base.AfterGetData();
+            //ست کردن شماره صفحه به گرید
+            await SetPageIndex(0);
+
+            //          if (Grid_HR_RMS_RecruitmentRequests.GetDataItem(0) != null)
+            //  {
+            //              await ShowFormCU(Grid_HR_RMS_RecruitmentRequests.GetDataItem(0));
+            //  }
+        }
+
+        await base.OnAfterRenderAsync(firstRender);
+    }
+
+
+    public async Task SearchFilter(QueryBuilderFilterRule? Filter)
+    {
+
+        SearchQueryFilter = Filter;
+
+        //ریست پیج بندی
+        if (PageReset)
+            PageIndex = 0;
+        //
+        //فیلتر ارسال بشه برای ORM
+        //لیست ردیافتی بایند بشه تو لیست ListData
+        await LoadData();
+        PageReset = true;
+        StateHasChanged();
+    }
+
+    /// <summary>
+    /// لود دیتا گرید
+    /// </summary>
+    /// <returns></returns>
+    public async Task LoadData()
+    {
+
+        //string Url = "https://bayaorm.workcv.ir/fa/api/v1/HR_RMS_RecruitmentRequests/GetList";
+        //string Url = "https://testorm.workcv.ir/fa/api/v1/HR_RMS_RecruitmentRequests/GetList";
+        // string Url = "https://bayaorm.workcv.ir/fa/api/v1/HR_RMS_RecruitmentRequests/GetList";
+
+        int skip = (PageIndex * PageSize);
+
+        var pagedResult = new PagedResult();
+
+        pagedResult.PageSize = PageSize;
+
+        pagedResult.PageNumber = skip;
+        await FillTableGet();
+
+        var R = await ApiServer.External.Services.Data.GetListPost(TableGet, SearchQueryFilter, pagedResult, "HR_RMS_RecruitmentRequests");
+
+
+        if (R is not null)
+        {//اگه داده گرفته 
+            if (R.Status == System.Net.HttpStatusCode.OK)
+            {
+
+
+                var page = await Utility.JSON.ToObject<PagedResult>(R.Content?.ToString());
+
+                if (page?.Items != null)
+                {
+                    // مستقیم به لیست مدل تبدیل کن
+                    _Entity = await Utility.JSON.ToObject<List<Entity.HR_RMS_RecruitmentRequests>>(
+               await Utility.JSON.ToJson(page.Items)
+                    );
+
+
+                }
+                if (page?.PagesCount != null)
+                {
+                    PageCount = page.PagesCount;
+                }
+      
+                //  _Entity = (await Utility.JSON.ToObject<List<Entity.HR_RMS_RecruitmentRequests>>(R.Content?.ToString()));
+            }
+            else
+            {
+                Console.WriteLine("#Log LoadData Error:");
+              //  Console.WriteLine(R.Status);
+                Console.WriteLine(R.Content);
+                Console.WriteLine(R.Message);
+            }
+          
+            //await OnFormloaded.InvokeAsync(Result);
+        }
+        
+    }
+
+    /// <summary>
+    /// تابع پیج بندی
+    /// </summary>
+    /// <param name="Index"></param>
+    /// <returns></returns>
+    public async Task PageIndexChanged(int Index)
+    {
+        await SetPageIndex(Index);
+
+        await LoadData();
+    }
+
+
+    /// <summary>
+    /// دریافت داده فرم سمت راست CU
+    /// </summary>
+    /// <param name="Id"></param>
+    /// <returns></returns>
+    public async Task GetDataForm(object Id)
+    {
+        ShowForm = true;
+        Type type = Id.GetType();
+        string TypeToQueryBuilder = Utility.TypeConverterQueryBuilder.ConvertCSharpTypeToQueryBuilder(type);
+        var NewQuery = new QueryBuilderFilterRule() { Condition = "AND" };
+        NewQuery.Rules = new List<QueryBuilderFilterRule>
+            {
+                    new QueryBuilderFilterRule()
+                    {
+                        Field = PrimaryFieldName,
+                        Id = PrimaryFieldName,
+                        Input = "text",
+                        Operator = "equal",
+                        Type =  TypeToQueryBuilder,
+                        Value = new string[]{ Id.ToString() },
+                    }
+            };
+        RefForm.QueryFilter = NewQuery;
+        await RefForm.GetData();
+        StateHasChanged();
+    }
+    /// <summary>
+    /// بررسی تغییر دیتا
+    /// </summary>
+    /// <param name="Json"></param>
+    /// <returns></returns>
+    public bool CheckChangedData(string? Json)
+    {
+        if (string.Equals(JsonData, Json)) return true;
+        return false;
+    }
+    /// <summary>
+    /// سامبیت فرم
+    /// </summary>
+    /// <returns></returns>
+    public async Task Submit()
+    {
+        Confirmation_Submit = true;
+        // var R = await RefForm.Submit();
+
+        // if (R.Status != System.Net.HttpStatusCode.OK)
+        // {
+        //     toastService.ShowError("ذخیره سازی دچار خطا شد");
+        // }
+    }
+    /// <summary>
+    /// تایید ذخیره فرم
+    /// </summary>
+    /// <returns></returns>
+    public async Task OnYesSubmitClick()
+    {
+        PageReset = false;
+        await RefForm.Submit();
+        await RefListFilter.SearchFilter();
+        var PageIndex = Grid_HR_RMS_RecruitmentRequests.PageIndex;
+    //اگر جدید بود برو بر روی خود رکورد جدید
+  // if (IsNew)
+  //     {
+  //         if (_VisibleIndex == (Grid_HR_RMS_RecruitmentRequests.GetVisibleRowCount() - 1))
+  // {
+  //             PageIndex = PageIndex + 1;
+  //             _VisibleIndex = 0;
+  //         }
+  //         else
+  //         {
+  //             _VisibleIndex = _VisibleIndex.Value + 1;
+  //         }
+  //
+  //     }
+  //     await SelectRecord(PageIndex, _VisibleIndex.Value);
+    }
+
+    /// <summary>
+    /// ذخیره و بستن فرم
+    /// </summary>
+    /// <returns></returns>
+    public async Task OnSubmitCloseClick()
+    {
+        PageReset = false;
+        await SubmitAndRefreshData();
+        ShowForm = false;
+        await InvokeAsync(StateHasChanged);
+    }
+
+    /// <summary>
+    /// تایید ذخیره فرم
+    /// </summary>
+    /// <returns></returns>
+    public async Task OnYesSubmitNewClick()
+    {
+        PageReset = false;
+        await SubmitAndRefreshData();
+        StartEditNewRowAsync_Grid_HR_RMS_RecruitmentRequests();
+    }
+
+    public async Task SubmitAndRefreshData()
+    {
+        isSending = true;
+        await RefForm.Submit();
+        await RefListFilter.SearchFilter();
+        await InvokeAsync(StateHasChanged);
+        Confirmation_SubmitNew = false;
+        isSending = false;
+    }
+
+    /// <summary>
+    /// انصراف ذخیره فرم
+    /// </summary>
+    /// <returns></returns>
+    public async Task OnNoSubmitClick()
+    {
+        Confirmation_Submit = false;
+    }
+
+    //// <summary>
+    /// فعال شدن دیالوگ ذخیره و فرم جدید
+    /// </summary>
+    /// <returns></returns>
+    public async Task SubmitNew()
+    {
+        Confirmation_SubmitNew = true;
+    }
+
+
+    /// <summary>
+    /// انصراف ذخیره فرم
+    /// </summary>
+    /// <returns></returns>
+    public async Task OnNoSubmitNewClick()
+    {
+        Confirmation_Submit = false;
+    }
+
+    /// <summary>
+    /// انصراف از ذخیره فرم
+    /// </summary>
+    /// <returns></returns>
+    public async Task SubmitCancell()
+    {
+       // await GetDataForm(null);
+        ShowForm = false;
+        PageReset = false;
+        await RefListFilter.SearchFilter();
+    }
+    /// <summary>
+    /// رکورد بعدی
+    /// </summary>
+    /// <returns></returns>
+    public async Task NextRow()
+    {
+
+
+        if (_VisibleIndex is null)
+        {
+            _VisibleIndex = 0;
+        }
+        else if (_VisibleIndex == (Grid_HR_RMS_RecruitmentRequests.GetVisibleRowCount() - 1))
+    {
+            if (PageIndex < DxPager.PageCount)
+            {
+                PageIndex = PageIndex + 1;
+            }
+            else
+            {
+                PageIndex = 0;
+            }
+            _VisibleIndex = 0;
+        }
+        else
+        {
+            _VisibleIndex = _VisibleIndex.Value + 1;
+        }
+        await SelectRecord(PageIndex, _VisibleIndex.Value);
+
+    }
+    /// <summary>
+    /// رکورد قبلی
+    /// </summary>
+    /// <returns></returns>
+    public async Task BackRow()
+    {
+        if (_VisibleIndex is null)
+        {
+            _VisibleIndex = 0;
+        }
+        if (_VisibleIndex == 0)
+        {
+            if (PageIndex > 0)
+            {
+                PageIndex = PageIndex - 1;
+                _VisibleIndex = Grid_HR_RMS_RecruitmentRequests.PageSize - 1;
+    }
+        }
+        else
+        {
+
+            _VisibleIndex = _VisibleIndex.Value - 1;
+        }
+        await SelectRecord(PageIndex, _VisibleIndex.Value);
+    }
+
+    void SetLanguage(string language)
+    {
+        languageContainer.SetLanguage(System.Globalization.CultureInfo.GetCultureInfo(language));
+    }
+
+
+    /// <summary>
+    /// نمایش دادن فرم CU برای ویرایش و ضافه کردن رکورد
+    /// </summary>
+    /// <param name="e"></param>
+    // public async Task ShowFormCU(GridCustomizeEditModelEventArgs e)
+    // {
+    //     Guid Id = Guid.Empty;
+    //     if (!e.IsNew)
+    //     {
+    //         var newRow = (Entity.HR_RMS_RecruitmentRequests)e.EditModel;
+    //         Id = newRow.Id;
+    //     }
+    //     await GetDataForm(Id);
+    // }
+
+    /// <summary>
+    /// نمایش دادن فرم CU برای ویرایش و ضافه کردن رکورد
+    /// </summary>
+    /// <param name="e"></param>
+    public async Task ShowFormCU(object e)
+    {
+        await InvokeAsync(StateHasChanged);
+        await Task.Yield();
+        object Id = null;
+        Type type = null;
+        ShowForm = true;
+        await InvokeAsync(StateHasChanged);
+        await Task.Yield();
+        if (!IsNew)
+        {
+            var newRow = (Entity.HR_RMS_RecruitmentRequests)e;
+    Id = newRow._Id;
+            await InvokeAsync(StateHasChanged);
+            await Task.Yield();
+        }
+        else
+        {
+            var newRow = new Entity.HR_RMS_RecruitmentRequests();
+    Id = newRow._Id;
+        }
+        await InvokeAsync(StateHasChanged);
+        await Task.Yield();
+        await GetDataForm(Id);
+    }
+    /// <summary>
+    /// خاموش کردن فوکوس گرید
+    /// </summary>
+    /// <returns></returns>
+    public async Task setFocusOff()
+    {
+        //اگر فوکوس روشن بود خاموشش کن
+        if (Grid_HR_RMS_RecruitmentRequests.FocusedRowEnabled)
+    {
+            //به علت یروزرسانی دیتاگرید و اینکه فوکوس باید مقدار اولیه داده شود از خط زیر استفاده می شود
+            Grid_HR_RMS_RecruitmentRequests.BeginUpdate();
+    Grid_HR_RMS_RecruitmentRequests.FocusedRowEnabled = false;
+    Grid_HR_RMS_RecruitmentRequests.EndUpdate();
+    }
+
+    }
+    /// <summary>
+    /// فعال کردن فوکوس گرید
+    /// </summary>
+    /// <returns></returns>
+    public async Task setFocusOn()
+    {
+        if (!Grid_HR_RMS_RecruitmentRequests.FocusedRowEnabled)
+    {
+            Grid_HR_RMS_RecruitmentRequests.BeginUpdate();
+    Grid_HR_RMS_RecruitmentRequests.FocusedRowEnabled = true;
+
+    Grid_HR_RMS_RecruitmentRequests.EndUpdate();
+    }
+
+    }
+
+    public async Task SelectRecord(int PageIndex, int __VisibleIndex)
+    {
+
+        isSending = true;
+        await setFocusOn();
+        PageIndexChanged(PageIndex);
+        await ShowFormCU(Grid_HR_RMS_RecruitmentRequests.GetDataItem(__VisibleIndex));
+    DxPager.ActivePageIndex = PageIndex;
+        Grid_HR_RMS_RecruitmentRequests.BeginUpdate();
+    Grid_HR_RMS_RecruitmentRequests.PageIndex = PageIndex;
+    Grid_HR_RMS_RecruitmentRequests.EndUpdate();
+    Grid_HR_RMS_RecruitmentRequests.SetFocusedRowIndex(__VisibleIndex);
+
+    isSending = false;
+    }
+
+    public async Task SetPageIndex(int Index)
+    {
+        PageIndex = Index;
+        Grid_HR_RMS_RecruitmentRequests.BeginUpdate();
+    Grid_HR_RMS_RecruitmentRequests.PageIndex = Index;
+    Grid_HR_RMS_RecruitmentRequests.EndUpdate();
+    }
+    /// <summary>
+    /// ارسال داده
+    /// </summary>
+    /// <returns></returns>
+    private async Task<bool> PostDataDelete(Entity.HR_RMS_RecruitmentRequests _entity)
+    {
+        string Data = await Utility.JSON.ToJson(_entity);
+
+        var TablePost = new Table();
+        TablePost.Name = "HR_RMS_RecruitmentRequests";
+        TablePost.Column = new List<Coulmn>
+                    {
+                    new Coulmn {Name=_entity._GetIdName  , NameAs= _entity._GetIdName},
+                    new Coulmn {Name ="IsDelete",NameAs="IsDelete" }
+
+                    };
+        bool IsOk = false;
+        var Model = await ApiServer.External.Services.Data.Put(Data, TablePost.Name, TablePost, null, _User.UserID.ToString());
+        if (Model?.Status == HttpStatusCode.OK)
+        {
+            IsOk = true;
+        }
+
+        return IsOk;
+    }
+}

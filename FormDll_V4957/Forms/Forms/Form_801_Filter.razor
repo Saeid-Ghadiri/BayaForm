@@ -1,0 +1,299 @@
+@inherits Forms.Forms.Form_801_FilterBase
+@namespace FormsPage
+
+@using AKSoftware.Localization.MultiLanguages.Blazor
+@using Baya.Models.ORM
+@using Castle.DynamicLinqQueryBuilder
+@using Microsoft.AspNetCore.Components.Forms
+@using Microsoft.AspNetCore.Components.Authorization;
+@using System.Security.Claims
+@using System.Net
+@using Microsoft.JSInterop
+@using   System.Dynamic
+<style>
+    
+</style>
+<div class="filterbox @(ShowFilterBar ? "" : "d-none")">
+<div class="row justify-content-center">
+
+
+<Input2 id="Title" @ref="Ref_Title" Label="عنوان"  CssClass="filterCol"       type="text"    Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"maxlength\":\"20\"}").Result))></Input2>
+
+
+        <div class="col-xl-2 col-lg-2 col-md-auto mt-2 align-content-end">
+            <button class="btn btn-sm btn-purple" @onclick=SearchFilter>
+                <span class="bi bi-funnel btnicon"></span>
+                <span>اعمال</span>
+            </button>
+        </div>
+    </div>
+</div>
+
+
+@code {
+    protected override void OnInitialized()
+    {
+        //todo این خط برده شود داخل تابع پاینی ببینیم خطا داره یا نه
+        languageContainer.InitLocalizedComponent(this);
+    }
+    protected override async Task OnInitializedAsync()
+    {
+        
+
+        //بعداد اگه نیاز شد فرمی رو تو حالت غیر لاگین شده نمایش بدیم باید این  کد تغیر کنه
+        var user = (await _authenticationStateProvider.GetAuthenticationStateAsync()).User;
+        string UserID = user.FindFirst(c => c.Type == ClaimTypes.NameIdentifier).Value;
+        //داینامیک بشه
+        Dictionary<string, object> List = new Dictionary<string, object>();
+        List.Add("UserID", UserID);
+        _User = await Domain.Utility.ConvertParameter.ConvertToObject(List);
+
+
+        await base.OnInitializedAsync();
+    }
+
+    public override async Task SetParametersAsync(ParameterView parameters)
+    {
+        await base.SetParametersAsync(parameters);
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+
+
+            //  JSO = await JS.InvokeAsync<IJSObjectReference>("import", "./js/FormFunctions.js?ver=1.2");
+
+            /*           var ResultConvert = await Forms.Domain.Utility.ConvertParameter.ConvertParametersToDaunamic(RequestParameters, CartablesParameters);
+                      _RequestParameters = ResultConvert._RequestParameters;
+                      _CartablesParameters = ResultConvert._CartablesParameters; */
+
+            StateHasChanged();
+        }
+
+        await base.OnAfterRenderAsync(firstRender);
+    }
+
+
+
+    public async Task SearchFilter()
+    {
+        //todo برای هر کنترل یک رف درست بشه
+
+       
+        //todo حلقه شود این بخش یا به تعداد کنترل ها تکرار شود خط پایین
+        //که مقدار هاشو بتونیم بگیریم
+        //بفرستیم به یک تابع به همراه اسم فیلد
+        //تا اون ریپلیس کنه تو فیلتر ها Filter
+        //await ReplaceInFilter("SCM_ProductRequestDetails.ProductNameText", "ماوس", QueryFilter);
+        //await ReplaceInFilter("52255", Ref_SCM_ProductRequestDetails_ProductName_NotMapped.Value, QueryFilter);
+        
+await ReplaceInFilter("16138", Ref_Title.Value, QueryFilter);
+
+ 
+        await ReplaceSystemParametrInFilter(QueryFilter);
+           await ShowFilterTemplate(QueryFilter);
+
+      
+        var _Filter = await RemoveFilter(QueryFilter);
+    
+           
+            await OnSearch.InvokeAsync(_Filter);
+        
+        
+
+    }
+    /// <summary>
+    ///جایگزی متغیر فیلد سیستمی با مقدار  آن
+    /// </summary>
+    /// <param name="Filter"></param>
+    /// <returns></returns>
+    public async Task ReplaceSystemParametrInFilter(QueryBuilderFilterRule Filter)
+    {
+        
+        if (Filter.Rules == null)
+            return;
+        
+        foreach (var item in Filter.Rules)
+        {
+            if (item.Rules != null && item.Rules.Count > 0)
+            {
+                await ReplaceSystemParametrInFilter(item);
+            }
+            
+            if (string.IsNullOrEmpty(item.Field) || item.Value == null || !item.Value.Any(x => !string.IsNullOrEmpty(x)))
+            { 
+                continue;
+            }
+                
+            string rawValue = item.Value.FirstOrDefault();
+            string nameParametr = string.Empty; 
+
+            if (rawValue.StartsWith("@@"))
+                nameParametr = rawValue.Replace("@", "");
+            else if (rawValue.StartsWith("$"))
+                nameParametr = rawValue.Replace("$", "");
+             
+            if (string.IsNullOrEmpty(nameParametr))
+                continue;
+
+             
+            var jsonCartable = await Utility.JSON.ToJson<object>(_CartablesParameters);
+             
+            var ObjectCartable = await Utility.JSON.ToObject<Dictionary<string, object>>(jsonCartable);
+             
+             
+            try
+            {
+
+                string resolvedValue = string.Empty;
+
+                // حالت دیکشنری
+                if (ObjectCartable is IDictionary<string, object> dict && dict.ContainsKey(nameParametr))
+                {
+                    
+                    resolvedValue = dict[nameParametr]?.ToString() ?? string.Empty;
+                }
+                else
+                { 
+                    // حالت کلاس Strongly Typed → با Reflection
+                    var prop = ObjectCartable?.GetType().GetProperty(nameParametr); 
+                   
+                    if (prop != null)
+                    { 
+                        var val = prop.GetValue(ObjectCartable); 
+                        resolvedValue = val?.ToString() ?? string.Empty; 
+                    } 
+                }
+
+                if (!string.IsNullOrEmpty(resolvedValue))
+                    item.Value = new string[] { resolvedValue };
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("error in ReplaceSystemParametrInFilter: " + ex.Message);
+            }
+        }
+    }
+
+    /// <summary>
+    ///نمایش فیلتر
+    /// </summary>
+    /// <param name="Filter"></param>
+    /// <returns></returns>
+    public async Task ShowFilterTemplate(QueryBuilderFilterRule Filter)
+    {
+        if (Filter.Rules == null){ 
+            return;
+        }
+
+        foreach (var item in Filter.Rules)
+        {
+
+            if (string.IsNullOrEmpty(item.Field) || item.Value == null || !item.Value.Any(x => !string.IsNullOrEmpty(x)))
+            {
+                ShowFilterBar = true;
+                break;
+            }
+            if (item.Rules != null && item.Rules.Count > 0)
+            {
+                await ShowFilterTemplate(item);
+            }
+
+        }
+    }
+
+
+    /// <summary>
+    /// ریختن مقدار یک فیلد داخل فیلتر
+    /// </summary>
+    /// <param name="FieladId"></param>
+    /// <param name="Value"></param>
+    /// <param name="Filter"></param>
+    /// <returns></returns>
+    public async Task ReplaceInFilter(string FieladId, object Value, QueryBuilderFilterRule Filter)
+    {
+        //بفرستیم به یک تابع به همراه اسم فیلد
+        //تا اون ریپلیس کنه تو فیلتر ها Filter
+
+        if (Filter.Id == FieladId)
+        {
+            Filter.Value = new string[] { Value == null ? null : Value.ToString() };
+        }
+        if (Filter.Rules != null)
+        {
+            foreach (var item in Filter.Rules)
+            {
+                await ReplaceInFilter(FieladId, Value, item);
+            }
+        }
+    }
+
+    /// <summary>
+    /// حذف فیلتر هایی که مقدارشون نال هست
+    /// </summary>
+    /// <param name="Filter"></param>
+    /// <returns></returns>
+    public async Task<QueryBuilderFilterRule> RemoveFilter(QueryBuilderFilterRule Filter)
+    {
+
+        QueryBuilderFilterRule FilterNew = new QueryBuilderFilterRule();
+        FilterNew.Condition = Filter.Condition;
+
+        if (string.IsNullOrEmpty(Filter.Condition))
+        {
+            FilterNew.Field = Filter.Field;
+            FilterNew.Id = Filter.Id;
+            FilterNew.Input = Filter.Input;
+            FilterNew.Operator = Filter.Operator;
+            FilterNew.Type = Filter.Type;
+            FilterNew.Value = Filter.Value;
+        }
+
+
+        FilterNew.Rules = new List<QueryBuilderFilterRule>();
+        if (Filter.Rules != null)
+        {
+            foreach (var item in Filter.Rules)
+            {
+                //اگه مقدارش نال هست اضافه نکنه
+                //if (!string.IsNullOrEmpty(item.Field) && item.Value != null && item.Value.Any(x => x != null))
+                if (!string.IsNullOrEmpty(item.Field) && item.Value != null && item.Value.Any(x => !string.IsNullOrEmpty(x)))
+                {
+                    string Field = item.Field;
+
+                    QueryBuilderFilterRule ItemChild = new QueryBuilderFilterRule();
+
+                    ItemChild.Field = item.Field;
+                    ItemChild.Id = item.Id;
+                    ItemChild.Input = item.Input;
+                    ItemChild.Operator = item.Operator;
+                    ItemChild.Type = item.Type;
+                    ItemChild.Value = item.Value;
+
+                    FilterNew.Rules.Add(ItemChild);
+                }
+                else if (item.Rules != null)
+                {//اگه فرزند هم داره مجدد اونا رو هم درست کنه
+                    var Sub = await RemoveFilter(item);
+                    if ((!string.IsNullOrEmpty(Sub.Condition) && Sub.Rules.Count > 0))
+                    {
+                        if (string.IsNullOrEmpty(item.Condition))
+                        {
+                            FilterNew.Condition = item.Condition;
+                        }
+                        FilterNew.Rules.Add(Sub);
+                    }
+                }
+            }
+        }
+
+        return FilterNew;
+    }
+
+    void SetLanguage(string language)
+    {
+        languageContainer.SetLanguage(System.Globalization.CultureInfo.GetCultureInfo(language));
+    }
+}

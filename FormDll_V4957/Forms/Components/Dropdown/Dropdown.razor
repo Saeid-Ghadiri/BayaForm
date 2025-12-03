@@ -1,0 +1,649 @@
+﻿@using Baya.Models.ViewEngine
+@using Domain.Utility
+@using Newtonsoft.Json
+@using Newtonsoft.Json.Linq
+@using Microsoft.JSInterop;  
+@namespace DrowpDownPage
+@using Castle.DynamicLinqQueryBuilder;
+
+<div id=@(Id) class="dropdown devdrop @(_Visible?"":"d-none") @CssClass">
+@if (!string.IsNullOrEmpty(Label) && _Visible)
+{
+    <label id=@(Id + "label")>
+        @Label
+        @if (Required.HasValue && Required == true)
+        {
+            <span class="text-danger" id=@(Id + "label")>*</span>
+        }
+        @if (!string.IsNullOrEmpty(ToolTip))
+        {
+            <i class="bi bi-question-circle text-muted" data-bs-toggle="tooltip" data-bs-title="@ToolTip" title="@ToolTip"></i>
+        }
+    </label>
+}
+
+    
+    <input id=@(Id + "Input") type="hidden" value="@Value"/>
+    @if (DisplayFormat is null || DisplayFormat == "DropDown")
+    {
+        @if(DropdownSelected!="انتخاب کنید"){
+            <span @onclick="ResetDropdown" class="bi bi-x btnclearDP"></span>
+        }
+        
+        <button id=@(Id + "Button")  type="button" hidden="@((TextGrid))" class="form-select dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" data-bs-auto-close="outside" @attributes=@_Attributes>
+            @DropdownSelected
+        </button>
+        <label hidden="@((!TextGrid))">@DropdownSelected</label>
+        <div id=@(Id + "DivDataGrid") class="dropdown-menu p-2">
+            <DataGrid Id="@Id"   @ref=RefDataGrid OnItemSelected="ItemSelected" Component="Component" _Entity=__Entity _EntityRow=_EntityRow></DataGrid>
+
+        </div>
+    }
+    else
+    {
+        
+        <DataGrid   @ref=RefDataGrid OnItemSelected="ItemSelected" Component="Component" _Entity=__Entity _EntityRow=_EntityRow></DataGrid>
+
+    
+    }
+    
+
+</div>
+
+
+@code {
+    [Parameter] public string? Id { get; set; }   
+    [Inject]
+    IJSRuntime JS { get; set; }
+    [Inject]
+    public HttpClient Http { get; set; }
+
+
+    #region Parameter
+    [Parameter]
+    public bool Visible { get; set; } = true;
+    public bool _Visible { get; set; } = true;
+    // <input type="hidden" value="@Value" /> مقدار ولیو را در خودش نگه می دارد
+    // <label hidden="@((!TextGrid))">@((DropdownSelected))</label> در صورتی که از این کامپوننت در هدر استفاده شود این اگزینه فعال می شود
+
+    /// <summary>
+    /// ایونت انتخاب
+    /// </summary>
+    [Parameter]
+    public EventCallback<object> OnItemSelected { get; set; }
+
+    /// <summary>
+    /// لیست تنظیمات کامپوننت
+    /// </summary>
+    [Parameter]
+    public Baya.Models.ViewEngine.View_Component Component { get; set; }
+    [Parameter] public string? Label { get; set; } 
+    [Parameter] public bool? Required { get; set; }
+    [Parameter] public string? ToolTip { get; set; }
+    /// <summary>
+    /// ابجکت اصلی موجودیت
+    /// </summary>
+    [Parameter]
+    public object _Entity { get; set; }
+      
+  [Parameter] public EventCallback<object?> ValueChanged { get; set; }
+  public object? __Entity;
+
+    /// <summary>
+    /// ابجکت درون گرید - یک ردیف
+    /// </summary>
+    [Parameter]
+    public object _EntityRow { get; set; }
+
+    /// <summary>
+    /// نام فیلد مرتبط
+    /// </summary>
+    [Parameter]
+    public string FieldName { get; set; }
+
+    /// <summary>
+    /// مقدار دراپ دان
+    /// </summary>
+    public string? DropdownSelected { get; set; }
+
+    /// <summary>
+    /// آی دی یا همان ولیو دراپ دان
+    /// </summary>
+    [Parameter]
+    public object? Value { get; set; }
+
+    /// <summary>
+    /// مقدار ولیو قبلی جهت ست کردن مقدار
+    /// </summary>
+    private object? _value { get; set; }
+
+    /// <summary>
+    /// تمپلیت داخل دراپ دان فقط برای داخلی
+    /// </summary>
+    [Parameter]
+    public string? Text { get; set; }
+
+    /// <summary>
+    /// تشخیص نات مپ 
+    /// </summary>
+    [Parameter]
+    public bool NotMapped { get; set; }
+
+    /// <summary>
+    /// تشخیص داخلی یا خارجی بودن دراپ دان
+    /// </summary>
+    [Parameter]
+    public bool ExternalApi { get; set; }
+
+    /// <summary>
+    /// فعال بودن به معنای اینکه داخل نماس ستون دیتاگرید می باشد
+    /// </summary>
+    [Parameter]
+    public bool TextGrid { get; set; }
+
+    [Parameter]
+    public string? DisplayFormat { get; set; }
+
+    /// <summary>
+    /// رفرسن دراپ دان
+    /// </summary>
+    DataGrid RefDataGrid { get; set; }
+    /// <summary>
+    /// اتربیوت
+    /// </summary>
+    [Parameter] public Dictionary<string, object>? Attributes { get; set; } = new Dictionary<string, object>();
+    public Dictionary<string, object>? _Attributes { get; set; } = new Dictionary<string, object>();
+    /// <summary>
+    /// غیرفعال کردن
+    /// </summary>
+    [Parameter]
+    public bool Disabled { get; set; } = false;
+    private bool _Disabled { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+     Console.WriteLine(Label + " " + Value?.ToString());
+        DropdownSelected = "انتخاب کنید";
+        //ست نمودن اولیه مقدار داخل دراپ دان
+        if (!NotMapped)
+        {
+            if (!ExternalApi)
+            {
+                if (!string.IsNullOrEmpty(Text))
+                {
+                   if (!string.IsNullOrEmpty(Text.Trim()))
+                      DropdownSelected = Text;
+                }
+                // اگر در حالت TextGrid هستیم و Value داریم و URL موجود است، داده را لود کن
+                if (TextGrid && Value != null && Component?.data?.url != null)
+                {
+                    await LoadData(Value.ToString());
+                }
+
+            }
+            else
+            {
+                if (Value != null)
+                {
+                    await LoadData(Value.ToString());
+                }
+            }
+            StateHasChanged();
+
+        }
+        ///افزودن اتربیوت های دریافتی به کامپوننت
+        if (Attributes.Keys.Count > 0)
+        {
+            foreach (var item in Attributes)
+            {
+                _Attributes.Add(item.Key, item.Value);
+            }
+        }
+    //Set Model First 
+     __Entity = _Entity;
+        //اجرای دیسبل
+        _Disabled = Disabled;
+        RunDisabled();
+        _Visible = Visible;
+    }
+    /// <summary>
+    /// اگر کامپوننت دیسبل بود اتربیوت دسیبل پاس داده شود
+    /// </summary>
+    protected void RunDisabled()
+    {
+        if (_Disabled)
+        {
+            AddAttribute("disabled", "true");
+            RemoveAttribute("Required");
+        }
+        else
+        {
+            RemoveAttribute("disabled");
+            if (Required.HasValue && Required.Value)
+            {
+                AddAttribute("Required", "Required");
+            }
+        }
+        Disabled = _Disabled;
+    }
+    #endregion
+
+
+
+    #region StartUp
+    protected override async Task OnParametersSetAsync()
+    {
+        //اگر مقدار ولیو تغییر کرده بود
+        //اگر از نوع تیتر گرید بود
+        //اگر از نوع خارجی بود یا داخل گرید است
+        if ((_value != Value) && (TextGrid) && (Value != null) && (Component?.data?.url != null))
+        {
+            _value = Value;
+            await LoadData(Value.ToString()); 
+        }
+
+        RunDisabled();
+        Visible = _Visible;
+    }
+
+    #endregion
+
+
+
+    #region Classes
+    //// <summary>
+    /// نمایش داخل دراپ دان در صورت انتخاب
+    /// </summary>
+    /// <param name="Item"></param>
+    /// <returns></returns>
+    public async Task ItemSelected(object Item)
+    {
+        DropdownSelected = "";
+        string item_ = "";
+        Guid Value_ = new Guid();
+        var json = Newtonsoft.Json.JsonConvert.SerializeObject(Item);
+        JObject  data = JObject.Parse(json);
+        // SItem = data;
+        List<KeyValuePair<string, string>> list = await ConvertParameter.GetTemplate(Component.template);
+         Value =!string.IsNullOrEmpty(Component.valueProperty) ?
+             data[Component?.valueProperty] ?? null : null;
+        for (int i = 0; i < list.Count; i++)
+        {
+            item_ = list[i].Key;
+            if (i == 0)
+            {
+                DropdownSelected += data[item_];
+            }
+            else
+            {
+                DropdownSelected += " " + data[item_];
+            }
+        } 
+        if (NotMapped)
+        {
+            Value = DropdownSelected;
+        }
+        if (string.IsNullOrEmpty(DropdownSelected))
+        {
+            DropdownSelected = "انتخاب کنید";
+        }
+        await OnItemSelected.InvokeAsync(Item);
+        await JS.InvokeVoidAsync("eval", "toggleDropdown()");
+
+    }
+    
+    /// <summary>
+    /// لود دیتای گرید
+    /// </summary>
+    /// <returns></returns>
+    public async Task LoadData()
+    {
+        await RefDataGrid.LoadData();
+    }
+
+    public async Task Search(QueryBuilderFilterRule Filter)
+    {
+        await RefDataGrid.SearchFilter(Filter);
+    }
+
+    /// <summary>
+    /// در صورت نیاز به آدرس از اینجا لود می شود
+    /// </summary>
+    /// <param name="SearchText"></param>
+    /// <returns></returns>
+     public async Task LoadData(string SearchText)
+     { 
+         var ListColumn = new List<View_values>(); 
+         if (Component.data is not null && !string.IsNullOrEmpty(Component.data.url))
+         { 
+             string Url = Component.data.url; 
+             if (!string.IsNullOrEmpty(SearchText))
+             {//اگه تکست جستجو پره اونم ارسال کنه
+                if (!Url.Contains("?"))
+                { Url += "?"; }
+                else
+                { Url += "&"; }
+                Url += $"{Component.valueProperty}=" + SearchText; 
+             } 
+             try
+             {
+                 var GetData = await Http.GetStringAsync(Url);
+              
+                 // Attempt to parse the response as a JToken
+                 JToken data = JToken.Parse(GetData);
+     
+                 string item_ = "";
+                 List<KeyValuePair<string, string>> list = await ConvertParameter.GetTemplate(Component.template);
+              
+                 // Check if the data is an array
+                 if (data.Type == JTokenType.Array)
+                 {
+                     // Process the first item in the array
+                     var firstItem = data.First;
+                     for (int i = 0; i < list.Count; i++)
+                     {
+                         Console.WriteLine(list[i]);
+                         item_ = list[i].Key;
+                         if (i == 0)
+                         {
+                             DropdownSelected = firstItem[item_].ToString();
+                         }
+                         else
+                         {
+                             DropdownSelected += " " + firstItem[item_];
+                         }
+                     }
+                 }
+                 else if (data.Type == JTokenType.Object)
+                 {
+                     // Process as an object if needed
+                     for (int i = 0; i < list.Count; i++)
+                     {
+                         Console.WriteLine(list[i]);
+                         item_ = list[i].Key;
+                         if (i == 0)
+                         {
+                             DropdownSelected = data[item_].ToString();
+                         }
+                         else
+                         {
+                             DropdownSelected += " " + data[item_];
+                         }
+                     }
+                 } 
+             }
+             catch (Exception ex)
+             {
+                 Console.WriteLine(ex.Message);
+             }
+             
+     
+         }
+     
+     }
+
+ /// <summary>
+ /// در صورت نیاز به آدرس از اینجا لود می شود با فیلتر
+ /// </summary>
+ /// <param name="Filter"></param>
+ /// <returns></returns>
+ public async Task LoadData(QueryBuilderFilterRule Filter)
+ {
+     var ListColumn = new List<View_values>();
+     if (Component.data is not null && !string.IsNullOrEmpty(Component.data.url))
+     {
+         string Url = Component.data.url;
+         if (Filter != null)
+         {//اگه فیلتر پره اونم ارسال کنه
+             var filterJson = JsonConvert.SerializeObject(Filter);
+             if (!Url.Contains("?"))
+             { Url += "?"; }
+             else
+             { Url += "&"; }
+             Url += $"Filter=" + Uri.EscapeDataString(filterJson);
+         }
+         try
+         {
+             var GetData = await Http.GetStringAsync(Url);
+
+             // Attempt to parse the response as a JToken
+             JToken data = JToken.Parse(GetData);
+
+             string item_ = "";
+             List<KeyValuePair<string, string>> list = await ConvertParameter.GetTemplate(Component.template);
+
+             // Check if the data is an array
+             if (data.Type == JTokenType.Array)
+             {
+                 // Process the first item in the array
+                 var firstItem = data.First;
+                 for (int i = 0; i < list.Count; i++)
+                 {
+                     Console.WriteLine(list[i]);
+                     item_ = list[i].Key;
+                     if (i == 0)
+                     {
+                         DropdownSelected = firstItem[item_].ToString();
+                     }
+                     else
+                     {
+                         DropdownSelected += " " + firstItem[item_];
+                     }
+                 }
+             }
+             else if (data.Type == JTokenType.Object)
+             {
+                 // Process as an object if needed
+                 for (int i = 0; i < list.Count; i++)
+                 {
+                     Console.WriteLine(list[i]);
+                     item_ = list[i].Key;
+                     if (i == 0)
+                     {
+                         DropdownSelected = data[item_].ToString();
+                     }
+                     else
+                     {
+                         DropdownSelected += " " + data[item_];
+                     }
+                 }
+             }
+         }
+         catch (Exception ex)
+         {
+             Console.WriteLine(ex.Message);
+         }
+
+
+     }
+
+ }
+
+ //   public async Task LoadData(string SearchText)
+ //   {
+ //
+ //       var ListColumn = new List<View_values>();
+ //       if (Component.data is not null && !string.IsNullOrEmpty(Component.data.url))
+ //       {
+ //           string Url = Component.data.url;
+ //           if (!string.IsNullOrEmpty(SearchText))
+ //           {//اگه تکست جستجو پره اونم ارسال کنه
+ //               Url += $"?{Component.valueProperty}=" + SearchText;
+ //           }
+ //
+ //           var GetData = await Http.GetStringAsync(Url);
+ //           dynamic data = JsonConvert.DeserializeObject(GetData);
+ //           string item_ = "";
+ //           List<string> list = await GetTemplate();
+ //           for (int i = 0; i < list.Count; i++)
+ //           {
+ //               item_ = list[i];
+ //               if (i == 0)
+ //               {
+ //                   DropdownSelected = data[0][item_];
+ //               }
+ //               else
+ //               {
+ //                   DropdownSelected += " " + data[0][item_];
+ //               }
+ //           }
+ //
+ //       }
+ //
+ //   }
+    #endregion
+
+    
+    #region class
+    [Parameter] public string? CssClass { get; set; }
+    public EventCallback<string?> ClassChanged { get; set; }
+
+    public bool AddAttribute(string? Key, string? Value)
+    {
+        try
+        {
+            var Attr = _Attributes.FirstOrDefault(p => p.Key == Key);
+            if (Attr.Key is null)
+            {
+                _Attributes.Add(Key, (!string.IsNullOrEmpty(Value)) ? (object)Value : null);
+            }
+            else
+            {
+                RemoveAttribute(Attr.Key);
+                _Attributes.Add(Key, (!string.IsNullOrEmpty(Value)) ? (object)Value : null);
+            }
+
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine("Error In AddAttribute " + ex.Message);
+            return false;
+        }
+        return true;
+    }
+
+    public bool RemoveAttribute(string? Key)
+    {
+        try
+        {
+            var Attr = _Attributes.Where(p => p.Key == Key);
+            if (Attr.Count() > 0)
+            {
+                foreach (var item in Attr)
+                {
+                    if (item.Key is not null)
+                    {
+                        _Attributes.Remove(_Attributes.FirstOrDefault(p => p.Key == Key).Key);
+                    }
+                }
+            }
+
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine("Error In RemoveAttribute " + ex.Message);
+            return false;
+        }
+        return true;
+    }
+
+    public bool ToggleAttribute(string? Key, string? Value)
+    {
+        var Attr = _Attributes.FirstOrDefault(p => p.Key == Key);
+        try
+        {
+            if (Attr.Key is null)
+            {
+                _Attributes.Add(Key, (!string.IsNullOrEmpty(Value)) ? (object)Value : null);
+            }
+            else
+            {
+                _Attributes.Remove(_Attributes.FirstOrDefault(p => p.Key == Key).Key);
+            }
+
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine("Error In ToggleAttribute " + ex.Message);
+            return false;
+        }
+        return true;
+    }
+
+    public bool AddClass(string _NewClass)
+    {
+        try
+        {
+            CssClass += " " + _NewClass;
+            ClassChanged.InvokeAsync(CssClass);
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine("Error In AddClass " + ex.Message);
+            return false;
+        }
+        return true;
+    }
+
+    public bool RemoveClass(string _Class)
+    {
+        try
+        {
+            if (!string.IsNullOrEmpty(CssClass))
+            {
+                CssClass = CssClass.Replace(" " + _Class, string.Empty);
+                ClassChanged.InvokeAsync(CssClass);
+            }
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine("Error In RemoveClass " + ex.Message);
+            return false;
+        }
+        return true;
+    }
+    public bool ToggleClass(string _Class)
+    {
+        try
+        {
+            if ((!string.IsNullOrEmpty(CssClass)) && CssClass.Contains(_Class))
+            {
+                RemoveClass(_Class);
+            }
+            else
+            {
+                AddClass(_Class);
+            }
+
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine("Error In ToggleClass " + ex.Message);
+            return false;
+        }
+        return true;
+    }
+
+    public void SetDisabled(bool t)
+    {
+        _Disabled = t;
+    }
+    public void SetVisible(bool t)
+    {
+        _Visible = t;
+        _Disabled = !t;
+    }
+    public void SetEntity(object t)
+    { 
+    __Entity = t;
+    StateHasChanged();
+    RefDataGrid.SetEntity(t);
+
+    }
+       public async Task ResetDropdown()
+   {
+       DropdownSelected = "انتخاب کنید";
+       await OnItemSelected.InvokeAsync(null);
+   }
+    #endregion
+}

@@ -1,0 +1,431 @@
+﻿@using Baya.Models.ViewEngine
+@using Microsoft.JSInterop
+@using Newtonsoft.Json
+@using Newtonsoft.Json.Linq
+@using Blazored.Toast.Services;
+@typeparam TypeValue
+@namespace InputPage
+@inject IJSRuntime JS
+<div id="@Id" class="@(!string.IsNullOrEmpty(prefix)||!string.IsNullOrEmpty(suffix)?"input-group":"") @(_Visible?"":"d-none") @CssClass">
+    @if (!string.IsNullOrEmpty(Label))
+    {
+        <label id=@(Id + "label") for=@(Id + "Input") style="@(!string.IsNullOrEmpty(prefix)||!string.IsNullOrEmpty(suffix)?"width: inherit;":"")">
+            @Label
+            @if (Required.HasValue && Required == true)
+            {
+                <span id=@(Id + "SpanLabel") class="text-danger">*</span>
+            }
+            @if (!string.IsNullOrEmpty(ToolTip))
+            {
+                <i  id=@(Id + "ToolTipLabel") class="bi bi-question-circle text-muted" data-bs-toggle="tooltip" data-bs-title="@ToolTip" title="@ToolTip"></i>
+            }
+        </label>
+    }
+ @if (!string.IsNullOrEmpty(prefix))
+{
+    <span class="input-group-text">@prefix</span>
+    
+}
+    @if (type == "textarea")
+    {
+        <textarea id=@(Id + "Input")  rows="@(Rows.HasValue ? Rows : 3)" type="@type" placeholder="@placeholder" class="@InputClass" required="@Required"
+                  @attributes="@_Attributes"
+                  @bind="@Value"
+                  @oninput="@_oninput" @oncut="@oncut" @oncopy="@oncopy" 
+                  @onselect="@onselect" @onfocus="@onfocus"
+                  @onkeydown="@onkeydown" @onkeyup="@onkeyup"
+                  @onclick="@onclick"
+                  oninvalid="setCustomValidity('پر کردن این فیلد الزامی است')" >
+                                                        </textarea>
+    }
+     
+    else{
+   
+    @if (type == "number" && ActiveSeperator == true)
+{
+ 
+    <input id="@IdInput" type="text" placeholder="@placeholder" class="sepsign @InputClass " required="@Required"
+    @bind-value="@Value"
+    @oninput="@_oninput" @oncut="@oncut" @oncopy="@oncopy"
+    @onselect="@onselect" @onfocus="@onfocus"
+    @onkeydown="@onkeydown" @onkeyup="@onkeyup"
+    @onclick="@onclick" @attributes="@_Attributes"
+    oninvalid="setCustomValidity('پر کردن این فیلد الزامی است')" />
+
+   
+}
+    else
+    {
+        <input id=@(Id + "Input") type="@type" placeholder="@placeholder" class="@InputClass " required="@Required"
+               @bind-value="@Value"
+               @oninput="@_oninput" @oncut="@oncut" @oncopy="@oncopy" 
+               @onselect="@onselect" @onfocus="@onfocus"
+               @onkeydown="@onkeydown" @onkeyup="@onkeyup"
+               @onclick="@onclick" @attributes="@_Attributes"
+               oninvalid="setCustomValidity('پر کردن این فیلد الزامی است')"  />
+    }
+    }
+     @if (!string.IsNullOrEmpty(suffix))
+ {
+     <span class="input-group-text">@suffix</span>
+ }
+ 
+</div>
+
+
+@code {
+    #region bind
+    [Parameter]
+    public TypeValue Value
+    {
+        get => _Value;
+        set
+        {
+            if (Convert.ToString(_Value) == Convert.ToString(value)) return;
+            _Value = value;
+            ValueChanged.InvokeAsync(value);
+        }
+    }
+    [Parameter] public EventCallback<TypeValue?> ValueChanged { get; set; }
+    public TypeValue? _Value;
+    #endregion
+
+    #region Class
+    [Parameter] public string? CssClass { get; set; }
+    public EventCallback<string?> ClassChanged { get; set; }
+    #endregion
+    #region ParameterPublic
+    [Parameter]
+    public bool Visible { get; set; } = true;
+    public bool _Visible { get; set; }
+
+    [Parameter] public string? Label { get; set; }
+    [Parameter] public string? DisplayFormat { get; set; }  
+    [Parameter] public string? type { get; set; }
+    [Parameter] public string? placeholder { get; set; }
+    [Parameter] public string? Id { get; set; }
+    [Parameter] public string? IdInput { get; set; }
+    [Parameter] public bool? Required { get; set; }
+    [Parameter] public string? ToolTip { get; set; }
+    [Parameter] public Dictionary<string, object>? Attributes { get; set; } = new Dictionary<string, object>();
+    [Parameter] public Dictionary<string, object>? _Attributes { get; set; } = new Dictionary<string, object>();
+    [Parameter] public bool ActiveSeperator { get; set; } = false;
+    [Parameter] public string? suffix { get; set; }
+    [Parameter] public string? prefix { get; set; }
+
+    [Parameter]
+    public bool Disabled { get; set; } = false;
+    private bool _Disabled { get; set; }
+
+
+
+    [Parameter] public string? Decimal { get; set; }
+
+    private string? InputClass { get; set; }
+    #endregion
+    #region events
+    [Parameter] public EventCallback<ChangeEventArgs> oninput { get; set; }
+
+    [Parameter] public EventCallback<ClipboardEventArgs> oncut { get; set; }
+    [Parameter] public EventCallback<ClipboardEventArgs> oncopy { get; set; }
+    [Parameter] public EventCallback<ClipboardEventArgs> onpaste { get; set; }
+
+    [Parameter] public EventCallback<EventArgs> onselect { get; set; }
+    [Parameter] public EventCallback<EventArgs> oninvalid { get; set; }
+
+    [Parameter] public EventCallback<FocusEventArgs> onfocus { get; set; }
+
+    [Parameter] public EventCallback<KeyboardEventArgs> onkeydown { get; set; }
+    [Parameter] public EventCallback<KeyboardEventArgs> onkeypress { get; set; }
+    [Parameter] public EventCallback<KeyboardEventArgs> onkeyup { get; set; }
+
+    [Parameter] public EventCallback<MouseEventArgs> onclick { get; set; }
+    #endregion
+    #region ParameterTextArea
+    [Parameter] public int? Rows { get; set; }
+    #endregion
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            await JS.InvokeVoidAsync("activenumber");
+            await JS.InvokeVoidAsync("noPersian");
+            await JS.InvokeVoidAsync("onlyNumber");
+            IdInput = $"f_{Guid.NewGuid().ToString("N")}";
+            if (type == "hidden") { SetVisible(false); }
+            if (type == "checkbox")
+            {
+                InputClass = "form-check-input";
+    if (Value is bool booleanValue && booleanValue)
+{
+    AddAttribute("checked", "checked");
+}
+            }
+            else
+            {
+                InputClass = "form-control";
+            }
+
+            StateHasChanged();
+        }
+
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        //set attributes
+        if (Attributes.Keys.Count > 0)
+        {
+            foreach (var item in Attributes)
+            {
+                _Attributes.Add(item.Key, item.Value);
+            }
+        }
+        //Set Disabled First
+        _Disabled = Disabled;
+        RunDisabled();
+        _Visible = Visible;
+    }
+
+
+    protected override void OnParametersSet()
+    {
+        RunDisabled();
+        Visible = _Visible;
+    }
+
+    /// <summary>
+    ///  Set Disabled To Component
+    ///   اگر داخل کامپوننت دیسیبل  ثبت شده باشد دیگر نمی توان دیسیبل ست کرد که از این استفاده میشود
+    /// </summary>
+    protected void RunDisabled()
+    {
+        if (_Disabled)
+        {
+            AddAttribute("disabled", "true");
+            RemoveAttribute("Required");
+        }
+        else
+        {
+            RemoveAttribute("disabled");
+            if (Required.HasValue && Required.Value)
+            {
+                AddAttribute("Required", "Required");
+            }
+        }
+        Disabled = _Disabled;
+    }
+
+    #region class
+    public bool AddAttribute(string? Key, string? Value)
+    {
+        try
+        {
+            var Attr = _Attributes.FirstOrDefault(p => p.Key == Key);
+            if (Attr.Key is null)
+            {
+                _Attributes.Add(Key, (!string.IsNullOrEmpty(Value)) ? (object)Value : null);
+            }
+            else
+            {
+                RemoveAttribute(Attr.Key);
+                _Attributes.Add(Key, (!string.IsNullOrEmpty(Value)) ? (object)Value : null);
+            }
+
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine("Error In AddAttribute " + ex.Message);
+            return false;
+        }
+        return true;
+    }
+
+    public bool RemoveAttribute(string? Key)
+    {
+        try
+        {
+            var Attr = _Attributes.Where(p => p.Key == Key);
+            if (Attr.Count() > 0)
+            {
+                foreach (var item in Attr)
+                {
+                    if (item.Key is not null)
+                    {
+                        _Attributes.Remove(_Attributes.FirstOrDefault(p => p.Key == Key).Key);
+                    }
+                }
+            }
+
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine("Error In RemoveAttribute " + ex.Message);
+            return false;
+        }
+        return true;
+    }
+
+    public bool ToggleAttribute(string? Key, string? Value)
+    {
+        var Attr = _Attributes.FirstOrDefault(p => p.Key == Key);
+        try
+        {
+            if (Attr.Key is null)
+            {
+                _Attributes.Add(Key, (!string.IsNullOrEmpty(Value)) ? (object)Value : null);
+            }
+            else
+            {
+                _Attributes.Remove(_Attributes.FirstOrDefault(p => p.Key == Key).Key);
+            }
+
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine("Error In ToggleAttribute " + ex.Message);
+            return false;
+        }
+        return true;
+    }
+
+    public bool AddClassInput(string _NewClass)
+    {
+        try
+        {
+            if (!string.IsNullOrEmpty(_NewClass))
+            {
+                InputClass += " " + _NewClass;
+                ClassChanged.InvokeAsync(InputClass);
+            }
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine("Error In AddClassInput " + ex.Message);
+            return false;
+        }
+        return true;
+
+
+    }
+
+    public bool RemoveClassInput(string _Class)
+    {
+        try
+        {
+            if (!string.IsNullOrEmpty(InputClass))
+            {
+                InputClass = InputClass.Replace(" " + _Class, string.Empty);
+                ClassChanged.InvokeAsync(InputClass);
+            }
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine("Error In RemoveClassInput " + ex.Message);
+            return false;
+        }
+
+        return true;
+    }
+
+    public bool ToggleClassInput(string _Class)
+    {
+        try
+        {
+            if ((!string.IsNullOrEmpty(InputClass)) && InputClass.Contains(_Class))
+            {
+                RemoveClassInput(_Class);
+            }
+            else
+            {
+                AddClassInput(_Class);
+            }
+
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine("Error In ToggleClassInput " + ex.Message);
+            return false;
+        }
+        return true;
+    }
+
+    public bool AddClass(string _NewClass)
+    {
+        try
+        {
+            CssClass += " " + _NewClass;
+            ClassChanged.InvokeAsync(CssClass);
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine("Error In AddClass " + ex.Message);
+            return false;
+        }
+        return true;
+    }
+
+    public bool RemoveClass(string _Class)
+    {
+        try
+        {
+            if (!string.IsNullOrEmpty(CssClass))
+            {
+                CssClass = CssClass.Replace(" " + _Class, string.Empty);
+                ClassChanged.InvokeAsync(CssClass);
+            }
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine("Error In RemoveClass " + ex.Message);
+            return false;
+        }
+        return true;
+    }
+    public bool ToggleClass(string _Class)
+    {
+        try
+        {
+            if ((!string.IsNullOrEmpty(CssClass)) && CssClass.Contains(_Class))
+            {
+                RemoveClass(_Class);
+            }
+            else
+            {
+                AddClass(_Class);
+            }
+
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine("Error In ToggleClass " + ex.Message);
+            return false;
+        }
+        return true;
+    }
+    /// <summary>
+    /// تغییر فعال یا غیر فعال بودن کامپوننت
+    /// </summary>
+    /// <param name="val"></param>
+    public void SetDisabled(bool val)
+    {
+        _Disabled = val;
+    }
+    /// <summary>
+    /// نمایش یا عدم نمایش کامپوننت
+    /// </summary>
+    /// <param name="val"></param>
+    public void SetVisible(bool val)
+    {
+        _Visible = val;
+        //در صورتی که فیلد نمایش داده نشود کامپوننت آن غیر فعال میشود تا اگر اجباری بود در نظر گرفته نشود
+        _Disabled = !val;
+    }
+    public async Task _oninput(ChangeEventArgs Selected)
+    {  
+     await JS.InvokeVoidAsync("eval", "try{document.getElementById('" + Id + "Input" + "').setCustomValidity('')}catch(e){}");
+     await oninput.InvokeAsync(Selected);
+    }
+    #endregion
+}

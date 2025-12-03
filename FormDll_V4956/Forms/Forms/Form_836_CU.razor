@@ -1,0 +1,716 @@
+@inherits Forms.Forms.Form_836_CUBase
+@namespace FormsPage
+
+@using AKSoftware.Localization.MultiLanguages.Blazor
+@using Baya.Models.Utility;
+@using Baya.Models.ORM
+@using Microsoft.AspNetCore.Components.Forms
+@using Microsoft.AspNetCore.Components.Authorization;
+@using System.Security.Claims
+@using System.Net
+@using Microsoft.JSInterop
+@using Baya.Models.ViewEngine
+@using Forms.Domain.Utility
+@using Castle.DynamicLinqQueryBuilder
+<style>
+    .EMP_bg {
+    border: 1px dashed rgb(255, 208, 139);
+    background: rgba(255, 193, 7, 0.04);
+    margin-left: 2px;
+    margin-right: 2px;
+    padding-bottom: 16px;
+    border-radius: var(--bs-border-radius) !important;
+    margin-top: 0.20rem !important;
+}
+
+/* ************************************************** */
+.detailArea form div:not(.devdrop) {
+    margin-top: .1rem;
+}
+
+/* ************************************************** */
+
+.form-header {
+    background: linear-gradient(to bottom, #6c5ffc, #0d1a52);
+    color: white;
+    padding: 1.5rem 2rem;
+    border-radius: 0.5rem 0.5rem 0 0;
+    margin-bottom: 0;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+    transition: all 0.3s ease;
+}
+
+.form-header:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 25px rgba(0, 0, 0, 0.2);
+}
+
+.form-header h2 {
+    font-weight: 700;
+    margin-bottom: 0;
+    display: flex;
+    align-items: center;
+    position: relative;
+    z-index: 2;
+}
+
+.form-header .icon {
+    font-size: 1.8rem;
+    margin-left: 15px;
+    animation: float 3s ease-in-out infinite;
+}
+
+.form-header::before {
+    content: "";
+    position: absolute;
+    top: -50%;
+    right: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0) 70%);
+    transform: rotate(45deg);
+    z-index: 1;
+    transition: all 0.5s ease;
+}
+
+.form-header:hover::before {
+    transform: rotate(45deg) translate(20px, 20px);
+}
+
+.form-header .decoration {
+    position: absolute;
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.05);
+    z-index: 1;
+}
+
+.form-header .decoration-1 {
+    top: -30px;
+    left: -30px;
+    width: 120px;
+    height: 120px;
+}
+
+.form-header .decoration-2 {
+    bottom: -40px;
+    right: -20px;
+    width: 80px;
+    height: 80px;
+}
+
+@@keyframes float {
+    0% {
+        transform: translateY(0px);
+    }
+
+    50% {
+        transform: translateY(-5px);
+    }
+
+    100% {
+        transform: translateY(0px);
+    }
+}
+
+@@keyframes pulse {
+    0% {
+        opacity: 0.3;
+    }
+
+    50% {
+        opacity: 0.1;
+    }
+
+    100% {
+        opacity: 0.3;
+    }
+}
+
+.pulse-animation {
+    animation: pulse 4s ease-in-out infinite;
+}
+
+/* ************************************************** */
+</style>
+
+<Plugins.Tools.ConfirmDialog @ref="Confirm" />
+
+<span class="d-none">VersionForm:@VersionForm</span>
+@*
+@if (!string.IsNullOrEmpty(SumaryMessage))
+{
+    <div>
+        @SumaryMessage
+    </div>
+} *@
+
+@* <EditForm @ref="_Form" Model="_Entity" OnValidSubmit="ValidFormSubmitted" OnInvalidSubmit="InvalidFormSubmitted" OnSubmit="Submit"> *@
+<div class="@(ReadOnly?"FormReadOnly":"")">
+    <EditForm @ref="_Form" Model="_Entity" OnSubmit="Submit">
+        
+<div class="">
+    <div  class="">
+    <header class="form-header">
+  <!-- عناصر تزئینی -->
+  <div class="decoration decoration-1"></div>
+  <div class="decoration decoration-2 pulse-animation"></div>
+  
+  <!-- محتوای هدر -->
+  <h5>
+      <i class="fal fa-project-diagram icon"></i>
+      اطلاعات خانواده کارمند
+  </h5>
+</header>
+</div>
+
+</div>
+
+<div class="row ">
+    
+<div class="col-md-4">
+     
+ 
+@code {
+    Baya.Models.ViewEngine.View_Component Component_HR_EMP_EmployeeFamileisHR_EMP_EmployeesId = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"EntityName\":\"جزئیات خانواده کارمند\",\"primaryKey\":false,\"EntityID\":381,\"FieldId\":15545,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":836,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":false,\"RelationParentName\":\"HR_EMP_Employees\",\"RelationParentModel\":\"HR_EMP_Employees\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/HR_EMP_Employees/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"inputFormat\":\"DropDown\",\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.FirstName}} {{item.LastName}} {{item.EmployeeNo}} </span>\",\"FieldsTemplate\":[{\"key\":\"FirstName\",\"value\":\"nvarchar(Max)\"},{\"key\":\"LastName\",\"value\":\"nvarchar(Max)\"},{\"key\":\"EmployeeNo\",\"value\":\"nvarchar(Max)\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"searchField\":\"FirstName,LastName,EmployeeNo\",\"disableLimit\":false,\"noRefreshOnScroll\":false,\"disabled\":false,\"modal\":true,\"label\":\"اطلاعات کارمند\",\"tableView\":true,\"key\":\"HR_EMP_EmployeesId\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"15545?EId=381&SubId=15\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
+}
+
+    <Dropdown Id=HR_EMP_EmployeesId  @ref="Ref_HR_EMP_EmployeesId" Label="اطلاعات کارمند" CssClass=""  DisplayFormat="DropDown" ExternalApi=true NotMapped=false TextGrid=false Text="" Value="@_Entity.HR_EMP_EmployeesId" FieldName="HR_EMP_EmployeesId" OnItemSelected="ItemSelected_HR_EMP_EmployeeFamileisHR_EMP_EmployeesId" Component="Component_HR_EMP_EmployeeFamileisHR_EMP_EmployeesId" _Entity="_Entity" >
+</Dropdown>
+@code {
+    public async Task ItemSelected_HR_EMP_EmployeeFamileisHR_EMP_EmployeesId(object _Item)
+    {
+        var Selected = Utility.JSON.ToObject<dynamic>(Utility.JSON.ToJson(_Item).Result).Result;
+     var Item = _Entity;
+
+      //Todo
+ //برای اینکه آی دی تغییر کند اینجا نیز باید تغییر کند
+ //بهتر است از پرایمیری کی استفاده شود
+ Item.HR_EMP_EmployeesId = Selected.Id;
+ Item.HR_EMP_Employees = await Utility.JSON.ToObject<Entity.HR_EMP_Employees>(await Utility.JSON.ToJson(_Item));
+
+    
+
+    
+    }
+} 
+
+</div>
+
+<div class="col-md-4">
+    
+</div>
+
+<div class="col-md-4">
+    
+</div>
+
+</div>
+<div  class="pb-3">
+    <hr class="hrdash bg-lightpurple">
+</div>
+
+<div class="row ">
+    
+<div class="col-md-4">
+    
+<Input Id="FirstName" @ref="Ref_FirstName" Label="نام"     @bind-Value="_Entity.FirstName" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"maxlength\":\"30\",\"minlength\":\"1\"}").Result))></Input>
+
+<Input Id="LastName" @ref="Ref_LastName" Label="نام خانوادگی"     @bind-Value="_Entity.LastName" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"maxlength\":\"20\",\"minlength\":\"1\"}").Result))></Input>
+
+<Input Id="FatherName" @ref="Ref_FatherName" Label="نام پدر"     @bind-Value="_Entity.FatherName" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"maxlength\":\"150\",\"minlength\":\"1\"}").Result))></Input>
+
+<Input Id="NationalCode" @ref="Ref_NationalCode" Label="کد ملی"     @bind-Value="_Entity.NationalCode" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"maxlength\":\"10\",\"minlength\":\"1\"}").Result))></Input>
+
+<Input Id="IdCardNo" @ref="Ref_IdCardNo" Label="شماره شناسنامه"     @bind-Value="_Entity.IdCardNo" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"maxlength\":\"10\",\"minlength\":\"1\"}").Result))></Input>
+ 
+ 
+@code {
+    Baya.Models.ViewEngine.View_Component Component_HR_EMP_EmployeeFamileisBaseInfo_GenderId = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"EntityName\":\"جزئیات خانواده کارمند\",\"primaryKey\":false,\"EntityID\":381,\"FieldId\":19482,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":836,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":false,\"RelationParentName\":\"BaseInfo_Gender\",\"RelationParentModel\":\"BaseInfo_Gender\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/BaseInfo_Gender/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.Title}} </span>\",\"FieldsTemplate\":[{\"key\":\"Title\",\"value\":\"nvarchar(Max)\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"searchField\":\"\",\"disabled\":false,\"modal\":true,\"label\":\"جنسیت\",\"tableView\":true,\"key\":\"BaseInfo_GenderId\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"19482?EId=381&SubId=15\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
+}
+
+    <Dropdown Id=BaseInfo_GenderId  @ref="Ref_BaseInfo_GenderId" Label="جنسیت" CssClass=""  DisplayFormat="DropDown" ExternalApi=true NotMapped=false TextGrid=false Text="" Value="@_Entity.BaseInfo_GenderId" FieldName="BaseInfo_GenderId" OnItemSelected="ItemSelected_HR_EMP_EmployeeFamileisBaseInfo_GenderId" Component="Component_HR_EMP_EmployeeFamileisBaseInfo_GenderId" _Entity="_Entity" >
+</Dropdown>
+@code {
+    public async Task ItemSelected_HR_EMP_EmployeeFamileisBaseInfo_GenderId(object _Item)
+    {
+        var Selected = Utility.JSON.ToObject<dynamic>(Utility.JSON.ToJson(_Item).Result).Result;
+     var Item = _Entity;
+
+      //Todo
+ //برای اینکه آی دی تغییر کند اینجا نیز باید تغییر کند
+ //بهتر است از پرایمیری کی استفاده شود
+ Item.BaseInfo_GenderId = Selected.Id;
+ Item.BaseInfo_Gender = await Utility.JSON.ToObject<Entity.BaseInfo_Gender>(await Utility.JSON.ToJson(_Item));
+
+    
+
+    
+    }
+} 
+ 
+ 
+@code {
+    Baya.Models.ViewEngine.View_Component Component_HR_EMP_EmployeeFamileisHR_FamilyRelationshipId = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"EntityName\":\"جزئیات خانواده کارمند\",\"primaryKey\":false,\"EntityID\":381,\"FieldId\":16731,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":836,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":false,\"RelationParentName\":\"HR_FamilyRelationship\",\"RelationParentModel\":\"HR_FamilyRelationship\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/HR_FamilyRelationship/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.Title}} </span>\",\"FieldsTemplate\":[{\"key\":\"Title\",\"value\":\"int\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"searchField\":\"\",\"disabled\":false,\"modal\":true,\"label\":\"نسبت\",\"tableView\":true,\"key\":\"HR_FamilyRelationshipId\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"16731?EId=381&SubId=15\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
+}
+
+    <Dropdown Id=HR_FamilyRelationshipId  @ref="Ref_HR_FamilyRelationshipId" Label="نسبت" CssClass=""  DisplayFormat="DropDown" ExternalApi=true NotMapped=false TextGrid=false Text="" Value="@_Entity.HR_FamilyRelationshipId" FieldName="HR_FamilyRelationshipId" OnItemSelected="ItemSelected_HR_EMP_EmployeeFamileisHR_FamilyRelationshipId" Component="Component_HR_EMP_EmployeeFamileisHR_FamilyRelationshipId" _Entity="_Entity" >
+</Dropdown>
+@code {
+    public async Task ItemSelected_HR_EMP_EmployeeFamileisHR_FamilyRelationshipId(object _Item)
+    {
+        var Selected = Utility.JSON.ToObject<dynamic>(Utility.JSON.ToJson(_Item).Result).Result;
+     var Item = _Entity;
+
+      //Todo
+ //برای اینکه آی دی تغییر کند اینجا نیز باید تغییر کند
+ //بهتر است از پرایمیری کی استفاده شود
+ Item.HR_FamilyRelationshipId = Selected.Id;
+ Item.HR_FamilyRelationship = await Utility.JSON.ToObject<Entity.HR_FamilyRelationship>(await Utility.JSON.ToJson(_Item));
+
+    
+
+    
+    }
+} 
+ 
+ 
+@code {
+    Baya.Models.ViewEngine.View_Component Component_HR_EMP_EmployeeFamileisHR_Base_DependentId = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"EntityName\":\"جزئیات خانواده کارمند\",\"primaryKey\":false,\"EntityID\":381,\"FieldId\":30018,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":836,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":true,\"RelationParentName\":\"HR_Base_Dependent\",\"RelationParentModel\":\"HR_Base_Dependent\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/HR_Base_Dependent/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.Title}} </span>\",\"FieldsTemplate\":[{\"key\":\"Title\",\"value\":\"nvarchar(Max)\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"searchField\":\"Title\",\"disableLimit\":false,\"noRefreshOnScroll\":false,\"disabled\":false,\"modal\":true,\"label\":\"تحت تکفل\",\"tableView\":true,\"key\":\"HR_Base_DependentId\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"30018?EId=381&SubId=15\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
+}
+
+    <Dropdown Id=HR_Base_DependentId  @ref="Ref_HR_Base_DependentId" Label="تحت تکفل" CssClass=""  DisplayFormat="DropDown" ExternalApi=true NotMapped=false TextGrid=false  Value="@_Entity.HR_Base_DependentId" FieldName="HR_Base_DependentId" OnItemSelected="ItemSelected_HR_EMP_EmployeeFamileisHR_Base_DependentId" Component="Component_HR_EMP_EmployeeFamileisHR_Base_DependentId" _Entity="_Entity" >
+</Dropdown>
+@code {
+    public async Task ItemSelected_HR_EMP_EmployeeFamileisHR_Base_DependentId(object _Item)
+    {
+        var Selected = Utility.JSON.ToObject<dynamic>(Utility.JSON.ToJson(_Item).Result).Result;
+     var Item = _Entity;
+
+    Item.HR_Base_DependentId = Selected.Id;
+
+
+    
+
+    
+    }
+} 
+ 
+ 
+@code {
+    Baya.Models.ViewEngine.View_Component Component_HR_EMP_EmployeeFamileisHR_Base_AcademicDegreesId = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"EntityName\":\"جزئیات خانواده کارمند\",\"primaryKey\":false,\"EntityID\":381,\"FieldId\":15552,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":836,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":false,\"RelationParentName\":\"HR_Base_AcademicDegrees\",\"RelationParentModel\":\"HR_Base_AcademicDegrees\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/HR_Base_AcademicDegrees/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.Title}} </span>\",\"FieldsTemplate\":[{\"key\":\"Title\",\"value\":\"nvarchar(Max)\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"searchField\":\"\",\"disabled\":false,\"modal\":true,\"label\":\"مدارک تحصیلی\",\"tableView\":true,\"key\":\"HR_Base_AcademicDegreesId\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"15552?EId=381&SubId=15\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
+}
+
+    <Dropdown Id=HR_Base_AcademicDegreesId  @ref="Ref_HR_Base_AcademicDegreesId" Label="مدارک تحصیلی" CssClass=""  DisplayFormat="DropDown" ExternalApi=true NotMapped=false TextGrid=false Text="" Value="@_Entity.HR_Base_AcademicDegreesId" FieldName="HR_Base_AcademicDegreesId" OnItemSelected="ItemSelected_HR_EMP_EmployeeFamileisHR_Base_AcademicDegreesId" Component="Component_HR_EMP_EmployeeFamileisHR_Base_AcademicDegreesId" _Entity="_Entity" >
+</Dropdown>
+@code {
+    public async Task ItemSelected_HR_EMP_EmployeeFamileisHR_Base_AcademicDegreesId(object _Item)
+    {
+        var Selected = Utility.JSON.ToObject<dynamic>(Utility.JSON.ToJson(_Item).Result).Result;
+     var Item = _Entity;
+
+      //Todo
+ //برای اینکه آی دی تغییر کند اینجا نیز باید تغییر کند
+ //بهتر است از پرایمیری کی استفاده شود
+ Item.HR_Base_AcademicDegreesId = Selected.Id;
+ Item.HR_Base_AcademicDegrees = await Utility.JSON.ToObject<Entity.HR_Base_AcademicDegrees>(await Utility.JSON.ToJson(_Item));
+
+    
+
+    
+    }
+} 
+
+<Input Id="BirthDate" @ref="Ref_BirthDate" Label="تاریخ تولد - میلادی"  CssClass=" PersianDatePicker d-none PersianDatePicker" Disabled=true  @bind-Value="_Entity.BirthDate" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"data-jdp\":\"  \",\"data-jdp-only-date\":\"   \"}").Result))></Input>
+
+</div>
+
+<div class="col-md-4">
+    
+</div>
+
+<div class="col-md-4">
+    
+</div>
+
+</div>
+
+<div class="row ">
+    
+<div class="col-md-4">
+    
+<Input Id="IsFamily" @ref="Ref_IsFamily" Label="پوشش خانوار"     @bind-Value="_Entity.IsFamily" type="checkbox"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+<Input Id="BirthDate_Fa" @ref="Ref_BirthDate_Fa" Label="تاریخ تولد"  CssClass=" PersianDatePicker"   @bind-Value="_Entity.BirthDate_Fa" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"data-jdp\":\"  \",\"data-jdp-only-date\":\"   \"}").Result))></Input>
+ 
+ 
+@code {
+    Baya.Models.ViewEngine.View_Component Component_HR_EMP_EmployeeFamileisBaseInfo_CitiesId = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"EntityName\":\"جزئیات خانواده کارمند\",\"primaryKey\":false,\"EntityID\":381,\"FieldId\":19450,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":836,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":false,\"RelationParentName\":\"BaseInfo_Cities\",\"RelationParentModel\":\"BaseInfo_Cities\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/BaseInfo_Cities/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.Title}} </span>\",\"FieldsTemplate\":[{\"key\":\"Title\",\"value\":\"nvarchar(Max)\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"searchField\":\"\",\"disabled\":false,\"modal\":true,\"label\":\"شهر محل تولد\",\"tableView\":true,\"key\":\"BaseInfo_CitiesId\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"19450?EId=381&SubId=15\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
+}
+
+    <Dropdown Id=BaseInfo_CitiesId  @ref="Ref_BaseInfo_CitiesId" Label="شهر محل تولد" CssClass=""  DisplayFormat="DropDown" ExternalApi=true NotMapped=false TextGrid=false Text="" Value="@_Entity.BaseInfo_CitiesId" FieldName="BaseInfo_CitiesId" OnItemSelected="ItemSelected_HR_EMP_EmployeeFamileisBaseInfo_CitiesId" Component="Component_HR_EMP_EmployeeFamileisBaseInfo_CitiesId" _Entity="_Entity" >
+</Dropdown>
+@code {
+    public async Task ItemSelected_HR_EMP_EmployeeFamileisBaseInfo_CitiesId(object _Item)
+    {
+        var Selected = Utility.JSON.ToObject<dynamic>(Utility.JSON.ToJson(_Item).Result).Result;
+     var Item = _Entity;
+
+      //Todo
+ //برای اینکه آی دی تغییر کند اینجا نیز باید تغییر کند
+ //بهتر است از پرایمیری کی استفاده شود
+ Item.BaseInfo_CitiesId = Selected.Id;
+ Item.BaseInfo_Cities = await Utility.JSON.ToObject<Entity.BaseInfo_Cities>(await Utility.JSON.ToJson(_Item));
+
+    
+
+    
+    }
+} 
+ 
+ 
+@code {
+    Baya.Models.ViewEngine.View_Component Component_HR_EMP_EmployeeFamileisBaseInfo_MaritalStatusId = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"EntityName\":\"جزئیات خانواده کارمند\",\"primaryKey\":false,\"EntityID\":381,\"FieldId\":29968,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":836,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":false,\"RelationParentName\":\"BaseInfo_MaritalStatus\",\"RelationParentModel\":\"BaseInfo_MaritalStatus\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/BaseInfo_MaritalStatus/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.Title}} </span>\",\"FieldsTemplate\":[{\"key\":\"Title\",\"value\":\"nvarchar(Max)\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"searchField\":\"\",\"disabled\":false,\"modal\":true,\"label\":\"وضعیت تاهل\",\"tableView\":true,\"key\":\"BaseInfo_MaritalStatusId\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"29968?EId=381&SubId=15\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
+}
+
+    <Dropdown Id=BaseInfo_MaritalStatusId  @ref="Ref_BaseInfo_MaritalStatusId" Label="وضعیت تاهل" CssClass=""  DisplayFormat="DropDown" ExternalApi=true NotMapped=false TextGrid=false Text="" Value="@_Entity.BaseInfo_MaritalStatusId" FieldName="BaseInfo_MaritalStatusId" OnItemSelected="ItemSelected_HR_EMP_EmployeeFamileisBaseInfo_MaritalStatusId" Component="Component_HR_EMP_EmployeeFamileisBaseInfo_MaritalStatusId" _Entity="_Entity" >
+</Dropdown>
+@code {
+    public async Task ItemSelected_HR_EMP_EmployeeFamileisBaseInfo_MaritalStatusId(object _Item)
+    {
+        var Selected = Utility.JSON.ToObject<dynamic>(Utility.JSON.ToJson(_Item).Result).Result;
+     var Item = _Entity;
+
+      //Todo
+ //برای اینکه آی دی تغییر کند اینجا نیز باید تغییر کند
+ //بهتر است از پرایمیری کی استفاده شود
+ Item.BaseInfo_MaritalStatusId = Selected.Id;
+ Item.BaseInfo_MaritalStatus = await Utility.JSON.ToObject<Entity.BaseInfo_MaritalStatus>(await Utility.JSON.ToJson(_Item));
+
+    
+
+    
+    }
+} 
+
+<Input Id="MarriageDate_Fa" @ref="Ref_MarriageDate_Fa" Label="تاریخ ازدواج"  CssClass=" PersianDatePicker"   @bind-Value="_Entity.MarriageDate_Fa" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"data-jdp\":\"  \",\"data-jdp-only-date\":\"   \"}").Result))></Input>
+
+<Input Id="MarriageDate" @ref="Ref_MarriageDate" Label="تاریخ ازدواج - میلادی"  CssClass=" PersianDatePicker" Disabled=true  @bind-Value="_Entity.MarriageDate" type="datetime-local"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"data-jdp\":\"  \",\"data-jdp-only-date\":\"   \"}").Result))></Input>
+
+<Input Id="SupplementaryInsurance" @ref="Ref_SupplementaryInsurance" Label="بیمه تکمیلی"     @bind-Value="_Entity.SupplementaryInsurance" type="checkbox"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+<Input Id="SupplementaryInsuranceStartDate_Fa" @ref="Ref_SupplementaryInsuranceStartDate_Fa" Label="تاریخ شروع بیمه تکمیلی"  CssClass=" PersianDatePicker"   @bind-Value="_Entity.SupplementaryInsuranceStartDate_Fa" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"data-jdp\":\"  \",\"data-jdp-only-date\":\"   \"}").Result))></Input>
+
+<Input Id="SupplementaryInsuranceStartDate" @ref="Ref_SupplementaryInsuranceStartDate" Label="تاریخ شروع بیمه تکمیلی"  CssClass=" PersianDatePicker" Disabled=true  @bind-Value="_Entity.SupplementaryInsuranceStartDate" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"data-jdp\":\"  \",\"data-jdp-only-date\":\"   \"}").Result))></Input>
+
+<Input Id="SupplementaryInsuranceEndDate_Fa" @ref="Ref_SupplementaryInsuranceEndDate_Fa" Label="تاریخ پایان بیمه تکمیلی"  CssClass=" PersianDatePicker"   @bind-Value="_Entity.SupplementaryInsuranceEndDate_Fa" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"data-jdp\":\"  \",\"data-jdp-only-date\":\"   \"}").Result))></Input>
+
+<Input Id="SupplementaryInsuranceEndDate" @ref="Ref_SupplementaryInsuranceEndDate" Label="تاریخ پایان بیمه تکمیلی"  CssClass=" PersianDatePicker" Disabled=true  @bind-Value="_Entity.SupplementaryInsuranceEndDate" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"data-jdp\":\"  \",\"data-jdp-only-date\":\"   \"}").Result))></Input>
+
+<Input Id="IsCurrentlyStudying" @ref="Ref_IsCurrentlyStudying" Label="در حال حاضر محصّل است؟"     @bind-Value="_Entity.IsCurrentlyStudying" type="checkbox"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+<Input Id="EducationStartDate_Fa" @ref="Ref_EducationStartDate_Fa" Label="تاریخ شروع تحصیل"  CssClass=" PersianDatePicker"   @bind-Value="_Entity.EducationStartDate_Fa" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"data-jdp\":\"  \",\"data-jdp-only-date\":\"   \"}").Result))></Input>
+
+<Input Id="EducationStartDate" @ref="Ref_EducationStartDate" Label="تاریخ شروع تحصیل - میلادی"   Disabled=true  @bind-Value="_Entity.EducationStartDate" type="datetime-local"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+<Input Id="EducationEndDate_Fa" @ref="Ref_EducationEndDate_Fa" Label="تاریخ پایان تحصیل"  CssClass=" PersianDatePicker"   @bind-Value="_Entity.EducationEndDate_Fa" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"data-jdp\":\"  \",\"data-jdp-only-date\":\"   \"}").Result))></Input>
+
+<Input Id="EducationEndDate" @ref="Ref_EducationEndDate" Label="تاریخ پایان تحصیل - میلادی"   Disabled=true  @bind-Value="_Entity.EducationEndDate" type="datetime-local"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+<SingleUploader Id=StudyCertificateFile   @ref="Ref_StudyCertificateFile" uploadedLink="@_Entity.StudyCertificateFile" uploadUrl="https://File.workcv.ir/fa/api/v1/File/Post" htmlTemplate="<img class='img-fluid' src='##url##'/>
+<a href='##url##'>دانلود</a>" FileChanged="@((url) => _Entity.StudyCertificateFile = url)" Caption="فایل گواهی اشتغال به تحصیل" />
+</div>
+
+<div class="col-md-4">
+    
+</div>
+
+<div class="col-md-4">
+    
+</div>
+
+<div class="col-md-12">
+    
+<Input Id="Description" @ref="Ref_Description" Label="توضیحات"     @bind-Value="_Entity.Description" type="textarea"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"maxlength\":\"1000\"}").Result))></Input>
+
+</div>
+
+</div>
+
+<Input Id="Id" @ref="Ref_Id"   CssClass="d-none"   @bind-Value="_Entity.Id" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+<Input Id="RequestID" @ref="Ref_RequestID"      @bind-Value="_Entity.RequestID" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+<Input Id="CreateUser" @ref="Ref_CreateUser"      @bind-Value="_Entity.CreateUser" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+<Input Id="UpdateUser" @ref="Ref_UpdateUser"      @bind-Value="_Entity.UpdateUser" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+<Input Id="IsDelete" @ref="Ref_IsDelete"   CssClass="d-none"   @bind-Value="_Entity.IsDelete" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+<Input Id="CreateDate" @ref="Ref_CreateDate"   CssClass="d-none"   @bind-Value="_Entity.CreateDate" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+<Input Id="UpdateDate" @ref="Ref_UpdateDate"   CssClass="d-none"   @bind-Value="_Entity.UpdateDate" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+    </EditForm>
+</div>
+
+@if (ShowSubmit)
+{
+    <button class="btn btn-sm btn-green" @onclick=Submit>ذخیره</button>
+}
+
+@code {
+    #region Function
+
+    //todo  جا به جا شود برده شود تو فایل  Peropeties
+    protected override async Task OnInitializedAsync()
+    {
+        Console.WriteLine("#log OnInitializedAsync");
+
+        TableGet = await Utility.JSON.ToObject<Table>("{\"Name\":\"HR_EMP_EmployeeFamileis\",\"GetNameAs\":\"HR_EMP_EmployeeFamileis\",\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"RequestID\",\"GetNameAs\":\"RequestID\"},{\"Name\":\"CreateUser\",\"GetNameAs\":\"CreateUser\"},{\"Name\":\"UpdateUser\",\"GetNameAs\":\"UpdateUser\"},{\"Name\":\"CreateDate\",\"GetNameAs\":\"CreateDate\"},{\"Name\":\"UpdateDate\",\"GetNameAs\":\"UpdateDate\"},{\"Name\":\"IsDelete\",\"GetNameAs\":\"IsDelete\"},{\"Name\":\"MarriageDate\",\"GetNameAs\":\"MarriageDate\"},{\"Name\":\"IdCardNo\",\"GetNameAs\":\"IdCardNo\"},{\"Name\":\"IsFamily\",\"GetNameAs\":\"IsFamily\"},{\"Name\":\"LastName\",\"GetNameAs\":\"LastName\"},{\"Name\":\"NationalCode\",\"GetNameAs\":\"NationalCode\"},{\"Name\":\"SupplementaryInsurance\",\"GetNameAs\":\"SupplementaryInsurance\"},{\"Name\":\"SupplementaryInsuranceEndDate\",\"GetNameAs\":\"SupplementaryInsuranceEndDate\"},{\"Name\":\"SupplementaryInsuranceStartDate\",\"GetNameAs\":\"SupplementaryInsuranceStartDate\"},{\"Name\":\"BirthDate\",\"GetNameAs\":\"BirthDate\"},{\"Name\":\"Description\",\"GetNameAs\":\"Description\"},{\"Name\":\"HR_EMP_EmployeesId\",\"GetNameAs\":\"HR_EMP_EmployeesId\"},{\"Name\":\"FatherName\",\"GetNameAs\":\"FatherName\"},{\"Name\":\"FirstName\",\"GetNameAs\":\"FirstName\"},{\"Name\":\"HR_Base_AcademicDegreesId\",\"GetNameAs\":\"HR_Base_AcademicDegreesId\"},{\"Name\":\"HR_FamilyRelationshipId\",\"GetNameAs\":\"HR_FamilyRelationshipId\"},{\"Name\":\"BaseInfo_CitiesId\",\"GetNameAs\":\"BaseInfo_CitiesId\"},{\"Name\":\"BaseInfo_GenderId\",\"GetNameAs\":\"BaseInfo_GenderId\"},{\"Name\":\"BaseInfo_MaritalStatusId\",\"GetNameAs\":\"BaseInfo_MaritalStatusId\"},{\"Name\":\"HR_Base_DependentId\",\"GetNameAs\":\"HR_Base_DependentId\"},{\"Name\":\"BirthDate_Fa\",\"GetNameAs\":\"BirthDate_Fa\"},{\"Name\":\"MarriageDate_Fa\",\"GetNameAs\":\"MarriageDate_Fa\"},{\"Name\":\"SupplementaryInsuranceStartDate_Fa\",\"GetNameAs\":\"SupplementaryInsuranceStartDate_Fa\"},{\"Name\":\"SupplementaryInsuranceEndDate_Fa\",\"GetNameAs\":\"SupplementaryInsuranceEndDate_Fa\"},{\"Name\":\"IsCurrentlyStudying\",\"GetNameAs\":\"IsCurrentlyStudying\"},{\"Name\":\"EducationStartDate_Fa\",\"GetNameAs\":\"EducationStartDate_Fa\"},{\"Name\":\"EducationStartDate\",\"GetNameAs\":\"EducationStartDate\"},{\"Name\":\"EducationEndDate_Fa\",\"GetNameAs\":\"EducationEndDate_Fa\"},{\"Name\":\"EducationEndDate\",\"GetNameAs\":\"EducationEndDate\"},{\"Name\":\"StudyCertificateFile\",\"GetNameAs\":\"StudyCertificateFile\"}],\"Relation\":[{\"Name\":\"HR_Base_AcademicDegrees\",\"GetNameAs\":\"HR_Base_AcademicDegrees\",\"ModeErtebat\":1,\"Column\":[{\"Name\":\"Title\",\"GetNameAs\":\"Title\"},{\"Name\":\"Lvl\",\"GetNameAs\":\"Lvl\"},{\"Name\":\"Code\",\"GetNameAs\":\"Code\"},{\"Name\":\"IsActive\",\"GetNameAs\":\"IsActive\"}],\"Relation\":[]},{\"Name\":\"HR_FamilyRelationship\",\"GetNameAs\":\"HR_FamilyRelationship\",\"ModeErtebat\":1,\"Column\":[{\"Name\":\"Code\",\"GetNameAs\":\"Code\"},{\"Name\":\"Title\",\"GetNameAs\":\"Title\"}],\"Relation\":[]},{\"Name\":\"BaseInfo_Cities\",\"GetNameAs\":\"BaseInfo_Cities\",\"ModeErtebat\":1,\"Column\":[{\"Name\":\"Title\",\"GetNameAs\":\"Title\"},{\"Name\":\"BaseInfo_ProvincesId\",\"GetNameAs\":\"BaseInfo_ProvincesId\"},{\"Name\":\"ParentId\",\"GetNameAs\":\"ParentId\"}],\"Relation\":[]},{\"Name\":\"HR_Base_Cities\",\"GetNameAs\":\"HR_Base_Cities\",\"ModeErtebat\":1,\"Column\":[{\"Name\":\"ParentId\",\"GetNameAs\":\"ParentId\"},{\"Name\":\"ShortTitle\",\"GetNameAs\":\"ShortTitle\"},{\"Name\":\"Title\",\"GetNameAs\":\"Title\"},{\"Name\":\"TitleEn\",\"GetNameAs\":\"TitleEn\"},{\"Name\":\"Description\",\"GetNameAs\":\"Description\"},{\"Name\":\"DeleteDateTime\",\"GetNameAs\":\"DeleteDateTime\"},{\"Name\":\"HR_Base_CountriesId\",\"GetNameAs\":\"HR_Base_CountriesId\"},{\"Name\":\"HR_Base_ProvincesId\",\"GetNameAs\":\"HR_Base_ProvincesId\"},{\"Name\":\"ParentCity\",\"GetNameAs\":\"ParentCity\"}],\"Relation\":[]},{\"Name\":\"HR_Base_Gender\",\"GetNameAs\":\"HR_Base_Gender\",\"ModeErtebat\":1,\"Column\":[{\"Name\":\"Code\",\"GetNameAs\":\"Code\"},{\"Name\":\"Title\",\"GetNameAs\":\"Title\"}],\"Relation\":[]},{\"Name\":\"BaseInfo_Gender\",\"GetNameAs\":\"BaseInfo_Gender\",\"ModeErtebat\":1,\"Column\":[{\"Name\":\"Title\",\"GetNameAs\":\"Title\"},{\"Name\":\"Code\",\"GetNameAs\":\"Code\"}],\"Relation\":[]},{\"Name\":\"BaseInfo_MaritalStatus\",\"GetNameAs\":\"BaseInfo_MaritalStatus\",\"ModeErtebat\":1,\"Column\":[{\"Name\":\"Code\",\"GetNameAs\":\"Code\"},{\"Name\":\"Title\",\"GetNameAs\":\"Title\"}],\"Relation\":[]},{\"Name\":\"HR_Base_Dependent\",\"GetNameAs\":\"HR_Base_Dependent\",\"ModeErtebat\":1,\"Column\":[{\"Name\":\"Code\",\"GetNameAs\":\"Code\"},{\"Name\":\"Title\",\"GetNameAs\":\"Title\"}],\"Relation\":[]},{\"Name\":\"HR_EMP_Employees\",\"GetNameAs\":\"HR_EMP_Employees\",\"ModeErtebat\":1,\"Column\":[{\"Name\":\"LastName\",\"GetNameAs\":\"LastName\"},{\"Name\":\"LastNameEn\",\"GetNameAs\":\"LastNameEn\"},{\"Name\":\"DeleteDateTime\",\"GetNameAs\":\"DeleteDateTime\"},{\"Name\":\"HR_EMP_StatusId\",\"GetNameAs\":\"HR_EMP_StatusId\"},{\"Name\":\"EmployeeLastPersonelNo\",\"GetNameAs\":\"EmployeeLastPersonelNo\"},{\"Name\":\"EmployeeNo\",\"GetNameAs\":\"EmployeeNo\"},{\"Name\":\"EmployeePersonelNo\",\"GetNameAs\":\"EmployeePersonelNo\"},{\"Name\":\"FirstName\",\"GetNameAs\":\"FirstName\"},{\"Name\":\"FirstNameEn\",\"GetNameAs\":\"FirstNameEn\"},{\"Name\":\"HR_Base_FactoryId\",\"GetNameAs\":\"HR_Base_FactoryId\"},{\"Name\":\"BaseInfo_ORG_CompaniesId\",\"GetNameAs\":\"BaseInfo_ORG_CompaniesId\"},{\"Name\":\"UserId\",\"GetNameAs\":\"UserId\"},{\"Name\":\"LastEmployeeNo\",\"GetNameAs\":\"LastEmployeeNo\"},{\"Name\":\"ProfilePicture\",\"GetNameAs\":\"ProfilePicture\"},{\"Name\":\"FullName\",\"GetNameAs\":\"FullName\"}],\"Relation\":[]}]}");
+        TablePost = await Utility.JSON.ToObject<Table>("{\"Name\":\"HR_EMP_EmployeeFamileis\",\"GetNameAs\":\"HR_EMP_EmployeeFamileis\",\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"RequestID\",\"GetNameAs\":\"RequestID\"},{\"Name\":\"CreateUser\",\"GetNameAs\":\"CreateUser\"},{\"Name\":\"UpdateUser\",\"GetNameAs\":\"UpdateUser\"},{\"Name\":\"CreateDate\",\"GetNameAs\":\"CreateDate\"},{\"Name\":\"UpdateDate\",\"GetNameAs\":\"UpdateDate\"},{\"Name\":\"IsDelete\",\"GetNameAs\":\"IsDelete\"},{\"Name\":\"MarriageDate\",\"GetNameAs\":\"MarriageDate\"},{\"Name\":\"IdCardNo\",\"GetNameAs\":\"IdCardNo\"},{\"Name\":\"IsFamily\",\"GetNameAs\":\"IsFamily\"},{\"Name\":\"LastName\",\"GetNameAs\":\"LastName\"},{\"Name\":\"NationalCode\",\"GetNameAs\":\"NationalCode\"},{\"Name\":\"SupplementaryInsurance\",\"GetNameAs\":\"SupplementaryInsurance\"},{\"Name\":\"SupplementaryInsuranceEndDate\",\"GetNameAs\":\"SupplementaryInsuranceEndDate\"},{\"Name\":\"SupplementaryInsuranceStartDate\",\"GetNameAs\":\"SupplementaryInsuranceStartDate\"},{\"Name\":\"BirthDate\",\"GetNameAs\":\"BirthDate\"},{\"Name\":\"Description\",\"GetNameAs\":\"Description\"},{\"Name\":\"HR_EMP_EmployeesId\",\"GetNameAs\":\"HR_EMP_EmployeesId\"},{\"Name\":\"FatherName\",\"GetNameAs\":\"FatherName\"},{\"Name\":\"FirstName\",\"GetNameAs\":\"FirstName\"},{\"Name\":\"HR_Base_AcademicDegreesId\",\"GetNameAs\":\"HR_Base_AcademicDegreesId\"},{\"Name\":\"HR_FamilyRelationshipId\",\"GetNameAs\":\"HR_FamilyRelationshipId\"},{\"Name\":\"BaseInfo_CitiesId\",\"GetNameAs\":\"BaseInfo_CitiesId\"},{\"Name\":\"BaseInfo_GenderId\",\"GetNameAs\":\"BaseInfo_GenderId\"},{\"Name\":\"BaseInfo_MaritalStatusId\",\"GetNameAs\":\"BaseInfo_MaritalStatusId\"},{\"Name\":\"HR_Base_DependentId\",\"GetNameAs\":\"HR_Base_DependentId\"},{\"Name\":\"BirthDate_Fa\",\"GetNameAs\":\"BirthDate_Fa\"},{\"Name\":\"MarriageDate_Fa\",\"GetNameAs\":\"MarriageDate_Fa\"},{\"Name\":\"SupplementaryInsuranceStartDate_Fa\",\"GetNameAs\":\"SupplementaryInsuranceStartDate_Fa\"},{\"Name\":\"SupplementaryInsuranceEndDate_Fa\",\"GetNameAs\":\"SupplementaryInsuranceEndDate_Fa\"},{\"Name\":\"IsCurrentlyStudying\",\"GetNameAs\":\"IsCurrentlyStudying\"},{\"Name\":\"EducationStartDate_Fa\",\"GetNameAs\":\"EducationStartDate_Fa\"},{\"Name\":\"EducationStartDate\",\"GetNameAs\":\"EducationStartDate\"},{\"Name\":\"EducationEndDate_Fa\",\"GetNameAs\":\"EducationEndDate_Fa\"},{\"Name\":\"EducationEndDate\",\"GetNameAs\":\"EducationEndDate\"},{\"Name\":\"StudyCertificateFile\",\"GetNameAs\":\"StudyCertificateFile\"}],\"Relation\":[]}");
+
+        config = CKEditorBundleOptions.DefaultConfig.WithHtmlEditing();
+        config.Language = "fa";
+
+        //بعداد اگه نیاز شد فرمی رو تو حالت غیر لاگین شده نمایش بدیم باید این  کد تغیر کنه
+        var user = (await _authenticationStateProvider.GetAuthenticationStateAsync()).User;
+        string UserID = user.FindFirst(c => c.Type == ClaimTypes.NameIdentifier).Value;
+        //داینامیک بشه
+        Dictionary<string, object> List = new Dictionary<string, object>();
+        //List.Add("UserID", Guid.Parse(UserID));
+        List.Add("UserID", UserID);
+        _User = await Domain.Utility.ConvertParameter.ConvertToObject(List);
+
+        Console.WriteLine("#log OnInitializedAsync End");
+
+        await base.OnInitializedAsync();
+    }
+
+    //todo  جا به جا شود برده شود تو فایل  Peropeties
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            Console.WriteLine("#log OnAfterRenderAsync");
+            await base.BeforGetData();
+
+            var Result = await GetData();
+
+            await base.AfterGetData();
+
+            StateHasChanged();
+
+            await OnFormloaded.InvokeAsync(Result);
+        }
+
+        await base.OnAfterRenderAsync(firstRender);
+    }
+
+    /// <summary>
+    /// دریافت داده
+    /// </summary>
+    /// <returns></returns>
+    public async Task<Baya.Models.Utility.Result> GetData()
+    {
+        await BeforGetData();
+
+        var DataResult = await ApiServer.External.Services.Data.Get(TableGet, QueryFilter, TableGet.Name, null);
+        
+        Baya.Models.Utility.Result Result = new Baya.Models.Utility.Result();
+
+        if (DataResult != null && DataResult.Status == HttpStatusCode.OK)
+        {
+            if (DataResult.Content != null)
+            {
+                string Data = DataResult.Content.ToString();
+                if (Data is not null)
+                {
+                    _Entity = await Utility.JSON.ToObject < Entity.HR_EMP_EmployeeFamileis>(Data);
+        }
+            }
+            else
+            {
+                _Entity = new Entity.HR_EMP_EmployeeFamileis();
+            //todo تشخیص دهد که داده ای وجود ندارد و دفه اول هست که فرم لود میشود
+            //todo اگه نیاز شد دالخ ORm خروجیش متفاوت باشه
+            //ست کردن دیفالت های فرم
+            if (true)
+                {//
+
+
+                    //نمونه ست کردن پارامتر روش اول
+                    //_Entity.InstantDelivery = _RequestParameters.UserId;
+
+                    //نمونه کد برای ست کردن پارامتر روش دوم
+                    //_Entity.InstantDelivery = await GetParameter("@@UserId@@");
+                }
+
+                SumaryMessage = "داده لود شده معتبر نمی باشد";
+                Result.Status = HttpStatusCode.InternalServerError;
+            }
+        }
+        else
+        {
+            SumaryMessage = "داده لود نشد";
+            Result.Status = HttpStatusCode.InternalServerError;
+        }
+
+        Result.Message = SumaryMessage;
+
+        StateHasChanged();
+
+        await AfterGetData();
+
+        return Result;
+    }
+
+    public override async Task SetParametersAsync(ParameterView parameters)
+    {
+        await base.SetParametersAsync(parameters);
+    }
+
+    protected override void OnInitialized()
+    {
+        //todo این خط برده شود داخل تابع پاینی ببینیم خطا داره یا نه
+        languageContainer.InitLocalizedComponent(this);
+    }
+
+
+    /// <summary>
+    /// بررسی تغییر دیتا
+    /// </summary>
+    /// <param name="Json"></param>
+    /// <returns></returns>
+    public bool CheckChangedData(string? Json)
+    {
+        if (string.Equals(JsonData, Json)) return true;
+        return false;
+    }
+
+    /// <summary>
+    /// ارسال داده
+    /// </summary>
+    /// <returns></returns>
+    public override async Task<Baya.Models.Utility.Result> Submit()
+    {
+        SumaryMessage = "";
+        Baya.Models.Utility.Result Result = new Baya.Models.Utility.Result();
+
+        if (!await FormValidator())
+        {
+            StateHasChanged();
+            Result.Status = HttpStatusCode.InternalServerError;
+            return Result;
+        }
+
+        if ((await BeforSubmit()).Status != HttpStatusCode.OK)
+        {
+            StateHasChanged();
+            Result.Status = HttpStatusCode.InternalServerError;
+            return Result;
+        }
+
+        _loadingService.Show();
+        var Resualt = await PostData();
+
+        if (Resualt)
+        {
+            Result.Status = HttpStatusCode.OK;
+
+            SumaryMessage = "داده ها با موفقیت ثبت شد";
+        }
+        else
+        {
+            Result.Status = HttpStatusCode.InternalServerError;
+            SumaryMessage = "ذخیره داده با مشکل مواجه شد";
+        }
+
+        Result.Message = SumaryMessage;
+
+        switch ((int)Result.Status)
+        {
+            case 200:
+                toastService.ShowSuccess(Result.Message);
+                break;
+            case 500:
+                toastService.ShowError(Result.Message);
+                break;
+            default:
+                break;
+        } 
+        _loadingService.Hide();
+        await AfterSubmit();
+
+        return Result;
+    }
+
+    /// <summary>
+    /// ارسال داده
+    /// </summary>
+    /// <returns></returns>
+    private async Task<bool> PostData()
+    {
+        string Data = await Utility.JSON.ToJson(_Entity);
+
+        bool IsOk = false;
+        var Model = await ApiServer.External.Services.Data.Put(Data, TablePost.Name, TablePost, RequestID?.ToString(), _User.UserID.ToString());
+        // بررسی وضعیت پاسخ
+        if (Model?.Status == HttpStatusCode.OK)
+        {
+            if (Model.Content != null && !IndependentForm)
+                { 
+                    string NewData = Model.Content.ToString();
+                    if (NewData is not null)
+                    {
+                        var NewEntity = await Utility.JSON.ToObject < Entity.HR_EMP_EmployeeFamileis>(NewData);
+                     await  GetDataForm(NewEntity._Id);
+                    }
+
+                }
+                IsOk = true;
+
+        }
+        return IsOk;
+    }
+
+
+    void SetLanguage(string language)
+    {
+        languageContainer.SetLanguage(System.Globalization.CultureInfo.GetCultureInfo(language));
+    }
+
+    // public void ValidFormSubmitted(EditContext editContext)
+    // {
+
+    // }
+
+    // public void InvalidFormSubmitted(EditContext editContext)
+    // {
+
+    // }
+    public async Task GetDataForm(object Id)
+    {
+        Type type = Id.GetType();
+        string TypeToQueryBuilder = Utility.TypeConverterQueryBuilder.ConvertCSharpTypeToQueryBuilder(type);
+        var NewQuery = new QueryBuilderFilterRule() { Condition = "AND" };
+        NewQuery.Rules = new List<QueryBuilderFilterRule>
+            {
+                    new QueryBuilderFilterRule()
+                    {
+                        Field = _Entity._GetIdName,
+                        Id = _Entity._GetIdName,
+                        Input = "text",
+                        Operator = "equal",
+                        Type =  TypeToQueryBuilder,
+                        Value = new string[]{ Id.ToString() },
+                    }
+            };
+        QueryFilter = NewQuery;
+        await GetData();
+        StateHasChanged();
+    }
+    #endregion
+}

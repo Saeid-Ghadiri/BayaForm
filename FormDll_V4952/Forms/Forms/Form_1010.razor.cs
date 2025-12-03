@@ -1,0 +1,597 @@
+using System.Net;
+using Baya.Models.Utility;
+using BlazorBootstrap;
+using Blazored.Toast.Services;
+using Castle.DynamicLinqQueryBuilder;
+using DateUtils;
+using DevExpress.Blazor;
+using Entity;
+using Microsoft.AspNetCore.Components;
+using Microsoft.JSInterop;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+
+namespace Forms.Forms
+{
+	public class Form_1010Base : Form_1010Peropeties
+	{
+		/// <summary>
+		/// پیام‌ها
+		/// </summary>
+		public MSG _MSG { get; set; }
+
+		/// <summary>
+		/// کلاینت HTTP
+		/// </summary>
+		[Inject] public HttpClient HttpClient { get; set; }
+
+
+		#region Lifecycle Methods
+
+		/// <summary>
+		/// متد OnInitializedAsync به صورت ناهمزمان اجرا می‌شود. وظیفه این متد مقداردهی اولیه برخی فیلدها و آماده‌سازی داده‌ها در ابتدای بارگذاری فرم است.
+		/// </summary>
+		protected override async Task OnInitializedAsync()
+		{
+			_Entity.IDMS_RDC_Details ??= new List<Entity.IDMS_RDC_Details>();
+			_Entity.IDMS_TestModel ??= new List<Entity.IDMS_TestModel>();
+			_Entity.IsResultOfAnotherProcess ??= false;
+		}
+
+		/// <summary>
+		/// متد OnAfterRenderAsync که به صورت ناهمزمان اجرا می‌شود و وظیفه آن انجام اعمالی بعد از رندر شدن کامپوننت است. 
+		/// اگر اولین بار اجرا شود، پیام‌ها مقداردهی می‌شوند، برخی کنترل‌ها مخفی می‌شوند و داده‌های جزئیات تازه‌سازی می‌گردد.
+		/// همچنین وضعیت دکمه افزودن جزئیات تنظیم می‌شود.
+		/// در دفعات بعدی اگر تعداد ردیف‌های جزئیات تغییر کرده باشد، باز هم وضعیت دکمه اضافه‌کردن به‌روزرسانی می‌شود.
+		/// </summary>
+		/// <param name="firstRender">آیا اولین بار است که رندر انجام شده است؟</param>
+		protected override async Task OnAfterRenderAsync(bool firstRender)
+		{
+			if (firstRender)
+			{
+				_MSG = new MSG(toastService);
+
+				// کمی صبر می‌کنیم تا ref ها آماده شوند
+				await Task.Delay(200);
+
+				// تنظیم وضعیت فیلدها بر اساس IsResultOfAnotherProcess
+				//await UpdateTrackingCodeFieldsVisibility();
+
+				// اگر IsResultOfAnotherProcess false باشد، جزئیات را خالی می‌کنیم
+				var isResultOfAnotherProcess = _Entity.IsResultOfAnotherProcess ?? false;
+				if (!isResultOfAnotherProcess)
+				{
+					_Entity.IDMS_RDC_Details = new List<Entity.IDMS_RDC_Details>();
+					_lastDetailsCount = 0;
+				}
+
+				await ToggleDetailsGridAddButton();
+			}
+			else
+			{
+				var currentCount = _Entity.IDMS_RDC_Details?.Count(x => x.IsDelete != true) ?? 0;
+				if (currentCount != _lastDetailsCount)
+				{
+					_lastDetailsCount = currentCount;
+					await ToggleDetailsGridAddButton();
+				}
+			}
+		}
+
+		#endregion
+
+		#region Form Submission Pipeline
+
+		/// <summary>
+		/// اعتبار سنجی فرم
+		/// </summary>
+		/// <returns></returns>
+		public override async Task<bool> FormValidator()
+		{
+			bool IsValid = true;
+			List<Entity.IDMS_RDC_Details> List = _Entity.IDMS_RDC_Details.Where(x => x.IsDelete != true).ToList();
+
+			if (!await HasValidDetailsCount())
+			{
+				await ShowRequestIncompleteDialog();
+				return false;
+			}
+
+			//بررسی اعتبار سنجی فیلدها برای هر ردیف جزئیات یک به یک
+			foreach (var Item in List)
+			{
+				IsValid = IsValid && await CheckFieldsValidation(Item);
+			}
+
+			return IsValid;
+		}
+
+		/// <summary>
+		/// تابع قبل اجرا شدن ارسال داده
+		/// قبل از ارسال، تاریخ‌های شمسی را به میلادی تبدیل می‌کنیم
+		/// </summary>
+		/// <returns></returns>
+		public override async Task<Result> BeforSubmit()
+		{
+			if (!await HasValidDetailsCount())
+				return new Result { Status = HttpStatusCode.BadRequest };
+
+			// تبدیل تاریخ‌های شمسی به میلادی
+			PrepareRequestedDueDatesForSubmit();
+
+			return new Result { Status = HttpStatusCode.OK };
+		}
+
+		/// <summary>
+		/// تابع بعد اجرا شدن ارسال داده
+		/// </summary>
+		/// <returns></returns>
+		public override async Task AfterSubmit() { }
+
+		/// <summary>
+		/// تابع قبل دریافت داده
+		/// </summary>
+		/// <returns></returns>
+		public override async Task BeforGetData() { }
+
+		/// <summary>
+		/// تابع بعد دریافت داده
+		/// بعد از دریافت داده از سرور، وضعیت فیلدها را بر اساس IsResultOfAnotherProcess تنظیم می‌کنیم
+		/// </summary>
+		/// <returns></returns>
+		public override async Task AfterGetData()
+		{
+			// تنظیم وضعیت فیلدها بر اساس IsResultOfAnotherProcess
+			//await UpdateTrackingCodeFieldsVisibility();
+
+			await ToggleDetailsGridAddButton();
+		}
+
+		#endregion
+
+		#region FunctionEvents
+
+
+
+		#region Validation Logic
+
+		/// <summary>
+		/// آخرین تعداد ردیف جزئیات
+		/// </summary>
+		private int _lastDetailsCount = 0;
+
+		/// <summary>
+		/// بررسی تعداد آخرین ردیف جزئیات
+		/// بر اساس تعداد ردیف جزئیات انتخاب شده، مشخص می شود که آیا فرم قابل ارسال است یا خیر.
+		/// فقط و فقط یک ردیف جزئیات مجاز است.
+		/// </summary>
+		/// <returns>true اگر دقیقاً یک ردیف غیر حذف‌شده وجود داشته باشد</returns>
+		private async Task<bool> HasValidDetailsCount()
+		{
+			// بررسی null بودن لیست
+			if (_Entity.IDMS_RDC_Details == null)
+			{
+				await _MSG.ShowError("لطفاً حداقل یک ردیف در بخش «جزئیات سیستم تحقیق و توسعه» ثبت کنید.");
+				return false;
+			}
+
+			// شمارش ردیف‌های فعال (غیر حذف‌شده)
+			var activeCount = _Entity.IDMS_RDC_Details.Count(x => x.IsDelete != true);
+
+			if (activeCount == 0)
+			{
+				await _MSG.ShowError("لطفاً حداقل یک ردیف در بخش «جزئیات سیستم تحقیق و توسعه» ثبت کنید.");
+				return false;
+			}
+
+			if (activeCount > 1)
+			{
+				await _MSG.ShowError("شما مجاز به ثبت بیش از یک ردیف نیستید. لطفاً فقط یک ردیف در بخش «جزئیات سیستم تحقیق و توسعه» ثبت کنید.");
+				return false;
+			}
+
+			return true;
+		}
+
+		/// <summary>
+		/// بررسی تمامی آیتم‌های جزئیات و اعتبار سنجی فیلدها
+		/// </summary>
+		/// <returns></returns>
+		private async Task<bool> CheckFieldsValidation(Entity.IDMS_RDC_Details Item)
+		{
+			bool IsValid = true;
+
+			if (Item.IDMS_ProductCategoriesId == null)
+			{
+				IsValid = false;
+				await _MSG.ShowError("لطفاً دسته‌بندی محصول را انتخاب کنید.");
+			}
+			if (Item.IDMS_ProductsId == null)
+			{
+				IsValid = false;
+				await _MSG.ShowError("لطفاً محصول را انتخاب کنید.");
+			}
+			if (Item.IDMS_CustomerId == null)
+			{
+				IsValid = false;
+				await _MSG.ShowError("لطفاً مشتری را انتخاب کنید.");
+			}
+			if (Item.IDMS_ResultingFromId == null)
+			{
+				IsValid = false;
+				await _MSG.ShowError("لطفاً گزینه «منتج از» را انتخاب کنید.");
+			}
+
+			// تاریخ پیشنهادی انجام کار (شمسی)
+			if (string.IsNullOrWhiteSpace(Item.RequestedDueDate_Fa))
+			{
+				IsValid = false;
+				await _MSG.ShowError("لطفاً تاریخ پیشنهادی انجام کار را وارد کنید.");
+			}
+			else if (!PersianDateUtils.TryParseDateString(Item.RequestedDueDate_Fa, out _))
+			{
+				IsValid = false;
+				await _MSG.ShowError("لطفاً تاریخ پیشنهادی انجام کار را با فرمت صحیح شمسی (مثال: 1403/01/01) وارد کنید.");
+			}
+
+			return IsValid;
+		}
+
+		#endregion
+
+		#region Grid Events: IDMS_RDC_Details
+
+		/// <summary>
+		/// تابع قبل اجرا شدن ثبت مدل جزئیات
+		/// این متد قبل از ذخیره شدن ردیف فراخوانی می‌شود.
+		/// </summary>
+		/// <param name="e">ردیف در حال ذخیره</param>
+		/// <returns>false اگر ذخیره مجاز باشد، true اگر ذخیره مجاز نباشد</returns>
+		public async Task<bool> GridIDMS_RDC_MasterId_741_editmodelsaving(object e)
+		{
+			// این متد قبل از ذخیره فراخوانی می‌شود
+			// بعد از ذخیره موفق، باید در razor فایل ToggleDetailsGridAddButton فراخوانی شود
+			// یا می‌توان از متد GridIDMS_RDC_MasterId_741_afterrendermodal استفاده کرد
+			return false;
+		}
+
+		/// <summary>
+		/// متد برای به‌روزرسانی وضعیت دکمه بعد از ذخیره شدن ردیف
+		/// این متد باید بعد از SaveGrid_IDMS_RDC_Details در فایل razor فراخوانی شود
+		/// </summary>
+		/// <returns></returns>
+		public async Task UpdateDetailsGridAddButtonAfterSave()
+		{
+			// بعد از ذخیره، بررسی می‌کنیم که آیا ردیفی وجود دارد
+			// اگر وجود داشت، دکمه جدید را مخفی می‌کنیم
+			await ToggleDetailsGridAddButton();
+
+			// به‌روزرسانی شمارنده
+			var currentCount = _Entity.IDMS_RDC_Details?.Count(x => x.IsDelete != true) ?? 0;
+			_lastDetailsCount = currentCount;
+		}
+
+		/// <summary>
+		/// تابع بعد اجرا شدن مدل جزئیات
+		/// این متد زمانی فراخوانی می‌شود که مودال باز می‌شود.
+		/// بررسی می‌کند که آیا ردیفی در IDMS_RDC_Details ذخیره شده است یا نه.
+		/// اگر ردیفی ذخیره شده باشد، دکمه جدید مخفی می‌شود.
+		/// </summary>
+		/// <param name="item">ردیف جزئیات که در مودال نمایش داده می‌شود</param>
+		/// <returns></returns>
+		public async Task GridIDMS_RDC_MasterId_741_afterrendermodal(Entity.IDMS_RDC_Details item)
+		{
+			// بررسی می‌کنیم که آیا یک ردیف غیر حذف‌شده در لیست وجود دارد
+			// این بررسی دقیق‌تر است چون ممکن است item جدید باشد اما هنوز ذخیره نشده باشد
+			var hasSavedRecord = _Entity.IDMS_RDC_Details?.Any(x => x.IsDelete != true) == true;
+
+			// اگر item مشخص شده باشد و Id داشته باشد، مطمئن می‌شویم که ذخیره شده است
+			if (item != null && item.Id != Guid.Empty && item.IsDelete != true)
+			{
+				// بررسی می‌کنیم که آیا این ردیف واقعاً در لیست وجود دارد
+				var existsInList = _Entity.IDMS_RDC_Details?.Any(x => x.Id == item.Id && x.IsDelete != true) == true;
+				if (existsInList)
+				{
+					hasSavedRecord = true;
+				}
+			}
+
+			await ToggleDetailsGridAddButton(hasSavedRecord, isInModal: true);
+		}
+
+
+		/// <summary>
+		/// تابع قبل اجرا شدن ورودی ثبت مدل جزئیات
+		/// بر اساس گزینه «آیا این فرایند منتج از فرایند دیگری است؟»، کنترل های مربوطه نمایش داده یا مخفی می شوند.
+		/// </summary>
+		/// <param name="selected"></param>
+		/// <returns></returns>
+		public async Task IsResultOfAnotherProcess_oninput(ChangeEventArgs selected)
+		{
+			var isChecked = selected.Value is bool b ? b :
+						   selected.Value?.ToString()?.Equals("true", StringComparison.OrdinalIgnoreCase) == true;
+
+			// اگر مقدار تغییر نکرده باشد، نیازی به پردازش نیست
+			if (_Entity.IsResultOfAnotherProcess == isChecked)
+				return;
+
+			_Entity.IsResultOfAnotherProcess = isChecked;
+
+			// تنظیم وضعیت فیلدها
+			//await UpdateTrackingCodeFieldsVisibility();
+
+			if (!isChecked)
+			{
+				// پاک کردن داده‌های مربوط به فرایند دیگر
+				_Entity.TrackingCode = null;
+				_Entity.IDMS_RDC_AllData = null;
+				//_Entity.IDMS_RDC_Details = new List<Entity.IDMS_RDC_Details>();
+
+				// به‌روزرسانی شمارنده برای هماهنگی با OnAfterRenderAsync
+				_lastDetailsCount = 0;
+
+				// به‌روزرسانی وضعیت دکمه افزودن جزئیات
+				await ToggleDetailsGridAddButton();
+			}
+
+			// همیشه StateHasChanged را فراخوانی می‌کنیم تا UI به‌روزرسانی شود
+			StateHasChanged();
+		}
+
+		#endregion
+
+		#region Grid Events: IDMS_TestModel
+
+		/// <summary>
+		/// تابع قبل اجرا شدن ثبت مدل جزئیات
+		/// </summary>
+		/// <param name="e"></param>
+		/// <returns></returns>
+		public async Task<bool> GridIDMS_RDC_MasterId_753_editmodelsaving(object e)
+		{
+			return false;
+		}
+
+		/// <summary>
+		/// تابع بعد اجرا شدن مدل جزئیات
+		/// </summary>
+		/// <param name="item"></param>
+		/// <returns></returns>
+		public async Task GridIDMS_RDC_MasterId_753_afterrendermodal(Entity.IDMS_TestModel item)
+		{
+		}
+
+		/// <summary>
+		/// تابع قبل اجرا شدن ثبت مدل جزئیات
+		/// بر اساس ردیف جزئیات انتخاب شده، مدل آزمون مربوطه تکمیل می‌شود.
+		/// </summary>
+		/// <param name="e"></param>
+		/// <returns></returns>
+		public async Task GridIDMS_RDC_MasterId_753_customizeeditmodel(GridCustomizeEditModelEventArgs e)
+		{
+			if (e.IsNew)
+			{
+				var newTestModel = (Entity.IDMS_TestModel)e.EditModel;
+				var activeDetail = _Entity.IDMS_RDC_Details?.FirstOrDefault(x => x.IsDelete != true);
+
+				if (activeDetail == null)
+				{
+					await _MSG.ShowWarning("ابتدا یک ردیف در بخش «جزئیات سیستم تحقیق و توسعه» ثبت کنید.");
+					await Grid_IDMS_TestModel?.CancelEditAsync();
+					return;
+				}
+
+				newTestModel.IDMS_RDC_DetailsId = activeDetail.Id;
+				newTestModel.IDMS_RDC_Details = activeDetail;
+
+				if (Ref_IDMS_TestModel_IDMS_RDC_DetailsId != null)
+				{
+					Ref_IDMS_TestModel_IDMS_RDC_DetailsId.SetEntity(activeDetail);
+					await Task.Delay(100);
+					await Ref_IDMS_TestModel_IDMS_RDC_DetailsId.LoadData();
+				}
+				StateHasChanged();
+			}
+		}
+
+		#endregion
+
+		#region Dropdown Events
+
+		/// <summary>
+		/// تابع قبل اجرا شدن ورودی ثبت مدل جزئیات
+		/// بر اساس کد پیگیری انتخاب شده، داده‌های جزئیات تازه‌سازی می‌شوند.
+		/// </summary>
+		/// <param name="Selected"></param>
+		/// <returns></returns>
+		// public async Task TrackingCode_onitemselected(dynamic Selected, Entity.IDMS_RDC_Master Item)
+		public async Task TrackingCode_onitemselected(dynamic Selected)
+		{
+			Console.WriteLine("#Log:0::");
+
+			var jsonSelected = await Utility.JSON.ToJson(Selected);
+			Console.WriteLine(jsonSelected);
+
+			string selectedTrackingCode = Selected.RequestTrakingCode;
+
+			Console.WriteLine("#Log:1::" + selectedTrackingCode);
+
+			if (string.IsNullOrWhiteSpace(selectedTrackingCode))
+			{
+				Console.WriteLine("#Log: Selected tracking code is empty");
+				return; // یا LoadData("") ارسال شود
+			}
+
+			// درست: مدل اصلی QueryBuilderFilter
+			QueryBuilderFilterRule filter = new QueryBuilderFilterRule()
+			{
+				Condition = "AND",
+				Rules = new List<QueryBuilderFilterRule>()
+				{
+					new QueryBuilderFilterRule()
+					{
+						Id = "RequestTrakingCode",
+						Field = "RequestTrakingCode",
+						Type = "string",
+						Input = "text",
+						Operator = "equal",
+						Value = new string[] { selectedTrackingCode }
+					}
+				}
+			};
+
+			await Task.Delay(100);
+
+			Console.WriteLine("#Log:3::" + filter);
+
+			// LoadData رشته می‌خواهد
+			await Ref_IDMS_RDC_AllData.Search(filter);
+
+			//StateHasChanged();
+		}
+
+		#endregion
+
+		#region UI Control Helpers
+
+		/// <summary>
+		/// تبدیل تاریخ شمسی RequestedDueDate_Fa به میلادی RequestedDueDate
+		/// این متد برای تمام ردیف‌های IDMS_RDC_Details که غیر حذف‌شده هستند، تاریخ را تبدیل می‌کند
+		/// </summary>
+		private void PrepareRequestedDueDatesForSubmit()
+		{
+			if (_Entity?.IDMS_RDC_Details == null)
+				return;
+
+			foreach (var detail in _Entity.IDMS_RDC_Details.Where(x => x.IsDelete != true))
+			{
+				if (!string.IsNullOrWhiteSpace(detail.RequestedDueDate_Fa))
+				{
+					// بررسی معتبر بودن تاریخ شمسی و تبدیل به میلادی
+					if (PersianDateUtils.TryParseDateString(detail.RequestedDueDate_Fa, out var parts))
+					{
+						// تبدیل تاریخ شمسی به میلادی
+						detail.RequestedDueDate = PersianDateUtils.ToGregorian(detail.RequestedDueDate_Fa);
+					}
+					else
+					{
+						// تاریخ نامعتبر → میلادی null
+						detail.RequestedDueDate = null;
+						Console.WriteLine($"تاریخ شمسی نامعتبر: {detail.RequestedDueDate_Fa}");
+					}
+				}
+				else
+				{
+					// اگر تاریخ شمسی خالی باشد، تاریخ میلادی را null می‌کنیم
+					detail.RequestedDueDate = null;
+				}
+			}
+		}
+
+		///// <summary>
+		///// به‌روزرسانی وضعیت نمایش فیلدهای TrackingCode و IDMS_RDC_AllData
+		///// بر اساس مقدار IsResultOfAnotherProcess، این فیلدها نمایش داده یا مخفی می‌شوند
+		///// </summary>
+		///// <returns></returns>
+		//private async Task UpdateTrackingCodeFieldsVisibility()
+		//{
+		//	await Task.Yield();
+
+		//	var isResultOfAnotherProcess = _Entity.IsResultOfAnotherProcess == true;
+
+		//	// تنظیم وضعیت نمایش فیلدها
+		//	Ref_TrackingCode?.SetVisible(isResultOfAnotherProcess);
+		//	Ref_IDMS_RDC_AllData?.SetVisible(isResultOfAnotherProcess);
+		//}
+
+		/// <summary>
+		/// تابع قبل اجرا شدن ورودی ثبت مدل جزئیات
+		/// بر اساس تعداد ردیف جزئیات انتخاب شده، مشخص می شود که آیا دکمه افزودن جزئیات قابل نمایش است یا خیر.
+		/// فقط و فقط یک ردیف جزئیات مجاز است، بنابراین اگر یک ردیف غیر حذف‌شده وجود داشته باشد، دکمه افزودن مخفی می‌شود.
+		/// 
+		/// منطق:
+		/// - اگر رکوردی در IDMS_RDC_Details وجود نداشته باشد → دکمه جدید نمایش داده می‌شود
+		/// - اگر یک ردیف ذخیره شده وجود داشته باشد → دکمه جدید مخفی می‌شود
+		/// </summary>
+		/// <param name="hasSavedRecord">آیا ردیف جزئیات ذخیره شده است؟ (اختیاری - اگر مشخص نشود، خودکار بررسی می‌شود)</param>
+		/// <param name="isInModal">آیا در مودال باشیم؟</param>
+		/// <returns></returns>
+		private async Task ToggleDetailsGridAddButton(bool hasSavedRecord = false, bool isInModal = false)
+		{
+			await Task.Yield();
+
+			// اگر hasSavedRecord مشخص نشده باشد، خودکار بررسی می‌کنیم
+			// بررسی می‌کنیم که آیا یک ردیف غیر حذف‌شده در لیست وجود دارد
+			if (!hasSavedRecord)
+			{
+				hasSavedRecord = _Entity.IDMS_RDC_Details?.Any(x => x.IsDelete != true) == true;
+			}
+
+			// اگر یک ردیف ذخیره شده وجود دارد، دکمه افزودن را مخفی می‌کنیم
+			// چون فقط یک ردیف مجاز است
+			if (hasSavedRecord)
+			{
+				// ردیف وجود دارد → دکمه جدید را مخفی می‌کنیم
+				await JS.InvokeVoidAsync("AddClass", "#IDMS_RDC_Details_GridIDMS_RDC_MasterId_741ButtonNew", "d-none");
+			}
+			else
+			{
+				// ردیف وجود ندارد → دکمه جدید را نمایش می‌دهیم
+				await JS.InvokeVoidAsync("RemoveClass", "#IDMS_RDC_Details_GridIDMS_RDC_MasterId_741ButtonNew", "d-none");
+			}
+
+			// فقط اگر در مودال باشیم، دکمه‌های مودال را مخفی کن
+			if (isInModal)
+			{
+				// دکمه ذخیره و جدید - مخفی می‌شود چون فقط یک ردیف مجاز است
+				await JS.InvokeVoidAsync("ModalAddClass", "#IDMS_RDC_Details_GridIDMS_RDC_MasterId_741ButtonSaveAndNew", "d-none");
+				// دکمه قبلی - مخفی می‌شود چون فقط یک ردیف وجود دارد
+				await JS.InvokeVoidAsync("ModalAddClass", "#IDMS_RDC_Details_GridIDMS_RDC_MasterId_741ButtonBefore", "d-none");
+				// دکمه بعدی - مخفی می‌شود چون فقط یک ردیف وجود دارد
+				await JS.InvokeVoidAsync("ModalAddClass", "#IDMS_RDC_Details_GridIDMS_RDC_MasterId_741ButtonNext", "d-none");
+			}
+		}
+
+		#endregion
+
+		#region Dialogs
+
+		/// <summary>
+		/// تابع قبل اجرا شدن ورودی ثبت مدل جزئیات
+		/// </summary>
+		/// <returns></returns>
+		private async Task ShowRequestIncompleteDialog()
+		{
+			var options = new ConfirmDialogOptions
+			{
+				YesButtonText = "بازگشت به درخواست",
+				YesButtonColor = ButtonColor.Danger,
+				NoButtonText = "",
+			};
+
+			string html = $@"
+                <div>
+                    <picture><img src='https://file.workcv.ir/fa/api/v1/File/Get?FileID=6e5b6fb8-a5b2-490c-f83f-08dbea5b8061  ' width='96px' alt='لوگو پل فیلم' /></picture>
+                    <hr class='hrdash border-success-subtle'>
+                </div>
+                <div class='fw-bold text-center'>
+                    <span class='fs-5'>کد پیگیری این درخواست: </span>
+                    <span class='fs-3' style='color: #1ba156'>{_Entity.RequestTrakingCode}</span>
+                    <div>
+                        <span><i class='fal fa-exclamation-triangle' style='font-size:24px; color:red;'></i>&nbsp;</span>
+                        <span class='fs-6 text-secondary'>تا کنون هیچ ردیف درخواستی تکمیل نشده است. لطفاً برای ثبت و ادامه به مرحله بعد حداقل یک ردیف در درخواست خود ثبت نمایید.</span>
+                    </div>
+                </div>";
+
+			await Confirm.ShowAsync(title: "", message1: html, confirmDialogOptions: options);
+		}
+
+		#endregion
+
+		#region Utility and Helpers
+		// برای گسترش آینده
+		#endregion
+
+		#endregion FunctionEvents
+	}
+}

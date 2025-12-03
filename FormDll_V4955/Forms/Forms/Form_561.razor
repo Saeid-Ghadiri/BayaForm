@@ -1,0 +1,1522 @@
+@inherits Forms.Forms.Form_561Base
+@namespace FormsPage
+
+@using AKSoftware.Localization.MultiLanguages.Blazor
+@using Baya.Models.Utility;
+@using Baya.Models.ORM
+@using Microsoft.AspNetCore.Components.Forms
+@using Microsoft.AspNetCore.Components.Authorization;
+@using System.Security.Claims
+@using System.Net
+@using Microsoft.JSInterop
+@using Baya.Models.ViewEngine
+@using Forms.Domain.Utility
+@using Castle.DynamicLinqQueryBuilder
+<style>
+    .DisableParameterField input {
+    color: black !important;
+    background-color: light !important;
+    opacity: 1;
+    margin-top: 0.3vh;
+    font-size: 0.8rem;
+    text-align: center;
+}
+
+.WidthAuto input {
+    width: auto !important;
+}
+
+.Width6rem input {
+    width: 6rem !important;
+}
+
+.Width8rem input {
+    width: 8rem !important;
+}
+
+.Width10rem input {
+    width: 10rem !important;
+}
+
+.Width12rem input {
+    width: 12rem !important;
+}
+
+.InputDanger input {
+    background-color: crimson !important;
+}
+</style>
+
+<Plugins.Tools.ConfirmDialog @ref="Confirm" />
+
+<span class="d-none">VersionForm:@VersionForm</span>
+@*
+@if (!string.IsNullOrEmpty(SumaryMessage))
+{
+    <div>
+        @SumaryMessage
+    </div>
+} *@
+
+@* <EditForm @ref="_Form" Model="_Entity" OnValidSubmit="ValidFormSubmitted" OnInvalidSubmit="InvalidFormSubmitted" OnSubmit="Submit"> *@
+<div class="@(ReadOnly?"FormReadOnly":"")">
+    <EditForm @ref="_Form" Model="_Entity" OnSubmit="Submit">
+        
+<div class="row ">
+    
+<div class="col-md-3">
+    <div  class="d-flex text-center pt-3 fs-4 text-black  justify-content-right">
+    <div style="">
+  <p>
+    <picture>
+      <img src="https://File.workcv.ir/fa/api/v1/File/Get?FileID=a18190d9-4b1c-45e3-db13-08dc25546b46" class="" alt="لوگو پتکو" width="230px;">
+    </picture>
+  </p>
+</div>
+</div>
+
+</div>
+
+<div class="col-md-6">
+    <div  class="">
+    <div class="fs-3 fw-black rounded p-3 text-center ">
+  برون سپاری کالا یا خدمات
+</div>
+</div>
+
+</div>
+
+<div class="col-md-3">
+    <div  class="">
+    <div class="card card-header bg-light-subtle text-center justify-content-center rounded border border-0">
+  <p class="fw-bold fs-5 text-black pt-2 opacity-50">
+    کد فرم: FE03-04
+  </p>
+</div>
+</div>
+
+</div>
+
+</div>
+ 
+<nav class="">
+    <div class="nav nav-tabs" id="nav-tab" role="tablist">
+        <button class="nav-link  active" id="nav-tabs_tab1" data-bs-toggle="tab" data-bs-target="#tabs_tab1_tab"
+        type="button" role="tab" aria-controls="tabs_tab1_tab" aria-selected="true">
+    اطلاعات درخواست دهنده
+</button>
+<button class="nav-link " id="nav-tabs_tab2" data-bs-toggle="tab" data-bs-target="#tabs_tab2_tab"
+        type="button" role="tab" aria-controls="tabs_tab2_tab" >
+    راهنما
+</button>
+
+    </div>
+</nav>
+<div class="tab-content" id="nav-tabContent">
+    <div class="tab-pane fade   show active" id="tabs_tab1_tab" role="tabpanel" aria-labelledby="nav-tabs_tab1">
+   
+<div class="row ">
+    
+<div class="col-md-6">
+    
+<div class="row card flex-row pb-2 m-1 border-0 bg-lightgreen ">
+    
+<div class="col-md-12">
+    <div  class="">
+    <div class="card-header text-white fw-black fs-6 border-0" style="background:#336353">
+  کاربر درخواست دهنده
+</div>
+</div>
+
+</div>
+
+<div class="col-md-3">
+    
+<Input Id="UserStarterFullName" @ref="Ref_UserStarterFullName" Label="کاربر"   Disabled=true  @bind-Value="_Entity.UserStarterFullName" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"maxlength\":\"70\"}").Result))></Input>
+
+</div>
+
+<div class="col-md-3">
+    
+<Input Id="UserStarterCompanyName" @ref="Ref_UserStarterCompanyName" Label="شرکت کاربر	"   Disabled=true  @bind-Value="_Entity.UserStarterCompanyName" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"maxlength\":\"50\"}").Result))></Input>
+
+</div>
+
+<div class="col-md-3">
+    
+<Input Id="UserStarterUnitName" @ref="Ref_UserStarterUnitName" Label="واحد کاربر"   Disabled=true  @bind-Value="_Entity.UserStarterUnitName" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"maxlength\":\"50\"}").Result))></Input>
+
+</div>
+
+<div class="col-md-3">
+    
+<Input Id="UserStarterSectionName" @ref="Ref_UserStarterSectionName" Label="قسمت کاربر"   Disabled=true  @bind-Value="_Entity.UserStarterSectionName" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"maxlength\":\"50\"}").Result))></Input>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="col-md-6">
+    
+</div>
+
+</div>
+
+</div> 
+<div class="tab-pane fade  " id="tabs_tab2_tab" role="tabpanel" aria-labelledby="nav-tabs_tab2">
+   
+<div class="row ">
+    
+<div class="col-md-6">
+    
+</div>
+
+<div class="col-md-6">
+    
+</div>
+
+</div>
+
+</div> 
+
+</div>
+
+<div class="row my-2 mt-3">
+    
+<div class="col-md-3">
+     
+ 
+@code {
+    Baya.Models.ViewEngine.View_Component Component_SCMPETCO_OS_MasterSCMPETCO_OS_ResultingFromId = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"EntityName\":\"برون سپاری پتکو - بخش اصلی\",\"primaryKey\":false,\"EntityID\":344,\"FieldId\":14634,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":561,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":false,\"RelationParentName\":\"SCMPETCO_OS_ResultingFrom\",\"RelationParentModel\":\"SCMPETCO_OS_ResultingFrom\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/SCMPETCO_OS_ResultingFrom/GetList\"},\"validate\":{\"required\":true,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.Title}} </span>\",\"FieldsTemplate\":[{\"key\":\"Title\",\"value\":\"int\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"disableLimit\":false,\"noRefreshOnScroll\":false,\"disabled\":false,\"modal\":true,\"label\":\"برون سپاری منتج از \",\"tableView\":true,\"key\":\"SCMPETCO_OS_ResultingFromId\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"14634?EId=344&SubId=19\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
+}
+
+    <Dropdown Id=SCMPETCO_OS_ResultingFromId  @ref="Ref_SCMPETCO_OS_ResultingFromId" Label="برون سپاری منتج از " CssClass="" Required=true DisplayFormat="DropDown" ExternalApi=true NotMapped=false TextGrid=false Text="" Value="@_Entity.SCMPETCO_OS_ResultingFromId" FieldName="SCMPETCO_OS_ResultingFromId" OnItemSelected="ItemSelected_SCMPETCO_OS_MasterSCMPETCO_OS_ResultingFromId" Component="Component_SCMPETCO_OS_MasterSCMPETCO_OS_ResultingFromId" _Entity="_Entity" >
+</Dropdown>
+@code {
+    public async Task ItemSelected_SCMPETCO_OS_MasterSCMPETCO_OS_ResultingFromId(object _Item)
+    {
+        var Selected = Utility.JSON.ToObject<dynamic>(Utility.JSON.ToJson(_Item).Result).Result;
+     var Item = _Entity;
+
+      //Todo
+ //برای اینکه آی دی تغییر کند اینجا نیز باید تغییر کند
+ //بهتر است از پرایمیری کی استفاده شود
+ Item.SCMPETCO_OS_ResultingFromId = Selected.Id;
+ Item.SCMPETCO_OS_ResultingFrom = await Utility.JSON.ToObject<Entity.SCMPETCO_OS_ResultingFrom>(await Utility.JSON.ToJson(_Item));
+
+    
+
+    
+    }
+} 
+
+</div>
+
+<div class="col-md-3">
+     
+ 
+@code {
+    Baya.Models.ViewEngine.View_Component Component_SCMPETCO_OS_MasterSCMPETCO_ICT_DepartmentsId = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"EntityName\":\"برون سپاری پتکو - بخش اصلی\",\"primaryKey\":false,\"EntityID\":344,\"FieldId\":30037,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":561,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":false,\"RelationParentName\":\"SCMPETCO_ICT_Departments\",\"RelationParentModel\":\"SCMPETCO_ICT_Departments\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/SCMPETCO_ICT_Departments/GetList\"},\"validate\":{\"required\":true,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.Title}} </span>\",\"FieldsTemplate\":[{\"key\":\"Title\",\"value\":\"nvarchar(Max)\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"disabled\":false,\"modal\":true,\"label\":\"بخش‌های فناوری اطلاعات\",\"tableView\":true,\"key\":\"SCMPETCO_ICT_DepartmentsId\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"30037?EId=344&SubId=19\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
+}
+
+    <Dropdown Id=SCMPETCO_ICT_DepartmentsId  @ref="Ref_SCMPETCO_ICT_DepartmentsId" Label="بخش‌های فناوری اطلاعات" CssClass="" Required=true DisplayFormat="DropDown" ExternalApi=true NotMapped=false TextGrid=false Text="" Value="@_Entity.SCMPETCO_ICT_DepartmentsId" FieldName="SCMPETCO_ICT_DepartmentsId" OnItemSelected="ItemSelected_SCMPETCO_OS_MasterSCMPETCO_ICT_DepartmentsId" Component="Component_SCMPETCO_OS_MasterSCMPETCO_ICT_DepartmentsId" _Entity="_Entity" >
+</Dropdown>
+@code {
+    public async Task ItemSelected_SCMPETCO_OS_MasterSCMPETCO_ICT_DepartmentsId(object _Item)
+    {
+        var Selected = Utility.JSON.ToObject<dynamic>(Utility.JSON.ToJson(_Item).Result).Result;
+     var Item = _Entity;
+
+      //Todo
+ //برای اینکه آی دی تغییر کند اینجا نیز باید تغییر کند
+ //بهتر است از پرایمیری کی استفاده شود
+ Item.SCMPETCO_ICT_DepartmentsId = Selected.Id;
+ Item.SCMPETCO_ICT_Departments = await Utility.JSON.ToObject<Entity.SCMPETCO_ICT_Departments>(await Utility.JSON.ToJson(_Item));
+
+    
+
+    
+    }
+} 
+
+</div>
+
+<div class="col-md-3">
+    
+</div>
+
+<div class="col-md-3">
+    
+</div>
+
+</div>
+
+<DxGrid @ref="Grid_SCMPETCO_OS_Details" Data="_Entity.SCMPETCO_OS_Details" KeyFieldName="_Id" EditMode="GridEditMode.PopupEditForm"
+        EditModelSaving="OnEditModelSavingSCMPETCO_OS_Details"
+        DataItemDeleting="OnDataItemDeletingSCMPETCO_OS_Details"
+        PopupEditFormCssClass="ModalWidth"
+        PopupEditFormHeaderText="برون سپاری پتکو - بخش جزئیات"
+        EditFormButtonsVisible="false"
+        CustomizeEditModel="CustomizeEditGrid_SCMPETCO_OS_Details"
+        CustomizeElement="CustomizeRowsGrid_SCMPETCO_OS_Details" 
+        Component="@((Utility.JSON.ToObject<View_Component>("{\"primaryKey\":false,\"EntityID\":343,\"FieldId\":343,\"NotNull\":false,\"ViewId\":0,\"NotMapped\":false,\"Relation\":false,\"RelationExternal\":false,\"RelationChildModel\":\"SCMPETCO_OS_Details\",\"GridMainModel\":\"SCMPETCO_OS_Details\",\"widget\":{\"altInput\":false,\"allowInput\":false,\"clickOpens\":false,\"enableDate\":false,\"enableTime\":false,\"noCalendar\":false,\"useLocaleSettings\":false,\"hourIncrement\":0,\"minuteIncrement\":0,\"time_24hr\":false},\"wysiwyg\":false,\"data\":{},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"FieldsTemplate\":[],\"refreshOn\":\"data\",\"reorder\":false,\"addAnotherPosition\":\"bottom\",\"layoutFixed\":false,\"enableRowGroups\":false,\"initEmpty\":false,\"disabled\":true,\"modal\":true,\"label\":\"برون سپاری پتکو - بخش جزئیات\",\"tableView\":true,\"key\":\"GridSCMPETCO_OS_MasterId_343\",\"type\":\"datagrid\",\"input\":true,\"hideLabel\":true,\"modalEdit\":true,\"customClass\":\"mt-3\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":false,\"AccessEdit\":true,\"AccessNew\":false,\"editmodelsaving\":\"SCMPETCO_OS_Details_editmodelsaving\",\"afterrendermodal\":\"SCMPETCO_OS_Details_afterrendermodal\"}").Result))"
+        CssClass="mt-3" >
+    <Columns>
+    
+<DxGridCommandColumn Width="70px">
+    <HeaderTemplate Context="HeaderContext">
+       
+    </HeaderTemplate>
+    <CellDisplayTemplate Context="CellContext">
+       
+<a id=SCMPETCO_OS_Details_GridSCMPETCO_OS_MasterId_343ButtonEdit class="btn btn-sm btn-yellow-light btnEditGridData" @onclick="@(() => StartModalGrid_SCMPETCO_OS_Details(CellContext))" style="text-decoration: none;" href="javascript:void(0);">
+    <span class="fal fa-pencil btnicon"></span>
+</a>
+
+       
+    </CellDisplayTemplate>
+</DxGridCommandColumn>
+
+    <DxGridCommandColumn   Width="60px">
+           <HeaderTemplate Context="HeaderContext">
+               <a    style="text-decoration: none;"  >
+                
+                   <span>ردیف</span>
+               </a>
+           </HeaderTemplate>
+           <CellDisplayTemplate Context="CellContext">
+            @if (CellContext.VisibleIndex > 9){
+                <p>@(CellContext.VisibleIndex + 1)</p>
+            }else{
+                <p>@(((CellContext.Grid.PageIndex * CellContext.Grid.PageSize) + (CellContext.VisibleIndex + 1)))</p>
+            }
+          
+           </CellDisplayTemplate>
+     </DxGridCommandColumn>
+    <DxGridDataColumn  Caption="عنوان کار"  FieldName="OS_JobTitle" />
+
+<DxGridDataColumn Context="Global_UnitsId_" Caption="واحد کالا" >
+    <CellDisplayTemplate>
+       
+@{
+    Baya.Models.ViewEngine.View_Component HeaderGlobal_UnitsId = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"primaryKey\":false,\"EntityID\":343,\"FieldId\":14536,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":561,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":false,\"RelationParentName\":\"Global_Units\",\"RelationParentModel\":\"Global_Units\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/Global_Units/GetList\"},\"validate\":{\"required\":true,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.Title}} </span>\",\"FieldsTemplate\":[{\"key\":\"Title\",\"value\":\"int\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"disabled\":false,\"modal\":true,\"label\":\"واحد کالا\",\"tableView\":true,\"key\":\"Global_UnitsId\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"14536?EId=343&SubId=19\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
+    var RowGlobal_UnitsId = ((Entity.SCMPETCO_OS_Details)Global_UnitsId_.DataItem).Global_UnitsId;
+}
+
+<Dropdown ExternalApi=false NotMapped=false TextGrid=true Value="@RowGlobal_UnitsId"   FieldName="Global_UnitsId" OnItemSelected="ItemSelected_SCMPETCO_OS_DetailsGlobal_UnitsId_Header" Component="HeaderGlobal_UnitsId">
+</Dropdown>
+@code {
+    public async Task ItemSelected_SCMPETCO_OS_DetailsGlobal_UnitsId_Header(object _Item)
+    {
+      //  var Selected = Utility.JSON.ToObject<dynamic>(Utility.JSON.ToJson(_Item).Result).Result;
+  //   Global_UnitsId
+
+  //  #CustomCode
+
+ //   
+
+  //  #OnItemSelected
+    }
+}
+
+    </CellDisplayTemplate>
+</DxGridDataColumn>
+<DxGridDataColumn DisplayFormat="0" Caption="تعداد"  FieldName="Amount" />
+
+<DxGridDataColumn Context="Global_PriorityId_" Caption="اولویت" >
+    <CellDisplayTemplate>
+       
+@{
+    Baya.Models.ViewEngine.View_Component HeaderGlobal_PriorityId = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"primaryKey\":false,\"EntityID\":343,\"FieldId\":14539,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":561,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":false,\"RelationParentName\":\"Global_Priority\",\"RelationParentModel\":\"Global_Priority\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/Global_Priority/GetList\"},\"validate\":{\"required\":true,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.Title}} </span>\",\"FieldsTemplate\":[{\"key\":\"Title\",\"value\":\"int\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"disabled\":false,\"modal\":true,\"label\":\"اولویت\",\"tableView\":true,\"key\":\"Global_PriorityId\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"14539?EId=343&SubId=19\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
+    var RowGlobal_PriorityId = ((Entity.SCMPETCO_OS_Details)Global_PriorityId_.DataItem).Global_PriorityId;
+}
+
+<Dropdown ExternalApi=false NotMapped=false TextGrid=true Value="@RowGlobal_PriorityId"   FieldName="Global_PriorityId" OnItemSelected="ItemSelected_SCMPETCO_OS_DetailsGlobal_PriorityId_Header" Component="HeaderGlobal_PriorityId">
+</Dropdown>
+@code {
+    public async Task ItemSelected_SCMPETCO_OS_DetailsGlobal_PriorityId_Header(object _Item)
+    {
+      //  var Selected = Utility.JSON.ToObject<dynamic>(Utility.JSON.ToJson(_Item).Result).Result;
+  //   Global_PriorityId
+
+  //  #CustomCode
+
+ //   
+
+  //  #OnItemSelected
+    }
+}
+
+    </CellDisplayTemplate>
+</DxGridDataColumn>
+<DxGridDataColumn  Caption="محل مصرف"  FieldName="AreaUse" />
+
+<DxGridDataColumn  Caption="توضیحات درخواست کننده"  FieldName="RequsterDesc" />
+
+<DxGridDataColumn  Caption="توضیحات تایید کننده اول"  FieldName="FirstApproverDesc" />
+
+<DxGridDataColumn Context="UploadFileIsEnable_" Caption="آیا مدارک پیوست دارد؟" >
+    <CellDisplayTemplate>
+       
+@{
+    var SCMPETCO_OS_Details_UploadFileIsEnable = ((Entity.SCMPETCO_OS_Details)UploadFileIsEnable_.DataItem).UploadFileIsEnable;
+}
+
+<p class="text-center " hidden="@(SCMPETCO_OS_Details_UploadFileIsEnable !=null ? !SCMPETCO_OS_Details_UploadFileIsEnable : true)">بله</p>
+
+<p class="text-center" hidden="@(SCMPETCO_OS_Details_UploadFileIsEnable !=null ? SCMPETCO_OS_Details_UploadFileIsEnable : true)">خیر</p>
+
+
+    </CellDisplayTemplate>
+</DxGridDataColumn>
+<DxGridDataColumn Context="SCMPETCO_OS_Details_UploadFiles_" Caption="مدارک پیوست" >
+    <CellDisplayTemplate>
+      
+@{
+    var SCMPETCO_OS_Details_SCMPETCO_OS_Details_UploadFiles = (Entity.SCMPETCO_OS_Details)SCMPETCO_OS_Details_UploadFiles_.DataItem;
+}
+@foreach (var item_SCMPETCO_OS_Details in SCMPETCO_OS_Details_SCMPETCO_OS_Details_UploadFiles.SCMPETCO_OS_Details_UploadFiles.Where(p=>!p.IsDelete.HasValue || !p.IsDelete.Value))
+{
+
+    <div class="bg-lightblue rounded p-1 d-inline-block m-1">
+        <span>@item_SCMPETCO_OS_Details.originalName</span>
+        <hr class="hrdash mt-1 mb-0">
+        <div class="btn-group align-items-center">
+            <button type="button" class="btn btn-sm text-yellow p-0" onclick="ShowImageNewTab('@item_SCMPETCO_OS_Details.url')">@languageContainer.Keys["DXGrid:View"]</button>
+            <a href="@item_SCMPETCO_OS_Details.url" class="btn btn-sm text-green p-0">@languageContainer.Keys["DXGrid:Download"]</a>
+        </div>
+    </div>
+}
+
+
+    </CellDisplayTemplate>
+</DxGridDataColumn>
+<DxGridDataColumn Context="IsEnableSampleGoods_" Caption="آیا این درخواست نمونه دارد؟" >
+    <CellDisplayTemplate>
+       
+@{
+    var SCMPETCO_OS_Details_IsEnableSampleGoods = ((Entity.SCMPETCO_OS_Details)IsEnableSampleGoods_.DataItem).IsEnableSampleGoods;
+}
+
+<p class="text-center " hidden="@(SCMPETCO_OS_Details_IsEnableSampleGoods !=null ? !SCMPETCO_OS_Details_IsEnableSampleGoods : true)">بله</p>
+
+<p class="text-center" hidden="@(SCMPETCO_OS_Details_IsEnableSampleGoods !=null ? SCMPETCO_OS_Details_IsEnableSampleGoods : true)">خیر</p>
+
+
+    </CellDisplayTemplate>
+</DxGridDataColumn>
+<DxGridDataColumn Context="SCMPETCO_OS_Details_SampleGoodsFiles_" Caption="فایل نمونه" >
+    <CellDisplayTemplate>
+      
+@{
+    var SCMPETCO_OS_Details_SCMPETCO_OS_Details_SampleGoodsFiles = (Entity.SCMPETCO_OS_Details)SCMPETCO_OS_Details_SampleGoodsFiles_.DataItem;
+}
+@foreach (var item_SCMPETCO_OS_Details in SCMPETCO_OS_Details_SCMPETCO_OS_Details_SampleGoodsFiles.SCMPETCO_OS_Details_SampleGoodsFiles.Where(p=>!p.IsDelete.HasValue || !p.IsDelete.Value))
+{
+
+    <div class="bg-lightblue rounded p-1 d-inline-block m-1">
+        <span>@item_SCMPETCO_OS_Details.originalName</span>
+        <hr class="hrdash mt-1 mb-0">
+        <div class="btn-group align-items-center">
+            <button type="button" class="btn btn-sm text-yellow p-0" onclick="ShowImageNewTab('@item_SCMPETCO_OS_Details.url')">@languageContainer.Keys["DXGrid:View"]</button>
+            <a href="@item_SCMPETCO_OS_Details.url" class="btn btn-sm text-green p-0">@languageContainer.Keys["DXGrid:Download"]</a>
+        </div>
+    </div>
+}
+
+
+    </CellDisplayTemplate>
+</DxGridDataColumn>
+<DxGridDataColumn Context="GuaranteeIsEnable_" Caption="آیا گارانتی دارد؟ " >
+    <CellDisplayTemplate>
+       
+@{
+    var SCMPETCO_OS_Details_GuaranteeIsEnable = ((Entity.SCMPETCO_OS_Details)GuaranteeIsEnable_.DataItem).GuaranteeIsEnable;
+}
+
+<p class="text-center " hidden="@(SCMPETCO_OS_Details_GuaranteeIsEnable !=null ? !SCMPETCO_OS_Details_GuaranteeIsEnable : true)">بله - هزینه ندارد</p>
+
+<p class="text-center" hidden="@(SCMPETCO_OS_Details_GuaranteeIsEnable !=null ? SCMPETCO_OS_Details_GuaranteeIsEnable : true)">خیر - هزینه دارد</p>
+
+
+    </CellDisplayTemplate>
+</DxGridDataColumn>
+<DxGridDataColumn Context="HistoryRepairsIsEnable_" Caption="سابقه تعمیرات دارد؟" >
+    <CellDisplayTemplate>
+       
+@{
+    var SCMPETCO_OS_Details_HistoryRepairsIsEnable = ((Entity.SCMPETCO_OS_Details)HistoryRepairsIsEnable_.DataItem).HistoryRepairsIsEnable;
+}
+
+<p class="text-center " hidden="@(SCMPETCO_OS_Details_HistoryRepairsIsEnable !=null ? !SCMPETCO_OS_Details_HistoryRepairsIsEnable : true)">بله</p>
+
+<p class="text-center" hidden="@(SCMPETCO_OS_Details_HistoryRepairsIsEnable !=null ? SCMPETCO_OS_Details_HistoryRepairsIsEnable : true)">خیر</p>
+
+
+    </CellDisplayTemplate>
+</DxGridDataColumn>
+<DxGridDataColumn Context="ITILCodeIsEnable_" Caption="آیا کد ITIL دارد؟" >
+    <CellDisplayTemplate>
+       
+@{
+    var SCMPETCO_OS_Details_ITILCodeIsEnable = ((Entity.SCMPETCO_OS_Details)ITILCodeIsEnable_.DataItem).ITILCodeIsEnable;
+}
+
+<p class="text-center " hidden="@(SCMPETCO_OS_Details_ITILCodeIsEnable !=null ? !SCMPETCO_OS_Details_ITILCodeIsEnable : true)">بله</p>
+
+<p class="text-center" hidden="@(SCMPETCO_OS_Details_ITILCodeIsEnable !=null ? SCMPETCO_OS_Details_ITILCodeIsEnable : true)">خیر</p>
+
+
+    </CellDisplayTemplate>
+</DxGridDataColumn>
+<DxGridDataColumn Context="ResultingFromITIL_" Caption="منتج از ITIL" >
+    <CellDisplayTemplate>
+       
+@{
+    Baya.Models.ViewEngine.View_Component HeaderResultingFromITIL = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"primaryKey\":false,\"EntityID\":343,\"FieldId\":15201,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":561,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":true,\"RelationParentName\":\"\",\"RelationParentModel\":\"\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://itilorm.workcv.ir/fa-ir/api/v1/vw_ORM_Request/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.RequestID}} </span>\",\"FieldsTemplate\":[{\"key\":\"RequestID\",\"value\":\"int\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"searchField\":\"RequestID\",\"disableLimit\":false,\"noRefreshOnScroll\":false,\"disabled\":false,\"modal\":true,\"label\":\"منتج از ITIL\",\"tableView\":true,\"key\":\"ResultingFromITIL\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"15201?EId=343&SubId=19\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true,\"onitemselected\":\"ResultingFromITIL_onitemselected\"}").Result;
+    var RowResultingFromITIL = ((Entity.SCMPETCO_OS_Details)ResultingFromITIL_.DataItem).ResultingFromITIL;
+}
+
+<Dropdown ExternalApi=true NotMapped=false TextGrid=true Value="@RowResultingFromITIL"   FieldName="ResultingFromITIL" OnItemSelected="ItemSelected_SCMPETCO_OS_DetailsResultingFromITIL_Header" Component="HeaderResultingFromITIL">
+</Dropdown>
+@code {
+    public async Task ItemSelected_SCMPETCO_OS_DetailsResultingFromITIL_Header(object _Item)
+    {
+      //  var Selected = Utility.JSON.ToObject<dynamic>(Utility.JSON.ToJson(_Item).Result).Result;
+  //   ResultingFromITIL
+
+  //  #CustomCode
+
+ //   
+
+  //  #OnItemSelected
+    }
+}
+
+    </CellDisplayTemplate>
+</DxGridDataColumn>
+<DxGridDataColumn  Caption="کاربر درخواست دهنده ITIL"  FieldName="RequesterUserITIL" />
+
+<DxGridDataColumn  Caption="تاریخ درخواست ITIL"  FieldName="CreatedAtITIL" />
+
+<DxGridDataColumn Context="ITILDetails_" Caption="جزئیات درخواست ITIL" >
+    <CellDisplayTemplate>
+       
+@{
+    Baya.Models.ViewEngine.View_Component HeaderITILDetails = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"primaryKey\":false,\"EntityID\":343,\"FieldId\":15204,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":561,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":true,\"RelationParentName\":\"\",\"RelationParentModel\":\"\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://itilorm.workcv.ir/fa-ir/api/v1/vw_ORM_RequestDetail/GetList?RequestID={{data.RequestIdITIL}}\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"inputFormat\":\"DataGrid\",\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.UserName}} {{item.AssetName}} {{item.AssetOperationName}} {{item.Describe}} {{item.CreateDate}} </span>\",\"FieldsTemplate\":[{\"key\":\"RequestID\",\"value\":\"int\"},{\"key\":\"RequestDetailID\",\"value\":\"int\"},{\"key\":\"UserName\",\"value\":\"int\"},{\"key\":\"Describe\",\"value\":\"int\"},{\"key\":\"CreateDate\",\"value\":\"int\"}],\"dataSrc\":\"url\",\"refreshOn\":\"SCMPETCO_OS_Details.RequestID\",\"clearOnRefresh\":true,\"disabled\":true,\"modal\":true,\"label\":\"جزئیات درخواست ITIL\",\"tableView\":true,\"key\":\"ITILDetails\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"15204?EId=343&SubId=19\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
+    var RowITILDetails = ((Entity.SCMPETCO_OS_Details)ITILDetails_.DataItem).ITILDetails;
+}
+
+<Dropdown ExternalApi=true NotMapped=false TextGrid=true Value="@RowITILDetails"   FieldName="ITILDetails" OnItemSelected="ItemSelected_SCMPETCO_OS_DetailsITILDetails_Header" Component="HeaderITILDetails">
+</Dropdown>
+@code {
+    public async Task ItemSelected_SCMPETCO_OS_DetailsITILDetails_Header(object _Item)
+    {
+      //  var Selected = Utility.JSON.ToObject<dynamic>(Utility.JSON.ToJson(_Item).Result).Result;
+  //   ITILDetails
+
+  //  #CustomCode
+
+ //   
+
+  //  #OnItemSelected
+    }
+}
+
+    </CellDisplayTemplate>
+</DxGridDataColumn>
+<DxGridDataColumn  Caption="شماره درخواست ITIL" Visible=false FieldName="RequestIdITIL" />
+
+<DxGridDataColumn Context="IsEnableDemolitionAndRenovation_" Caption="آیا نیاز به عملیات تخریب و نوسازی دارد؟" >
+    <CellDisplayTemplate>
+       
+@{
+    var SCMPETCO_OS_Details_IsEnableDemolitionAndRenovation = ((Entity.SCMPETCO_OS_Details)IsEnableDemolitionAndRenovation_.DataItem).IsEnableDemolitionAndRenovation;
+}
+
+<p class="text-center " hidden="@(SCMPETCO_OS_Details_IsEnableDemolitionAndRenovation !=null ? !SCMPETCO_OS_Details_IsEnableDemolitionAndRenovation : true)">بله</p>
+
+<p class="text-center" hidden="@(SCMPETCO_OS_Details_IsEnableDemolitionAndRenovation !=null ? SCMPETCO_OS_Details_IsEnableDemolitionAndRenovation : true)">خیر</p>
+
+
+    </CellDisplayTemplate>
+</DxGridDataColumn>
+<DxGridDataColumn  Caption="Id" Visible=false FieldName="Id" />
+
+<DxGridDataColumn  Caption="RequestID" Visible=false FieldName="RequestID" />
+
+<DxGridDataColumn  Caption="CreateUser" Visible=false FieldName="CreateUser" />
+
+<DxGridDataColumn  Caption="UpdateUser" Visible=false FieldName="UpdateUser" />
+
+<DxGridDataColumn  Caption="CreateDate" Visible=false FieldName="CreateDate" />
+
+<DxGridDataColumn  Caption="UpdateDate" Visible=false FieldName="UpdateDate" />
+
+<DxGridDataColumn  Caption="IsDelete" Visible=false FieldName="IsDelete" />
+
+
+</Columns>
+
+    <EditFormTemplate Context="EditFormContextSCMPETCO_OS_Details">
+    @{
+        SCMPETCO_OS_Details  = (Entity.SCMPETCO_OS_Details)EditFormContextSCMPETCO_OS_Details.EditModel;
+    }
+    <DxFormLayout>
+        <DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextSCMPETCO_OS_Details">
+    
+<Input Id="SCMPETCO_OS_Details_OS_JobTitle" @ref="Ref_SCMPETCO_OS_Details_OS_JobTitle" Label="عنوان کار"    Required=true @bind-Value="SCMPETCO_OS_Details.OS_JobTitle" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"maxlength\":\"100\"}").Result))></Input>
+
+</DxFormLayoutItem>
+
+<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextSCMPETCO_OS_Details">
+     
+ 
+@code {
+    Baya.Models.ViewEngine.View_Component Component_SCMPETCO_OS_DetailsGlobal_UnitsId = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"primaryKey\":false,\"EntityID\":343,\"FieldId\":14536,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":561,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":false,\"RelationParentName\":\"Global_Units\",\"RelationParentModel\":\"Global_Units\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/Global_Units/GetList\"},\"validate\":{\"required\":true,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.Title}} </span>\",\"FieldsTemplate\":[{\"key\":\"Title\",\"value\":\"int\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"disabled\":false,\"modal\":true,\"label\":\"واحد کالا\",\"tableView\":true,\"key\":\"Global_UnitsId\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"14536?EId=343&SubId=19\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
+}
+
+    <Dropdown Id=SCMPETCO_OS_Details_Global_UnitsId  @ref="Ref_SCMPETCO_OS_Details_Global_UnitsId" Label="واحد کالا" CssClass="" Required=true DisplayFormat="DropDown" ExternalApi=true NotMapped=false TextGrid=false Text="" Value="@SCMPETCO_OS_Details.Global_UnitsId" FieldName="Global_UnitsId" OnItemSelected="ItemSelected_SCMPETCO_OS_DetailsGlobal_UnitsId" Component="Component_SCMPETCO_OS_DetailsGlobal_UnitsId" _Entity="_Entity" _EntityRow=SCMPETCO_OS_Details>
+</Dropdown>
+@code {
+    public async Task ItemSelected_SCMPETCO_OS_DetailsGlobal_UnitsId(object _Item)
+    {
+        var Selected = Utility.JSON.ToObject<dynamic>(Utility.JSON.ToJson(_Item).Result).Result;
+     var Item = SCMPETCO_OS_Details;
+
+      //Todo
+ //برای اینکه آی دی تغییر کند اینجا نیز باید تغییر کند
+ //بهتر است از پرایمیری کی استفاده شود
+ Item.Global_UnitsId = Selected.Id;
+ Item.Global_Units = await Utility.JSON.ToObject<Entity.Global_Units>(await Utility.JSON.ToJson(_Item));
+
+    
+
+    
+    }
+} 
+
+</DxFormLayoutItem>
+
+<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextSCMPETCO_OS_Details">
+    
+<Input Id="SCMPETCO_OS_Details_Amount" @ref="Ref_SCMPETCO_OS_Details_Amount" Label="تعداد"    Required=true @bind-Value="SCMPETCO_OS_Details.Amount" type="number"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+</DxFormLayoutItem>
+
+<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextSCMPETCO_OS_Details">
+     
+ 
+@code {
+    Baya.Models.ViewEngine.View_Component Component_SCMPETCO_OS_DetailsGlobal_PriorityId = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"primaryKey\":false,\"EntityID\":343,\"FieldId\":14539,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":561,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":false,\"RelationParentName\":\"Global_Priority\",\"RelationParentModel\":\"Global_Priority\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/Global_Priority/GetList\"},\"validate\":{\"required\":true,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.Title}} </span>\",\"FieldsTemplate\":[{\"key\":\"Title\",\"value\":\"int\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"disabled\":false,\"modal\":true,\"label\":\"اولویت\",\"tableView\":true,\"key\":\"Global_PriorityId\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"14539?EId=343&SubId=19\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
+}
+
+    <Dropdown Id=SCMPETCO_OS_Details_Global_PriorityId  @ref="Ref_SCMPETCO_OS_Details_Global_PriorityId" Label="اولویت" CssClass="" Required=true DisplayFormat="DropDown" ExternalApi=true NotMapped=false TextGrid=false Text="" Value="@SCMPETCO_OS_Details.Global_PriorityId" FieldName="Global_PriorityId" OnItemSelected="ItemSelected_SCMPETCO_OS_DetailsGlobal_PriorityId" Component="Component_SCMPETCO_OS_DetailsGlobal_PriorityId" _Entity="_Entity" _EntityRow=SCMPETCO_OS_Details>
+</Dropdown>
+@code {
+    public async Task ItemSelected_SCMPETCO_OS_DetailsGlobal_PriorityId(object _Item)
+    {
+        var Selected = Utility.JSON.ToObject<dynamic>(Utility.JSON.ToJson(_Item).Result).Result;
+     var Item = SCMPETCO_OS_Details;
+
+      //Todo
+ //برای اینکه آی دی تغییر کند اینجا نیز باید تغییر کند
+ //بهتر است از پرایمیری کی استفاده شود
+ Item.Global_PriorityId = Selected.Id;
+ Item.Global_Priority = await Utility.JSON.ToObject<Entity.Global_Priority>(await Utility.JSON.ToJson(_Item));
+
+    
+
+    
+    }
+} 
+
+</DxFormLayoutItem>
+
+<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextSCMPETCO_OS_Details">
+    
+<Input Id="SCMPETCO_OS_Details_AreaUse" @ref="Ref_SCMPETCO_OS_Details_AreaUse" Label="محل مصرف"    Required=true @bind-Value="SCMPETCO_OS_Details.AreaUse" type="textarea"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"maxlength\":\"150\"}").Result))></Input>
+
+</DxFormLayoutItem>
+
+<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextSCMPETCO_OS_Details">
+    
+<Input Id="SCMPETCO_OS_Details_RequsterDesc" @ref="Ref_SCMPETCO_OS_Details_RequsterDesc" Label="توضیحات درخواست کننده"     @bind-Value="SCMPETCO_OS_Details.RequsterDesc" type="textarea"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"maxlength\":\"300\"}").Result))></Input>
+
+</DxFormLayoutItem>
+
+<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextSCMPETCO_OS_Details">
+    
+<Input Id="SCMPETCO_OS_Details_FirstApproverDesc" @ref="Ref_SCMPETCO_OS_Details_FirstApproverDesc" Label="توضیحات تایید کننده اول"     @bind-Value="SCMPETCO_OS_Details.FirstApproverDesc" type="textarea"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"maxlength\":\"300\"}").Result))></Input>
+
+</DxFormLayoutItem>
+
+<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextSCMPETCO_OS_Details">
+    
+<RadioBoolean @ref="Ref_SCMPETCO_OS_Details_UploadFileIsEnable" InLine=true Id="SCMPETCO_OS_Details_UploadFileIsEnable" Required=true oninput="@(e => UploadFileIsEnable_oninput(e ,SCMPETCO_OS_Details))"  LabelTrue="بله" LabelFalse="خیر" Label="آیا مدارک پیوست دارد؟" @bind-Value="SCMPETCO_OS_Details.UploadFileIsEnable" CssClass="" ></RadioBoolean>
+
+</DxFormLayoutItem>
+
+<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextSCMPETCO_OS_Details">
+    <Uploader Id=SCMPETCO_OS_Details_SCMPETCO_OS_Details_UploadFiles  @ref="Ref_SCMPETCO_OS_Details_SCMPETCO_OS_Details_UploadFiles"   Accept="image/* , application/pdf , .doc,.docx , .xls,.xlsx , .ppt,.pptx" MinSize="1KB" MaxSize="5MB" Caption="مدارک پیوست" Data="SCMPETCO_OS_Details.SCMPETCO_OS_Details_UploadFiles" Url="https://File.workcv.ir/fa/api/v1/File/Post" TItem="Entity.SCMPETCO_OS_Details_UploadFiles"></Uploader>
+
+</DxFormLayoutItem>
+
+<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextSCMPETCO_OS_Details">
+    
+<RadioBoolean @ref="Ref_SCMPETCO_OS_Details_IsEnableSampleGoods" InLine=true Id="SCMPETCO_OS_Details_IsEnableSampleGoods" Required=true oninput="@(e => IsEnableSampleGoods_oninput(e ,SCMPETCO_OS_Details))"  LabelTrue="بله" LabelFalse="خیر" Label="آیا این درخواست نمونه دارد؟" @bind-Value="SCMPETCO_OS_Details.IsEnableSampleGoods" CssClass="" ></RadioBoolean>
+
+</DxFormLayoutItem>
+
+<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextSCMPETCO_OS_Details">
+    <Uploader Id=SCMPETCO_OS_Details_SCMPETCO_OS_Details_SampleGoodsFiles  @ref="Ref_SCMPETCO_OS_Details_SCMPETCO_OS_Details_SampleGoodsFiles"   Accept="image/* , application/pdf , .doc,.docx , .xls,.xlsx" MinSize="1KB" MaxSize="5MB" Caption="فایل نمونه" Data="SCMPETCO_OS_Details.SCMPETCO_OS_Details_SampleGoodsFiles" Url="https://File.workcv.ir/fa/api/v1/File/Post" TItem="Entity.SCMPETCO_OS_Details_SampleGoodsFiles"></Uploader>
+
+</DxFormLayoutItem>
+
+<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextSCMPETCO_OS_Details">
+    
+<RadioBoolean @ref="Ref_SCMPETCO_OS_Details_GuaranteeIsEnable" InLine=true Id="SCMPETCO_OS_Details_GuaranteeIsEnable" Required=true  LabelTrue="بله - هزینه ندارد" LabelFalse="خیر - هزینه دارد" Label="آیا گارانتی دارد؟ " @bind-Value="SCMPETCO_OS_Details.GuaranteeIsEnable" CssClass="" ></RadioBoolean>
+
+</DxFormLayoutItem>
+
+<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextSCMPETCO_OS_Details">
+    
+<RadioBoolean @ref="Ref_SCMPETCO_OS_Details_HistoryRepairsIsEnable" InLine=true Id="SCMPETCO_OS_Details_HistoryRepairsIsEnable" Required=true  LabelTrue="بله" LabelFalse="خیر" Label="سابقه تعمیرات دارد؟" @bind-Value="SCMPETCO_OS_Details.HistoryRepairsIsEnable" CssClass="" ></RadioBoolean>
+
+</DxFormLayoutItem>
+
+<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextSCMPETCO_OS_Details">
+    
+<RadioBoolean @ref="Ref_SCMPETCO_OS_Details_ITILCodeIsEnable" InLine=true Id="SCMPETCO_OS_Details_ITILCodeIsEnable"  oninput="@(e => ITILCodeIsEnable_oninput(e ,SCMPETCO_OS_Details))"  LabelTrue="بله" LabelFalse="خیر" Label="آیا کد ITIL دارد؟" @bind-Value="SCMPETCO_OS_Details.ITILCodeIsEnable" CssClass="" ></RadioBoolean>
+
+</DxFormLayoutItem>
+
+<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextSCMPETCO_OS_Details">
+     
+ 
+@code {
+    Baya.Models.ViewEngine.View_Component Component_SCMPETCO_OS_DetailsResultingFromITIL = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"primaryKey\":false,\"EntityID\":343,\"FieldId\":15201,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":561,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":true,\"RelationParentName\":\"\",\"RelationParentModel\":\"\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://itilorm.workcv.ir/fa-ir/api/v1/vw_ORM_Request/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.RequestID}} </span>\",\"FieldsTemplate\":[{\"key\":\"RequestID\",\"value\":\"int\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"searchField\":\"RequestID\",\"disableLimit\":false,\"noRefreshOnScroll\":false,\"disabled\":false,\"modal\":true,\"label\":\"منتج از ITIL\",\"tableView\":true,\"key\":\"ResultingFromITIL\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"15201?EId=343&SubId=19\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true,\"onitemselected\":\"ResultingFromITIL_onitemselected\"}").Result;
+}
+
+    <Dropdown Id=SCMPETCO_OS_Details_ResultingFromITIL  @ref="Ref_SCMPETCO_OS_Details_ResultingFromITIL" Label="منتج از ITIL" CssClass=""  DisplayFormat="DropDown" ExternalApi=true NotMapped=false TextGrid=false  Value="@SCMPETCO_OS_Details.ResultingFromITIL" FieldName="ResultingFromITIL" OnItemSelected="ItemSelected_SCMPETCO_OS_DetailsResultingFromITIL" Component="Component_SCMPETCO_OS_DetailsResultingFromITIL" _Entity="_Entity" _EntityRow=SCMPETCO_OS_Details>
+</Dropdown>
+@code {
+    public async Task ItemSelected_SCMPETCO_OS_DetailsResultingFromITIL(object _Item)
+    {
+        var Selected = Utility.JSON.ToObject<dynamic>(Utility.JSON.ToJson(_Item).Result).Result;
+     var Item = SCMPETCO_OS_Details;
+
+    Item.ResultingFromITIL = Selected.Id;
+
+
+    
+
+    await ResultingFromITIL_onitemselected( Selected , SCMPETCO_OS_Details);
+    }
+} 
+
+</DxFormLayoutItem>
+
+<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextSCMPETCO_OS_Details">
+    
+<Input Id="SCMPETCO_OS_Details_RequesterUserITIL" @ref="Ref_SCMPETCO_OS_Details_RequesterUserITIL" Label="کاربر درخواست دهنده ITIL"   Disabled=true  @bind-Value="SCMPETCO_OS_Details.RequesterUserITIL" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"maxlength\":\"40\"}").Result))></Input>
+
+</DxFormLayoutItem>
+
+<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextSCMPETCO_OS_Details">
+    
+<Input Id="SCMPETCO_OS_Details_CreatedAtITIL" @ref="Ref_SCMPETCO_OS_Details_CreatedAtITIL" Label="تاریخ درخواست ITIL"   Disabled=true  @bind-Value="SCMPETCO_OS_Details.CreatedAtITIL" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"maxlength\":\"40\"}").Result))></Input>
+
+</DxFormLayoutItem>
+
+<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextSCMPETCO_OS_Details">
+     
+ 
+@code {
+    Baya.Models.ViewEngine.View_Component Component_SCMPETCO_OS_DetailsITILDetails = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"primaryKey\":false,\"EntityID\":343,\"FieldId\":15204,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":561,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":true,\"RelationParentName\":\"\",\"RelationParentModel\":\"\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://itilorm.workcv.ir/fa-ir/api/v1/vw_ORM_RequestDetail/GetList?RequestID={{data.RequestIdITIL}}\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"inputFormat\":\"DataGrid\",\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.UserName}} {{item.AssetName}} {{item.AssetOperationName}} {{item.Describe}} {{item.CreateDate}} </span>\",\"FieldsTemplate\":[{\"key\":\"RequestID\",\"value\":\"int\"},{\"key\":\"RequestDetailID\",\"value\":\"int\"},{\"key\":\"UserName\",\"value\":\"int\"},{\"key\":\"Describe\",\"value\":\"int\"},{\"key\":\"CreateDate\",\"value\":\"int\"}],\"dataSrc\":\"url\",\"refreshOn\":\"SCMPETCO_OS_Details.RequestID\",\"clearOnRefresh\":true,\"disabled\":true,\"modal\":true,\"label\":\"جزئیات درخواست ITIL\",\"tableView\":true,\"key\":\"ITILDetails\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"15204?EId=343&SubId=19\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
+}
+
+    <Dropdown Id=SCMPETCO_OS_Details_ITILDetails Disabled=true @ref="Ref_SCMPETCO_OS_Details_ITILDetails" Label="جزئیات درخواست ITIL" CssClass=""  DisplayFormat="DataGrid" ExternalApi=true NotMapped=false TextGrid=false  Value="@SCMPETCO_OS_Details.ITILDetails" FieldName="ITILDetails" OnItemSelected="ItemSelected_SCMPETCO_OS_DetailsITILDetails" Component="Component_SCMPETCO_OS_DetailsITILDetails" _Entity="_Entity" _EntityRow=SCMPETCO_OS_Details>
+</Dropdown>
+@code {
+    public async Task ItemSelected_SCMPETCO_OS_DetailsITILDetails(object _Item)
+    {
+        var Selected = Utility.JSON.ToObject<dynamic>(Utility.JSON.ToJson(_Item).Result).Result;
+     var Item = SCMPETCO_OS_Details;
+
+    Item.ITILDetails = Selected.Id;
+
+
+    
+
+    
+    }
+} 
+
+</DxFormLayoutItem>
+
+<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextSCMPETCO_OS_Details">
+    
+<Input Id="SCMPETCO_OS_Details_RequestIdITIL" @ref="Ref_SCMPETCO_OS_Details_RequestIdITIL" Label="شماره درخواست ITIL"  CssClass="d-none" Disabled=true  @bind-Value="SCMPETCO_OS_Details.RequestIdITIL" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"maxlength\":\"30\"}").Result))></Input>
+
+</DxFormLayoutItem>
+
+<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextSCMPETCO_OS_Details">
+    
+<RadioBoolean @ref="Ref_SCMPETCO_OS_Details_IsEnableDemolitionAndRenovation" InLine=true Id="SCMPETCO_OS_Details_IsEnableDemolitionAndRenovation" Required=true  LabelTrue="بله" LabelFalse="خیر" Label="آیا نیاز به عملیات تخریب و نوسازی دارد؟" @bind-Value="SCMPETCO_OS_Details.IsEnableDemolitionAndRenovation" CssClass="" ></RadioBoolean>
+
+</DxFormLayoutItem>
+
+<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextSCMPETCO_OS_Details">
+    
+<Input Id="SCMPETCO_OS_Details_Id" @ref="Ref_SCMPETCO_OS_Details_Id"   CssClass="d-none"   @bind-Value="SCMPETCO_OS_Details.Id" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+</DxFormLayoutItem>
+
+<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextSCMPETCO_OS_Details">
+    
+<Input Id="SCMPETCO_OS_Details_RequestID" @ref="Ref_SCMPETCO_OS_Details_RequestID"      @bind-Value="SCMPETCO_OS_Details.RequestID" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+</DxFormLayoutItem>
+
+<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextSCMPETCO_OS_Details">
+    
+<Input Id="SCMPETCO_OS_Details_CreateUser" @ref="Ref_SCMPETCO_OS_Details_CreateUser"      @bind-Value="SCMPETCO_OS_Details.CreateUser" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+</DxFormLayoutItem>
+
+<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextSCMPETCO_OS_Details">
+    
+<Input Id="SCMPETCO_OS_Details_UpdateUser" @ref="Ref_SCMPETCO_OS_Details_UpdateUser"      @bind-Value="SCMPETCO_OS_Details.UpdateUser" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+</DxFormLayoutItem>
+
+<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextSCMPETCO_OS_Details">
+    
+<Input Id="SCMPETCO_OS_Details_CreateDate" @ref="Ref_SCMPETCO_OS_Details_CreateDate"   CssClass="d-none"   @bind-Value="SCMPETCO_OS_Details.CreateDate" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+</DxFormLayoutItem>
+
+<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextSCMPETCO_OS_Details">
+    
+<Input Id="SCMPETCO_OS_Details_UpdateDate" @ref="Ref_SCMPETCO_OS_Details_UpdateDate"   CssClass="d-none"   @bind-Value="SCMPETCO_OS_Details.UpdateDate" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+</DxFormLayoutItem>
+
+<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextSCMPETCO_OS_Details">
+    
+<Input Id="SCMPETCO_OS_Details_IsDelete" @ref="Ref_SCMPETCO_OS_Details_IsDelete"   CssClass="d-none"   @bind-Value="SCMPETCO_OS_Details.IsDelete" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+</DxFormLayoutItem>
+
+
+        <DxFormLayoutItem ColSpanMd="12" Context="FormLayoutContextSCMPETCO_OS_Details" CssClass="btn-modal-custom">
+            <DxButton Id="SCMPETCO_OS_Details_GridSCMPETCO_OS_MasterId_343ButtonSave" Click="@(() => SaveModalGrid_SCMPETCO_OS_Details(EditFormContextSCMPETCO_OS_Details))" Text="@languageContainer.Keys["DXGrid:Save"]" CssClass="btn btn-green px-5" />
+            
+
+            <DxButton Id="SCMPETCO_OS_Details_GridSCMPETCO_OS_MasterId_343ButtonCancel" Click="@(() => Grid_SCMPETCO_OS_Details.CancelEditAsync())" Text="@languageContainer.Keys["DXGrid:Cancel"]" CssClass="btn btn-red" />
+            <button id="click_s"  hidden>submit</button>
+             <span>|</span>
+           
+            <DxButton Id="SCMPETCO_OS_Details_GridSCMPETCO_OS_MasterId_343ButtonBefore" Click="@(() => Dialog_Grid_SCMPETCO_OS_Details(0,IndexGrid_SCMPETCO_OS_Details,EditFormContextSCMPETCO_OS_Details))" Text="قبلی" CssClass="btn btn-purple" />@* @languageContainer.Keys["DXGrid:??"] *@
+         
+            <DxButton Id="SCMPETCO_OS_Details_GridSCMPETCO_OS_MasterId_343ButtonNext" Click="@(() => Dialog_Grid_SCMPETCO_OS_Details(1,IndexGrid_SCMPETCO_OS_Details,EditFormContextSCMPETCO_OS_Details))" Text="بعدی" CssClass="btn btn-purple" />
+
+        </DxFormLayoutItem>
+    </DxFormLayout>
+
+</EditFormTemplate>
+
+</DxGrid>
+
+<DxPopup @bind-Visible="@ConfirmationShownSCMPETCO_OS_Details" HeaderText="@languageContainer.Keys["DXGrid:DeleteItem"]" Width="350px" CloseOnOutsideClick="false">
+
+    <BodyContentTemplate Context="EditFormContext">
+        <div class="py-3 px-5 text-center">
+            <p>@languageContainer.Keys["DXGrid:DeleteItemHint"]</p>
+            <div class="confirm-dialog-buttons">
+                <DxButton Text="@languageContainer.Keys["DXGrid:Yes"]" CssClass="btn btn-red px-4" Click="@OnYesButtonClickGrid_SCMPETCO_OS_Details" />
+                <DxButton Text="@languageContainer.Keys["DXGrid:No"]" CssClass="btn btn-purple-light px-4" Click="@OnNoButtonClickGrid_SCMPETCO_OS_Details" />
+            </div>
+        </div>
+    </BodyContentTemplate>
+</DxPopup>
+
+<DxPopup @bind-Visible="@ConfirmationSCMPETCO_OS_Details" HeaderText="هشدار" Width="350px" CloseOnOutsideClick="false">
+    <BodyContentTemplate Context="EditFormContext">
+        <div class="py-3 px-5 text-center"> 
+            <p>اطلاعات این فرم تغییر کرده است آیا تغییرات ذخیره شود؟</p>
+            <div class="confirm-dialog-buttons">
+                <DxButton Text="بله" CssClass="btn btn-red px-4" Click="@OnYesButtonSCMPETCO_OS_Details" />
+                <DxButton Text="خیر" CssClass="btn btn-purple-light px-4" Click="@OnNoButtonSCMPETCO_OS_Details" />
+            </div>
+        </div>
+    </BodyContentTemplate>
+</DxPopup>
+@code {
+    // DxGrid? Grid_SCMPETCO_OS_Details;
+    Entity.SCMPETCO_OS_Details SCMPETCO_OS_Details;
+    bool ConfirmationShownSCMPETCO_OS_Details { get; set; } = false;
+    public Entity.SCMPETCO_OS_Details SelectedItemGrid_SCMPETCO_OS_Details { get; set; } = new Entity.SCMPETCO_OS_Details();
+    /// <summary>
+    /// شماره ستون
+    /// </summary>
+    public int IndexGrid_SCMPETCO_OS_Details { get; set; }
+
+    ///////////////////////
+    bool ConfirmationSCMPETCO_OS_Details { get; set; } = false;
+    GridEditFormTemplateContext? _ContextFormTemplateSCMPETCO_OS_Details { get; set; }
+    public int OpenDialogCodeSCMPETCO_OS_Details { get; set; } = 0;
+    ////////////////////////
+
+    async Task OnEditModelSavingSCMPETCO_OS_Details(GridEditModelSavingEventArgs arg)
+    {
+        var e = arg.EditModel;
+    bool NotValid = false;
+    //events
+       NotValid = await SCMPETCO_OS_Details_editmodelsaving(e);
+        
+      if (!NotValid)
+     {
+      SaveGrid_SCMPETCO_OS_Details(arg.DataItem, arg.EditModel);
+     }
+}
+
+async void Dialog_Grid_SCMPETCO_OS_Details(int _OpenDialogCode, int VisibleIndex, GridEditFormTemplateContext e)
+{
+    OpenDialogCodeSCMPETCO_OS_Details = _OpenDialogCode;
+    if (!CheckChangedData(await Utility.JSON.ToJson(e.EditModel)))
+    {
+    _ContextFormTemplateSCMPETCO_OS_Details = e;
+    ConfirmationSCMPETCO_OS_Details = true;
+    }
+    else
+    {
+    await OnNoButtonSCMPETCO_OS_Details();
+    }
+}
+async Task OnYesButtonSCMPETCO_OS_Details()
+{
+
+    ConfirmationSCMPETCO_OS_Details = false;
+    await Task.Delay(1500);
+    //bool FormValidate = await JSO.InvokeAsync<bool>("submitForm");
+    bool FormValidate =  await JS.InvokeAsync<bool>("submitForm");
+    if (FormValidate)
+    {
+        bool NotValid = false;
+    var e = _ContextFormTemplateSCMPETCO_OS_Details.EditModel;
+         //events
+         NotValid = await SCMPETCO_OS_Details_editmodelsaving(e);
+
+        if (!NotValid)
+         {
+        SaveGrid_SCMPETCO_OS_Details(_ContextFormTemplateSCMPETCO_OS_Details.DataItem, _ContextFormTemplateSCMPETCO_OS_Details.EditModel);
+            await Grid_SCMPETCO_OS_Details.CancelEditAsync();
+         await ChangePageGrid_SCMPETCO_OS_Details();
+         await SetEditFormContextGrid_SCMPETCO_OS_Details();
+         }
+          
+    }
+
+}
+async Task OnNoButtonSCMPETCO_OS_Details()
+{
+    ConfirmationSCMPETCO_OS_Details = false;
+    await ChangePageGrid_SCMPETCO_OS_Details();
+    await SetEditFormContextGrid_SCMPETCO_OS_Details();
+
+}
+async Task SetEditFormContextGrid_SCMPETCO_OS_Details()
+{
+    var e = (Entity.SCMPETCO_OS_Details)Grid_SCMPETCO_OS_Details.GetDataItem(IndexGrid_SCMPETCO_OS_Details);
+    JsonData = await Utility.JSON.ToJson(e);
+}
+
+async Task ChangePageGrid_SCMPETCO_OS_Details()
+{
+    int VisibleIndex = IndexGrid_SCMPETCO_OS_Details;
+    try
+    {
+    if (OpenDialogCodeSCMPETCO_OS_Details == 1)
+    {
+        if (VisibleIndex != (Grid_SCMPETCO_OS_Details.GetVisibleRowCount() - 1))
+    { 
+            Grid_SCMPETCO_OS_Details.CancelEditAsync();
+            IndexGrid_SCMPETCO_OS_Details = VisibleIndex + 1;
+    Grid_SCMPETCO_OS_Details.StartEditRowAsync(IndexGrid_SCMPETCO_OS_Details);
+    }
+    }
+    else if (OpenDialogCodeSCMPETCO_OS_Details == 0)
+    {
+        if (VisibleIndex != 0)
+        {
+
+            Grid_SCMPETCO_OS_Details.CancelEditAsync();
+            IndexGrid_SCMPETCO_OS_Details = VisibleIndex - 1;
+    Grid_SCMPETCO_OS_Details.StartEditRowAsync(IndexGrid_SCMPETCO_OS_Details);
+    }
+
+    }
+    var e = (Entity.SCMPETCO_OS_Details)Grid_SCMPETCO_OS_Details.GetDataItem(IndexGrid_SCMPETCO_OS_Details);
+    JsonData = await Utility.JSON.ToJson(e);
+    await Task.Delay(300);
+    await SCMPETCO_OS_Details_afterrendermodal(e);
+    StateHasChanged();
+    }
+    catch (Exception ex)
+    {
+
+    Console.WriteLine("error in ChagePage" + ex.Message);
+    }
+
+}
+
+async Task StartEditNewRowAsync_Grid_SCMPETCO_OS_Details()
+{
+    IndexGrid_SCMPETCO_OS_Details = Grid_SCMPETCO_OS_Details.GetVisibleRowCount();
+Grid_SCMPETCO_OS_Details.StartEditNewRowAsync().GetAwaiter();
+var e = new Entity.SCMPETCO_OS_Details();
+JsonData = await Utility.JSON.ToJson(e);
+await Task.Delay(300);
+await SCMPETCO_OS_Details_afterrendermodal(e);
+}
+
+async Task StartModalGrid_SCMPETCO_OS_Details(GridCommandColumnCellDisplayTemplateContext Context)
+{
+    IndexGrid_SCMPETCO_OS_Details = Context.VisibleIndex;
+Grid_SCMPETCO_OS_Details.StartEditRowAsync(Context.VisibleIndex).GetAwaiter();
+var e = (Entity.SCMPETCO_OS_Details)Context.DataItem;
+JsonData = await Utility.JSON.ToJson(e);
+await Task.Delay(300);
+await SCMPETCO_OS_Details_afterrendermodal(e);
+   // await Task.Delay(500);
+}
+public async Task SaveModalGrid_SCMPETCO_OS_Details(GridEditFormTemplateContext arg)
+{
+     //bool FormValidate = await JSO.InvokeAsync<bool>("submitForm");
+     bool FormValidate =  await JS.InvokeAsync<bool>("submitForm");
+
+    if(FormValidate){
+
+    var e = arg.EditModel;
+    bool NotValid = false;
+    //events
+    NotValid = await SCMPETCO_OS_Details_editmodelsaving(e);
+    if (!NotValid)
+    {
+        SaveGrid_SCMPETCO_OS_Details(arg.DataItem, arg.EditModel);
+
+     await arg.Grid.CancelEditAsync(); 
+
+    }
+
+    }
+
+}
+public async Task SaveAndNewGrid_SCMPETCO_OS_Details(GridEditFormTemplateContext arg)
+{ 
+     //bool FormValidate = await JSO.InvokeAsync<bool>("submitForm");
+     bool FormValidate = await JS.InvokeAsync<bool>("submitForm");
+     
+    if(FormValidate){
+       
+         var e = arg.EditModel;
+          bool NotValid = false;
+     //events
+    NotValid = await SCMPETCO_OS_Details_editmodelsaving(e);
+    if (!NotValid)
+    {
+        SaveGrid_SCMPETCO_OS_Details(arg.DataItem, arg.EditModel);
+
+         await arg.Grid.CancelEditAsync();
+        await StartEditNewRowAsync_Grid_SCMPETCO_OS_Details();
+
+    }
+          
+    }
+   
+}
+
+void PerviousPageGrid_SCMPETCO_OS_Details(int VisibleIndex)
+{
+    try
+     {
+    if (VisibleIndex == 0)
+    {
+        Console.WriteLine(VisibleIndex.ToString());
+    }
+    else
+    {
+Grid_SCMPETCO_OS_Details.CancelEditAsync();
+        IndexGrid_SCMPETCO_OS_Details = VisibleIndex - 1;
+         Grid_SCMPETCO_OS_Details.StartEditRowAsync(IndexGrid_SCMPETCO_OS_Details);
+     }
+    }
+     catch (Exception e)
+     {
+    Console.WriteLine("PerviousPage Message");
+    Console.WriteLine(e.Message);
+    }
+
+}
+
+void NextPageGrid_SCMPETCO_OS_Details(int VisibleIndex)
+{
+
+    if (VisibleIndex == Grid_SCMPETCO_OS_Details.GetVisibleRowCount() - 1)
+    {
+    Console.WriteLine(VisibleIndex.ToString());
+    }
+    else
+    {
+    Console.WriteLine("NextPage Start Grid_SCMPETCO_OS_Details ");
+    try
+    {
+Grid_SCMPETCO_OS_Details.CancelEditAsync();
+        IndexGrid_SCMPETCO_OS_Details = VisibleIndex + 1;
+         Grid_SCMPETCO_OS_Details.StartEditRowAsync(IndexGrid_SCMPETCO_OS_Details);
+     }
+    catch (Exception e)
+    {
+        Console.WriteLine("NextPage Message");
+        Console.WriteLine(e.Message);
+    }
+
+    }
+}
+
+public void SaveGrid_SCMPETCO_OS_Details(object DataItem, object EditModel)
+{
+    var ListEntity = _Entity.SCMPETCO_OS_Details;
+    var MainModel = (Entity.SCMPETCO_OS_Details)DataItem;
+    if (MainModel != null)
+    {
+MainModel.OS_JobTitle = ((Entity.SCMPETCO_OS_Details)EditModel).OS_JobTitle;
+MainModel.Global_UnitsId = ((Entity.SCMPETCO_OS_Details)EditModel).Global_UnitsId;
+MainModel.Global_Units = ((Entity.SCMPETCO_OS_Details)EditModel).Global_Units;
+MainModel.Amount = ((Entity.SCMPETCO_OS_Details)EditModel).Amount;
+MainModel.Global_PriorityId = ((Entity.SCMPETCO_OS_Details)EditModel).Global_PriorityId;
+MainModel.Global_Priority = ((Entity.SCMPETCO_OS_Details)EditModel).Global_Priority;
+MainModel.AreaUse = ((Entity.SCMPETCO_OS_Details)EditModel).AreaUse;
+MainModel.RequsterDesc = ((Entity.SCMPETCO_OS_Details)EditModel).RequsterDesc;
+MainModel.FirstApproverDesc = ((Entity.SCMPETCO_OS_Details)EditModel).FirstApproverDesc;
+MainModel.UploadFileIsEnable = ((Entity.SCMPETCO_OS_Details)EditModel).UploadFileIsEnable;
+MainModel.IsEnableSampleGoods = ((Entity.SCMPETCO_OS_Details)EditModel).IsEnableSampleGoods;
+MainModel.GuaranteeIsEnable = ((Entity.SCMPETCO_OS_Details)EditModel).GuaranteeIsEnable;
+MainModel.HistoryRepairsIsEnable = ((Entity.SCMPETCO_OS_Details)EditModel).HistoryRepairsIsEnable;
+MainModel.ITILCodeIsEnable = ((Entity.SCMPETCO_OS_Details)EditModel).ITILCodeIsEnable;
+MainModel.ResultingFromITIL = ((Entity.SCMPETCO_OS_Details)EditModel).ResultingFromITIL;
+MainModel.RequesterUserITIL = ((Entity.SCMPETCO_OS_Details)EditModel).RequesterUserITIL;
+MainModel.CreatedAtITIL = ((Entity.SCMPETCO_OS_Details)EditModel).CreatedAtITIL;
+MainModel.ITILDetails = ((Entity.SCMPETCO_OS_Details)EditModel).ITILDetails;
+MainModel.RequestIdITIL = ((Entity.SCMPETCO_OS_Details)EditModel).RequestIdITIL;
+MainModel.IsEnableDemolitionAndRenovation = ((Entity.SCMPETCO_OS_Details)EditModel).IsEnableDemolitionAndRenovation;
+MainModel.Id = ((Entity.SCMPETCO_OS_Details)EditModel).Id;
+MainModel.RequestID = ((Entity.SCMPETCO_OS_Details)EditModel).RequestID;
+MainModel.CreateUser = ((Entity.SCMPETCO_OS_Details)EditModel).CreateUser;
+MainModel.UpdateUser = ((Entity.SCMPETCO_OS_Details)EditModel).UpdateUser;
+MainModel.CreateDate = ((Entity.SCMPETCO_OS_Details)EditModel).CreateDate;
+MainModel.UpdateDate = ((Entity.SCMPETCO_OS_Details)EditModel).UpdateDate;
+MainModel.IsDelete = ((Entity.SCMPETCO_OS_Details)EditModel).IsDelete;
+
+    }
+    else
+    {
+    ListEntity.Add((Entity.SCMPETCO_OS_Details)EditModel);
+    }
+}
+
+async Task OnDataItemDeletingSCMPETCO_OS_Details(GridDataItemDeletingEventArgs e)
+    {
+    var ListEntity = _Entity.SCMPETCO_OS_Details;
+    ListEntity.Remove((Entity.SCMPETCO_OS_Details)e.DataItem);
+}
+async void OnDeleteButtonClickGrid_SCMPETCO_OS_Details (GridCommandColumnCellDisplayTemplateContext ex)
+{
+    SelectedItemGrid_SCMPETCO_OS_Details = (ex.DataItem as Entity.SCMPETCO_OS_Details);
+    var e =SelectedItemGrid_SCMPETCO_OS_Details;
+    
+     
+    Console.WriteLine("end OnDeleteButtonClickGrid_test_OrderBody 0");
+    ConfirmationShownSCMPETCO_OS_Details = true;
+    await Task.Yield();
+     await InvokeAsync(StateHasChanged);
+    
+    Console.WriteLine("end OnDeleteButtonClickGrid_test_OrderBody 1");
+}
+async void OnYesButtonClickGrid_SCMPETCO_OS_Details ()
+{
+       if (SelectedItemGrid_SCMPETCO_OS_Details != null)
+    {
+      if (SelectedItemGrid_SCMPETCO_OS_Details.Id == Guid.Empty)
+      {
+          var ListEntity = _Entity.SCMPETCO_OS_Details;
+        ListEntity.Remove((Entity.SCMPETCO_OS_Details)SelectedItemGrid_SCMPETCO_OS_Details);
+     
+      }
+      else
+      {
+        var cleanModel = new Entity.SCMPETCO_OS_Details();
+      // چک کن آیا پراپرتی IsDelete در این نوع وجود دارد؟
+        var prop = typeof(Entity.SCMPETCO_OS_Details).GetProperty("IsDelete");
+        if (prop != null && prop.CanRead && prop.CanWrite)
+        {
+            // مقدار فعلی را بگیر
+            var currentValue = prop.GetValue(SelectedItemGrid_SCMPETCO_OS_Details);
+
+            if (currentValue is bool boolValue)
+            {
+                // مقدار را معکوس کن
+                var newValue = !boolValue;
+
+                // روی هر دو شیء تنظیم کن
+                prop.SetValue(SelectedItemGrid_SCMPETCO_OS_Details, newValue);
+                prop.SetValue(cleanModel, newValue);
+            }
+        }
+        EntityHelper.SetPropertyValue(cleanModel, cleanModel._GetIdName, SelectedItemGrid_SCMPETCO_OS_Details._Id);
+    
+       
+       
+      }
+    }
+    var e= SelectedItemGrid_SCMPETCO_OS_Details;
+    
+    Grid_SCMPETCO_OS_Details.Reload();
+    ConfirmationShownSCMPETCO_OS_Details = false;
+     await Task.Yield();
+    await InvokeAsync(StateHasChanged);
+
+}
+void OnNoButtonClickGrid_SCMPETCO_OS_Details ()
+{
+    ConfirmationShownSCMPETCO_OS_Details = false;
+}
+
+void CustomizeRowsGrid_SCMPETCO_OS_Details(GridCustomizeElementEventArgs e)
+{
+    ///استایل سطر
+    if (e.ElementType == GridElementType.DataRow)
+    {
+    var item = ((Entity.SCMPETCO_OS_Details)e.Grid.GetDataItem(e.VisibleIndex));
+
+       if (item.IsDelete == true)
+       {
+           e.CssClass = "bg-lightred disablediv";
+       }
+    }
+}
+
+async void CustomizeEditGrid_SCMPETCO_OS_Details(GridCustomizeEditModelEventArgs e)
+{
+
+    if (e.IsNew)
+    {
+
+    var newRow = (Entity.SCMPETCO_OS_Details)e.EditModel;
+
+     
+
+    }
+
+
+}
+public async void RowClickGrid_SCMPETCO_OS_Details(GridRowClickEventArgs e)
+{
+
+}
+
+public async void RowDubbleClickGrid_SCMPETCO_OS_Details(GridRowClickEventArgs e)
+{
+
+}
+}
+
+<Input Id="Id" @ref="Ref_Id"   CssClass="d-none"   @bind-Value="_Entity.Id" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+<Input Id="RequestID" @ref="Ref_RequestID"      @bind-Value="_Entity.RequestID" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+<Input Id="CreateUser" @ref="Ref_CreateUser"      @bind-Value="_Entity.CreateUser" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+<Input Id="UpdateUser" @ref="Ref_UpdateUser"      @bind-Value="_Entity.UpdateUser" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+<Input Id="CreateDate" @ref="Ref_CreateDate"   CssClass="d-none"   @bind-Value="_Entity.CreateDate" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+<Input Id="UpdateDate" @ref="Ref_UpdateDate"   CssClass="d-none"   @bind-Value="_Entity.UpdateDate" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+<Input Id="IsDelete" @ref="Ref_IsDelete"   CssClass="d-none"   @bind-Value="_Entity.IsDelete" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+<Input Id="RequestTrakingCode" @ref="Ref_RequestTrakingCode" Label="کد پیگیری سیستمی"  CssClass="d-none" Disabled=true  @bind-Value="_Entity.RequestTrakingCode" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"maxlength\":\"50\"}").Result))></Input>
+
+<Input Id="ProcessVersionID" @ref="Ref_ProcessVersionID" Label="شناسه نسخه فرآیند جاری"  CssClass="d-none" Disabled=true  @bind-Value="_Entity.ProcessVersionID" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"maxlength\":\"50\"}").Result))></Input>
+
+    </EditForm>
+</div>
+
+@if (ShowSubmit)
+{
+    <button class="btn btn-sm btn-green" @onclick=Submit>ذخیره</button>
+}
+
+@code {
+    #region Function
+
+    //todo  جا به جا شود برده شود تو فایل  Peropeties
+    protected override async Task OnInitializedAsync()
+    {
+        Console.WriteLine("#log OnInitializedAsync");
+
+        TableGet = await Utility.JSON.ToObject<Table>("{\"Name\":\"SCMPETCO_OS_Master\",\"GetNameAs\":\"SCMPETCO_OS_Master\",\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"RequestID\",\"GetNameAs\":\"RequestID\"},{\"Name\":\"CreateUser\",\"GetNameAs\":\"CreateUser\"},{\"Name\":\"UpdateUser\",\"GetNameAs\":\"UpdateUser\"},{\"Name\":\"CreateDate\",\"GetNameAs\":\"CreateDate\"},{\"Name\":\"UpdateDate\",\"GetNameAs\":\"UpdateDate\"},{\"Name\":\"IsDelete\",\"GetNameAs\":\"IsDelete\"},{\"Name\":\"UserStarterFullName\",\"GetNameAs\":\"UserStarterFullName\"},{\"Name\":\"UserStarterCompanyName\",\"GetNameAs\":\"UserStarterCompanyName\"},{\"Name\":\"UserStarterUnitName\",\"GetNameAs\":\"UserStarterUnitName\"},{\"Name\":\"UserStarterSectionName\",\"GetNameAs\":\"UserStarterSectionName\"},{\"Name\":\"RequestTrakingCode\",\"GetNameAs\":\"RequestTrakingCode\"},{\"Name\":\"ProcessVersionID\",\"GetNameAs\":\"ProcessVersionID\"},{\"Name\":\"SCMPETCO_OS_ResultingFromId\",\"GetNameAs\":\"SCMPETCO_OS_ResultingFromId\"},{\"Name\":\"SCMPETCO_ICT_DepartmentsId\",\"GetNameAs\":\"SCMPETCO_ICT_DepartmentsId\"}],\"Relation\":[{\"Name\":\"SCMPETCO_OS_ResultingFrom\",\"GetNameAs\":\"SCMPETCO_OS_ResultingFrom\",\"ModeErtebat\":1,\"Column\":[{\"Name\":\"Code\",\"GetNameAs\":\"Code\"},{\"Name\":\"Title\",\"GetNameAs\":\"Title\"}],\"Relation\":[]},{\"Name\":\"SCMPETCO_ICT_Departments\",\"GetNameAs\":\"SCMPETCO_ICT_Departments\",\"ModeErtebat\":1,\"Column\":[{\"Name\":\"Code\",\"GetNameAs\":\"Code\"},{\"Name\":\"Title\",\"GetNameAs\":\"Title\"}],\"Relation\":[]},{\"Name\":\"SCMPETCO_OS_Details\",\"GetNameAs\":\"SCMPETCO_OS_Details\",\"ModeErtebat\":2,\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"RequestID\",\"GetNameAs\":\"RequestID\"},{\"Name\":\"CreateUser\",\"GetNameAs\":\"CreateUser\"},{\"Name\":\"UpdateUser\",\"GetNameAs\":\"UpdateUser\"},{\"Name\":\"CreateDate\",\"GetNameAs\":\"CreateDate\"},{\"Name\":\"UpdateDate\",\"GetNameAs\":\"UpdateDate\"},{\"Name\":\"IsDelete\",\"GetNameAs\":\"IsDelete\"},{\"Name\":\"OS_JobTitle\",\"GetNameAs\":\"OS_JobTitle\"},{\"Name\":\"Global_UnitsId\",\"GetNameAs\":\"Global_UnitsId\"},{\"Name\":\"Amount\",\"GetNameAs\":\"Amount\"},{\"Name\":\"Global_PriorityId\",\"GetNameAs\":\"Global_PriorityId\"},{\"Name\":\"AreaUse\",\"GetNameAs\":\"AreaUse\"},{\"Name\":\"RequsterDesc\",\"GetNameAs\":\"RequsterDesc\"},{\"Name\":\"FirstApproverDesc\",\"GetNameAs\":\"FirstApproverDesc\"},{\"Name\":\"UploadFileIsEnable\",\"GetNameAs\":\"UploadFileIsEnable\"},{\"Name\":\"IsEnableSampleGoods\",\"GetNameAs\":\"IsEnableSampleGoods\"},{\"Name\":\"IsEnableDemolitionAndRenovation\",\"GetNameAs\":\"IsEnableDemolitionAndRenovation\"},{\"Name\":\"GuaranteeIsEnable\",\"GetNameAs\":\"GuaranteeIsEnable\"},{\"Name\":\"HistoryRepairsIsEnable\",\"GetNameAs\":\"HistoryRepairsIsEnable\"},{\"Name\":\"ITILCodeIsEnable\",\"GetNameAs\":\"ITILCodeIsEnable\"},{\"Name\":\"ResultingFromITIL\",\"GetNameAs\":\"ResultingFromITIL\"},{\"Name\":\"RequesterUserITIL\",\"GetNameAs\":\"RequesterUserITIL\"},{\"Name\":\"CreatedAtITIL\",\"GetNameAs\":\"CreatedAtITIL\"},{\"Name\":\"ITILDetails\",\"GetNameAs\":\"ITILDetails\"},{\"Name\":\"RequestIdITIL\",\"GetNameAs\":\"RequestIdITIL\"}],\"Relation\":[{\"Name\":\"Global_Units\",\"GetNameAs\":\"Global_Units\",\"ModeErtebat\":1,\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"Code\",\"GetNameAs\":\"Code\"},{\"Name\":\"Title\",\"GetNameAs\":\"Title\"}]},{\"Name\":\"Global_Priority\",\"GetNameAs\":\"Global_Priority\",\"ModeErtebat\":1,\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"Title\",\"GetNameAs\":\"Title\"},{\"Name\":\"Code\",\"GetNameAs\":\"Code\"}]},{\"Name\":\"SCMPETCO_OS_Details_UploadFiles\",\"GetNameAs\":\"SCMPETCO_OS_Details_UploadFiles\",\"ModeErtebat\":2,\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"SCMPETCO_OS_DetailsId\",\"GetNameAs\":\"SCMPETCO_OS_DetailsId\"},{\"Name\":\"storage\",\"GetNameAs\":\"storage\"},{\"Name\":\"name\",\"GetNameAs\":\"name\"},{\"Name\":\"url\",\"GetNameAs\":\"url\"},{\"Name\":\"size\",\"GetNameAs\":\"size\"},{\"Name\":\"type\",\"GetNameAs\":\"type\"},{\"Name\":\"originalName\",\"GetNameAs\":\"originalName\"},{\"Name\":\"hash\",\"GetNameAs\":\"hash\"},{\"Name\":\"RequestID\",\"GetNameAs\":\"RequestID\"},{\"Name\":\"CreateUser\",\"GetNameAs\":\"CreateUser\"},{\"Name\":\"UpdateUser\",\"GetNameAs\":\"UpdateUser\"},{\"Name\":\"CreateDate\",\"GetNameAs\":\"CreateDate\"},{\"Name\":\"UpdateDate\",\"GetNameAs\":\"UpdateDate\"},{\"Name\":\"IsDelete\",\"GetNameAs\":\"IsDelete\"}]},{\"Name\":\"SCMPETCO_OS_Details_SampleGoodsFiles\",\"GetNameAs\":\"SCMPETCO_OS_Details_SampleGoodsFiles\",\"ModeErtebat\":2,\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"SCMPETCO_OS_DetailsId\",\"GetNameAs\":\"SCMPETCO_OS_DetailsId\"},{\"Name\":\"storage\",\"GetNameAs\":\"storage\"},{\"Name\":\"name\",\"GetNameAs\":\"name\"},{\"Name\":\"url\",\"GetNameAs\":\"url\"},{\"Name\":\"size\",\"GetNameAs\":\"size\"},{\"Name\":\"type\",\"GetNameAs\":\"type\"},{\"Name\":\"originalName\",\"GetNameAs\":\"originalName\"},{\"Name\":\"hash\",\"GetNameAs\":\"hash\"},{\"Name\":\"RequestID\",\"GetNameAs\":\"RequestID\"},{\"Name\":\"CreateUser\",\"GetNameAs\":\"CreateUser\"},{\"Name\":\"UpdateUser\",\"GetNameAs\":\"UpdateUser\"},{\"Name\":\"CreateDate\",\"GetNameAs\":\"CreateDate\"},{\"Name\":\"UpdateDate\",\"GetNameAs\":\"UpdateDate\"},{\"Name\":\"IsDelete\",\"GetNameAs\":\"IsDelete\"}]}]}]}");
+        TablePost = await Utility.JSON.ToObject<Table>("{\"Name\":\"SCMPETCO_OS_Master\",\"GetNameAs\":\"SCMPETCO_OS_Master\",\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"RequestID\",\"GetNameAs\":\"RequestID\"},{\"Name\":\"CreateUser\",\"GetNameAs\":\"CreateUser\"},{\"Name\":\"UpdateUser\",\"GetNameAs\":\"UpdateUser\"},{\"Name\":\"CreateDate\",\"GetNameAs\":\"CreateDate\"},{\"Name\":\"UpdateDate\",\"GetNameAs\":\"UpdateDate\"},{\"Name\":\"IsDelete\",\"GetNameAs\":\"IsDelete\"},{\"Name\":\"UserStarterFullName\",\"GetNameAs\":\"UserStarterFullName\"},{\"Name\":\"UserStarterCompanyName\",\"GetNameAs\":\"UserStarterCompanyName\"},{\"Name\":\"UserStarterUnitName\",\"GetNameAs\":\"UserStarterUnitName\"},{\"Name\":\"UserStarterSectionName\",\"GetNameAs\":\"UserStarterSectionName\"},{\"Name\":\"RequestTrakingCode\",\"GetNameAs\":\"RequestTrakingCode\"},{\"Name\":\"ProcessVersionID\",\"GetNameAs\":\"ProcessVersionID\"},{\"Name\":\"SCMPETCO_OS_ResultingFromId\",\"GetNameAs\":\"SCMPETCO_OS_ResultingFromId\"},{\"Name\":\"SCMPETCO_ICT_DepartmentsId\",\"GetNameAs\":\"SCMPETCO_ICT_DepartmentsId\"}],\"Relation\":[{\"Name\":\"SCMPETCO_OS_Details\",\"GetNameAs\":\"SCMPETCO_OS_Details\",\"ModeErtebat\":2,\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"RequestID\",\"GetNameAs\":\"RequestID\"},{\"Name\":\"CreateUser\",\"GetNameAs\":\"CreateUser\"},{\"Name\":\"UpdateUser\",\"GetNameAs\":\"UpdateUser\"},{\"Name\":\"CreateDate\",\"GetNameAs\":\"CreateDate\"},{\"Name\":\"UpdateDate\",\"GetNameAs\":\"UpdateDate\"},{\"Name\":\"IsDelete\",\"GetNameAs\":\"IsDelete\"},{\"Name\":\"OS_JobTitle\",\"GetNameAs\":\"OS_JobTitle\"},{\"Name\":\"Global_UnitsId\",\"GetNameAs\":\"Global_UnitsId\"},{\"Name\":\"Amount\",\"GetNameAs\":\"Amount\"},{\"Name\":\"Global_PriorityId\",\"GetNameAs\":\"Global_PriorityId\"},{\"Name\":\"AreaUse\",\"GetNameAs\":\"AreaUse\"},{\"Name\":\"RequsterDesc\",\"GetNameAs\":\"RequsterDesc\"},{\"Name\":\"FirstApproverDesc\",\"GetNameAs\":\"FirstApproverDesc\"},{\"Name\":\"UploadFileIsEnable\",\"GetNameAs\":\"UploadFileIsEnable\"},{\"Name\":\"IsEnableSampleGoods\",\"GetNameAs\":\"IsEnableSampleGoods\"},{\"Name\":\"IsEnableDemolitionAndRenovation\",\"GetNameAs\":\"IsEnableDemolitionAndRenovation\"},{\"Name\":\"GuaranteeIsEnable\",\"GetNameAs\":\"GuaranteeIsEnable\"},{\"Name\":\"HistoryRepairsIsEnable\",\"GetNameAs\":\"HistoryRepairsIsEnable\"},{\"Name\":\"ITILCodeIsEnable\",\"GetNameAs\":\"ITILCodeIsEnable\"},{\"Name\":\"ResultingFromITIL\",\"GetNameAs\":\"ResultingFromITIL\"},{\"Name\":\"RequesterUserITIL\",\"GetNameAs\":\"RequesterUserITIL\"},{\"Name\":\"CreatedAtITIL\",\"GetNameAs\":\"CreatedAtITIL\"},{\"Name\":\"ITILDetails\",\"GetNameAs\":\"ITILDetails\"},{\"Name\":\"RequestIdITIL\",\"GetNameAs\":\"RequestIdITIL\"}],\"Relation\":[{\"Name\":\"SCMPETCO_OS_Details_UploadFiles\",\"GetNameAs\":\"SCMPETCO_OS_Details_UploadFiles\",\"ModeErtebat\":2,\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"SCMPETCO_OS_DetailsId\",\"GetNameAs\":\"SCMPETCO_OS_DetailsId\"},{\"Name\":\"storage\",\"GetNameAs\":\"storage\"},{\"Name\":\"name\",\"GetNameAs\":\"name\"},{\"Name\":\"url\",\"GetNameAs\":\"url\"},{\"Name\":\"size\",\"GetNameAs\":\"size\"},{\"Name\":\"type\",\"GetNameAs\":\"type\"},{\"Name\":\"originalName\",\"GetNameAs\":\"originalName\"},{\"Name\":\"hash\",\"GetNameAs\":\"hash\"},{\"Name\":\"RequestID\",\"GetNameAs\":\"RequestID\"},{\"Name\":\"CreateUser\",\"GetNameAs\":\"CreateUser\"},{\"Name\":\"UpdateUser\",\"GetNameAs\":\"UpdateUser\"},{\"Name\":\"CreateDate\",\"GetNameAs\":\"CreateDate\"},{\"Name\":\"UpdateDate\",\"GetNameAs\":\"UpdateDate\"},{\"Name\":\"IsDelete\",\"GetNameAs\":\"IsDelete\"}]},{\"Name\":\"SCMPETCO_OS_Details_SampleGoodsFiles\",\"GetNameAs\":\"SCMPETCO_OS_Details_SampleGoodsFiles\",\"ModeErtebat\":2,\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"SCMPETCO_OS_DetailsId\",\"GetNameAs\":\"SCMPETCO_OS_DetailsId\"},{\"Name\":\"storage\",\"GetNameAs\":\"storage\"},{\"Name\":\"name\",\"GetNameAs\":\"name\"},{\"Name\":\"url\",\"GetNameAs\":\"url\"},{\"Name\":\"size\",\"GetNameAs\":\"size\"},{\"Name\":\"type\",\"GetNameAs\":\"type\"},{\"Name\":\"originalName\",\"GetNameAs\":\"originalName\"},{\"Name\":\"hash\",\"GetNameAs\":\"hash\"},{\"Name\":\"RequestID\",\"GetNameAs\":\"RequestID\"},{\"Name\":\"CreateUser\",\"GetNameAs\":\"CreateUser\"},{\"Name\":\"UpdateUser\",\"GetNameAs\":\"UpdateUser\"},{\"Name\":\"CreateDate\",\"GetNameAs\":\"CreateDate\"},{\"Name\":\"UpdateDate\",\"GetNameAs\":\"UpdateDate\"},{\"Name\":\"IsDelete\",\"GetNameAs\":\"IsDelete\"}]}]}]}");
+
+        config = CKEditorBundleOptions.DefaultConfig.WithHtmlEditing();
+        config.Language = "fa";
+
+        //بعداد اگه نیاز شد فرمی رو تو حالت غیر لاگین شده نمایش بدیم باید این  کد تغیر کنه
+        var user = (await _authenticationStateProvider.GetAuthenticationStateAsync()).User;
+        string UserID = user.FindFirst(c => c.Type == ClaimTypes.NameIdentifier).Value;
+        //داینامیک بشه
+        Dictionary<string, object> List = new Dictionary<string, object>();
+        //List.Add("UserID", Guid.Parse(UserID));
+        List.Add("UserID", UserID);
+        _User = await Domain.Utility.ConvertParameter.ConvertToObject(List);
+
+        Console.WriteLine("#log OnInitializedAsync End");
+
+        await base.OnInitializedAsync();
+    }
+
+    //todo  جا به جا شود برده شود تو فایل  Peropeties
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            Console.WriteLine("#log OnAfterRenderAsync");
+            await base.BeforGetData();
+
+            var Result = await GetData();
+
+            await base.AfterGetData();
+
+            StateHasChanged();
+
+            await OnFormloaded.InvokeAsync(Result);
+        }
+
+        await base.OnAfterRenderAsync(firstRender);
+    }
+
+    /// <summary>
+    /// دریافت داده
+    /// </summary>
+    /// <returns></returns>
+    public async Task<Baya.Models.Utility.Result> GetData()
+    {
+        await BeforGetData();
+
+        var DataResult = await ApiServer.External.Services.Data.Get(TableGet, QueryFilter, TableGet.Name, null);
+        
+        Baya.Models.Utility.Result Result = new Baya.Models.Utility.Result();
+
+        if (DataResult != null && DataResult.Status == HttpStatusCode.OK)
+        {
+            if (DataResult.Content != null)
+            {
+                string Data = DataResult.Content.ToString();
+                if (Data is not null)
+                {
+                    _Entity = await Utility.JSON.ToObject < Entity.SCMPETCO_OS_Master>(Data);
+        }
+            }
+            else
+            {
+                _Entity = new Entity.SCMPETCO_OS_Master();
+            //todo تشخیص دهد که داده ای وجود ندارد و دفه اول هست که فرم لود میشود
+            //todo اگه نیاز شد دالخ ORm خروجیش متفاوت باشه
+            //ست کردن دیفالت های فرم
+            if (true)
+                {//
+_Entity.UserStarterFullName = _RequestParameters.UserStarterFullName;
+_Entity.UserStarterCompanyName = _RequestParameters.UserStarterCompanyName;
+_Entity.UserStarterUnitName = _RequestParameters.UserStarterUnitName;
+_Entity.UserStarterSectionName = _RequestParameters.UserStarterSectionName;
+_Entity.RequestTrakingCode = _RequestParameters.RequestTrakingCode;
+_Entity.ProcessVersionID = _RequestParameters.ProcessVersionID;
+
+
+                    //نمونه ست کردن پارامتر روش اول
+                    //_Entity.InstantDelivery = _RequestParameters.UserId;
+
+                    //نمونه کد برای ست کردن پارامتر روش دوم
+                    //_Entity.InstantDelivery = await GetParameter("@@UserId@@");
+                }
+
+                SumaryMessage = "داده لود شده معتبر نمی باشد";
+                Result.Status = HttpStatusCode.InternalServerError;
+            }
+        }
+        else
+        {
+            SumaryMessage = "داده لود نشد";
+            Result.Status = HttpStatusCode.InternalServerError;
+        }
+
+        Result.Message = SumaryMessage;
+
+        StateHasChanged();
+
+        await AfterGetData();
+
+        return Result;
+    }
+
+    public override async Task SetParametersAsync(ParameterView parameters)
+    {
+        await base.SetParametersAsync(parameters);
+    }
+
+    protected override void OnInitialized()
+    {
+        //todo این خط برده شود داخل تابع پاینی ببینیم خطا داره یا نه
+        languageContainer.InitLocalizedComponent(this);
+    }
+
+
+    /// <summary>
+    /// بررسی تغییر دیتا
+    /// </summary>
+    /// <param name="Json"></param>
+    /// <returns></returns>
+    public bool CheckChangedData(string? Json)
+    {
+        if (string.Equals(JsonData, Json)) return true;
+        return false;
+    }
+
+    /// <summary>
+    /// ارسال داده
+    /// </summary>
+    /// <returns></returns>
+    public override async Task<Baya.Models.Utility.Result> Submit()
+    {
+        SumaryMessage = "";
+        Baya.Models.Utility.Result Result = new Baya.Models.Utility.Result();
+
+        if (!await FormValidator())
+        {
+            StateHasChanged();
+            Result.Status = HttpStatusCode.InternalServerError;
+            return Result;
+        }
+
+        if ((await BeforSubmit()).Status != HttpStatusCode.OK)
+        {
+            StateHasChanged();
+            Result.Status = HttpStatusCode.InternalServerError;
+            return Result;
+        }
+
+        _loadingService.Show();
+        var Resualt = await PostData();
+
+        if (Resualt)
+        {
+            Result.Status = HttpStatusCode.OK;
+
+            SumaryMessage = "داده ها با موفقیت ثبت شد";
+        }
+        else
+        {
+            Result.Status = HttpStatusCode.InternalServerError;
+            SumaryMessage = "ذخیره داده با مشکل مواجه شد";
+        }
+
+        Result.Message = SumaryMessage;
+
+        switch ((int)Result.Status)
+        {
+            case 200:
+                toastService.ShowSuccess(Result.Message);
+                break;
+            case 500:
+                toastService.ShowError(Result.Message);
+                break;
+            default:
+                break;
+        } 
+        _loadingService.Hide();
+        await AfterSubmit();
+
+        return Result;
+    }
+
+    /// <summary>
+    /// ارسال داده
+    /// </summary>
+    /// <returns></returns>
+    private async Task<bool> PostData()
+    {
+        string Data = await Utility.JSON.ToJson(_Entity);
+
+        bool IsOk = false;
+        var Model = await ApiServer.External.Services.Data.Put(Data, TablePost.Name, TablePost, RequestID?.ToString(), _User.UserID.ToString());
+        // بررسی وضعیت پاسخ
+        if (Model?.Status == HttpStatusCode.OK)
+        {
+            if (Model.Content != null && !IndependentForm)
+                { 
+                    string NewData = Model.Content.ToString();
+                    if (NewData is not null)
+                    {
+                        var NewEntity = await Utility.JSON.ToObject < Entity.SCMPETCO_OS_Master>(NewData);
+                     await  GetDataForm(NewEntity._Id);
+                    }
+
+                }
+                IsOk = true;
+
+        }
+        return IsOk;
+    }
+
+
+    void SetLanguage(string language)
+    {
+        languageContainer.SetLanguage(System.Globalization.CultureInfo.GetCultureInfo(language));
+    }
+
+    // public void ValidFormSubmitted(EditContext editContext)
+    // {
+
+    // }
+
+    // public void InvalidFormSubmitted(EditContext editContext)
+    // {
+
+    // }
+    public async Task GetDataForm(object Id)
+    {
+        Type type = Id.GetType();
+        string TypeToQueryBuilder = Utility.TypeConverterQueryBuilder.ConvertCSharpTypeToQueryBuilder(type);
+        var NewQuery = new QueryBuilderFilterRule() { Condition = "AND" };
+        NewQuery.Rules = new List<QueryBuilderFilterRule>
+            {
+                    new QueryBuilderFilterRule()
+                    {
+                        Field = _Entity._GetIdName,
+                        Id = _Entity._GetIdName,
+                        Input = "text",
+                        Operator = "equal",
+                        Type =  TypeToQueryBuilder,
+                        Value = new string[]{ Id.ToString() },
+                    }
+            };
+        QueryFilter = NewQuery;
+        await GetData();
+        StateHasChanged();
+    }
+    #endregion
+}

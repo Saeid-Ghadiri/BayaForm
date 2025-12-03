@@ -1,0 +1,859 @@
+@inherits Forms.Forms.Form_595_CUBase
+@namespace FormsPage
+
+@using AKSoftware.Localization.MultiLanguages.Blazor
+@using Baya.Models.Utility;
+@using Baya.Models.ORM
+@using Microsoft.AspNetCore.Components.Forms
+@using Microsoft.AspNetCore.Components.Authorization;
+@using System.Security.Claims
+@using System.Net
+@using Microsoft.JSInterop
+@using Baya.Models.ViewEngine
+@using Forms.Domain.Utility
+@using Castle.DynamicLinqQueryBuilder
+<style>
+    
+</style>
+
+<Plugins.Tools.ConfirmDialog @ref="Confirm" />
+
+<span class="d-none">VersionForm:@VersionForm</span>
+@*
+@if (!string.IsNullOrEmpty(SumaryMessage))
+{
+    <div>
+        @SumaryMessage
+    </div>
+} *@
+
+@* <EditForm @ref="_Form" Model="_Entity" OnValidSubmit="ValidFormSubmitted" OnInvalidSubmit="InvalidFormSubmitted" OnSubmit="Submit"> *@
+<div class="@(ReadOnly?"FormReadOnly":"")">
+    <EditForm @ref="_Form" Model="_Entity" OnSubmit="Submit">
+        
+<Input Id="Id" @ref="Ref_Id"   CssClass="d-none"   @bind-Value="_Entity.Id" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+<div class="row ">
+    
+<div class="col-md-6">
+    
+<Input Id="StationTypeName" @ref="Ref_StationTypeName" Label="نوع دستگاه"     @bind-Value="_Entity.StationTypeName" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+</div>
+
+<div class="col-md-6">
+    
+<Input Id="StationTypeLatinName" @ref="Ref_StationTypeLatinName" Label="نوع دستگاه لاتین"     @bind-Value="_Entity.StationTypeLatinName" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+</div>
+
+</div>
+
+<DxGrid @ref="Grid_PPCAtlasBobbin_Station" Data="_Entity.PPCAtlasBobbin_Station" KeyFieldName="_Id" EditMode="GridEditMode.PopupEditForm"
+        EditModelSaving="OnEditModelSavingPPCAtlasBobbin_Station"
+        DataItemDeleting="OnDataItemDeletingPPCAtlasBobbin_Station"
+        PopupEditFormCssClass="ModalWidth"
+        PopupEditFormHeaderText="ایستگاه"
+        EditFormButtonsVisible="false"
+        CustomizeEditModel="CustomizeEditGrid_PPCAtlasBobbin_Station"
+        CustomizeElement="CustomizeRowsGrid_PPCAtlasBobbin_Station" 
+        Component="@((Utility.JSON.ToObject<View_Component>("{\"primaryKey\":false,\"EntityID\":337,\"FieldId\":337,\"NotNull\":false,\"ViewId\":0,\"NotMapped\":false,\"Relation\":false,\"RelationExternal\":false,\"RelationChildModel\":\"PPCAtlasBobbin_Station\",\"GridMainModel\":\"PPCAtlasBobbin_Station\",\"widget\":{\"altInput\":false,\"allowInput\":false,\"clickOpens\":false,\"enableDate\":false,\"enableTime\":false,\"noCalendar\":false,\"useLocaleSettings\":false,\"hourIncrement\":0,\"minuteIncrement\":0,\"time_24hr\":false},\"wysiwyg\":false,\"data\":{},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"FieldsTemplate\":[],\"refreshOn\":\"data\",\"reorder\":false,\"addAnotherPosition\":\"bottom\",\"layoutFixed\":false,\"enableRowGroups\":false,\"initEmpty\":false,\"disabled\":true,\"modal\":true,\"label\":\"ایستگاه\",\"tableView\":true,\"key\":\"GridPPCAtlasBobbin_StationTypeId_337\",\"type\":\"datagrid\",\"input\":true,\"hideLabel\":true,\"modalEdit\":true,\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":false,\"AccessEdit\":true,\"AccessNew\":true}").Result))"
+         >
+    <Columns>
+    
+<DxGridCommandColumn Width="70px">
+    <HeaderTemplate Context="HeaderContext">
+       
+<a id=PPCAtlasBobbin_Station_GridPPCAtlasBobbin_StationTypeId_337ButtonNew class="btn btn-sm btn-green btnGridAddData" @onclick="@(() => StartEditNewRowAsync_Grid_PPCAtlasBobbin_Station())" style="text-decoration: none;" href="javascript:void(0);">
+    <span class="fal fa-plus-circle btnicon"></span>
+    <span>@languageContainer.Keys["DXGrid:New"]</span>
+</a>
+
+    </HeaderTemplate>
+    <CellDisplayTemplate Context="CellContext">
+       
+<a id=PPCAtlasBobbin_Station_GridPPCAtlasBobbin_StationTypeId_337ButtonEdit class="btn btn-sm btn-yellow-light btnEditGridData" @onclick="@(() => StartModalGrid_PPCAtlasBobbin_Station(CellContext))" style="text-decoration: none;" href="javascript:void(0);">
+    <span class="fal fa-pencil btnicon"></span>
+</a>
+
+       
+    </CellDisplayTemplate>
+</DxGridCommandColumn>
+
+    <DxGridCommandColumn   Width="60px">
+           <HeaderTemplate Context="HeaderContext">
+               <a    style="text-decoration: none;"  >
+                
+                   <span>ردیف</span>
+               </a>
+           </HeaderTemplate>
+           <CellDisplayTemplate Context="CellContext">
+            @if (CellContext.VisibleIndex > 9){
+                <p>@(CellContext.VisibleIndex + 1)</p>
+            }else{
+                <p>@(((CellContext.Grid.PageIndex * CellContext.Grid.PageSize) + (CellContext.VisibleIndex + 1)))</p>
+            }
+          
+           </CellDisplayTemplate>
+     </DxGridCommandColumn>
+    <DxGridDataColumn  Caption="نام ایستگاه"  FieldName="StationName" />
+
+<DxGridDataColumn  Caption="نام ایستگاه لاتین"  FieldName="StationEnName" />
+
+<DxGridDataColumn  Caption="Id" Visible=false FieldName="Id" />
+
+<DxGridDataColumn  Caption="RequestID" Visible=false FieldName="RequestID" />
+
+<DxGridDataColumn  Caption="CreateUser" Visible=false FieldName="CreateUser" />
+
+<DxGridDataColumn  Caption="UpdateUser" Visible=false FieldName="UpdateUser" />
+
+<DxGridDataColumn  Caption="CreateDate" Visible=false FieldName="CreateDate" />
+
+<DxGridDataColumn  Caption="UpdateDate" Visible=false FieldName="UpdateDate" />
+
+<DxGridDataColumn  Caption="IsDelete" Visible=false FieldName="IsDelete" />
+
+
+</Columns>
+
+    <EditFormTemplate Context="EditFormContextPPCAtlasBobbin_Station">
+    @{
+        PPCAtlasBobbin_Station  = (Entity.PPCAtlasBobbin_Station)EditFormContextPPCAtlasBobbin_Station.EditModel;
+    }
+    <DxFormLayout>
+        <DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextPPCAtlasBobbin_Station">
+    
+<Input Id="PPCAtlasBobbin_Station_StationName" @ref="Ref_PPCAtlasBobbin_Station_StationName" Label="نام ایستگاه"     @bind-Value="PPCAtlasBobbin_Station.StationName" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+</DxFormLayoutItem>
+
+<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextPPCAtlasBobbin_Station">
+    
+<Input Id="PPCAtlasBobbin_Station_StationEnName" @ref="Ref_PPCAtlasBobbin_Station_StationEnName" Label="نام ایستگاه لاتین"     @bind-Value="PPCAtlasBobbin_Station.StationEnName" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+</DxFormLayoutItem>
+
+<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextPPCAtlasBobbin_Station">
+    
+<Input Id="PPCAtlasBobbin_Station_Id" @ref="Ref_PPCAtlasBobbin_Station_Id"   CssClass="d-none"   @bind-Value="PPCAtlasBobbin_Station.Id" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+</DxFormLayoutItem>
+
+<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextPPCAtlasBobbin_Station">
+    
+<Input Id="PPCAtlasBobbin_Station_RequestID" @ref="Ref_PPCAtlasBobbin_Station_RequestID"      @bind-Value="PPCAtlasBobbin_Station.RequestID" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+</DxFormLayoutItem>
+
+<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextPPCAtlasBobbin_Station">
+    
+<Input Id="PPCAtlasBobbin_Station_CreateUser" @ref="Ref_PPCAtlasBobbin_Station_CreateUser"      @bind-Value="PPCAtlasBobbin_Station.CreateUser" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+</DxFormLayoutItem>
+
+<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextPPCAtlasBobbin_Station">
+    
+<Input Id="PPCAtlasBobbin_Station_UpdateUser" @ref="Ref_PPCAtlasBobbin_Station_UpdateUser"      @bind-Value="PPCAtlasBobbin_Station.UpdateUser" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+</DxFormLayoutItem>
+
+<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextPPCAtlasBobbin_Station">
+    
+<Input Id="PPCAtlasBobbin_Station_CreateDate" @ref="Ref_PPCAtlasBobbin_Station_CreateDate"   CssClass="d-none"   @bind-Value="PPCAtlasBobbin_Station.CreateDate" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+</DxFormLayoutItem>
+
+<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextPPCAtlasBobbin_Station">
+    
+<Input Id="PPCAtlasBobbin_Station_UpdateDate" @ref="Ref_PPCAtlasBobbin_Station_UpdateDate"   CssClass="d-none"   @bind-Value="PPCAtlasBobbin_Station.UpdateDate" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+</DxFormLayoutItem>
+
+<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextPPCAtlasBobbin_Station">
+    
+<Input Id="PPCAtlasBobbin_Station_IsDelete" @ref="Ref_PPCAtlasBobbin_Station_IsDelete"   CssClass="d-none"   @bind-Value="PPCAtlasBobbin_Station.IsDelete" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+</DxFormLayoutItem>
+
+
+        <DxFormLayoutItem ColSpanMd="12" Context="FormLayoutContextPPCAtlasBobbin_Station" CssClass="btn-modal-custom">
+            <DxButton Id="PPCAtlasBobbin_Station_GridPPCAtlasBobbin_StationTypeId_337ButtonSave" Click="@(() => SaveModalGrid_PPCAtlasBobbin_Station(EditFormContextPPCAtlasBobbin_Station))" Text="@languageContainer.Keys["DXGrid:Save"]" CssClass="btn btn-green px-5" />
+            
+<DxButton id="PPCAtlasBobbin_Station_GridPPCAtlasBobbin_StationTypeId_337ButtonSaveAndNew"    Text="ذخیره و جدید" Click="@(() => SaveAndNewGrid_PPCAtlasBobbin_Station(EditFormContextPPCAtlasBobbin_Station))" CssClass="btn btn-green" />
+
+
+            <DxButton Id="PPCAtlasBobbin_Station_GridPPCAtlasBobbin_StationTypeId_337ButtonCancel" Click="@(() => Grid_PPCAtlasBobbin_Station.CancelEditAsync())" Text="@languageContainer.Keys["DXGrid:Cancel"]" CssClass="btn btn-red" />
+            <button id="click_s"  hidden>submit</button>
+             <span>|</span>
+           
+            <DxButton Id="PPCAtlasBobbin_Station_GridPPCAtlasBobbin_StationTypeId_337ButtonBefore" Click="@(() => Dialog_Grid_PPCAtlasBobbin_Station(0,IndexGrid_PPCAtlasBobbin_Station,EditFormContextPPCAtlasBobbin_Station))" Text="قبلی" CssClass="btn btn-purple" />@* @languageContainer.Keys["DXGrid:??"] *@
+         
+            <DxButton Id="PPCAtlasBobbin_Station_GridPPCAtlasBobbin_StationTypeId_337ButtonNext" Click="@(() => Dialog_Grid_PPCAtlasBobbin_Station(1,IndexGrid_PPCAtlasBobbin_Station,EditFormContextPPCAtlasBobbin_Station))" Text="بعدی" CssClass="btn btn-purple" />
+
+        </DxFormLayoutItem>
+    </DxFormLayout>
+
+</EditFormTemplate>
+
+</DxGrid>
+
+<DxPopup @bind-Visible="@ConfirmationShownPPCAtlasBobbin_Station" HeaderText="@languageContainer.Keys["DXGrid:DeleteItem"]" Width="350px" CloseOnOutsideClick="false">
+
+    <BodyContentTemplate Context="EditFormContext">
+        <div class="py-3 px-5 text-center">
+            <p>@languageContainer.Keys["DXGrid:DeleteItemHint"]</p>
+            <div class="confirm-dialog-buttons">
+                <DxButton Text="@languageContainer.Keys["DXGrid:Yes"]" CssClass="btn btn-red px-4" Click="@OnYesButtonClickGrid_PPCAtlasBobbin_Station" />
+                <DxButton Text="@languageContainer.Keys["DXGrid:No"]" CssClass="btn btn-purple-light px-4" Click="@OnNoButtonClickGrid_PPCAtlasBobbin_Station" />
+            </div>
+        </div>
+    </BodyContentTemplate>
+</DxPopup>
+
+<DxPopup @bind-Visible="@ConfirmationPPCAtlasBobbin_Station" HeaderText="هشدار" Width="350px" CloseOnOutsideClick="false">
+    <BodyContentTemplate Context="EditFormContext">
+        <div class="py-3 px-5 text-center"> 
+            <p>اطلاعات این فرم تغییر کرده است آیا تغییرات ذخیره شود؟</p>
+            <div class="confirm-dialog-buttons">
+                <DxButton Text="بله" CssClass="btn btn-red px-4" Click="@OnYesButtonPPCAtlasBobbin_Station" />
+                <DxButton Text="خیر" CssClass="btn btn-purple-light px-4" Click="@OnNoButtonPPCAtlasBobbin_Station" />
+            </div>
+        </div>
+    </BodyContentTemplate>
+</DxPopup>
+@code {
+    // DxGrid? Grid_PPCAtlasBobbin_Station;
+    Entity.PPCAtlasBobbin_Station PPCAtlasBobbin_Station;
+    bool ConfirmationShownPPCAtlasBobbin_Station { get; set; } = false;
+    public Entity.PPCAtlasBobbin_Station SelectedItemGrid_PPCAtlasBobbin_Station { get; set; } = new Entity.PPCAtlasBobbin_Station();
+    /// <summary>
+    /// شماره ستون
+    /// </summary>
+    public int IndexGrid_PPCAtlasBobbin_Station { get; set; }
+
+    ///////////////////////
+    bool ConfirmationPPCAtlasBobbin_Station { get; set; } = false;
+    GridEditFormTemplateContext? _ContextFormTemplatePPCAtlasBobbin_Station { get; set; }
+    public int OpenDialogCodePPCAtlasBobbin_Station { get; set; } = 0;
+    ////////////////////////
+
+    async Task OnEditModelSavingPPCAtlasBobbin_Station(GridEditModelSavingEventArgs arg)
+    {
+        var e = arg.EditModel;
+    bool NotValid = false;
+    //events
+       
+        
+      if (!NotValid)
+     {
+      SaveGrid_PPCAtlasBobbin_Station(arg.DataItem, arg.EditModel);
+     }
+}
+
+async void Dialog_Grid_PPCAtlasBobbin_Station(int _OpenDialogCode, int VisibleIndex, GridEditFormTemplateContext e)
+{
+    OpenDialogCodePPCAtlasBobbin_Station = _OpenDialogCode;
+    if (!CheckChangedData(await Utility.JSON.ToJson(e.EditModel)))
+    {
+    _ContextFormTemplatePPCAtlasBobbin_Station = e;
+    ConfirmationPPCAtlasBobbin_Station = true;
+    }
+    else
+    {
+    await OnNoButtonPPCAtlasBobbin_Station();
+    }
+}
+async Task OnYesButtonPPCAtlasBobbin_Station()
+{
+
+    ConfirmationPPCAtlasBobbin_Station = false;
+    await Task.Delay(1500);
+    //bool FormValidate = await JSO.InvokeAsync<bool>("submitForm");
+    bool FormValidate =  await JS.InvokeAsync<bool>("submitForm");
+    if (FormValidate)
+    {
+        bool NotValid = false;
+    var e = _ContextFormTemplatePPCAtlasBobbin_Station.EditModel;
+         //events
+         
+
+        if (!NotValid)
+         {
+        SaveGrid_PPCAtlasBobbin_Station(_ContextFormTemplatePPCAtlasBobbin_Station.DataItem, _ContextFormTemplatePPCAtlasBobbin_Station.EditModel);
+            await Grid_PPCAtlasBobbin_Station.CancelEditAsync();
+         await ChangePageGrid_PPCAtlasBobbin_Station();
+         await SetEditFormContextGrid_PPCAtlasBobbin_Station();
+         }
+          
+    }
+
+}
+async Task OnNoButtonPPCAtlasBobbin_Station()
+{
+    ConfirmationPPCAtlasBobbin_Station = false;
+    await ChangePageGrid_PPCAtlasBobbin_Station();
+    await SetEditFormContextGrid_PPCAtlasBobbin_Station();
+
+}
+async Task SetEditFormContextGrid_PPCAtlasBobbin_Station()
+{
+    var e = (Entity.PPCAtlasBobbin_Station)Grid_PPCAtlasBobbin_Station.GetDataItem(IndexGrid_PPCAtlasBobbin_Station);
+    JsonData = await Utility.JSON.ToJson(e);
+}
+
+async Task ChangePageGrid_PPCAtlasBobbin_Station()
+{
+    int VisibleIndex = IndexGrid_PPCAtlasBobbin_Station;
+    try
+    {
+    if (OpenDialogCodePPCAtlasBobbin_Station == 1)
+    {
+        if (VisibleIndex != (Grid_PPCAtlasBobbin_Station.GetVisibleRowCount() - 1))
+    { 
+            Grid_PPCAtlasBobbin_Station.CancelEditAsync();
+            IndexGrid_PPCAtlasBobbin_Station = VisibleIndex + 1;
+    Grid_PPCAtlasBobbin_Station.StartEditRowAsync(IndexGrid_PPCAtlasBobbin_Station);
+    }
+    }
+    else if (OpenDialogCodePPCAtlasBobbin_Station == 0)
+    {
+        if (VisibleIndex != 0)
+        {
+
+            Grid_PPCAtlasBobbin_Station.CancelEditAsync();
+            IndexGrid_PPCAtlasBobbin_Station = VisibleIndex - 1;
+    Grid_PPCAtlasBobbin_Station.StartEditRowAsync(IndexGrid_PPCAtlasBobbin_Station);
+    }
+
+    }
+    var e = (Entity.PPCAtlasBobbin_Station)Grid_PPCAtlasBobbin_Station.GetDataItem(IndexGrid_PPCAtlasBobbin_Station);
+    JsonData = await Utility.JSON.ToJson(e);
+    await Task.Delay(300);
+    
+    StateHasChanged();
+    }
+    catch (Exception ex)
+    {
+
+    Console.WriteLine("error in ChagePage" + ex.Message);
+    }
+
+}
+
+async Task StartEditNewRowAsync_Grid_PPCAtlasBobbin_Station()
+{
+    IndexGrid_PPCAtlasBobbin_Station = Grid_PPCAtlasBobbin_Station.GetVisibleRowCount();
+Grid_PPCAtlasBobbin_Station.StartEditNewRowAsync().GetAwaiter();
+var e = new Entity.PPCAtlasBobbin_Station();
+JsonData = await Utility.JSON.ToJson(e);
+await Task.Delay(300);
+
+}
+
+async Task StartModalGrid_PPCAtlasBobbin_Station(GridCommandColumnCellDisplayTemplateContext Context)
+{
+    IndexGrid_PPCAtlasBobbin_Station = Context.VisibleIndex;
+Grid_PPCAtlasBobbin_Station.StartEditRowAsync(Context.VisibleIndex).GetAwaiter();
+var e = (Entity.PPCAtlasBobbin_Station)Context.DataItem;
+JsonData = await Utility.JSON.ToJson(e);
+await Task.Delay(300);
+
+   // await Task.Delay(500);
+}
+public async Task SaveModalGrid_PPCAtlasBobbin_Station(GridEditFormTemplateContext arg)
+{
+     //bool FormValidate = await JSO.InvokeAsync<bool>("submitForm");
+     bool FormValidate =  await JS.InvokeAsync<bool>("submitForm");
+
+    if(FormValidate){
+
+    var e = arg.EditModel;
+    bool NotValid = false;
+    //events
+    
+    if (!NotValid)
+    {
+        SaveGrid_PPCAtlasBobbin_Station(arg.DataItem, arg.EditModel);
+
+     await arg.Grid.CancelEditAsync(); 
+
+    }
+
+    }
+
+}
+public async Task SaveAndNewGrid_PPCAtlasBobbin_Station(GridEditFormTemplateContext arg)
+{ 
+     //bool FormValidate = await JSO.InvokeAsync<bool>("submitForm");
+     bool FormValidate = await JS.InvokeAsync<bool>("submitForm");
+     
+    if(FormValidate){
+       
+         var e = arg.EditModel;
+          bool NotValid = false;
+     //events
+    
+    if (!NotValid)
+    {
+        SaveGrid_PPCAtlasBobbin_Station(arg.DataItem, arg.EditModel);
+
+         await arg.Grid.CancelEditAsync();
+        await StartEditNewRowAsync_Grid_PPCAtlasBobbin_Station();
+
+    }
+          
+    }
+   
+}
+
+void PerviousPageGrid_PPCAtlasBobbin_Station(int VisibleIndex)
+{
+    try
+     {
+    if (VisibleIndex == 0)
+    {
+        Console.WriteLine(VisibleIndex.ToString());
+    }
+    else
+    {
+Grid_PPCAtlasBobbin_Station.CancelEditAsync();
+        IndexGrid_PPCAtlasBobbin_Station = VisibleIndex - 1;
+         Grid_PPCAtlasBobbin_Station.StartEditRowAsync(IndexGrid_PPCAtlasBobbin_Station);
+     }
+    }
+     catch (Exception e)
+     {
+    Console.WriteLine("PerviousPage Message");
+    Console.WriteLine(e.Message);
+    }
+
+}
+
+void NextPageGrid_PPCAtlasBobbin_Station(int VisibleIndex)
+{
+
+    if (VisibleIndex == Grid_PPCAtlasBobbin_Station.GetVisibleRowCount() - 1)
+    {
+    Console.WriteLine(VisibleIndex.ToString());
+    }
+    else
+    {
+    Console.WriteLine("NextPage Start Grid_PPCAtlasBobbin_Station ");
+    try
+    {
+Grid_PPCAtlasBobbin_Station.CancelEditAsync();
+        IndexGrid_PPCAtlasBobbin_Station = VisibleIndex + 1;
+         Grid_PPCAtlasBobbin_Station.StartEditRowAsync(IndexGrid_PPCAtlasBobbin_Station);
+     }
+    catch (Exception e)
+    {
+        Console.WriteLine("NextPage Message");
+        Console.WriteLine(e.Message);
+    }
+
+    }
+}
+
+public void SaveGrid_PPCAtlasBobbin_Station(object DataItem, object EditModel)
+{
+    var ListEntity = _Entity.PPCAtlasBobbin_Station;
+    var MainModel = (Entity.PPCAtlasBobbin_Station)DataItem;
+    if (MainModel != null)
+    {
+MainModel.StationName = ((Entity.PPCAtlasBobbin_Station)EditModel).StationName;
+MainModel.StationEnName = ((Entity.PPCAtlasBobbin_Station)EditModel).StationEnName;
+MainModel.Id = ((Entity.PPCAtlasBobbin_Station)EditModel).Id;
+MainModel.RequestID = ((Entity.PPCAtlasBobbin_Station)EditModel).RequestID;
+MainModel.CreateUser = ((Entity.PPCAtlasBobbin_Station)EditModel).CreateUser;
+MainModel.UpdateUser = ((Entity.PPCAtlasBobbin_Station)EditModel).UpdateUser;
+MainModel.CreateDate = ((Entity.PPCAtlasBobbin_Station)EditModel).CreateDate;
+MainModel.UpdateDate = ((Entity.PPCAtlasBobbin_Station)EditModel).UpdateDate;
+MainModel.IsDelete = ((Entity.PPCAtlasBobbin_Station)EditModel).IsDelete;
+
+    }
+    else
+    {
+    ListEntity.Add((Entity.PPCAtlasBobbin_Station)EditModel);
+    }
+}
+
+async Task OnDataItemDeletingPPCAtlasBobbin_Station(GridDataItemDeletingEventArgs e)
+    {
+    var ListEntity = _Entity.PPCAtlasBobbin_Station;
+    ListEntity.Remove((Entity.PPCAtlasBobbin_Station)e.DataItem);
+}
+async void OnDeleteButtonClickGrid_PPCAtlasBobbin_Station (GridCommandColumnCellDisplayTemplateContext ex)
+{
+    SelectedItemGrid_PPCAtlasBobbin_Station = (ex.DataItem as Entity.PPCAtlasBobbin_Station);
+    var e =SelectedItemGrid_PPCAtlasBobbin_Station;
+    
+     
+    Console.WriteLine("end OnDeleteButtonClickGrid_test_OrderBody 0");
+    ConfirmationShownPPCAtlasBobbin_Station = true;
+    await Task.Yield();
+     await InvokeAsync(StateHasChanged);
+    
+    Console.WriteLine("end OnDeleteButtonClickGrid_test_OrderBody 1");
+}
+async void OnYesButtonClickGrid_PPCAtlasBobbin_Station ()
+{
+       if (SelectedItemGrid_PPCAtlasBobbin_Station != null)
+    {
+      if (SelectedItemGrid_PPCAtlasBobbin_Station.Id == Guid.Empty)
+      {
+          var ListEntity = _Entity.PPCAtlasBobbin_Station;
+        ListEntity.Remove((Entity.PPCAtlasBobbin_Station)SelectedItemGrid_PPCAtlasBobbin_Station);
+     
+      }
+      else
+      {
+        var cleanModel = new Entity.PPCAtlasBobbin_Station();
+      // چک کن آیا پراپرتی IsDelete در این نوع وجود دارد؟
+        var prop = typeof(Entity.PPCAtlasBobbin_Station).GetProperty("IsDelete");
+        if (prop != null && prop.CanRead && prop.CanWrite)
+        {
+            // مقدار فعلی را بگیر
+            var currentValue = prop.GetValue(SelectedItemGrid_PPCAtlasBobbin_Station);
+
+            if (currentValue is bool boolValue)
+            {
+                // مقدار را معکوس کن
+                var newValue = !boolValue;
+
+                // روی هر دو شیء تنظیم کن
+                prop.SetValue(SelectedItemGrid_PPCAtlasBobbin_Station, newValue);
+                prop.SetValue(cleanModel, newValue);
+            }
+        }
+        EntityHelper.SetPropertyValue(cleanModel, cleanModel._GetIdName, SelectedItemGrid_PPCAtlasBobbin_Station._Id);
+    
+       
+       
+      }
+    }
+    var e= SelectedItemGrid_PPCAtlasBobbin_Station;
+    
+    Grid_PPCAtlasBobbin_Station.Reload();
+    ConfirmationShownPPCAtlasBobbin_Station = false;
+     await Task.Yield();
+    await InvokeAsync(StateHasChanged);
+
+}
+void OnNoButtonClickGrid_PPCAtlasBobbin_Station ()
+{
+    ConfirmationShownPPCAtlasBobbin_Station = false;
+}
+
+void CustomizeRowsGrid_PPCAtlasBobbin_Station(GridCustomizeElementEventArgs e)
+{
+    ///استایل سطر
+    if (e.ElementType == GridElementType.DataRow)
+    {
+    var item = ((Entity.PPCAtlasBobbin_Station)e.Grid.GetDataItem(e.VisibleIndex));
+
+       if (item.IsDelete == true)
+       {
+           e.CssClass = "bg-lightred disablediv";
+       }
+    }
+}
+
+async void CustomizeEditGrid_PPCAtlasBobbin_Station(GridCustomizeEditModelEventArgs e)
+{
+
+    if (e.IsNew)
+    {
+
+    var newRow = (Entity.PPCAtlasBobbin_Station)e.EditModel;
+
+     
+
+    }
+
+
+}
+public async void RowClickGrid_PPCAtlasBobbin_Station(GridRowClickEventArgs e)
+{
+
+}
+
+public async void RowDubbleClickGrid_PPCAtlasBobbin_Station(GridRowClickEventArgs e)
+{
+
+}
+}
+
+<Input Id="RequestID" @ref="Ref_RequestID"      @bind-Value="_Entity.RequestID" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+<Input Id="CreateUser" @ref="Ref_CreateUser"      @bind-Value="_Entity.CreateUser" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+<Input Id="UpdateUser" @ref="Ref_UpdateUser"      @bind-Value="_Entity.UpdateUser" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+<Input Id="CreateDate" @ref="Ref_CreateDate"   CssClass="d-none"   @bind-Value="_Entity.CreateDate" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+<Input Id="UpdateDate" @ref="Ref_UpdateDate"   CssClass="d-none"   @bind-Value="_Entity.UpdateDate" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+<Input Id="IsDelete" @ref="Ref_IsDelete"   CssClass="d-none"   @bind-Value="_Entity.IsDelete" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+    </EditForm>
+</div>
+
+@if (ShowSubmit)
+{
+    <button class="btn btn-sm btn-green" @onclick=Submit>ذخیره</button>
+}
+
+@code {
+    #region Function
+
+    //todo  جا به جا شود برده شود تو فایل  Peropeties
+    protected override async Task OnInitializedAsync()
+    {
+        Console.WriteLine("#log OnInitializedAsync");
+
+        TableGet = await Utility.JSON.ToObject<Table>("{\"Name\":\"PPCAtlasBobbin_StationType\",\"GetNameAs\":\"PPCAtlasBobbin_StationType\",\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"RequestID\",\"GetNameAs\":\"RequestID\"},{\"Name\":\"CreateUser\",\"GetNameAs\":\"CreateUser\"},{\"Name\":\"UpdateUser\",\"GetNameAs\":\"UpdateUser\"},{\"Name\":\"CreateDate\",\"GetNameAs\":\"CreateDate\"},{\"Name\":\"UpdateDate\",\"GetNameAs\":\"UpdateDate\"},{\"Name\":\"IsDelete\",\"GetNameAs\":\"IsDelete\"},{\"Name\":\"StationTypeName\",\"GetNameAs\":\"StationTypeName\"},{\"Name\":\"StationTypeLatinName\",\"GetNameAs\":\"StationTypeLatinName\"}],\"Relation\":[{\"Name\":\"PPCAtlasBobbin_Station\",\"GetNameAs\":\"PPCAtlasBobbin_Station\",\"ModeErtebat\":2,\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"RequestID\",\"GetNameAs\":\"RequestID\"},{\"Name\":\"CreateUser\",\"GetNameAs\":\"CreateUser\"},{\"Name\":\"UpdateUser\",\"GetNameAs\":\"UpdateUser\"},{\"Name\":\"CreateDate\",\"GetNameAs\":\"CreateDate\"},{\"Name\":\"UpdateDate\",\"GetNameAs\":\"UpdateDate\"},{\"Name\":\"IsDelete\",\"GetNameAs\":\"IsDelete\"},{\"Name\":\"StationName\",\"GetNameAs\":\"StationName\"},{\"Name\":\"StationEnName\",\"GetNameAs\":\"StationEnName\"}],\"Relation\":[]}]}");
+        TablePost = await Utility.JSON.ToObject<Table>("{\"Name\":\"PPCAtlasBobbin_StationType\",\"GetNameAs\":\"PPCAtlasBobbin_StationType\",\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"RequestID\",\"GetNameAs\":\"RequestID\"},{\"Name\":\"CreateUser\",\"GetNameAs\":\"CreateUser\"},{\"Name\":\"UpdateUser\",\"GetNameAs\":\"UpdateUser\"},{\"Name\":\"CreateDate\",\"GetNameAs\":\"CreateDate\"},{\"Name\":\"UpdateDate\",\"GetNameAs\":\"UpdateDate\"},{\"Name\":\"IsDelete\",\"GetNameAs\":\"IsDelete\"},{\"Name\":\"StationTypeName\",\"GetNameAs\":\"StationTypeName\"},{\"Name\":\"StationTypeLatinName\",\"GetNameAs\":\"StationTypeLatinName\"}],\"Relation\":[{\"Name\":\"PPCAtlasBobbin_Station\",\"GetNameAs\":\"PPCAtlasBobbin_Station\",\"ModeErtebat\":2,\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"RequestID\",\"GetNameAs\":\"RequestID\"},{\"Name\":\"CreateUser\",\"GetNameAs\":\"CreateUser\"},{\"Name\":\"UpdateUser\",\"GetNameAs\":\"UpdateUser\"},{\"Name\":\"CreateDate\",\"GetNameAs\":\"CreateDate\"},{\"Name\":\"UpdateDate\",\"GetNameAs\":\"UpdateDate\"},{\"Name\":\"IsDelete\",\"GetNameAs\":\"IsDelete\"},{\"Name\":\"StationName\",\"GetNameAs\":\"StationName\"},{\"Name\":\"StationEnName\",\"GetNameAs\":\"StationEnName\"}],\"Relation\":[]}]}");
+
+        config = CKEditorBundleOptions.DefaultConfig.WithHtmlEditing();
+        config.Language = "fa";
+
+        //بعداد اگه نیاز شد فرمی رو تو حالت غیر لاگین شده نمایش بدیم باید این  کد تغیر کنه
+        var user = (await _authenticationStateProvider.GetAuthenticationStateAsync()).User;
+        string UserID = user.FindFirst(c => c.Type == ClaimTypes.NameIdentifier).Value;
+        //داینامیک بشه
+        Dictionary<string, object> List = new Dictionary<string, object>();
+        //List.Add("UserID", Guid.Parse(UserID));
+        List.Add("UserID", UserID);
+        _User = await Domain.Utility.ConvertParameter.ConvertToObject(List);
+
+        Console.WriteLine("#log OnInitializedAsync End");
+
+        await base.OnInitializedAsync();
+    }
+
+    //todo  جا به جا شود برده شود تو فایل  Peropeties
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            Console.WriteLine("#log OnAfterRenderAsync");
+            await base.BeforGetData();
+
+            var Result = await GetData();
+
+            await base.AfterGetData();
+
+            StateHasChanged();
+
+            await OnFormloaded.InvokeAsync(Result);
+        }
+
+        await base.OnAfterRenderAsync(firstRender);
+    }
+
+    /// <summary>
+    /// دریافت داده
+    /// </summary>
+    /// <returns></returns>
+    public async Task<Baya.Models.Utility.Result> GetData()
+    {
+        await BeforGetData();
+
+        var DataResult = await ApiServer.External.Services.Data.Get(TableGet, QueryFilter, TableGet.Name, null);
+        
+        Baya.Models.Utility.Result Result = new Baya.Models.Utility.Result();
+
+        if (DataResult != null && DataResult.Status == HttpStatusCode.OK)
+        {
+            if (DataResult.Content != null)
+            {
+                string Data = DataResult.Content.ToString();
+                if (Data is not null)
+                {
+                    _Entity = await Utility.JSON.ToObject < Entity.PPCAtlasBobbin_StationType>(Data);
+        }
+            }
+            else
+            {
+                _Entity = new Entity.PPCAtlasBobbin_StationType();
+            //todo تشخیص دهد که داده ای وجود ندارد و دفه اول هست که فرم لود میشود
+            //todo اگه نیاز شد دالخ ORm خروجیش متفاوت باشه
+            //ست کردن دیفالت های فرم
+            if (true)
+                {//
+
+
+                    //نمونه ست کردن پارامتر روش اول
+                    //_Entity.InstantDelivery = _RequestParameters.UserId;
+
+                    //نمونه کد برای ست کردن پارامتر روش دوم
+                    //_Entity.InstantDelivery = await GetParameter("@@UserId@@");
+                }
+
+                SumaryMessage = "داده لود شده معتبر نمی باشد";
+                Result.Status = HttpStatusCode.InternalServerError;
+            }
+        }
+        else
+        {
+            SumaryMessage = "داده لود نشد";
+            Result.Status = HttpStatusCode.InternalServerError;
+        }
+
+        Result.Message = SumaryMessage;
+
+        StateHasChanged();
+
+        await AfterGetData();
+
+        return Result;
+    }
+
+    public override async Task SetParametersAsync(ParameterView parameters)
+    {
+        await base.SetParametersAsync(parameters);
+    }
+
+    protected override void OnInitialized()
+    {
+        //todo این خط برده شود داخل تابع پاینی ببینیم خطا داره یا نه
+        languageContainer.InitLocalizedComponent(this);
+    }
+
+
+    /// <summary>
+    /// بررسی تغییر دیتا
+    /// </summary>
+    /// <param name="Json"></param>
+    /// <returns></returns>
+    public bool CheckChangedData(string? Json)
+    {
+        if (string.Equals(JsonData, Json)) return true;
+        return false;
+    }
+
+    /// <summary>
+    /// ارسال داده
+    /// </summary>
+    /// <returns></returns>
+    public override async Task<Baya.Models.Utility.Result> Submit()
+    {
+        SumaryMessage = "";
+        Baya.Models.Utility.Result Result = new Baya.Models.Utility.Result();
+
+        if (!await FormValidator())
+        {
+            StateHasChanged();
+            Result.Status = HttpStatusCode.InternalServerError;
+            return Result;
+        }
+
+        if ((await BeforSubmit()).Status != HttpStatusCode.OK)
+        {
+            StateHasChanged();
+            Result.Status = HttpStatusCode.InternalServerError;
+            return Result;
+        }
+
+        _loadingService.Show();
+        var Resualt = await PostData();
+
+        if (Resualt)
+        {
+            Result.Status = HttpStatusCode.OK;
+
+            SumaryMessage = "داده ها با موفقیت ثبت شد";
+        }
+        else
+        {
+            Result.Status = HttpStatusCode.InternalServerError;
+            SumaryMessage = "ذخیره داده با مشکل مواجه شد";
+        }
+
+        Result.Message = SumaryMessage;
+
+        switch ((int)Result.Status)
+        {
+            case 200:
+                toastService.ShowSuccess(Result.Message);
+                break;
+            case 500:
+                toastService.ShowError(Result.Message);
+                break;
+            default:
+                break;
+        } 
+        _loadingService.Hide();
+        await AfterSubmit();
+
+        return Result;
+    }
+
+    /// <summary>
+    /// ارسال داده
+    /// </summary>
+    /// <returns></returns>
+    private async Task<bool> PostData()
+    {
+        string Data = await Utility.JSON.ToJson(_Entity);
+
+        bool IsOk = false;
+        var Model = await ApiServer.External.Services.Data.Put(Data, TablePost.Name, TablePost, RequestID?.ToString(), _User.UserID.ToString());
+        // بررسی وضعیت پاسخ
+        if (Model?.Status == HttpStatusCode.OK)
+        {
+            if (Model.Content != null && !IndependentForm)
+                { 
+                    string NewData = Model.Content.ToString();
+                    if (NewData is not null)
+                    {
+                        var NewEntity = await Utility.JSON.ToObject < Entity.PPCAtlasBobbin_StationType>(NewData);
+                     await  GetDataForm(NewEntity._Id);
+                    }
+
+                }
+                IsOk = true;
+
+        }
+        return IsOk;
+    }
+
+
+    void SetLanguage(string language)
+    {
+        languageContainer.SetLanguage(System.Globalization.CultureInfo.GetCultureInfo(language));
+    }
+
+    // public void ValidFormSubmitted(EditContext editContext)
+    // {
+
+    // }
+
+    // public void InvalidFormSubmitted(EditContext editContext)
+    // {
+
+    // }
+    public async Task GetDataForm(object Id)
+    {
+        Type type = Id.GetType();
+        string TypeToQueryBuilder = Utility.TypeConverterQueryBuilder.ConvertCSharpTypeToQueryBuilder(type);
+        var NewQuery = new QueryBuilderFilterRule() { Condition = "AND" };
+        NewQuery.Rules = new List<QueryBuilderFilterRule>
+            {
+                    new QueryBuilderFilterRule()
+                    {
+                        Field = _Entity._GetIdName,
+                        Id = _Entity._GetIdName,
+                        Input = "text",
+                        Operator = "equal",
+                        Type =  TypeToQueryBuilder,
+                        Value = new string[]{ Id.ToString() },
+                    }
+            };
+        QueryFilter = NewQuery;
+        await GetData();
+        StateHasChanged();
+    }
+    #endregion
+}

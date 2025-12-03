@@ -1,0 +1,1454 @@
+@inherits Forms.Forms.Form_579Base
+@namespace FormsPage
+
+@using AKSoftware.Localization.MultiLanguages.Blazor
+@using Baya.Models.Utility;
+@using Baya.Models.ORM
+@using Microsoft.AspNetCore.Components.Forms
+@using Microsoft.AspNetCore.Components.Authorization;
+@using System.Security.Claims
+@using System.Net
+@using Microsoft.JSInterop
+@using Baya.Models.ViewEngine
+@using Forms.Domain.Utility
+@using Castle.DynamicLinqQueryBuilder
+<style>
+    .DisableParameterField input{
+    color: black !important;
+    background-color: lightgray !important;
+    opacity: 1;
+    margin-top: 0.3vh;
+    font-size: 0.8rem;
+}
+
+.WidthAuto input {
+    width: auto !important;
+}
+.Width6rem input {
+    width: 6rem !important;
+}
+.Width8rem input {
+    width: 8rem !important;
+}
+.Width10rem input {
+    width: 10rem !important;
+}
+.Width12rem input {
+    width: 12rem !important;
+}
+.InputDanger input {
+    background-color: crimson !important;
+}
+</style>
+
+<Plugins.Tools.ConfirmDialog @ref="Confirm" />
+
+<span class="d-none">VersionForm:@VersionForm</span>
+@*
+@if (!string.IsNullOrEmpty(SumaryMessage))
+{
+    <div>
+        @SumaryMessage
+    </div>
+} *@
+
+@* <EditForm @ref="_Form" Model="_Entity" OnValidSubmit="ValidFormSubmitted" OnInvalidSubmit="InvalidFormSubmitted" OnSubmit="Submit"> *@
+<div class="@(ReadOnly?"FormReadOnly":"")">
+    <EditForm @ref="_Form" Model="_Entity" OnSubmit="Submit">
+        
+<div class="row ">
+    
+<div class="col-md-3">
+    <div  class="d-flex text-center pt-3 fs-4 text-black  justify-content-right">
+    <div style="">
+  <p>
+    <picture>
+      <img src="https://File.workcv.ir/fa/api/v1/File/Get?FileID=6e5b6fb8-a5b2-490c-f83f-08dbea5b8061" class="" alt="لوگو پل فیلم" width="230px;">
+    </picture>
+  </p>
+</div>
+</div>
+
+</div>
+
+<div class="col-md-6">
+    <div  class="">
+    <div class="fs-3 fw-black rounded p-3 text-center ">
+    برون سپاری و خرید خدمات
+</div>
+</div>
+
+</div>
+
+<div class="col-md-3">
+    <div  class="d-flex text-center pt-3 fs-5 text-black bg-secondary-subtle justify-content-center opacity-50 rounded">
+    <div style="">
+  <p>
+    <span>
+      کد فرم: FPL00303
+    </span>
+  </p>
+</div>
+</div>
+
+</div>
+
+</div>
+ 
+<nav class="">
+    <div class="nav nav-tabs" id="nav-tab" role="tablist">
+        <button class="nav-link  active" id="nav-tabs_tab1" data-bs-toggle="tab" data-bs-target="#tabs_tab1_tab"
+        type="button" role="tab" aria-controls="tabs_tab1_tab" aria-selected="true">
+    اطلاعات درخواست دهنده
+</button>
+<button class="nav-link " id="nav-tabs_tab2" data-bs-toggle="tab" data-bs-target="#tabs_tab2_tab"
+        type="button" role="tab" aria-controls="tabs_tab2_tab" >
+    راهنما
+</button>
+
+    </div>
+</nav>
+<div class="tab-content" id="nav-tabContent">
+    <div class="tab-pane fade   show active" id="tabs_tab1_tab" role="tabpanel" aria-labelledby="nav-tabs_tab1">
+   
+<div class="row ">
+    
+<div class="col-md-6">
+    
+<div class="row  card flex-row pb-2 m-1 border-0 bg-warning-subtle">
+    
+<div class="col-md-12">
+    <div  class="">
+    <div class="card-header text- bg-light fw-black fs-6 border-0 rounded-2 mt-2" style="">
+  کاربر درخواست دهنده
+</div>
+</div>
+
+</div>
+
+<div class="col-md-3">
+    
+<Input Id="UserStarterFullName" @ref="Ref_UserStarterFullName" Label="کاربر درخواست کننده"   Disabled=true  @bind-Value="_Entity.UserStarterFullName" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+</div>
+
+<div class="col-md-3">
+    
+<Input Id="UserStarterCompanyName" @ref="Ref_UserStarterCompanyName" Label="شرکت کاربر"   Disabled=true  @bind-Value="_Entity.UserStarterCompanyName" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+</div>
+
+<div class="col-md-3">
+    
+<Input Id="UserStarterUnitName" @ref="Ref_UserStarterUnitName" Label="واحد کاربر"   Disabled=true  @bind-Value="_Entity.UserStarterUnitName" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+</div>
+
+<div class="col-md-3">
+    
+<Input Id="UserStarterSectionName" @ref="Ref_UserStarterSectionName" Label="قسمت کاربر"   Disabled=true  @bind-Value="_Entity.UserStarterSectionName" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="col-md-6">
+    
+</div>
+
+</div>
+
+</div> 
+<div class="tab-pane fade  " id="tabs_tab2_tab" role="tabpanel" aria-labelledby="nav-tabs_tab2">
+   
+</div> 
+
+</div>
+<div  class="">
+    <hr class="hrdash border-warning-subtle">
+</div>
+
+<div class="row mb-3">
+    
+<div class="col-md-3">
+     
+ 
+@code {
+    Baya.Models.ViewEngine.View_Component Component_SCM_OS_MasterSCM_ResultingFromId = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"EntityName\":\"برون سپاری - اصلی\",\"primaryKey\":false,\"EntityID\":251,\"FieldId\":3037,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":579,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":false,\"RelationParentName\":\"SCM_ResultingFrom\",\"RelationParentModel\":\"SCM_ResultingFrom\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/SCM_ResultingFrom/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.Title}} </span>\",\"FieldsTemplate\":[],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"searchField\":\"Title\",\"disableLimit\":false,\"noRefreshOnScroll\":false,\"disabled\":true,\"modal\":true,\"label\":\"منتج از\",\"tableView\":true,\"key\":\"SCM_ResultingFromId\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"customClass\":\"mt-2 pb-2\",\"FieldUrl\":\"3037?EId=251&SubId=8\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
+}
+
+    <Dropdown Id=SCM_ResultingFromId Disabled=true @ref="Ref_SCM_ResultingFromId" Label="منتج از" CssClass="mt-2 pb-2"  DisplayFormat="DropDown" ExternalApi=true NotMapped=false TextGrid=false Text="" Value="@_Entity.SCM_ResultingFromId" FieldName="SCM_ResultingFromId" OnItemSelected="ItemSelected_SCM_OS_MasterSCM_ResultingFromId" Component="Component_SCM_OS_MasterSCM_ResultingFromId" _Entity="_Entity" >
+</Dropdown>
+@code {
+    public async Task ItemSelected_SCM_OS_MasterSCM_ResultingFromId(object _Item)
+    {
+        var Selected = Utility.JSON.ToObject<dynamic>(Utility.JSON.ToJson(_Item).Result).Result;
+     var Item = _Entity;
+
+      //Todo
+ //برای اینکه آی دی تغییر کند اینجا نیز باید تغییر کند
+ //بهتر است از پرایمیری کی استفاده شود
+ Item.SCM_ResultingFromId = Selected.Id;
+ Item.SCM_ResultingFrom = await Utility.JSON.ToObject<Entity.SCM_ResultingFrom>(await Utility.JSON.ToJson(_Item));
+
+    
+
+    
+    }
+} 
+
+</div>
+
+<div class="col-md-3">
+    
+<RadioBoolean @ref="Ref_HardwareORNetwork" InLine=true Id="HardwareORNetwork"   LabelTrue="سخت افزار" LabelFalse="شبکه" Label="بخش سخت افزار یا شبکه" @bind-Value="_Entity.HardwareORNetwork" CssClass="" Disabled=true></RadioBoolean>
+
+</div>
+
+<div class="col-md-3">
+    
+</div>
+
+<div class="col-md-3">
+    
+</div>
+
+</div>
+<label for="SCM_OS_Details_GridSCM_OS_MasterId_252">برون سپاری - جزئیات
+   
+    
+</label>
+
+<DxGrid @ref="Grid_SCM_OS_Details" Data="_Entity.SCM_OS_Details" KeyFieldName="_Id" EditMode="GridEditMode.PopupEditForm"
+        EditModelSaving="OnEditModelSavingSCM_OS_Details"
+        DataItemDeleting="OnDataItemDeletingSCM_OS_Details"
+        PopupEditFormCssClass="ModalWidth"
+        PopupEditFormHeaderText="برون سپاری - جزئیات"
+        EditFormButtonsVisible="false"
+        CustomizeEditModel="CustomizeEditGrid_SCM_OS_Details"
+        CustomizeElement="CustomizeRowsGrid_SCM_OS_Details" 
+        Component="@((Utility.JSON.ToObject<View_Component>("{\"primaryKey\":false,\"EntityID\":252,\"FieldId\":252,\"NotNull\":false,\"ViewId\":0,\"NotMapped\":false,\"Relation\":false,\"RelationExternal\":false,\"RelationChildModel\":\"SCM_OS_Details\",\"GridMainModel\":\"SCM_OS_Details\",\"widget\":{\"altInput\":false,\"allowInput\":false,\"clickOpens\":false,\"enableDate\":false,\"enableTime\":false,\"noCalendar\":false,\"useLocaleSettings\":false,\"hourIncrement\":0,\"minuteIncrement\":0,\"time_24hr\":false},\"wysiwyg\":false,\"data\":{},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"FieldsTemplate\":[],\"refreshOn\":\"data\",\"reorder\":false,\"addAnotherPosition\":\"bottom\",\"layoutFixed\":false,\"enableRowGroups\":false,\"initEmpty\":false,\"disabled\":true,\"modal\":true,\"label\":\"برون سپاری - جزئیات\",\"tableView\":true,\"key\":\"GridSCM_OS_MasterId_252\",\"type\":\"datagrid\",\"input\":true,\"modalEdit\":true,\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":false,\"AccessEdit\":true,\"AccessNew\":false,\"editmodelsaving\":\"SCM_OS_Details_editmodelsaving\",\"afterrendermodal\":\"SCM_OS_Details_afterrendermodal\"}").Result))"
+         >
+    <Columns>
+    
+<DxGridCommandColumn Width="70px">
+    <HeaderTemplate Context="HeaderContext">
+       
+    </HeaderTemplate>
+    <CellDisplayTemplate Context="CellContext">
+       
+<a id=SCM_OS_Details_GridSCM_OS_MasterId_252ButtonEdit class="btn btn-sm btn-yellow-light btnEditGridData" @onclick="@(() => StartModalGrid_SCM_OS_Details(CellContext))" style="text-decoration: none;" href="javascript:void(0);">
+    <span class="fal fa-pencil btnicon"></span>
+</a>
+
+       
+    </CellDisplayTemplate>
+</DxGridCommandColumn>
+
+    <DxGridCommandColumn   Width="60px">
+           <HeaderTemplate Context="HeaderContext">
+               <a    style="text-decoration: none;"  >
+                
+                   <span>ردیف</span>
+               </a>
+           </HeaderTemplate>
+           <CellDisplayTemplate Context="CellContext">
+            @if (CellContext.VisibleIndex > 9){
+                <p>@(CellContext.VisibleIndex + 1)</p>
+            }else{
+                <p>@(((CellContext.Grid.PageIndex * CellContext.Grid.PageSize) + (CellContext.VisibleIndex + 1)))</p>
+            }
+          
+           </CellDisplayTemplate>
+     </DxGridCommandColumn>
+    <DxGridDataColumn  Caption="عنوان کار"  FieldName="Title" />
+
+<DxGridDataColumn Context="SCM_UnitsId_" Caption="واحد" >
+    <CellDisplayTemplate>
+       
+@{
+    Baya.Models.ViewEngine.View_Component HeaderSCM_UnitsId = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"primaryKey\":false,\"EntityID\":252,\"FieldId\":3039,\"TypeCSharp\":\"string\",\"NotNull\":true,\"ViewId\":579,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":false,\"RelationParentName\":\"SCM_Units\",\"RelationParentModel\":\"SCM_Units\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/SCM_Units/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.Title}} </span>\",\"FieldsTemplate\":[],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"disabled\":true,\"modal\":true,\"label\":\"واحد\",\"tableView\":true,\"key\":\"SCM_UnitsId\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"3039?EId=252&SubId=8\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
+    var RowSCM_UnitsId = ((Entity.SCM_OS_Details)SCM_UnitsId_.DataItem).SCM_UnitsId;
+}
+
+<Dropdown ExternalApi=false NotMapped=false TextGrid=true Value="@RowSCM_UnitsId"   FieldName="SCM_UnitsId" OnItemSelected="ItemSelected_SCM_OS_DetailsSCM_UnitsId_Header" Component="HeaderSCM_UnitsId">
+</Dropdown>
+@code {
+    public async Task ItemSelected_SCM_OS_DetailsSCM_UnitsId_Header(object _Item)
+    {
+      //  var Selected = Utility.JSON.ToObject<dynamic>(Utility.JSON.ToJson(_Item).Result).Result;
+  //   SCM_UnitsId
+
+  //  #CustomCode
+
+ //   
+
+  //  #OnItemSelected
+    }
+}
+
+    </CellDisplayTemplate>
+</DxGridDataColumn>
+<DxGridDataColumn DisplayFormat="G" Caption="تعداد"  FieldName="Amount" />
+
+<DxGridDataColumn Context="SCM_PriorityId_" Caption="اولویت" >
+    <CellDisplayTemplate>
+       
+@{
+    Baya.Models.ViewEngine.View_Component HeaderSCM_PriorityId = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"primaryKey\":false,\"EntityID\":252,\"FieldId\":3041,\"TypeCSharp\":\"string\",\"NotNull\":true,\"ViewId\":579,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":false,\"RelationParentName\":\"SCM_Priority\",\"RelationParentModel\":\"SCM_Priority\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/SCM_Priority/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.PriorityTitle}} </span>\",\"FieldsTemplate\":[],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"disabled\":true,\"modal\":true,\"label\":\"اولویت\",\"tableView\":true,\"key\":\"SCM_PriorityId\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"3041?EId=252&SubId=8\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
+    var RowSCM_PriorityId = ((Entity.SCM_OS_Details)SCM_PriorityId_.DataItem).SCM_PriorityId;
+}
+
+<Dropdown ExternalApi=false NotMapped=false TextGrid=true Value="@RowSCM_PriorityId"   FieldName="SCM_PriorityId" OnItemSelected="ItemSelected_SCM_OS_DetailsSCM_PriorityId_Header" Component="HeaderSCM_PriorityId">
+</Dropdown>
+@code {
+    public async Task ItemSelected_SCM_OS_DetailsSCM_PriorityId_Header(object _Item)
+    {
+      //  var Selected = Utility.JSON.ToObject<dynamic>(Utility.JSON.ToJson(_Item).Result).Result;
+  //   SCM_PriorityId
+
+  //  #CustomCode
+
+ //   
+
+  //  #OnItemSelected
+    }
+}
+
+    </CellDisplayTemplate>
+</DxGridDataColumn>
+<DxGridDataColumn  Caption="محل مصرف"  FieldName="AreaUse" />
+
+<DxGridDataColumn  Caption="توضیحات درخواست کننده"  FieldName="RequsterDesc" />
+
+<DxGridDataColumn Context="IsEnableApproved_" Caption="آیا مورد تایید است؟" >
+    <CellDisplayTemplate>
+       
+@{
+    var SCM_OS_Details_IsEnableApproved = ((Entity.SCM_OS_Details)IsEnableApproved_.DataItem).IsEnableApproved;
+}
+
+<p class="text-center " hidden="@(SCM_OS_Details_IsEnableApproved !=null ? !SCM_OS_Details_IsEnableApproved : true)">بله</p>
+
+<p class="text-center" hidden="@(SCM_OS_Details_IsEnableApproved !=null ? SCM_OS_Details_IsEnableApproved : true)">خیر</p>
+
+
+    </CellDisplayTemplate>
+</DxGridDataColumn>
+<DxGridDataColumn Context="IsEnableNeedModified_" Caption="آیا این درخواست اصلاح گردد؟	" >
+    <CellDisplayTemplate>
+       
+@{
+    var SCM_OS_Details_IsEnableNeedModified = ((Entity.SCM_OS_Details)IsEnableNeedModified_.DataItem).IsEnableNeedModified;
+}
+
+<p class="text-center " hidden="@(SCM_OS_Details_IsEnableNeedModified !=null ? !SCM_OS_Details_IsEnableNeedModified : true)">بله</p>
+
+<p class="text-center" hidden="@(SCM_OS_Details_IsEnableNeedModified !=null ? SCM_OS_Details_IsEnableNeedModified : true)">خیر</p>
+
+
+    </CellDisplayTemplate>
+</DxGridDataColumn>
+<DxGridDataColumn Context="UploadFileIsEnable_" Caption="آیا مدارک پیوست دارد؟" >
+    <CellDisplayTemplate>
+       
+@{
+    var SCM_OS_Details_UploadFileIsEnable = ((Entity.SCM_OS_Details)UploadFileIsEnable_.DataItem).UploadFileIsEnable;
+}
+
+<p class="text-center " hidden="@(SCM_OS_Details_UploadFileIsEnable !=null ? !SCM_OS_Details_UploadFileIsEnable : true)">بله</p>
+
+<p class="text-center" hidden="@(SCM_OS_Details_UploadFileIsEnable !=null ? SCM_OS_Details_UploadFileIsEnable : true)">خیر</p>
+
+
+    </CellDisplayTemplate>
+</DxGridDataColumn>
+<DxGridDataColumn Context="SCM_OS_Details_UploadFile_" Caption="مدارک پیوست" >
+    <CellDisplayTemplate>
+      
+@{
+    var SCM_OS_Details_SCM_OS_Details_UploadFile = (Entity.SCM_OS_Details)SCM_OS_Details_UploadFile_.DataItem;
+}
+@foreach (var item_SCM_OS_Details in SCM_OS_Details_SCM_OS_Details_UploadFile.SCM_OS_Details_UploadFile.Where(p=>!p.IsDelete.HasValue || !p.IsDelete.Value))
+{
+
+    <div class="bg-lightblue rounded p-1 d-inline-block m-1">
+        <span>@item_SCM_OS_Details.originalName</span>
+        <hr class="hrdash mt-1 mb-0">
+        <div class="btn-group align-items-center">
+            <button type="button" class="btn btn-sm text-yellow p-0" onclick="ShowImageNewTab('@item_SCM_OS_Details.url')">@languageContainer.Keys["DXGrid:View"]</button>
+            <a href="@item_SCM_OS_Details.url" class="btn btn-sm text-green p-0">@languageContainer.Keys["DXGrid:Download"]</a>
+        </div>
+    </div>
+}
+
+
+    </CellDisplayTemplate>
+</DxGridDataColumn>
+<DxGridDataColumn Context="GuaranteeIsEnable_" Caption="آیا گارانتی دارد؟" >
+    <CellDisplayTemplate>
+       
+@{
+    var SCM_OS_Details_GuaranteeIsEnable = ((Entity.SCM_OS_Details)GuaranteeIsEnable_.DataItem).GuaranteeIsEnable;
+}
+
+<p class="text-center " hidden="@(SCM_OS_Details_GuaranteeIsEnable !=null ? !SCM_OS_Details_GuaranteeIsEnable : true)">بله - هزینه ندارد</p>
+
+<p class="text-center" hidden="@(SCM_OS_Details_GuaranteeIsEnable !=null ? SCM_OS_Details_GuaranteeIsEnable : true)">خیر - هزینه دارد</p>
+
+
+    </CellDisplayTemplate>
+</DxGridDataColumn>
+<DxGridDataColumn Context="HistoryRepairsIsEnable_" Caption="سابقه تعمیرات دارد؟" >
+    <CellDisplayTemplate>
+       
+@{
+    var SCM_OS_Details_HistoryRepairsIsEnable = ((Entity.SCM_OS_Details)HistoryRepairsIsEnable_.DataItem).HistoryRepairsIsEnable;
+}
+
+<p class="text-center " hidden="@(SCM_OS_Details_HistoryRepairsIsEnable !=null ? !SCM_OS_Details_HistoryRepairsIsEnable : true)">بله</p>
+
+<p class="text-center" hidden="@(SCM_OS_Details_HistoryRepairsIsEnable !=null ? SCM_OS_Details_HistoryRepairsIsEnable : true)">خیر</p>
+
+
+    </CellDisplayTemplate>
+</DxGridDataColumn>
+<DxGridDataColumn Context="ITILCodeIsEnable_" Caption="آیا کد ITIL دارد؟" >
+    <CellDisplayTemplate>
+       
+@{
+    var SCM_OS_Details_ITILCodeIsEnable = ((Entity.SCM_OS_Details)ITILCodeIsEnable_.DataItem).ITILCodeIsEnable;
+}
+
+<p class="text-center " hidden="@(SCM_OS_Details_ITILCodeIsEnable !=null ? !SCM_OS_Details_ITILCodeIsEnable : true)">بله</p>
+
+<p class="text-center" hidden="@(SCM_OS_Details_ITILCodeIsEnable !=null ? SCM_OS_Details_ITILCodeIsEnable : true)">خیر</p>
+
+
+    </CellDisplayTemplate>
+</DxGridDataColumn>
+<DxGridDataColumn Context="ResultingFromITIL_" Caption="منتج از ITIL" >
+    <CellDisplayTemplate>
+       
+@{
+    Baya.Models.ViewEngine.View_Component HeaderResultingFromITIL = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"primaryKey\":false,\"EntityID\":252,\"FieldId\":15194,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":579,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":true,\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://itilorm.workcv.ir/fa-ir/api/v1/vw_ORM_Request/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.RequestID}} </span>\",\"FieldsTemplate\":[{\"key\":\"RequestID\",\"value\":\"int\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"disabled\":true,\"modal\":true,\"label\":\"منتج از ITIL\",\"tableView\":true,\"key\":\"ResultingFromITIL\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"15194?EId=252&SubId=8\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true,\"onitemselected\":\"ResultingFromITIL_onitemselected\"}").Result;
+    var RowResultingFromITIL = ((Entity.SCM_OS_Details)ResultingFromITIL_.DataItem).ResultingFromITIL;
+}
+
+<Dropdown ExternalApi=true NotMapped=false TextGrid=true Value="@RowResultingFromITIL"   FieldName="ResultingFromITIL" OnItemSelected="ItemSelected_SCM_OS_DetailsResultingFromITIL_Header" Component="HeaderResultingFromITIL">
+</Dropdown>
+@code {
+    public async Task ItemSelected_SCM_OS_DetailsResultingFromITIL_Header(object _Item)
+    {
+      //  var Selected = Utility.JSON.ToObject<dynamic>(Utility.JSON.ToJson(_Item).Result).Result;
+  //   ResultingFromITIL
+
+  //  #CustomCode
+
+ //   
+
+  //  #OnItemSelected
+    }
+}
+
+    </CellDisplayTemplate>
+</DxGridDataColumn>
+<DxGridDataColumn  Caption="کاربر درخواست دهنده ITIL"  FieldName="RequesterUserITIL" />
+
+<DxGridDataColumn  Caption="تاریخ درخواست ITIL"  FieldName="CreatedAtITIL" />
+
+<DxGridDataColumn Context="ITILDetails_" Caption="جزئیات درخواست ITIL" >
+    <CellDisplayTemplate>
+       
+@{
+    Baya.Models.ViewEngine.View_Component HeaderITILDetails = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"primaryKey\":false,\"EntityID\":252,\"FieldId\":15195,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":579,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":true,\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://itilorm.workcv.ir/fa-ir/api/v1/vw_ORM_RequestDetail/GetList?RequestID={{data.RequestIdITIL}}\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"inputFormat\":\"DataGrid\",\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.FullName}} {{item.AssetName}} {{item.AssetOperationName}} {{item.Describe}} {{item.CreateDate}} </span>\",\"FieldsTemplate\":[{\"key\":\"FullName\",\"value\":\"int\"},{\"key\":\"AssetName\",\"value\":\"int\"},{\"key\":\"AssetOperationName\",\"value\":\"int\"},{\"key\":\"Describe\",\"value\":\"int\"},{\"key\":\"CreateDate\",\"value\":\"int\"}],\"dataSrc\":\"url\",\"refreshOn\":\"SCM_OS_Details.RequestID\",\"clearOnRefresh\":true,\"disabled\":true,\"modal\":true,\"label\":\"جزئیات درخواست ITIL\",\"tableView\":true,\"key\":\"ITILDetails\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"15195?EId=252&SubId=8\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
+    var RowITILDetails = ((Entity.SCM_OS_Details)ITILDetails_.DataItem).ITILDetails;
+}
+
+<Dropdown ExternalApi=true NotMapped=false TextGrid=true Value="@RowITILDetails"   FieldName="ITILDetails" OnItemSelected="ItemSelected_SCM_OS_DetailsITILDetails_Header" Component="HeaderITILDetails">
+</Dropdown>
+@code {
+    public async Task ItemSelected_SCM_OS_DetailsITILDetails_Header(object _Item)
+    {
+      //  var Selected = Utility.JSON.ToObject<dynamic>(Utility.JSON.ToJson(_Item).Result).Result;
+  //   ITILDetails
+
+  //  #CustomCode
+
+ //   
+
+  //  #OnItemSelected
+    }
+}
+
+    </CellDisplayTemplate>
+</DxGridDataColumn>
+<DxGridDataColumn  Caption="شماره درخواست ITIL" Visible=false FieldName="RequestIdITIL" />
+
+<DxGridDataColumn  Caption="Id" Visible=false FieldName="Id" />
+
+<DxGridDataColumn  Caption="RequestID" Visible=false FieldName="RequestID" />
+
+<DxGridDataColumn  Caption="CreateUser" Visible=false FieldName="CreateUser" />
+
+<DxGridDataColumn  Caption="UpdateUser" Visible=false FieldName="UpdateUser" />
+
+<DxGridDataColumn  Caption="CreateDate" Visible=false FieldName="CreateDate" />
+
+<DxGridDataColumn  Caption="UpdateDate" Visible=false FieldName="UpdateDate" />
+
+<DxGridDataColumn  Caption="IsDelete" Visible=false FieldName="IsDelete" />
+
+
+</Columns>
+
+    <EditFormTemplate Context="EditFormContextSCM_OS_Details">
+    @{
+        SCM_OS_Details  = (Entity.SCM_OS_Details)EditFormContextSCM_OS_Details.EditModel;
+    }
+    <DxFormLayout>
+        <DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextSCM_OS_Details">
+    
+<Input Id="SCM_OS_Details_Title" @ref="Ref_SCM_OS_Details_Title" Label="عنوان کار"   Disabled=true  @bind-Value="SCM_OS_Details.Title" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+</DxFormLayoutItem>
+
+<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextSCM_OS_Details">
+     
+ 
+@code {
+    Baya.Models.ViewEngine.View_Component Component_SCM_OS_DetailsSCM_UnitsId = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"primaryKey\":false,\"EntityID\":252,\"FieldId\":3039,\"TypeCSharp\":\"string\",\"NotNull\":true,\"ViewId\":579,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":false,\"RelationParentName\":\"SCM_Units\",\"RelationParentModel\":\"SCM_Units\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/SCM_Units/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.Title}} </span>\",\"FieldsTemplate\":[],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"disabled\":true,\"modal\":true,\"label\":\"واحد\",\"tableView\":true,\"key\":\"SCM_UnitsId\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"3039?EId=252&SubId=8\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
+}
+
+    <Dropdown Id=SCM_OS_Details_SCM_UnitsId Disabled=true @ref="Ref_SCM_OS_Details_SCM_UnitsId" Label="واحد" CssClass=""  DisplayFormat="DropDown" ExternalApi=true NotMapped=false TextGrid=false Text="" Value="@SCM_OS_Details.SCM_UnitsId" FieldName="SCM_UnitsId" OnItemSelected="ItemSelected_SCM_OS_DetailsSCM_UnitsId" Component="Component_SCM_OS_DetailsSCM_UnitsId" _Entity="_Entity" _EntityRow=SCM_OS_Details>
+</Dropdown>
+@code {
+    public async Task ItemSelected_SCM_OS_DetailsSCM_UnitsId(object _Item)
+    {
+        var Selected = Utility.JSON.ToObject<dynamic>(Utility.JSON.ToJson(_Item).Result).Result;
+     var Item = SCM_OS_Details;
+
+      //Todo
+ //برای اینکه آی دی تغییر کند اینجا نیز باید تغییر کند
+ //بهتر است از پرایمیری کی استفاده شود
+ Item.SCM_UnitsId = Selected.Id;
+ Item.SCM_Units = await Utility.JSON.ToObject<Entity.SCM_Units>(await Utility.JSON.ToJson(_Item));
+
+    
+
+    
+    }
+} 
+
+</DxFormLayoutItem>
+
+<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextSCM_OS_Details">
+    
+<Input Id="SCM_OS_Details_Amount" @ref="Ref_SCM_OS_Details_Amount" Label="تعداد"   Disabled=true  @bind-Value="SCM_OS_Details.Amount" type="number"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"step\":\"any\"}").Result))></Input>
+
+</DxFormLayoutItem>
+
+<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextSCM_OS_Details">
+     
+ 
+@code {
+    Baya.Models.ViewEngine.View_Component Component_SCM_OS_DetailsSCM_PriorityId = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"primaryKey\":false,\"EntityID\":252,\"FieldId\":3041,\"TypeCSharp\":\"string\",\"NotNull\":true,\"ViewId\":579,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":false,\"RelationParentName\":\"SCM_Priority\",\"RelationParentModel\":\"SCM_Priority\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/SCM_Priority/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.PriorityTitle}} </span>\",\"FieldsTemplate\":[],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"disabled\":true,\"modal\":true,\"label\":\"اولویت\",\"tableView\":true,\"key\":\"SCM_PriorityId\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"3041?EId=252&SubId=8\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
+}
+
+    <Dropdown Id=SCM_OS_Details_SCM_PriorityId Disabled=true @ref="Ref_SCM_OS_Details_SCM_PriorityId" Label="اولویت" CssClass=""  DisplayFormat="DropDown" ExternalApi=true NotMapped=false TextGrid=false Text="" Value="@SCM_OS_Details.SCM_PriorityId" FieldName="SCM_PriorityId" OnItemSelected="ItemSelected_SCM_OS_DetailsSCM_PriorityId" Component="Component_SCM_OS_DetailsSCM_PriorityId" _Entity="_Entity" _EntityRow=SCM_OS_Details>
+</Dropdown>
+@code {
+    public async Task ItemSelected_SCM_OS_DetailsSCM_PriorityId(object _Item)
+    {
+        var Selected = Utility.JSON.ToObject<dynamic>(Utility.JSON.ToJson(_Item).Result).Result;
+     var Item = SCM_OS_Details;
+
+      //Todo
+ //برای اینکه آی دی تغییر کند اینجا نیز باید تغییر کند
+ //بهتر است از پرایمیری کی استفاده شود
+ Item.SCM_PriorityId = Selected.Id;
+ Item.SCM_Priority = await Utility.JSON.ToObject<Entity.SCM_Priority>(await Utility.JSON.ToJson(_Item));
+
+    
+
+    
+    }
+} 
+
+</DxFormLayoutItem>
+
+<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextSCM_OS_Details">
+    
+<Input Id="SCM_OS_Details_AreaUse" @ref="Ref_SCM_OS_Details_AreaUse" Label="محل مصرف"   Disabled=true  @bind-Value="SCM_OS_Details.AreaUse" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+</DxFormLayoutItem>
+
+<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextSCM_OS_Details">
+    
+<Input Id="SCM_OS_Details_RequsterDesc" @ref="Ref_SCM_OS_Details_RequsterDesc" Label="توضیحات درخواست کننده"   Disabled=true  @bind-Value="SCM_OS_Details.RequsterDesc" type="textarea"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+</DxFormLayoutItem>
+
+<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextSCM_OS_Details">
+    
+<RadioBoolean @ref="Ref_SCM_OS_Details_IsEnableApproved" InLine=true Id="SCM_OS_Details_IsEnableApproved" Required=true oninput="@(e => IsEnableApproved_oninput(e ,SCM_OS_Details))"  LabelTrue="بله" LabelFalse="خیر" Label="آیا مورد تایید است؟" @bind-Value="SCM_OS_Details.IsEnableApproved" CssClass="" ></RadioBoolean>
+
+</DxFormLayoutItem>
+
+<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextSCM_OS_Details">
+    
+<RadioBoolean @ref="Ref_SCM_OS_Details_IsEnableNeedModified" InLine=true Id="SCM_OS_Details_IsEnableNeedModified" Required=true  LabelTrue="بله" LabelFalse="خیر" Label="آیا این درخواست اصلاح گردد؟	" @bind-Value="SCM_OS_Details.IsEnableNeedModified" CssClass="" ></RadioBoolean>
+
+</DxFormLayoutItem>
+
+<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextSCM_OS_Details">
+    
+<RadioBoolean @ref="Ref_SCM_OS_Details_UploadFileIsEnable" InLine=true Id="SCM_OS_Details_UploadFileIsEnable"  oninput="@(e => UploadFileIsEnable_oninput(e ,SCM_OS_Details))"  LabelTrue="بله" LabelFalse="خیر" Label="آیا مدارک پیوست دارد؟" @bind-Value="SCM_OS_Details.UploadFileIsEnable" CssClass="" Disabled=true></RadioBoolean>
+
+</DxFormLayoutItem>
+
+<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextSCM_OS_Details">
+    <Uploader Id=SCM_OS_Details_SCM_OS_Details_UploadFile  @ref="Ref_SCM_OS_Details_SCM_OS_Details_UploadFile" Disabled=true  Accept="image/* , application/pdf , .doc,.docx , .xls,.xlsx" MinSize="1KB" MaxSize="5MB" Caption="مدارک پیوست" Data="SCM_OS_Details.SCM_OS_Details_UploadFile" Url="https://File.workcv.ir/fa/api/v1/File/Post" TItem="Entity.SCM_OS_Details_UploadFile"></Uploader>
+
+</DxFormLayoutItem>
+
+<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextSCM_OS_Details">
+    
+<RadioBoolean @ref="Ref_SCM_OS_Details_GuaranteeIsEnable" InLine=true Id="SCM_OS_Details_GuaranteeIsEnable"   LabelTrue="بله - هزینه ندارد" LabelFalse="خیر - هزینه دارد" Label="آیا گارانتی دارد؟" @bind-Value="SCM_OS_Details.GuaranteeIsEnable" CssClass="" Disabled=true></RadioBoolean>
+
+</DxFormLayoutItem>
+
+<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextSCM_OS_Details">
+    
+<RadioBoolean @ref="Ref_SCM_OS_Details_HistoryRepairsIsEnable" InLine=true Id="SCM_OS_Details_HistoryRepairsIsEnable"   LabelTrue="بله" LabelFalse="خیر" Label="سابقه تعمیرات دارد؟" @bind-Value="SCM_OS_Details.HistoryRepairsIsEnable" CssClass="" Disabled=true></RadioBoolean>
+
+</DxFormLayoutItem>
+
+<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextSCM_OS_Details">
+    
+<RadioBoolean @ref="Ref_SCM_OS_Details_ITILCodeIsEnable" InLine=true Id="SCM_OS_Details_ITILCodeIsEnable"  oninput="@(e => ITILCodeIsEnable_oninput(e ,SCM_OS_Details))"  LabelTrue="بله" LabelFalse="خیر" Label="آیا کد ITIL دارد؟" @bind-Value="SCM_OS_Details.ITILCodeIsEnable" CssClass="" Disabled=true></RadioBoolean>
+
+</DxFormLayoutItem>
+
+<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextSCM_OS_Details">
+     
+ 
+@code {
+    Baya.Models.ViewEngine.View_Component Component_SCM_OS_DetailsResultingFromITIL = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"primaryKey\":false,\"EntityID\":252,\"FieldId\":15194,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":579,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":true,\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://itilorm.workcv.ir/fa-ir/api/v1/vw_ORM_Request/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.RequestID}} </span>\",\"FieldsTemplate\":[{\"key\":\"RequestID\",\"value\":\"int\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"disabled\":true,\"modal\":true,\"label\":\"منتج از ITIL\",\"tableView\":true,\"key\":\"ResultingFromITIL\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"15194?EId=252&SubId=8\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true,\"onitemselected\":\"ResultingFromITIL_onitemselected\"}").Result;
+}
+
+    <Dropdown Id=SCM_OS_Details_ResultingFromITIL Disabled=true @ref="Ref_SCM_OS_Details_ResultingFromITIL" Label="منتج از ITIL" CssClass=""  DisplayFormat="DropDown" ExternalApi=true NotMapped=false TextGrid=false  Value="@SCM_OS_Details.ResultingFromITIL" FieldName="ResultingFromITIL" OnItemSelected="ItemSelected_SCM_OS_DetailsResultingFromITIL" Component="Component_SCM_OS_DetailsResultingFromITIL" _Entity="_Entity" _EntityRow=SCM_OS_Details>
+</Dropdown>
+@code {
+    public async Task ItemSelected_SCM_OS_DetailsResultingFromITIL(object _Item)
+    {
+        var Selected = Utility.JSON.ToObject<dynamic>(Utility.JSON.ToJson(_Item).Result).Result;
+     var Item = SCM_OS_Details;
+
+    Item.ResultingFromITIL = Selected.Id;
+
+
+    
+
+    await ResultingFromITIL_onitemselected( Selected , SCM_OS_Details);
+    }
+} 
+
+</DxFormLayoutItem>
+
+<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextSCM_OS_Details">
+    
+<Input Id="SCM_OS_Details_RequesterUserITIL" @ref="Ref_SCM_OS_Details_RequesterUserITIL" Label="کاربر درخواست دهنده ITIL"   Disabled=true  @bind-Value="SCM_OS_Details.RequesterUserITIL" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"maxlength\":\"40\"}").Result))></Input>
+
+</DxFormLayoutItem>
+
+<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextSCM_OS_Details">
+    
+<Input Id="SCM_OS_Details_CreatedAtITIL" @ref="Ref_SCM_OS_Details_CreatedAtITIL" Label="تاریخ درخواست ITIL"   Disabled=true  @bind-Value="SCM_OS_Details.CreatedAtITIL" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"maxlength\":\"40\"}").Result))></Input>
+
+</DxFormLayoutItem>
+
+<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextSCM_OS_Details">
+     
+ 
+@code {
+    Baya.Models.ViewEngine.View_Component Component_SCM_OS_DetailsITILDetails = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"primaryKey\":false,\"EntityID\":252,\"FieldId\":15195,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":579,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":true,\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://itilorm.workcv.ir/fa-ir/api/v1/vw_ORM_RequestDetail/GetList?RequestID={{data.RequestIdITIL}}\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"inputFormat\":\"DataGrid\",\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.FullName}} {{item.AssetName}} {{item.AssetOperationName}} {{item.Describe}} {{item.CreateDate}} </span>\",\"FieldsTemplate\":[{\"key\":\"FullName\",\"value\":\"int\"},{\"key\":\"AssetName\",\"value\":\"int\"},{\"key\":\"AssetOperationName\",\"value\":\"int\"},{\"key\":\"Describe\",\"value\":\"int\"},{\"key\":\"CreateDate\",\"value\":\"int\"}],\"dataSrc\":\"url\",\"refreshOn\":\"SCM_OS_Details.RequestID\",\"clearOnRefresh\":true,\"disabled\":true,\"modal\":true,\"label\":\"جزئیات درخواست ITIL\",\"tableView\":true,\"key\":\"ITILDetails\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"15195?EId=252&SubId=8\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
+}
+
+    <Dropdown Id=SCM_OS_Details_ITILDetails Disabled=true @ref="Ref_SCM_OS_Details_ITILDetails" Label="جزئیات درخواست ITIL" CssClass=""  DisplayFormat="DataGrid" ExternalApi=true NotMapped=false TextGrid=false  Value="@SCM_OS_Details.ITILDetails" FieldName="ITILDetails" OnItemSelected="ItemSelected_SCM_OS_DetailsITILDetails" Component="Component_SCM_OS_DetailsITILDetails" _Entity="_Entity" _EntityRow=SCM_OS_Details>
+</Dropdown>
+@code {
+    public async Task ItemSelected_SCM_OS_DetailsITILDetails(object _Item)
+    {
+        var Selected = Utility.JSON.ToObject<dynamic>(Utility.JSON.ToJson(_Item).Result).Result;
+     var Item = SCM_OS_Details;
+
+    Item.ITILDetails = Selected.Id;
+
+
+    
+
+    
+    }
+} 
+
+</DxFormLayoutItem>
+
+<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextSCM_OS_Details">
+    
+<Input Id="SCM_OS_Details_RequestIdITIL" @ref="Ref_SCM_OS_Details_RequestIdITIL" Label="شماره درخواست ITIL"  CssClass="d-none" Disabled=true  @bind-Value="SCM_OS_Details.RequestIdITIL" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"maxlength\":\"40\"}").Result))></Input>
+
+</DxFormLayoutItem>
+
+<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextSCM_OS_Details">
+    
+<Input Id="SCM_OS_Details_Id" @ref="Ref_SCM_OS_Details_Id"   CssClass="d-none"   @bind-Value="SCM_OS_Details.Id" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+</DxFormLayoutItem>
+
+<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextSCM_OS_Details">
+    
+<Input Id="SCM_OS_Details_RequestID" @ref="Ref_SCM_OS_Details_RequestID"      @bind-Value="SCM_OS_Details.RequestID" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+</DxFormLayoutItem>
+
+<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextSCM_OS_Details">
+    
+<Input Id="SCM_OS_Details_CreateUser" @ref="Ref_SCM_OS_Details_CreateUser"      @bind-Value="SCM_OS_Details.CreateUser" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+</DxFormLayoutItem>
+
+<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextSCM_OS_Details">
+    
+<Input Id="SCM_OS_Details_UpdateUser" @ref="Ref_SCM_OS_Details_UpdateUser"      @bind-Value="SCM_OS_Details.UpdateUser" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+</DxFormLayoutItem>
+
+<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextSCM_OS_Details">
+    
+<Input Id="SCM_OS_Details_CreateDate" @ref="Ref_SCM_OS_Details_CreateDate"   CssClass="d-none"   @bind-Value="SCM_OS_Details.CreateDate" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+</DxFormLayoutItem>
+
+<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextSCM_OS_Details">
+    
+<Input Id="SCM_OS_Details_UpdateDate" @ref="Ref_SCM_OS_Details_UpdateDate"   CssClass="d-none"   @bind-Value="SCM_OS_Details.UpdateDate" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+</DxFormLayoutItem>
+
+<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextSCM_OS_Details">
+    
+<Input Id="SCM_OS_Details_IsDelete" @ref="Ref_SCM_OS_Details_IsDelete"   CssClass="d-none"   @bind-Value="SCM_OS_Details.IsDelete" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+</DxFormLayoutItem>
+
+
+        <DxFormLayoutItem ColSpanMd="12" Context="FormLayoutContextSCM_OS_Details" CssClass="btn-modal-custom">
+            <DxButton Id="SCM_OS_Details_GridSCM_OS_MasterId_252ButtonSave" Click="@(() => SaveModalGrid_SCM_OS_Details(EditFormContextSCM_OS_Details))" Text="@languageContainer.Keys["DXGrid:Save"]" CssClass="btn btn-green px-5" />
+            
+
+            <DxButton Id="SCM_OS_Details_GridSCM_OS_MasterId_252ButtonCancel" Click="@(() => Grid_SCM_OS_Details.CancelEditAsync())" Text="@languageContainer.Keys["DXGrid:Cancel"]" CssClass="btn btn-red" />
+            <button id="click_s"  hidden>submit</button>
+             <span>|</span>
+           
+            <DxButton Id="SCM_OS_Details_GridSCM_OS_MasterId_252ButtonBefore" Click="@(() => Dialog_Grid_SCM_OS_Details(0,IndexGrid_SCM_OS_Details,EditFormContextSCM_OS_Details))" Text="قبلی" CssClass="btn btn-purple" />@* @languageContainer.Keys["DXGrid:??"] *@
+         
+            <DxButton Id="SCM_OS_Details_GridSCM_OS_MasterId_252ButtonNext" Click="@(() => Dialog_Grid_SCM_OS_Details(1,IndexGrid_SCM_OS_Details,EditFormContextSCM_OS_Details))" Text="بعدی" CssClass="btn btn-purple" />
+
+        </DxFormLayoutItem>
+    </DxFormLayout>
+
+</EditFormTemplate>
+
+</DxGrid>
+
+<DxPopup @bind-Visible="@ConfirmationShownSCM_OS_Details" HeaderText="@languageContainer.Keys["DXGrid:DeleteItem"]" Width="350px" CloseOnOutsideClick="false">
+
+    <BodyContentTemplate Context="EditFormContext">
+        <div class="py-3 px-5 text-center">
+            <p>@languageContainer.Keys["DXGrid:DeleteItemHint"]</p>
+            <div class="confirm-dialog-buttons">
+                <DxButton Text="@languageContainer.Keys["DXGrid:Yes"]" CssClass="btn btn-red px-4" Click="@OnYesButtonClickGrid_SCM_OS_Details" />
+                <DxButton Text="@languageContainer.Keys["DXGrid:No"]" CssClass="btn btn-purple-light px-4" Click="@OnNoButtonClickGrid_SCM_OS_Details" />
+            </div>
+        </div>
+    </BodyContentTemplate>
+</DxPopup>
+
+<DxPopup @bind-Visible="@ConfirmationSCM_OS_Details" HeaderText="هشدار" Width="350px" CloseOnOutsideClick="false">
+    <BodyContentTemplate Context="EditFormContext">
+        <div class="py-3 px-5 text-center"> 
+            <p>اطلاعات این فرم تغییر کرده است آیا تغییرات ذخیره شود؟</p>
+            <div class="confirm-dialog-buttons">
+                <DxButton Text="بله" CssClass="btn btn-red px-4" Click="@OnYesButtonSCM_OS_Details" />
+                <DxButton Text="خیر" CssClass="btn btn-purple-light px-4" Click="@OnNoButtonSCM_OS_Details" />
+            </div>
+        </div>
+    </BodyContentTemplate>
+</DxPopup>
+@code {
+    // DxGrid? Grid_SCM_OS_Details;
+    Entity.SCM_OS_Details SCM_OS_Details;
+    bool ConfirmationShownSCM_OS_Details { get; set; } = false;
+    public Entity.SCM_OS_Details SelectedItemGrid_SCM_OS_Details { get; set; } = new Entity.SCM_OS_Details();
+    /// <summary>
+    /// شماره ستون
+    /// </summary>
+    public int IndexGrid_SCM_OS_Details { get; set; }
+
+    ///////////////////////
+    bool ConfirmationSCM_OS_Details { get; set; } = false;
+    GridEditFormTemplateContext? _ContextFormTemplateSCM_OS_Details { get; set; }
+    public int OpenDialogCodeSCM_OS_Details { get; set; } = 0;
+    ////////////////////////
+
+    async Task OnEditModelSavingSCM_OS_Details(GridEditModelSavingEventArgs arg)
+    {
+        var e = arg.EditModel;
+    bool NotValid = false;
+    //events
+       NotValid = await SCM_OS_Details_editmodelsaving(e);
+        
+      if (!NotValid)
+     {
+      SaveGrid_SCM_OS_Details(arg.DataItem, arg.EditModel);
+     }
+}
+
+async void Dialog_Grid_SCM_OS_Details(int _OpenDialogCode, int VisibleIndex, GridEditFormTemplateContext e)
+{
+    OpenDialogCodeSCM_OS_Details = _OpenDialogCode;
+    if (!CheckChangedData(await Utility.JSON.ToJson(e.EditModel)))
+    {
+    _ContextFormTemplateSCM_OS_Details = e;
+    ConfirmationSCM_OS_Details = true;
+    }
+    else
+    {
+    await OnNoButtonSCM_OS_Details();
+    }
+}
+async Task OnYesButtonSCM_OS_Details()
+{
+
+    ConfirmationSCM_OS_Details = false;
+    await Task.Delay(1500);
+    //bool FormValidate = await JSO.InvokeAsync<bool>("submitForm");
+    bool FormValidate =  await JS.InvokeAsync<bool>("submitForm");
+    if (FormValidate)
+    {
+        bool NotValid = false;
+    var e = _ContextFormTemplateSCM_OS_Details.EditModel;
+         //events
+         NotValid = await SCM_OS_Details_editmodelsaving(e);
+
+        if (!NotValid)
+         {
+        SaveGrid_SCM_OS_Details(_ContextFormTemplateSCM_OS_Details.DataItem, _ContextFormTemplateSCM_OS_Details.EditModel);
+            await Grid_SCM_OS_Details.CancelEditAsync();
+         await ChangePageGrid_SCM_OS_Details();
+         await SetEditFormContextGrid_SCM_OS_Details();
+         }
+          
+    }
+
+}
+async Task OnNoButtonSCM_OS_Details()
+{
+    ConfirmationSCM_OS_Details = false;
+    await ChangePageGrid_SCM_OS_Details();
+    await SetEditFormContextGrid_SCM_OS_Details();
+
+}
+async Task SetEditFormContextGrid_SCM_OS_Details()
+{
+    var e = (Entity.SCM_OS_Details)Grid_SCM_OS_Details.GetDataItem(IndexGrid_SCM_OS_Details);
+    JsonData = await Utility.JSON.ToJson(e);
+}
+
+async Task ChangePageGrid_SCM_OS_Details()
+{
+    int VisibleIndex = IndexGrid_SCM_OS_Details;
+    try
+    {
+    if (OpenDialogCodeSCM_OS_Details == 1)
+    {
+        if (VisibleIndex != (Grid_SCM_OS_Details.GetVisibleRowCount() - 1))
+    { 
+            Grid_SCM_OS_Details.CancelEditAsync();
+            IndexGrid_SCM_OS_Details = VisibleIndex + 1;
+    Grid_SCM_OS_Details.StartEditRowAsync(IndexGrid_SCM_OS_Details);
+    }
+    }
+    else if (OpenDialogCodeSCM_OS_Details == 0)
+    {
+        if (VisibleIndex != 0)
+        {
+
+            Grid_SCM_OS_Details.CancelEditAsync();
+            IndexGrid_SCM_OS_Details = VisibleIndex - 1;
+    Grid_SCM_OS_Details.StartEditRowAsync(IndexGrid_SCM_OS_Details);
+    }
+
+    }
+    var e = (Entity.SCM_OS_Details)Grid_SCM_OS_Details.GetDataItem(IndexGrid_SCM_OS_Details);
+    JsonData = await Utility.JSON.ToJson(e);
+    await Task.Delay(300);
+    await SCM_OS_Details_afterrendermodal(e);
+    StateHasChanged();
+    }
+    catch (Exception ex)
+    {
+
+    Console.WriteLine("error in ChagePage" + ex.Message);
+    }
+
+}
+
+async Task StartEditNewRowAsync_Grid_SCM_OS_Details()
+{
+    IndexGrid_SCM_OS_Details = Grid_SCM_OS_Details.GetVisibleRowCount();
+Grid_SCM_OS_Details.StartEditNewRowAsync().GetAwaiter();
+var e = new Entity.SCM_OS_Details();
+JsonData = await Utility.JSON.ToJson(e);
+await Task.Delay(300);
+await SCM_OS_Details_afterrendermodal(e);
+}
+
+async Task StartModalGrid_SCM_OS_Details(GridCommandColumnCellDisplayTemplateContext Context)
+{
+    IndexGrid_SCM_OS_Details = Context.VisibleIndex;
+Grid_SCM_OS_Details.StartEditRowAsync(Context.VisibleIndex).GetAwaiter();
+var e = (Entity.SCM_OS_Details)Context.DataItem;
+JsonData = await Utility.JSON.ToJson(e);
+await Task.Delay(300);
+await SCM_OS_Details_afterrendermodal(e);
+   // await Task.Delay(500);
+}
+public async Task SaveModalGrid_SCM_OS_Details(GridEditFormTemplateContext arg)
+{
+     //bool FormValidate = await JSO.InvokeAsync<bool>("submitForm");
+     bool FormValidate =  await JS.InvokeAsync<bool>("submitForm");
+
+    if(FormValidate){
+
+    var e = arg.EditModel;
+    bool NotValid = false;
+    //events
+    NotValid = await SCM_OS_Details_editmodelsaving(e);
+    if (!NotValid)
+    {
+        SaveGrid_SCM_OS_Details(arg.DataItem, arg.EditModel);
+
+     await arg.Grid.CancelEditAsync(); 
+
+    }
+
+    }
+
+}
+public async Task SaveAndNewGrid_SCM_OS_Details(GridEditFormTemplateContext arg)
+{ 
+     //bool FormValidate = await JSO.InvokeAsync<bool>("submitForm");
+     bool FormValidate = await JS.InvokeAsync<bool>("submitForm");
+     
+    if(FormValidate){
+       
+         var e = arg.EditModel;
+          bool NotValid = false;
+     //events
+    NotValid = await SCM_OS_Details_editmodelsaving(e);
+    if (!NotValid)
+    {
+        SaveGrid_SCM_OS_Details(arg.DataItem, arg.EditModel);
+
+         await arg.Grid.CancelEditAsync();
+        await StartEditNewRowAsync_Grid_SCM_OS_Details();
+
+    }
+          
+    }
+   
+}
+
+void PerviousPageGrid_SCM_OS_Details(int VisibleIndex)
+{
+    try
+     {
+    if (VisibleIndex == 0)
+    {
+        Console.WriteLine(VisibleIndex.ToString());
+    }
+    else
+    {
+Grid_SCM_OS_Details.CancelEditAsync();
+        IndexGrid_SCM_OS_Details = VisibleIndex - 1;
+         Grid_SCM_OS_Details.StartEditRowAsync(IndexGrid_SCM_OS_Details);
+     }
+    }
+     catch (Exception e)
+     {
+    Console.WriteLine("PerviousPage Message");
+    Console.WriteLine(e.Message);
+    }
+
+}
+
+void NextPageGrid_SCM_OS_Details(int VisibleIndex)
+{
+
+    if (VisibleIndex == Grid_SCM_OS_Details.GetVisibleRowCount() - 1)
+    {
+    Console.WriteLine(VisibleIndex.ToString());
+    }
+    else
+    {
+    Console.WriteLine("NextPage Start Grid_SCM_OS_Details ");
+    try
+    {
+Grid_SCM_OS_Details.CancelEditAsync();
+        IndexGrid_SCM_OS_Details = VisibleIndex + 1;
+         Grid_SCM_OS_Details.StartEditRowAsync(IndexGrid_SCM_OS_Details);
+     }
+    catch (Exception e)
+    {
+        Console.WriteLine("NextPage Message");
+        Console.WriteLine(e.Message);
+    }
+
+    }
+}
+
+public void SaveGrid_SCM_OS_Details(object DataItem, object EditModel)
+{
+    var ListEntity = _Entity.SCM_OS_Details;
+    var MainModel = (Entity.SCM_OS_Details)DataItem;
+    if (MainModel != null)
+    {
+MainModel.Title = ((Entity.SCM_OS_Details)EditModel).Title;
+MainModel.SCM_UnitsId = ((Entity.SCM_OS_Details)EditModel).SCM_UnitsId;
+MainModel.SCM_Units = ((Entity.SCM_OS_Details)EditModel).SCM_Units;
+MainModel.Amount = ((Entity.SCM_OS_Details)EditModel).Amount;
+MainModel.SCM_PriorityId = ((Entity.SCM_OS_Details)EditModel).SCM_PriorityId;
+MainModel.SCM_Priority = ((Entity.SCM_OS_Details)EditModel).SCM_Priority;
+MainModel.AreaUse = ((Entity.SCM_OS_Details)EditModel).AreaUse;
+MainModel.RequsterDesc = ((Entity.SCM_OS_Details)EditModel).RequsterDesc;
+MainModel.IsEnableApproved = ((Entity.SCM_OS_Details)EditModel).IsEnableApproved;
+MainModel.IsEnableNeedModified = ((Entity.SCM_OS_Details)EditModel).IsEnableNeedModified;
+MainModel.UploadFileIsEnable = ((Entity.SCM_OS_Details)EditModel).UploadFileIsEnable;
+MainModel.GuaranteeIsEnable = ((Entity.SCM_OS_Details)EditModel).GuaranteeIsEnable;
+MainModel.HistoryRepairsIsEnable = ((Entity.SCM_OS_Details)EditModel).HistoryRepairsIsEnable;
+MainModel.ITILCodeIsEnable = ((Entity.SCM_OS_Details)EditModel).ITILCodeIsEnable;
+MainModel.ResultingFromITIL = ((Entity.SCM_OS_Details)EditModel).ResultingFromITIL;
+MainModel.RequesterUserITIL = ((Entity.SCM_OS_Details)EditModel).RequesterUserITIL;
+MainModel.CreatedAtITIL = ((Entity.SCM_OS_Details)EditModel).CreatedAtITIL;
+MainModel.ITILDetails = ((Entity.SCM_OS_Details)EditModel).ITILDetails;
+MainModel.RequestIdITIL = ((Entity.SCM_OS_Details)EditModel).RequestIdITIL;
+MainModel.Id = ((Entity.SCM_OS_Details)EditModel).Id;
+MainModel.RequestID = ((Entity.SCM_OS_Details)EditModel).RequestID;
+MainModel.CreateUser = ((Entity.SCM_OS_Details)EditModel).CreateUser;
+MainModel.UpdateUser = ((Entity.SCM_OS_Details)EditModel).UpdateUser;
+MainModel.CreateDate = ((Entity.SCM_OS_Details)EditModel).CreateDate;
+MainModel.UpdateDate = ((Entity.SCM_OS_Details)EditModel).UpdateDate;
+MainModel.IsDelete = ((Entity.SCM_OS_Details)EditModel).IsDelete;
+
+    }
+    else
+    {
+    ListEntity.Add((Entity.SCM_OS_Details)EditModel);
+    }
+}
+
+async Task OnDataItemDeletingSCM_OS_Details(GridDataItemDeletingEventArgs e)
+    {
+    var ListEntity = _Entity.SCM_OS_Details;
+    ListEntity.Remove((Entity.SCM_OS_Details)e.DataItem);
+}
+async void OnDeleteButtonClickGrid_SCM_OS_Details (GridCommandColumnCellDisplayTemplateContext ex)
+{
+    SelectedItemGrid_SCM_OS_Details = (ex.DataItem as Entity.SCM_OS_Details);
+    var e =SelectedItemGrid_SCM_OS_Details;
+    
+     
+    Console.WriteLine("end OnDeleteButtonClickGrid_test_OrderBody 0");
+    ConfirmationShownSCM_OS_Details = true;
+    await Task.Yield();
+     await InvokeAsync(StateHasChanged);
+    
+    Console.WriteLine("end OnDeleteButtonClickGrid_test_OrderBody 1");
+}
+async void OnYesButtonClickGrid_SCM_OS_Details ()
+{
+       if (SelectedItemGrid_SCM_OS_Details != null)
+    {
+      if (SelectedItemGrid_SCM_OS_Details.Id == Guid.Empty)
+      {
+          var ListEntity = _Entity.SCM_OS_Details;
+        ListEntity.Remove((Entity.SCM_OS_Details)SelectedItemGrid_SCM_OS_Details);
+     
+      }
+      else
+      {
+        var cleanModel = new Entity.SCM_OS_Details();
+      // چک کن آیا پراپرتی IsDelete در این نوع وجود دارد؟
+        var prop = typeof(Entity.SCM_OS_Details).GetProperty("IsDelete");
+        if (prop != null && prop.CanRead && prop.CanWrite)
+        {
+            // مقدار فعلی را بگیر
+            var currentValue = prop.GetValue(SelectedItemGrid_SCM_OS_Details);
+
+            if (currentValue is bool boolValue)
+            {
+                // مقدار را معکوس کن
+                var newValue = !boolValue;
+
+                // روی هر دو شیء تنظیم کن
+                prop.SetValue(SelectedItemGrid_SCM_OS_Details, newValue);
+                prop.SetValue(cleanModel, newValue);
+            }
+        }
+        EntityHelper.SetPropertyValue(cleanModel, cleanModel._GetIdName, SelectedItemGrid_SCM_OS_Details._Id);
+    
+       
+       
+      }
+    }
+    var e= SelectedItemGrid_SCM_OS_Details;
+    
+    Grid_SCM_OS_Details.Reload();
+    ConfirmationShownSCM_OS_Details = false;
+     await Task.Yield();
+    await InvokeAsync(StateHasChanged);
+
+}
+void OnNoButtonClickGrid_SCM_OS_Details ()
+{
+    ConfirmationShownSCM_OS_Details = false;
+}
+
+void CustomizeRowsGrid_SCM_OS_Details(GridCustomizeElementEventArgs e)
+{
+    ///استایل سطر
+    if (e.ElementType == GridElementType.DataRow)
+    {
+    var item = ((Entity.SCM_OS_Details)e.Grid.GetDataItem(e.VisibleIndex));
+
+       if (item.IsDelete == true)
+       {
+           e.CssClass = "bg-lightred disablediv";
+       }
+    }
+}
+
+async void CustomizeEditGrid_SCM_OS_Details(GridCustomizeEditModelEventArgs e)
+{
+
+    if (e.IsNew)
+    {
+
+    var newRow = (Entity.SCM_OS_Details)e.EditModel;
+
+     
+
+    }
+
+
+}
+public async void RowClickGrid_SCM_OS_Details(GridRowClickEventArgs e)
+{
+
+}
+
+public async void RowDubbleClickGrid_SCM_OS_Details(GridRowClickEventArgs e)
+{
+
+}
+}
+
+<Input Id="Id" @ref="Ref_Id"   CssClass="d-none"   @bind-Value="_Entity.Id" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+<Input Id="RequestID" @ref="Ref_RequestID"      @bind-Value="_Entity.RequestID" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+<Input Id="CreateUser" @ref="Ref_CreateUser"      @bind-Value="_Entity.CreateUser" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+<Input Id="UpdateUser" @ref="Ref_UpdateUser"      @bind-Value="_Entity.UpdateUser" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+<Input Id="CreateDate" @ref="Ref_CreateDate"   CssClass="d-none"   @bind-Value="_Entity.CreateDate" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+<Input Id="IsDelete" @ref="Ref_IsDelete"   CssClass="d-none"   @bind-Value="_Entity.IsDelete" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+<Input Id="UpdateDate" @ref="Ref_UpdateDate"   CssClass="d-none"   @bind-Value="_Entity.UpdateDate" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+<Input Id="RequestTrakingCode" @ref="Ref_RequestTrakingCode" Label="کد پیگیری سیستمی"  CssClass="d-none" Disabled=true  @bind-Value="_Entity.RequestTrakingCode" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+<Input Id="ProcessVersionID" @ref="Ref_ProcessVersionID" Label="شناسه نسخه فرآیند جاری"  CssClass="d-none" Disabled=true  @bind-Value="_Entity.ProcessVersionID" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+    </EditForm>
+</div>
+
+@if (ShowSubmit)
+{
+    <button class="btn btn-sm btn-green" @onclick=Submit>ذخیره</button>
+}
+
+@code {
+    #region Function
+
+    //todo  جا به جا شود برده شود تو فایل  Peropeties
+    protected override async Task OnInitializedAsync()
+    {
+        Console.WriteLine("#log OnInitializedAsync");
+
+        TableGet = await Utility.JSON.ToObject<Table>("{\"Name\":\"SCM_OS_Master\",\"GetNameAs\":\"SCM_OS_Master\",\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"RequestID\",\"GetNameAs\":\"RequestID\"},{\"Name\":\"CreateUser\",\"GetNameAs\":\"CreateUser\"},{\"Name\":\"UpdateUser\",\"GetNameAs\":\"UpdateUser\"},{\"Name\":\"CreateDate\",\"GetNameAs\":\"CreateDate\"},{\"Name\":\"UpdateDate\",\"GetNameAs\":\"UpdateDate\"},{\"Name\":\"IsDelete\",\"GetNameAs\":\"IsDelete\"},{\"Name\":\"SCM_ResultingFromId\",\"GetNameAs\":\"SCM_ResultingFromId\"},{\"Name\":\"UserStarterFullName\",\"GetNameAs\":\"UserStarterFullName\"},{\"Name\":\"UserStarterCompanyName\",\"GetNameAs\":\"UserStarterCompanyName\"},{\"Name\":\"UserStarterUnitName\",\"GetNameAs\":\"UserStarterUnitName\"},{\"Name\":\"UserStarterSectionName\",\"GetNameAs\":\"UserStarterSectionName\"},{\"Name\":\"RequestTrakingCode\",\"GetNameAs\":\"RequestTrakingCode\"},{\"Name\":\"ProcessVersionID\",\"GetNameAs\":\"ProcessVersionID\"},{\"Name\":\"HardwareORNetwork\",\"GetNameAs\":\"HardwareORNetwork\"}],\"Relation\":[{\"Name\":\"SCM_ResultingFrom\",\"GetNameAs\":\"SCM_ResultingFrom\",\"ModeErtebat\":1,\"Column\":[{\"Name\":\"Title\",\"GetNameAs\":\"Title\"}],\"Relation\":[]},{\"Name\":\"SCM_ICT_Departments\",\"GetNameAs\":\"SCM_ICT_Departments\",\"ModeErtebat\":1,\"Column\":[{\"Name\":\"Code\",\"GetNameAs\":\"Code\"},{\"Name\":\"Title\",\"GetNameAs\":\"Title\"}],\"Relation\":[]},{\"Name\":\"SCM_OS_Details\",\"GetNameAs\":\"SCM_OS_Details\",\"ModeErtebat\":2,\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"RequestID\",\"GetNameAs\":\"RequestID\"},{\"Name\":\"CreateUser\",\"GetNameAs\":\"CreateUser\"},{\"Name\":\"UpdateUser\",\"GetNameAs\":\"UpdateUser\"},{\"Name\":\"CreateDate\",\"GetNameAs\":\"CreateDate\"},{\"Name\":\"UpdateDate\",\"GetNameAs\":\"UpdateDate\"},{\"Name\":\"IsDelete\",\"GetNameAs\":\"IsDelete\"},{\"Name\":\"Title\",\"GetNameAs\":\"Title\"},{\"Name\":\"SCM_UnitsId\",\"GetNameAs\":\"SCM_UnitsId\"},{\"Name\":\"Amount\",\"GetNameAs\":\"Amount\"},{\"Name\":\"SCM_PriorityId\",\"GetNameAs\":\"SCM_PriorityId\"},{\"Name\":\"AreaUse\",\"GetNameAs\":\"AreaUse\"},{\"Name\":\"RequsterDesc\",\"GetNameAs\":\"RequsterDesc\"},{\"Name\":\"UploadFileIsEnable\",\"GetNameAs\":\"UploadFileIsEnable\"},{\"Name\":\"IsEnableApproved\",\"GetNameAs\":\"IsEnableApproved\"},{\"Name\":\"IsEnableNeedModified\",\"GetNameAs\":\"IsEnableNeedModified\"},{\"Name\":\"ResultingFromITIL\",\"GetNameAs\":\"ResultingFromITIL\"},{\"Name\":\"ITILDetails\",\"GetNameAs\":\"ITILDetails\"},{\"Name\":\"ITILCodeIsEnable\",\"GetNameAs\":\"ITILCodeIsEnable\"},{\"Name\":\"RequesterUserITIL\",\"GetNameAs\":\"RequesterUserITIL\"},{\"Name\":\"CreatedAtITIL\",\"GetNameAs\":\"CreatedAtITIL\"},{\"Name\":\"GuaranteeIsEnable\",\"GetNameAs\":\"GuaranteeIsEnable\"},{\"Name\":\"HistoryRepairsIsEnable\",\"GetNameAs\":\"HistoryRepairsIsEnable\"},{\"Name\":\"RequestIdITIL\",\"GetNameAs\":\"RequestIdITIL\"}],\"Relation\":[{\"Name\":\"SCM_Units\",\"GetNameAs\":\"SCM_Units\",\"ModeErtebat\":1,\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"Title\",\"GetNameAs\":\"Title\"}]},{\"Name\":\"SCM_Priority\",\"GetNameAs\":\"SCM_Priority\",\"ModeErtebat\":1,\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"PriorityTitle\",\"GetNameAs\":\"PriorityTitle\"},{\"Name\":\"PriorityDateTime\",\"GetNameAs\":\"PriorityDateTime\"},{\"Name\":\"PriorityDescription\",\"GetNameAs\":\"PriorityDescription\"}]},{\"Name\":\"SCM_OS_Details_UploadFile\",\"GetNameAs\":\"SCM_OS_Details_UploadFile\",\"ModeErtebat\":2,\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"SCM_OS_DetailsId\",\"GetNameAs\":\"SCM_OS_DetailsId\"},{\"Name\":\"storage\",\"GetNameAs\":\"storage\"},{\"Name\":\"name\",\"GetNameAs\":\"name\"},{\"Name\":\"url\",\"GetNameAs\":\"url\"},{\"Name\":\"size\",\"GetNameAs\":\"size\"},{\"Name\":\"type\",\"GetNameAs\":\"type\"},{\"Name\":\"originalName\",\"GetNameAs\":\"originalName\"},{\"Name\":\"hash\",\"GetNameAs\":\"hash\"},{\"Name\":\"RequestID\",\"GetNameAs\":\"RequestID\"},{\"Name\":\"CreateUser\",\"GetNameAs\":\"CreateUser\"},{\"Name\":\"UpdateUser\",\"GetNameAs\":\"UpdateUser\"},{\"Name\":\"CreateDate\",\"GetNameAs\":\"CreateDate\"},{\"Name\":\"UpdateDate\",\"GetNameAs\":\"UpdateDate\"},{\"Name\":\"IsDelete\",\"GetNameAs\":\"IsDelete\"}]}]}]}");
+        TablePost = await Utility.JSON.ToObject<Table>("{\"Name\":\"SCM_OS_Master\",\"GetNameAs\":\"SCM_OS_Master\",\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"RequestID\",\"GetNameAs\":\"RequestID\"},{\"Name\":\"CreateUser\",\"GetNameAs\":\"CreateUser\"},{\"Name\":\"UpdateUser\",\"GetNameAs\":\"UpdateUser\"},{\"Name\":\"CreateDate\",\"GetNameAs\":\"CreateDate\"},{\"Name\":\"UpdateDate\",\"GetNameAs\":\"UpdateDate\"},{\"Name\":\"IsDelete\",\"GetNameAs\":\"IsDelete\"},{\"Name\":\"SCM_ResultingFromId\",\"GetNameAs\":\"SCM_ResultingFromId\"},{\"Name\":\"UserStarterFullName\",\"GetNameAs\":\"UserStarterFullName\"},{\"Name\":\"UserStarterCompanyName\",\"GetNameAs\":\"UserStarterCompanyName\"},{\"Name\":\"UserStarterUnitName\",\"GetNameAs\":\"UserStarterUnitName\"},{\"Name\":\"UserStarterSectionName\",\"GetNameAs\":\"UserStarterSectionName\"},{\"Name\":\"RequestTrakingCode\",\"GetNameAs\":\"RequestTrakingCode\"},{\"Name\":\"ProcessVersionID\",\"GetNameAs\":\"ProcessVersionID\"},{\"Name\":\"HardwareORNetwork\",\"GetNameAs\":\"HardwareORNetwork\"}],\"Relation\":[{\"Name\":\"SCM_OS_Details\",\"GetNameAs\":\"SCM_OS_Details\",\"ModeErtebat\":2,\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"RequestID\",\"GetNameAs\":\"RequestID\"},{\"Name\":\"CreateUser\",\"GetNameAs\":\"CreateUser\"},{\"Name\":\"UpdateUser\",\"GetNameAs\":\"UpdateUser\"},{\"Name\":\"CreateDate\",\"GetNameAs\":\"CreateDate\"},{\"Name\":\"UpdateDate\",\"GetNameAs\":\"UpdateDate\"},{\"Name\":\"IsDelete\",\"GetNameAs\":\"IsDelete\"},{\"Name\":\"Title\",\"GetNameAs\":\"Title\"},{\"Name\":\"SCM_UnitsId\",\"GetNameAs\":\"SCM_UnitsId\"},{\"Name\":\"Amount\",\"GetNameAs\":\"Amount\"},{\"Name\":\"SCM_PriorityId\",\"GetNameAs\":\"SCM_PriorityId\"},{\"Name\":\"AreaUse\",\"GetNameAs\":\"AreaUse\"},{\"Name\":\"RequsterDesc\",\"GetNameAs\":\"RequsterDesc\"},{\"Name\":\"UploadFileIsEnable\",\"GetNameAs\":\"UploadFileIsEnable\"},{\"Name\":\"IsEnableApproved\",\"GetNameAs\":\"IsEnableApproved\"},{\"Name\":\"IsEnableNeedModified\",\"GetNameAs\":\"IsEnableNeedModified\"},{\"Name\":\"ResultingFromITIL\",\"GetNameAs\":\"ResultingFromITIL\"},{\"Name\":\"ITILDetails\",\"GetNameAs\":\"ITILDetails\"},{\"Name\":\"ITILCodeIsEnable\",\"GetNameAs\":\"ITILCodeIsEnable\"},{\"Name\":\"RequesterUserITIL\",\"GetNameAs\":\"RequesterUserITIL\"},{\"Name\":\"CreatedAtITIL\",\"GetNameAs\":\"CreatedAtITIL\"},{\"Name\":\"GuaranteeIsEnable\",\"GetNameAs\":\"GuaranteeIsEnable\"},{\"Name\":\"HistoryRepairsIsEnable\",\"GetNameAs\":\"HistoryRepairsIsEnable\"},{\"Name\":\"RequestIdITIL\",\"GetNameAs\":\"RequestIdITIL\"}],\"Relation\":[{\"Name\":\"SCM_OS_Details_UploadFile\",\"GetNameAs\":\"SCM_OS_Details_UploadFile\",\"ModeErtebat\":2,\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"SCM_OS_DetailsId\",\"GetNameAs\":\"SCM_OS_DetailsId\"},{\"Name\":\"storage\",\"GetNameAs\":\"storage\"},{\"Name\":\"name\",\"GetNameAs\":\"name\"},{\"Name\":\"url\",\"GetNameAs\":\"url\"},{\"Name\":\"size\",\"GetNameAs\":\"size\"},{\"Name\":\"type\",\"GetNameAs\":\"type\"},{\"Name\":\"originalName\",\"GetNameAs\":\"originalName\"},{\"Name\":\"hash\",\"GetNameAs\":\"hash\"},{\"Name\":\"RequestID\",\"GetNameAs\":\"RequestID\"},{\"Name\":\"CreateUser\",\"GetNameAs\":\"CreateUser\"},{\"Name\":\"UpdateUser\",\"GetNameAs\":\"UpdateUser\"},{\"Name\":\"CreateDate\",\"GetNameAs\":\"CreateDate\"},{\"Name\":\"UpdateDate\",\"GetNameAs\":\"UpdateDate\"},{\"Name\":\"IsDelete\",\"GetNameAs\":\"IsDelete\"}]}]}]}");
+
+        config = CKEditorBundleOptions.DefaultConfig.WithHtmlEditing();
+        config.Language = "fa";
+
+        //بعداد اگه نیاز شد فرمی رو تو حالت غیر لاگین شده نمایش بدیم باید این  کد تغیر کنه
+        var user = (await _authenticationStateProvider.GetAuthenticationStateAsync()).User;
+        string UserID = user.FindFirst(c => c.Type == ClaimTypes.NameIdentifier).Value;
+        //داینامیک بشه
+        Dictionary<string, object> List = new Dictionary<string, object>();
+        //List.Add("UserID", Guid.Parse(UserID));
+        List.Add("UserID", UserID);
+        _User = await Domain.Utility.ConvertParameter.ConvertToObject(List);
+
+        Console.WriteLine("#log OnInitializedAsync End");
+
+        await base.OnInitializedAsync();
+    }
+
+    //todo  جا به جا شود برده شود تو فایل  Peropeties
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            Console.WriteLine("#log OnAfterRenderAsync");
+            await base.BeforGetData();
+
+            var Result = await GetData();
+
+            await base.AfterGetData();
+
+            StateHasChanged();
+
+            await OnFormloaded.InvokeAsync(Result);
+        }
+
+        await base.OnAfterRenderAsync(firstRender);
+    }
+
+    /// <summary>
+    /// دریافت داده
+    /// </summary>
+    /// <returns></returns>
+    public async Task<Baya.Models.Utility.Result> GetData()
+    {
+        await BeforGetData();
+
+        var DataResult = await ApiServer.External.Services.Data.Get(TableGet, QueryFilter, TableGet.Name, null);
+        
+        Baya.Models.Utility.Result Result = new Baya.Models.Utility.Result();
+
+        if (DataResult != null && DataResult.Status == HttpStatusCode.OK)
+        {
+            if (DataResult.Content != null)
+            {
+                string Data = DataResult.Content.ToString();
+                if (Data is not null)
+                {
+                    _Entity = await Utility.JSON.ToObject < Entity.SCM_OS_Master>(Data);
+        }
+            }
+            else
+            {
+                _Entity = new Entity.SCM_OS_Master();
+            //todo تشخیص دهد که داده ای وجود ندارد و دفه اول هست که فرم لود میشود
+            //todo اگه نیاز شد دالخ ORm خروجیش متفاوت باشه
+            //ست کردن دیفالت های فرم
+            if (true)
+                {//
+_Entity.UserStarterFullName = _RequestParameters.UserStarterFullName;
+_Entity.UserStarterCompanyName = _RequestParameters.UserStarterCompanyName;
+_Entity.UserStarterUnitName = _RequestParameters.UserStarterUnitName;
+_Entity.UserStarterSectionName = _RequestParameters.UserStarterSectionName;
+_Entity.RequestTrakingCode = _RequestParameters.RequestTrakingCode;
+_Entity.ProcessVersionID = _RequestParameters.ProcessVersionID;
+
+
+                    //نمونه ست کردن پارامتر روش اول
+                    //_Entity.InstantDelivery = _RequestParameters.UserId;
+
+                    //نمونه کد برای ست کردن پارامتر روش دوم
+                    //_Entity.InstantDelivery = await GetParameter("@@UserId@@");
+                }
+
+                SumaryMessage = "داده لود شده معتبر نمی باشد";
+                Result.Status = HttpStatusCode.InternalServerError;
+            }
+        }
+        else
+        {
+            SumaryMessage = "داده لود نشد";
+            Result.Status = HttpStatusCode.InternalServerError;
+        }
+
+        Result.Message = SumaryMessage;
+
+        StateHasChanged();
+
+        await AfterGetData();
+
+        return Result;
+    }
+
+    public override async Task SetParametersAsync(ParameterView parameters)
+    {
+        await base.SetParametersAsync(parameters);
+    }
+
+    protected override void OnInitialized()
+    {
+        //todo این خط برده شود داخل تابع پاینی ببینیم خطا داره یا نه
+        languageContainer.InitLocalizedComponent(this);
+    }
+
+
+    /// <summary>
+    /// بررسی تغییر دیتا
+    /// </summary>
+    /// <param name="Json"></param>
+    /// <returns></returns>
+    public bool CheckChangedData(string? Json)
+    {
+        if (string.Equals(JsonData, Json)) return true;
+        return false;
+    }
+
+    /// <summary>
+    /// ارسال داده
+    /// </summary>
+    /// <returns></returns>
+    public override async Task<Baya.Models.Utility.Result> Submit()
+    {
+        SumaryMessage = "";
+        Baya.Models.Utility.Result Result = new Baya.Models.Utility.Result();
+
+        if (!await FormValidator())
+        {
+            StateHasChanged();
+            Result.Status = HttpStatusCode.InternalServerError;
+            return Result;
+        }
+
+        if ((await BeforSubmit()).Status != HttpStatusCode.OK)
+        {
+            StateHasChanged();
+            Result.Status = HttpStatusCode.InternalServerError;
+            return Result;
+        }
+
+        _loadingService.Show();
+        var Resualt = await PostData();
+
+        if (Resualt)
+        {
+            Result.Status = HttpStatusCode.OK;
+
+            SumaryMessage = "داده ها با موفقیت ثبت شد";
+        }
+        else
+        {
+            Result.Status = HttpStatusCode.InternalServerError;
+            SumaryMessage = "ذخیره داده با مشکل مواجه شد";
+        }
+
+        Result.Message = SumaryMessage;
+
+        switch ((int)Result.Status)
+        {
+            case 200:
+                toastService.ShowSuccess(Result.Message);
+                break;
+            case 500:
+                toastService.ShowError(Result.Message);
+                break;
+            default:
+                break;
+        } 
+        _loadingService.Hide();
+        await AfterSubmit();
+
+        return Result;
+    }
+
+    /// <summary>
+    /// ارسال داده
+    /// </summary>
+    /// <returns></returns>
+    private async Task<bool> PostData()
+    {
+        string Data = await Utility.JSON.ToJson(_Entity);
+
+        bool IsOk = false;
+        var Model = await ApiServer.External.Services.Data.Put(Data, TablePost.Name, TablePost, RequestID?.ToString(), _User.UserID.ToString());
+        // بررسی وضعیت پاسخ
+        if (Model?.Status == HttpStatusCode.OK)
+        {
+            if (Model.Content != null && !IndependentForm)
+                { 
+                    string NewData = Model.Content.ToString();
+                    if (NewData is not null)
+                    {
+                        var NewEntity = await Utility.JSON.ToObject < Entity.SCM_OS_Master>(NewData);
+                     await  GetDataForm(NewEntity._Id);
+                    }
+
+                }
+                IsOk = true;
+
+        }
+        return IsOk;
+    }
+
+
+    void SetLanguage(string language)
+    {
+        languageContainer.SetLanguage(System.Globalization.CultureInfo.GetCultureInfo(language));
+    }
+
+    // public void ValidFormSubmitted(EditContext editContext)
+    // {
+
+    // }
+
+    // public void InvalidFormSubmitted(EditContext editContext)
+    // {
+
+    // }
+    public async Task GetDataForm(object Id)
+    {
+        Type type = Id.GetType();
+        string TypeToQueryBuilder = Utility.TypeConverterQueryBuilder.ConvertCSharpTypeToQueryBuilder(type);
+        var NewQuery = new QueryBuilderFilterRule() { Condition = "AND" };
+        NewQuery.Rules = new List<QueryBuilderFilterRule>
+            {
+                    new QueryBuilderFilterRule()
+                    {
+                        Field = _Entity._GetIdName,
+                        Id = _Entity._GetIdName,
+                        Input = "text",
+                        Operator = "equal",
+                        Type =  TypeToQueryBuilder,
+                        Value = new string[]{ Id.ToString() },
+                    }
+            };
+        QueryFilter = NewQuery;
+        await GetData();
+        StateHasChanged();
+    }
+    #endregion
+}
