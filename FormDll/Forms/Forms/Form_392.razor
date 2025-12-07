@@ -1,0 +1,1334 @@
+@inherits Forms.Forms.Form_392Base
+@namespace FormsPage
+
+@using AKSoftware.Localization.MultiLanguages.Blazor
+@using Baya.Models.Utility;
+@using Baya.Models.ORM
+@using Microsoft.AspNetCore.Components.Forms
+@using Microsoft.AspNetCore.Components.Authorization;
+@using System.Security.Claims
+@using System.Net
+@using Microsoft.JSInterop
+@using Baya.Models.ViewEngine
+@using Forms.Domain.Utility
+@using Castle.DynamicLinqQueryBuilder
+<style>
+    .DisableParameterField input {
+    color: black !important;
+    background-color: lightgray !important;
+    opacity: 1;
+    margin-top: 0.3vh;
+    font-size: 0.8rem;
+    text-align: center;
+}
+
+.WidthAuto input {
+    width: auto !important;
+}
+
+.Width6rem input {
+    width: 6rem !important;
+}
+
+.Width8rem input {
+    width: 8rem !important;
+}
+
+.Width10rem input {
+    width: 10rem !important;
+}
+
+.Width12rem input {
+    width: 12rem !important;
+}
+
+.InputDanger input {
+    background-color: crimson !important;
+}
+</style>
+
+<Plugins.Tools.ConfirmDialog @ref="Confirm" />
+
+<span class="d-none">VersionForm:@VersionForm</span>
+@*
+@if (!string.IsNullOrEmpty(SumaryMessage))
+{
+    <div>
+        @SumaryMessage
+    </div>
+} *@
+
+@* <EditForm @ref="_Form" Model="_Entity" OnValidSubmit="ValidFormSubmitted" OnInvalidSubmit="InvalidFormSubmitted" OnSubmit="Submit"> *@
+<div class="@(ReadOnly?"FormReadOnly":"")">
+    <EditForm @ref="_Form" Model="_Entity" OnSubmit="Submit">
+        
+<div class="row ">
+    
+<div class="col-md-3">
+    <div  class="d-flex text-center pt-3 fs-4 text-black  justify-content-right">
+    <div style="">
+  <p>
+    <picture>
+      <img src="https://File.workcv.ir/fa/api/v1/File/Get?FileID=a18190d9-4b1c-45e3-db13-08dc25546b46" class="" alt="لوگو پتکو" width="230px;">
+    </picture>
+  </p>
+</div>
+</div>
+
+</div>
+
+<div class="col-md-6">
+    <div  class="">
+    <div class="fs-3 fw-black rounded p-3 text-center ">
+   درخواست خرید کالا
+</div>
+</div>
+
+</div>
+
+<div class="col-md-3">
+    <div  class="d-flex text-center pt-3 fs-5 text-black bg-secondary-subtle justify-content-center opacity-50 rounded">
+    <div style="">
+  <p>
+    <span>
+      کد فرم: FPL02600
+    </span>
+  </p>
+</div>
+</div>
+
+</div>
+
+</div>
+
+<div class="row ">
+    
+<div class="col-md-6">
+    
+<div class="row card flex-row pb-2 m-1 border-0 bg-lightgreen ">
+    
+<div class="col-md-12">
+    <div  class="">
+    <div class="card-header text-white fw-black fs-6 border-0" style="background:#336353">
+  کاربر درخواست دهنده
+</div>
+</div>
+
+</div>
+
+<div class="col-md-3">
+    
+<Input Id="SystemUser" @ref="Ref_SystemUser"   CssClass="DisableParameterField " Disabled=true  @bind-Value="_Entity.SystemUser" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+</div>
+
+<div class="col-md-3">
+    
+<Input Id="UserCompanyName" @ref="Ref_UserCompanyName"   CssClass="DisableParameterField " Disabled=true  @bind-Value="_Entity.UserCompanyName" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+</div>
+
+<div class="col-md-3">
+    
+<Input Id="SystemUnitUser" @ref="Ref_SystemUnitUser"   CssClass="DisableParameterField " Disabled=true  @bind-Value="_Entity.SystemUnitUser" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+</div>
+
+<div class="col-md-3">
+    
+<Input Id="SystemSectionUser" @ref="Ref_SystemSectionUser"   CssClass="DisableParameterField " Disabled=true  @bind-Value="_Entity.SystemSectionUser" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="col-md-6">
+    
+<Input Id="CancellationReason" @ref="Ref_CancellationReason" Label="دلیل لغو کلی درخواست"     @bind-Value="_Entity.CancellationReason" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"maxlength\":\"350\"}").Result))></Input>
+
+</div>
+
+</div>
+<label for="SCMPETCO_ProductRequestDetails_GridSCMPETCO_ProductRequestId_200">جزییات درخواست کالا
+   
+    
+</label>
+
+<DxGrid @ref="Grid_SCMPETCO_ProductRequestDetails" Data="_Entity.SCMPETCO_ProductRequestDetails" KeyFieldName="_Id" EditMode="GridEditMode.PopupEditForm"
+        EditModelSaving="OnEditModelSavingSCMPETCO_ProductRequestDetails"
+        DataItemDeleting="OnDataItemDeletingSCMPETCO_ProductRequestDetails"
+        PopupEditFormCssClass="ModalWidth"
+        PopupEditFormHeaderText="جزییات درخواست کالا"
+        EditFormButtonsVisible="false"
+        CustomizeEditModel="CustomizeEditGrid_SCMPETCO_ProductRequestDetails"
+        CustomizeElement="CustomizeRowsGrid_SCMPETCO_ProductRequestDetails" 
+        Component="@((Utility.JSON.ToObject<View_Component>("{\"primaryKey\":false,\"EntityID\":200,\"FieldId\":200,\"NotNull\":false,\"ViewId\":0,\"NotMapped\":false,\"Relation\":false,\"RelationExternal\":false,\"RelationChildModel\":\"SCMPETCO_ProductRequestDetails\",\"GridMainModel\":\"SCMPETCO_ProductRequestDetails\",\"widget\":{\"altInput\":false,\"allowInput\":false,\"clickOpens\":false,\"enableDate\":false,\"enableTime\":false,\"noCalendar\":false,\"useLocaleSettings\":false,\"hourIncrement\":0,\"minuteIncrement\":0,\"time_24hr\":false},\"wysiwyg\":false,\"data\":{},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"FieldsTemplate\":[],\"refreshOn\":\"data\",\"reorder\":false,\"addAnotherPosition\":\"bottom\",\"layoutFixed\":false,\"enableRowGroups\":false,\"initEmpty\":false,\"disabled\":true,\"modal\":true,\"label\":\"جزییات درخواست کالا\",\"tableView\":true,\"key\":\"GridSCMPETCO_ProductRequestId_200\",\"type\":\"datagrid\",\"input\":true,\"modalEdit\":true,\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":false,\"AccessEdit\":true,\"AccessNew\":false,\"editmodelsaving\":\"SCMPETCO_ProductRequestDetails_editmodelsaving\",\"afterrendermodal\":\"SCMPETCO_ProductRequestDetails_afterrendermodal\"}").Result))"
+         >
+    <Columns>
+    
+<DxGridCommandColumn Width="70px">
+    <HeaderTemplate Context="HeaderContext">
+       
+    </HeaderTemplate>
+    <CellDisplayTemplate Context="CellContext">
+       
+<a id=SCMPETCO_ProductRequestDetails_GridSCMPETCO_ProductRequestId_200ButtonEdit class="btn btn-sm btn-yellow-light btnEditGridData" @onclick="@(() => StartModalGrid_SCMPETCO_ProductRequestDetails(CellContext))" style="text-decoration: none;" href="javascript:void(0);">
+    <span class="fal fa-pencil btnicon"></span>
+</a>
+
+       
+    </CellDisplayTemplate>
+</DxGridCommandColumn>
+
+    <DxGridCommandColumn   Width="60px">
+           <HeaderTemplate Context="HeaderContext">
+               <a    style="text-decoration: none;"  >
+                
+                   <span>ردیف</span>
+               </a>
+           </HeaderTemplate>
+           <CellDisplayTemplate Context="CellContext">
+            @if (CellContext.VisibleIndex > 9){
+                <p>@(CellContext.VisibleIndex + 1)</p>
+            }else{
+                <p>@(((CellContext.Grid.PageIndex * CellContext.Grid.PageSize) + (CellContext.VisibleIndex + 1)))</p>
+            }
+          
+           </CellDisplayTemplate>
+     </DxGridCommandColumn>
+    <DxGridDataColumn  Caption="نام کالا شماران"  FieldName="ProductNameText" />
+
+<DxGridDataColumn  Caption="کد کالا شماران"  FieldName="ProductCodeText" />
+
+<DxGridDataColumn  Caption="واحد کالا شماران"  FieldName="ProductUnitText" />
+
+<DxGridDataColumn DisplayFormat="G" Caption="تعداد یا مقدار درخواستی"  FieldName="ProductRequestingQTY" />
+
+<DxGridDataColumn Context="SCMPETCO_PriorityId_" Caption="اولویت" >
+    <CellDisplayTemplate>
+       
+@{
+    Baya.Models.ViewEngine.View_Component HeaderSCMPETCO_PriorityId = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"primaryKey\":false,\"EntityID\":200,\"FieldId\":2178,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":392,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":false,\"RelationParentName\":\"SCMPETCO_Priority\",\"RelationParentModel\":\"SCMPETCO_Priority\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/SCMPETCO_Priority/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.PriorityTitle}} </span>\",\"FieldsTemplate\":[],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"searchField\":\"\",\"disableLimit\":false,\"noRefreshOnScroll\":false,\"disabled\":false,\"modal\":true,\"label\":\"اولویت\",\"tableView\":true,\"key\":\"SCMPETCO_PriorityId\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"customClass\":\"Gcol-sm-8 Gcol-md-6 Gcol-lg-3\",\"FieldUrl\":\"2178?EId=200&SubId=19\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
+    var RowSCMPETCO_PriorityId = ((Entity.SCMPETCO_ProductRequestDetails)SCMPETCO_PriorityId_.DataItem).SCMPETCO_PriorityId;
+}
+
+<Dropdown ExternalApi=false CssClass="Gcol-sm-8 Gcol-md-6 Gcol-lg-3" NotMapped=false TextGrid=true Value="@RowSCMPETCO_PriorityId"   FieldName="SCMPETCO_PriorityId" OnItemSelected="ItemSelected_SCMPETCO_ProductRequestDetailsSCMPETCO_PriorityId_Header" Component="HeaderSCMPETCO_PriorityId">
+</Dropdown>
+@code {
+    public async Task ItemSelected_SCMPETCO_ProductRequestDetailsSCMPETCO_PriorityId_Header(object _Item)
+    {
+      //  var Selected = Utility.JSON.ToObject<dynamic>(Utility.JSON.ToJson(_Item).Result).Result;
+  //   SCMPETCO_PriorityId
+
+  //  #CustomCode
+
+ //   
+
+  //  #OnItemSelected
+    }
+}
+
+    </CellDisplayTemplate>
+</DxGridDataColumn>
+<DxGridDataColumn DisplayFormat="G" Caption="تعداد تامین کسری"  FieldName="DeficitSupplyNumber" />
+
+<DxGridDataColumn  Caption="محل مصرف کالا"  FieldName="PlaceOfUseProduct" />
+
+<DxGridDataColumn Context="ForeignMachineryProduct_" Caption="نحوه تامین کالا" >
+    <CellDisplayTemplate>
+       
+@{
+    var SCMPETCO_ProductRequestDetails_ForeignMachineryProduct = ((Entity.SCMPETCO_ProductRequestDetails)ForeignMachineryProduct_.DataItem).ForeignMachineryProduct;
+}
+
+<p class="text-center " hidden="@(SCMPETCO_ProductRequestDetails_ForeignMachineryProduct !=null ? !SCMPETCO_ProductRequestDetails_ForeignMachineryProduct : true)">داخلی</p>
+
+<p class="text-center" hidden="@(SCMPETCO_ProductRequestDetails_ForeignMachineryProduct !=null ? SCMPETCO_ProductRequestDetails_ForeignMachineryProduct : true)">خارجی</p>
+
+
+    </CellDisplayTemplate>
+</DxGridDataColumn>
+<DxGridDataColumn  Caption="توضیحات درخواست کننده"  FieldName="ProductRowDescription" />
+
+<DxGridDataColumn  Caption="توضیحات دفتر فنی - خرید کالا"  FieldName="DescriptionOfTechnicalOffice" />
+
+<DxGridDataColumn Context="ProductDataSheet_" Caption="آیا کالا دارای (Technical Data Sheet - (TDS است؟" >
+    <CellDisplayTemplate>
+       
+@{
+    var SCMPETCO_ProductRequestDetails_ProductDataSheet = ((Entity.SCMPETCO_ProductRequestDetails)ProductDataSheet_.DataItem).ProductDataSheet;
+}
+
+<p class="text-center " hidden="@(SCMPETCO_ProductRequestDetails_ProductDataSheet !=null ? !SCMPETCO_ProductRequestDetails_ProductDataSheet : true)">بله</p>
+
+<p class="text-center" hidden="@(SCMPETCO_ProductRequestDetails_ProductDataSheet !=null ? SCMPETCO_ProductRequestDetails_ProductDataSheet : true)">خیر</p>
+
+
+    </CellDisplayTemplate>
+</DxGridDataColumn>
+<DxGridDataColumn Context="SCMPETCO_ProductRequestDetails_ProductDataSheetFile_" Caption="فایل برگه اطلاعات فنی (Technical Data Sheet - TDS)" >
+    <CellDisplayTemplate>
+      
+@{
+    var SCMPETCO_ProductRequestDetails_SCMPETCO_ProductRequestDetails_ProductDataSheetFile = (Entity.SCMPETCO_ProductRequestDetails)SCMPETCO_ProductRequestDetails_ProductDataSheetFile_.DataItem;
+}
+@foreach (var item_SCMPETCO_ProductRequestDetails in SCMPETCO_ProductRequestDetails_SCMPETCO_ProductRequestDetails_ProductDataSheetFile.SCMPETCO_ProductRequestDetails_ProductDataSheetFile.Where(p=>!p.IsDelete.HasValue || !p.IsDelete.Value))
+{
+
+    <div class="bg-lightblue rounded p-1 d-inline-block m-1">
+        <span>@item_SCMPETCO_ProductRequestDetails.originalName</span>
+        <hr class="hrdash mt-1 mb-0">
+        <div class="btn-group align-items-center">
+            <button type="button" class="btn btn-sm text-yellow p-0" onclick="ShowImageNewTab('@item_SCMPETCO_ProductRequestDetails.url')">@languageContainer.Keys["DXGrid:View"]</button>
+            <a href="@item_SCMPETCO_ProductRequestDetails.url" class="btn btn-sm text-green p-0">@languageContainer.Keys["DXGrid:Download"]</a>
+        </div>
+    </div>
+}
+
+
+    </CellDisplayTemplate>
+</DxGridDataColumn>
+<DxGridDataColumn Context="html_" Caption="HTML" >
+    <CellDisplayTemplate>
+      <div  class="Gcol-sm-8 Gcol-md-6 Gcol-lg-12">
+    <div id="resid_header" class="rounded rounded-1 border border-0 fs-6 fw-black bg-lightpurple p-2 ">
+ 
+  <i class="bi bi-clipboard-check text-success" style='font-size:20px'></i>
+  
+  <span class="text-success">بخش خدمات واحد تدارکات</span>
+</div>
+</div>
+
+    </CellDisplayTemplate>
+</DxGridDataColumn>
+<DxGridDataColumn Context="Inquiry_" Caption="نیاز به استعلام دارد؟" >
+    <CellDisplayTemplate>
+       
+@{
+    var SCMPETCO_ProductRequestDetails_Inquiry = ((Entity.SCMPETCO_ProductRequestDetails)Inquiry_.DataItem).Inquiry;
+}
+
+<p class="text-center " hidden="@(SCMPETCO_ProductRequestDetails_Inquiry !=null ? !SCMPETCO_ProductRequestDetails_Inquiry : true)">بله</p>
+
+<p class="text-center" hidden="@(SCMPETCO_ProductRequestDetails_Inquiry !=null ? SCMPETCO_ProductRequestDetails_Inquiry : true)">خیر</p>
+
+
+    </CellDisplayTemplate>
+</DxGridDataColumn>
+<DxGridDataColumn Context="html1_" Caption="HTML" >
+    <CellDisplayTemplate>
+      <div  class="Gcol-sm-8 Gcol-md-6 Gcol-lg-6">
+    
+</div>
+
+    </CellDisplayTemplate>
+</DxGridDataColumn>
+<DxGridDataColumn Context="SCMPETCO_ProductRequestDetails_InquiryFirst_" Caption="استعلام 1" >
+    <CellDisplayTemplate>
+      
+@{
+    var SCMPETCO_ProductRequestDetails_SCMPETCO_ProductRequestDetails_InquiryFirst = (Entity.SCMPETCO_ProductRequestDetails)SCMPETCO_ProductRequestDetails_InquiryFirst_.DataItem;
+}
+@foreach (var item_SCMPETCO_ProductRequestDetails in SCMPETCO_ProductRequestDetails_SCMPETCO_ProductRequestDetails_InquiryFirst.SCMPETCO_ProductRequestDetails_InquiryFirst.Where(p=>!p.IsDelete.HasValue || !p.IsDelete.Value))
+{
+
+    <div class="bg-lightblue rounded p-1 d-inline-block m-1">
+        <span>@item_SCMPETCO_ProductRequestDetails.originalName</span>
+        <hr class="hrdash mt-1 mb-0">
+        <div class="btn-group align-items-center">
+            <button type="button" class="btn btn-sm text-yellow p-0" onclick="ShowImageNewTab('@item_SCMPETCO_ProductRequestDetails.url')">@languageContainer.Keys["DXGrid:View"]</button>
+            <a href="@item_SCMPETCO_ProductRequestDetails.url" class="btn btn-sm text-green p-0">@languageContainer.Keys["DXGrid:Download"]</a>
+        </div>
+    </div>
+}
+
+
+    </CellDisplayTemplate>
+</DxGridDataColumn>
+<DxGridDataColumn Context="SCMPETCO_ProductRequestDetails_InquirySecondFile_" Caption="استعلام 2" >
+    <CellDisplayTemplate>
+      
+@{
+    var SCMPETCO_ProductRequestDetails_SCMPETCO_ProductRequestDetails_InquirySecondFile = (Entity.SCMPETCO_ProductRequestDetails)SCMPETCO_ProductRequestDetails_InquirySecondFile_.DataItem;
+}
+@foreach (var item_SCMPETCO_ProductRequestDetails in SCMPETCO_ProductRequestDetails_SCMPETCO_ProductRequestDetails_InquirySecondFile.SCMPETCO_ProductRequestDetails_InquirySecondFile.Where(p=>!p.IsDelete.HasValue || !p.IsDelete.Value))
+{
+
+    <div class="bg-lightblue rounded p-1 d-inline-block m-1">
+        <span>@item_SCMPETCO_ProductRequestDetails.originalName</span>
+        <hr class="hrdash mt-1 mb-0">
+        <div class="btn-group align-items-center">
+            <button type="button" class="btn btn-sm text-yellow p-0" onclick="ShowImageNewTab('@item_SCMPETCO_ProductRequestDetails.url')">@languageContainer.Keys["DXGrid:View"]</button>
+            <a href="@item_SCMPETCO_ProductRequestDetails.url" class="btn btn-sm text-green p-0">@languageContainer.Keys["DXGrid:Download"]</a>
+        </div>
+    </div>
+}
+
+
+    </CellDisplayTemplate>
+</DxGridDataColumn>
+<DxGridDataColumn Context="SCMPETCO_ProductRequestDetails_InquiryThirdFile_" Caption="استعلام  3" >
+    <CellDisplayTemplate>
+      
+@{
+    var SCMPETCO_ProductRequestDetails_SCMPETCO_ProductRequestDetails_InquiryThirdFile = (Entity.SCMPETCO_ProductRequestDetails)SCMPETCO_ProductRequestDetails_InquiryThirdFile_.DataItem;
+}
+@foreach (var item_SCMPETCO_ProductRequestDetails in SCMPETCO_ProductRequestDetails_SCMPETCO_ProductRequestDetails_InquiryThirdFile.SCMPETCO_ProductRequestDetails_InquiryThirdFile.Where(p=>!p.IsDelete.HasValue || !p.IsDelete.Value))
+{
+
+    <div class="bg-lightblue rounded p-1 d-inline-block m-1">
+        <span>@item_SCMPETCO_ProductRequestDetails.originalName</span>
+        <hr class="hrdash mt-1 mb-0">
+        <div class="btn-group align-items-center">
+            <button type="button" class="btn btn-sm text-yellow p-0" onclick="ShowImageNewTab('@item_SCMPETCO_ProductRequestDetails.url')">@languageContainer.Keys["DXGrid:View"]</button>
+            <a href="@item_SCMPETCO_ProductRequestDetails.url" class="btn btn-sm text-green p-0">@languageContainer.Keys["DXGrid:Download"]</a>
+        </div>
+    </div>
+}
+
+
+    </CellDisplayTemplate>
+</DxGridDataColumn>
+<DxGridDataColumn Context="IsPostponedPurchase_" Caption="آیا این خرید بعداً انجام می گردد؟" >
+    <CellDisplayTemplate>
+       
+@{
+    var SCMPETCO_ProductRequestDetails_IsPostponedPurchase = ((Entity.SCMPETCO_ProductRequestDetails)IsPostponedPurchase_.DataItem).IsPostponedPurchase;
+}
+
+<p class="text-center " hidden="@(SCMPETCO_ProductRequestDetails_IsPostponedPurchase !=null ? !SCMPETCO_ProductRequestDetails_IsPostponedPurchase : true)">بله</p>
+
+<p class="text-center" hidden="@(SCMPETCO_ProductRequestDetails_IsPostponedPurchase !=null ? SCMPETCO_ProductRequestDetails_IsPostponedPurchase : true)">خیر</p>
+
+
+    </CellDisplayTemplate>
+</DxGridDataColumn>
+<DxGridDataColumn DisplayFormat="G" Caption="تعداد یا مقدار واگذاری کالا به انبار توسط تدارکات"  FieldName="TheNumberDeliveredByLogistics1" />
+
+<DxGridDataColumn  Caption="Id" Visible=false FieldName="Id" />
+
+<DxGridDataColumn  Caption="RequestID" Visible=false FieldName="RequestID" />
+
+<DxGridDataColumn  Caption="CreateUser" Visible=false FieldName="CreateUser" />
+
+<DxGridDataColumn  Caption="UpdateUser" Visible=false FieldName="UpdateUser" />
+
+<DxGridDataColumn  Caption="CreateDate" Visible=false FieldName="CreateDate" />
+
+<DxGridDataColumn  Caption="UpdateDate" Visible=false FieldName="UpdateDate" />
+
+<DxGridDataColumn  Caption="IsDelete" Visible=false FieldName="IsDelete" />
+
+
+</Columns>
+
+    <EditFormTemplate Context="EditFormContextSCMPETCO_ProductRequestDetails">
+    @{
+        SCMPETCO_ProductRequestDetails  = (Entity.SCMPETCO_ProductRequestDetails)EditFormContextSCMPETCO_ProductRequestDetails.EditModel;
+    }
+    <DxFormLayout>
+        <DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextSCMPETCO_ProductRequestDetails">
+    
+<Input Id="SCMPETCO_ProductRequestDetails_ProductNameText" @ref="Ref_SCMPETCO_ProductRequestDetails_ProductNameText" Label="نام کالا شماران"  CssClass="Gcol-sm-8 Gcol-md-6 Gcol-lg-3" Disabled=true  @bind-Value="SCMPETCO_ProductRequestDetails.ProductNameText" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+</DxFormLayoutItem>
+
+<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextSCMPETCO_ProductRequestDetails">
+    
+<Input Id="SCMPETCO_ProductRequestDetails_ProductCodeText" @ref="Ref_SCMPETCO_ProductRequestDetails_ProductCodeText" Label="کد کالا شماران"  CssClass="Gcol-sm-8 Gcol-md-6 Gcol-lg-3" Disabled=true  @bind-Value="SCMPETCO_ProductRequestDetails.ProductCodeText" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+</DxFormLayoutItem>
+
+<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextSCMPETCO_ProductRequestDetails">
+    
+<Input Id="SCMPETCO_ProductRequestDetails_ProductUnitText" @ref="Ref_SCMPETCO_ProductRequestDetails_ProductUnitText" Label="واحد کالا شماران"  CssClass="Gcol-sm-8 Gcol-md-6 Gcol-lg-3" Disabled=true  @bind-Value="SCMPETCO_ProductRequestDetails.ProductUnitText" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+</DxFormLayoutItem>
+
+<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextSCMPETCO_ProductRequestDetails">
+    
+<Input Id="SCMPETCO_ProductRequestDetails_ProductRequestingQTY" @ref="Ref_SCMPETCO_ProductRequestDetails_ProductRequestingQTY" Label="تعداد یا مقدار درخواستی"  CssClass="Gcol-sm-8 Gcol-md-6 Gcol-lg-3" Disabled=true  @bind-Value="SCMPETCO_ProductRequestDetails.ProductRequestingQTY" type="number" ActiveSeperator=false    Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"step\":\"any\"}").Result))></Input>
+
+</DxFormLayoutItem>
+
+<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextSCMPETCO_ProductRequestDetails">
+     
+ 
+@code {
+    Baya.Models.ViewEngine.View_Component Component_SCMPETCO_ProductRequestDetailsSCMPETCO_PriorityId = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"primaryKey\":false,\"EntityID\":200,\"FieldId\":2178,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":392,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":false,\"RelationParentName\":\"SCMPETCO_Priority\",\"RelationParentModel\":\"SCMPETCO_Priority\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/SCMPETCO_Priority/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.PriorityTitle}} </span>\",\"FieldsTemplate\":[],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"searchField\":\"\",\"disableLimit\":false,\"noRefreshOnScroll\":false,\"disabled\":false,\"modal\":true,\"label\":\"اولویت\",\"tableView\":true,\"key\":\"SCMPETCO_PriorityId\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"customClass\":\"Gcol-sm-8 Gcol-md-6 Gcol-lg-3\",\"FieldUrl\":\"2178?EId=200&SubId=19\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
+}
+
+    <Dropdown Id=SCMPETCO_ProductRequestDetails_SCMPETCO_PriorityId  @ref="Ref_SCMPETCO_ProductRequestDetails_SCMPETCO_PriorityId" Label="اولویت" CssClass="Gcol-sm-8 Gcol-md-6 Gcol-lg-3"  DisplayFormat="DropDown" ExternalApi=false NotMapped=false TextGrid=false Text="" Value="@SCMPETCO_ProductRequestDetails.SCMPETCO_PriorityId" FieldName="SCMPETCO_PriorityId" OnItemSelected="ItemSelected_SCMPETCO_ProductRequestDetailsSCMPETCO_PriorityId" Component="Component_SCMPETCO_ProductRequestDetailsSCMPETCO_PriorityId" _Entity="_Entity" _EntityRow=SCMPETCO_ProductRequestDetails>
+</Dropdown>
+@code {
+    public async Task ItemSelected_SCMPETCO_ProductRequestDetailsSCMPETCO_PriorityId(object _Item)
+    {
+        var Selected = Utility.JSON.ToObject<dynamic>(Utility.JSON.ToJson(_Item).Result).Result;
+     var Item = SCMPETCO_ProductRequestDetails;
+
+      //Todo
+ //برای اینکه آی دی تغییر کند اینجا نیز باید تغییر کند
+ //بهتر است از پرایمیری کی استفاده شود
+ if (_Item != null)
+ {
+     Console.WriteLine(" Item Is Not Null");
+    Item.SCMPETCO_PriorityId = Selected.Id;
+    
+ }
+ else
+ {
+     Console.WriteLine(" Item Is Null");
+      Item.SCMPETCO_PriorityId =EntityHelper.SetPropertyNull(Item.SCMPETCO_PriorityId);
+ }
+ Item.SCMPETCO_Priority = await Utility.JSON.ToObject<Entity.SCMPETCO_Priority>(await Utility.JSON.ToJson(_Item));
+    StateHasChanged();
+
+
+    
+
+    
+    }
+} 
+
+</DxFormLayoutItem>
+
+<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextSCMPETCO_ProductRequestDetails">
+    
+<Input Id="SCMPETCO_ProductRequestDetails_DeficitSupplyNumber" @ref="Ref_SCMPETCO_ProductRequestDetails_DeficitSupplyNumber" Label="تعداد تامین کسری"  CssClass="Gcol-sm-8 Gcol-md-6 Gcol-lg-3" Disabled=true  @bind-Value="SCMPETCO_ProductRequestDetails.DeficitSupplyNumber" type="number" ActiveSeperator=false    Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"step\":\"any\"}").Result))></Input>
+
+</DxFormLayoutItem>
+
+<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextSCMPETCO_ProductRequestDetails">
+    
+<Input Id="SCMPETCO_ProductRequestDetails_PlaceOfUseProduct" @ref="Ref_SCMPETCO_ProductRequestDetails_PlaceOfUseProduct" Label="محل مصرف کالا"  CssClass="Gcol-sm-8 Gcol-md-6 Gcol-lg-3" Disabled=true  @bind-Value="SCMPETCO_ProductRequestDetails.PlaceOfUseProduct" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+</DxFormLayoutItem>
+
+<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextSCMPETCO_ProductRequestDetails">
+    
+<RadioBoolean @ref="Ref_SCMPETCO_ProductRequestDetails_ForeignMachineryProduct" InLine=true Id="SCMPETCO_ProductRequestDetails_ForeignMachineryProduct"   LabelTrue="داخلی" LabelFalse="خارجی" Label="نحوه تامین کالا" @bind-Value="SCMPETCO_ProductRequestDetails.ForeignMachineryProduct" CssClass="Gcol-sm-8 Gcol-md-6 Gcol-lg-3" Disabled=true></RadioBoolean>
+
+</DxFormLayoutItem>
+
+<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextSCMPETCO_ProductRequestDetails">
+    
+<Input Id="SCMPETCO_ProductRequestDetails_ProductRowDescription" @ref="Ref_SCMPETCO_ProductRequestDetails_ProductRowDescription" Label="توضیحات درخواست کننده"  CssClass="Gcol-sm-8 Gcol-md-6 Gcol-lg-6" Disabled=true  @bind-Value="SCMPETCO_ProductRequestDetails.ProductRowDescription" type="textarea"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+</DxFormLayoutItem>
+
+<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextSCMPETCO_ProductRequestDetails">
+    
+<Input Id="SCMPETCO_ProductRequestDetails_DescriptionOfTechnicalOffice" @ref="Ref_SCMPETCO_ProductRequestDetails_DescriptionOfTechnicalOffice" Label="توضیحات دفتر فنی - خرید کالا"  CssClass="Gcol-sm-8 Gcol-md-6 Gcol-lg-6" Disabled=true  @bind-Value="SCMPETCO_ProductRequestDetails.DescriptionOfTechnicalOffice" type="textarea"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+</DxFormLayoutItem>
+
+<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextSCMPETCO_ProductRequestDetails">
+    
+<RadioBoolean @ref="Ref_SCMPETCO_ProductRequestDetails_ProductDataSheet" InLine=true Id="SCMPETCO_ProductRequestDetails_ProductDataSheet"  oninput="@(e => ProductDataSheet_oninput(e ,SCMPETCO_ProductRequestDetails))"  LabelTrue="بله" LabelFalse="خیر" Label="آیا کالا دارای (Technical Data Sheet - (TDS است؟" @bind-Value="SCMPETCO_ProductRequestDetails.ProductDataSheet" CssClass="Gcol-sm-8 Gcol-md-6 Gcol-lg-6" Disabled=true></RadioBoolean>
+
+</DxFormLayoutItem>
+
+<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextSCMPETCO_ProductRequestDetails">
+    <Uploader Id=SCMPETCO_ProductRequestDetails_SCMPETCO_ProductRequestDetails_ProductDataSheetFile  @ref="Ref_SCMPETCO_ProductRequestDetails_SCMPETCO_ProductRequestDetails_ProductDataSheetFile" Disabled=true CssClass="Gcol-sm-8 Gcol-md-6 Gcol-lg-6" Accept="image/* , application/pdf , .doc,.docx , .xls,.xlsx , .ppt,.pptx" MinSize="1KB" MaxSize="10MB" Caption="فایل برگه اطلاعات فنی (Technical Data Sheet - TDS)" Data="SCMPETCO_ProductRequestDetails.SCMPETCO_ProductRequestDetails_ProductDataSheetFile" Url="https://File.workcv.ir/fa/api/v1/File/Post" TItem="Entity.SCMPETCO_ProductRequestDetails_ProductDataSheetFile"></Uploader>
+
+</DxFormLayoutItem>
+
+<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextSCMPETCO_ProductRequestDetails">
+    <div  class="Gcol-sm-8 Gcol-md-6 Gcol-lg-12">
+    <div id="resid_header" class="rounded rounded-1 border border-0 fs-6 fw-black bg-lightpurple p-2 ">
+ 
+  <i class="bi bi-clipboard-check text-success" style='font-size:20px'></i>
+  
+  <span class="text-success">بخش خدمات واحد تدارکات</span>
+</div>
+</div>
+
+</DxFormLayoutItem>
+
+<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextSCMPETCO_ProductRequestDetails">
+    
+<RadioBoolean @ref="Ref_SCMPETCO_ProductRequestDetails_Inquiry" InLine=true Id="SCMPETCO_ProductRequestDetails_Inquiry"  oninput="@(e => Inquiry_oninput(e ,SCMPETCO_ProductRequestDetails))"  LabelTrue="بله" LabelFalse="خیر" Label="نیاز به استعلام دارد؟" @bind-Value="SCMPETCO_ProductRequestDetails.Inquiry" CssClass="Gcol-sm-8 Gcol-md-6 Gcol-lg-6" ></RadioBoolean>
+
+</DxFormLayoutItem>
+
+<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextSCMPETCO_ProductRequestDetails">
+    <div  class="Gcol-sm-8 Gcol-md-6 Gcol-lg-6">
+    
+</div>
+
+</DxFormLayoutItem>
+
+<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextSCMPETCO_ProductRequestDetails">
+    <Uploader Id=SCMPETCO_ProductRequestDetails_SCMPETCO_ProductRequestDetails_InquiryFirst  @ref="Ref_SCMPETCO_ProductRequestDetails_SCMPETCO_ProductRequestDetails_InquiryFirst"  CssClass="Gcol-sm-8 Gcol-md-6 Gcol-lg-4" Accept="image/* , application/pdf , .doc,.docx , .xls,.xlsx" MinSize="1KB" MaxSize="5MB" Caption="استعلام 1" Data="SCMPETCO_ProductRequestDetails.SCMPETCO_ProductRequestDetails_InquiryFirst" Url="https://File.workcv.ir/fa/api/v1/File/Post" TItem="Entity.SCMPETCO_ProductRequestDetails_InquiryFirst"></Uploader>
+
+</DxFormLayoutItem>
+
+<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextSCMPETCO_ProductRequestDetails">
+    <Uploader Id=SCMPETCO_ProductRequestDetails_SCMPETCO_ProductRequestDetails_InquirySecondFile  @ref="Ref_SCMPETCO_ProductRequestDetails_SCMPETCO_ProductRequestDetails_InquirySecondFile"  CssClass="Gcol-sm-8 Gcol-md-6 Gcol-lg-4" Accept="image/* , application/pdf , .doc,.docx , .xls,.xlsx" MinSize="1KB" MaxSize="5MB" Caption="استعلام 2" Data="SCMPETCO_ProductRequestDetails.SCMPETCO_ProductRequestDetails_InquirySecondFile" Url="https://File.workcv.ir/fa/api/v1/File/Post" TItem="Entity.SCMPETCO_ProductRequestDetails_InquirySecondFile"></Uploader>
+
+</DxFormLayoutItem>
+
+<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextSCMPETCO_ProductRequestDetails">
+    <Uploader Id=SCMPETCO_ProductRequestDetails_SCMPETCO_ProductRequestDetails_InquiryThirdFile  @ref="Ref_SCMPETCO_ProductRequestDetails_SCMPETCO_ProductRequestDetails_InquiryThirdFile"  CssClass="Gcol-sm-8 Gcol-md-6 Gcol-lg-4" Accept="image/* , application/pdf , .doc,.docx , .xls,.xlsx" MinSize="1KB" MaxSize="5MB" Caption="استعلام  3" Data="SCMPETCO_ProductRequestDetails.SCMPETCO_ProductRequestDetails_InquiryThirdFile" Url="https://File.workcv.ir/fa/api/v1/File/Post" TItem="Entity.SCMPETCO_ProductRequestDetails_InquiryThirdFile"></Uploader>
+
+</DxFormLayoutItem>
+
+<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextSCMPETCO_ProductRequestDetails">
+    
+<RadioBoolean @ref="Ref_SCMPETCO_ProductRequestDetails_IsPostponedPurchase" InLine=true Id="SCMPETCO_ProductRequestDetails_IsPostponedPurchase"   LabelTrue="بله" LabelFalse="خیر" Label="آیا این خرید بعداً انجام می گردد؟" @bind-Value="SCMPETCO_ProductRequestDetails.IsPostponedPurchase" CssClass="Gcol-sm-8 Gcol-md-6 Gcol-lg-6" ></RadioBoolean>
+
+</DxFormLayoutItem>
+
+<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextSCMPETCO_ProductRequestDetails">
+    
+<Input Id="SCMPETCO_ProductRequestDetails_TheNumberDeliveredByLogistics1" @ref="Ref_SCMPETCO_ProductRequestDetails_TheNumberDeliveredByLogistics1" Label="تعداد یا مقدار واگذاری کالا به انبار توسط تدارکات"  CssClass="Gcol-sm-8 Gcol-md-6 Gcol-lg-6"  Required=true @bind-Value="SCMPETCO_ProductRequestDetails.TheNumberDeliveredByLogistics1" type="number" ActiveSeperator=false    Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"step\":\"any\"}").Result))></Input>
+
+</DxFormLayoutItem>
+
+<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextSCMPETCO_ProductRequestDetails">
+    
+<Input Id="SCMPETCO_ProductRequestDetails_Id" @ref="Ref_SCMPETCO_ProductRequestDetails_Id"   CssClass="d-none"   @bind-Value="SCMPETCO_ProductRequestDetails.Id" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+</DxFormLayoutItem>
+
+<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextSCMPETCO_ProductRequestDetails">
+    
+<Input Id="SCMPETCO_ProductRequestDetails_RequestID" @ref="Ref_SCMPETCO_ProductRequestDetails_RequestID"      @bind-Value="SCMPETCO_ProductRequestDetails.RequestID" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+</DxFormLayoutItem>
+
+<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextSCMPETCO_ProductRequestDetails">
+    
+<Input Id="SCMPETCO_ProductRequestDetails_CreateUser" @ref="Ref_SCMPETCO_ProductRequestDetails_CreateUser"      @bind-Value="SCMPETCO_ProductRequestDetails.CreateUser" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+</DxFormLayoutItem>
+
+<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextSCMPETCO_ProductRequestDetails">
+    
+<Input Id="SCMPETCO_ProductRequestDetails_UpdateUser" @ref="Ref_SCMPETCO_ProductRequestDetails_UpdateUser"      @bind-Value="SCMPETCO_ProductRequestDetails.UpdateUser" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+</DxFormLayoutItem>
+
+<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextSCMPETCO_ProductRequestDetails">
+    
+<Input Id="SCMPETCO_ProductRequestDetails_CreateDate" @ref="Ref_SCMPETCO_ProductRequestDetails_CreateDate"   CssClass="d-none"   @bind-Value="SCMPETCO_ProductRequestDetails.CreateDate" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+</DxFormLayoutItem>
+
+<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextSCMPETCO_ProductRequestDetails">
+    
+<Input Id="SCMPETCO_ProductRequestDetails_UpdateDate" @ref="Ref_SCMPETCO_ProductRequestDetails_UpdateDate"   CssClass="d-none"   @bind-Value="SCMPETCO_ProductRequestDetails.UpdateDate" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+</DxFormLayoutItem>
+
+<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextSCMPETCO_ProductRequestDetails">
+    
+<Input Id="SCMPETCO_ProductRequestDetails_IsDelete" @ref="Ref_SCMPETCO_ProductRequestDetails_IsDelete"   CssClass="d-none"   @bind-Value="SCMPETCO_ProductRequestDetails.IsDelete" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+</DxFormLayoutItem>
+
+
+        <DxFormLayoutItem ColSpanMd="12" Context="FormLayoutContextSCMPETCO_ProductRequestDetails" CssClass="btn-modal-custom">
+            <DxButton Id="SCMPETCO_ProductRequestDetails_GridSCMPETCO_ProductRequestId_200ButtonSave" Click="@(() => SaveModalGrid_SCMPETCO_ProductRequestDetails(EditFormContextSCMPETCO_ProductRequestDetails))" Text="@languageContainer.Keys["DXGrid:Save"]" CssClass="btn btn-green px-5" />
+            
+
+            <DxButton Id="SCMPETCO_ProductRequestDetails_GridSCMPETCO_ProductRequestId_200ButtonCancel" Click="@(() => Grid_SCMPETCO_ProductRequestDetails.CancelEditAsync())" Text="@languageContainer.Keys["DXGrid:Cancel"]" CssClass="btn btn-red" />
+            <button id="click_s"  hidden>submit</button>
+             <span>|</span>
+           
+            <DxButton Id="SCMPETCO_ProductRequestDetails_GridSCMPETCO_ProductRequestId_200ButtonBefore" Click="@(() => Dialog_Grid_SCMPETCO_ProductRequestDetails(0,IndexGrid_SCMPETCO_ProductRequestDetails,EditFormContextSCMPETCO_ProductRequestDetails))" Text="قبلی" CssClass="btn btn-purple" />@* @languageContainer.Keys["DXGrid:??"] *@
+         
+            <DxButton Id="SCMPETCO_ProductRequestDetails_GridSCMPETCO_ProductRequestId_200ButtonNext" Click="@(() => Dialog_Grid_SCMPETCO_ProductRequestDetails(1,IndexGrid_SCMPETCO_ProductRequestDetails,EditFormContextSCMPETCO_ProductRequestDetails))" Text="بعدی" CssClass="btn btn-purple" />
+
+        </DxFormLayoutItem>
+    </DxFormLayout>
+
+</EditFormTemplate>
+
+</DxGrid>
+
+<DxPopup @bind-Visible="@ConfirmationShownSCMPETCO_ProductRequestDetails" HeaderText="@languageContainer.Keys["DXGrid:DeleteItem"]" Width="350px" CloseOnOutsideClick="false">
+
+    <BodyContentTemplate Context="EditFormContext">
+        <div class="py-3 px-5 text-center">
+            <p>@languageContainer.Keys["DXGrid:DeleteItemHint"]</p>
+            <div class="confirm-dialog-buttons">
+                <DxButton Text="@languageContainer.Keys["DXGrid:Yes"]" CssClass="btn btn-red px-4" Click="@OnYesButtonClickGrid_SCMPETCO_ProductRequestDetails" />
+                <DxButton Text="@languageContainer.Keys["DXGrid:No"]" CssClass="btn btn-purple-light px-4" Click="@OnNoButtonClickGrid_SCMPETCO_ProductRequestDetails" />
+            </div>
+        </div>
+    </BodyContentTemplate>
+</DxPopup>
+
+<DxPopup @bind-Visible="@ConfirmationSCMPETCO_ProductRequestDetails" HeaderText="هشدار" Width="350px" CloseOnOutsideClick="false">
+    <BodyContentTemplate Context="EditFormContext">
+        <div class="py-3 px-5 text-center"> 
+            <p>اطلاعات این فرم تغییر کرده است آیا تغییرات ذخیره شود؟</p>
+            <div class="confirm-dialog-buttons">
+                <DxButton Text="بله" CssClass="btn btn-red px-4" Click="@OnYesButtonSCMPETCO_ProductRequestDetails" />
+                <DxButton Text="خیر" CssClass="btn btn-purple-light px-4" Click="@OnNoButtonSCMPETCO_ProductRequestDetails" />
+            </div>
+        </div>
+    </BodyContentTemplate>
+</DxPopup>
+@code {
+    // DxGrid? Grid_SCMPETCO_ProductRequestDetails;
+    Entity.SCMPETCO_ProductRequestDetails SCMPETCO_ProductRequestDetails;
+    bool ConfirmationShownSCMPETCO_ProductRequestDetails { get; set; } = false;
+    public Entity.SCMPETCO_ProductRequestDetails SelectedItemGrid_SCMPETCO_ProductRequestDetails { get; set; } = new Entity.SCMPETCO_ProductRequestDetails();
+    /// <summary>
+    /// شماره ستون
+    /// </summary>
+    public int IndexGrid_SCMPETCO_ProductRequestDetails { get; set; }
+
+    ///////////////////////
+    bool ConfirmationSCMPETCO_ProductRequestDetails { get; set; } = false;
+    GridEditFormTemplateContext? _ContextFormTemplateSCMPETCO_ProductRequestDetails { get; set; }
+    public int OpenDialogCodeSCMPETCO_ProductRequestDetails { get; set; } = 0;
+    ////////////////////////
+
+    async Task OnEditModelSavingSCMPETCO_ProductRequestDetails(GridEditModelSavingEventArgs arg)
+    {
+        var e = arg.EditModel;
+    bool NotValid = false;
+    //events
+       NotValid = await SCMPETCO_ProductRequestDetails_editmodelsaving(e);
+        
+      if (!NotValid)
+     {
+      SaveGrid_SCMPETCO_ProductRequestDetails(arg.DataItem, arg.EditModel);
+     }
+}
+
+async void Dialog_Grid_SCMPETCO_ProductRequestDetails(int _OpenDialogCode, int VisibleIndex, GridEditFormTemplateContext e)
+{
+    OpenDialogCodeSCMPETCO_ProductRequestDetails = _OpenDialogCode;
+    if (!CheckChangedData(await Utility.JSON.ToJson(e.EditModel)))
+    {
+    _ContextFormTemplateSCMPETCO_ProductRequestDetails = e;
+    ConfirmationSCMPETCO_ProductRequestDetails = true;
+    }
+    else
+    {
+    await OnNoButtonSCMPETCO_ProductRequestDetails();
+    }
+}
+async Task OnYesButtonSCMPETCO_ProductRequestDetails()
+{
+
+    ConfirmationSCMPETCO_ProductRequestDetails = false;
+    await Task.Delay(1500);
+    //bool FormValidate = await JSO.InvokeAsync<bool>("submitForm");
+    bool FormValidate =  await JS.InvokeAsync<bool>("submitForm");
+    if (FormValidate)
+    {
+        bool NotValid = false;
+    var e = _ContextFormTemplateSCMPETCO_ProductRequestDetails.EditModel;
+         //events
+         NotValid = await SCMPETCO_ProductRequestDetails_editmodelsaving(e);
+
+        if (!NotValid)
+         {
+        SaveGrid_SCMPETCO_ProductRequestDetails(_ContextFormTemplateSCMPETCO_ProductRequestDetails.DataItem, _ContextFormTemplateSCMPETCO_ProductRequestDetails.EditModel);
+            await Grid_SCMPETCO_ProductRequestDetails.CancelEditAsync();
+         await ChangePageGrid_SCMPETCO_ProductRequestDetails();
+         await SetEditFormContextGrid_SCMPETCO_ProductRequestDetails();
+         }
+          
+    }
+
+}
+async Task OnNoButtonSCMPETCO_ProductRequestDetails()
+{
+    ConfirmationSCMPETCO_ProductRequestDetails = false;
+    await ChangePageGrid_SCMPETCO_ProductRequestDetails();
+    await SetEditFormContextGrid_SCMPETCO_ProductRequestDetails();
+
+}
+async Task SetEditFormContextGrid_SCMPETCO_ProductRequestDetails()
+{
+    var e = (Entity.SCMPETCO_ProductRequestDetails)Grid_SCMPETCO_ProductRequestDetails.GetDataItem(IndexGrid_SCMPETCO_ProductRequestDetails);
+    JsonData = await Utility.JSON.ToJson(e);
+}
+
+async Task ChangePageGrid_SCMPETCO_ProductRequestDetails()
+{
+    int VisibleIndex = IndexGrid_SCMPETCO_ProductRequestDetails;
+    try
+    {
+    if (OpenDialogCodeSCMPETCO_ProductRequestDetails == 1)
+    {
+        if (VisibleIndex != (Grid_SCMPETCO_ProductRequestDetails.GetVisibleRowCount() - 1))
+    { 
+            Grid_SCMPETCO_ProductRequestDetails.CancelEditAsync();
+            IndexGrid_SCMPETCO_ProductRequestDetails = VisibleIndex + 1;
+    Grid_SCMPETCO_ProductRequestDetails.StartEditRowAsync(IndexGrid_SCMPETCO_ProductRequestDetails);
+    }
+    }
+    else if (OpenDialogCodeSCMPETCO_ProductRequestDetails == 0)
+    {
+        if (VisibleIndex != 0)
+        {
+
+            Grid_SCMPETCO_ProductRequestDetails.CancelEditAsync();
+            IndexGrid_SCMPETCO_ProductRequestDetails = VisibleIndex - 1;
+    Grid_SCMPETCO_ProductRequestDetails.StartEditRowAsync(IndexGrid_SCMPETCO_ProductRequestDetails);
+    }
+
+    }
+    var e = (Entity.SCMPETCO_ProductRequestDetails)Grid_SCMPETCO_ProductRequestDetails.GetDataItem(IndexGrid_SCMPETCO_ProductRequestDetails);
+    JsonData = await Utility.JSON.ToJson(e);
+    await Task.Delay(300);
+    await SCMPETCO_ProductRequestDetails_afterrendermodal(e);
+    StateHasChanged();
+    }
+    catch (Exception ex)
+    {
+
+    Console.WriteLine("error in ChagePage" + ex.Message);
+    }
+
+}
+
+async Task StartEditNewRowAsync_Grid_SCMPETCO_ProductRequestDetails()
+{
+    IndexGrid_SCMPETCO_ProductRequestDetails = Grid_SCMPETCO_ProductRequestDetails.GetVisibleRowCount();
+Grid_SCMPETCO_ProductRequestDetails.StartEditNewRowAsync().GetAwaiter();
+var e = new Entity.SCMPETCO_ProductRequestDetails();
+JsonData = await Utility.JSON.ToJson(e);
+await Task.Delay(300);
+await SCMPETCO_ProductRequestDetails_afterrendermodal(e);
+}
+
+async Task StartModalGrid_SCMPETCO_ProductRequestDetails(GridCommandColumnCellDisplayTemplateContext Context)
+{
+    IndexGrid_SCMPETCO_ProductRequestDetails = Context.VisibleIndex;
+Grid_SCMPETCO_ProductRequestDetails.StartEditRowAsync(Context.VisibleIndex).GetAwaiter();
+var e = (Entity.SCMPETCO_ProductRequestDetails)Context.DataItem;
+JsonData = await Utility.JSON.ToJson(e);
+await Task.Delay(300);
+await SCMPETCO_ProductRequestDetails_afterrendermodal(e);
+   // await Task.Delay(500);
+}
+public async Task SaveModalGrid_SCMPETCO_ProductRequestDetails(GridEditFormTemplateContext arg)
+{
+     //bool FormValidate = await JSO.InvokeAsync<bool>("submitForm");
+     bool FormValidate =  await JS.InvokeAsync<bool>("submitForm");
+
+    if(FormValidate){
+
+    var e = arg.EditModel;
+    bool NotValid = false;
+    //events
+    NotValid = await SCMPETCO_ProductRequestDetails_editmodelsaving(e);
+    if (!NotValid)
+    {
+        SaveGrid_SCMPETCO_ProductRequestDetails(arg.DataItem, arg.EditModel);
+
+     await arg.Grid.CancelEditAsync(); 
+
+    }
+
+    }
+
+}
+public async Task SaveAndNewGrid_SCMPETCO_ProductRequestDetails(GridEditFormTemplateContext arg)
+{ 
+     //bool FormValidate = await JSO.InvokeAsync<bool>("submitForm");
+     bool FormValidate = await JS.InvokeAsync<bool>("submitForm");
+     
+    if(FormValidate){
+       
+         var e = arg.EditModel;
+          bool NotValid = false;
+     //events
+    NotValid = await SCMPETCO_ProductRequestDetails_editmodelsaving(e);
+    if (!NotValid)
+    {
+        SaveGrid_SCMPETCO_ProductRequestDetails(arg.DataItem, arg.EditModel);
+
+         await arg.Grid.CancelEditAsync();
+        await StartEditNewRowAsync_Grid_SCMPETCO_ProductRequestDetails();
+
+    }
+          
+    }
+   
+}
+
+void PerviousPageGrid_SCMPETCO_ProductRequestDetails(int VisibleIndex)
+{
+    try
+     {
+    if (VisibleIndex == 0)
+    {
+        Console.WriteLine(VisibleIndex.ToString());
+    }
+    else
+    {
+Grid_SCMPETCO_ProductRequestDetails.CancelEditAsync();
+        IndexGrid_SCMPETCO_ProductRequestDetails = VisibleIndex - 1;
+         Grid_SCMPETCO_ProductRequestDetails.StartEditRowAsync(IndexGrid_SCMPETCO_ProductRequestDetails);
+     }
+    }
+     catch (Exception e)
+     {
+    Console.WriteLine("PerviousPage Message");
+    Console.WriteLine(e.Message);
+    }
+
+}
+
+void NextPageGrid_SCMPETCO_ProductRequestDetails(int VisibleIndex)
+{
+
+    if (VisibleIndex == Grid_SCMPETCO_ProductRequestDetails.GetVisibleRowCount() - 1)
+    {
+    Console.WriteLine(VisibleIndex.ToString());
+    }
+    else
+    {
+    Console.WriteLine("NextPage Start Grid_SCMPETCO_ProductRequestDetails ");
+    try
+    {
+Grid_SCMPETCO_ProductRequestDetails.CancelEditAsync();
+        IndexGrid_SCMPETCO_ProductRequestDetails = VisibleIndex + 1;
+         Grid_SCMPETCO_ProductRequestDetails.StartEditRowAsync(IndexGrid_SCMPETCO_ProductRequestDetails);
+     }
+    catch (Exception e)
+    {
+        Console.WriteLine("NextPage Message");
+        Console.WriteLine(e.Message);
+    }
+
+    }
+}
+
+public void SaveGrid_SCMPETCO_ProductRequestDetails(object DataItem, object EditModel)
+{
+    var ListEntity = _Entity.SCMPETCO_ProductRequestDetails;
+    var MainModel = (Entity.SCMPETCO_ProductRequestDetails)DataItem;
+    if (MainModel != null)
+    {
+MainModel.ProductNameText = ((Entity.SCMPETCO_ProductRequestDetails)EditModel).ProductNameText;
+MainModel.ProductCodeText = ((Entity.SCMPETCO_ProductRequestDetails)EditModel).ProductCodeText;
+MainModel.ProductUnitText = ((Entity.SCMPETCO_ProductRequestDetails)EditModel).ProductUnitText;
+MainModel.ProductRequestingQTY = ((Entity.SCMPETCO_ProductRequestDetails)EditModel).ProductRequestingQTY;
+MainModel.SCMPETCO_PriorityId = ((Entity.SCMPETCO_ProductRequestDetails)EditModel).SCMPETCO_PriorityId;
+MainModel.SCMPETCO_Priority = ((Entity.SCMPETCO_ProductRequestDetails)EditModel).SCMPETCO_Priority;
+MainModel.DeficitSupplyNumber = ((Entity.SCMPETCO_ProductRequestDetails)EditModel).DeficitSupplyNumber;
+MainModel.PlaceOfUseProduct = ((Entity.SCMPETCO_ProductRequestDetails)EditModel).PlaceOfUseProduct;
+MainModel.ForeignMachineryProduct = ((Entity.SCMPETCO_ProductRequestDetails)EditModel).ForeignMachineryProduct;
+MainModel.ProductRowDescription = ((Entity.SCMPETCO_ProductRequestDetails)EditModel).ProductRowDescription;
+MainModel.DescriptionOfTechnicalOffice = ((Entity.SCMPETCO_ProductRequestDetails)EditModel).DescriptionOfTechnicalOffice;
+MainModel.ProductDataSheet = ((Entity.SCMPETCO_ProductRequestDetails)EditModel).ProductDataSheet;
+MainModel.Inquiry = ((Entity.SCMPETCO_ProductRequestDetails)EditModel).Inquiry;
+MainModel.IsPostponedPurchase = ((Entity.SCMPETCO_ProductRequestDetails)EditModel).IsPostponedPurchase;
+MainModel.TheNumberDeliveredByLogistics1 = ((Entity.SCMPETCO_ProductRequestDetails)EditModel).TheNumberDeliveredByLogistics1;
+MainModel.Id = ((Entity.SCMPETCO_ProductRequestDetails)EditModel).Id;
+MainModel.RequestID = ((Entity.SCMPETCO_ProductRequestDetails)EditModel).RequestID;
+MainModel.CreateUser = ((Entity.SCMPETCO_ProductRequestDetails)EditModel).CreateUser;
+MainModel.UpdateUser = ((Entity.SCMPETCO_ProductRequestDetails)EditModel).UpdateUser;
+MainModel.CreateDate = ((Entity.SCMPETCO_ProductRequestDetails)EditModel).CreateDate;
+MainModel.UpdateDate = ((Entity.SCMPETCO_ProductRequestDetails)EditModel).UpdateDate;
+MainModel.IsDelete = ((Entity.SCMPETCO_ProductRequestDetails)EditModel).IsDelete;
+
+    }
+    else
+    {
+    ListEntity.Add((Entity.SCMPETCO_ProductRequestDetails)EditModel);
+    }
+}
+
+async Task OnDataItemDeletingSCMPETCO_ProductRequestDetails(GridDataItemDeletingEventArgs e)
+    {
+    var ListEntity = _Entity.SCMPETCO_ProductRequestDetails;
+    ListEntity.Remove((Entity.SCMPETCO_ProductRequestDetails)e.DataItem);
+}
+async void OnDeleteButtonClickGrid_SCMPETCO_ProductRequestDetails (GridCommandColumnCellDisplayTemplateContext ex)
+{
+    SelectedItemGrid_SCMPETCO_ProductRequestDetails = (ex.DataItem as Entity.SCMPETCO_ProductRequestDetails);
+    var e =SelectedItemGrid_SCMPETCO_ProductRequestDetails;
+    
+     
+    Console.WriteLine("end OnDeleteButtonClickGrid_test_OrderBody 0");
+    ConfirmationShownSCMPETCO_ProductRequestDetails = true;
+    await Task.Yield();
+     await InvokeAsync(StateHasChanged);
+    
+    Console.WriteLine("end OnDeleteButtonClickGrid_test_OrderBody 1");
+}
+async void OnYesButtonClickGrid_SCMPETCO_ProductRequestDetails ()
+{
+       if (SelectedItemGrid_SCMPETCO_ProductRequestDetails != null)
+    {
+      if (SelectedItemGrid_SCMPETCO_ProductRequestDetails.Id == Guid.Empty)
+      {
+          var ListEntity = _Entity.SCMPETCO_ProductRequestDetails;
+        ListEntity.Remove((Entity.SCMPETCO_ProductRequestDetails)SelectedItemGrid_SCMPETCO_ProductRequestDetails);
+     
+      }
+      else
+      {
+        var cleanModel = new Entity.SCMPETCO_ProductRequestDetails();
+      // چک کن آیا پراپرتی IsDelete در این نوع وجود دارد؟
+        var prop = typeof(Entity.SCMPETCO_ProductRequestDetails).GetProperty("IsDelete");
+        if (prop != null && prop.CanRead && prop.CanWrite)
+        {
+            // مقدار فعلی را بگیر
+            var currentValue = prop.GetValue(SelectedItemGrid_SCMPETCO_ProductRequestDetails);
+
+            if (currentValue is bool boolValue)
+            {
+                // مقدار را معکوس کن
+                var newValue = !boolValue;
+
+                // روی هر دو شیء تنظیم کن
+                prop.SetValue(SelectedItemGrid_SCMPETCO_ProductRequestDetails, newValue);
+                prop.SetValue(cleanModel, newValue);
+            }
+        }
+        EntityHelper.SetPropertyValue(cleanModel, cleanModel._GetIdName, SelectedItemGrid_SCMPETCO_ProductRequestDetails._Id);
+    
+       
+       
+      }
+    }
+    var e= SelectedItemGrid_SCMPETCO_ProductRequestDetails;
+    
+    Grid_SCMPETCO_ProductRequestDetails.Reload();
+    ConfirmationShownSCMPETCO_ProductRequestDetails = false;
+     await Task.Yield();
+    await InvokeAsync(StateHasChanged);
+
+}
+void OnNoButtonClickGrid_SCMPETCO_ProductRequestDetails ()
+{
+    ConfirmationShownSCMPETCO_ProductRequestDetails = false;
+}
+
+void CustomizeRowsGrid_SCMPETCO_ProductRequestDetails(GridCustomizeElementEventArgs e)
+{
+    ///استایل سطر
+    if (e.ElementType == GridElementType.DataRow)
+    {
+    var item = ((Entity.SCMPETCO_ProductRequestDetails)e.Grid.GetDataItem(e.VisibleIndex));
+
+       if (item.IsDelete == true)
+       {
+           e.CssClass = "bg-lightred disablediv";
+       }
+    }
+}
+
+async void CustomizeEditGrid_SCMPETCO_ProductRequestDetails(GridCustomizeEditModelEventArgs e)
+{
+
+    if (e.IsNew)
+    {
+
+    var newRow = (Entity.SCMPETCO_ProductRequestDetails)e.EditModel;
+
+      newRow.ProductDataSheet = false;
+ newRow.Inquiry = true;
+
+
+    }
+
+
+}
+public async void RowClickGrid_SCMPETCO_ProductRequestDetails(GridRowClickEventArgs e)
+{
+
+}
+
+public async void RowDubbleClickGrid_SCMPETCO_ProductRequestDetails(GridRowClickEventArgs e)
+{
+
+}
+}
+
+<Input Id="Id" @ref="Ref_Id"   CssClass="d-none"   @bind-Value="_Entity.Id" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+<Input Id="RequestID" @ref="Ref_RequestID"      @bind-Value="_Entity.RequestID" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+<Input Id="CreateUser" @ref="Ref_CreateUser"      @bind-Value="_Entity.CreateUser" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+<Input Id="UpdateUser" @ref="Ref_UpdateUser"      @bind-Value="_Entity.UpdateUser" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+<Input Id="CreateDate" @ref="Ref_CreateDate"   CssClass="d-none"   @bind-Value="_Entity.CreateDate" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+<Input Id="UpdateDate" @ref="Ref_UpdateDate"   CssClass="d-none"   @bind-Value="_Entity.UpdateDate" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+<Input Id="IsDelete" @ref="Ref_IsDelete"   CssClass="d-none"   @bind-Value="_Entity.IsDelete" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+<Input Id="CancelledBy" @ref="Ref_CancelledBy" Label="کاربر لغو کننده کل درخواست"  CssClass="d-none"   @bind-Value="_Entity.CancelledBy" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"maxlength\":\"50\"}").Result))></Input>
+ <input type="hidden" id="ConfirmCancelationText" name="ConfirmCancelationText">
+    </EditForm>
+</div>
+
+@if (ShowSubmit)
+{
+    <button class="btn btn-sm btn-green" @onclick=Submit>ذخیره</button>
+}
+
+@code {
+    #region Function
+
+    //todo  جا به جا شود برده شود تو فایل  Peropeties
+    protected override async Task OnInitializedAsync()
+    {
+        Console.WriteLine("#log OnInitializedAsync");
+
+        TableGet = await Utility.JSON.ToObject<Table>("{\"Name\":\"SCMPETCO_ProductRequest\",\"GetNameAs\":\"SCMPETCO_ProductRequest\",\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"RequestID\",\"GetNameAs\":\"RequestID\"},{\"Name\":\"CreateUser\",\"GetNameAs\":\"CreateUser\"},{\"Name\":\"UpdateUser\",\"GetNameAs\":\"UpdateUser\"},{\"Name\":\"CreateDate\",\"GetNameAs\":\"CreateDate\"},{\"Name\":\"UpdateDate\",\"GetNameAs\":\"UpdateDate\"},{\"Name\":\"IsDelete\",\"GetNameAs\":\"IsDelete\"},{\"Name\":\"SystemUser\",\"GetNameAs\":\"SystemUser\"},{\"Name\":\"SystemUnitUser\",\"GetNameAs\":\"SystemUnitUser\"},{\"Name\":\"SystemSectionUser\",\"GetNameAs\":\"SystemSectionUser\"},{\"Name\":\"UserCompanyName\",\"GetNameAs\":\"UserCompanyName\"},{\"Name\":\"CancelledBy\",\"GetNameAs\":\"CancelledBy\"},{\"Name\":\"CancellationReason\",\"GetNameAs\":\"CancellationReason\"}],\"Relation\":[{\"Name\":\"SCMPETCO_QCInspectionArea\",\"GetNameAs\":\"SCMPETCO_QCInspectionArea\",\"ModeErtebat\":1,\"Column\":[{\"Name\":\"Code\",\"GetNameAs\":\"Code\"},{\"Name\":\"Title\",\"GetNameAs\":\"Title\"}],\"Relation\":[]},{\"Name\":\"SCMPETCO_ICT_Departments\",\"GetNameAs\":\"SCMPETCO_ICT_Departments\",\"ModeErtebat\":1,\"Column\":[{\"Name\":\"Code\",\"GetNameAs\":\"Code\"},{\"Name\":\"Title\",\"GetNameAs\":\"Title\"}],\"Relation\":[]},{\"Name\":\"SCMPETCO_ProductRequestDetails\",\"GetNameAs\":\"SCMPETCO_ProductRequestDetails\",\"ModeErtebat\":2,\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"RequestID\",\"GetNameAs\":\"RequestID\"},{\"Name\":\"CreateUser\",\"GetNameAs\":\"CreateUser\"},{\"Name\":\"UpdateUser\",\"GetNameAs\":\"UpdateUser\"},{\"Name\":\"CreateDate\",\"GetNameAs\":\"CreateDate\"},{\"Name\":\"UpdateDate\",\"GetNameAs\":\"UpdateDate\"},{\"Name\":\"IsDelete\",\"GetNameAs\":\"IsDelete\"},{\"Name\":\"ProductCodeText\",\"GetNameAs\":\"ProductCodeText\"},{\"Name\":\"ProductUnitText\",\"GetNameAs\":\"ProductUnitText\"},{\"Name\":\"ProductRequestingQTY\",\"GetNameAs\":\"ProductRequestingQTY\"},{\"Name\":\"SCMPETCO_PriorityId\",\"GetNameAs\":\"SCMPETCO_PriorityId\"},{\"Name\":\"PlaceOfUseProduct\",\"GetNameAs\":\"PlaceOfUseProduct\"},{\"Name\":\"ProductRowDescription\",\"GetNameAs\":\"ProductRowDescription\"},{\"Name\":\"ProductNameText\",\"GetNameAs\":\"ProductNameText\"},{\"Name\":\"ForeignMachineryProduct\",\"GetNameAs\":\"ForeignMachineryProduct\"},{\"Name\":\"Inquiry\",\"GetNameAs\":\"Inquiry\"},{\"Name\":\"ProductDataSheet\",\"GetNameAs\":\"ProductDataSheet\"},{\"Name\":\"DeficitSupplyNumber\",\"GetNameAs\":\"DeficitSupplyNumber\"},{\"Name\":\"DescriptionOfTechnicalOffice\",\"GetNameAs\":\"DescriptionOfTechnicalOffice\"},{\"Name\":\"TheNumberDeliveredByLogistics1\",\"GetNameAs\":\"TheNumberDeliveredByLogistics1\"},{\"Name\":\"IsPostponedPurchase\",\"GetNameAs\":\"IsPostponedPurchase\"}],\"Relation\":[{\"Name\":\"SCMPETCO_Priority\",\"GetNameAs\":\"SCMPETCO_Priority\",\"ModeErtebat\":1,\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"PriorityTitle\",\"GetNameAs\":\"PriorityTitle\"},{\"Name\":\"PriorityDateTime\",\"GetNameAs\":\"PriorityDateTime\"},{\"Name\":\"PriorityDescription\",\"GetNameAs\":\"PriorityDescription\"}]},{\"Name\":\"SCMPETCO_ProductRequestDetails_ProductDataSheetFile\",\"GetNameAs\":\"SCMPETCO_ProductRequestDetails_ProductDataSheetFile\",\"ModeErtebat\":2,\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"SCMPETCO_ProductRequestDetailsId\",\"GetNameAs\":\"SCMPETCO_ProductRequestDetailsId\"},{\"Name\":\"storage\",\"GetNameAs\":\"storage\"},{\"Name\":\"name\",\"GetNameAs\":\"name\"},{\"Name\":\"url\",\"GetNameAs\":\"url\"},{\"Name\":\"size\",\"GetNameAs\":\"size\"},{\"Name\":\"type\",\"GetNameAs\":\"type\"},{\"Name\":\"originalName\",\"GetNameAs\":\"originalName\"},{\"Name\":\"hash\",\"GetNameAs\":\"hash\"},{\"Name\":\"RequestID\",\"GetNameAs\":\"RequestID\"},{\"Name\":\"CreateUser\",\"GetNameAs\":\"CreateUser\"},{\"Name\":\"UpdateUser\",\"GetNameAs\":\"UpdateUser\"},{\"Name\":\"CreateDate\",\"GetNameAs\":\"CreateDate\"},{\"Name\":\"UpdateDate\",\"GetNameAs\":\"UpdateDate\"},{\"Name\":\"IsDelete\",\"GetNameAs\":\"IsDelete\"}]},{\"Name\":\"SCMPETCO_ProductRequestDetails_InquiryFirst\",\"GetNameAs\":\"SCMPETCO_ProductRequestDetails_InquiryFirst\",\"ModeErtebat\":2,\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"SCMPETCO_ProductRequestDetailsId\",\"GetNameAs\":\"SCMPETCO_ProductRequestDetailsId\"},{\"Name\":\"storage\",\"GetNameAs\":\"storage\"},{\"Name\":\"name\",\"GetNameAs\":\"name\"},{\"Name\":\"url\",\"GetNameAs\":\"url\"},{\"Name\":\"size\",\"GetNameAs\":\"size\"},{\"Name\":\"type\",\"GetNameAs\":\"type\"},{\"Name\":\"originalName\",\"GetNameAs\":\"originalName\"},{\"Name\":\"hash\",\"GetNameAs\":\"hash\"},{\"Name\":\"RequestID\",\"GetNameAs\":\"RequestID\"},{\"Name\":\"CreateUser\",\"GetNameAs\":\"CreateUser\"},{\"Name\":\"UpdateUser\",\"GetNameAs\":\"UpdateUser\"},{\"Name\":\"CreateDate\",\"GetNameAs\":\"CreateDate\"},{\"Name\":\"UpdateDate\",\"GetNameAs\":\"UpdateDate\"},{\"Name\":\"IsDelete\",\"GetNameAs\":\"IsDelete\"}]},{\"Name\":\"SCMPETCO_ProductRequestDetails_InquirySecondFile\",\"GetNameAs\":\"SCMPETCO_ProductRequestDetails_InquirySecondFile\",\"ModeErtebat\":2,\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"SCMPETCO_ProductRequestDetailsId\",\"GetNameAs\":\"SCMPETCO_ProductRequestDetailsId\"},{\"Name\":\"storage\",\"GetNameAs\":\"storage\"},{\"Name\":\"name\",\"GetNameAs\":\"name\"},{\"Name\":\"url\",\"GetNameAs\":\"url\"},{\"Name\":\"size\",\"GetNameAs\":\"size\"},{\"Name\":\"type\",\"GetNameAs\":\"type\"},{\"Name\":\"originalName\",\"GetNameAs\":\"originalName\"},{\"Name\":\"hash\",\"GetNameAs\":\"hash\"},{\"Name\":\"RequestID\",\"GetNameAs\":\"RequestID\"},{\"Name\":\"CreateUser\",\"GetNameAs\":\"CreateUser\"},{\"Name\":\"UpdateUser\",\"GetNameAs\":\"UpdateUser\"},{\"Name\":\"CreateDate\",\"GetNameAs\":\"CreateDate\"},{\"Name\":\"UpdateDate\",\"GetNameAs\":\"UpdateDate\"},{\"Name\":\"IsDelete\",\"GetNameAs\":\"IsDelete\"}]},{\"Name\":\"SCMPETCO_ProductRequestDetails_InquiryThirdFile\",\"GetNameAs\":\"SCMPETCO_ProductRequestDetails_InquiryThirdFile\",\"ModeErtebat\":2,\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"SCMPETCO_ProductRequestDetailsId\",\"GetNameAs\":\"SCMPETCO_ProductRequestDetailsId\"},{\"Name\":\"storage\",\"GetNameAs\":\"storage\"},{\"Name\":\"name\",\"GetNameAs\":\"name\"},{\"Name\":\"url\",\"GetNameAs\":\"url\"},{\"Name\":\"size\",\"GetNameAs\":\"size\"},{\"Name\":\"type\",\"GetNameAs\":\"type\"},{\"Name\":\"originalName\",\"GetNameAs\":\"originalName\"},{\"Name\":\"hash\",\"GetNameAs\":\"hash\"},{\"Name\":\"RequestID\",\"GetNameAs\":\"RequestID\"},{\"Name\":\"CreateUser\",\"GetNameAs\":\"CreateUser\"},{\"Name\":\"UpdateUser\",\"GetNameAs\":\"UpdateUser\"},{\"Name\":\"CreateDate\",\"GetNameAs\":\"CreateDate\"},{\"Name\":\"UpdateDate\",\"GetNameAs\":\"UpdateDate\"},{\"Name\":\"IsDelete\",\"GetNameAs\":\"IsDelete\"}]}]}]}");
+        TablePost = await Utility.JSON.ToObject<Table>("{\"Name\":\"SCMPETCO_ProductRequest\",\"GetNameAs\":\"SCMPETCO_ProductRequest\",\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"RequestID\",\"GetNameAs\":\"RequestID\"},{\"Name\":\"CreateUser\",\"GetNameAs\":\"CreateUser\"},{\"Name\":\"UpdateUser\",\"GetNameAs\":\"UpdateUser\"},{\"Name\":\"CreateDate\",\"GetNameAs\":\"CreateDate\"},{\"Name\":\"UpdateDate\",\"GetNameAs\":\"UpdateDate\"},{\"Name\":\"IsDelete\",\"GetNameAs\":\"IsDelete\"},{\"Name\":\"SystemUser\",\"GetNameAs\":\"SystemUser\"},{\"Name\":\"SystemUnitUser\",\"GetNameAs\":\"SystemUnitUser\"},{\"Name\":\"SystemSectionUser\",\"GetNameAs\":\"SystemSectionUser\"},{\"Name\":\"UserCompanyName\",\"GetNameAs\":\"UserCompanyName\"},{\"Name\":\"CancelledBy\",\"GetNameAs\":\"CancelledBy\"},{\"Name\":\"CancellationReason\",\"GetNameAs\":\"CancellationReason\"}],\"Relation\":[{\"Name\":\"SCMPETCO_ProductRequestDetails\",\"GetNameAs\":\"SCMPETCO_ProductRequestDetails\",\"ModeErtebat\":2,\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"RequestID\",\"GetNameAs\":\"RequestID\"},{\"Name\":\"CreateUser\",\"GetNameAs\":\"CreateUser\"},{\"Name\":\"UpdateUser\",\"GetNameAs\":\"UpdateUser\"},{\"Name\":\"CreateDate\",\"GetNameAs\":\"CreateDate\"},{\"Name\":\"UpdateDate\",\"GetNameAs\":\"UpdateDate\"},{\"Name\":\"IsDelete\",\"GetNameAs\":\"IsDelete\"},{\"Name\":\"ProductCodeText\",\"GetNameAs\":\"ProductCodeText\"},{\"Name\":\"ProductUnitText\",\"GetNameAs\":\"ProductUnitText\"},{\"Name\":\"ProductRequestingQTY\",\"GetNameAs\":\"ProductRequestingQTY\"},{\"Name\":\"SCMPETCO_PriorityId\",\"GetNameAs\":\"SCMPETCO_PriorityId\"},{\"Name\":\"PlaceOfUseProduct\",\"GetNameAs\":\"PlaceOfUseProduct\"},{\"Name\":\"ProductRowDescription\",\"GetNameAs\":\"ProductRowDescription\"},{\"Name\":\"ProductNameText\",\"GetNameAs\":\"ProductNameText\"},{\"Name\":\"ForeignMachineryProduct\",\"GetNameAs\":\"ForeignMachineryProduct\"},{\"Name\":\"Inquiry\",\"GetNameAs\":\"Inquiry\"},{\"Name\":\"ProductDataSheet\",\"GetNameAs\":\"ProductDataSheet\"},{\"Name\":\"DeficitSupplyNumber\",\"GetNameAs\":\"DeficitSupplyNumber\"},{\"Name\":\"DescriptionOfTechnicalOffice\",\"GetNameAs\":\"DescriptionOfTechnicalOffice\"},{\"Name\":\"TheNumberDeliveredByLogistics1\",\"GetNameAs\":\"TheNumberDeliveredByLogistics1\"},{\"Name\":\"IsPostponedPurchase\",\"GetNameAs\":\"IsPostponedPurchase\"}],\"Relation\":[{\"Name\":\"SCMPETCO_ProductRequestDetails_ProductDataSheetFile\",\"GetNameAs\":\"SCMPETCO_ProductRequestDetails_ProductDataSheetFile\",\"ModeErtebat\":2,\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"SCMPETCO_ProductRequestDetailsId\",\"GetNameAs\":\"SCMPETCO_ProductRequestDetailsId\"},{\"Name\":\"storage\",\"GetNameAs\":\"storage\"},{\"Name\":\"name\",\"GetNameAs\":\"name\"},{\"Name\":\"url\",\"GetNameAs\":\"url\"},{\"Name\":\"size\",\"GetNameAs\":\"size\"},{\"Name\":\"type\",\"GetNameAs\":\"type\"},{\"Name\":\"originalName\",\"GetNameAs\":\"originalName\"},{\"Name\":\"hash\",\"GetNameAs\":\"hash\"},{\"Name\":\"RequestID\",\"GetNameAs\":\"RequestID\"},{\"Name\":\"CreateUser\",\"GetNameAs\":\"CreateUser\"},{\"Name\":\"UpdateUser\",\"GetNameAs\":\"UpdateUser\"},{\"Name\":\"CreateDate\",\"GetNameAs\":\"CreateDate\"},{\"Name\":\"UpdateDate\",\"GetNameAs\":\"UpdateDate\"},{\"Name\":\"IsDelete\",\"GetNameAs\":\"IsDelete\"}]},{\"Name\":\"SCMPETCO_ProductRequestDetails_InquiryFirst\",\"GetNameAs\":\"SCMPETCO_ProductRequestDetails_InquiryFirst\",\"ModeErtebat\":2,\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"SCMPETCO_ProductRequestDetailsId\",\"GetNameAs\":\"SCMPETCO_ProductRequestDetailsId\"},{\"Name\":\"storage\",\"GetNameAs\":\"storage\"},{\"Name\":\"name\",\"GetNameAs\":\"name\"},{\"Name\":\"url\",\"GetNameAs\":\"url\"},{\"Name\":\"size\",\"GetNameAs\":\"size\"},{\"Name\":\"type\",\"GetNameAs\":\"type\"},{\"Name\":\"originalName\",\"GetNameAs\":\"originalName\"},{\"Name\":\"hash\",\"GetNameAs\":\"hash\"},{\"Name\":\"RequestID\",\"GetNameAs\":\"RequestID\"},{\"Name\":\"CreateUser\",\"GetNameAs\":\"CreateUser\"},{\"Name\":\"UpdateUser\",\"GetNameAs\":\"UpdateUser\"},{\"Name\":\"CreateDate\",\"GetNameAs\":\"CreateDate\"},{\"Name\":\"UpdateDate\",\"GetNameAs\":\"UpdateDate\"},{\"Name\":\"IsDelete\",\"GetNameAs\":\"IsDelete\"}]},{\"Name\":\"SCMPETCO_ProductRequestDetails_InquirySecondFile\",\"GetNameAs\":\"SCMPETCO_ProductRequestDetails_InquirySecondFile\",\"ModeErtebat\":2,\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"SCMPETCO_ProductRequestDetailsId\",\"GetNameAs\":\"SCMPETCO_ProductRequestDetailsId\"},{\"Name\":\"storage\",\"GetNameAs\":\"storage\"},{\"Name\":\"name\",\"GetNameAs\":\"name\"},{\"Name\":\"url\",\"GetNameAs\":\"url\"},{\"Name\":\"size\",\"GetNameAs\":\"size\"},{\"Name\":\"type\",\"GetNameAs\":\"type\"},{\"Name\":\"originalName\",\"GetNameAs\":\"originalName\"},{\"Name\":\"hash\",\"GetNameAs\":\"hash\"},{\"Name\":\"RequestID\",\"GetNameAs\":\"RequestID\"},{\"Name\":\"CreateUser\",\"GetNameAs\":\"CreateUser\"},{\"Name\":\"UpdateUser\",\"GetNameAs\":\"UpdateUser\"},{\"Name\":\"CreateDate\",\"GetNameAs\":\"CreateDate\"},{\"Name\":\"UpdateDate\",\"GetNameAs\":\"UpdateDate\"},{\"Name\":\"IsDelete\",\"GetNameAs\":\"IsDelete\"}]},{\"Name\":\"SCMPETCO_ProductRequestDetails_InquiryThirdFile\",\"GetNameAs\":\"SCMPETCO_ProductRequestDetails_InquiryThirdFile\",\"ModeErtebat\":2,\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"SCMPETCO_ProductRequestDetailsId\",\"GetNameAs\":\"SCMPETCO_ProductRequestDetailsId\"},{\"Name\":\"storage\",\"GetNameAs\":\"storage\"},{\"Name\":\"name\",\"GetNameAs\":\"name\"},{\"Name\":\"url\",\"GetNameAs\":\"url\"},{\"Name\":\"size\",\"GetNameAs\":\"size\"},{\"Name\":\"type\",\"GetNameAs\":\"type\"},{\"Name\":\"originalName\",\"GetNameAs\":\"originalName\"},{\"Name\":\"hash\",\"GetNameAs\":\"hash\"},{\"Name\":\"RequestID\",\"GetNameAs\":\"RequestID\"},{\"Name\":\"CreateUser\",\"GetNameAs\":\"CreateUser\"},{\"Name\":\"UpdateUser\",\"GetNameAs\":\"UpdateUser\"},{\"Name\":\"CreateDate\",\"GetNameAs\":\"CreateDate\"},{\"Name\":\"UpdateDate\",\"GetNameAs\":\"UpdateDate\"},{\"Name\":\"IsDelete\",\"GetNameAs\":\"IsDelete\"}]}]}]}");
+
+        config = CKEditorBundleOptions.DefaultConfig.WithHtmlEditing();
+        config.Language = "fa";
+
+        //بعداد اگه نیاز شد فرمی رو تو حالت غیر لاگین شده نمایش بدیم باید این  کد تغیر کنه
+        var user = (await _authenticationStateProvider.GetAuthenticationStateAsync()).User;
+        string UserID = user.FindFirst(c => c.Type == ClaimTypes.NameIdentifier).Value;
+        //داینامیک بشه
+        Dictionary<string, object> List = new Dictionary<string, object>();
+        //List.Add("UserID", Guid.Parse(UserID));
+        List.Add("UserID", UserID);
+        _User = await Domain.Utility.ConvertParameter.ConvertToObject(List);
+
+        Console.WriteLine("#log OnInitializedAsync End");
+
+        await base.OnInitializedAsync();
+    }
+
+    //todo  جا به جا شود برده شود تو فایل  Peropeties
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            Console.WriteLine("#log OnAfterRenderAsync");
+            await base.BeforGetData();
+
+            var Result = await GetData();
+
+            await base.AfterGetData();
+
+            StateHasChanged();
+
+            await OnFormloaded.InvokeAsync(Result);
+        }
+
+        await base.OnAfterRenderAsync(firstRender);
+    }
+
+    /// <summary>
+    /// دریافت داده
+    /// </summary>
+    /// <returns></returns>
+    public async Task<Baya.Models.Utility.Result> GetData()
+    {
+        await BeforGetData();
+
+        var DataResult = await ApiServer.External.Services.Data.Get(TableGet, QueryFilter, TableGet.Name, null);
+        
+        Baya.Models.Utility.Result Result = new Baya.Models.Utility.Result();
+
+        if (DataResult != null && DataResult.Status == HttpStatusCode.OK)
+        {
+            if (DataResult.Content != null)
+            {
+                string Data = DataResult.Content.ToString();
+                if (Data is not null)
+                {
+                    _Entity = await Utility.JSON.ToObject < Entity.SCMPETCO_ProductRequest>(Data);
+        }
+            }
+            else
+            {
+                _Entity = new Entity.SCMPETCO_ProductRequest();
+            //todo تشخیص دهد که داده ای وجود ندارد و دفه اول هست که فرم لود میشود
+            //todo اگه نیاز شد دالخ ORm خروجیش متفاوت باشه
+            //ست کردن دیفالت های فرم
+            if (true)
+                {//
+_Entity.SystemUser = _RequestParameters.UserStarterFullName;
+_Entity.UserCompanyName = _RequestParameters.UserStarterCompanyName;
+_Entity.SystemUnitUser = _RequestParameters.UserStarterUnitName;
+_Entity.SystemSectionUser = _RequestParameters.UserStarterSectionName;
+_Entity.CancelledBy = _CartablesParameters.CurentUserFullName;
+
+
+                    //نمونه ست کردن پارامتر روش اول
+                    //_Entity.InstantDelivery = _RequestParameters.UserId;
+
+                    //نمونه کد برای ست کردن پارامتر روش دوم
+                    //_Entity.InstantDelivery = await GetParameter("@@UserId@@");
+                }
+
+                SumaryMessage = "داده لود شده معتبر نمی باشد";
+                Result.Status = HttpStatusCode.InternalServerError;
+            }
+        }
+        else
+        {
+            SumaryMessage = "داده لود نشد";
+            Result.Status = HttpStatusCode.InternalServerError;
+        }
+
+        Result.Message = SumaryMessage;
+
+        StateHasChanged();
+
+        await AfterGetData();
+
+        return Result;
+    }
+
+    public override async Task SetParametersAsync(ParameterView parameters)
+    {
+        await base.SetParametersAsync(parameters);
+    }
+
+    protected override void OnInitialized()
+    {
+        //todo این خط برده شود داخل تابع پاینی ببینیم خطا داره یا نه
+        languageContainer.InitLocalizedComponent(this);
+    }
+
+
+    /// <summary>
+    /// بررسی تغییر دیتا
+    /// </summary>
+    /// <param name="Json"></param>
+    /// <returns></returns>
+    public bool CheckChangedData(string? Json)
+    {
+        if (string.Equals(JsonData, Json)) return true;
+        return false;
+    }
+
+    /// <summary>
+    /// ارسال داده
+    /// </summary>
+    /// <returns></returns>
+    public override async Task<Baya.Models.Utility.Result> Submit()
+    {
+        SumaryMessage = "";
+        Baya.Models.Utility.Result Result = new Baya.Models.Utility.Result();
+
+        if (!await FormValidator())
+        {
+            StateHasChanged();
+            Result.Status = HttpStatusCode.InternalServerError;
+            return Result;
+        }
+
+        if ((await BeforSubmit()).Status != HttpStatusCode.OK)
+        {
+            StateHasChanged();
+            Result.Status = HttpStatusCode.InternalServerError;
+            return Result;
+        }
+
+        _loadingService.Show();
+        var Resualt = await PostData();
+
+        if (Resualt)
+        {
+            Result.Status = HttpStatusCode.OK;
+
+            SumaryMessage = "داده ها با موفقیت ثبت شد";
+        }
+        else
+        {
+            Result.Status = HttpStatusCode.InternalServerError;
+            SumaryMessage = "ذخیره داده با مشکل مواجه شد";
+        }
+
+        Result.Message = SumaryMessage;
+
+        switch ((int)Result.Status)
+        {
+            case 200:
+                toastService.ShowSuccess(Result.Message);
+                break;
+            case 500:
+                toastService.ShowError(Result.Message);
+                break;
+            default:
+                break;
+        } 
+        _loadingService.Hide();
+        await AfterSubmit();
+
+        return Result;
+    }
+
+    /// <summary>
+    /// ارسال داده
+    /// </summary>
+    /// <returns></returns>
+    private async Task<bool> PostData()
+    {
+        string Data = await Utility.JSON.ToJson(_Entity);
+
+        bool IsOk = false;
+        var Model = await ApiServer.External.Services.Data.Put(Data, TablePost.Name, TablePost, RequestID?.ToString(), _User.UserID.ToString());
+        // بررسی وضعیت پاسخ
+        if (Model?.Status == HttpStatusCode.OK)
+        {
+            if (Model.Content != null && !IndependentForm)
+                { 
+                    string NewData = Model.Content.ToString();
+                    if (NewData is not null)
+                    {
+                        var NewEntity = await Utility.JSON.ToObject < Entity.SCMPETCO_ProductRequest>(NewData);
+                     await  GetDataForm(NewEntity._Id);
+                    }
+
+                }
+                IsOk = true;
+
+        }
+        return IsOk;
+    }
+
+
+    void SetLanguage(string language)
+    {
+        languageContainer.SetLanguage(System.Globalization.CultureInfo.GetCultureInfo(language));
+    }
+
+    // public void ValidFormSubmitted(EditContext editContext)
+    // {
+
+    // }
+
+    // public void InvalidFormSubmitted(EditContext editContext)
+    // {
+
+    // }
+    public async Task GetDataForm(object Id)
+    {
+        Type type = Id.GetType();
+        string TypeToQueryBuilder = Utility.TypeConverterQueryBuilder.ConvertCSharpTypeToQueryBuilder(type);
+        var NewQuery = new QueryBuilderFilterRule() { Condition = "AND" };
+        NewQuery.Rules = new List<QueryBuilderFilterRule>
+            {
+                    new QueryBuilderFilterRule()
+                    {
+                        Field = _Entity._GetIdName,
+                        Id = _Entity._GetIdName,
+                        Input = "text",
+                        Operator = "equal",
+                        Type =  TypeToQueryBuilder,
+                        Value = new string[]{ Id.ToString() },
+                    }
+            };
+        QueryFilter = NewQuery;
+        await GetData();
+        StateHasChanged();
+    }
+    #endregion
+}

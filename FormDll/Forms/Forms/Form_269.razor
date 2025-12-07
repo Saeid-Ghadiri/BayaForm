@@ -1,0 +1,1101 @@
+@inherits Forms.Forms.Form_269Base
+@namespace FormsPage
+
+@using AKSoftware.Localization.MultiLanguages.Blazor
+@using Baya.Models.Utility;
+@using Baya.Models.ORM
+@using Microsoft.AspNetCore.Components.Forms
+@using Microsoft.AspNetCore.Components.Authorization;
+@using System.Security.Claims
+@using System.Net
+@using Microsoft.JSInterop
+@using Baya.Models.ViewEngine
+@using Forms.Domain.Utility
+@using Castle.DynamicLinqQueryBuilder
+<style>
+    
+</style>
+
+<Plugins.Tools.ConfirmDialog @ref="Confirm" />
+
+<span class="d-none">VersionForm:@VersionForm</span>
+@*
+@if (!string.IsNullOrEmpty(SumaryMessage))
+{
+    <div>
+        @SumaryMessage
+    </div>
+} *@
+
+@* <EditForm @ref="_Form" Model="_Entity" OnValidSubmit="ValidFormSubmitted" OnInvalidSubmit="InvalidFormSubmitted" OnSubmit="Submit"> *@
+<div class="@(ReadOnly?"FormReadOnly":"")">
+    <EditForm @ref="_Form" Model="_Entity" OnSubmit="Submit">
+        <div  class="">
+    سلام بچه ها
+</div>
+
+<Input Id="Id" @ref="Ref_Id"   CssClass="d-none"   @bind-Value="_Entity.Id" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+<Input Id="RequestID" @ref="Ref_RequestID"     Required=true @bind-Value="_Entity.RequestID" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+<Input Id="CreateUser" @ref="Ref_CreateUser"     Required=true @bind-Value="_Entity.CreateUser" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+<Input Id="UpdateUser" @ref="Ref_UpdateUser"     Required=true @bind-Value="_Entity.UpdateUser" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+<Input Id="CreateDate" @ref="Ref_CreateDate"   CssClass="d-none"  Required=true @bind-Value="_Entity.CreateDate" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+<Input Id="UpdateDate" @ref="Ref_UpdateDate"   CssClass="d-none"  Required=true @bind-Value="_Entity.UpdateDate" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+<Input Id="IsDelete" @ref="Ref_IsDelete"   CssClass="d-none"  Required=true @bind-Value="_Entity.IsDelete" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+<Input Id="UserName" @ref="Ref_UserName" Label="سفارش دهنده "    Required=true @bind-Value="_Entity.UserName" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+<Input Id="OrderDate" @ref="Ref_OrderDate" Label="تاریخ سفارش"  CssClass="PersianDatePicker  PersianDatePicker"  Required=true @bind-Value="_Entity.OrderDate" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"data-jdp\":\"  \",\"data-jdp-only-date\":\"   \"}").Result))></Input>
+
+<Input Id="OrderNo" @ref="Ref_OrderNo" Label="شماره سفارش"    Required=true @bind-Value="_Entity.OrderNo" type="number"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+<Input Id="OrderBodyCount" @ref="Ref_OrderBodyCount" Label="تعداد سفارش"    Required=true @bind-Value="_Entity.OrderBodyCount" type="number"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+<Input Id="testdata" @ref="Ref_testdata" Label="testdata"    Required=true @bind-Value="_Entity.testdata" type="datetime-local"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+<label for="test_OrderBody_Gridtest_OrderId_167">بدنه سفارش
+   
+    
+</label>
+
+<DxGrid @ref="Grid_test_OrderBody" Data="_Entity.test_OrderBody" KeyFieldName="_Id" EditMode="GridEditMode.PopupEditForm"
+        EditModelSaving="OnEditModelSavingtest_OrderBody"
+        DataItemDeleting="OnDataItemDeletingtest_OrderBody"
+        PopupEditFormCssClass="ModalWidth"
+        PopupEditFormHeaderText="بدنه سفارش"
+        EditFormButtonsVisible="false"
+        CustomizeEditModel="CustomizeEditGrid_test_OrderBody"
+        CustomizeElement="CustomizeRowsGrid_test_OrderBody" 
+        Component="@((Utility.JSON.ToObject<View_Component>("{\"primaryKey\":false,\"EntityID\":167,\"FieldId\":167,\"NotNull\":false,\"ViewId\":0,\"NotMapped\":false,\"Relation\":false,\"RelationExternal\":false,\"RelationChildModel\":\"test_OrderBody\",\"GridMainModel\":\"test_OrderBody\",\"widget\":{\"altInput\":false,\"allowInput\":false,\"clickOpens\":false,\"enableDate\":false,\"enableTime\":false,\"noCalendar\":false,\"useLocaleSettings\":false,\"hourIncrement\":0,\"minuteIncrement\":0,\"time_24hr\":false},\"wysiwyg\":false,\"data\":{},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"FieldsTemplate\":[],\"refreshOn\":\"data\",\"reorder\":false,\"addAnotherPosition\":\"bottom\",\"layoutFixed\":false,\"enableRowGroups\":false,\"initEmpty\":false,\"disabled\":true,\"modal\":true,\"label\":\"بدنه سفارش\",\"tableView\":true,\"key\":\"Gridtest_OrderId_167\",\"type\":\"datagrid\",\"input\":true,\"placeholder\":\"Gridtest_OrderId_167\",\"modalEdit\":true,\"FieldUrl\":\"167?EId=167&SubId=1\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result))"
+         >
+    <Columns>
+    
+<DxGridCommandColumn Width="70px">
+    <HeaderTemplate Context="HeaderContext">
+       
+<a id=test_OrderBody_Gridtest_OrderId_167ButtonNew class="btn btn-sm btn-green btnGridAddData" @onclick="@(() => StartEditNewRowAsync_Grid_test_OrderBody())" style="text-decoration: none;" href="javascript:void(0);">
+    <span class="fal fa-plus-circle btnicon"></span>
+    <span>@languageContainer.Keys["DXGrid:New"]</span>
+</a>
+
+    </HeaderTemplate>
+    <CellDisplayTemplate Context="CellContext">
+       
+<a id=test_OrderBody_Gridtest_OrderId_167ButtonEdit class="btn btn-sm btn-yellow-light btnEditGridData" @onclick="@(() => StartModalGrid_test_OrderBody(CellContext))" style="text-decoration: none;" href="javascript:void(0);">
+    <span class="fal fa-pencil btnicon"></span>
+</a>
+
+       
+<a class="btn btn-sm btn-red-light btnDeleteGridData" @onclick="@(() => OnDeleteButtonClickGrid_test_OrderBody(CellContext))" style="text-decoration: none;" href="javascript:void(0);">
+    <span class="fal fa-times-circle btnicon"></span>
+</a>
+
+    </CellDisplayTemplate>
+</DxGridCommandColumn>
+
+    <DxGridCommandColumn   Width="60px">
+           <HeaderTemplate Context="HeaderContext">
+               <a    style="text-decoration: none;"  >
+                
+                   <span>ردیف</span>
+               </a>
+           </HeaderTemplate>
+           <CellDisplayTemplate Context="CellContext">
+            @if (CellContext.VisibleIndex > 9){
+                <p>@(CellContext.VisibleIndex + 1)</p>
+            }else{
+                <p>@(((CellContext.Grid.PageIndex * CellContext.Grid.PageSize) + (CellContext.VisibleIndex + 1)))</p>
+            }
+          
+           </CellDisplayTemplate>
+     </DxGridCommandColumn>
+    <DxGridDataColumn  Caption="Id" Visible=false FieldName="Id" />
+
+<DxGridDataColumn  Caption="RequestID" Visible=false FieldName="RequestID" />
+
+<DxGridDataColumn  Caption="CreateUser" Visible=false FieldName="CreateUser" />
+
+<DxGridDataColumn  Caption="UpdateUser" Visible=false FieldName="UpdateUser" />
+
+<DxGridDataColumn  Caption="CreateDate" Visible=false FieldName="CreateDate" />
+
+<DxGridDataColumn  Caption="UpdateDate" Visible=false FieldName="UpdateDate" />
+
+<DxGridDataColumn  Caption="IsDelete" Visible=false FieldName="IsDelete" />
+
+<DxGridDataColumn Context="test_ProductId_" Caption="محصول" >
+    <CellDisplayTemplate>
+       
+@{
+    Baya.Models.ViewEngine.View_Component Headertest_ProductId = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"primaryKey\":false,\"EntityID\":167,\"FieldId\":1699,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":269,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":false,\"RelationParentName\":\"test_Product\",\"RelationParentModel\":\"test_Product\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/test_Product/GetList\"},\"validate\":{\"required\":true,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.Title}} </span>\",\"FieldsTemplate\":[],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"modal\":true,\"label\":\"محصول\",\"tableView\":true,\"key\":\"test_ProductId\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"tooltip\":\"محصول\",\"description\":\"محصول\",\"FieldUrl\":\"1699?EId=167&SubId=1\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
+    var Rowtest_ProductId = ((Entity.test_OrderBody)test_ProductId_.DataItem).test_ProductId;
+}
+
+<Dropdown ExternalApi=false CssClass="" NotMapped=false TextGrid=true Value="@Rowtest_ProductId"   FieldName="test_ProductId" OnItemSelected="ItemSelected_test_OrderBodytest_ProductId_Header" Component="Headertest_ProductId">
+</Dropdown>
+@code {
+    public async Task ItemSelected_test_OrderBodytest_ProductId_Header(object _Item)
+    {
+      //  var Selected = Utility.JSON.ToObject<dynamic>(Utility.JSON.ToJson(_Item).Result).Result;
+  //   test_ProductId
+
+  //  #CustomCode
+
+ //   
+
+  //  #OnItemSelected
+    }
+}
+
+    </CellDisplayTemplate>
+</DxGridDataColumn>
+<DxGridDataColumn Context="test_UnitId_" Caption="واحد " >
+    <CellDisplayTemplate>
+       
+@{
+    Baya.Models.ViewEngine.View_Component Headertest_UnitId = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"primaryKey\":false,\"EntityID\":167,\"FieldId\":1700,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":269,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":false,\"RelationParentName\":\"test_Unit\",\"RelationParentModel\":\"test_Unit\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://localhost:18367/fa/api/v1/test_Unit/GetList\"},\"validate\":{\"required\":true,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.Id}} {{item.Title}} </span>\",\"FieldsTemplate\":[],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"modal\":true,\"label\":\"واحد \",\"tableView\":true,\"key\":\"test_UnitId\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"1700?EId=167&SubId=1\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
+    var Rowtest_UnitId = ((Entity.test_OrderBody)test_UnitId_.DataItem).test_UnitId;
+}
+
+<Dropdown ExternalApi=false CssClass="" NotMapped=false TextGrid=true Value="@Rowtest_UnitId"   FieldName="test_UnitId" OnItemSelected="ItemSelected_test_OrderBodytest_UnitId_Header" Component="Headertest_UnitId">
+</Dropdown>
+@code {
+    public async Task ItemSelected_test_OrderBodytest_UnitId_Header(object _Item)
+    {
+      //  var Selected = Utility.JSON.ToObject<dynamic>(Utility.JSON.ToJson(_Item).Result).Result;
+  //   test_UnitId
+
+  //  #CustomCode
+
+ //   
+
+  //  #OnItemSelected
+    }
+}
+
+    </CellDisplayTemplate>
+</DxGridDataColumn>
+<DxGridDataColumn DisplayFormat="0" Caption="تعداد ♥"  FieldName="Count" />
+
+<DxGridDataColumn  Caption="توضیحات"  FieldName="Description" />
+
+<DxGridDataColumn Context="test_OrderBody_ProductImage_" Caption="تصویر کالا" >
+    <CellDisplayTemplate>
+      
+@{
+    var test_OrderBody_test_OrderBody_ProductImage = (Entity.test_OrderBody)test_OrderBody_ProductImage_.DataItem;
+}
+@foreach (var item_test_OrderBody in test_OrderBody_test_OrderBody_ProductImage.test_OrderBody_ProductImage.Where(p=>!p.IsDelete.HasValue || !p.IsDelete.Value))
+{
+
+    <div class="bg-lightblue rounded p-1 d-inline-block m-1">
+        <span>@item_test_OrderBody.originalName</span>
+        <hr class="hrdash mt-1 mb-0">
+        <div class="btn-group align-items-center">
+            <button type="button" class="btn btn-sm text-yellow p-0" onclick="ShowImageNewTab('@item_test_OrderBody.url')">@languageContainer.Keys["DXGrid:View"]</button>
+            <a href="@item_test_OrderBody.url" class="btn btn-sm text-green p-0">@languageContainer.Keys["DXGrid:Download"]</a>
+        </div>
+    </div>
+}
+
+
+    </CellDisplayTemplate>
+</DxGridDataColumn>
+<DxGridDataColumn Context="IsExist_" Caption="کالا های موجود" Visible=false>
+    <CellDisplayTemplate>
+       
+@{
+    var test_OrderBody_IsExist = ((Entity.test_OrderBody)IsExist_.DataItem).IsExist;
+}
+
+<p class="text-center " hidden="@(test_OrderBody_IsExist !=null ? !test_OrderBody_IsExist : true)">@languageContainer.Keys["DXGrid:Yes"]</p>
+
+<p class="text-center" hidden="@(test_OrderBody_IsExist !=null ? test_OrderBody_IsExist : true)">@languageContainer.Keys["DXGrid:No"]</p>
+ 
+
+    </CellDisplayTemplate>
+</DxGridDataColumn>
+
+</Columns>
+
+    <EditFormTemplate Context="EditFormContexttest_OrderBody">
+    @{
+        test_OrderBody  = (Entity.test_OrderBody)EditFormContexttest_OrderBody.EditModel;
+    }
+    <DxFormLayout>
+        <DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContexttest_OrderBody">
+    
+<Input Id="test_OrderBody_Id" @ref="Ref_test_OrderBody_Id"   CssClass="d-none"   @bind-Value="test_OrderBody.Id" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+</DxFormLayoutItem>
+
+<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContexttest_OrderBody">
+    
+<Input Id="test_OrderBody_RequestID" @ref="Ref_test_OrderBody_RequestID"     Required=true @bind-Value="test_OrderBody.RequestID" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+</DxFormLayoutItem>
+
+<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContexttest_OrderBody">
+    
+<Input Id="test_OrderBody_CreateUser" @ref="Ref_test_OrderBody_CreateUser"     Required=true @bind-Value="test_OrderBody.CreateUser" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+</DxFormLayoutItem>
+
+<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContexttest_OrderBody">
+    
+<Input Id="test_OrderBody_UpdateUser" @ref="Ref_test_OrderBody_UpdateUser"     Required=true @bind-Value="test_OrderBody.UpdateUser" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+</DxFormLayoutItem>
+
+<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContexttest_OrderBody">
+    
+<Input Id="test_OrderBody_CreateDate" @ref="Ref_test_OrderBody_CreateDate"   CssClass="d-none"  Required=true @bind-Value="test_OrderBody.CreateDate" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+</DxFormLayoutItem>
+
+<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContexttest_OrderBody">
+    
+<Input Id="test_OrderBody_UpdateDate" @ref="Ref_test_OrderBody_UpdateDate"   CssClass="d-none"  Required=true @bind-Value="test_OrderBody.UpdateDate" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+</DxFormLayoutItem>
+
+<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContexttest_OrderBody">
+    
+<Input Id="test_OrderBody_IsDelete" @ref="Ref_test_OrderBody_IsDelete"   CssClass="d-none"  Required=true @bind-Value="test_OrderBody.IsDelete" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+</DxFormLayoutItem>
+
+<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContexttest_OrderBody">
+     
+ 
+@code {
+    Baya.Models.ViewEngine.View_Component Component_test_OrderBodytest_ProductId = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"primaryKey\":false,\"EntityID\":167,\"FieldId\":1699,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":269,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":false,\"RelationParentName\":\"test_Product\",\"RelationParentModel\":\"test_Product\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/test_Product/GetList\"},\"validate\":{\"required\":true,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.Title}} </span>\",\"FieldsTemplate\":[],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"modal\":true,\"label\":\"محصول\",\"tableView\":true,\"key\":\"test_ProductId\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"tooltip\":\"محصول\",\"description\":\"محصول\",\"FieldUrl\":\"1699?EId=167&SubId=1\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
+}
+
+    <Dropdown Id=test_OrderBody_test_ProductId  @ref="Ref_test_OrderBody_test_ProductId" Label="محصول" CssClass="" Required=true DisplayFormat="DropDown" ExternalApi=false NotMapped=false TextGrid=false Text="" Value="@test_OrderBody.test_ProductId" FieldName="test_ProductId" OnItemSelected="ItemSelected_test_OrderBodytest_ProductId" Component="Component_test_OrderBodytest_ProductId" _Entity="_Entity" _EntityRow=test_OrderBody>
+</Dropdown>
+@code {
+    public async Task ItemSelected_test_OrderBodytest_ProductId(object _Item)
+    {
+        var Selected = Utility.JSON.ToObject<dynamic>(Utility.JSON.ToJson(_Item).Result).Result;
+     var Item = test_OrderBody;
+
+      //Todo
+ //برای اینکه آی دی تغییر کند اینجا نیز باید تغییر کند
+ //بهتر است از پرایمیری کی استفاده شود
+ if (_Item != null)
+ {
+     Console.WriteLine(" Item Is Not Null");
+    Item.test_ProductId = Selected.Id;
+    
+ }
+ else
+ {
+     Console.WriteLine(" Item Is Null");
+      Item.test_ProductId =EntityHelper.SetPropertyNull(Item.test_ProductId);
+ }
+ Item.test_Product = await Utility.JSON.ToObject<Entity.test_Product>(await Utility.JSON.ToJson(_Item));
+    StateHasChanged();
+
+
+    
+
+    
+    }
+} 
+
+</DxFormLayoutItem>
+
+<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContexttest_OrderBody">
+     
+ 
+@code {
+    Baya.Models.ViewEngine.View_Component Component_test_OrderBodytest_UnitId = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"primaryKey\":false,\"EntityID\":167,\"FieldId\":1700,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":269,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":false,\"RelationParentName\":\"test_Unit\",\"RelationParentModel\":\"test_Unit\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://localhost:18367/fa/api/v1/test_Unit/GetList\"},\"validate\":{\"required\":true,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.Id}} {{item.Title}} </span>\",\"FieldsTemplate\":[],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"modal\":true,\"label\":\"واحد \",\"tableView\":true,\"key\":\"test_UnitId\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"1700?EId=167&SubId=1\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
+}
+
+    <Dropdown Id=test_OrderBody_test_UnitId  @ref="Ref_test_OrderBody_test_UnitId" Label="واحد " CssClass="" Required=true DisplayFormat="DropDown" ExternalApi=false NotMapped=false TextGrid=false Text="" Value="@test_OrderBody.test_UnitId" FieldName="test_UnitId" OnItemSelected="ItemSelected_test_OrderBodytest_UnitId" Component="Component_test_OrderBodytest_UnitId" _Entity="_Entity" _EntityRow=test_OrderBody>
+</Dropdown>
+@code {
+    public async Task ItemSelected_test_OrderBodytest_UnitId(object _Item)
+    {
+        var Selected = Utility.JSON.ToObject<dynamic>(Utility.JSON.ToJson(_Item).Result).Result;
+     var Item = test_OrderBody;
+
+      //Todo
+ //برای اینکه آی دی تغییر کند اینجا نیز باید تغییر کند
+ //بهتر است از پرایمیری کی استفاده شود
+ if (_Item != null)
+ {
+     Console.WriteLine(" Item Is Not Null");
+    Item.test_UnitId = Selected.Id;
+    
+ }
+ else
+ {
+     Console.WriteLine(" Item Is Null");
+      Item.test_UnitId =EntityHelper.SetPropertyNull(Item.test_UnitId);
+ }
+ Item.test_Unit = await Utility.JSON.ToObject<Entity.test_Unit>(await Utility.JSON.ToJson(_Item));
+    StateHasChanged();
+
+
+    
+
+    
+    }
+} 
+
+</DxFormLayoutItem>
+
+<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContexttest_OrderBody">
+    
+<Input Id="test_OrderBody_Count" @ref="Ref_test_OrderBody_Count" Label="تعداد ♥"    Required=true @bind-Value="test_OrderBody.Count" type="number"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+</DxFormLayoutItem>
+
+<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContexttest_OrderBody">
+    
+<Input Id="test_OrderBody_Description" @ref="Ref_test_OrderBody_Description" Label="توضیحات"    Required=true @bind-Value="test_OrderBody.Description" type="textarea"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+</DxFormLayoutItem>
+
+<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContexttest_OrderBody">
+    <Uploader Id=test_OrderBody_test_OrderBody_ProductImage  @ref="Ref_test_OrderBody_test_OrderBody_ProductImage"   Accept="image/*" MinSize="100K" MaxSize="100MB" Caption="تصویر کالا" Data="test_OrderBody.test_OrderBody_ProductImage" Url="https://File.workcv.ir/fa/api/v1/File/Post" TItem="Entity.test_OrderBody_ProductImage"></Uploader>
+
+</DxFormLayoutItem>
+
+<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContexttest_OrderBody">
+     
+ 
+@code {
+    Baya.Models.ViewEngine.View_Component Component_test_OrderBodyProduId = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"primaryKey\":false,\"EntityID\":167,\"FieldId\":1813,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":269,\"NotMapped\":true,\"Relation\":true,\"RelationExternal\":true,\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://barcode.workcv.ir:447/fa-ir/api/v1/SCM_Priority/getlist\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.PriorityTitle}} {{item.PriorityDescription}} </span>\",\"FieldsTemplate\":[],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"disabled\":true,\"modal\":true,\"label\":\"محصول\",\"tableView\":true,\"key\":\"ProduId\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"customClass\":\"d-none\",\"FieldUrl\":\"1813?EId=167&SubId=1\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
+}
+
+    <Dropdown Id=test_OrderBody_ProduId Disabled=true @ref="Ref_test_OrderBody_ProduId" Label="محصول" CssClass="d-none"  DisplayFormat="DropDown" ExternalApi=true NotMapped=true TextGrid=false   FieldName="ProduId" OnItemSelected="ItemSelected_test_OrderBodyProduId" Component="Component_test_OrderBodyProduId" _Entity="_Entity" _EntityRow=test_OrderBody>
+</Dropdown>
+@code {
+    public async Task ItemSelected_test_OrderBodyProduId(object _Item)
+    {
+        var Selected = Utility.JSON.ToObject<dynamic>(Utility.JSON.ToJson(_Item).Result).Result;
+     var Item = test_OrderBody;
+
+    
+
+    
+
+    
+    }
+} 
+
+</DxFormLayoutItem>
+
+<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContexttest_OrderBody">
+    
+<Input Id="test_OrderBody_IsExist" @ref="Ref_test_OrderBody_IsExist" Label="کالا های موجود"  CssClass="d-none" Disabled=true  @bind-Value="test_OrderBody.IsExist" type="checkbox"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+</DxFormLayoutItem>
+
+<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContexttest_OrderBody">
+     
+ 
+@code {
+    Baya.Models.ViewEngine.View_Component Component_test_OrderBodyShomarankala = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"primaryKey\":false,\"EntityID\":167,\"FieldId\":2584,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":269,\"NotMapped\":true,\"Relation\":true,\"RelationExternal\":true,\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://localhost:18366/fa-ir/api/v1/vw_Parts/GetList\"},\"validate\":{\"required\":true,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"PARTNO_GUID\",\"template\":\"<span>{{item.DESC}} </span>\",\"FieldsTemplate\":[],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"modal\":true,\"label\":\"کالا شماران\",\"tableView\":true,\"key\":\"Shomarankala\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"2584?EId=167&SubId=1\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
+}
+
+    <Dropdown Id=test_OrderBody_Shomarankala  @ref="Ref_test_OrderBody_Shomarankala" Label="کالا شماران" CssClass="" Required=true DisplayFormat="DropDown" ExternalApi=true NotMapped=true TextGrid=false   FieldName="Shomarankala" OnItemSelected="ItemSelected_test_OrderBodyShomarankala" Component="Component_test_OrderBodyShomarankala" _Entity="_Entity" _EntityRow=test_OrderBody>
+</Dropdown>
+@code {
+    public async Task ItemSelected_test_OrderBodyShomarankala(object _Item)
+    {
+        var Selected = Utility.JSON.ToObject<dynamic>(Utility.JSON.ToJson(_Item).Result).Result;
+     var Item = test_OrderBody;
+
+    
+
+    
+
+    
+    }
+} 
+
+</DxFormLayoutItem>
+
+
+        <DxFormLayoutItem ColSpanMd="12" Context="FormLayoutContexttest_OrderBody" CssClass="btn-modal-custom">
+            <DxButton Id="test_OrderBody_Gridtest_OrderId_167ButtonSave" Click="@(() => SaveModalGrid_test_OrderBody(EditFormContexttest_OrderBody))" Text="@languageContainer.Keys["DXGrid:Save"]" CssClass="btn btn-green px-5" />
+            
+<DxButton id="test_OrderBody_Gridtest_OrderId_167ButtonSaveAndNew"    Text="ذخیره و جدید" Click="@(() => SaveAndNewGrid_test_OrderBody(EditFormContexttest_OrderBody))" CssClass="btn btn-green" />
+
+
+            <DxButton Id="test_OrderBody_Gridtest_OrderId_167ButtonCancel" Click="@(() => Grid_test_OrderBody.CancelEditAsync())" Text="@languageContainer.Keys["DXGrid:Cancel"]" CssClass="btn btn-red" />
+            <button id="click_s"  hidden>submit</button>
+             <span>|</span>
+           
+            <DxButton Id="test_OrderBody_Gridtest_OrderId_167ButtonBefore" Click="@(() => Dialog_Grid_test_OrderBody(0,IndexGrid_test_OrderBody,EditFormContexttest_OrderBody))" Text="قبلی" CssClass="btn btn-purple" />@* @languageContainer.Keys["DXGrid:??"] *@
+         
+            <DxButton Id="test_OrderBody_Gridtest_OrderId_167ButtonNext" Click="@(() => Dialog_Grid_test_OrderBody(1,IndexGrid_test_OrderBody,EditFormContexttest_OrderBody))" Text="بعدی" CssClass="btn btn-purple" />
+
+        </DxFormLayoutItem>
+    </DxFormLayout>
+
+</EditFormTemplate>
+
+</DxGrid>
+
+<DxPopup @bind-Visible="@ConfirmationShowntest_OrderBody" HeaderText="@languageContainer.Keys["DXGrid:DeleteItem"]" Width="350px" CloseOnOutsideClick="false">
+
+    <BodyContentTemplate Context="EditFormContext">
+        <div class="py-3 px-5 text-center">
+            <p>@languageContainer.Keys["DXGrid:DeleteItemHint"]</p>
+            <div class="confirm-dialog-buttons">
+                <DxButton Text="@languageContainer.Keys["DXGrid:Yes"]" CssClass="btn btn-red px-4" Click="@OnYesButtonClickGrid_test_OrderBody" />
+                <DxButton Text="@languageContainer.Keys["DXGrid:No"]" CssClass="btn btn-purple-light px-4" Click="@OnNoButtonClickGrid_test_OrderBody" />
+            </div>
+        </div>
+    </BodyContentTemplate>
+</DxPopup>
+
+<DxPopup @bind-Visible="@Confirmationtest_OrderBody" HeaderText="هشدار" Width="350px" CloseOnOutsideClick="false">
+    <BodyContentTemplate Context="EditFormContext">
+        <div class="py-3 px-5 text-center"> 
+            <p>اطلاعات این فرم تغییر کرده است آیا تغییرات ذخیره شود؟</p>
+            <div class="confirm-dialog-buttons">
+                <DxButton Text="بله" CssClass="btn btn-red px-4" Click="@OnYesButtontest_OrderBody" />
+                <DxButton Text="خیر" CssClass="btn btn-purple-light px-4" Click="@OnNoButtontest_OrderBody" />
+            </div>
+        </div>
+    </BodyContentTemplate>
+</DxPopup>
+@code {
+    // DxGrid? Grid_test_OrderBody;
+    Entity.test_OrderBody test_OrderBody;
+    bool ConfirmationShowntest_OrderBody { get; set; } = false;
+    public Entity.test_OrderBody SelectedItemGrid_test_OrderBody { get; set; } = new Entity.test_OrderBody();
+    /// <summary>
+    /// شماره ستون
+    /// </summary>
+    public int IndexGrid_test_OrderBody { get; set; }
+
+    ///////////////////////
+    bool Confirmationtest_OrderBody { get; set; } = false;
+    GridEditFormTemplateContext? _ContextFormTemplatetest_OrderBody { get; set; }
+    public int OpenDialogCodetest_OrderBody { get; set; } = 0;
+    ////////////////////////
+
+    async Task OnEditModelSavingtest_OrderBody(GridEditModelSavingEventArgs arg)
+    {
+        var e = arg.EditModel;
+    bool NotValid = false;
+    //events
+       
+        
+      if (!NotValid)
+     {
+      SaveGrid_test_OrderBody(arg.DataItem, arg.EditModel);
+     }
+}
+
+async void Dialog_Grid_test_OrderBody(int _OpenDialogCode, int VisibleIndex, GridEditFormTemplateContext e)
+{
+    OpenDialogCodetest_OrderBody = _OpenDialogCode;
+    if (!CheckChangedData(await Utility.JSON.ToJson(e.EditModel)))
+    {
+    _ContextFormTemplatetest_OrderBody = e;
+    Confirmationtest_OrderBody = true;
+    }
+    else
+    {
+    await OnNoButtontest_OrderBody();
+    }
+}
+async Task OnYesButtontest_OrderBody()
+{
+
+    Confirmationtest_OrderBody = false;
+    await Task.Delay(1500);
+    //bool FormValidate = await JSO.InvokeAsync<bool>("submitForm");
+    bool FormValidate =  await JS.InvokeAsync<bool>("submitForm");
+    if (FormValidate)
+    {
+        bool NotValid = false;
+    var e = _ContextFormTemplatetest_OrderBody.EditModel;
+         //events
+         
+
+        if (!NotValid)
+         {
+        SaveGrid_test_OrderBody(_ContextFormTemplatetest_OrderBody.DataItem, _ContextFormTemplatetest_OrderBody.EditModel);
+            await Grid_test_OrderBody.CancelEditAsync();
+         await ChangePageGrid_test_OrderBody();
+         await SetEditFormContextGrid_test_OrderBody();
+         }
+          
+    }
+
+}
+async Task OnNoButtontest_OrderBody()
+{
+    Confirmationtest_OrderBody = false;
+    await ChangePageGrid_test_OrderBody();
+    await SetEditFormContextGrid_test_OrderBody();
+
+}
+async Task SetEditFormContextGrid_test_OrderBody()
+{
+    var e = (Entity.test_OrderBody)Grid_test_OrderBody.GetDataItem(IndexGrid_test_OrderBody);
+    JsonData = await Utility.JSON.ToJson(e);
+}
+
+async Task ChangePageGrid_test_OrderBody()
+{
+    int VisibleIndex = IndexGrid_test_OrderBody;
+    try
+    {
+    if (OpenDialogCodetest_OrderBody == 1)
+    {
+        if (VisibleIndex != (Grid_test_OrderBody.GetVisibleRowCount() - 1))
+    { 
+            Grid_test_OrderBody.CancelEditAsync();
+            IndexGrid_test_OrderBody = VisibleIndex + 1;
+    Grid_test_OrderBody.StartEditRowAsync(IndexGrid_test_OrderBody);
+    }
+    }
+    else if (OpenDialogCodetest_OrderBody == 0)
+    {
+        if (VisibleIndex != 0)
+        {
+
+            Grid_test_OrderBody.CancelEditAsync();
+            IndexGrid_test_OrderBody = VisibleIndex - 1;
+    Grid_test_OrderBody.StartEditRowAsync(IndexGrid_test_OrderBody);
+    }
+
+    }
+    var e = (Entity.test_OrderBody)Grid_test_OrderBody.GetDataItem(IndexGrid_test_OrderBody);
+    JsonData = await Utility.JSON.ToJson(e);
+    await Task.Delay(300);
+    
+    StateHasChanged();
+    }
+    catch (Exception ex)
+    {
+
+    Console.WriteLine("error in ChagePage" + ex.Message);
+    }
+
+}
+
+async Task StartEditNewRowAsync_Grid_test_OrderBody()
+{
+    IndexGrid_test_OrderBody = Grid_test_OrderBody.GetVisibleRowCount();
+Grid_test_OrderBody.StartEditNewRowAsync().GetAwaiter();
+var e = new Entity.test_OrderBody();
+JsonData = await Utility.JSON.ToJson(e);
+await Task.Delay(300);
+
+}
+
+async Task StartModalGrid_test_OrderBody(GridCommandColumnCellDisplayTemplateContext Context)
+{
+    IndexGrid_test_OrderBody = Context.VisibleIndex;
+Grid_test_OrderBody.StartEditRowAsync(Context.VisibleIndex).GetAwaiter();
+var e = (Entity.test_OrderBody)Context.DataItem;
+JsonData = await Utility.JSON.ToJson(e);
+await Task.Delay(300);
+
+   // await Task.Delay(500);
+}
+public async Task SaveModalGrid_test_OrderBody(GridEditFormTemplateContext arg)
+{
+     //bool FormValidate = await JSO.InvokeAsync<bool>("submitForm");
+     bool FormValidate =  await JS.InvokeAsync<bool>("submitForm");
+
+    if(FormValidate){
+
+    var e = arg.EditModel;
+    bool NotValid = false;
+    //events
+    
+    if (!NotValid)
+    {
+        SaveGrid_test_OrderBody(arg.DataItem, arg.EditModel);
+
+     await arg.Grid.CancelEditAsync(); 
+
+    }
+
+    }
+
+}
+public async Task SaveAndNewGrid_test_OrderBody(GridEditFormTemplateContext arg)
+{ 
+     //bool FormValidate = await JSO.InvokeAsync<bool>("submitForm");
+     bool FormValidate = await JS.InvokeAsync<bool>("submitForm");
+     
+    if(FormValidate){
+       
+         var e = arg.EditModel;
+          bool NotValid = false;
+     //events
+    
+    if (!NotValid)
+    {
+        SaveGrid_test_OrderBody(arg.DataItem, arg.EditModel);
+
+         await arg.Grid.CancelEditAsync();
+        await StartEditNewRowAsync_Grid_test_OrderBody();
+
+    }
+          
+    }
+   
+}
+
+void PerviousPageGrid_test_OrderBody(int VisibleIndex)
+{
+    try
+     {
+    if (VisibleIndex == 0)
+    {
+        Console.WriteLine(VisibleIndex.ToString());
+    }
+    else
+    {
+Grid_test_OrderBody.CancelEditAsync();
+        IndexGrid_test_OrderBody = VisibleIndex - 1;
+         Grid_test_OrderBody.StartEditRowAsync(IndexGrid_test_OrderBody);
+     }
+    }
+     catch (Exception e)
+     {
+    Console.WriteLine("PerviousPage Message");
+    Console.WriteLine(e.Message);
+    }
+
+}
+
+void NextPageGrid_test_OrderBody(int VisibleIndex)
+{
+
+    if (VisibleIndex == Grid_test_OrderBody.GetVisibleRowCount() - 1)
+    {
+    Console.WriteLine(VisibleIndex.ToString());
+    }
+    else
+    {
+    Console.WriteLine("NextPage Start Grid_test_OrderBody ");
+    try
+    {
+Grid_test_OrderBody.CancelEditAsync();
+        IndexGrid_test_OrderBody = VisibleIndex + 1;
+         Grid_test_OrderBody.StartEditRowAsync(IndexGrid_test_OrderBody);
+     }
+    catch (Exception e)
+    {
+        Console.WriteLine("NextPage Message");
+        Console.WriteLine(e.Message);
+    }
+
+    }
+}
+
+public void SaveGrid_test_OrderBody(object DataItem, object EditModel)
+{
+    var ListEntity = _Entity.test_OrderBody;
+    var MainModel = (Entity.test_OrderBody)DataItem;
+    if (MainModel != null)
+    {
+MainModel.Id = ((Entity.test_OrderBody)EditModel).Id;
+MainModel.RequestID = ((Entity.test_OrderBody)EditModel).RequestID;
+MainModel.CreateUser = ((Entity.test_OrderBody)EditModel).CreateUser;
+MainModel.UpdateUser = ((Entity.test_OrderBody)EditModel).UpdateUser;
+MainModel.CreateDate = ((Entity.test_OrderBody)EditModel).CreateDate;
+MainModel.UpdateDate = ((Entity.test_OrderBody)EditModel).UpdateDate;
+MainModel.IsDelete = ((Entity.test_OrderBody)EditModel).IsDelete;
+MainModel.test_ProductId = ((Entity.test_OrderBody)EditModel).test_ProductId;
+MainModel.test_Product = ((Entity.test_OrderBody)EditModel).test_Product;
+MainModel.test_UnitId = ((Entity.test_OrderBody)EditModel).test_UnitId;
+MainModel.test_Unit = ((Entity.test_OrderBody)EditModel).test_Unit;
+MainModel.Count = ((Entity.test_OrderBody)EditModel).Count;
+MainModel.Description = ((Entity.test_OrderBody)EditModel).Description;
+MainModel.IsExist = ((Entity.test_OrderBody)EditModel).IsExist;
+
+    }
+    else
+    {
+    ListEntity.Add((Entity.test_OrderBody)EditModel);
+    }
+}
+
+async Task OnDataItemDeletingtest_OrderBody(GridDataItemDeletingEventArgs e)
+    {
+    var ListEntity = _Entity.test_OrderBody;
+    ListEntity.Remove((Entity.test_OrderBody)e.DataItem);
+}
+async void OnDeleteButtonClickGrid_test_OrderBody (GridCommandColumnCellDisplayTemplateContext ex)
+{
+    SelectedItemGrid_test_OrderBody = (ex.DataItem as Entity.test_OrderBody);
+    var e =SelectedItemGrid_test_OrderBody;
+    
+     
+    Console.WriteLine("end OnDeleteButtonClickGrid_test_OrderBody 0");
+    ConfirmationShowntest_OrderBody = true;
+    await Task.Yield();
+     await InvokeAsync(StateHasChanged);
+    
+    Console.WriteLine("end OnDeleteButtonClickGrid_test_OrderBody 1");
+}
+async void OnYesButtonClickGrid_test_OrderBody ()
+{
+       if (SelectedItemGrid_test_OrderBody != null)
+    {
+      if (SelectedItemGrid_test_OrderBody.Id == Guid.Empty)
+      {
+          var ListEntity = _Entity.test_OrderBody;
+        ListEntity.Remove((Entity.test_OrderBody)SelectedItemGrid_test_OrderBody);
+     
+      }
+      else
+      {
+        var cleanModel = new Entity.test_OrderBody();
+      // چک کن آیا پراپرتی IsDelete در این نوع وجود دارد؟
+        var prop = typeof(Entity.test_OrderBody).GetProperty("IsDelete");
+        if (prop != null && prop.CanRead && prop.CanWrite)
+        {
+            // مقدار فعلی را بگیر
+            var currentValue = prop.GetValue(SelectedItemGrid_test_OrderBody);
+
+            if (currentValue is bool boolValue)
+            {
+                // مقدار را معکوس کن
+                var newValue = !boolValue;
+
+                // روی هر دو شیء تنظیم کن
+                prop.SetValue(SelectedItemGrid_test_OrderBody, newValue);
+                prop.SetValue(cleanModel, newValue);
+            }
+        }
+        EntityHelper.SetPropertyValue(cleanModel, cleanModel._GetIdName, SelectedItemGrid_test_OrderBody._Id);
+    
+       
+       
+      }
+    }
+    var e= SelectedItemGrid_test_OrderBody;
+    
+    Grid_test_OrderBody.Reload();
+    ConfirmationShowntest_OrderBody = false;
+     await Task.Yield();
+    await InvokeAsync(StateHasChanged);
+
+}
+void OnNoButtonClickGrid_test_OrderBody ()
+{
+    ConfirmationShowntest_OrderBody = false;
+}
+
+void CustomizeRowsGrid_test_OrderBody(GridCustomizeElementEventArgs e)
+{
+    ///استایل سطر
+    if (e.ElementType == GridElementType.DataRow)
+    {
+    var item = ((Entity.test_OrderBody)e.Grid.GetDataItem(e.VisibleIndex));
+
+       if (item.IsDelete == true)
+       {
+           e.CssClass = "bg-lightred disablediv";
+       }
+    }
+}
+
+async void CustomizeEditGrid_test_OrderBody(GridCustomizeEditModelEventArgs e)
+{
+
+    if (e.IsNew)
+    {
+
+    var newRow = (Entity.test_OrderBody)e.EditModel;
+
+     
+
+    }
+
+
+}
+public async void RowClickGrid_test_OrderBody(GridRowClickEventArgs e)
+{
+
+}
+
+public async void RowDubbleClickGrid_test_OrderBody(GridRowClickEventArgs e)
+{
+
+}
+}
+
+    </EditForm>
+</div>
+
+@if (ShowSubmit)
+{
+    <button class="btn btn-sm btn-green" @onclick=Submit>ذخیره</button>
+}
+
+@code {
+    #region Function
+
+    //todo  جا به جا شود برده شود تو فایل  Peropeties
+    protected override async Task OnInitializedAsync()
+    {
+        Console.WriteLine("#log OnInitializedAsync");
+
+        TableGet = await Utility.JSON.ToObject<Table>("{\"Name\":\"test_Order\",\"GetNameAs\":\"test_Order\",\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"RequestID\",\"GetNameAs\":\"RequestID\"},{\"Name\":\"CreateUser\",\"GetNameAs\":\"CreateUser\"},{\"Name\":\"UpdateUser\",\"GetNameAs\":\"UpdateUser\"},{\"Name\":\"CreateDate\",\"GetNameAs\":\"CreateDate\"},{\"Name\":\"UpdateDate\",\"GetNameAs\":\"UpdateDate\"},{\"Name\":\"IsDelete\",\"GetNameAs\":\"IsDelete\"},{\"Name\":\"UserName\",\"GetNameAs\":\"UserName\"},{\"Name\":\"OrderDate\",\"GetNameAs\":\"OrderDate\"},{\"Name\":\"OrderNo\",\"GetNameAs\":\"OrderNo\"},{\"Name\":\"OrderBodyCount\",\"GetNameAs\":\"OrderBodyCount\"},{\"Name\":\"testdata\",\"GetNameAs\":\"testdata\"}],\"Relation\":[{\"Name\":\"UserSabtKonandehNavigation\",\"GetNameAs\":\"UserSabtKonandehNavigation\",\"ModeErtebat\":1,\"Column\":[{\"Name\":\"AccessFailedCount\",\"GetNameAs\":\"AccessFailedCount\"},{\"Name\":\"ConcurrencyStamp\",\"GetNameAs\":\"ConcurrencyStamp\"},{\"Name\":\"Discriminator\",\"GetNameAs\":\"Discriminator\"},{\"Name\":\"Email\",\"GetNameAs\":\"Email\"},{\"Name\":\"EmailConfirmed\",\"GetNameAs\":\"EmailConfirmed\"},{\"Name\":\"LockoutEnabled\",\"GetNameAs\":\"LockoutEnabled\"},{\"Name\":\"LockoutEnd\",\"GetNameAs\":\"LockoutEnd\"},{\"Name\":\"NormalizedEmail\",\"GetNameAs\":\"NormalizedEmail\"},{\"Name\":\"NormalizedUserName\",\"GetNameAs\":\"NormalizedUserName\"},{\"Name\":\"PasswordHash\",\"GetNameAs\":\"PasswordHash\"},{\"Name\":\"PhoneNumber\",\"GetNameAs\":\"PhoneNumber\"},{\"Name\":\"PhoneNumberConfirmed\",\"GetNameAs\":\"PhoneNumberConfirmed\"},{\"Name\":\"SecurityStamp\",\"GetNameAs\":\"SecurityStamp\"},{\"Name\":\"TwoFactorEnabled\",\"GetNameAs\":\"TwoFactorEnabled\"},{\"Name\":\"UserName\",\"GetNameAs\":\"UserName\"},{\"Name\":\"Address\",\"GetNameAs\":\"Address\"},{\"Name\":\"BirthDate\",\"GetNameAs\":\"BirthDate\"},{\"Name\":\"BirthDateString\",\"GetNameAs\":\"BirthDateString\"},{\"Name\":\"BirthPlace\",\"GetNameAs\":\"BirthPlace\"},{\"Name\":\"CodeMelli\",\"GetNameAs\":\"CodeMelli\"},{\"Name\":\"CompanyEmploymentDate\",\"GetNameAs\":\"CompanyEmploymentDate\"},{\"Name\":\"CompanyEmploymentDateString\",\"GetNameAs\":\"CompanyEmploymentDateString\"},{\"Name\":\"CompanyID\",\"GetNameAs\":\"CompanyID\"},{\"Name\":\"EMP_NO\",\"GetNameAs\":\"EMP_NO\"},{\"Name\":\"EmploymentStatus\",\"GetNameAs\":\"EmploymentStatus\"},{\"Name\":\"FAMILY\",\"GetNameAs\":\"FAMILY\"},{\"Name\":\"FatherName\",\"GetNameAs\":\"FatherName\"},{\"Name\":\"IndustrialComplexEmploymentDate\",\"GetNameAs\":\"IndustrialComplexEmploymentDate\"},{\"Name\":\"IndustrialComplexEmploymentDateString\",\"GetNameAs\":\"IndustrialComplexEmploymentDateString\"},{\"Name\":\"IsActive\",\"GetNameAs\":\"IsActive\"},{\"Name\":\"IsCut\",\"GetNameAs\":\"IsCut\"},{\"Name\":\"JobTitle\",\"GetNameAs\":\"JobTitle\"},{\"Name\":\"LastEducationalCertificate\",\"GetNameAs\":\"LastEducationalCertificate\"},{\"Name\":\"MaritalStatus\",\"GetNameAs\":\"MaritalStatus\"},{\"Name\":\"NAME\",\"GetNameAs\":\"NAME\"},{\"Name\":\"OrganizationalUnit\",\"GetNameAs\":\"OrganizationalUnit\"},{\"Name\":\"OstanID\",\"GetNameAs\":\"OstanID\"},{\"Name\":\"PERS_NO\",\"GetNameAs\":\"PERS_NO\"},{\"Name\":\"Part\",\"GetNameAs\":\"Part\"},{\"Name\":\"PlaceofIssue\",\"GetNameAs\":\"PlaceofIssue\"},{\"Name\":\"PostTitle\",\"GetNameAs\":\"PostTitle\"},{\"Name\":\"ResetPassword\",\"GetNameAs\":\"ResetPassword\"},{\"Name\":\"SEX\",\"GetNameAs\":\"SEX\"},{\"Name\":\"SYSUserName\",\"GetNameAs\":\"SYSUserName\"},{\"Name\":\"SectionID\",\"GetNameAs\":\"SectionID\"},{\"Name\":\"ShomareShenasname\",\"GetNameAs\":\"ShomareShenasname\"},{\"Name\":\"Signature\",\"GetNameAs\":\"Signature\"},{\"Name\":\"StudyField\",\"GetNameAs\":\"StudyField\"},{\"Name\":\"UserImage\",\"GetNameAs\":\"UserImage\"}],\"Relation\":[]},{\"Name\":\"test_OrderBody\",\"GetNameAs\":\"test_OrderBody\",\"ModeErtebat\":2,\"Column\":[{\"Name\":\"test_ProductId\",\"GetNameAs\":\"test_ProductId\"},{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"RequestID\",\"GetNameAs\":\"RequestID\"},{\"Name\":\"CreateUser\",\"GetNameAs\":\"CreateUser\"},{\"Name\":\"UpdateUser\",\"GetNameAs\":\"UpdateUser\"},{\"Name\":\"CreateDate\",\"GetNameAs\":\"CreateDate\"},{\"Name\":\"UpdateDate\",\"GetNameAs\":\"UpdateDate\"},{\"Name\":\"IsDelete\",\"GetNameAs\":\"IsDelete\"},{\"Name\":\"test_UnitId\",\"GetNameAs\":\"test_UnitId\"},{\"Name\":\"Count\",\"GetNameAs\":\"Count\"},{\"Name\":\"Description\",\"GetNameAs\":\"Description\"},{\"Name\":\"IsExist\",\"GetNameAs\":\"IsExist\"}],\"Relation\":[{\"Name\":\"test_Product\",\"GetNameAs\":\"test_Product\",\"ModeErtebat\":1,\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"Title\",\"GetNameAs\":\"Title\"},{\"Name\":\"Test1\",\"GetNameAs\":\"Test1\"},{\"Name\":\"DateTest\",\"GetNameAs\":\"DateTest\"},{\"Name\":\"TestSaeid\",\"GetNameAs\":\"TestSaeid\"},{\"Name\":\"Title2\",\"GetNameAs\":\"Title2\"},{\"Name\":\"Title_Num\",\"GetNameAs\":\"Title_Num\"},{\"Name\":\"Title3\",\"GetNameAs\":\"Title3\"},{\"Name\":\"testttt\",\"GetNameAs\":\"testttt\"}]},{\"Name\":\"test_Unit\",\"GetNameAs\":\"test_Unit\",\"ModeErtebat\":1,\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"Title\",\"GetNameAs\":\"Title\"},{\"Name\":\"Def1\",\"GetNameAs\":\"Def1\"},{\"Name\":\"Def2\",\"GetNameAs\":\"Def2\"},{\"Name\":\"Def3\",\"GetNameAs\":\"Def3\"},{\"Name\":\"Def4\",\"GetNameAs\":\"Def4\"},{\"Name\":\"Hour\",\"GetNameAs\":\"Hour\"}]},{\"Name\":\"test_OrderBody_ProductImage\",\"GetNameAs\":\"test_OrderBody_ProductImage\",\"ModeErtebat\":2,\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"test_OrderBodyId\",\"GetNameAs\":\"test_OrderBodyId\"},{\"Name\":\"storage\",\"GetNameAs\":\"storage\"},{\"Name\":\"name\",\"GetNameAs\":\"name\"},{\"Name\":\"url\",\"GetNameAs\":\"url\"},{\"Name\":\"size\",\"GetNameAs\":\"size\"},{\"Name\":\"type\",\"GetNameAs\":\"type\"},{\"Name\":\"originalName\",\"GetNameAs\":\"originalName\"},{\"Name\":\"hash\",\"GetNameAs\":\"hash\"},{\"Name\":\"RequestID\",\"GetNameAs\":\"RequestID\"},{\"Name\":\"CreateUser\",\"GetNameAs\":\"CreateUser\"},{\"Name\":\"UpdateUser\",\"GetNameAs\":\"UpdateUser\"},{\"Name\":\"CreateDate\",\"GetNameAs\":\"CreateDate\"},{\"Name\":\"UpdateDate\",\"GetNameAs\":\"UpdateDate\"},{\"Name\":\"IsDelete\",\"GetNameAs\":\"IsDelete\"}]}]}]}");
+        TablePost = await Utility.JSON.ToObject<Table>("{\"Name\":\"test_Order\",\"GetNameAs\":\"test_Order\",\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"RequestID\",\"GetNameAs\":\"RequestID\"},{\"Name\":\"CreateUser\",\"GetNameAs\":\"CreateUser\"},{\"Name\":\"UpdateUser\",\"GetNameAs\":\"UpdateUser\"},{\"Name\":\"CreateDate\",\"GetNameAs\":\"CreateDate\"},{\"Name\":\"UpdateDate\",\"GetNameAs\":\"UpdateDate\"},{\"Name\":\"IsDelete\",\"GetNameAs\":\"IsDelete\"},{\"Name\":\"UserName\",\"GetNameAs\":\"UserName\"},{\"Name\":\"OrderDate\",\"GetNameAs\":\"OrderDate\"},{\"Name\":\"OrderNo\",\"GetNameAs\":\"OrderNo\"},{\"Name\":\"OrderBodyCount\",\"GetNameAs\":\"OrderBodyCount\"},{\"Name\":\"testdata\",\"GetNameAs\":\"testdata\"}],\"Relation\":[{\"Name\":\"test_OrderBody\",\"GetNameAs\":\"test_OrderBody\",\"ModeErtebat\":2,\"Column\":[{\"Name\":\"test_ProductId\",\"GetNameAs\":\"test_ProductId\"},{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"RequestID\",\"GetNameAs\":\"RequestID\"},{\"Name\":\"CreateUser\",\"GetNameAs\":\"CreateUser\"},{\"Name\":\"UpdateUser\",\"GetNameAs\":\"UpdateUser\"},{\"Name\":\"CreateDate\",\"GetNameAs\":\"CreateDate\"},{\"Name\":\"UpdateDate\",\"GetNameAs\":\"UpdateDate\"},{\"Name\":\"IsDelete\",\"GetNameAs\":\"IsDelete\"},{\"Name\":\"test_UnitId\",\"GetNameAs\":\"test_UnitId\"},{\"Name\":\"Count\",\"GetNameAs\":\"Count\"},{\"Name\":\"Description\",\"GetNameAs\":\"Description\"},{\"Name\":\"IsExist\",\"GetNameAs\":\"IsExist\"}],\"Relation\":[{\"Name\":\"test_OrderBody_ProductImage\",\"GetNameAs\":\"test_OrderBody_ProductImage\",\"ModeErtebat\":2,\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"test_OrderBodyId\",\"GetNameAs\":\"test_OrderBodyId\"},{\"Name\":\"storage\",\"GetNameAs\":\"storage\"},{\"Name\":\"name\",\"GetNameAs\":\"name\"},{\"Name\":\"url\",\"GetNameAs\":\"url\"},{\"Name\":\"size\",\"GetNameAs\":\"size\"},{\"Name\":\"type\",\"GetNameAs\":\"type\"},{\"Name\":\"originalName\",\"GetNameAs\":\"originalName\"},{\"Name\":\"hash\",\"GetNameAs\":\"hash\"},{\"Name\":\"RequestID\",\"GetNameAs\":\"RequestID\"},{\"Name\":\"CreateUser\",\"GetNameAs\":\"CreateUser\"},{\"Name\":\"UpdateUser\",\"GetNameAs\":\"UpdateUser\"},{\"Name\":\"CreateDate\",\"GetNameAs\":\"CreateDate\"},{\"Name\":\"UpdateDate\",\"GetNameAs\":\"UpdateDate\"},{\"Name\":\"IsDelete\",\"GetNameAs\":\"IsDelete\"}]}]}]}");
+
+        config = CKEditorBundleOptions.DefaultConfig.WithHtmlEditing();
+        config.Language = "fa";
+
+        //بعداد اگه نیاز شد فرمی رو تو حالت غیر لاگین شده نمایش بدیم باید این  کد تغیر کنه
+        var user = (await _authenticationStateProvider.GetAuthenticationStateAsync()).User;
+        string UserID = user.FindFirst(c => c.Type == ClaimTypes.NameIdentifier).Value;
+        //داینامیک بشه
+        Dictionary<string, object> List = new Dictionary<string, object>();
+        //List.Add("UserID", Guid.Parse(UserID));
+        List.Add("UserID", UserID);
+        _User = await Domain.Utility.ConvertParameter.ConvertToObject(List);
+
+        Console.WriteLine("#log OnInitializedAsync End");
+
+        await base.OnInitializedAsync();
+    }
+
+    //todo  جا به جا شود برده شود تو فایل  Peropeties
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            Console.WriteLine("#log OnAfterRenderAsync");
+            await base.BeforGetData();
+
+            var Result = await GetData();
+
+            await base.AfterGetData();
+
+            StateHasChanged();
+
+            await OnFormloaded.InvokeAsync(Result);
+        }
+
+        await base.OnAfterRenderAsync(firstRender);
+    }
+
+    /// <summary>
+    /// دریافت داده
+    /// </summary>
+    /// <returns></returns>
+    public async Task<Baya.Models.Utility.Result> GetData()
+    {
+        await BeforGetData();
+
+        var DataResult = await ApiServer.External.Services.Data.Get(TableGet, QueryFilter, TableGet.Name, null);
+        
+        Baya.Models.Utility.Result Result = new Baya.Models.Utility.Result();
+
+        if (DataResult != null && DataResult.Status == HttpStatusCode.OK)
+        {
+            if (DataResult.Content != null)
+            {
+                string Data = DataResult.Content.ToString();
+                if (Data is not null)
+                {
+                    _Entity = await Utility.JSON.ToObject < Entity.test_Order>(Data);
+        }
+            }
+            else
+            {
+                _Entity = new Entity.test_Order();
+            //todo تشخیص دهد که داده ای وجود ندارد و دفه اول هست که فرم لود میشود
+            //todo اگه نیاز شد دالخ ORm خروجیش متفاوت باشه
+            //ست کردن دیفالت های فرم
+            if (true)
+                {//
+_Entity.OrderDate = "1404/07/12";
+
+
+                    //نمونه ست کردن پارامتر روش اول
+                    //_Entity.InstantDelivery = _RequestParameters.UserId;
+
+                    //نمونه کد برای ست کردن پارامتر روش دوم
+                    //_Entity.InstantDelivery = await GetParameter("@@UserId@@");
+                }
+
+                SumaryMessage = "داده لود شده معتبر نمی باشد";
+                Result.Status = HttpStatusCode.InternalServerError;
+            }
+        }
+        else
+        {
+            SumaryMessage = "داده لود نشد";
+            Result.Status = HttpStatusCode.InternalServerError;
+        }
+
+        Result.Message = SumaryMessage;
+
+        StateHasChanged();
+
+        await AfterGetData();
+
+        return Result;
+    }
+
+    public override async Task SetParametersAsync(ParameterView parameters)
+    {
+        await base.SetParametersAsync(parameters);
+    }
+
+    protected override void OnInitialized()
+    {
+        //todo این خط برده شود داخل تابع پاینی ببینیم خطا داره یا نه
+        languageContainer.InitLocalizedComponent(this);
+    }
+
+
+    /// <summary>
+    /// بررسی تغییر دیتا
+    /// </summary>
+    /// <param name="Json"></param>
+    /// <returns></returns>
+    public bool CheckChangedData(string? Json)
+    {
+        if (string.Equals(JsonData, Json)) return true;
+        return false;
+    }
+
+    /// <summary>
+    /// ارسال داده
+    /// </summary>
+    /// <returns></returns>
+    public override async Task<Baya.Models.Utility.Result> Submit()
+    {
+        SumaryMessage = "";
+        Baya.Models.Utility.Result Result = new Baya.Models.Utility.Result();
+
+        if (!await FormValidator())
+        {
+            StateHasChanged();
+            Result.Status = HttpStatusCode.InternalServerError;
+            return Result;
+        }
+
+        if ((await BeforSubmit()).Status != HttpStatusCode.OK)
+        {
+            StateHasChanged();
+            Result.Status = HttpStatusCode.InternalServerError;
+            return Result;
+        }
+
+        _loadingService.Show();
+        var Resualt = await PostData();
+
+        if (Resualt)
+        {
+            Result.Status = HttpStatusCode.OK;
+
+            SumaryMessage = "داده ها با موفقیت ثبت شد";
+        }
+        else
+        {
+            Result.Status = HttpStatusCode.InternalServerError;
+            SumaryMessage = "ذخیره داده با مشکل مواجه شد";
+        }
+
+        Result.Message = SumaryMessage;
+
+        switch ((int)Result.Status)
+        {
+            case 200:
+                toastService.ShowSuccess(Result.Message);
+                break;
+            case 500:
+                toastService.ShowError(Result.Message);
+                break;
+            default:
+                break;
+        } 
+        _loadingService.Hide();
+        await AfterSubmit();
+
+        return Result;
+    }
+
+    /// <summary>
+    /// ارسال داده
+    /// </summary>
+    /// <returns></returns>
+    private async Task<bool> PostData()
+    {
+        string Data = await Utility.JSON.ToJson(_Entity);
+
+        bool IsOk = false;
+        var Model = await ApiServer.External.Services.Data.Put(Data, TablePost.Name, TablePost, RequestID?.ToString(), _User.UserID.ToString());
+        // بررسی وضعیت پاسخ
+        if (Model?.Status == HttpStatusCode.OK)
+        {
+            if (Model.Content != null && !IndependentForm)
+                { 
+                    string NewData = Model.Content.ToString();
+                    if (NewData is not null)
+                    {
+                        var NewEntity = await Utility.JSON.ToObject < Entity.test_Order>(NewData);
+                     await  GetDataForm(NewEntity._Id);
+                    }
+
+                }
+                IsOk = true;
+
+        }
+        return IsOk;
+    }
+
+
+    void SetLanguage(string language)
+    {
+        languageContainer.SetLanguage(System.Globalization.CultureInfo.GetCultureInfo(language));
+    }
+
+    // public void ValidFormSubmitted(EditContext editContext)
+    // {
+
+    // }
+
+    // public void InvalidFormSubmitted(EditContext editContext)
+    // {
+
+    // }
+    public async Task GetDataForm(object Id)
+    {
+        Type type = Id.GetType();
+        string TypeToQueryBuilder = Utility.TypeConverterQueryBuilder.ConvertCSharpTypeToQueryBuilder(type);
+        var NewQuery = new QueryBuilderFilterRule() { Condition = "AND" };
+        NewQuery.Rules = new List<QueryBuilderFilterRule>
+            {
+                    new QueryBuilderFilterRule()
+                    {
+                        Field = _Entity._GetIdName,
+                        Id = _Entity._GetIdName,
+                        Input = "text",
+                        Operator = "equal",
+                        Type =  TypeToQueryBuilder,
+                        Value = new string[]{ Id.ToString() },
+                    }
+            };
+        QueryFilter = NewQuery;
+        await GetData();
+        StateHasChanged();
+    }
+    #endregion
+}

@@ -1,0 +1,550 @@
+@inherits Forms.Forms.Form_680_CUBase
+@namespace FormsPage
+
+@using AKSoftware.Localization.MultiLanguages.Blazor
+@using Baya.Models.Utility;
+@using Baya.Models.ORM
+@using Microsoft.AspNetCore.Components.Forms
+@using Microsoft.AspNetCore.Components.Authorization;
+@using System.Security.Claims
+@using System.Net
+@using Microsoft.JSInterop
+@using Baya.Models.ViewEngine
+@using Forms.Domain.Utility
+@using Castle.DynamicLinqQueryBuilder
+<style>
+    /* ************************************************** */
+.detailArea form div:not(.devdrop) {
+  margin-top: .1rem;
+}
+
+/* ************************************************** */
+
+.form-header {
+            background: linear-gradient(to bottom, #6c5ffc, #0d1a52);
+            color: white;
+            padding: 1.5rem 2rem;
+            border-radius: 0.5rem 0.5rem 0 0;
+            margin-bottom: 0;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+            transition: all 0.3s ease;
+        }
+        
+        .form-header:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 25px rgba(0, 0, 0, 0.2);
+        }
+        
+        .form-header h2 {
+            font-weight: 700;
+            margin-bottom: 0;
+            display: flex;
+            align-items: center;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .form-header .icon {
+            font-size: 1.8rem;
+            margin-left: 15px;
+            animation: float 3s ease-in-out infinite;
+        }
+        
+        .form-header::before {
+            content: "";
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0) 70%);
+            transform: rotate(45deg);
+            z-index: 1;
+            transition: all 0.5s ease;
+        }
+        
+        .form-header:hover::before {
+            transform: rotate(45deg) translate(20px, 20px);
+        }
+        
+        .form-header .decoration {
+            position: absolute;
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.05);
+            z-index: 1;
+        }
+        
+        .form-header .decoration-1 {
+            top: -30px;
+            left: -30px;
+            width: 120px;
+            height: 120px;
+        }
+        
+        .form-header .decoration-2 {
+            bottom: -40px;
+            right: -20px;
+            width: 80px;
+            height: 80px;
+        }
+        
+        @@keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-5px); }
+            100% { transform: translateY(0px); }
+        }
+        
+        @@keyframes pulse {
+            0% { opacity: 0.3; }
+            50% { opacity: 0.1; }
+            100% { opacity: 0.3; }
+        }
+        
+        .pulse-animation {
+            animation: pulse 4s ease-in-out infinite;
+        }
+/* ************************************************** */
+</style>
+
+<Plugins.Tools.ConfirmDialog @ref="Confirm" />
+
+<span class="d-none">VersionForm:@VersionForm</span>
+@*
+@if (!string.IsNullOrEmpty(SumaryMessage))
+{
+    <div>
+        @SumaryMessage
+    </div>
+} *@
+
+@* <EditForm @ref="_Form" Model="_Entity" OnValidSubmit="ValidFormSubmitted" OnInvalidSubmit="InvalidFormSubmitted" OnSubmit="Submit"> *@
+<div class="@(ReadOnly?"FormReadOnly":"")">
+    <EditForm @ref="_Form" Model="_Entity" OnSubmit="Submit">
+        
+<div class="">
+    <div  class="">
+    <header class="form-header">
+  <!-- عناصر تزئینی -->
+  <div class="decoration decoration-1"></div>
+  <div class="decoration decoration-2 pulse-animation"></div>
+  
+  <!-- محتوای هدر -->
+  <h5>
+      <i class="fal fa-sitemap icon"></i>
+      ساختار تشکیلاتی سازمان (چارت)
+  </h5>
+</header>
+</div>
+
+</div>
+
+<div class="row ">
+    
+<div class="col-md-4">
+     
+ 
+@code {
+    Baya.Models.ViewEngine.View_Component Component_HR_ORG_ChartHR_ORG_SectionsId = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"EntityName\":\"چارت سازمانی\",\"primaryKey\":false,\"EntityID\":386,\"FieldId\":15685,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":680,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":false,\"RelationParentName\":\"HR_ORG_Sections\",\"RelationParentModel\":\"HR_ORG_Sections\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/View_HR_ORG_Sections/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.CompanieTitle}} {{item.HR_ORG_SectionsParentTitle}} {{item.Code}} {{item.Title}} </span>\",\"FieldsTemplate\":[{\"key\":\"Code\",\"value\":\"nvarchar(Max)\"},{\"key\":\"Title\",\"value\":\"nvarchar(Max)\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"searchField\":\"Code,Title\",\"disabled\":false,\"modal\":true,\"label\":\"قسمت سازمانی\",\"tableView\":true,\"key\":\"HR_ORG_SectionsId\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"15685?EId=386&SubId=15\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
+}
+
+    <Dropdown Id=HR_ORG_SectionsId  @ref="Ref_HR_ORG_SectionsId" Label="قسمت سازمانی" CssClass=""  DisplayFormat="DropDown" ExternalApi=false NotMapped=false TextGrid=false Text="" Value="@_Entity.HR_ORG_SectionsId" FieldName="HR_ORG_SectionsId" OnItemSelected="ItemSelected_HR_ORG_ChartHR_ORG_SectionsId" Component="Component_HR_ORG_ChartHR_ORG_SectionsId" _Entity="_Entity" >
+</Dropdown>
+@code {
+    public async Task ItemSelected_HR_ORG_ChartHR_ORG_SectionsId(object _Item)
+    {
+        var Selected = Utility.JSON.ToObject<dynamic>(Utility.JSON.ToJson(_Item).Result).Result;
+     var Item = _Entity;
+
+      //Todo
+ //برای اینکه آی دی تغییر کند اینجا نیز باید تغییر کند
+ //بهتر است از پرایمیری کی استفاده شود
+ if (_Item != null)
+ {
+     Console.WriteLine(" Item Is Not Null");
+    Item.HR_ORG_SectionsId = Selected.Id;
+    
+ }
+ else
+ {
+     Console.WriteLine(" Item Is Null");
+      Item.HR_ORG_SectionsId =EntityHelper.SetPropertyNull(Item.HR_ORG_SectionsId);
+ }
+ Item.HR_ORG_Sections = await Utility.JSON.ToObject<Entity.HR_ORG_Sections>(await Utility.JSON.ToJson(_Item));
+    StateHasChanged();
+
+
+    
+
+    
+    }
+} 
+ 
+ 
+@code {
+    Baya.Models.ViewEngine.View_Component Component_HR_ORG_ChartHR_ORG_PostsId = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"EntityName\":\"چارت سازمانی\",\"primaryKey\":false,\"EntityID\":386,\"FieldId\":15684,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":680,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":false,\"RelationParentName\":\"HR_ORG_Posts\",\"RelationParentModel\":\"HR_ORG_Posts\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/HR_ORG_Posts/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.Title}} {{item.Code}} </span>\",\"FieldsTemplate\":[{\"key\":\"Title\",\"value\":\"nvarchar(Max)\"},{\"key\":\"Code\",\"value\":\"nvarchar(Max)\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"searchField\":\"Title,Code\",\"disabled\":false,\"modal\":true,\"label\":\"پست سازمانی\",\"tableView\":true,\"key\":\"HR_ORG_PostsId\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"15684?EId=386&SubId=15\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
+}
+
+    <Dropdown Id=HR_ORG_PostsId  @ref="Ref_HR_ORG_PostsId" Label="پست سازمانی" CssClass=""  DisplayFormat="DropDown" ExternalApi=false NotMapped=false TextGrid=false Text="" Value="@_Entity.HR_ORG_PostsId" FieldName="HR_ORG_PostsId" OnItemSelected="ItemSelected_HR_ORG_ChartHR_ORG_PostsId" Component="Component_HR_ORG_ChartHR_ORG_PostsId" _Entity="_Entity" >
+</Dropdown>
+@code {
+    public async Task ItemSelected_HR_ORG_ChartHR_ORG_PostsId(object _Item)
+    {
+        var Selected = Utility.JSON.ToObject<dynamic>(Utility.JSON.ToJson(_Item).Result).Result;
+     var Item = _Entity;
+
+      //Todo
+ //برای اینکه آی دی تغییر کند اینجا نیز باید تغییر کند
+ //بهتر است از پرایمیری کی استفاده شود
+ if (_Item != null)
+ {
+     Console.WriteLine(" Item Is Not Null");
+    Item.HR_ORG_PostsId = Selected.Id;
+    
+ }
+ else
+ {
+     Console.WriteLine(" Item Is Null");
+      Item.HR_ORG_PostsId =EntityHelper.SetPropertyNull(Item.HR_ORG_PostsId);
+ }
+ Item.HR_ORG_Posts = await Utility.JSON.ToObject<Entity.HR_ORG_Posts>(await Utility.JSON.ToJson(_Item));
+    StateHasChanged();
+
+
+    
+
+    
+    }
+} 
+
+<Input Id="IsApprover" @ref="Ref_IsApprover" Label="تایید کننده است؟"     @bind-Value="_Entity.IsApprover" type="checkbox"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+<Input Id="NumberOfApproved" @ref="Ref_NumberOfApproved" Label="تعداد مصوب"     @bind-Value="_Entity.NumberOfApproved" type="number"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+<Input Id="CurrentCount" @ref="Ref_CurrentCount" Label="تعداد موجود"   Disabled=true  @bind-Value="_Entity.CurrentCount" type="number"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+ 
+ 
+@code {
+    Baya.Models.ViewEngine.View_Component Component_HR_ORG_ChartHR_ORG_ChartStatusId = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"EntityName\":\"چارت سازمانی\",\"primaryKey\":false,\"EntityID\":386,\"FieldId\":15977,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":680,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":false,\"RelationParentName\":\"HR_ORG_ChartStatus\",\"RelationParentModel\":\"HR_ORG_ChartStatus\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/HR_ORG_ChartStatus/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.Title}} {{item.Code}} </span>\",\"FieldsTemplate\":[{\"key\":\"Title\",\"value\":\"int\"},{\"key\":\"Code\",\"value\":\"int\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"searchField\":\"Title,Code\",\"disabled\":false,\"modal\":true,\"label\":\"وضعیت چارت\",\"tableView\":true,\"key\":\"HR_ORG_ChartStatusId\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"15977?EId=386&SubId=15\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
+}
+
+    <Dropdown Id=HR_ORG_ChartStatusId  @ref="Ref_HR_ORG_ChartStatusId" Label="وضعیت چارت" CssClass=""  DisplayFormat="DropDown" ExternalApi=false NotMapped=false TextGrid=false Text="" Value="@_Entity.HR_ORG_ChartStatusId" FieldName="HR_ORG_ChartStatusId" OnItemSelected="ItemSelected_HR_ORG_ChartHR_ORG_ChartStatusId" Component="Component_HR_ORG_ChartHR_ORG_ChartStatusId" _Entity="_Entity" >
+</Dropdown>
+@code {
+    public async Task ItemSelected_HR_ORG_ChartHR_ORG_ChartStatusId(object _Item)
+    {
+        var Selected = Utility.JSON.ToObject<dynamic>(Utility.JSON.ToJson(_Item).Result).Result;
+     var Item = _Entity;
+
+      //Todo
+ //برای اینکه آی دی تغییر کند اینجا نیز باید تغییر کند
+ //بهتر است از پرایمیری کی استفاده شود
+ if (_Item != null)
+ {
+     Console.WriteLine(" Item Is Not Null");
+    Item.HR_ORG_ChartStatusId = Selected.Id;
+    
+ }
+ else
+ {
+     Console.WriteLine(" Item Is Null");
+      Item.HR_ORG_ChartStatusId =EntityHelper.SetPropertyNull(Item.HR_ORG_ChartStatusId);
+ }
+ Item.HR_ORG_ChartStatus = await Utility.JSON.ToObject<Entity.HR_ORG_ChartStatus>(await Utility.JSON.ToJson(_Item));
+    StateHasChanged();
+
+
+    
+
+    
+    }
+} 
+
+</div>
+
+<div class="col-md-8">
+    
+<Input Id="Description" @ref="Ref_Description" Label="توضیحات"     @bind-Value="_Entity.Description" type="textarea"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"maxlength\":\"1000\"}").Result))></Input>
+
+</div>
+
+</div>
+
+<Input Id="Id" @ref="Ref_Id"   CssClass="d-none"   @bind-Value="_Entity.Id" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+<Input Id="RequestID" @ref="Ref_RequestID"      @bind-Value="_Entity.RequestID" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+<Input Id="CreateUser" @ref="Ref_CreateUser"      @bind-Value="_Entity.CreateUser" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+<Input Id="UpdateUser" @ref="Ref_UpdateUser"      @bind-Value="_Entity.UpdateUser" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+<Input Id="CreateDate" @ref="Ref_CreateDate"   CssClass="d-none"   @bind-Value="_Entity.CreateDate" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+<Input Id="UpdateDate" @ref="Ref_UpdateDate"   CssClass="d-none"   @bind-Value="_Entity.UpdateDate" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+<Input Id="IsDelete" @ref="Ref_IsDelete"   CssClass="d-none"   @bind-Value="_Entity.IsDelete" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+    </EditForm>
+</div>
+
+@if (ShowSubmit)
+{
+    <button class="btn btn-sm btn-green" @onclick=Submit>ذخیره</button>
+}
+
+@code {
+    #region Function
+
+    //todo  جا به جا شود برده شود تو فایل  Peropeties
+    protected override async Task OnInitializedAsync()
+    {
+        Console.WriteLine("#log OnInitializedAsync");
+
+        TableGet = await Utility.JSON.ToObject<Table>("{\"Name\":\"HR_ORG_Chart\",\"GetNameAs\":\"HR_ORG_Chart\",\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"RequestID\",\"GetNameAs\":\"RequestID\"},{\"Name\":\"CreateUser\",\"GetNameAs\":\"CreateUser\"},{\"Name\":\"UpdateUser\",\"GetNameAs\":\"UpdateUser\"},{\"Name\":\"CreateDate\",\"GetNameAs\":\"CreateDate\"},{\"Name\":\"UpdateDate\",\"GetNameAs\":\"UpdateDate\"},{\"Name\":\"IsDelete\",\"GetNameAs\":\"IsDelete\"},{\"Name\":\"NumberOfApproved\",\"GetNameAs\":\"NumberOfApproved\"},{\"Name\":\"HR_ORG_PostsId\",\"GetNameAs\":\"HR_ORG_PostsId\"},{\"Name\":\"HR_ORG_SectionsId\",\"GetNameAs\":\"HR_ORG_SectionsId\"},{\"Name\":\"IsApprover\",\"GetNameAs\":\"IsApprover\"},{\"Name\":\"Description\",\"GetNameAs\":\"Description\"},{\"Name\":\"HR_ORG_ChartStatusId\",\"GetNameAs\":\"HR_ORG_ChartStatusId\"},{\"Name\":\"CurrentCount\",\"GetNameAs\":\"CurrentCount\"}],\"Relation\":[{\"Name\":\"HR_ORG_Posts\",\"GetNameAs\":\"HR_ORG_Posts\",\"ModeErtebat\":1,\"Column\":[{\"Name\":\"State\",\"GetNameAs\":\"State\"},{\"Name\":\"Title\",\"GetNameAs\":\"Title\"},{\"Name\":\"TitleEn\",\"GetNameAs\":\"TitleEn\"},{\"Name\":\"DeleteDateTime\",\"GetNameAs\":\"DeleteDateTime\"},{\"Name\":\"Code\",\"GetNameAs\":\"Code\"},{\"Name\":\"Description\",\"GetNameAs\":\"Description\"},{\"Name\":\"AteyehSaz_InsuranceId\",\"GetNameAs\":\"AteyehSaz_InsuranceId\"},{\"Name\":\"HR_ORG_PositionsId\",\"GetNameAs\":\"HR_ORG_PositionsId\"},{\"Name\":\"HR_Base_InsuranceJobsId\",\"GetNameAs\":\"HR_Base_InsuranceJobsId\"},{\"Name\":\"PostCode\",\"GetNameAs\":\"PostCode\"}],\"Relation\":[]},{\"Name\":\"HR_ORG_ChartStatus\",\"GetNameAs\":\"HR_ORG_ChartStatus\",\"ModeErtebat\":1,\"Column\":[{\"Name\":\"Code\",\"GetNameAs\":\"Code\"},{\"Name\":\"Title\",\"GetNameAs\":\"Title\"}],\"Relation\":[]},{\"Name\":\"HR_ORG_Sections\",\"GetNameAs\":\"HR_ORG_Sections\",\"ModeErtebat\":1,\"Column\":[{\"Name\":\"HR_EMP_EmployeesId\",\"GetNameAs\":\"HR_EMP_EmployeesId\"},{\"Name\":\"Status\",\"GetNameAs\":\"Status\"},{\"Name\":\"Title\",\"GetNameAs\":\"Title\"},{\"Name\":\"TitleEn\",\"GetNameAs\":\"TitleEn\"},{\"Name\":\"Description\",\"GetNameAs\":\"Description\"},{\"Name\":\"Code\",\"GetNameAs\":\"Code\"},{\"Name\":\"DeleteDateTime\",\"GetNameAs\":\"DeleteDateTime\"},{\"Name\":\"HR_ORG_SitesId\",\"GetNameAs\":\"HR_ORG_SitesId\"},{\"Name\":\"HR_ORG_SectionTypesId\",\"GetNameAs\":\"HR_ORG_SectionTypesId\"},{\"Name\":\"HR_Base_TaxCategoryId\",\"GetNameAs\":\"HR_Base_TaxCategoryId\"},{\"Name\":\"HR_ORG_SectionStatusId\",\"GetNameAs\":\"HR_ORG_SectionStatusId\"},{\"Name\":\"ParentId\",\"GetNameAs\":\"ParentId\"},{\"Name\":\"BaseInfo_ORG_SitesId\",\"GetNameAs\":\"BaseInfo_ORG_SitesId\"},{\"Name\":\"BaseInfo_TaxCategoryId\",\"GetNameAs\":\"BaseInfo_TaxCategoryId\"},{\"Name\":\"BaseInfo_ORG_CompaniesId\",\"GetNameAs\":\"BaseInfo_ORG_CompaniesId\"}],\"Relation\":[]}]}");
+        TablePost = await Utility.JSON.ToObject<Table>("{\"Name\":\"HR_ORG_Chart\",\"GetNameAs\":\"HR_ORG_Chart\",\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"RequestID\",\"GetNameAs\":\"RequestID\"},{\"Name\":\"CreateUser\",\"GetNameAs\":\"CreateUser\"},{\"Name\":\"UpdateUser\",\"GetNameAs\":\"UpdateUser\"},{\"Name\":\"CreateDate\",\"GetNameAs\":\"CreateDate\"},{\"Name\":\"UpdateDate\",\"GetNameAs\":\"UpdateDate\"},{\"Name\":\"IsDelete\",\"GetNameAs\":\"IsDelete\"},{\"Name\":\"NumberOfApproved\",\"GetNameAs\":\"NumberOfApproved\"},{\"Name\":\"HR_ORG_PostsId\",\"GetNameAs\":\"HR_ORG_PostsId\"},{\"Name\":\"HR_ORG_SectionsId\",\"GetNameAs\":\"HR_ORG_SectionsId\"},{\"Name\":\"IsApprover\",\"GetNameAs\":\"IsApprover\"},{\"Name\":\"Description\",\"GetNameAs\":\"Description\"},{\"Name\":\"HR_ORG_ChartStatusId\",\"GetNameAs\":\"HR_ORG_ChartStatusId\"},{\"Name\":\"CurrentCount\",\"GetNameAs\":\"CurrentCount\"}],\"Relation\":[]}");
+
+        config = CKEditorBundleOptions.DefaultConfig.WithHtmlEditing();
+        config.Language = "fa";
+
+        //بعداد اگه نیاز شد فرمی رو تو حالت غیر لاگین شده نمایش بدیم باید این  کد تغیر کنه
+        var user = (await _authenticationStateProvider.GetAuthenticationStateAsync()).User;
+        string UserID = user.FindFirst(c => c.Type == ClaimTypes.NameIdentifier).Value;
+        //داینامیک بشه
+        Dictionary<string, object> List = new Dictionary<string, object>();
+        //List.Add("UserID", Guid.Parse(UserID));
+        List.Add("UserID", UserID);
+        _User = await Domain.Utility.ConvertParameter.ConvertToObject(List);
+
+        Console.WriteLine("#log OnInitializedAsync End");
+
+        await base.OnInitializedAsync();
+    }
+
+    //todo  جا به جا شود برده شود تو فایل  Peropeties
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            Console.WriteLine("#log OnAfterRenderAsync");
+            await base.BeforGetData();
+
+            var Result = await GetData();
+
+            await base.AfterGetData();
+
+            StateHasChanged();
+
+            await OnFormloaded.InvokeAsync(Result);
+        }
+
+        await base.OnAfterRenderAsync(firstRender);
+    }
+
+    /// <summary>
+    /// دریافت داده
+    /// </summary>
+    /// <returns></returns>
+    public async Task<Baya.Models.Utility.Result> GetData()
+    {
+        await BeforGetData();
+
+        var DataResult = await ApiServer.External.Services.Data.Get(TableGet, QueryFilter, TableGet.Name, null);
+        
+        Baya.Models.Utility.Result Result = new Baya.Models.Utility.Result();
+
+        if (DataResult != null && DataResult.Status == HttpStatusCode.OK)
+        {
+            if (DataResult.Content != null)
+            {
+                string Data = DataResult.Content.ToString();
+                if (Data is not null)
+                {
+                    _Entity = await Utility.JSON.ToObject < Entity.HR_ORG_Chart>(Data);
+        }
+            }
+            else
+            {
+                _Entity = new Entity.HR_ORG_Chart();
+            //todo تشخیص دهد که داده ای وجود ندارد و دفه اول هست که فرم لود میشود
+            //todo اگه نیاز شد دالخ ORm خروجیش متفاوت باشه
+            //ست کردن دیفالت های فرم
+            if (true)
+                {//
+
+
+                    //نمونه ست کردن پارامتر روش اول
+                    //_Entity.InstantDelivery = _RequestParameters.UserId;
+
+                    //نمونه کد برای ست کردن پارامتر روش دوم
+                    //_Entity.InstantDelivery = await GetParameter("@@UserId@@");
+                }
+
+                SumaryMessage = "داده لود شده معتبر نمی باشد";
+                Result.Status = HttpStatusCode.InternalServerError;
+            }
+        }
+        else
+        {
+            SumaryMessage = "داده لود نشد";
+            Result.Status = HttpStatusCode.InternalServerError;
+        }
+
+        Result.Message = SumaryMessage;
+
+        StateHasChanged();
+
+        await AfterGetData();
+
+        return Result;
+    }
+
+    public override async Task SetParametersAsync(ParameterView parameters)
+    {
+        await base.SetParametersAsync(parameters);
+    }
+
+    protected override void OnInitialized()
+    {
+        //todo این خط برده شود داخل تابع پاینی ببینیم خطا داره یا نه
+        languageContainer.InitLocalizedComponent(this);
+    }
+
+
+    /// <summary>
+    /// بررسی تغییر دیتا
+    /// </summary>
+    /// <param name="Json"></param>
+    /// <returns></returns>
+    public bool CheckChangedData(string? Json)
+    {
+        if (string.Equals(JsonData, Json)) return true;
+        return false;
+    }
+
+    /// <summary>
+    /// ارسال داده
+    /// </summary>
+    /// <returns></returns>
+    public override async Task<Baya.Models.Utility.Result> Submit()
+    {
+        SumaryMessage = "";
+        Baya.Models.Utility.Result Result = new Baya.Models.Utility.Result();
+
+        if (!await FormValidator())
+        {
+            StateHasChanged();
+            Result.Status = HttpStatusCode.InternalServerError;
+            return Result;
+        }
+
+        if ((await BeforSubmit()).Status != HttpStatusCode.OK)
+        {
+            StateHasChanged();
+            Result.Status = HttpStatusCode.InternalServerError;
+            return Result;
+        }
+
+        _loadingService.Show();
+        var Resualt = await PostData();
+
+        if (Resualt)
+        {
+            Result.Status = HttpStatusCode.OK;
+
+            SumaryMessage = "داده ها با موفقیت ثبت شد";
+        }
+        else
+        {
+            Result.Status = HttpStatusCode.InternalServerError;
+            SumaryMessage = "ذخیره داده با مشکل مواجه شد";
+        }
+
+        Result.Message = SumaryMessage;
+
+        switch ((int)Result.Status)
+        {
+            case 200:
+                toastService.ShowSuccess(Result.Message);
+                break;
+            case 500:
+                toastService.ShowError(Result.Message);
+                break;
+            default:
+                break;
+        } 
+        _loadingService.Hide();
+        await AfterSubmit();
+
+        return Result;
+    }
+
+    /// <summary>
+    /// ارسال داده
+    /// </summary>
+    /// <returns></returns>
+    private async Task<bool> PostData()
+    {
+        string Data = await Utility.JSON.ToJson(_Entity);
+
+        bool IsOk = false;
+        var Model = await ApiServer.External.Services.Data.Put(Data, TablePost.Name, TablePost, RequestID?.ToString(), _User.UserID.ToString());
+        // بررسی وضعیت پاسخ
+        if (Model?.Status == HttpStatusCode.OK)
+        {
+            if (Model.Content != null && !IndependentForm)
+                { 
+                    string NewData = Model.Content.ToString();
+                    if (NewData is not null)
+                    {
+                        var NewEntity = await Utility.JSON.ToObject < Entity.HR_ORG_Chart>(NewData);
+                     await  GetDataForm(NewEntity._Id);
+                    }
+
+                }
+                IsOk = true;
+
+        }
+        return IsOk;
+    }
+
+
+    void SetLanguage(string language)
+    {
+        languageContainer.SetLanguage(System.Globalization.CultureInfo.GetCultureInfo(language));
+    }
+
+    // public void ValidFormSubmitted(EditContext editContext)
+    // {
+
+    // }
+
+    // public void InvalidFormSubmitted(EditContext editContext)
+    // {
+
+    // }
+    public async Task GetDataForm(object Id)
+    {
+        Type type = Id.GetType();
+        string TypeToQueryBuilder = Utility.TypeConverterQueryBuilder.ConvertCSharpTypeToQueryBuilder(type);
+        var NewQuery = new QueryBuilderFilterRule() { Condition = "AND" };
+        NewQuery.Rules = new List<QueryBuilderFilterRule>
+            {
+                    new QueryBuilderFilterRule()
+                    {
+                        Field = _Entity._GetIdName,
+                        Id = _Entity._GetIdName,
+                        Input = "text",
+                        Operator = "equal",
+                        Type =  TypeToQueryBuilder,
+                        Value = new string[]{ Id.ToString() },
+                    }
+            };
+        QueryFilter = NewQuery;
+        await GetData();
+        StateHasChanged();
+    }
+    #endregion
+}

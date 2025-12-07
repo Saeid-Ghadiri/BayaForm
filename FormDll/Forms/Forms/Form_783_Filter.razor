@@ -1,0 +1,515 @@
+@inherits Forms.Forms.Form_783_FilterBase
+@namespace FormsPage
+
+@using AKSoftware.Localization.MultiLanguages.Blazor
+@using Baya.Models.ORM
+@using Castle.DynamicLinqQueryBuilder
+@using Microsoft.AspNetCore.Components.Forms
+@using Microsoft.AspNetCore.Components.Authorization;
+@using System.Security.Claims
+@using System.Net
+@using Microsoft.JSInterop
+@using   System.Dynamic
+<style>
+    /* ************************************************** */
+.detailArea form div:not(.devdrop) {
+    margin-top: .1rem;
+}
+
+/* ************************************************** */
+.EMP_bg1 {
+    border: 1px dashed rgba(255, 193, 7, 0.3);
+    background-color: transparent;
+    border-radius: 0.5rem;
+    padding: 0.5rem;
+    margin: 1rem 0.1rem !important;
+}
+
+.EMP_bg1:hover {
+    background-color: rgba(255, 193, 7, 0.03);
+    border-color: rgba(255, 193, 7, 0.5);
+}
+
+.EMP_bg {
+    position: relative;
+    border: 1px dashed rgba(255, 193, 7, 0.3);
+    background-color: transparent;
+    border-radius: 0.5rem;
+    padding: 1.5rem;
+    margin: 2rem 0.1rem !important;
+    transition: all 0.3s ease;
+}
+
+.EMP_bg:hover {
+    background-color: rgba(255, 193, 7, 0.03);
+    border-color: rgba(255, 193, 7, 0.5);
+}
+
+.group-label {
+    position: absolute;
+    top: -12px;
+    right: 15px;
+    background: linear-gradient(135deg, #1a2a6c, #2a5298);
+    color: #ffc107;
+    padding: 0 15px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 4px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+/* ************************************************** */
+
+.form-header {
+    background: linear-gradient(to bottom, #6c5ffc, #0d1a52);
+    color: white;
+    padding: 1.5rem 2rem;
+    border-radius: 0.5rem 0.5rem 0 0;
+    margin-bottom: 0;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+    transition: all 0.3s ease;
+}
+
+.form-header:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 25px rgba(0, 0, 0, 0.2);
+}
+
+.form-header h2 {
+    font-weight: 700;
+    margin-bottom: 0;
+    display: flex;
+    align-items: center;
+    position: relative;
+    z-index: 2;
+}
+
+.form-header .icon {
+    font-size: 1.8rem;
+    margin-left: 15px;
+    animation: float 3s ease-in-out infinite;
+}
+
+.form-header::before {
+    content: "";
+    position: absolute;
+    top: -50%;
+    right: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0) 70%);
+    transform: rotate(45deg);
+    z-index: 1;
+    transition: all 0.5s ease;
+}
+
+.form-header:hover::before {
+    transform: rotate(45deg) translate(20px, 20px);
+}
+
+.form-header .decoration {
+    position: absolute;
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.05);
+    z-index: 1;
+}
+
+.form-header .decoration-1 {
+    top: -30px;
+    left: -30px;
+    width: 120px;
+    height: 120px;
+}
+
+.form-header .decoration-2 {
+    bottom: -40px;
+    right: -20px;
+    width: 80px;
+    height: 80px;
+}
+
+@@keyframes float {
+    0% {
+        transform: translateY(0px);
+    }
+
+    50% {
+        transform: translateY(-5px);
+    }
+
+    100% {
+        transform: translateY(0px);
+    }
+}
+
+@@keyframes pulse {
+    0% {
+        opacity: 0.3;
+    }
+
+    50% {
+        opacity: 0.1;
+    }
+
+    100% {
+        opacity: 0.3;
+    }
+}
+
+.pulse-animation {
+    animation: pulse 4s ease-in-out infinite;
+}
+
+/* ************************************************** */
+.custom-card {
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    border: none;
+}
+
+.header-section {
+    background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+    color: white;
+    border-radius: 12px 12px 0 0;
+    padding: 20px;
+}
+
+.bullet-points {
+    list-style-type: none;
+    padding: 0;
+}
+
+.bullet-points li {
+    padding: 12px 15px;
+    margin-bottom: 12px;
+    background-color: #f0f5ff;
+    border-radius: 8px;
+    border-right: 4px solid #6a11cb;
+    transition: all 0.3s ease;
+}
+
+.bullet-points li:hover {
+    background-color: #e0ebff;
+    transform: translateX(5px);
+}
+
+.highlight {
+    background-color: #fff4e6;
+    padding: 15px;
+    border-radius: 8px;
+    border-right: 4px solid #ff922b;
+}
+
+/* ************************************************** */
+</style>
+<div class="filterbox @(ShowFilterBar ? "" : "d-none")">
+<div class="row justify-content-center">
+
+ 
+ 
+@code {
+    Baya.Models.ViewEngine.View_Component Component_HR_CRS_ExtensionPersonnelContractHR_EMP_EmployeesId = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"primaryKey\":false,\"EntityID\":457,\"FieldId\":16649,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":0,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":false,\"RelationParentName\":\"HR_EMP_Employees\",\"RelationParentModel\":\"HR_EMP_Employees\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/HR_EMP_Employees/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":false,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.FirstName}} {{item.LastName}} {{item.EmployeeNo}} </span>\",\"FieldsTemplate\":[{\"key\":\"FirstName\",\"value\":\"nvarchar(Max)\"},{\"key\":\"LastName\",\"value\":\"nvarchar(Max)\"},{\"key\":\"EmployeeNo\",\"value\":\"nvarchar(Max)\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"searchField\":\"\",\"disabled\":false,\"modal\":true,\"label\":\"اطلاعات کارمند\",\"tableView\":true,\"key\":\"HR_EMP_EmployeesId\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"customClass\":\"filterCol\",\"FieldUrl\":\"16649?EId=457&SubId=15\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
+}
+
+    <Dropdown Id=HR_EMP_EmployeesId  @ref="Ref_HR_EMP_EmployeesId" Label="اطلاعات کارمند" CssClass="filterCol"  DisplayFormat="DropDown" ExternalApi=false NotMapped=false TextGrid=false   FieldName="HR_EMP_EmployeesId" OnItemSelected="ItemSelected_HR_CRS_ExtensionPersonnelContractHR_EMP_EmployeesId" Component="Component_HR_CRS_ExtensionPersonnelContractHR_EMP_EmployeesId"  >
+</Dropdown>
+@code {
+    public async Task ItemSelected_HR_CRS_ExtensionPersonnelContractHR_EMP_EmployeesId(object _Item)
+    {
+        var Selected = Utility.JSON.ToObject<dynamic>(Utility.JSON.ToJson(_Item).Result).Result;
+     
+
+    
+
+    
+
+    
+    }
+} 
+
+
+        <div class="col-xl-2 col-lg-2 col-md-auto mt-2 align-content-end">
+            <button class="btn btn-sm btn-purple" @onclick=SearchFilter>
+                <span class="bi bi-funnel btnicon"></span>
+                <span>اعمال</span>
+            </button>
+        </div>
+    </div>
+</div>
+
+
+@code {
+    protected override void OnInitialized()
+    {
+        //todo این خط برده شود داخل تابع پاینی ببینیم خطا داره یا نه
+        languageContainer.InitLocalizedComponent(this);
+    }
+    protected override async Task OnInitializedAsync()
+    {
+        
+
+        //بعداد اگه نیاز شد فرمی رو تو حالت غیر لاگین شده نمایش بدیم باید این  کد تغیر کنه
+        var user = (await _authenticationStateProvider.GetAuthenticationStateAsync()).User;
+        string UserID = user.FindFirst(c => c.Type == ClaimTypes.NameIdentifier).Value;
+        //داینامیک بشه
+        Dictionary<string, object> List = new Dictionary<string, object>();
+        List.Add("UserID", UserID);
+        _User = await Domain.Utility.ConvertParameter.ConvertToObject(List);
+
+
+        await base.OnInitializedAsync();
+    }
+
+    public override async Task SetParametersAsync(ParameterView parameters)
+    {
+        await base.SetParametersAsync(parameters);
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+
+
+            //  JSO = await JS.InvokeAsync<IJSObjectReference>("import", "./js/FormFunctions.js?ver=1.2");
+
+            /*           var ResultConvert = await Forms.Domain.Utility.ConvertParameter.ConvertParametersToDaunamic(RequestParameters, CartablesParameters);
+                      _RequestParameters = ResultConvert._RequestParameters;
+                      _CartablesParameters = ResultConvert._CartablesParameters; */
+
+            StateHasChanged();
+        }
+
+        await base.OnAfterRenderAsync(firstRender);
+    }
+
+
+
+    public async Task SearchFilter()
+    {
+        //todo برای هر کنترل یک رف درست بشه
+
+       
+        //todo حلقه شود این بخش یا به تعداد کنترل ها تکرار شود خط پایین
+        //که مقدار هاشو بتونیم بگیریم
+        //بفرستیم به یک تابع به همراه اسم فیلد
+        //تا اون ریپلیس کنه تو فیلتر ها Filter
+        //await ReplaceInFilter("SCM_ProductRequestDetails.ProductNameText", "ماوس", QueryFilter);
+        //await ReplaceInFilter("52255", Ref_SCM_ProductRequestDetails_ProductName_NotMapped.Value, QueryFilter);
+        
+await ReplaceInFilter("16649", Ref_HR_EMP_EmployeesId.Value, QueryFilter);
+
+ 
+        await ReplaceSystemParametrInFilter(QueryFilter);
+           await ShowFilterTemplate(QueryFilter);
+
+      
+        var _Filter = await RemoveFilter(QueryFilter);
+    
+           
+            await OnSearch.InvokeAsync(_Filter);
+        
+        
+
+    }
+    /// <summary>
+    ///جایگزی متغیر فیلد سیستمی با مقدار  آن
+    /// </summary>
+    /// <param name="Filter"></param>
+    /// <returns></returns>
+    public async Task ReplaceSystemParametrInFilter(QueryBuilderFilterRule Filter)
+    {
+        
+        if (Filter.Rules == null)
+            return;
+        
+        foreach (var item in Filter.Rules)
+        {
+            if (item.Rules != null && item.Rules.Count > 0)
+            {
+                await ReplaceSystemParametrInFilter(item);
+            }
+            
+            if (string.IsNullOrEmpty(item.Field) || item.Value == null || !item.Value.Any(x => !string.IsNullOrEmpty(x)))
+            { 
+                continue;
+            }
+                
+            string rawValue = item.Value.FirstOrDefault();
+            string nameParametr = string.Empty; 
+
+            if (rawValue.StartsWith("@@"))
+                nameParametr = rawValue.Replace("@", "");
+            else if (rawValue.StartsWith("$"))
+                nameParametr = rawValue.Replace("$", "");
+             
+            if (string.IsNullOrEmpty(nameParametr))
+                continue;
+
+             
+            var jsonCartable = await Utility.JSON.ToJson<object>(_CartablesParameters);
+             
+            var ObjectCartable = await Utility.JSON.ToObject<Dictionary<string, object>>(jsonCartable);
+             
+             
+            try
+            {
+
+                string resolvedValue = string.Empty;
+
+                // حالت دیکشنری
+                if (ObjectCartable is IDictionary<string, object> dict && dict.ContainsKey(nameParametr))
+                {
+                    
+                    resolvedValue = dict[nameParametr]?.ToString() ?? string.Empty;
+                }
+                else
+                { 
+                    // حالت کلاس Strongly Typed → با Reflection
+                    var prop = ObjectCartable?.GetType().GetProperty(nameParametr); 
+                   
+                    if (prop != null)
+                    { 
+                        var val = prop.GetValue(ObjectCartable); 
+                        resolvedValue = val?.ToString() ?? string.Empty; 
+                    } 
+                }
+
+                if (!string.IsNullOrEmpty(resolvedValue))
+                    item.Value = new string[] { resolvedValue };
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("error in ReplaceSystemParametrInFilter: " + ex.Message);
+            }
+        }
+    }
+
+    /// <summary>
+    ///نمایش فیلتر
+    /// </summary>
+    /// <param name="Filter"></param>
+    /// <returns></returns>
+    public async Task ShowFilterTemplate(QueryBuilderFilterRule Filter)
+    {
+        if (Filter.Rules == null){ 
+            return;
+        }
+
+        foreach (var item in Filter.Rules)
+        {
+
+            if (string.IsNullOrEmpty(item.Field) || item.Value == null || !item.Value.Any(x => !string.IsNullOrEmpty(x)))
+            {
+                ShowFilterBar = true;
+                break;
+            }
+            if (item.Rules != null && item.Rules.Count > 0)
+            {
+                await ShowFilterTemplate(item);
+            }
+
+        }
+    }
+
+
+    /// <summary>
+    /// ریختن مقدار یک فیلد داخل فیلتر
+    /// </summary>
+    /// <param name="FieladId"></param>
+    /// <param name="Value"></param>
+    /// <param name="Filter"></param>
+    /// <returns></returns>
+    public async Task ReplaceInFilter(string FieladId, object Value, QueryBuilderFilterRule Filter)
+    {
+        //بفرستیم به یک تابع به همراه اسم فیلد
+        //تا اون ریپلیس کنه تو فیلتر ها Filter
+
+        if (Filter.Id == FieladId)
+        {
+            Filter.Value = new string[] { Value == null ? null : Value.ToString() };
+        }
+        if (Filter.Rules != null)
+        {
+            foreach (var item in Filter.Rules)
+            {
+                await ReplaceInFilter(FieladId, Value, item);
+            }
+        }
+    }
+
+    /// <summary>
+    /// حذف فیلتر هایی که مقدارشون نال هست
+    /// </summary>
+    /// <param name="Filter"></param>
+    /// <returns></returns>
+    public async Task<QueryBuilderFilterRule> RemoveFilter(QueryBuilderFilterRule Filter)
+    {
+
+        QueryBuilderFilterRule FilterNew = new QueryBuilderFilterRule();
+        FilterNew.Condition = Filter.Condition;
+
+        if (string.IsNullOrEmpty(Filter.Condition))
+        {
+            FilterNew.Field = Filter.Field;
+            FilterNew.Id = Filter.Id;
+            FilterNew.Input = Filter.Input;
+            FilterNew.Operator = Filter.Operator;
+            FilterNew.Type = Filter.Type;
+            FilterNew.Value = Filter.Value;
+        }
+
+
+        FilterNew.Rules = new List<QueryBuilderFilterRule>();
+        if (Filter.Rules != null)
+        {
+            foreach (var item in Filter.Rules)
+            {
+                //اگه مقدارش نال هست اضافه نکنه
+                //if (!string.IsNullOrEmpty(item.Field) && item.Value != null && item.Value.Any(x => x != null))
+                if (!string.IsNullOrEmpty(item.Field) && item.Value != null && item.Value.Any(x => !string.IsNullOrEmpty(x)))
+                {
+                    string Field = item.Field;
+
+                    QueryBuilderFilterRule ItemChild = new QueryBuilderFilterRule();
+
+                    ItemChild.Field = item.Field;
+                    ItemChild.Id = item.Id;
+                    ItemChild.Input = item.Input;
+                    ItemChild.Operator = item.Operator;
+                    ItemChild.Type = item.Type;
+                    ItemChild.Value = item.Value;
+
+                    FilterNew.Rules.Add(ItemChild);
+                }
+                else if (item.Rules != null)
+                {//اگه فرزند هم داره مجدد اونا رو هم درست کنه
+                    var Sub = await RemoveFilter(item);
+                    if ((!string.IsNullOrEmpty(Sub.Condition) && Sub.Rules.Count > 0))
+                    {
+                        if (string.IsNullOrEmpty(item.Condition))
+                        {
+                            FilterNew.Condition = item.Condition;
+                        }
+                        FilterNew.Rules.Add(Sub);
+                    }
+                }
+            }
+        }
+
+        return FilterNew;
+    }
+
+    void SetLanguage(string language)
+    {
+        languageContainer.SetLanguage(System.Globalization.CultureInfo.GetCultureInfo(language));
+    }
+}

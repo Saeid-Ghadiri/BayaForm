@@ -1,0 +1,1015 @@
+@inherits Forms.Forms.Form_970_CUBase
+@namespace FormsPage
+
+@using AKSoftware.Localization.MultiLanguages.Blazor
+@using Baya.Models.Utility;
+@using Baya.Models.ORM
+@using Microsoft.AspNetCore.Components.Forms
+@using Microsoft.AspNetCore.Components.Authorization;
+@using System.Security.Claims
+@using System.Net
+@using Microsoft.JSInterop
+@using Baya.Models.ViewEngine
+@using Forms.Domain.Utility
+@using Castle.DynamicLinqQueryBuilder
+<style>
+    /* ************************************************** */
+.detailArea form div:not(.devdrop) {
+  margin-top: .1rem;
+}
+
+/* ************************************************** */
+.vertical-text {
+    direction: rtl;
+    writing-mode: vertical-lr;
+    transform: rotate(180deg);
+    text-orientation: mixed;
+    font-weight: bold;
+    text-align: center;
+  }
+
+/* ************************************************** */
+
+.form-header {
+            background: linear-gradient(to bottom, #6c5ffc, #0d1a52);
+            color: white;
+            padding: 1.5rem 2rem;
+            border-radius: 0.5rem 0.5rem 0 0;
+            margin-bottom: 0;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+            transition: all 0.3s ease;
+        }
+        
+        .form-header:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 25px rgba(0, 0, 0, 0.2);
+        }
+        
+        .form-header h2 {
+            font-weight: 700;
+            margin-bottom: 0;
+            display: flex;
+            align-items: center;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .form-header .icon {
+            font-size: 1.8rem;
+            margin-left: 15px;
+            animation: float 3s ease-in-out infinite;
+        }
+        
+        .form-header::before {
+            content: "";
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0) 70%);
+            transform: rotate(45deg);
+            z-index: 1;
+            transition: all 0.5s ease;
+        }
+        
+        .form-header:hover::before {
+            transform: rotate(45deg) translate(20px, 20px);
+        }
+        
+        .form-header .decoration {
+            position: absolute;
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.05);
+            z-index: 1;
+        }
+        
+        .form-header .decoration-1 {
+            top: -30px;
+            left: -30px;
+            width: 120px;
+            height: 120px;
+        }
+        
+        .form-header .decoration-2 {
+            bottom: -40px;
+            right: -20px;
+            width: 80px;
+            height: 80px;
+        }
+        
+        @@keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-5px); }
+            100% { transform: translateY(0px); }
+        }
+        
+        @@keyframes pulse {
+            0% { opacity: 0.3; }
+            50% { opacity: 0.1; }
+            100% { opacity: 0.3; }
+        }
+        
+        .pulse-animation {
+            animation: pulse 4s ease-in-out infinite;
+        }
+/* ************************************************** */
+</style>
+
+<Plugins.Tools.ConfirmDialog @ref="Confirm" />
+
+<span class="d-none">VersionForm:@VersionForm</span>
+@*
+@if (!string.IsNullOrEmpty(SumaryMessage))
+{
+    <div>
+        @SumaryMessage
+    </div>
+} *@
+
+@* <EditForm @ref="_Form" Model="_Entity" OnValidSubmit="ValidFormSubmitted" OnInvalidSubmit="InvalidFormSubmitted" OnSubmit="Submit"> *@
+<div class="@(ReadOnly?"FormReadOnly":"")">
+    <EditForm @ref="_Form" Model="_Entity" OnSubmit="Submit">
+        
+<div class="">
+    <div  class="">
+    <header class="form-header">
+  <!-- عناصر تزئینی -->
+  <div class="decoration decoration-1"></div>
+  <div class="decoration decoration-2 pulse-animation"></div>
+  
+  <!-- محتوای هدر -->
+  <h5>
+      <i class="fal fa-project-diagram icon"></i>
+      اطلاعات محاسبه حکم حقوقی 
+  </h5>
+</header>
+</div>
+
+</div>
+
+<div class="row ">
+    
+<div class="col-md-6">
+     
+ 
+@code {
+    Baya.Models.ViewEngine.View_Component Component_HR_CVR_RecruitmentRulesHR_EMP_EmployeesId = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"EntityName\":\"احکام حقوق کارمندان\",\"primaryKey\":false,\"EntityID\":711,\"FieldId\":29947,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":970,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":false,\"RelationParentName\":\"HR_EMP_Employees\",\"RelationParentModel\":\"HR_EMP_Employees\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/HR_EMP_Employees/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.FirstName}} {{item.LastName}} {{item.EmployeeNo}} </span>\",\"FieldsTemplate\":[{\"key\":\"FirstName\",\"value\":\"nvarchar(Max)\"},{\"key\":\"LastName\",\"value\":\"nvarchar(Max)\"},{\"key\":\"EmployeeNo\",\"value\":\"nvarchar(Max)\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"searchField\":\"FirstName,LastName,EmployeeNo\",\"disableLimit\":false,\"noRefreshOnScroll\":false,\"disabled\":false,\"modal\":true,\"label\":\"اطلاعات کارمند\",\"tableView\":true,\"key\":\"HR_EMP_EmployeesId\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"29947?EId=711&SubId=15\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
+}
+
+    <Dropdown Id=HR_EMP_EmployeesId  @ref="Ref_HR_EMP_EmployeesId" Label="اطلاعات کارمند" CssClass=""  DisplayFormat="DropDown" ExternalApi=false NotMapped=false TextGrid=false Text="" Value="@_Entity.HR_EMP_EmployeesId" FieldName="HR_EMP_EmployeesId" OnItemSelected="ItemSelected_HR_CVR_RecruitmentRulesHR_EMP_EmployeesId" Component="Component_HR_CVR_RecruitmentRulesHR_EMP_EmployeesId" _Entity="_Entity" >
+</Dropdown>
+@code {
+    public async Task ItemSelected_HR_CVR_RecruitmentRulesHR_EMP_EmployeesId(object _Item)
+    {
+        var Selected = Utility.JSON.ToObject<dynamic>(Utility.JSON.ToJson(_Item).Result).Result;
+     var Item = _Entity;
+
+      //Todo
+ //برای اینکه آی دی تغییر کند اینجا نیز باید تغییر کند
+ //بهتر است از پرایمیری کی استفاده شود
+ if (_Item != null)
+ {
+     Console.WriteLine(" Item Is Not Null");
+    Item.HR_EMP_EmployeesId = Selected.Id;
+    
+ }
+ else
+ {
+     Console.WriteLine(" Item Is Null");
+      Item.HR_EMP_EmployeesId =EntityHelper.SetPropertyNull(Item.HR_EMP_EmployeesId);
+ }
+ Item.HR_EMP_Employees = await Utility.JSON.ToObject<Entity.HR_EMP_Employees>(await Utility.JSON.ToJson(_Item));
+    StateHasChanged();
+
+
+    
+
+    
+    }
+} 
+
+</div>
+
+<div class="col-md-6">
+    
+</div>
+
+</div>
+
+<div class="row ">
+    
+<div class="col-md-6">
+    
+<div class="row ">
+    
+<div class="col-md-12">
+    <div  class="">
+    <div class="bg-lightpurple p-1 rounded-top text-center">
+  <i class="bi bi-rotate fs-5 fw-bold"></i>
+  <i class="bi bi-arrow-repeat fs-5 fw-black text-purple"></i>
+  <span class="py-2 fs-5 fw-bold text-secondary ">
+    تغییرات شغلی
+  </span>
+</div>
+</div>
+
+</div>
+
+<div class="col-md-6">
+     
+ 
+@code {
+    Baya.Models.ViewEngine.View_Component Component_HR_CVR_RecruitmentRulesHR_ORG_SectionsId = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"EntityName\":\"احکام حقوق کارمندان\",\"primaryKey\":false,\"EntityID\":711,\"FieldId\":29948,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":970,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":false,\"RelationParentName\":\"HR_ORG_Sections\",\"RelationParentModel\":\"HR_ORG_Sections\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/HR_ORG_Sections/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.Title}} </span>\",\"FieldsTemplate\":[{\"key\":\"Title\",\"value\":\"nvarchar(Max)\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"searchField\":\"\",\"disabled\":false,\"modal\":true,\"label\":\"قسمت‌های سازمانی\",\"tableView\":true,\"key\":\"HR_ORG_SectionsId\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"29948?EId=711&SubId=15\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
+}
+
+    <Dropdown Id=HR_ORG_SectionsId  @ref="Ref_HR_ORG_SectionsId" Label="قسمت‌های سازمانی" CssClass=""  DisplayFormat="DropDown" ExternalApi=false NotMapped=false TextGrid=false Text="" Value="@_Entity.HR_ORG_SectionsId" FieldName="HR_ORG_SectionsId" OnItemSelected="ItemSelected_HR_CVR_RecruitmentRulesHR_ORG_SectionsId" Component="Component_HR_CVR_RecruitmentRulesHR_ORG_SectionsId" _Entity="_Entity" >
+</Dropdown>
+@code {
+    public async Task ItemSelected_HR_CVR_RecruitmentRulesHR_ORG_SectionsId(object _Item)
+    {
+        var Selected = Utility.JSON.ToObject<dynamic>(Utility.JSON.ToJson(_Item).Result).Result;
+     var Item = _Entity;
+
+      //Todo
+ //برای اینکه آی دی تغییر کند اینجا نیز باید تغییر کند
+ //بهتر است از پرایمیری کی استفاده شود
+ if (_Item != null)
+ {
+     Console.WriteLine(" Item Is Not Null");
+    Item.HR_ORG_SectionsId = Selected.Id;
+    
+ }
+ else
+ {
+     Console.WriteLine(" Item Is Null");
+      Item.HR_ORG_SectionsId =EntityHelper.SetPropertyNull(Item.HR_ORG_SectionsId);
+ }
+ Item.HR_ORG_Sections = await Utility.JSON.ToObject<Entity.HR_ORG_Sections>(await Utility.JSON.ToJson(_Item));
+    StateHasChanged();
+
+
+    
+
+    
+    }
+} 
+ 
+ 
+@code {
+    Baya.Models.ViewEngine.View_Component Component_HR_CVR_RecruitmentRulesHR_ORG_PostsId = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"EntityName\":\"احکام حقوق کارمندان\",\"primaryKey\":false,\"EntityID\":711,\"FieldId\":29949,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":970,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":false,\"RelationParentName\":\"HR_ORG_Posts\",\"RelationParentModel\":\"HR_ORG_Posts\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/HR_ORG_Posts/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.Code}} {{item.Title}} </span>\",\"FieldsTemplate\":[{\"key\":\"Code\",\"value\":\"nvarchar(Max)\"},{\"key\":\"Title\",\"value\":\"nvarchar(Max)\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"searchField\":\"\",\"disabled\":false,\"modal\":true,\"label\":\"پست‌های سازمانی\",\"tableView\":true,\"key\":\"HR_ORG_PostsId\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"29949?EId=711&SubId=15\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
+}
+
+    <Dropdown Id=HR_ORG_PostsId  @ref="Ref_HR_ORG_PostsId" Label="پست‌های سازمانی" CssClass=""  DisplayFormat="DropDown" ExternalApi=false NotMapped=false TextGrid=false Text="" Value="@_Entity.HR_ORG_PostsId" FieldName="HR_ORG_PostsId" OnItemSelected="ItemSelected_HR_CVR_RecruitmentRulesHR_ORG_PostsId" Component="Component_HR_CVR_RecruitmentRulesHR_ORG_PostsId" _Entity="_Entity" >
+</Dropdown>
+@code {
+    public async Task ItemSelected_HR_CVR_RecruitmentRulesHR_ORG_PostsId(object _Item)
+    {
+        var Selected = Utility.JSON.ToObject<dynamic>(Utility.JSON.ToJson(_Item).Result).Result;
+     var Item = _Entity;
+
+      //Todo
+ //برای اینکه آی دی تغییر کند اینجا نیز باید تغییر کند
+ //بهتر است از پرایمیری کی استفاده شود
+ if (_Item != null)
+ {
+     Console.WriteLine(" Item Is Not Null");
+    Item.HR_ORG_PostsId = Selected.Id;
+    
+ }
+ else
+ {
+     Console.WriteLine(" Item Is Null");
+      Item.HR_ORG_PostsId =EntityHelper.SetPropertyNull(Item.HR_ORG_PostsId);
+ }
+ Item.HR_ORG_Posts = await Utility.JSON.ToObject<Entity.HR_ORG_Posts>(await Utility.JSON.ToJson(_Item));
+    StateHasChanged();
+
+
+    
+
+    
+    }
+} 
+ 
+ 
+@code {
+    Baya.Models.ViewEngine.View_Component Component_HR_CVR_RecruitmentRulesHR_CVR_JobId = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"EntityName\":\"احکام حقوق کارمندان\",\"primaryKey\":false,\"EntityID\":711,\"FieldId\":29950,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":970,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":false,\"RelationParentName\":\"HR_CVR_Job\",\"RelationParentModel\":\"HR_CVR_Job\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/HR_CVR_Job/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.Title}} {{item.Code}} </span>\",\"FieldsTemplate\":[{\"key\":\"Title\",\"value\":\"nvarchar(Max)\"},{\"key\":\"Code\",\"value\":\"nvarchar(Max)\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"searchField\":\"\",\"disabled\":false,\"modal\":true,\"label\":\"شغل کارمند\",\"tableView\":true,\"key\":\"HR_CVR_JobId\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"29950?EId=711&SubId=15\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
+}
+
+    <Dropdown Id=HR_CVR_JobId  @ref="Ref_HR_CVR_JobId" Label="شغل کارمند" CssClass=""  DisplayFormat="DropDown" ExternalApi=false NotMapped=false TextGrid=false Text="" Value="@_Entity.HR_CVR_JobId" FieldName="HR_CVR_JobId" OnItemSelected="ItemSelected_HR_CVR_RecruitmentRulesHR_CVR_JobId" Component="Component_HR_CVR_RecruitmentRulesHR_CVR_JobId" _Entity="_Entity" >
+</Dropdown>
+@code {
+    public async Task ItemSelected_HR_CVR_RecruitmentRulesHR_CVR_JobId(object _Item)
+    {
+        var Selected = Utility.JSON.ToObject<dynamic>(Utility.JSON.ToJson(_Item).Result).Result;
+     var Item = _Entity;
+
+      //Todo
+ //برای اینکه آی دی تغییر کند اینجا نیز باید تغییر کند
+ //بهتر است از پرایمیری کی استفاده شود
+ if (_Item != null)
+ {
+     Console.WriteLine(" Item Is Not Null");
+    Item.HR_CVR_JobId = Selected.Id;
+    
+ }
+ else
+ {
+     Console.WriteLine(" Item Is Null");
+      Item.HR_CVR_JobId =EntityHelper.SetPropertyNull(Item.HR_CVR_JobId);
+ }
+ Item.HR_CVR_Job = await Utility.JSON.ToObject<Entity.HR_CVR_Job>(await Utility.JSON.ToJson(_Item));
+    StateHasChanged();
+
+
+    
+
+    
+    }
+} 
+ 
+ 
+@code {
+    Baya.Models.ViewEngine.View_Component Component_HR_CVR_RecruitmentRulesHR_CVR_JobGroupId = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"EntityName\":\"احکام حقوق کارمندان\",\"primaryKey\":false,\"EntityID\":711,\"FieldId\":29951,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":970,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":false,\"RelationParentName\":\"HR_CVR_JobGroup\",\"RelationParentModel\":\"HR_CVR_JobGroup\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/HR_CVR_JobGroup/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.Title}} </span>\",\"FieldsTemplate\":[{\"key\":\"Title\",\"value\":\"nvarchar(Max)\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"searchField\":\"\",\"disabled\":false,\"modal\":true,\"label\":\"گروه شغلی کارمند\",\"tableView\":true,\"key\":\"HR_CVR_JobGroupId\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"29951?EId=711&SubId=15\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
+}
+
+    <Dropdown Id=HR_CVR_JobGroupId  @ref="Ref_HR_CVR_JobGroupId" Label="گروه شغلی کارمند" CssClass=""  DisplayFormat="DropDown" ExternalApi=false NotMapped=false TextGrid=false Text="" Value="@_Entity.HR_CVR_JobGroupId" FieldName="HR_CVR_JobGroupId" OnItemSelected="ItemSelected_HR_CVR_RecruitmentRulesHR_CVR_JobGroupId" Component="Component_HR_CVR_RecruitmentRulesHR_CVR_JobGroupId" _Entity="_Entity" >
+</Dropdown>
+@code {
+    public async Task ItemSelected_HR_CVR_RecruitmentRulesHR_CVR_JobGroupId(object _Item)
+    {
+        var Selected = Utility.JSON.ToObject<dynamic>(Utility.JSON.ToJson(_Item).Result).Result;
+     var Item = _Entity;
+
+      //Todo
+ //برای اینکه آی دی تغییر کند اینجا نیز باید تغییر کند
+ //بهتر است از پرایمیری کی استفاده شود
+ if (_Item != null)
+ {
+     Console.WriteLine(" Item Is Not Null");
+    Item.HR_CVR_JobGroupId = Selected.Id;
+    
+ }
+ else
+ {
+     Console.WriteLine(" Item Is Null");
+      Item.HR_CVR_JobGroupId =EntityHelper.SetPropertyNull(Item.HR_CVR_JobGroupId);
+ }
+ Item.HR_CVR_JobGroup = await Utility.JSON.ToObject<Entity.HR_CVR_JobGroup>(await Utility.JSON.ToJson(_Item));
+    StateHasChanged();
+
+
+    
+
+    
+    }
+} 
+
+</div>
+
+<div class="col-md-6">
+    
+</div>
+
+<div class="col-md-12">
+    <div  class="">
+    <hr class="hrdash bg-purple">
+</div>
+
+</div>
+
+<div class="col-md-6">
+     
+ 
+@code {
+    Baya.Models.ViewEngine.View_Component Component_HR_CVR_RecruitmentRulesHR_CVR_JobSalaryRankId = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"EntityName\":\"احکام حقوق کارمندان\",\"primaryKey\":false,\"EntityID\":711,\"FieldId\":29981,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":970,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":true,\"RelationParentName\":\"\",\"RelationParentModel\":\"\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/View_HR_CVR_JobSalaryRank/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.HR_CVR_JobGroupTitle}} {{item.AmountWagesMinistLabor}} {{item.AmountWagesGroupJob}} {{item.AmountWagesMinistryLabor}} {{item.GroupRankSalaryAmount}} </span>\",\"FieldsTemplate\":[{\"key\":\"HR_CVR_JobGroupTitle\",\"value\":\"nvarchar(Max)\"},{\"key\":\"AmountWagesMinistLabor\",\"value\":\"int\"},{\"key\":\"AmountWagesGroupJob\",\"value\":\"int\"},{\"key\":\"AmountWagesMinistryLabor\",\"value\":\"int\"},{\"key\":\"GroupRankSalaryAmount\",\"value\":\"int\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"searchField\":\"\",\"disabled\":false,\"modal\":true,\"label\":\"مزد شغل گروه\",\"tableView\":true,\"key\":\"HR_CVR_JobSalaryRankId\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"29981?EId=711&SubId=15\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
+}
+
+    <Dropdown Id=HR_CVR_JobSalaryRankId  @ref="Ref_HR_CVR_JobSalaryRankId" Label="مزد شغل گروه" CssClass=""  DisplayFormat="DropDown" ExternalApi=true NotMapped=false TextGrid=false  Value="@_Entity.HR_CVR_JobSalaryRankId" FieldName="HR_CVR_JobSalaryRankId" OnItemSelected="ItemSelected_HR_CVR_RecruitmentRulesHR_CVR_JobSalaryRankId" Component="Component_HR_CVR_RecruitmentRulesHR_CVR_JobSalaryRankId" _Entity="_Entity" >
+</Dropdown>
+@code {
+    public async Task ItemSelected_HR_CVR_RecruitmentRulesHR_CVR_JobSalaryRankId(object _Item)
+    {
+        var Selected = Utility.JSON.ToObject<dynamic>(Utility.JSON.ToJson(_Item).Result).Result;
+     var Item = _Entity;
+
+    Item.HR_CVR_JobSalaryRankId = Selected.Id;
+
+
+    
+
+    
+    }
+} 
+ 
+ 
+@code {
+    Baya.Models.ViewEngine.View_Component Component_HR_CVR_RecruitmentRulesHR_CVR_SalaryHistoryId = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"EntityName\":\"احکام حقوق کارمندان\",\"primaryKey\":false,\"EntityID\":711,\"FieldId\":29980,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":970,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":false,\"RelationParentName\":\"HR_CVR_SalaryHistory\",\"RelationParentModel\":\"HR_CVR_SalaryHistory\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/HR_CVR_SalaryHistory/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.StartDate_Fa}} {{item.SalaryGroup}} {{item.SalaryMinistryLabor}} {{item.SalaryGroup}} </span>\",\"FieldsTemplate\":[{\"key\":\"StartDate_Fa\",\"value\":\"nvarchar(Max)\"},{\"key\":\"SalaryGroup\",\"value\":\"nvarchar(Max)\"},{\"key\":\"SalaryMinistryLabor\",\"value\":\"nvarchar(Max)\"},{\"key\":\"SalaryGroup\",\"value\":\"nvarchar(Max)\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"searchField\":\"\",\"disabled\":false,\"modal\":true,\"label\":\"مزد سنوات\",\"tableView\":true,\"key\":\"HR_CVR_SalaryHistoryId\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"29980?EId=711&SubId=15\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
+}
+
+    <Dropdown Id=HR_CVR_SalaryHistoryId  @ref="Ref_HR_CVR_SalaryHistoryId" Label="مزد سنوات" CssClass=""  DisplayFormat="DropDown" ExternalApi=false NotMapped=false TextGrid=false Text="" Value="@_Entity.HR_CVR_SalaryHistoryId" FieldName="HR_CVR_SalaryHistoryId" OnItemSelected="ItemSelected_HR_CVR_RecruitmentRulesHR_CVR_SalaryHistoryId" Component="Component_HR_CVR_RecruitmentRulesHR_CVR_SalaryHistoryId" _Entity="_Entity" >
+</Dropdown>
+@code {
+    public async Task ItemSelected_HR_CVR_RecruitmentRulesHR_CVR_SalaryHistoryId(object _Item)
+    {
+        var Selected = Utility.JSON.ToObject<dynamic>(Utility.JSON.ToJson(_Item).Result).Result;
+     var Item = _Entity;
+
+      //Todo
+ //برای اینکه آی دی تغییر کند اینجا نیز باید تغییر کند
+ //بهتر است از پرایمیری کی استفاده شود
+ if (_Item != null)
+ {
+     Console.WriteLine(" Item Is Not Null");
+    Item.HR_CVR_SalaryHistoryId = Selected.Id;
+    
+ }
+ else
+ {
+     Console.WriteLine(" Item Is Null");
+      Item.HR_CVR_SalaryHistoryId =EntityHelper.SetPropertyNull(Item.HR_CVR_SalaryHistoryId);
+ }
+ Item.HR_CVR_SalaryHistory = await Utility.JSON.ToObject<Entity.HR_CVR_SalaryHistory>(await Utility.JSON.ToJson(_Item));
+    StateHasChanged();
+
+
+    
+
+    
+    }
+} 
+ 
+ 
+@code {
+    Baya.Models.ViewEngine.View_Component Component_HR_CVR_RecruitmentRulesHR_CVR_RightGuardianshipId = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"EntityName\":\"احکام حقوق کارمندان\",\"primaryKey\":false,\"EntityID\":711,\"FieldId\":29984,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":970,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":true,\"RelationParentName\":\"\",\"RelationParentModel\":\"\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/View_HR_CVR_RightGuardianship/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.HR_ORG_PositionsTitle}} {{item.RialCoefficient}} {{item.DirectScore}} {{item.DirectScore}} {{item.HR_ORG_PositionClassificationTitle}} </span>\",\"FieldsTemplate\":[{\"key\":\"HR_ORG_PositionsTitle\",\"value\":\"nvarchar(Max)\"},{\"key\":\"RialCoefficient\",\"value\":\"int\"},{\"key\":\"DirectScore\",\"value\":\"int\"},{\"key\":\"DirectScore\",\"value\":\"int\"},{\"key\":\"HR_ORG_PositionClassificationTitle\",\"value\":\"int\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"searchField\":\"\",\"disabled\":false,\"modal\":true,\"label\":\"حق سرپرستی (پست)\",\"tableView\":true,\"key\":\"HR_CVR_RightGuardianshipId\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"29984?EId=711&SubId=15\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
+}
+
+    <Dropdown Id=HR_CVR_RightGuardianshipId  @ref="Ref_HR_CVR_RightGuardianshipId" Label="حق سرپرستی (پست)" CssClass=""  DisplayFormat="DropDown" ExternalApi=true NotMapped=false TextGrid=false  Value="@_Entity.HR_CVR_RightGuardianshipId" FieldName="HR_CVR_RightGuardianshipId" OnItemSelected="ItemSelected_HR_CVR_RecruitmentRulesHR_CVR_RightGuardianshipId" Component="Component_HR_CVR_RecruitmentRulesHR_CVR_RightGuardianshipId" _Entity="_Entity" >
+</Dropdown>
+@code {
+    public async Task ItemSelected_HR_CVR_RecruitmentRulesHR_CVR_RightGuardianshipId(object _Item)
+    {
+        var Selected = Utility.JSON.ToObject<dynamic>(Utility.JSON.ToJson(_Item).Result).Result;
+     var Item = _Entity;
+
+    Item.HR_CVR_RightGuardianshipId = Selected.Id;
+
+
+    
+
+    
+    }
+} 
+ 
+ 
+@code {
+    Baya.Models.ViewEngine.View_Component Component_HR_CVR_RecruitmentRulesHR_CVR_ApprovalsMinistryLaborGroupId = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"EntityName\":\"احکام حقوق کارمندان\",\"primaryKey\":false,\"EntityID\":711,\"FieldId\":29989,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":970,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":false,\"RelationParentName\":\"HR_CVR_ApprovalsMinistryLaborGroup\",\"RelationParentModel\":\"HR_CVR_ApprovalsMinistryLaborGroup\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/HR_CVR_ApprovalsMinistryLaborGroup/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.StartDate_Fa}} </span>\",\"FieldsTemplate\":[{\"key\":\"StartDate_Fa\",\"value\":\"nvarchar(Max)\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"searchField\":\"\",\"disabled\":false,\"modal\":true,\"label\":\"اطلاعات مصوبات وزارت کار\",\"tableView\":true,\"key\":\"HR_CVR_ApprovalsMinistryLaborGroupId\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"29989?EId=711&SubId=15\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
+}
+
+    <Dropdown Id=HR_CVR_ApprovalsMinistryLaborGroupId  @ref="Ref_HR_CVR_ApprovalsMinistryLaborGroupId" Label="اطلاعات مصوبات وزارت کار" CssClass=""  DisplayFormat="DropDown" ExternalApi=false NotMapped=false TextGrid=false Text="" Value="@_Entity.HR_CVR_ApprovalsMinistryLaborGroupId" FieldName="HR_CVR_ApprovalsMinistryLaborGroupId" OnItemSelected="ItemSelected_HR_CVR_RecruitmentRulesHR_CVR_ApprovalsMinistryLaborGroupId" Component="Component_HR_CVR_RecruitmentRulesHR_CVR_ApprovalsMinistryLaborGroupId" _Entity="_Entity" >
+</Dropdown>
+@code {
+    public async Task ItemSelected_HR_CVR_RecruitmentRulesHR_CVR_ApprovalsMinistryLaborGroupId(object _Item)
+    {
+        var Selected = Utility.JSON.ToObject<dynamic>(Utility.JSON.ToJson(_Item).Result).Result;
+     var Item = _Entity;
+
+      //Todo
+ //برای اینکه آی دی تغییر کند اینجا نیز باید تغییر کند
+ //بهتر است از پرایمیری کی استفاده شود
+ if (_Item != null)
+ {
+     Console.WriteLine(" Item Is Not Null");
+    Item.HR_CVR_ApprovalsMinistryLaborGroupId = Selected.Id;
+    
+ }
+ else
+ {
+     Console.WriteLine(" Item Is Null");
+      Item.HR_CVR_ApprovalsMinistryLaborGroupId =EntityHelper.SetPropertyNull(Item.HR_CVR_ApprovalsMinistryLaborGroupId);
+ }
+ Item.HR_CVR_ApprovalsMinistryLaborGroup = await Utility.JSON.ToObject<Entity.HR_CVR_ApprovalsMinistryLaborGroup>(await Utility.JSON.ToJson(_Item));
+    StateHasChanged();
+
+
+    
+
+    
+    }
+} 
+
+</div>
+
+<div class="col-md-6">
+    
+</div>
+
+</div>
+
+</div>
+
+<div class="col-md-6">
+    
+<div class="row ">
+    
+<div class="col-md-12">
+    <div  class="">
+    <div class="bg-lightpurple p-1 rounded-top text-center">
+  <i class="bi bi-rotate fs-5 fw-bold"></i>
+  <i class="bi bi-arrow-repeat fs-5 fw-black text-purple"></i>
+  <span class="py-2 fs-5 fw-bold text-secondary ">
+    تغییرات مزد مبنا
+  </span>
+</div>
+</div>
+
+</div>
+
+<div class="col-md-1">
+    <div  class="bg-lightyellow rounded-end p-1 w-100 h-100 align-content-center">
+    <div class="vertical-text m-auto">
+  مزد مبنا سال قبل
+</div>
+
+</div>
+
+</div>
+
+<div class="col-md-5">
+    
+<div class="">
+    
+<Input Id="JobSalaryRank" @ref="Ref_JobSalaryRank" Label="مزد شغل گروه"     @bind-Value="_Entity.JobSalaryRank" type="number"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"step\":\"any\",\"maxlength\":\"10\"}").Result))></Input>
+
+<Input Id="SalaryHistory" @ref="Ref_SalaryHistory" Label="مزد سنوات"     @bind-Value="_Entity.SalaryHistory" type="number"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"step\":\"any\",\"maxlength\":\"10\"}").Result))></Input>
+
+<Input Id="RightGuardianship" @ref="Ref_RightGuardianship" Label="حق سرپرستی (پست)"     @bind-Value="_Entity.RightGuardianship" type="number"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+<Input Id="CoefficientDurabilityPost" @ref="Ref_CoefficientDurabilityPost" Label="مزایای ماندگاری پست"     @bind-Value="_Entity.CoefficientDurabilityPost" type="number"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+<Input Id="CoefficientDifficultAndHarmfulJobs" @ref="Ref_CoefficientDifficultAndHarmfulJobs" Label="شرایط نامساعد محیط کار"     @bind-Value="_Entity.CoefficientDifficultAndHarmfulJobs" type="number"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+<Input Id="TotalDailyBaseWage" @ref="Ref_TotalDailyBaseWage" Label="جمع مزد مبنای روزانه"     @bind-Value="_Entity.TotalDailyBaseWage" type="number"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+</div>
+
+</div>
+
+<div class="col-md-1">
+    <div  class="bg-yellow rounded-end p-1 w-100 h-100 align-content-center">
+    <div class="vertical-text m-auto">
+  مزد مبنا سال جاری
+</div>
+
+</div>
+
+</div>
+
+<div class="col-md-5">
+    
+<div class="">
+    
+<Input Id="JobSalaryRankNew" @ref="Ref_JobSalaryRankNew" Label="مزد شغل گروه"     @bind-Value="_Entity.JobSalaryRankNew" type="number"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"step\":\"any\",\"maxlength\":\"10\"}").Result))></Input>
+
+<Input Id="SalaryHistoryNew" @ref="Ref_SalaryHistoryNew" Label="مزد سنوات"     @bind-Value="_Entity.SalaryHistoryNew" type="number"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"step\":\"any\",\"maxlength\":\"10\"}").Result))></Input>
+
+<Input Id="RightGuardianshipNew" @ref="Ref_RightGuardianshipNew" Label="حق سرپرستی (پست)"     @bind-Value="_Entity.RightGuardianshipNew" type="number"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"step\":\"any\",\"maxlength\":\"10\"}").Result))></Input>
+
+<Input Id="CoefficientDurabilityPostNew" @ref="Ref_CoefficientDurabilityPostNew" Label="مزایای ماندگاری پست"     @bind-Value="_Entity.CoefficientDurabilityPostNew" type="number"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"step\":\"any\",\"maxlength\":\"10\"}").Result))></Input>
+
+<Input Id="CoefficientDifficultAndHarmfulJobsNew" @ref="Ref_CoefficientDifficultAndHarmfulJobsNew" Label="شرایط نامساعد محیط کار"     @bind-Value="_Entity.CoefficientDifficultAndHarmfulJobsNew" type="number"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"step\":\"any\",\"maxlength\":\"10\"}").Result))></Input>
+
+<Input Id="TotalDailyBaseWageNew" @ref="Ref_TotalDailyBaseWageNew" Label="جمع مزد مبنای روزانه"     @bind-Value="_Entity.TotalDailyBaseWageNew" type="number"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"step\":\"any\",\"maxlength\":\"15\"}").Result))></Input>
+
+</div>
+
+</div>
+
+<div class="col-md-12">
+    
+</div>
+
+</div>
+
+<div class="row ">
+    
+<div class="col-md-12">
+    <div  class="">
+    <div class="bg-lightpurple p-1 rounded-top text-center">
+  <i class="bi bi-rotate fs-5 fw-bold"></i>
+  <i class="bi bi-arrow-repeat fs-5 fw-black text-purple"></i>
+  <span class="py-2 fs-5 fw-bold text-secondary ">
+    تغییرات مزایای قانونی
+  </span>
+</div>
+</div>
+
+</div>
+
+<div class="col-md-1">
+    <div  class="bg-lightyellow rounded-end p-1 w-100 h-100 align-content-center">
+    <div class="vertical-text m-auto">
+  مزایای قانونی سال قبل
+</div>
+
+</div>
+
+</div>
+
+<div class="col-md-5">
+    
+<Input Id="DailyAdjustmentDifference" @ref="Ref_DailyAdjustmentDifference" Label="تفاوت تطبیق روزانه"     @bind-Value="_Entity.DailyAdjustmentDifference" type="number"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+<Input Id="RecruitmentAllowance" @ref="Ref_RecruitmentAllowance" Label="حق جذب"     @bind-Value="_Entity.RecruitmentAllowance" type="number"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"step\":\"any\",\"maxlength\":\"10\"}").Result))></Input>
+
+<Input Id="MinistryLabourRightHousing" @ref="Ref_MinistryLabourRightHousing" Label="کمک هزینه مسکن"     @bind-Value="_Entity.MinistryLabourRightHousing" type="number"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+<Input Id="MinistryLaborRightFood" @ref="Ref_MinistryLaborRightFood" Label="حق هزینه خواربار"     @bind-Value="_Entity.MinistryLaborRightFood" type="number"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+<Input Id="RightMarryMinistryLabor" @ref="Ref_RightMarryMinistryLabor" Label="حق تاهل"     @bind-Value="_Entity.RightMarryMinistryLabor" type="number"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+<Input Id="ChildrensRightsMinistryLabor" @ref="Ref_ChildrensRightsMinistryLabor" Label="حق اولاد"     @bind-Value="_Entity.ChildrensRightsMinistryLabor" type="number"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+<Input Id="WelfareMotivationalBenefits" @ref="Ref_WelfareMotivationalBenefits" Label="مزایای رفاهی و انگیزشی"     @bind-Value="_Entity.WelfareMotivationalBenefits" type="number"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+<Input Id="OtherBenefits" @ref="Ref_OtherBenefits" Label="سایر مزایا"     @bind-Value="_Entity.OtherBenefits" type="number"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+<Input Id="TotalMonthlySalaryBenefits" @ref="Ref_TotalMonthlySalaryBenefits" Label="جمع کل دستمزد و مزایا"     @bind-Value="_Entity.TotalMonthlySalaryBenefits" type="number"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+</div>
+
+<div class="col-md-1">
+    <div  class="bg-yellow rounded-end p-1 w-100 h-100 align-content-center">
+    <div class="vertical-text m-auto">
+  مزایای قانونی سال جاری
+</div>
+
+</div>
+
+</div>
+
+<div class="col-md-5">
+    
+<Input Id="DailyAdjustmentDifferenceNew" @ref="Ref_DailyAdjustmentDifferenceNew" Label="تفاوت تطبیق روزانه"     @bind-Value="_Entity.DailyAdjustmentDifferenceNew" type="number"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"step\":\"any\",\"maxlength\":\"10\"}").Result))></Input>
+
+<Input Id="RecruitmentAllowanceNew" @ref="Ref_RecruitmentAllowanceNew" Label="حق جذب"     @bind-Value="_Entity.RecruitmentAllowanceNew" type="number"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"step\":\"any\",\"maxlength\":\"10\"}").Result))></Input>
+
+<Input Id="MinistryLabourRightHousingNew" @ref="Ref_MinistryLabourRightHousingNew" Label="کمک هزینه مسکن"     @bind-Value="_Entity.MinistryLabourRightHousingNew" type="number"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"step\":\"any\",\"maxlength\":\"10\"}").Result))></Input>
+
+<Input Id="MinistryLaborRightFoodNew" @ref="Ref_MinistryLaborRightFoodNew" Label="حق هزینه خواربار"     @bind-Value="_Entity.MinistryLaborRightFoodNew" type="number"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"step\":\"any\",\"maxlength\":\"10\"}").Result))></Input>
+
+<Input Id="RightMarryMinistryLaborNew" @ref="Ref_RightMarryMinistryLaborNew" Label="حق تاهل"     @bind-Value="_Entity.RightMarryMinistryLaborNew" type="number"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"step\":\"any\",\"maxlength\":\"10\"}").Result))></Input>
+
+<Input Id="ChildrensRightsMinistryLaborNew" @ref="Ref_ChildrensRightsMinistryLaborNew" Label="حق اولاد"     @bind-Value="_Entity.ChildrensRightsMinistryLaborNew" type="number"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"step\":\"any\",\"maxlength\":\"10\"}").Result))></Input>
+
+<Input Id="WelfareMotivationalBenefitsNew" @ref="Ref_WelfareMotivationalBenefitsNew" Label="مزایای رفاهی و انگیزشی"     @bind-Value="_Entity.WelfareMotivationalBenefitsNew" type="number"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"step\":\"any\",\"maxlength\":\"10\"}").Result))></Input>
+
+<Input Id="OtherBenefitsNew" @ref="Ref_OtherBenefitsNew" Label="سایر مزایا"     @bind-Value="_Entity.OtherBenefitsNew" type="number"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"step\":\"any\",\"maxlength\":\"10\"}").Result))></Input>
+
+<Input Id="TotalMonthlySalaryBenefitsNew" @ref="Ref_TotalMonthlySalaryBenefitsNew" Label="جمع کل دستمزد و مزایا"     @bind-Value="_Entity.TotalMonthlySalaryBenefitsNew" type="number"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"step\":\"any\",\"maxlength\":\"15\"}").Result))></Input>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="row ">
+    
+<div class="col-md-3">
+    
+</div>
+
+<div class="col-md-3">
+    
+</div>
+
+<div class="col-md-3">
+    
+</div>
+
+<div class="col-md-3">
+    
+</div>
+
+</div>
+
+<Input Id="Id" @ref="Ref_Id"   CssClass="d-none"   @bind-Value="_Entity.Id" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+<Input Id="RequestID" @ref="Ref_RequestID"      @bind-Value="_Entity.RequestID" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+<Input Id="CreateUser" @ref="Ref_CreateUser"      @bind-Value="_Entity.CreateUser" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+<Input Id="UpdateUser" @ref="Ref_UpdateUser"      @bind-Value="_Entity.UpdateUser" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+<Input Id="CreateDate" @ref="Ref_CreateDate"   CssClass="d-none"   @bind-Value="_Entity.CreateDate" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+<Input Id="UpdateDate" @ref="Ref_UpdateDate"   CssClass="d-none"   @bind-Value="_Entity.UpdateDate" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+<Input Id="IsDelete" @ref="Ref_IsDelete"   CssClass="d-none"   @bind-Value="_Entity.IsDelete" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+ 
+ 
+@code {
+    Baya.Models.ViewEngine.View_Component Component_HR_CVR_RecruitmentRulesHR_CVR_VerdictRecruitingId = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"EntityName\":\"حکم کارگزینی (محاسبات حقوق و دستمزد)\",\"primaryKey\":false,\"EntityID\":711,\"FieldId\":30587,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":970,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":false,\"RelationParentName\":\"HR_CVR_VerdictRecruiting\",\"RelationParentModel\":\"HR_CVR_VerdictRecruiting\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/HR_CVR_VerdictRecruiting/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.Id}} </span>\",\"FieldsTemplate\":[{\"key\":\"Id\",\"value\":\"uniqueidentifier\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"searchField\":\"Id\",\"disabled\":true,\"modal\":true,\"label\":\"اطلاعات حکم کارگزینی کارمند\",\"tableView\":true,\"key\":\"HR_CVR_VerdictRecruitingId\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"customClass\":\"d-none\",\"FieldUrl\":\"30587?EId=711&SubId=15\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
+}
+
+    <Dropdown Id=HR_CVR_VerdictRecruitingId Disabled=true @ref="Ref_HR_CVR_VerdictRecruitingId" Label="اطلاعات حکم کارگزینی کارمند" CssClass="d-none"  DisplayFormat="DropDown" ExternalApi=false NotMapped=false TextGrid=false Text="" Value="@_Entity.HR_CVR_VerdictRecruitingId" FieldName="HR_CVR_VerdictRecruitingId" OnItemSelected="ItemSelected_HR_CVR_RecruitmentRulesHR_CVR_VerdictRecruitingId" Component="Component_HR_CVR_RecruitmentRulesHR_CVR_VerdictRecruitingId" _Entity="_Entity" >
+</Dropdown>
+@code {
+    public async Task ItemSelected_HR_CVR_RecruitmentRulesHR_CVR_VerdictRecruitingId(object _Item)
+    {
+        var Selected = Utility.JSON.ToObject<dynamic>(Utility.JSON.ToJson(_Item).Result).Result;
+     var Item = _Entity;
+
+      //Todo
+ //برای اینکه آی دی تغییر کند اینجا نیز باید تغییر کند
+ //بهتر است از پرایمیری کی استفاده شود
+ if (_Item != null)
+ {
+     Console.WriteLine(" Item Is Not Null");
+    Item.HR_CVR_VerdictRecruitingId = Selected.Id;
+    
+ }
+ else
+ {
+     Console.WriteLine(" Item Is Null");
+      Item.HR_CVR_VerdictRecruitingId =EntityHelper.SetPropertyNull(Item.HR_CVR_VerdictRecruitingId);
+ }
+ Item.HR_CVR_VerdictRecruiting = await Utility.JSON.ToObject<Entity.HR_CVR_VerdictRecruiting>(await Utility.JSON.ToJson(_Item));
+    StateHasChanged();
+
+
+    
+
+    
+    }
+} 
+
+    </EditForm>
+</div>
+
+@if (ShowSubmit)
+{
+    <button class="btn btn-sm btn-green" @onclick=Submit>ذخیره</button>
+}
+
+@code {
+    #region Function
+
+    //todo  جا به جا شود برده شود تو فایل  Peropeties
+    protected override async Task OnInitializedAsync()
+    {
+        Console.WriteLine("#log OnInitializedAsync");
+
+        TableGet = await Utility.JSON.ToObject<Table>("{\"Name\":\"HR_CVR_RecruitmentRules\",\"GetNameAs\":\"HR_CVR_RecruitmentRules\",\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"RequestID\",\"GetNameAs\":\"RequestID\"},{\"Name\":\"CreateUser\",\"GetNameAs\":\"CreateUser\"},{\"Name\":\"UpdateUser\",\"GetNameAs\":\"UpdateUser\"},{\"Name\":\"CreateDate\",\"GetNameAs\":\"CreateDate\"},{\"Name\":\"UpdateDate\",\"GetNameAs\":\"UpdateDate\"},{\"Name\":\"IsDelete\",\"GetNameAs\":\"IsDelete\"},{\"Name\":\"HR_EMP_EmployeesId\",\"GetNameAs\":\"HR_EMP_EmployeesId\"},{\"Name\":\"HR_ORG_SectionsId\",\"GetNameAs\":\"HR_ORG_SectionsId\"},{\"Name\":\"HR_ORG_PostsId\",\"GetNameAs\":\"HR_ORG_PostsId\"},{\"Name\":\"HR_CVR_JobId\",\"GetNameAs\":\"HR_CVR_JobId\"},{\"Name\":\"HR_CVR_JobGroupId\",\"GetNameAs\":\"HR_CVR_JobGroupId\"},{\"Name\":\"HR_CVR_SalaryHistoryId\",\"GetNameAs\":\"HR_CVR_SalaryHistoryId\"},{\"Name\":\"HR_CVR_JobSalaryRankId\",\"GetNameAs\":\"HR_CVR_JobSalaryRankId\"},{\"Name\":\"HR_CVR_RightGuardianshipId\",\"GetNameAs\":\"HR_CVR_RightGuardianshipId\"},{\"Name\":\"HR_CVR_ApprovalsMinistryLaborGroupId\",\"GetNameAs\":\"HR_CVR_ApprovalsMinistryLaborGroupId\"},{\"Name\":\"JobSalaryRank\",\"GetNameAs\":\"JobSalaryRank\"},{\"Name\":\"SalaryHistory\",\"GetNameAs\":\"SalaryHistory\"},{\"Name\":\"RightGuardianship\",\"GetNameAs\":\"RightGuardianship\"},{\"Name\":\"CoefficientDurabilityPost\",\"GetNameAs\":\"CoefficientDurabilityPost\"},{\"Name\":\"CoefficientDifficultAndHarmfulJobs\",\"GetNameAs\":\"CoefficientDifficultAndHarmfulJobs\"},{\"Name\":\"TotalDailyBaseWage\",\"GetNameAs\":\"TotalDailyBaseWage\"},{\"Name\":\"DailyAdjustmentDifference\",\"GetNameAs\":\"DailyAdjustmentDifference\"},{\"Name\":\"MinistryLabourRightHousing\",\"GetNameAs\":\"MinistryLabourRightHousing\"},{\"Name\":\"MinistryLaborRightFood\",\"GetNameAs\":\"MinistryLaborRightFood\"},{\"Name\":\"RightMarryMinistryLabor\",\"GetNameAs\":\"RightMarryMinistryLabor\"},{\"Name\":\"ChildrensRightsMinistryLabor\",\"GetNameAs\":\"ChildrensRightsMinistryLabor\"},{\"Name\":\"WelfareMotivationalBenefits\",\"GetNameAs\":\"WelfareMotivationalBenefits\"},{\"Name\":\"OtherBenefits\",\"GetNameAs\":\"OtherBenefits\"},{\"Name\":\"TotalMonthlySalaryBenefits\",\"GetNameAs\":\"TotalMonthlySalaryBenefits\"},{\"Name\":\"HR_CVR_VerdictRecruitingId\",\"GetNameAs\":\"HR_CVR_VerdictRecruitingId\"},{\"Name\":\"RecruitmentAllowance\",\"GetNameAs\":\"RecruitmentAllowance\"},{\"Name\":\"RecruitmentAllowanceNew\",\"GetNameAs\":\"RecruitmentAllowanceNew\"},{\"Name\":\"JobSalaryRankNew\",\"GetNameAs\":\"JobSalaryRankNew\"},{\"Name\":\"SalaryHistoryNew\",\"GetNameAs\":\"SalaryHistoryNew\"},{\"Name\":\"RightGuardianshipNew\",\"GetNameAs\":\"RightGuardianshipNew\"},{\"Name\":\"CoefficientDurabilityPostNew\",\"GetNameAs\":\"CoefficientDurabilityPostNew\"},{\"Name\":\"CoefficientDifficultAndHarmfulJobsNew\",\"GetNameAs\":\"CoefficientDifficultAndHarmfulJobsNew\"},{\"Name\":\"TotalDailyBaseWageNew\",\"GetNameAs\":\"TotalDailyBaseWageNew\"},{\"Name\":\"DailyAdjustmentDifferenceNew\",\"GetNameAs\":\"DailyAdjustmentDifferenceNew\"},{\"Name\":\"MinistryLabourRightHousingNew\",\"GetNameAs\":\"MinistryLabourRightHousingNew\"},{\"Name\":\"MinistryLaborRightFoodNew\",\"GetNameAs\":\"MinistryLaborRightFoodNew\"},{\"Name\":\"RightMarryMinistryLaborNew\",\"GetNameAs\":\"RightMarryMinistryLaborNew\"},{\"Name\":\"ChildrensRightsMinistryLaborNew\",\"GetNameAs\":\"ChildrensRightsMinistryLaborNew\"},{\"Name\":\"WelfareMotivationalBenefitsNew\",\"GetNameAs\":\"WelfareMotivationalBenefitsNew\"},{\"Name\":\"OtherBenefitsNew\",\"GetNameAs\":\"OtherBenefitsNew\"},{\"Name\":\"TotalMonthlySalaryBenefitsNew\",\"GetNameAs\":\"TotalMonthlySalaryBenefitsNew\"}],\"Relation\":[{\"Name\":\"HR_CVR_Job\",\"GetNameAs\":\"HR_CVR_Job\",\"ModeErtebat\":1,\"Column\":[{\"Name\":\"HR_CVR_JobCategoryId\",\"GetNameAs\":\"HR_CVR_JobCategoryId\"},{\"Name\":\"HR_CVR_JobId\",\"GetNameAs\":\"HR_CVR_JobId\"},{\"Name\":\"Code\",\"GetNameAs\":\"Code\"},{\"Name\":\"Title\",\"GetNameAs\":\"Title\"}],\"Relation\":[]},{\"Name\":\"HR_CVR_JobGroup\",\"GetNameAs\":\"HR_CVR_JobGroup\",\"ModeErtebat\":1,\"Column\":[{\"Name\":\"HR_CVR_JobId\",\"GetNameAs\":\"HR_CVR_JobId\"},{\"Name\":\"Title\",\"GetNameAs\":\"Title\"},{\"Name\":\"Lvl\",\"GetNameAs\":\"Lvl\"}],\"Relation\":[]},{\"Name\":\"HR_CVR_SalaryHistory\",\"GetNameAs\":\"HR_CVR_SalaryHistory\",\"ModeErtebat\":1,\"Column\":[{\"Name\":\"CalculationStartDate\",\"GetNameAs\":\"CalculationStartDate\"},{\"Name\":\"OccupationalGroup\",\"GetNameAs\":\"OccupationalGroup\"},{\"Name\":\"SalaryMinistryLabor\",\"GetNameAs\":\"SalaryMinistryLabor\"},{\"Name\":\"SalaryGroup\",\"GetNameAs\":\"SalaryGroup\"},{\"Name\":\"CalculationStartYear\",\"GetNameAs\":\"CalculationStartYear\"},{\"Name\":\"CalculationStartMonth\",\"GetNameAs\":\"CalculationStartMonth\"},{\"Name\":\"CalculationStartDay\",\"GetNameAs\":\"CalculationStartDay\"},{\"Name\":\"StartDate_Fa\",\"GetNameAs\":\"StartDate_Fa\"},{\"Name\":\"StartDate\",\"GetNameAs\":\"StartDate\"},{\"Name\":\"HR_CVR_JobGroupId\",\"GetNameAs\":\"HR_CVR_JobGroupId\"}],\"Relation\":[]},{\"Name\":\"HR_CVR_ApprovalsMinistryLaborGroup\",\"GetNameAs\":\"HR_CVR_ApprovalsMinistryLaborGroup\",\"ModeErtebat\":1,\"Column\":[{\"Name\":\"StartDate_Fa\",\"GetNameAs\":\"StartDate_Fa\"},{\"Name\":\"CalculationStartDate\",\"GetNameAs\":\"CalculationStartDate\"},{\"Name\":\"MinimumSalaryMinistryLabor\",\"GetNameAs\":\"MinimumSalaryMinistryLabor\"},{\"Name\":\"MinimumSalaryInGroup\",\"GetNameAs\":\"MinimumSalaryInGroup\"},{\"Name\":\"CoefficientDurabilityPost\",\"GetNameAs\":\"CoefficientDurabilityPost\"},{\"Name\":\"MaximumScoreCoefficientDifficultAndHarmfulJobs\",\"GetNameAs\":\"MaximumScoreCoefficientDifficultAndHarmfulJobs\"},{\"Name\":\"MinistryLabourRightHousing\",\"GetNameAs\":\"MinistryLabourRightHousing\"},{\"Name\":\"RightHousingGroup\",\"GetNameAs\":\"RightHousingGroup\"},{\"Name\":\"MinistryLaborRightFood\",\"GetNameAs\":\"MinistryLaborRightFood\"},{\"Name\":\"RightFoodGroup\",\"GetNameAs\":\"RightFoodGroup\"},{\"Name\":\"BenKargariMinistryLabor\",\"GetNameAs\":\"BenKargariMinistryLabor\"},{\"Name\":\"BenKargariGroup\",\"GetNameAs\":\"BenKargariGroup\"},{\"Name\":\"RightMarryMinistryLabor\",\"GetNameAs\":\"RightMarryMinistryLabor\"},{\"Name\":\"RightMarryGroup\",\"GetNameAs\":\"RightMarryGroup\"},{\"Name\":\"ChildrensRightsMinistryLabor\",\"GetNameAs\":\"ChildrensRightsMinistryLabor\"},{\"Name\":\"ChildrenRightsGroup\",\"GetNameAs\":\"ChildrenRightsGroup\"},{\"Name\":\"CalculationStartYear\",\"GetNameAs\":\"CalculationStartYear\"},{\"Name\":\"CalculationStartMonth\",\"GetNameAs\":\"CalculationStartMonth\"},{\"Name\":\"CalculationStartDay\",\"GetNameAs\":\"CalculationStartDay\"},{\"Name\":\"StartDate\",\"GetNameAs\":\"StartDate\"},{\"Name\":\"SalaryMinistryLabor\",\"GetNameAs\":\"SalaryMinistryLabor\"},{\"Name\":\"SalaryInGroup\",\"GetNameAs\":\"SalaryInGroup\"}],\"Relation\":[]},{\"Name\":\"HR_EMP_Employees\",\"GetNameAs\":\"HR_EMP_Employees\",\"ModeErtebat\":1,\"Column\":[{\"Name\":\"LastName\",\"GetNameAs\":\"LastName\"},{\"Name\":\"LastNameEn\",\"GetNameAs\":\"LastNameEn\"},{\"Name\":\"DeleteDateTime\",\"GetNameAs\":\"DeleteDateTime\"},{\"Name\":\"HR_EMP_StatusId\",\"GetNameAs\":\"HR_EMP_StatusId\"},{\"Name\":\"EmployeeLastPersonelNo\",\"GetNameAs\":\"EmployeeLastPersonelNo\"},{\"Name\":\"EmployeeNo\",\"GetNameAs\":\"EmployeeNo\"},{\"Name\":\"EmployeePersonelNo\",\"GetNameAs\":\"EmployeePersonelNo\"},{\"Name\":\"FirstName\",\"GetNameAs\":\"FirstName\"},{\"Name\":\"FirstNameEn\",\"GetNameAs\":\"FirstNameEn\"},{\"Name\":\"HR_Base_FactoryId\",\"GetNameAs\":\"HR_Base_FactoryId\"},{\"Name\":\"BaseInfo_ORG_CompaniesId\",\"GetNameAs\":\"BaseInfo_ORG_CompaniesId\"},{\"Name\":\"UserId\",\"GetNameAs\":\"UserId\"},{\"Name\":\"LastEmployeeNo\",\"GetNameAs\":\"LastEmployeeNo\"},{\"Name\":\"ProfilePicture\",\"GetNameAs\":\"ProfilePicture\"},{\"Name\":\"FullName\",\"GetNameAs\":\"FullName\"}],\"Relation\":[]},{\"Name\":\"HR_ORG_Sections\",\"GetNameAs\":\"HR_ORG_Sections\",\"ModeErtebat\":1,\"Column\":[{\"Name\":\"HR_EMP_EmployeesId\",\"GetNameAs\":\"HR_EMP_EmployeesId\"},{\"Name\":\"Status\",\"GetNameAs\":\"Status\"},{\"Name\":\"Title\",\"GetNameAs\":\"Title\"},{\"Name\":\"TitleEn\",\"GetNameAs\":\"TitleEn\"},{\"Name\":\"Description\",\"GetNameAs\":\"Description\"},{\"Name\":\"Code\",\"GetNameAs\":\"Code\"},{\"Name\":\"DeleteDateTime\",\"GetNameAs\":\"DeleteDateTime\"},{\"Name\":\"HR_ORG_SitesId\",\"GetNameAs\":\"HR_ORG_SitesId\"},{\"Name\":\"HR_ORG_SectionTypesId\",\"GetNameAs\":\"HR_ORG_SectionTypesId\"},{\"Name\":\"HR_Base_TaxCategoryId\",\"GetNameAs\":\"HR_Base_TaxCategoryId\"},{\"Name\":\"HR_ORG_SectionStatusId\",\"GetNameAs\":\"HR_ORG_SectionStatusId\"},{\"Name\":\"ParentId\",\"GetNameAs\":\"ParentId\"},{\"Name\":\"BaseInfo_ORG_SitesId\",\"GetNameAs\":\"BaseInfo_ORG_SitesId\"},{\"Name\":\"BaseInfo_TaxCategoryId\",\"GetNameAs\":\"BaseInfo_TaxCategoryId\"},{\"Name\":\"BaseInfo_ORG_CompaniesId\",\"GetNameAs\":\"BaseInfo_ORG_CompaniesId\"}],\"Relation\":[]},{\"Name\":\"HR_ORG_Posts\",\"GetNameAs\":\"HR_ORG_Posts\",\"ModeErtebat\":1,\"Column\":[{\"Name\":\"State\",\"GetNameAs\":\"State\"},{\"Name\":\"Title\",\"GetNameAs\":\"Title\"},{\"Name\":\"TitleEn\",\"GetNameAs\":\"TitleEn\"},{\"Name\":\"DeleteDateTime\",\"GetNameAs\":\"DeleteDateTime\"},{\"Name\":\"Code\",\"GetNameAs\":\"Code\"},{\"Name\":\"Description\",\"GetNameAs\":\"Description\"},{\"Name\":\"AteyehSaz_InsuranceId\",\"GetNameAs\":\"AteyehSaz_InsuranceId\"},{\"Name\":\"HR_ORG_PositionsId\",\"GetNameAs\":\"HR_ORG_PositionsId\"},{\"Name\":\"HR_Base_InsuranceJobsId\",\"GetNameAs\":\"HR_Base_InsuranceJobsId\"},{\"Name\":\"PostCode\",\"GetNameAs\":\"PostCode\"}],\"Relation\":[]},{\"Name\":\"HR_CVR_VerdictRecruiting\",\"GetNameAs\":\"HR_CVR_VerdictRecruiting\",\"ModeErtebat\":1,\"Column\":[{\"Name\":\"HR_Base_InsuranceTypesId\",\"GetNameAs\":\"HR_Base_InsuranceTypesId\"},{\"Name\":\"HR_CVR_PersonnelContractId\",\"GetNameAs\":\"HR_CVR_PersonnelContractId\"},{\"Name\":\"HR_CVR_TypesRulingsId\",\"GetNameAs\":\"HR_CVR_TypesRulingsId\"},{\"Name\":\"InsuranceNumber\",\"GetNameAs\":\"InsuranceNumber\"},{\"Name\":\"TypeBonusPayment\",\"GetNameAs\":\"TypeBonusPayment\"},{\"Name\":\"GroupTitle\",\"GetNameAs\":\"GroupTitle\"},{\"Name\":\"Rank\",\"GetNameAs\":\"Rank\"},{\"Name\":\"ExecutionDateSentence\",\"GetNameAs\":\"ExecutionDateSentence\"},{\"Name\":\"RegisterTime\",\"GetNameAs\":\"RegisterTime\"},{\"Name\":\"ConfirmerTime\",\"GetNameAs\":\"ConfirmerTime\"},{\"Name\":\"ApproverTime\",\"GetNameAs\":\"ApproverTime\"},{\"Name\":\"NullifierTime\",\"GetNameAs\":\"NullifierTime\"},{\"Name\":\"HR_StatusVerdictRecruitingId\",\"GetNameAs\":\"HR_StatusVerdictRecruitingId\"},{\"Name\":\"HR_CVR_VerdictRecruitingId\",\"GetNameAs\":\"HR_CVR_VerdictRecruitingId\"},{\"Name\":\"RegisterUserId\",\"GetNameAs\":\"RegisterUserId\"},{\"Name\":\"ConfirmerUserId\",\"GetNameAs\":\"ConfirmerUserId\"},{\"Name\":\"ApproverUserId\",\"GetNameAs\":\"ApproverUserId\"},{\"Name\":\"NullifierUserId\",\"GetNameAs\":\"NullifierUserId\"},{\"Name\":\"HR_CVR_JobId\",\"GetNameAs\":\"HR_CVR_JobId\"},{\"Name\":\"HR_CVR_DescriptionRulingsId\",\"GetNameAs\":\"HR_CVR_DescriptionRulingsId\"},{\"Name\":\"Employee_NotMaped\",\"GetNameAs\":\"Employee_NotMaped\"},{\"Name\":\"Code\",\"GetNameAs\":\"Code\"},{\"Name\":\"ExecutionDateSentence_Fa\",\"GetNameAs\":\"ExecutionDateSentence_Fa\"},{\"Name\":\"HR_CVR_JobGroupId\",\"GetNameAs\":\"HR_CVR_JobGroupId\"},{\"Name\":\"HR_EMP_EmployeesId\",\"GetNameAs\":\"HR_EMP_EmployeesId\"}],\"Relation\":[]},{\"Name\":\"HR_CVR_AnnualBaseWageIncreaseRates\",\"GetNameAs\":\"HR_CVR_AnnualBaseWageIncreaseRates\",\"ModeErtebat\":1,\"Column\":[{\"Name\":\"CalculationStartYear\",\"GetNameAs\":\"CalculationStartYear\"},{\"Name\":\"CalculationStartMonth\",\"GetNameAs\":\"CalculationStartMonth\"},{\"Name\":\"CalculationStartDay\",\"GetNameAs\":\"CalculationStartDay\"},{\"Name\":\"StartDate_Fa\",\"GetNameAs\":\"StartDate_Fa\"},{\"Name\":\"StartDate\",\"GetNameAs\":\"StartDate\"},{\"Name\":\"IncreasePercentMinistryLabor\",\"GetNameAs\":\"IncreasePercentMinistryLabor\"},{\"Name\":\"IncreasePercentGroup\",\"GetNameAs\":\"IncreasePercentGroup\"}],\"Relation\":[]},{\"Name\":\"HR_CVR_LaborCouncilFixedValues\",\"GetNameAs\":\"HR_CVR_LaborCouncilFixedValues\",\"ModeErtebat\":1,\"Column\":[{\"Name\":\"CalculationStartYear\",\"GetNameAs\":\"CalculationStartYear\"},{\"Name\":\"CalculationStartMonth\",\"GetNameAs\":\"CalculationStartMonth\"},{\"Name\":\"CalculationStartDay\",\"GetNameAs\":\"CalculationStartDay\"},{\"Name\":\"StartDate_Fa\",\"GetNameAs\":\"StartDate_Fa\"},{\"Name\":\"StartDate\",\"GetNameAs\":\"StartDate\"},{\"Name\":\"FixedNumberValueMinistryLabor\",\"GetNameAs\":\"FixedNumberValueMinistryLabor\"},{\"Name\":\"FixedNumberValueGroup\",\"GetNameAs\":\"FixedNumberValueGroup\"}],\"Relation\":[]}]}");
+        TablePost = await Utility.JSON.ToObject<Table>("{\"Name\":\"HR_CVR_RecruitmentRules\",\"GetNameAs\":\"HR_CVR_RecruitmentRules\",\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"RequestID\",\"GetNameAs\":\"RequestID\"},{\"Name\":\"CreateUser\",\"GetNameAs\":\"CreateUser\"},{\"Name\":\"UpdateUser\",\"GetNameAs\":\"UpdateUser\"},{\"Name\":\"CreateDate\",\"GetNameAs\":\"CreateDate\"},{\"Name\":\"UpdateDate\",\"GetNameAs\":\"UpdateDate\"},{\"Name\":\"IsDelete\",\"GetNameAs\":\"IsDelete\"},{\"Name\":\"HR_EMP_EmployeesId\",\"GetNameAs\":\"HR_EMP_EmployeesId\"},{\"Name\":\"HR_ORG_SectionsId\",\"GetNameAs\":\"HR_ORG_SectionsId\"},{\"Name\":\"HR_ORG_PostsId\",\"GetNameAs\":\"HR_ORG_PostsId\"},{\"Name\":\"HR_CVR_JobId\",\"GetNameAs\":\"HR_CVR_JobId\"},{\"Name\":\"HR_CVR_JobGroupId\",\"GetNameAs\":\"HR_CVR_JobGroupId\"},{\"Name\":\"HR_CVR_SalaryHistoryId\",\"GetNameAs\":\"HR_CVR_SalaryHistoryId\"},{\"Name\":\"HR_CVR_JobSalaryRankId\",\"GetNameAs\":\"HR_CVR_JobSalaryRankId\"},{\"Name\":\"HR_CVR_RightGuardianshipId\",\"GetNameAs\":\"HR_CVR_RightGuardianshipId\"},{\"Name\":\"HR_CVR_ApprovalsMinistryLaborGroupId\",\"GetNameAs\":\"HR_CVR_ApprovalsMinistryLaborGroupId\"},{\"Name\":\"JobSalaryRank\",\"GetNameAs\":\"JobSalaryRank\"},{\"Name\":\"SalaryHistory\",\"GetNameAs\":\"SalaryHistory\"},{\"Name\":\"RightGuardianship\",\"GetNameAs\":\"RightGuardianship\"},{\"Name\":\"CoefficientDurabilityPost\",\"GetNameAs\":\"CoefficientDurabilityPost\"},{\"Name\":\"CoefficientDifficultAndHarmfulJobs\",\"GetNameAs\":\"CoefficientDifficultAndHarmfulJobs\"},{\"Name\":\"TotalDailyBaseWage\",\"GetNameAs\":\"TotalDailyBaseWage\"},{\"Name\":\"DailyAdjustmentDifference\",\"GetNameAs\":\"DailyAdjustmentDifference\"},{\"Name\":\"MinistryLabourRightHousing\",\"GetNameAs\":\"MinistryLabourRightHousing\"},{\"Name\":\"MinistryLaborRightFood\",\"GetNameAs\":\"MinistryLaborRightFood\"},{\"Name\":\"RightMarryMinistryLabor\",\"GetNameAs\":\"RightMarryMinistryLabor\"},{\"Name\":\"ChildrensRightsMinistryLabor\",\"GetNameAs\":\"ChildrensRightsMinistryLabor\"},{\"Name\":\"WelfareMotivationalBenefits\",\"GetNameAs\":\"WelfareMotivationalBenefits\"},{\"Name\":\"OtherBenefits\",\"GetNameAs\":\"OtherBenefits\"},{\"Name\":\"TotalMonthlySalaryBenefits\",\"GetNameAs\":\"TotalMonthlySalaryBenefits\"},{\"Name\":\"HR_CVR_VerdictRecruitingId\",\"GetNameAs\":\"HR_CVR_VerdictRecruitingId\"},{\"Name\":\"RecruitmentAllowance\",\"GetNameAs\":\"RecruitmentAllowance\"},{\"Name\":\"RecruitmentAllowanceNew\",\"GetNameAs\":\"RecruitmentAllowanceNew\"},{\"Name\":\"JobSalaryRankNew\",\"GetNameAs\":\"JobSalaryRankNew\"},{\"Name\":\"SalaryHistoryNew\",\"GetNameAs\":\"SalaryHistoryNew\"},{\"Name\":\"RightGuardianshipNew\",\"GetNameAs\":\"RightGuardianshipNew\"},{\"Name\":\"CoefficientDurabilityPostNew\",\"GetNameAs\":\"CoefficientDurabilityPostNew\"},{\"Name\":\"CoefficientDifficultAndHarmfulJobsNew\",\"GetNameAs\":\"CoefficientDifficultAndHarmfulJobsNew\"},{\"Name\":\"TotalDailyBaseWageNew\",\"GetNameAs\":\"TotalDailyBaseWageNew\"},{\"Name\":\"DailyAdjustmentDifferenceNew\",\"GetNameAs\":\"DailyAdjustmentDifferenceNew\"},{\"Name\":\"MinistryLabourRightHousingNew\",\"GetNameAs\":\"MinistryLabourRightHousingNew\"},{\"Name\":\"MinistryLaborRightFoodNew\",\"GetNameAs\":\"MinistryLaborRightFoodNew\"},{\"Name\":\"RightMarryMinistryLaborNew\",\"GetNameAs\":\"RightMarryMinistryLaborNew\"},{\"Name\":\"ChildrensRightsMinistryLaborNew\",\"GetNameAs\":\"ChildrensRightsMinistryLaborNew\"},{\"Name\":\"WelfareMotivationalBenefitsNew\",\"GetNameAs\":\"WelfareMotivationalBenefitsNew\"},{\"Name\":\"OtherBenefitsNew\",\"GetNameAs\":\"OtherBenefitsNew\"},{\"Name\":\"TotalMonthlySalaryBenefitsNew\",\"GetNameAs\":\"TotalMonthlySalaryBenefitsNew\"}],\"Relation\":[]}");
+
+        config = CKEditorBundleOptions.DefaultConfig.WithHtmlEditing();
+        config.Language = "fa";
+
+        //بعداد اگه نیاز شد فرمی رو تو حالت غیر لاگین شده نمایش بدیم باید این  کد تغیر کنه
+        var user = (await _authenticationStateProvider.GetAuthenticationStateAsync()).User;
+        string UserID = user.FindFirst(c => c.Type == ClaimTypes.NameIdentifier).Value;
+        //داینامیک بشه
+        Dictionary<string, object> List = new Dictionary<string, object>();
+        //List.Add("UserID", Guid.Parse(UserID));
+        List.Add("UserID", UserID);
+        _User = await Domain.Utility.ConvertParameter.ConvertToObject(List);
+
+        Console.WriteLine("#log OnInitializedAsync End");
+
+        await base.OnInitializedAsync();
+    }
+
+    //todo  جا به جا شود برده شود تو فایل  Peropeties
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            Console.WriteLine("#log OnAfterRenderAsync");
+            await base.BeforGetData();
+
+            var Result = await GetData();
+
+            await base.AfterGetData();
+
+            StateHasChanged();
+
+            await OnFormloaded.InvokeAsync(Result);
+        }
+
+        await base.OnAfterRenderAsync(firstRender);
+    }
+
+    /// <summary>
+    /// دریافت داده
+    /// </summary>
+    /// <returns></returns>
+    public async Task<Baya.Models.Utility.Result> GetData()
+    {
+        await BeforGetData();
+
+        var DataResult = await ApiServer.External.Services.Data.Get(TableGet, QueryFilter, TableGet.Name, null);
+        
+        Baya.Models.Utility.Result Result = new Baya.Models.Utility.Result();
+
+        if (DataResult != null && DataResult.Status == HttpStatusCode.OK)
+        {
+            if (DataResult.Content != null)
+            {
+                string Data = DataResult.Content.ToString();
+                if (Data is not null)
+                {
+                    _Entity = await Utility.JSON.ToObject < Entity.HR_CVR_RecruitmentRules>(Data);
+        }
+            }
+            else
+            {
+                _Entity = new Entity.HR_CVR_RecruitmentRules();
+            //todo تشخیص دهد که داده ای وجود ندارد و دفه اول هست که فرم لود میشود
+            //todo اگه نیاز شد دالخ ORm خروجیش متفاوت باشه
+            //ست کردن دیفالت های فرم
+            if (true)
+                {//
+
+
+                    //نمونه ست کردن پارامتر روش اول
+                    //_Entity.InstantDelivery = _RequestParameters.UserId;
+
+                    //نمونه کد برای ست کردن پارامتر روش دوم
+                    //_Entity.InstantDelivery = await GetParameter("@@UserId@@");
+                }
+
+                SumaryMessage = "داده لود شده معتبر نمی باشد";
+                Result.Status = HttpStatusCode.InternalServerError;
+            }
+        }
+        else
+        {
+            SumaryMessage = "داده لود نشد";
+            Result.Status = HttpStatusCode.InternalServerError;
+        }
+
+        Result.Message = SumaryMessage;
+
+        StateHasChanged();
+
+        await AfterGetData();
+
+        return Result;
+    }
+
+    public override async Task SetParametersAsync(ParameterView parameters)
+    {
+        await base.SetParametersAsync(parameters);
+    }
+
+    protected override void OnInitialized()
+    {
+        //todo این خط برده شود داخل تابع پاینی ببینیم خطا داره یا نه
+        languageContainer.InitLocalizedComponent(this);
+    }
+
+
+    /// <summary>
+    /// بررسی تغییر دیتا
+    /// </summary>
+    /// <param name="Json"></param>
+    /// <returns></returns>
+    public bool CheckChangedData(string? Json)
+    {
+        if (string.Equals(JsonData, Json)) return true;
+        return false;
+    }
+
+    /// <summary>
+    /// ارسال داده
+    /// </summary>
+    /// <returns></returns>
+    public override async Task<Baya.Models.Utility.Result> Submit()
+    {
+        SumaryMessage = "";
+        Baya.Models.Utility.Result Result = new Baya.Models.Utility.Result();
+
+        if (!await FormValidator())
+        {
+            StateHasChanged();
+            Result.Status = HttpStatusCode.InternalServerError;
+            return Result;
+        }
+
+        if ((await BeforSubmit()).Status != HttpStatusCode.OK)
+        {
+            StateHasChanged();
+            Result.Status = HttpStatusCode.InternalServerError;
+            return Result;
+        }
+
+        _loadingService.Show();
+        var Resualt = await PostData();
+
+        if (Resualt)
+        {
+            Result.Status = HttpStatusCode.OK;
+
+            SumaryMessage = "داده ها با موفقیت ثبت شد";
+        }
+        else
+        {
+            Result.Status = HttpStatusCode.InternalServerError;
+            SumaryMessage = "ذخیره داده با مشکل مواجه شد";
+        }
+
+        Result.Message = SumaryMessage;
+
+        switch ((int)Result.Status)
+        {
+            case 200:
+                toastService.ShowSuccess(Result.Message);
+                break;
+            case 500:
+                toastService.ShowError(Result.Message);
+                break;
+            default:
+                break;
+        } 
+        _loadingService.Hide();
+        await AfterSubmit();
+
+        return Result;
+    }
+
+    /// <summary>
+    /// ارسال داده
+    /// </summary>
+    /// <returns></returns>
+    private async Task<bool> PostData()
+    {
+        string Data = await Utility.JSON.ToJson(_Entity);
+
+        bool IsOk = false;
+        var Model = await ApiServer.External.Services.Data.Put(Data, TablePost.Name, TablePost, RequestID?.ToString(), _User.UserID.ToString());
+        // بررسی وضعیت پاسخ
+        if (Model?.Status == HttpStatusCode.OK)
+        {
+            if (Model.Content != null && !IndependentForm)
+                { 
+                    string NewData = Model.Content.ToString();
+                    if (NewData is not null)
+                    {
+                        var NewEntity = await Utility.JSON.ToObject < Entity.HR_CVR_RecruitmentRules>(NewData);
+                     await  GetDataForm(NewEntity._Id);
+                    }
+
+                }
+                IsOk = true;
+
+        }
+        return IsOk;
+    }
+
+
+    void SetLanguage(string language)
+    {
+        languageContainer.SetLanguage(System.Globalization.CultureInfo.GetCultureInfo(language));
+    }
+
+    // public void ValidFormSubmitted(EditContext editContext)
+    // {
+
+    // }
+
+    // public void InvalidFormSubmitted(EditContext editContext)
+    // {
+
+    // }
+    public async Task GetDataForm(object Id)
+    {
+        Type type = Id.GetType();
+        string TypeToQueryBuilder = Utility.TypeConverterQueryBuilder.ConvertCSharpTypeToQueryBuilder(type);
+        var NewQuery = new QueryBuilderFilterRule() { Condition = "AND" };
+        NewQuery.Rules = new List<QueryBuilderFilterRule>
+            {
+                    new QueryBuilderFilterRule()
+                    {
+                        Field = _Entity._GetIdName,
+                        Id = _Entity._GetIdName,
+                        Input = "text",
+                        Operator = "equal",
+                        Type =  TypeToQueryBuilder,
+                        Value = new string[]{ Id.ToString() },
+                    }
+            };
+        QueryFilter = NewQuery;
+        await GetData();
+        StateHasChanged();
+    }
+    #endregion
+}

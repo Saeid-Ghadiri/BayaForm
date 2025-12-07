@@ -1,0 +1,1655 @@
+@inherits Forms.Forms.Form_678Base
+@namespace FormsPage
+
+@using AKSoftware.Localization.MultiLanguages.Blazor
+@using Baya.Models.ORM
+@using Castle.DynamicLinqQueryBuilder
+@using Microsoft.AspNetCore.Components.Forms
+@using Microsoft.AspNetCore.Components.Authorization;
+@using System.Security.Claims
+@using System.Net
+@using Microsoft.JSInterop
+@using Forms
+@using Utility
+@using Baya.Models.ViewEngine
+@using Forms.Domain.Utility
+<style>
+    .EMP_bg {
+    border: 1px dashed rgb(255, 208, 139);
+    background: rgba(255, 193, 7, 0.04);
+    margin-left: 2px;
+    margin-right: 2px;
+    padding-bottom: 16px;
+    border-radius: var(--bs-border-radius) !important;
+    margin-top: 0.20rem !important;
+}
+
+
+</style>
+
+<div class="@(ReadOnly?"FormReadOnly":"")">
+
+
+    <span class="d-none">VersionForm:@VersionForm</span>
+
+    <div class="formListi mt-3">
+        <div class="masterArea">
+            <div class="p-2 cardbox">
+
+                @*فیلد های مستر اگه نیاز شد اینجا قرار گیرد *@
+
+
+                <Form_678_Filter @ref="RefListFilter" OnSearch="@(f => SearchFilter(f))" _RequestParameters="@_RequestParameters" _CartablesParameters="@_CartablesParameters"></Form_678_Filter>
+
+
+                <div class="gridArea">
+
+                    @*
+                    فیلتر و گرید با یک لیست داده کار میکنند
+                    *@
+
+                    <label for="HR_EMP_EmployeeInfos_HR_EMP_EmployeeInfos">اطلاعات کارمندان
+   
+    
+</label>
+
+<DxGrid @ref="Grid_HR_EMP_EmployeeInfos" Data="_Entity" KeyFieldName="_Id" 
+        EditModelSaving="OnEditModelSavingHR_EMP_EmployeeInfos"
+        DataItemDeleting="OnDataItemDeletingHR_EMP_EmployeeInfos"
+        PopupEditFormCssClass="ModalWidth"
+        PopupEditFormHeaderText="اطلاعات کارمندان"
+        EditFormButtonsVisible="false"
+        CustomizeEditModel="CustomizeEditGrid_HR_EMP_EmployeeInfos"
+        CustomizeElement="CustomizeRowsGrid_HR_EMP_EmployeeInfos" 
+        Component="@((Utility.JSON.ToObject<View_Component>("{\"primaryKey\":false,\"EntityID\":382,\"FieldId\":0,\"ViewId\":678,\"NotMapped\":false,\"Relation\":false,\"RelationExternal\":false,\"RelationChildModel\":\"HR_EMP_EmployeeInfos\",\"GridMainModel\":\"HR_EMP_EmployeeInfos\",\"widget\":{\"altInput\":false,\"allowInput\":false,\"clickOpens\":false,\"enableDate\":false,\"enableTime\":false,\"noCalendar\":false,\"useLocaleSettings\":false,\"hourIncrement\":0,\"minuteIncrement\":0,\"time_24hr\":false},\"data\":{},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"FieldsTemplate\":[],\"refreshOn\":\"data\",\"reorder\":false,\"addAnotherPosition\":\"bottom\",\"layoutFixed\":false,\"enableRowGroups\":false,\"initEmpty\":false,\"modal\":true,\"StartCustomDataGrid\":true,\"label\":\"اطلاعات کارمندان\",\"tableView\":false,\"key\":\"HR_EMP_EmployeeInfos\",\"type\":\"datagrid\",\"input\":true,\"modalEdit\":false,\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result))"
+         >
+    <Columns>
+    
+<DxGridCommandColumn Width="70px">
+    <HeaderTemplate Context="HeaderContext">
+       
+<a id=HR_EMP_EmployeeInfos_HR_EMP_EmployeeInfosButtonNew class="btn btn-sm btn-green btnGridAddData" @onclick="@(() => StartEditNewRowAsync_Grid_HR_EMP_EmployeeInfos())" style="text-decoration: none;" href="javascript:void(0);">
+    <span class="fal fa-plus-circle btnicon"></span>
+    <span>@languageContainer.Keys["DXGrid:New"]</span>
+</a>
+
+    </HeaderTemplate>
+    <CellDisplayTemplate Context="CellContext">
+       
+<a id=HR_EMP_EmployeeInfos_HR_EMP_EmployeeInfosButtonEdit class="btn btn-sm btn-yellow-light btnEditGridData" @onclick="@(() => StartModalGrid_HR_EMP_EmployeeInfos(CellContext))" style="text-decoration: none;" href="javascript:void(0);">
+    <span class="fal fa-pencil btnicon"></span>
+</a>
+
+       
+<a class="btn btn-sm btn-red-light btnDeleteGridData" @onclick="@(() => OnDeleteButtonClickGrid_HR_EMP_EmployeeInfos(CellContext))" style="text-decoration: none;" href="javascript:void(0);">
+    <span class="fal fa-times-circle btnicon"></span>
+</a>
+
+    </CellDisplayTemplate>
+</DxGridCommandColumn>
+
+    <DxGridCommandColumn   Width="60px">
+           <HeaderTemplate Context="HeaderContext">
+               <a    style="text-decoration: none;"  >
+                
+                   <span>ردیف</span>
+               </a>
+           </HeaderTemplate>
+           <CellDisplayTemplate Context="CellContext">
+            @if (CellContext.VisibleIndex > 9){
+                <p>@(CellContext.VisibleIndex + 1)</p>
+            }else{
+                <p>@(((CellContext.Grid.PageIndex * CellContext.Grid.PageSize) + (CellContext.VisibleIndex + 1)))</p>
+            }
+          
+           </CellDisplayTemplate>
+     </DxGridCommandColumn>
+    <DxGridDataColumn  Caption="Id" Visible=false FieldName="Id" />
+
+<DxGridDataColumn  Caption="RequestID" Visible=false FieldName="RequestID" />
+
+<DxGridDataColumn  Caption="CreateUser" Visible=false FieldName="CreateUser" />
+
+<DxGridDataColumn  Caption="UpdateUser" Visible=false FieldName="UpdateUser" />
+
+<DxGridDataColumn  Caption="CreateDate" Visible=false FieldName="CreateDate" />
+
+<DxGridDataColumn  Caption="UpdateDate" Visible=false FieldName="UpdateDate" />
+
+<DxGridDataColumn  Caption="IsDelete" Visible=false FieldName="IsDelete" />
+
+<DxGridDataColumn  Caption="نام خانواگی ایثارگر"  FieldName="IsargarFamily" />
+
+<DxGridDataColumn  Caption="نام ایثارگر"  FieldName="IsargarName" />
+
+<DxGridDataColumn DisplayFormat="0" Caption="مدت جبهه متناوب"  FieldName="JebheMotanaveb_Days" />
+
+<DxGridDataColumn DisplayFormat="0" Caption="مدت جبهه متوالی"  FieldName="JebheMotavali_Days" />
+
+<DxGridDataColumn  Caption="شماره شناسنامه"  FieldName="IdCardNo" />
+
+<DxGridDataColumn  Caption="سریال شناسنامه"  FieldName="IdCardSerialNo" />
+
+<DxGridDataColumn Context="MartyrsChild_" Caption="فرزند شهید" >
+    <CellDisplayTemplate>
+       
+@{
+    var HR_EMP_EmployeeInfos_MartyrsChild = ((Entity.HR_EMP_EmployeeInfos)MartyrsChild_.DataItem).MartyrsChild;
+}
+
+<p class="text-center " hidden="@(HR_EMP_EmployeeInfos_MartyrsChild !=null ? !HR_EMP_EmployeeInfos_MartyrsChild : true)">@languageContainer.Keys["DXGrid:Yes"]</p>
+
+<p class="text-center" hidden="@(HR_EMP_EmployeeInfos_MartyrsChild !=null ? HR_EMP_EmployeeInfos_MartyrsChild : true)">@languageContainer.Keys["DXGrid:No"]</p>
+ 
+
+    </CellDisplayTemplate>
+</DxGridDataColumn>
+<DxGridDataColumn Context="MartyrsFamily_" Caption="خانواده شهدا" >
+    <CellDisplayTemplate>
+       
+@{
+    var HR_EMP_EmployeeInfos_MartyrsFamily = ((Entity.HR_EMP_EmployeeInfos)MartyrsFamily_.DataItem).MartyrsFamily;
+}
+
+<p class="text-center " hidden="@(HR_EMP_EmployeeInfos_MartyrsFamily !=null ? !HR_EMP_EmployeeInfos_MartyrsFamily : true)">@languageContainer.Keys["DXGrid:Yes"]</p>
+
+<p class="text-center" hidden="@(HR_EMP_EmployeeInfos_MartyrsFamily !=null ? HR_EMP_EmployeeInfos_MartyrsFamily : true)">@languageContainer.Keys["DXGrid:No"]</p>
+ 
+
+    </CellDisplayTemplate>
+</DxGridDataColumn>
+<DxGridDataColumn Context="MazadTahsilJebhe6Mah_" Caption="مازاد تحصیلی جبهه 6 ماهه" >
+    <CellDisplayTemplate>
+       
+@{
+    var HR_EMP_EmployeeInfos_MazadTahsilJebhe6Mah = ((Entity.HR_EMP_EmployeeInfos)MazadTahsilJebhe6Mah_.DataItem).MazadTahsilJebhe6Mah;
+}
+
+<p class="text-center " hidden="@(HR_EMP_EmployeeInfos_MazadTahsilJebhe6Mah !=null ? !HR_EMP_EmployeeInfos_MazadTahsilJebhe6Mah : true)">@languageContainer.Keys["DXGrid:Yes"]</p>
+
+<p class="text-center" hidden="@(HR_EMP_EmployeeInfos_MazadTahsilJebhe6Mah !=null ? HR_EMP_EmployeeInfos_MazadTahsilJebhe6Mah : true)">@languageContainer.Keys["DXGrid:No"]</p>
+ 
+
+    </CellDisplayTemplate>
+</DxGridDataColumn>
+<DxGridDataColumn Context="MoafiatMaliatMode88_" Caption="معافیت مالیات ماده88" >
+    <CellDisplayTemplate>
+       
+@{
+    var HR_EMP_EmployeeInfos_MoafiatMaliatMode88 = ((Entity.HR_EMP_EmployeeInfos)MoafiatMaliatMode88_.DataItem).MoafiatMaliatMode88;
+}
+
+<p class="text-center " hidden="@(HR_EMP_EmployeeInfos_MoafiatMaliatMode88 !=null ? !HR_EMP_EmployeeInfos_MoafiatMaliatMode88 : true)">@languageContainer.Keys["DXGrid:Yes"]</p>
+
+<p class="text-center" hidden="@(HR_EMP_EmployeeInfos_MoafiatMaliatMode88 !=null ? HR_EMP_EmployeeInfos_MoafiatMaliatMode88 : true)">@languageContainer.Keys["DXGrid:No"]</p>
+ 
+
+    </CellDisplayTemplate>
+</DxGridDataColumn>
+<DxGridDataColumn Context="MoafMaliat_" Caption="معاف از مالیات" >
+    <CellDisplayTemplate>
+       
+@{
+    var HR_EMP_EmployeeInfos_MoafMaliat = ((Entity.HR_EMP_EmployeeInfos)MoafMaliat_.DataItem).MoafMaliat;
+}
+
+<p class="text-center " hidden="@(HR_EMP_EmployeeInfos_MoafMaliat !=null ? !HR_EMP_EmployeeInfos_MoafMaliat : true)">@languageContainer.Keys["DXGrid:Yes"]</p>
+
+<p class="text-center" hidden="@(HR_EMP_EmployeeInfos_MoafMaliat !=null ? HR_EMP_EmployeeInfos_MoafMaliat : true)">@languageContainer.Keys["DXGrid:No"]</p>
+ 
+
+    </CellDisplayTemplate>
+</DxGridDataColumn>
+<DxGridDataColumn  Caption="تلفن همراه"  FieldName="Mobile" />
+
+<DxGridDataColumn  Caption="کد ملی"  FieldName="NationalCode" />
+
+<DxGridDataColumn  Caption="شماره تلفن ثابت"  FieldName="Phone" />
+
+<DxGridDataColumn Context="lifeInsurance_" Caption="بیمه عمر" >
+    <CellDisplayTemplate>
+       
+@{
+    var HR_EMP_EmployeeInfos_lifeInsurance = ((Entity.HR_EMP_EmployeeInfos)lifeInsurance_.DataItem).lifeInsurance;
+}
+
+<p class="text-center " hidden="@(HR_EMP_EmployeeInfos_lifeInsurance !=null ? !HR_EMP_EmployeeInfos_lifeInsurance : true)">@languageContainer.Keys["DXGrid:Yes"]</p>
+
+<p class="text-center" hidden="@(HR_EMP_EmployeeInfos_lifeInsurance !=null ? HR_EMP_EmployeeInfos_lifeInsurance : true)">@languageContainer.Keys["DXGrid:No"]</p>
+ 
+
+    </CellDisplayTemplate>
+</DxGridDataColumn>
+<DxGridDataColumn DisplayFormat="0" Caption=" سنوات انتقالی"  FieldName="SanavatEnteghali_Day" />
+
+<DxGridDataColumn DisplayFormat="0" Caption="مدت اسارت(روز)"  FieldName="Relatives_Captivity_Days" />
+
+<DxGridDataColumn DisplayFormat="0" Caption="مدت جبهه(روز)"  FieldName="Relatives_Jebhe_Days" />
+
+<DxGridDataColumn DisplayFormat="0" Caption="درصد جانبازی"  FieldName="Relatives_VeteranPercentage" />
+
+<DxGridDataColumn Context="SupplementaryInsurance_" Caption="بیمه تکمیلی" >
+    <CellDisplayTemplate>
+       
+@{
+    var HR_EMP_EmployeeInfos_SupplementaryInsurance = ((Entity.HR_EMP_EmployeeInfos)SupplementaryInsurance_.DataItem).SupplementaryInsurance;
+}
+
+<p class="text-center " hidden="@(HR_EMP_EmployeeInfos_SupplementaryInsurance !=null ? !HR_EMP_EmployeeInfos_SupplementaryInsurance : true)">@languageContainer.Keys["DXGrid:Yes"]</p>
+
+<p class="text-center" hidden="@(HR_EMP_EmployeeInfos_SupplementaryInsurance !=null ? HR_EMP_EmployeeInfos_SupplementaryInsurance : true)">@languageContainer.Keys["DXGrid:No"]</p>
+ 
+
+    </CellDisplayTemplate>
+</DxGridDataColumn>
+<DxGridDataColumn DisplayFormat="0" Caption="درصد جانبازی"  FieldName="VeteranPercentage" />
+
+<DxGridDataColumn DisplayFormat="0" Caption="تاریخ تولد - روز"  FieldName="BirthDateDD" />
+
+<DxGridDataColumn DisplayFormat="0" Caption="تاریخ تولد - ماه"  FieldName="BirthDateMM" />
+
+<DxGridDataColumn DisplayFormat="0" Caption="تاریخ تولد - سال"  FieldName="BirthDateYYYY" />
+
+<DxGridDataColumn DisplayFormat="0" Caption="مدت اسارت-روز"  FieldName="Captivity_Days" />
+
+<DxGridDataColumn Context="AccidentInsurance_" Caption="بیمه حوادث" >
+    <CellDisplayTemplate>
+       
+@{
+    var HR_EMP_EmployeeInfos_AccidentInsurance = ((Entity.HR_EMP_EmployeeInfos)AccidentInsurance_.DataItem).AccidentInsurance;
+}
+
+<p class="text-center " hidden="@(HR_EMP_EmployeeInfos_AccidentInsurance !=null ? !HR_EMP_EmployeeInfos_AccidentInsurance : true)">@languageContainer.Keys["DXGrid:Yes"]</p>
+
+<p class="text-center" hidden="@(HR_EMP_EmployeeInfos_AccidentInsurance !=null ? HR_EMP_EmployeeInfos_AccidentInsurance : true)">@languageContainer.Keys["DXGrid:No"]</p>
+ 
+
+    </CellDisplayTemplate>
+</DxGridDataColumn>
+<DxGridDataColumn  Caption="نشانی"  FieldName="Address" />
+
+<DxGridDataColumn Context="Arzagh_" Caption="ارزاق دارد؟" >
+    <CellDisplayTemplate>
+       
+@{
+    var HR_EMP_EmployeeInfos_Arzagh = ((Entity.HR_EMP_EmployeeInfos)Arzagh_.DataItem).Arzagh;
+}
+
+<p class="text-center " hidden="@(HR_EMP_EmployeeInfos_Arzagh !=null ? !HR_EMP_EmployeeInfos_Arzagh : true)">@languageContainer.Keys["DXGrid:Yes"]</p>
+
+<p class="text-center" hidden="@(HR_EMP_EmployeeInfos_Arzagh !=null ? HR_EMP_EmployeeInfos_Arzagh : true)">@languageContainer.Keys["DXGrid:No"]</p>
+ 
+
+    </CellDisplayTemplate>
+</DxGridDataColumn>
+<DxGridDataColumn Context="HR_EMP_EmployeesId_" Caption="کد کارمندی" >
+    <CellDisplayTemplate>
+       
+@{
+    Baya.Models.ViewEngine.View_Component HeaderHR_EMP_EmployeesId = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"primaryKey\":false,\"EntityID\":382,\"FieldId\":15596,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":678,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":false,\"RelationParentName\":\"HR_EMP_Employees\",\"RelationParentModel\":\"HR_EMP_Employees\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/HR_EMP_Employees/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.EmployeeNo}} {{item.LastName}} {{item.FirstName}} </span>\",\"FieldsTemplate\":[{\"key\":\"EmployeeNo\",\"value\":\"int\"},{\"key\":\"LastName\",\"value\":\"int\"},{\"key\":\"FirstName\",\"value\":\"int\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"searchField\":\"\",\"disabled\":false,\"modal\":true,\"label\":\"کد کارمندی\",\"tableView\":true,\"key\":\"HR_EMP_EmployeesId\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"15596?EId=382&SubId=15\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
+    var RowHR_EMP_EmployeesId = ((Entity.HR_EMP_EmployeeInfos)HR_EMP_EmployeesId_.DataItem).HR_EMP_EmployeesId;
+}
+
+<Dropdown ExternalApi=false CssClass="" NotMapped=false TextGrid=true Value="@RowHR_EMP_EmployeesId"   FieldName="HR_EMP_EmployeesId" OnItemSelected="ItemSelected_HR_EMP_EmployeeInfosHR_EMP_EmployeesId_Header" Component="HeaderHR_EMP_EmployeesId">
+</Dropdown>
+@code {
+    public async Task ItemSelected_HR_EMP_EmployeeInfosHR_EMP_EmployeesId_Header(object _Item)
+    {
+      //  var Selected = Utility.JSON.ToObject<dynamic>(Utility.JSON.ToJson(_Item).Result).Result;
+  //   HR_EMP_EmployeesId
+
+  //  #CustomCode
+
+ //   
+
+  //  #OnItemSelected
+    }
+}
+
+    </CellDisplayTemplate>
+</DxGridDataColumn>
+<DxGridDataColumn Context="IsActive_" Caption="فعال" >
+    <CellDisplayTemplate>
+       
+@{
+    var HR_EMP_EmployeeInfos_IsActive = ((Entity.HR_EMP_EmployeeInfos)IsActive_.DataItem).IsActive;
+}
+
+<p class="text-center " hidden="@(HR_EMP_EmployeeInfos_IsActive !=null ? !HR_EMP_EmployeeInfos_IsActive : true)">@languageContainer.Keys["DXGrid:Yes"]</p>
+
+<p class="text-center" hidden="@(HR_EMP_EmployeeInfos_IsActive !=null ? HR_EMP_EmployeeInfos_IsActive : true)">@languageContainer.Keys["DXGrid:No"]</p>
+ 
+
+    </CellDisplayTemplate>
+</DxGridDataColumn>
+<DxGridDataColumn Context="HR_Base_TransportServiceId_" Caption="خدمات حمل و نقل" >
+    <CellDisplayTemplate>
+       
+@{
+    Baya.Models.ViewEngine.View_Component HeaderHR_Base_TransportServiceId = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"primaryKey\":false,\"EntityID\":382,\"FieldId\":15601,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":678,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":false,\"RelationParentName\":\"HR_Base_TransportService\",\"RelationParentModel\":\"HR_Base_TransportService\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/HR_Base_TransportService/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.Title}} </span>\",\"FieldsTemplate\":[],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"searchField\":\"\",\"disabled\":false,\"modal\":true,\"label\":\"خدمات حمل و نقل\",\"tableView\":true,\"key\":\"HR_Base_TransportServiceId\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"15601?EId=382&SubId=15\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
+    var RowHR_Base_TransportServiceId = ((Entity.HR_EMP_EmployeeInfos)HR_Base_TransportServiceId_.DataItem).HR_Base_TransportServiceId;
+}
+
+<Dropdown ExternalApi=false CssClass="" NotMapped=false TextGrid=true Value="@RowHR_Base_TransportServiceId"   FieldName="HR_Base_TransportServiceId" OnItemSelected="ItemSelected_HR_EMP_EmployeeInfosHR_Base_TransportServiceId_Header" Component="HeaderHR_Base_TransportServiceId">
+</Dropdown>
+@code {
+    public async Task ItemSelected_HR_EMP_EmployeeInfosHR_Base_TransportServiceId_Header(object _Item)
+    {
+      //  var Selected = Utility.JSON.ToObject<dynamic>(Utility.JSON.ToJson(_Item).Result).Result;
+  //   HR_Base_TransportServiceId
+
+  //  #CustomCode
+
+ //   
+
+  //  #OnItemSelected
+    }
+}
+
+    </CellDisplayTemplate>
+</DxGridDataColumn>
+<DxGridDataColumn Context="HasOrganizationalAutomobile_" Caption="خودرو سازمانی در اختیار دارد؟" >
+    <CellDisplayTemplate>
+       
+@{
+    var HR_EMP_EmployeeInfos_HasOrganizationalAutomobile = ((Entity.HR_EMP_EmployeeInfos)HasOrganizationalAutomobile_.DataItem).HasOrganizationalAutomobile;
+}
+
+<p class="text-center " hidden="@(HR_EMP_EmployeeInfos_HasOrganizationalAutomobile !=null ? !HR_EMP_EmployeeInfos_HasOrganizationalAutomobile : true)">@languageContainer.Keys["DXGrid:Yes"]</p>
+
+<p class="text-center" hidden="@(HR_EMP_EmployeeInfos_HasOrganizationalAutomobile !=null ? HR_EMP_EmployeeInfos_HasOrganizationalAutomobile : true)">@languageContainer.Keys["DXGrid:No"]</p>
+ 
+
+    </CellDisplayTemplate>
+</DxGridDataColumn>
+<DxGridDataColumn Context="HasTransportService_" Caption="سرویس ایاب ذهاب دارد؟" >
+    <CellDisplayTemplate>
+       
+@{
+    var HR_EMP_EmployeeInfos_HasTransportService = ((Entity.HR_EMP_EmployeeInfos)HasTransportService_.DataItem).HasTransportService;
+}
+
+<p class="text-center " hidden="@(HR_EMP_EmployeeInfos_HasTransportService !=null ? !HR_EMP_EmployeeInfos_HasTransportService : true)">@languageContainer.Keys["DXGrid:Yes"]</p>
+
+<p class="text-center" hidden="@(HR_EMP_EmployeeInfos_HasTransportService !=null ? HR_EMP_EmployeeInfos_HasTransportService : true)">@languageContainer.Keys["DXGrid:No"]</p>
+ 
+
+    </CellDisplayTemplate>
+</DxGridDataColumn>
+<DxGridDataColumn  Caption="نام پدر"  FieldName="FatherName" />
+
+<DxGridDataColumn Context="GordanAshoora_" Caption="گردن عاشورا" >
+    <CellDisplayTemplate>
+       
+@{
+    var HR_EMP_EmployeeInfos_GordanAshoora = ((Entity.HR_EMP_EmployeeInfos)GordanAshoora_.DataItem).GordanAshoora;
+}
+
+<p class="text-center " hidden="@(HR_EMP_EmployeeInfos_GordanAshoora !=null ? !HR_EMP_EmployeeInfos_GordanAshoora : true)">@languageContainer.Keys["DXGrid:Yes"]</p>
+
+<p class="text-center" hidden="@(HR_EMP_EmployeeInfos_GordanAshoora !=null ? HR_EMP_EmployeeInfos_GordanAshoora : true)">@languageContainer.Keys["DXGrid:No"]</p>
+ 
+
+    </CellDisplayTemplate>
+</DxGridDataColumn>
+<DxGridDataColumn Context="HasCashCharge_" Caption="شارژ نقدی دارد؟" >
+    <CellDisplayTemplate>
+       
+@{
+    var HR_EMP_EmployeeInfos_HasCashCharge = ((Entity.HR_EMP_EmployeeInfos)HasCashCharge_.DataItem).HasCashCharge;
+}
+
+<p class="text-center " hidden="@(HR_EMP_EmployeeInfos_HasCashCharge !=null ? !HR_EMP_EmployeeInfos_HasCashCharge : true)">@languageContainer.Keys["DXGrid:Yes"]</p>
+
+<p class="text-center" hidden="@(HR_EMP_EmployeeInfos_HasCashCharge !=null ? HR_EMP_EmployeeInfos_HasCashCharge : true)">@languageContainer.Keys["DXGrid:No"]</p>
+ 
+
+    </CellDisplayTemplate>
+</DxGridDataColumn>
+<DxGridDataColumn Context="HasDisabledChild_" Caption="فرزند معلول دارد؟" >
+    <CellDisplayTemplate>
+       
+@{
+    var HR_EMP_EmployeeInfos_HasDisabledChild = ((Entity.HR_EMP_EmployeeInfos)HasDisabledChild_.DataItem).HasDisabledChild;
+}
+
+<p class="text-center " hidden="@(HR_EMP_EmployeeInfos_HasDisabledChild !=null ? !HR_EMP_EmployeeInfos_HasDisabledChild : true)">@languageContainer.Keys["DXGrid:Yes"]</p>
+
+<p class="text-center" hidden="@(HR_EMP_EmployeeInfos_HasDisabledChild !=null ? HR_EMP_EmployeeInfos_HasDisabledChild : true)">@languageContainer.Keys["DXGrid:No"]</p>
+ 
+
+    </CellDisplayTemplate>
+</DxGridDataColumn>
+<DxGridDataColumn  Caption="نشانی فرد مرتبط"  FieldName="ContactEmployee_Address" />
+
+<DxGridDataColumn  Caption="نام و نام خانوادگی "  FieldName="ContactEmployee_FullName" />
+
+<DxGridDataColumn  Caption="شماره تلفن ضروری"  FieldName="ContactEmployee_Tel" />
+
+<DxGridDataColumn  Caption="تاریخ استخدام - میلادی"  FieldName="EmploymentDate" />
+
+<DxGridDataColumn  Caption="تاریخ استخدام در گروه - میلادی"  FieldName="EmploymentDateInGroup" />
+
+<DxGridDataColumn  Caption="تاریخ استخدام مبنا - میلادی"  FieldName="EmploymentStartDate" />
+
+<DxGridDataColumn Context="HR_Base_RelativeSelfSacerificId_" Caption="نسبت با ایثارگر" >
+    <CellDisplayTemplate>
+       
+@{
+    Baya.Models.ViewEngine.View_Component HeaderHR_Base_RelativeSelfSacerificId = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"primaryKey\":false,\"EntityID\":382,\"FieldId\":15931,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":678,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":false,\"RelationParentName\":\"HR_Base_RelativeSelfSacerific\",\"RelationParentModel\":\"HR_Base_RelativeSelfSacerific\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/HR_Base_RelativeSelfSacerific/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.Title}} </span>\",\"FieldsTemplate\":[{\"key\":\"Title\",\"value\":\"nvarchar(Max)\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"searchField\":\"\",\"disabled\":false,\"modal\":true,\"label\":\"نسبت با ایثارگر\",\"tableView\":true,\"key\":\"HR_Base_RelativeSelfSacerificId\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"15931?EId=382&SubId=15\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
+    var RowHR_Base_RelativeSelfSacerificId = ((Entity.HR_EMP_EmployeeInfos)HR_Base_RelativeSelfSacerificId_.DataItem).HR_Base_RelativeSelfSacerificId;
+}
+
+<Dropdown ExternalApi=false CssClass="" NotMapped=false TextGrid=true Value="@RowHR_Base_RelativeSelfSacerificId"   FieldName="HR_Base_RelativeSelfSacerificId" OnItemSelected="ItemSelected_HR_EMP_EmployeeInfosHR_Base_RelativeSelfSacerificId_Header" Component="HeaderHR_Base_RelativeSelfSacerificId">
+</Dropdown>
+@code {
+    public async Task ItemSelected_HR_EMP_EmployeeInfosHR_Base_RelativeSelfSacerificId_Header(object _Item)
+    {
+      //  var Selected = Utility.JSON.ToObject<dynamic>(Utility.JSON.ToJson(_Item).Result).Result;
+  //   HR_Base_RelativeSelfSacerificId
+
+  //  #CustomCode
+
+ //   
+
+  //  #OnItemSelected
+    }
+}
+
+    </CellDisplayTemplate>
+</DxGridDataColumn>
+<DxGridDataColumn Context="HR_Base_ContactEmployeeRelativeId_" Caption="نسبت فرد با کارمند" >
+    <CellDisplayTemplate>
+       
+@{
+    Baya.Models.ViewEngine.View_Component HeaderHR_Base_ContactEmployeeRelativeId = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"primaryKey\":false,\"EntityID\":382,\"FieldId\":15941,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":678,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":false,\"RelationParentName\":\"HR_Base_ContactEmployeeRelative\",\"RelationParentModel\":\"HR_Base_ContactEmployeeRelative\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/HR_Base_ContactEmployeeRelative/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.Title}} </span>\",\"FieldsTemplate\":[{\"key\":\"Title\",\"value\":\"nvarchar(Max)\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"searchField\":\"\",\"disabled\":false,\"modal\":true,\"label\":\"نسبت فرد با کارمند\",\"tableView\":true,\"key\":\"HR_Base_ContactEmployeeRelativeId\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"15941?EId=382&SubId=15\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
+    var RowHR_Base_ContactEmployeeRelativeId = ((Entity.HR_EMP_EmployeeInfos)HR_Base_ContactEmployeeRelativeId_.DataItem).HR_Base_ContactEmployeeRelativeId;
+}
+
+<Dropdown ExternalApi=false CssClass="" NotMapped=false TextGrid=true Value="@RowHR_Base_ContactEmployeeRelativeId"   FieldName="HR_Base_ContactEmployeeRelativeId" OnItemSelected="ItemSelected_HR_EMP_EmployeeInfosHR_Base_ContactEmployeeRelativeId_Header" Component="HeaderHR_Base_ContactEmployeeRelativeId">
+</Dropdown>
+@code {
+    public async Task ItemSelected_HR_EMP_EmployeeInfosHR_Base_ContactEmployeeRelativeId_Header(object _Item)
+    {
+      //  var Selected = Utility.JSON.ToObject<dynamic>(Utility.JSON.ToJson(_Item).Result).Result;
+  //   HR_Base_ContactEmployeeRelativeId
+
+  //  #CustomCode
+
+ //   
+
+  //  #OnItemSelected
+    }
+}
+
+    </CellDisplayTemplate>
+</DxGridDataColumn>
+<DxGridDataColumn Context="BaseInfo_GenderId_" Caption="جنسیت" >
+    <CellDisplayTemplate>
+       
+@{
+    Baya.Models.ViewEngine.View_Component HeaderBaseInfo_GenderId = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"primaryKey\":false,\"EntityID\":382,\"FieldId\":19483,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":678,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":false,\"RelationParentName\":\"BaseInfo_Gender\",\"RelationParentModel\":\"BaseInfo_Gender\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/BaseInfo_Gender/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.Title}} </span>\",\"FieldsTemplate\":[{\"key\":\"Title\",\"value\":\"nvarchar(Max)\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"searchField\":\"\",\"disabled\":false,\"modal\":true,\"label\":\"جنسیت\",\"tableView\":true,\"key\":\"BaseInfo_GenderId\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"19483?EId=382&SubId=15\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
+    var RowBaseInfo_GenderId = ((Entity.HR_EMP_EmployeeInfos)BaseInfo_GenderId_.DataItem).BaseInfo_GenderId;
+}
+
+<Dropdown ExternalApi=false CssClass="" NotMapped=false TextGrid=true Value="@RowBaseInfo_GenderId"   FieldName="BaseInfo_GenderId" OnItemSelected="ItemSelected_HR_EMP_EmployeeInfosBaseInfo_GenderId_Header" Component="HeaderBaseInfo_GenderId">
+</Dropdown>
+@code {
+    public async Task ItemSelected_HR_EMP_EmployeeInfosBaseInfo_GenderId_Header(object _Item)
+    {
+      //  var Selected = Utility.JSON.ToObject<dynamic>(Utility.JSON.ToJson(_Item).Result).Result;
+  //   BaseInfo_GenderId
+
+  //  #CustomCode
+
+ //   
+
+  //  #OnItemSelected
+    }
+}
+
+    </CellDisplayTemplate>
+</DxGridDataColumn>
+<DxGridDataColumn  Caption="نام خانوادگی"  FieldName="LastName" />
+
+<DxGridDataColumn  Caption="نام"  FieldName="FirstName" />
+
+<DxGridDataColumn  Caption="تاریخ استخدام"  FieldName="EmploymentDate_Fa" />
+
+<DxGridDataColumn  Caption="تاریخ استخدام در گروه"  FieldName="EmploymentDateInGroup_Fa" />
+
+<DxGridDataColumn  Caption="تاریخ استخدام مبنا"  FieldName="EmploymentStartDate_Fa" />
+
+<DxGridDataColumn DisplayFormat="G" Caption="تاریخ استخدام (به روز):"  FieldName="DailyEmploymentDate" />
+
+<DxGridDataColumn DisplayFormat="G" Caption="تاریخ استخدام در گروه (به روز):"  FieldName="DailyEmploymentDateInGroup" />
+
+
+</Columns>
+
+    
+</DxGrid>
+
+<DxPopup @bind-Visible="@ConfirmationShownHR_EMP_EmployeeInfos" HeaderText="@languageContainer.Keys["DXGrid:DeleteItem"]" Width="350px" CloseOnOutsideClick="false">
+
+    <BodyContentTemplate Context="EditFormContext">
+        <div class="py-3 px-5 text-center">
+            <p>@languageContainer.Keys["DXGrid:DeleteItemHint"]</p>
+            <div class="confirm-dialog-buttons">
+                <DxButton Text="@languageContainer.Keys["DXGrid:Yes"]" CssClass="btn btn-red px-4" Click="@OnYesButtonClickGrid_HR_EMP_EmployeeInfos" />
+                <DxButton Text="@languageContainer.Keys["DXGrid:No"]" CssClass="btn btn-purple-light px-4" Click="@OnNoButtonClickGrid_HR_EMP_EmployeeInfos" />
+            </div>
+        </div>
+    </BodyContentTemplate>
+</DxPopup>
+
+<DxPopup @bind-Visible="@ConfirmationHR_EMP_EmployeeInfos" HeaderText="هشدار" Width="350px" CloseOnOutsideClick="false">
+    <BodyContentTemplate Context="EditFormContext">
+        <div class="py-3 px-5 text-center"> 
+            <p>اطلاعات این فرم تغییر کرده است آیا تغییرات ذخیره شود؟</p>
+            <div class="confirm-dialog-buttons">
+                <DxButton Text="بله" CssClass="btn btn-red px-4" Click="@OnYesButtonHR_EMP_EmployeeInfos" />
+                <DxButton Text="خیر" CssClass="btn btn-purple-light px-4" Click="@OnNoButtonHR_EMP_EmployeeInfos" />
+            </div>
+        </div>
+    </BodyContentTemplate>
+</DxPopup>
+@code {
+    // DxGrid? Grid_HR_EMP_EmployeeInfos;
+    Entity.HR_EMP_EmployeeInfos HR_EMP_EmployeeInfos;
+    bool ConfirmationShownHR_EMP_EmployeeInfos { get; set; } = false;
+    public Entity.HR_EMP_EmployeeInfos SelectedItemGrid_HR_EMP_EmployeeInfos { get; set; } = new Entity.HR_EMP_EmployeeInfos();
+    /// <summary>
+    /// شماره ستون
+    /// </summary>
+    public int IndexGrid_HR_EMP_EmployeeInfos { get; set; }
+
+    ///////////////////////
+    bool ConfirmationHR_EMP_EmployeeInfos { get; set; } = false;
+    GridEditFormTemplateContext? _ContextFormTemplateHR_EMP_EmployeeInfos { get; set; }
+    public int OpenDialogCodeHR_EMP_EmployeeInfos { get; set; } = 0;
+    ////////////////////////
+
+    async Task OnEditModelSavingHR_EMP_EmployeeInfos(GridEditModelSavingEventArgs arg)
+    {
+        var e = arg.EditModel;
+    bool NotValid = false;
+    //events
+       
+        
+      if (!NotValid)
+     {
+      SaveGrid_HR_EMP_EmployeeInfos(arg.DataItem, arg.EditModel);
+     }
+}
+
+async void Dialog_Grid_HR_EMP_EmployeeInfos(int _OpenDialogCode, int VisibleIndex, GridEditFormTemplateContext e)
+{
+    OpenDialogCodeHR_EMP_EmployeeInfos = _OpenDialogCode;
+    if (!CheckChangedData(await Utility.JSON.ToJson(e.EditModel)))
+    {
+    _ContextFormTemplateHR_EMP_EmployeeInfos = e;
+    ConfirmationHR_EMP_EmployeeInfos = true;
+    }
+    else
+    {
+    await OnNoButtonHR_EMP_EmployeeInfos();
+    }
+}
+async Task OnYesButtonHR_EMP_EmployeeInfos()
+{
+
+    ConfirmationHR_EMP_EmployeeInfos = false;
+    await Task.Delay(1500);
+    //bool FormValidate = await JSO.InvokeAsync<bool>("submitForm");
+    bool FormValidate =  await JS.InvokeAsync<bool>("submitForm");
+    if (FormValidate)
+    {
+        bool NotValid = false;
+    var e = _ContextFormTemplateHR_EMP_EmployeeInfos.EditModel;
+         //events
+         
+
+        if (!NotValid)
+         {
+        SaveGrid_HR_EMP_EmployeeInfos(_ContextFormTemplateHR_EMP_EmployeeInfos.DataItem, _ContextFormTemplateHR_EMP_EmployeeInfos.EditModel);
+            await Grid_HR_EMP_EmployeeInfos.CancelEditAsync();
+         await ChangePageGrid_HR_EMP_EmployeeInfos();
+         await SetEditFormContextGrid_HR_EMP_EmployeeInfos();
+         }
+          
+    }
+
+}
+async Task OnNoButtonHR_EMP_EmployeeInfos()
+{
+    ConfirmationHR_EMP_EmployeeInfos = false;
+    await ChangePageGrid_HR_EMP_EmployeeInfos();
+    await SetEditFormContextGrid_HR_EMP_EmployeeInfos();
+
+}
+async Task SetEditFormContextGrid_HR_EMP_EmployeeInfos()
+{
+    var e = (Entity.HR_EMP_EmployeeInfos)Grid_HR_EMP_EmployeeInfos.GetDataItem(IndexGrid_HR_EMP_EmployeeInfos);
+    JsonData = await Utility.JSON.ToJson(e);
+}
+
+async Task ChangePageGrid_HR_EMP_EmployeeInfos()
+{
+    int VisibleIndex = IndexGrid_HR_EMP_EmployeeInfos;
+    try
+    {
+    if (OpenDialogCodeHR_EMP_EmployeeInfos == 1)
+    {
+        if (VisibleIndex != (Grid_HR_EMP_EmployeeInfos.GetVisibleRowCount() - 1))
+    { 
+            Grid_HR_EMP_EmployeeInfos.CancelEditAsync();
+            IndexGrid_HR_EMP_EmployeeInfos = VisibleIndex + 1;
+    Grid_HR_EMP_EmployeeInfos.StartEditRowAsync(IndexGrid_HR_EMP_EmployeeInfos);
+    }
+    }
+    else if (OpenDialogCodeHR_EMP_EmployeeInfos == 0)
+    {
+        if (VisibleIndex != 0)
+        {
+
+            Grid_HR_EMP_EmployeeInfos.CancelEditAsync();
+            IndexGrid_HR_EMP_EmployeeInfos = VisibleIndex - 1;
+    Grid_HR_EMP_EmployeeInfos.StartEditRowAsync(IndexGrid_HR_EMP_EmployeeInfos);
+    }
+
+    }
+    var e = (Entity.HR_EMP_EmployeeInfos)Grid_HR_EMP_EmployeeInfos.GetDataItem(IndexGrid_HR_EMP_EmployeeInfos);
+    JsonData = await Utility.JSON.ToJson(e);
+    await Task.Delay(300);
+    
+    StateHasChanged();
+    }
+    catch (Exception ex)
+    {
+
+    Console.WriteLine("error in ChagePage" + ex.Message);
+    }
+
+}
+
+async Task StartEditNewRowAsync_Grid_HR_EMP_EmployeeInfos()
+{
+    //تعداد سطرهای کل
+_VisibleIndex = Grid_HR_EMP_EmployeeInfos.GetVisibleRowCount();
+setFocusOff();
+IsNew = true;
+await ShowFormCU(null);
+var e = new Entity.HR_EMP_EmployeeInfos();
+await Task.Delay(300);
+
+}
+
+async Task StartModalGrid_HR_EMP_EmployeeInfos(GridCommandColumnCellDisplayTemplateContext Context)
+{
+    IsNew = false;
+setFocusOn();
+_VisibleIndex = Context.VisibleIndex;
+await ShowFormCU(Context.DataItem);
+var e = (Entity.HR_EMP_EmployeeInfos)Context.DataItem;
+await Task.Delay(300);
+
+   // await Task.Delay(500);
+}
+public async Task SaveModalGrid_HR_EMP_EmployeeInfos(GridEditFormTemplateContext arg)
+{
+     //bool FormValidate = await JSO.InvokeAsync<bool>("submitForm");
+     bool FormValidate =  await JS.InvokeAsync<bool>("submitForm");
+
+    if(FormValidate){
+
+    var e = arg.EditModel;
+    bool NotValid = false;
+    //events
+    
+    if (!NotValid)
+    {
+        SaveGrid_HR_EMP_EmployeeInfos(arg.DataItem, arg.EditModel);
+
+     await arg.Grid.CancelEditAsync(); 
+
+    }
+
+    }
+
+}
+public async Task SaveAndNewGrid_HR_EMP_EmployeeInfos(GridEditFormTemplateContext arg)
+{ 
+     //bool FormValidate = await JSO.InvokeAsync<bool>("submitForm");
+     bool FormValidate = await JS.InvokeAsync<bool>("submitForm");
+     
+    if(FormValidate){
+       
+         var e = arg.EditModel;
+          bool NotValid = false;
+     //events
+    
+    if (!NotValid)
+    {
+        SaveGrid_HR_EMP_EmployeeInfos(arg.DataItem, arg.EditModel);
+
+         await arg.Grid.CancelEditAsync();
+        await StartEditNewRowAsync_Grid_HR_EMP_EmployeeInfos();
+
+    }
+          
+    }
+   
+}
+
+void PerviousPageGrid_HR_EMP_EmployeeInfos(int VisibleIndex)
+{
+    try
+     {
+    if (VisibleIndex == 0)
+    {
+        Console.WriteLine(VisibleIndex.ToString());
+    }
+    else
+    {
+Grid_HR_EMP_EmployeeInfos.CancelEditAsync();
+        IndexGrid_HR_EMP_EmployeeInfos = VisibleIndex - 1;
+         Grid_HR_EMP_EmployeeInfos.StartEditRowAsync(IndexGrid_HR_EMP_EmployeeInfos);
+     }
+    }
+     catch (Exception e)
+     {
+    Console.WriteLine("PerviousPage Message");
+    Console.WriteLine(e.Message);
+    }
+
+}
+
+void NextPageGrid_HR_EMP_EmployeeInfos(int VisibleIndex)
+{
+
+    if (VisibleIndex == Grid_HR_EMP_EmployeeInfos.GetVisibleRowCount() - 1)
+    {
+    Console.WriteLine(VisibleIndex.ToString());
+    }
+    else
+    {
+    Console.WriteLine("NextPage Start Grid_HR_EMP_EmployeeInfos ");
+    try
+    {
+Grid_HR_EMP_EmployeeInfos.CancelEditAsync();
+        IndexGrid_HR_EMP_EmployeeInfos = VisibleIndex + 1;
+         Grid_HR_EMP_EmployeeInfos.StartEditRowAsync(IndexGrid_HR_EMP_EmployeeInfos);
+     }
+    catch (Exception e)
+    {
+        Console.WriteLine("NextPage Message");
+        Console.WriteLine(e.Message);
+    }
+
+    }
+}
+
+public void SaveGrid_HR_EMP_EmployeeInfos(object DataItem, object EditModel)
+{
+    var ListEntity = _Entity;
+    var MainModel = (Entity.HR_EMP_EmployeeInfos)DataItem;
+    if (MainModel != null)
+    {
+MainModel.Id = ((Entity.HR_EMP_EmployeeInfos)EditModel).Id;
+MainModel.RequestID = ((Entity.HR_EMP_EmployeeInfos)EditModel).RequestID;
+MainModel.CreateUser = ((Entity.HR_EMP_EmployeeInfos)EditModel).CreateUser;
+MainModel.UpdateUser = ((Entity.HR_EMP_EmployeeInfos)EditModel).UpdateUser;
+MainModel.CreateDate = ((Entity.HR_EMP_EmployeeInfos)EditModel).CreateDate;
+MainModel.UpdateDate = ((Entity.HR_EMP_EmployeeInfos)EditModel).UpdateDate;
+MainModel.IsDelete = ((Entity.HR_EMP_EmployeeInfos)EditModel).IsDelete;
+MainModel.IsargarFamily = ((Entity.HR_EMP_EmployeeInfos)EditModel).IsargarFamily;
+MainModel.IsargarName = ((Entity.HR_EMP_EmployeeInfos)EditModel).IsargarName;
+MainModel.JebheMotanaveb_Days = ((Entity.HR_EMP_EmployeeInfos)EditModel).JebheMotanaveb_Days;
+MainModel.JebheMotavali_Days = ((Entity.HR_EMP_EmployeeInfos)EditModel).JebheMotavali_Days;
+MainModel.IdCardNo = ((Entity.HR_EMP_EmployeeInfos)EditModel).IdCardNo;
+MainModel.IdCardSerialNo = ((Entity.HR_EMP_EmployeeInfos)EditModel).IdCardSerialNo;
+MainModel.MartyrsChild = ((Entity.HR_EMP_EmployeeInfos)EditModel).MartyrsChild;
+MainModel.MartyrsFamily = ((Entity.HR_EMP_EmployeeInfos)EditModel).MartyrsFamily;
+MainModel.MazadTahsilJebhe6Mah = ((Entity.HR_EMP_EmployeeInfos)EditModel).MazadTahsilJebhe6Mah;
+MainModel.MoafiatMaliatMode88 = ((Entity.HR_EMP_EmployeeInfos)EditModel).MoafiatMaliatMode88;
+MainModel.MoafMaliat = ((Entity.HR_EMP_EmployeeInfos)EditModel).MoafMaliat;
+MainModel.Mobile = ((Entity.HR_EMP_EmployeeInfos)EditModel).Mobile;
+MainModel.NationalCode = ((Entity.HR_EMP_EmployeeInfos)EditModel).NationalCode;
+MainModel.Phone = ((Entity.HR_EMP_EmployeeInfos)EditModel).Phone;
+MainModel.lifeInsurance = ((Entity.HR_EMP_EmployeeInfos)EditModel).lifeInsurance;
+MainModel.SanavatEnteghali_Day = ((Entity.HR_EMP_EmployeeInfos)EditModel).SanavatEnteghali_Day;
+MainModel.Relatives_Captivity_Days = ((Entity.HR_EMP_EmployeeInfos)EditModel).Relatives_Captivity_Days;
+MainModel.Relatives_Jebhe_Days = ((Entity.HR_EMP_EmployeeInfos)EditModel).Relatives_Jebhe_Days;
+MainModel.Relatives_VeteranPercentage = ((Entity.HR_EMP_EmployeeInfos)EditModel).Relatives_VeteranPercentage;
+MainModel.SupplementaryInsurance = ((Entity.HR_EMP_EmployeeInfos)EditModel).SupplementaryInsurance;
+MainModel.VeteranPercentage = ((Entity.HR_EMP_EmployeeInfos)EditModel).VeteranPercentage;
+MainModel.BirthDateDD = ((Entity.HR_EMP_EmployeeInfos)EditModel).BirthDateDD;
+MainModel.BirthDateMM = ((Entity.HR_EMP_EmployeeInfos)EditModel).BirthDateMM;
+MainModel.BirthDateYYYY = ((Entity.HR_EMP_EmployeeInfos)EditModel).BirthDateYYYY;
+MainModel.Captivity_Days = ((Entity.HR_EMP_EmployeeInfos)EditModel).Captivity_Days;
+MainModel.AccidentInsurance = ((Entity.HR_EMP_EmployeeInfos)EditModel).AccidentInsurance;
+MainModel.Address = ((Entity.HR_EMP_EmployeeInfos)EditModel).Address;
+MainModel.Arzagh = ((Entity.HR_EMP_EmployeeInfos)EditModel).Arzagh;
+MainModel.HR_EMP_EmployeesId = ((Entity.HR_EMP_EmployeeInfos)EditModel).HR_EMP_EmployeesId;
+MainModel.HR_EMP_Employees = ((Entity.HR_EMP_EmployeeInfos)EditModel).HR_EMP_Employees;
+MainModel.IsActive = ((Entity.HR_EMP_EmployeeInfos)EditModel).IsActive;
+MainModel.HR_Base_TransportServiceId = ((Entity.HR_EMP_EmployeeInfos)EditModel).HR_Base_TransportServiceId;
+MainModel.HR_Base_TransportService = ((Entity.HR_EMP_EmployeeInfos)EditModel).HR_Base_TransportService;
+MainModel.HasOrganizationalAutomobile = ((Entity.HR_EMP_EmployeeInfos)EditModel).HasOrganizationalAutomobile;
+MainModel.HasTransportService = ((Entity.HR_EMP_EmployeeInfos)EditModel).HasTransportService;
+MainModel.FatherName = ((Entity.HR_EMP_EmployeeInfos)EditModel).FatherName;
+MainModel.GordanAshoora = ((Entity.HR_EMP_EmployeeInfos)EditModel).GordanAshoora;
+MainModel.HasCashCharge = ((Entity.HR_EMP_EmployeeInfos)EditModel).HasCashCharge;
+MainModel.HasDisabledChild = ((Entity.HR_EMP_EmployeeInfos)EditModel).HasDisabledChild;
+MainModel.ContactEmployee_Address = ((Entity.HR_EMP_EmployeeInfos)EditModel).ContactEmployee_Address;
+MainModel.ContactEmployee_FullName = ((Entity.HR_EMP_EmployeeInfos)EditModel).ContactEmployee_FullName;
+MainModel.ContactEmployee_Tel = ((Entity.HR_EMP_EmployeeInfos)EditModel).ContactEmployee_Tel;
+MainModel.EmploymentDate = ((Entity.HR_EMP_EmployeeInfos)EditModel).EmploymentDate;
+MainModel.EmploymentDateInGroup = ((Entity.HR_EMP_EmployeeInfos)EditModel).EmploymentDateInGroup;
+MainModel.EmploymentStartDate = ((Entity.HR_EMP_EmployeeInfos)EditModel).EmploymentStartDate;
+MainModel.HR_Base_RelativeSelfSacerificId = ((Entity.HR_EMP_EmployeeInfos)EditModel).HR_Base_RelativeSelfSacerificId;
+MainModel.HR_Base_RelativeSelfSacerific = ((Entity.HR_EMP_EmployeeInfos)EditModel).HR_Base_RelativeSelfSacerific;
+MainModel.HR_Base_ContactEmployeeRelativeId = ((Entity.HR_EMP_EmployeeInfos)EditModel).HR_Base_ContactEmployeeRelativeId;
+MainModel.HR_Base_ContactEmployeeRelative = ((Entity.HR_EMP_EmployeeInfos)EditModel).HR_Base_ContactEmployeeRelative;
+MainModel.BaseInfo_GenderId = ((Entity.HR_EMP_EmployeeInfos)EditModel).BaseInfo_GenderId;
+MainModel.BaseInfo_Gender = ((Entity.HR_EMP_EmployeeInfos)EditModel).BaseInfo_Gender;
+MainModel.LastName = ((Entity.HR_EMP_EmployeeInfos)EditModel).LastName;
+MainModel.FirstName = ((Entity.HR_EMP_EmployeeInfos)EditModel).FirstName;
+MainModel.EmploymentDate_Fa = ((Entity.HR_EMP_EmployeeInfos)EditModel).EmploymentDate_Fa;
+MainModel.EmploymentDateInGroup_Fa = ((Entity.HR_EMP_EmployeeInfos)EditModel).EmploymentDateInGroup_Fa;
+MainModel.EmploymentStartDate_Fa = ((Entity.HR_EMP_EmployeeInfos)EditModel).EmploymentStartDate_Fa;
+MainModel.DailyEmploymentDate = ((Entity.HR_EMP_EmployeeInfos)EditModel).DailyEmploymentDate;
+MainModel.DailyEmploymentDateInGroup = ((Entity.HR_EMP_EmployeeInfos)EditModel).DailyEmploymentDateInGroup;
+
+    }
+    else
+    {
+    ListEntity.Add((Entity.HR_EMP_EmployeeInfos)EditModel);
+    }
+}
+
+async Task OnDataItemDeletingHR_EMP_EmployeeInfos(GridDataItemDeletingEventArgs e)
+    {
+    var ListEntity = _Entity;
+    ListEntity.Remove((Entity.HR_EMP_EmployeeInfos)e.DataItem);
+}
+async void OnDeleteButtonClickGrid_HR_EMP_EmployeeInfos (GridCommandColumnCellDisplayTemplateContext ex)
+{
+    SelectedItemGrid_HR_EMP_EmployeeInfos = (ex.DataItem as Entity.HR_EMP_EmployeeInfos);
+    var e =SelectedItemGrid_HR_EMP_EmployeeInfos;
+    
+     
+    Console.WriteLine("end OnDeleteButtonClickGrid_test_OrderBody 0");
+    ConfirmationShownHR_EMP_EmployeeInfos = true;
+    await Task.Yield();
+     await InvokeAsync(StateHasChanged);
+    
+    Console.WriteLine("end OnDeleteButtonClickGrid_test_OrderBody 1");
+}
+async void OnYesButtonClickGrid_HR_EMP_EmployeeInfos ()
+{
+       if (SelectedItemGrid_HR_EMP_EmployeeInfos != null)
+    {
+      if (SelectedItemGrid_HR_EMP_EmployeeInfos.Id == Guid.Empty)
+      {
+          var ListEntity = _Entity;
+        ListEntity.Remove((Entity.HR_EMP_EmployeeInfos)SelectedItemGrid_HR_EMP_EmployeeInfos);
+     
+      }
+      else
+      {
+        var cleanModel = new Entity.HR_EMP_EmployeeInfos();
+      // چک کن آیا پراپرتی IsDelete در این نوع وجود دارد؟
+        var prop = typeof(Entity.HR_EMP_EmployeeInfos).GetProperty("IsDelete");
+        if (prop != null && prop.CanRead && prop.CanWrite)
+        {
+            // مقدار فعلی را بگیر
+            var currentValue = prop.GetValue(SelectedItemGrid_HR_EMP_EmployeeInfos);
+
+            if (currentValue is bool boolValue)
+            {
+                // مقدار را معکوس کن
+                var newValue = !boolValue;
+
+                // روی هر دو شیء تنظیم کن
+                prop.SetValue(SelectedItemGrid_HR_EMP_EmployeeInfos, newValue);
+                prop.SetValue(cleanModel, newValue);
+            }
+        }
+        EntityHelper.SetPropertyValue(cleanModel, cleanModel._GetIdName, SelectedItemGrid_HR_EMP_EmployeeInfos._Id);
+    
+      await PostDataDelete(cleanModel); 
+       
+      }
+    }
+    var e= SelectedItemGrid_HR_EMP_EmployeeInfos;
+    
+    Grid_HR_EMP_EmployeeInfos.Reload();
+    ConfirmationShownHR_EMP_EmployeeInfos = false;
+     await Task.Yield();
+    await InvokeAsync(StateHasChanged);
+
+}
+void OnNoButtonClickGrid_HR_EMP_EmployeeInfos ()
+{
+    ConfirmationShownHR_EMP_EmployeeInfos = false;
+}
+
+void CustomizeRowsGrid_HR_EMP_EmployeeInfos(GridCustomizeElementEventArgs e)
+{
+    ///استایل سطر
+    if (e.ElementType == GridElementType.DataRow)
+    {
+    var item = ((Entity.HR_EMP_EmployeeInfos)e.Grid.GetDataItem(e.VisibleIndex));
+
+       if (item.IsDelete == true)
+       {
+           e.CssClass = "bg-lightred disablediv";
+       }
+    }
+}
+
+async void CustomizeEditGrid_HR_EMP_EmployeeInfos(GridCustomizeEditModelEventArgs e)
+{
+
+    if (e.IsNew)
+    {
+
+    var newRow = (Entity.HR_EMP_EmployeeInfos)e.EditModel;
+
+     
+
+    }
+
+await ShowFormCU(e);
+}
+public async void RowClickGrid_HR_EMP_EmployeeInfos(GridRowClickEventArgs e)
+{
+if (!e.Grid.FocusedRowEnabled)
+{
+    setFocusOn();
+}
+IsNew = false;
+_VisibleIndex = e.VisibleIndex;
+ShowFormCU(e.Grid.GetDataItem(e.VisibleIndex));
+e.Grid.SetFocusedRowIndex(e.VisibleIndex);
+}
+
+public async void RowDubbleClickGrid_HR_EMP_EmployeeInfos(GridRowClickEventArgs e)
+{
+
+}
+}
+
+
+                    <DxPager @ref=DxPager VisibleNumericButtonCount="1" SwitchToInputBoxButtonCount="3" PageCount="@PageCount" NavigationMode="PagerNavigationMode.NumericButtons" ActivePageIndexChanged="PageIndexChanged" />
+                    @* دیالوگ برای سابمیت *@
+                    <DxPopup @bind-Visible="@Confirmation_Submit" HeaderText="Save" Width="350px" CloseOnOutsideClick="false">
+                        <BodyContentTemplate Context="EditFormContext">
+                            <div class="py-3 px-5 text-center">
+                                <p>آیا از ذخیره این رکورد مطمئن هستید</p>
+                                <div class="confirm-dialog-buttons">
+
+
+                                    <DxButton Text="Yes" Enabled="!isSending" CssClass="btn btn-red px-4" Click="@OnYesSubmitClick">
+                                        @* تبدیل دکمه به لود  *@
+                                        <DxWaitIndicator Visible="isSending" />
+                                        <span class="mx-2">@((isSending ? "Sending..." : "Send"))</span>
+
+                                    </DxButton>
+                                    <DxButton Text="No" CssClass="btn btn-purple-light px-4" Click="@OnNoSubmitClick" />
+                                </div>
+                            </div>
+                        </BodyContentTemplate>
+                    </DxPopup>
+                    @* دیالوگ برای ذخیره و رکورد جدید *@
+                    <DxPopup @bind-Visible="@Confirmation_SubmitNew" HeaderText="Save" Width="350px" CloseOnOutsideClick="false">
+
+                        <BodyContentTemplate Context="EditFormContext">
+                            <div class="py-3 px-5 text-center">
+                                <p>آیا از ذخیره این رکورد مطمئن هستید</p>
+                                <div class="confirm-dialog-buttons">
+                                    <DxButton Text="Yes" Enabled="!isSending" CssClass="btn btn-red px-4" Click="@OnYesSubmitNewClick">
+                                        <DxWaitIndicator Visible="isSending" />
+                                        <span class="mx-2">@((isSending ? "Sending..." : "Send"))</span>
+
+                                    </DxButton>
+                                    <DxButton Text="No" CssClass="btn btn-purple-light px-4" Click="@OnNoSubmitNewClick" />
+                                </div>
+                            </div>
+                        </BodyContentTemplate>
+                    </DxPopup>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="modal fade xyz-in @(ShowForm?"show d-block":"")" id="DetailDialog" tabindex="-1" aria-labelledby="DetailDialog2Label" aria-hidden="true" style="z-index:1049">
+        <div class="modal-dialog modal-fullscreen" style="z-index:1049;">
+            <div class="modal-content" xyz="fade up-25% perspective-2 stagger">
+                <div class="modal-header xyz-nested py-1" xyz="up-100% in-delay-3">
+                    <h1 class="modal-title fs-5 fw-black">جزئیات</h1>
+                    <button type="button" class="btn" @onclick="()=>ShowForm=false">
+                        <span class="fa fa-times"></span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="detailArea">
+                        @*
+            @if (Id != null)
+            {
+            <h3>Row Id: @Id </h3>
+            }
+
+            <div>
+            برای ایجاد هم از همین اصتفاده میشه
+            باید وقتی داخل گرید سطری انتخاب شد برای ویرایش
+            ارسال بشه به این فرم
+            فرم وقتی ویرایش کرد داده رو به ORM ارسال کنه برای ذخیره داده
+            و موجودیت بروز شده رو برگردونه که گرید هم بروز کنه داده رو
+            ***تغیراتی داخل فرم پاین نیاز هست اعمال شود
+            </div> *@
+
+                        <Form_678_CU @ref="RefForm" IndependentForm=false _CartablesParameters="_CartablesParameters" _RequestParameters="_RequestParameters"></Form_678_CU>
+                        <div class="mt-3">
+
+                            @if (DtComponent is not null && DtComponent.AccessEdit)
+                            {
+
+                                <DxButton Enabled="!isSending" id="btn_listi_Save" CssClass="btn btn-sm btn-green" Click="@OnYesSubmitClick">
+                                    @* تبدیل دکمه به لود  *@
+                                    <DxWaitIndicator Visible="isSending" />
+                                    <span class="mx-2">@((isSending ? "Sending..." : "ذخیره"))</span>
+
+                                </DxButton>
+
+                                <DxButton Enabled="!isSending" id="btn_listi_Save_close" CssClass="btn btn-sm btn-green" Click="@OnSubmitCloseClick">
+                                    @* تبدیل دکمه به لود  *@
+                                    <DxWaitIndicator Visible="isSending" />
+                                    <span class="mx-2">@((isSending ? "Sending..." : "ذخیره و بستن"))</span>
+
+                                </DxButton>
+                                @if (DtComponent.AccessNew)
+                                {
+                                    <DxButton Enabled="!isSending" id="btn_listi_Save_New" CssClass="btn btn-sm btn-green" Click="@OnYesSubmitNewClick">
+                                        @* تبدیل دکمه به لود  *@
+                                        <DxWaitIndicator Visible="isSending" />
+                                        <span class="mx-2">@((isSending ? "Sending..." : "ذخیره و جدید"))</span>
+
+                                    </DxButton>
+                                }
+                            }
+                            <button class="btn btn-sm btn-red" @onclick=SubmitCancell>انصراف</button>
+                            |
+
+                            <DxButton Text="Yes" Enabled="!isSending" id="btn_listi_Previous" CssClass="btn btn-sm btn-purple" Click="@BackRow">
+                                @* تبدیل دکمه به لود  *@
+                                <DxWaitIndicator Visible="isSending" />
+                                <span class="bi bi-chevron-right btnicon"></span>
+                                <span>@((isSending ? "wait..." : "قبلی"))</span>
+
+                            </DxButton>
+                            <DxButton Text="Yes" Enabled="!isSending" id="btn_listi_Next" CssClass="btn btn-sm btn-purple" Click="@NextRow">
+                                @* تبدیل دکمه به لود  *@
+                                <DxWaitIndicator Visible="isSending" />
+                                <span>@((isSending ? "wait..." : "بعدی"))</span>
+                                <span class="bi bi-chevron-left btnicon"></span>
+                            </DxButton>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal-backdrop fade @(ShowForm?"show":"")" style="z-index:1048"></div>
+    </div>
+
+</div>
+
+
+
+@code {
+    /// <summary>
+    /// مقداردهی بر اساس ایندکس فعال
+    /// </summary>
+    protected int? _VisibleIndex { get; set; }
+    //// <summary>
+    /// نمایش دیالوگ ذخیره
+    /// </summary>
+
+    public bool Confirmation_Submit { get; set; } = false;
+    /// <summary>
+    /// نمایش دیالوگ ذخیره و فرم جدید
+    /// </summary>
+    public bool Confirmation_SubmitNew { get; set; } = false;
+    /// <summary>
+    /// کامپوننت دیتاگرید
+    /// </summary>
+    public View_Component DtComponent { get; set; } = new View_Component();
+
+    //// <summary>
+    /// نمایش لودینگ
+    /// </summary>
+    public bool isSending { get; set; } = false;
+    /// <summary>
+    /// رکورد جدید می باشد یا ویرایش
+    /// </summary>
+
+    public bool IsNew { get; set; }
+
+    protected override void OnInitialized()
+    {
+        //todo این خط برده شود داخل تابع پاینی ببینیم خطا داره یا نه
+        languageContainer.InitLocalizedComponent(this);
+        //   RefListFilter = new();
+    }
+    protected override async Task OnInitializedAsync()
+    {
+        //بعداد اگه نیاز شد فرمی رو تو حالت غیر لاگین شده نمایش بدیم باید این  کد تغیر کنه
+        var user = (await _authenticationStateProvider.GetAuthenticationStateAsync()).User;
+        string UserID = user.FindFirst(c => c.Type == ClaimTypes.NameIdentifier).Value;
+        //داینامیک بشه
+        Dictionary<string, object> List = new Dictionary<string, object>();
+        List.Add("UserID", UserID);
+        _User = await Domain.Utility.ConvertParameter.ConvertToObject(List);
+
+        //     RefListFilter = new();
+        await base.OnInitializedAsync();
+    }
+
+    public override async Task SetParametersAsync(ParameterView parameters)
+    {
+        await base.SetParametersAsync(parameters);
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            await Task.Yield();
+            StateHasChanged();
+            if (Grid_HR_EMP_EmployeeInfos is not null)
+    {
+                DtComponent = (View_Component)Grid_HR_EMP_EmployeeInfos.Attributes.GetValueOrDefault("Component");
+    }
+
+            //JSO = await JS.InvokeAsync<IJSObjectReference>("import", "./js/FormFunctions.js?ver=1.2");
+
+            /*             var ResultConvert = await Forms.Domain.Utility.ConvertParameter.ConvertParametersToDaunamic(RequestParameters, CartablesParameters);
+            _RequestParameters = ResultConvert._RequestParameters;
+            _CartablesParameters = ResultConvert._CartablesParameters; */
+
+            /*    RefForm.CartablesParameters = CartablesParameters;
+            RefForm.RequestParameters = RequestParameters; */
+
+            await InvokeAsync(StateHasChanged);
+            await Task.Yield();
+            QueryFilter = new QueryBuilderFilterRule();
+            if ("{}" != "null" || "{}" != "{}")
+            {
+                QueryFilter = await JSON.ToObject<QueryBuilderFilterRule>("{}");
+
+            }
+
+
+            if (RefListFilter == null)
+            {
+
+                RefListFilter = new();
+            }
+
+            await InvokeAsync(StateHasChanged);
+            await Task.Yield();
+
+            RefListFilter.QueryFilter = QueryFilter;//برای این گذاشتم که فیلتر نال نره تو پکامپوننتش
+
+            await base.BeforGetData();
+            await InvokeAsync(StateHasChanged);
+            await Task.Yield();
+
+            await RefListFilter.SearchFilter();
+            await base.AfterGetData();
+            //ست کردن شماره صفحه به گرید
+            await SetPageIndex(0);
+
+            //          if (Grid_HR_EMP_EmployeeInfos.GetDataItem(0) != null)
+            //  {
+            //              await ShowFormCU(Grid_HR_EMP_EmployeeInfos.GetDataItem(0));
+            //  }
+        }
+
+        await base.OnAfterRenderAsync(firstRender);
+    }
+
+
+    public async Task SearchFilter(QueryBuilderFilterRule? Filter)
+    {
+
+        SearchQueryFilter = Filter;
+
+        //ریست پیج بندی
+        if (PageReset)
+            PageIndex = 0;
+        //
+        //فیلتر ارسال بشه برای ORM
+        //لیست ردیافتی بایند بشه تو لیست ListData
+        await LoadData();
+        PageReset = true;
+        StateHasChanged();
+    }
+
+    /// <summary>
+    /// لود دیتا گرید
+    /// </summary>
+    /// <returns></returns>
+    public async Task LoadData()
+    {
+
+        //string Url = "https://bayaorm.workcv.ir/fa/api/v1/HR_EMP_EmployeeInfos/GetList";
+        //string Url = "https://testorm.workcv.ir/fa/api/v1/HR_EMP_EmployeeInfos/GetList";
+        // string Url = "https://bayaorm.workcv.ir/fa/api/v1/HR_EMP_EmployeeInfos/GetList";
+
+        int skip = (PageIndex * PageSize);
+
+        var pagedResult = new PagedResult();
+
+        pagedResult.PageSize = PageSize;
+
+        pagedResult.PageNumber = skip;
+        await FillTableGet();
+
+        var R = await ApiServer.External.Services.Data.GetListPost(TableGet, SearchQueryFilter, pagedResult, "HR_EMP_EmployeeInfos");
+
+
+        if (R is not null)
+        {//اگه داده گرفته 
+            if (R.Status == System.Net.HttpStatusCode.OK)
+            {
+
+
+                var page = await Utility.JSON.ToObject<PagedResult>(R.Content?.ToString());
+
+                if (page?.Items != null)
+                {
+                    // مستقیم به لیست مدل تبدیل کن
+                    _Entity = await Utility.JSON.ToObject<List<Entity.HR_EMP_EmployeeInfos>>(
+               await Utility.JSON.ToJson(page.Items)
+                    );
+
+
+                }
+                if (page?.PagesCount != null)
+                {
+                    PageCount = page.PagesCount;
+                }
+      
+                //  _Entity = (await Utility.JSON.ToObject<List<Entity.HR_EMP_EmployeeInfos>>(R.Content?.ToString()));
+            }
+            else
+            {
+                Console.WriteLine("#Log LoadData Error:");
+              //  Console.WriteLine(R.Status);
+                Console.WriteLine(R.Content);
+                Console.WriteLine(R.Message);
+            }
+          
+            //await OnFormloaded.InvokeAsync(Result);
+        }
+        
+    }
+
+    /// <summary>
+    /// تابع پیج بندی
+    /// </summary>
+    /// <param name="Index"></param>
+    /// <returns></returns>
+    public async Task PageIndexChanged(int Index)
+    {
+        await SetPageIndex(Index);
+
+        await LoadData();
+    }
+
+
+    /// <summary>
+    /// دریافت داده فرم سمت راست CU
+    /// </summary>
+    /// <param name="Id"></param>
+    /// <returns></returns>
+    public async Task GetDataForm(object Id)
+    {
+        ShowForm = true;
+        Type type = Id.GetType();
+        string TypeToQueryBuilder = Utility.TypeConverterQueryBuilder.ConvertCSharpTypeToQueryBuilder(type);
+        var NewQuery = new QueryBuilderFilterRule() { Condition = "AND" };
+        NewQuery.Rules = new List<QueryBuilderFilterRule>
+            {
+                    new QueryBuilderFilterRule()
+                    {
+                        Field = PrimaryFieldName,
+                        Id = PrimaryFieldName,
+                        Input = "text",
+                        Operator = "equal",
+                        Type =  TypeToQueryBuilder,
+                        Value = new string[]{ Id.ToString() },
+                    }
+            };
+        RefForm.QueryFilter = NewQuery;
+        await RefForm.GetData();
+        StateHasChanged();
+    }
+    /// <summary>
+    /// بررسی تغییر دیتا
+    /// </summary>
+    /// <param name="Json"></param>
+    /// <returns></returns>
+    public bool CheckChangedData(string? Json)
+    {
+        if (string.Equals(JsonData, Json)) return true;
+        return false;
+    }
+    /// <summary>
+    /// سامبیت فرم
+    /// </summary>
+    /// <returns></returns>
+    public async Task Submit()
+    {
+        Confirmation_Submit = true;
+        // var R = await RefForm.Submit();
+
+        // if (R.Status != System.Net.HttpStatusCode.OK)
+        // {
+        //     toastService.ShowError("ذخیره سازی دچار خطا شد");
+        // }
+    }
+    /// <summary>
+    /// تایید ذخیره فرم
+    /// </summary>
+    /// <returns></returns>
+    public async Task OnYesSubmitClick()
+    {
+        PageReset = false;
+        await RefForm.Submit();
+        await RefListFilter.SearchFilter();
+        var PageIndex = Grid_HR_EMP_EmployeeInfos.PageIndex;
+    //اگر جدید بود برو بر روی خود رکورد جدید
+  // if (IsNew)
+  //     {
+  //         if (_VisibleIndex == (Grid_HR_EMP_EmployeeInfos.GetVisibleRowCount() - 1))
+  // {
+  //             PageIndex = PageIndex + 1;
+  //             _VisibleIndex = 0;
+  //         }
+  //         else
+  //         {
+  //             _VisibleIndex = _VisibleIndex.Value + 1;
+  //         }
+  //
+  //     }
+  //     await SelectRecord(PageIndex, _VisibleIndex.Value);
+    }
+
+    /// <summary>
+    /// ذخیره و بستن فرم
+    /// </summary>
+    /// <returns></returns>
+    public async Task OnSubmitCloseClick()
+    {
+        PageReset = false;
+        await SubmitAndRefreshData();
+        ShowForm = false;
+        await InvokeAsync(StateHasChanged);
+    }
+
+    /// <summary>
+    /// تایید ذخیره فرم
+    /// </summary>
+    /// <returns></returns>
+    public async Task OnYesSubmitNewClick()
+    {
+        PageReset = false;
+        await SubmitAndRefreshData();
+        StartEditNewRowAsync_Grid_HR_EMP_EmployeeInfos();
+    }
+
+    public async Task SubmitAndRefreshData()
+    {
+        isSending = true;
+        await RefForm.Submit();
+        await RefListFilter.SearchFilter();
+        await InvokeAsync(StateHasChanged);
+        Confirmation_SubmitNew = false;
+        isSending = false;
+    }
+
+    /// <summary>
+    /// انصراف ذخیره فرم
+    /// </summary>
+    /// <returns></returns>
+    public async Task OnNoSubmitClick()
+    {
+        Confirmation_Submit = false;
+    }
+
+    //// <summary>
+    /// فعال شدن دیالوگ ذخیره و فرم جدید
+    /// </summary>
+    /// <returns></returns>
+    public async Task SubmitNew()
+    {
+        Confirmation_SubmitNew = true;
+    }
+
+
+    /// <summary>
+    /// انصراف ذخیره فرم
+    /// </summary>
+    /// <returns></returns>
+    public async Task OnNoSubmitNewClick()
+    {
+        Confirmation_Submit = false;
+    }
+
+    /// <summary>
+    /// انصراف از ذخیره فرم
+    /// </summary>
+    /// <returns></returns>
+    public async Task SubmitCancell()
+    {
+       // await GetDataForm(null);
+        ShowForm = false;
+        PageReset = false;
+        await RefListFilter.SearchFilter();
+    }
+    /// <summary>
+    /// رکورد بعدی
+    /// </summary>
+    /// <returns></returns>
+    public async Task NextRow()
+    {
+
+
+        if (_VisibleIndex is null)
+        {
+            _VisibleIndex = 0;
+        }
+        else if (_VisibleIndex == (Grid_HR_EMP_EmployeeInfos.GetVisibleRowCount() - 1))
+    {
+            if (PageIndex < DxPager.PageCount)
+            {
+                PageIndex = PageIndex + 1;
+            }
+            else
+            {
+                PageIndex = 0;
+            }
+            _VisibleIndex = 0;
+        }
+        else
+        {
+            _VisibleIndex = _VisibleIndex.Value + 1;
+        }
+        await SelectRecord(PageIndex, _VisibleIndex.Value);
+
+    }
+    /// <summary>
+    /// رکورد قبلی
+    /// </summary>
+    /// <returns></returns>
+    public async Task BackRow()
+    {
+        if (_VisibleIndex is null)
+        {
+            _VisibleIndex = 0;
+        }
+        if (_VisibleIndex == 0)
+        {
+            if (PageIndex > 0)
+            {
+                PageIndex = PageIndex - 1;
+                _VisibleIndex = Grid_HR_EMP_EmployeeInfos.PageSize - 1;
+    }
+        }
+        else
+        {
+
+            _VisibleIndex = _VisibleIndex.Value - 1;
+        }
+        await SelectRecord(PageIndex, _VisibleIndex.Value);
+    }
+
+    void SetLanguage(string language)
+    {
+        languageContainer.SetLanguage(System.Globalization.CultureInfo.GetCultureInfo(language));
+    }
+
+
+    /// <summary>
+    /// نمایش دادن فرم CU برای ویرایش و ضافه کردن رکورد
+    /// </summary>
+    /// <param name="e"></param>
+    // public async Task ShowFormCU(GridCustomizeEditModelEventArgs e)
+    // {
+    //     Guid Id = Guid.Empty;
+    //     if (!e.IsNew)
+    //     {
+    //         var newRow = (Entity.HR_EMP_EmployeeInfos)e.EditModel;
+    //         Id = newRow.Id;
+    //     }
+    //     await GetDataForm(Id);
+    // }
+
+    /// <summary>
+    /// نمایش دادن فرم CU برای ویرایش و ضافه کردن رکورد
+    /// </summary>
+    /// <param name="e"></param>
+    public async Task ShowFormCU(object e)
+    {
+        await InvokeAsync(StateHasChanged);
+        await Task.Yield();
+        object Id = null;
+        Type type = null;
+        ShowForm = true;
+        await InvokeAsync(StateHasChanged);
+        await Task.Yield();
+        if (!IsNew)
+        {
+            var newRow = (Entity.HR_EMP_EmployeeInfos)e;
+    Id = newRow._Id;
+            await InvokeAsync(StateHasChanged);
+            await Task.Yield();
+        }
+        else
+        {
+            var newRow = new Entity.HR_EMP_EmployeeInfos();
+    Id = newRow._Id;
+        }
+        await InvokeAsync(StateHasChanged);
+        await Task.Yield();
+        await GetDataForm(Id);
+    }
+    /// <summary>
+    /// خاموش کردن فوکوس گرید
+    /// </summary>
+    /// <returns></returns>
+    public async Task setFocusOff()
+    {
+        //اگر فوکوس روشن بود خاموشش کن
+        if (Grid_HR_EMP_EmployeeInfos.FocusedRowEnabled)
+    {
+            //به علت یروزرسانی دیتاگرید و اینکه فوکوس باید مقدار اولیه داده شود از خط زیر استفاده می شود
+            Grid_HR_EMP_EmployeeInfos.BeginUpdate();
+    Grid_HR_EMP_EmployeeInfos.FocusedRowEnabled = false;
+    Grid_HR_EMP_EmployeeInfos.EndUpdate();
+    }
+
+    }
+    /// <summary>
+    /// فعال کردن فوکوس گرید
+    /// </summary>
+    /// <returns></returns>
+    public async Task setFocusOn()
+    {
+        if (!Grid_HR_EMP_EmployeeInfos.FocusedRowEnabled)
+    {
+            Grid_HR_EMP_EmployeeInfos.BeginUpdate();
+    Grid_HR_EMP_EmployeeInfos.FocusedRowEnabled = true;
+
+    Grid_HR_EMP_EmployeeInfos.EndUpdate();
+    }
+
+    }
+
+    public async Task SelectRecord(int PageIndex, int __VisibleIndex)
+    {
+
+        isSending = true;
+        await setFocusOn();
+        PageIndexChanged(PageIndex);
+        await ShowFormCU(Grid_HR_EMP_EmployeeInfos.GetDataItem(__VisibleIndex));
+    DxPager.ActivePageIndex = PageIndex;
+        Grid_HR_EMP_EmployeeInfos.BeginUpdate();
+    Grid_HR_EMP_EmployeeInfos.PageIndex = PageIndex;
+    Grid_HR_EMP_EmployeeInfos.EndUpdate();
+    Grid_HR_EMP_EmployeeInfos.SetFocusedRowIndex(__VisibleIndex);
+
+    isSending = false;
+    }
+
+    public async Task SetPageIndex(int Index)
+    {
+        PageIndex = Index;
+        Grid_HR_EMP_EmployeeInfos.BeginUpdate();
+    Grid_HR_EMP_EmployeeInfos.PageIndex = Index;
+    Grid_HR_EMP_EmployeeInfos.EndUpdate();
+    }
+    /// <summary>
+    /// ارسال داده
+    /// </summary>
+    /// <returns></returns>
+    private async Task<bool> PostDataDelete(Entity.HR_EMP_EmployeeInfos _entity)
+    {
+        string Data = await Utility.JSON.ToJson(_entity);
+
+        var TablePost = new Table();
+        TablePost.Name = "HR_EMP_EmployeeInfos";
+        TablePost.Column = new List<Coulmn>
+                    {
+                    new Coulmn {Name=_entity._GetIdName  , NameAs= _entity._GetIdName},
+                    new Coulmn {Name ="IsDelete",NameAs="IsDelete" }
+
+                    };
+        bool IsOk = false;
+        var Model = await ApiServer.External.Services.Data.Put(Data, TablePost.Name, TablePost, null, _User.UserID.ToString());
+        if (Model?.Status == HttpStatusCode.OK)
+        {
+            IsOk = true;
+        }
+
+        return IsOk;
+    }
+}

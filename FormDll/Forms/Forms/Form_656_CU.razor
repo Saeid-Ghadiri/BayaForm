@@ -1,0 +1,1410 @@
+@inherits Forms.Forms.Form_656_CUBase
+@namespace FormsPage
+
+@using AKSoftware.Localization.MultiLanguages.Blazor
+@using Baya.Models.Utility;
+@using Baya.Models.ORM
+@using Microsoft.AspNetCore.Components.Forms
+@using Microsoft.AspNetCore.Components.Authorization;
+@using System.Security.Claims
+@using System.Net
+@using Microsoft.JSInterop
+@using Baya.Models.ViewEngine
+@using Forms.Domain.Utility
+@using Castle.DynamicLinqQueryBuilder
+<style>
+    /* ************************************************** */
+.detailArea form div:not(.devdrop) {
+  margin-top: .1rem;
+}
+
+/* ************************************************** */
+
+.form-header {
+            background: linear-gradient(to bottom, #6c5ffc, #0d1a52);
+            color: white;
+            padding: 1.5rem 2rem;
+            border-radius: 0.5rem 0.5rem 0 0;
+            margin-bottom: 0;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+            transition: all 0.3s ease;
+        }
+        
+        .form-header:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 25px rgba(0, 0, 0, 0.2);
+        }
+        
+        .form-header h2 {
+            font-weight: 700;
+            margin-bottom: 0;
+            display: flex;
+            align-items: center;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .form-header .icon {
+            font-size: 1.8rem;
+            margin-left: 15px;
+            animation: float 3s ease-in-out infinite;
+        }
+        
+        .form-header::before {
+            content: "";
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0) 70%);
+            transform: rotate(45deg);
+            z-index: 1;
+            transition: all 0.5s ease;
+        }
+        
+        .form-header:hover::before {
+            transform: rotate(45deg) translate(20px, 20px);
+        }
+        
+        .form-header .decoration {
+            position: absolute;
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.05);
+            z-index: 1;
+        }
+        
+        .form-header .decoration-1 {
+            top: -30px;
+            left: -30px;
+            width: 120px;
+            height: 120px;
+        }
+        
+        .form-header .decoration-2 {
+            bottom: -40px;
+            right: -20px;
+            width: 80px;
+            height: 80px;
+        }
+        
+        @@keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-5px); }
+            100% { transform: translateY(0px); }
+        }
+        
+        @@keyframes pulse {
+            0% { opacity: 0.3; }
+            50% { opacity: 0.1; }
+            100% { opacity: 0.3; }
+        }
+        
+        .pulse-animation {
+            animation: pulse 4s ease-in-out infinite;
+        }
+/* ************************************************** */
+</style>
+
+<Plugins.Tools.ConfirmDialog @ref="Confirm" />
+
+<span class="d-none">VersionForm:@VersionForm</span>
+@*
+@if (!string.IsNullOrEmpty(SumaryMessage))
+{
+    <div>
+        @SumaryMessage
+    </div>
+} *@
+
+@* <EditForm @ref="_Form" Model="_Entity" OnValidSubmit="ValidFormSubmitted" OnInvalidSubmit="InvalidFormSubmitted" OnSubmit="Submit"> *@
+<div class="@(ReadOnly?"FormReadOnly":"")">
+    <EditForm @ref="_Form" Model="_Entity" OnSubmit="Submit">
+        
+<div class="row ">
+    
+<div class="col-md-12">
+    <div  class="">
+    <header class="form-header">
+  <!-- عناصر تزئینی -->
+  <div class="decoration decoration-1"></div>
+  <div class="decoration decoration-2 pulse-animation"></div>
+  
+  <!-- محتوای هدر -->
+  <h5>
+      <i class="fas fa-columns icon"></i>
+      اطلاعات قسمت‌ها و ساختار تشکیلاتی گروه صنعتی
+  </h5>
+</header>
+</div>
+
+</div>
+
+<div class="col-md-3">
+     
+ 
+@code {
+    Baya.Models.ViewEngine.View_Component Component_HR_ORG_SectionsBaseInfo_ORG_CompaniesId = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"EntityName\":\"قسمت‌های سازمانی\",\"primaryKey\":false,\"EntityID\":390,\"FieldId\":30516,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":656,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":false,\"RelationParentName\":\"BaseInfo_ORG_Companies\",\"RelationParentModel\":\"BaseInfo_ORG_Companies\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/BaseInfo_ORG_Companies/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.Title}} </span>\",\"FieldsTemplate\":[{\"key\":\"Title\",\"value\":\"nvarchar(Max)\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"searchField\":\"Title\",\"modal\":true,\"label\":\"شرکت\",\"tableView\":true,\"key\":\"BaseInfo_ORG_CompaniesId\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"30516?EId=390&SubId=15\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
+}
+
+    <Dropdown Id=BaseInfo_ORG_CompaniesId  @ref="Ref_BaseInfo_ORG_CompaniesId" Label="شرکت" CssClass=""  DisplayFormat="DropDown" ExternalApi=false NotMapped=false TextGrid=false Text="" Value="@_Entity.BaseInfo_ORG_CompaniesId" FieldName="BaseInfo_ORG_CompaniesId" OnItemSelected="ItemSelected_HR_ORG_SectionsBaseInfo_ORG_CompaniesId" Component="Component_HR_ORG_SectionsBaseInfo_ORG_CompaniesId" _Entity="_Entity" >
+</Dropdown>
+@code {
+    public async Task ItemSelected_HR_ORG_SectionsBaseInfo_ORG_CompaniesId(object _Item)
+    {
+        var Selected = Utility.JSON.ToObject<dynamic>(Utility.JSON.ToJson(_Item).Result).Result;
+     var Item = _Entity;
+
+      //Todo
+ //برای اینکه آی دی تغییر کند اینجا نیز باید تغییر کند
+ //بهتر است از پرایمیری کی استفاده شود
+ if (_Item != null)
+ {
+     Console.WriteLine(" Item Is Not Null");
+    Item.BaseInfo_ORG_CompaniesId = Selected.Id;
+    
+ }
+ else
+ {
+     Console.WriteLine(" Item Is Null");
+      Item.BaseInfo_ORG_CompaniesId =EntityHelper.SetPropertyNull(Item.BaseInfo_ORG_CompaniesId);
+ }
+ Item.BaseInfo_ORG_Companies = await Utility.JSON.ToObject<Entity.BaseInfo_ORG_Companies>(await Utility.JSON.ToJson(_Item));
+    StateHasChanged();
+
+
+    
+
+    
+    }
+} 
+ 
+ 
+@code {
+    Baya.Models.ViewEngine.View_Component Component_HR_ORG_SectionsParentId = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"EntityName\":\"قسمت‌های سازمانی\",\"primaryKey\":false,\"EntityID\":390,\"FieldId\":18768,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":656,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":false,\"RelationParentName\":\"Parent\",\"RelationParentModel\":\"HR_ORG_Sections\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/HR_ORG_Sections/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.Title}} </span>\",\"FieldsTemplate\":[{\"key\":\"Id\",\"value\":\"uniqueidentifier\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"searchField\":\"Title\",\"modal\":true,\"label\":\"عنوان والد قسمت سازمانی\",\"tableView\":true,\"key\":\"ParentId\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"18768?EId=390&SubId=15\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
+}
+
+    <Dropdown Id=ParentId  @ref="Ref_ParentId" Label="عنوان والد قسمت سازمانی" CssClass=""  DisplayFormat="DropDown" ExternalApi=false NotMapped=false TextGrid=false Text="" Value="@_Entity.ParentId" FieldName="ParentId" OnItemSelected="ItemSelected_HR_ORG_SectionsParentId" Component="Component_HR_ORG_SectionsParentId" _Entity="_Entity" >
+</Dropdown>
+@code {
+    public async Task ItemSelected_HR_ORG_SectionsParentId(object _Item)
+    {
+        var Selected = Utility.JSON.ToObject<dynamic>(Utility.JSON.ToJson(_Item).Result).Result;
+     var Item = _Entity;
+
+      //Todo
+ //برای اینکه آی دی تغییر کند اینجا نیز باید تغییر کند
+ //بهتر است از پرایمیری کی استفاده شود
+ if (_Item != null)
+ {
+     Console.WriteLine(" Item Is Not Null");
+    Item.ParentId = Selected.Id;
+    
+ }
+ else
+ {
+     Console.WriteLine(" Item Is Null");
+      Item.ParentId =EntityHelper.SetPropertyNull(Item.ParentId);
+ }
+ Item.Parent = await Utility.JSON.ToObject<Entity.HR_ORG_Sections>(await Utility.JSON.ToJson(_Item));
+    StateHasChanged();
+
+
+    
+
+    
+    }
+} 
+
+<Input Id="Code" @ref="Ref_Code" Label="کد قسمت"     @bind-Value="_Entity.Code" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"maxlength\":\"10\"}").Result))></Input>
+
+<Input Id="Title" @ref="Ref_Title" Label="عنوان قسمت"     @bind-Value="_Entity.Title" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"maxlength\":\"25\"}").Result))></Input>
+ 
+ 
+@code {
+    Baya.Models.ViewEngine.View_Component Component_HR_ORG_SectionsHR_ORG_SectionTypesId = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"EntityName\":\"بخش ها\",\"primaryKey\":false,\"EntityID\":390,\"FieldId\":15751,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":656,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":false,\"RelationParentName\":\"HR_ORG_SectionTypes\",\"RelationParentModel\":\"HR_ORG_SectionTypes\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/HR_ORG_SectionTypes/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.Title}} </span>\",\"FieldsTemplate\":[{\"key\":\"Title\",\"value\":\"nvarchar(Max)\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"modal\":true,\"label\":\"نوع قسمت\",\"tableView\":true,\"key\":\"HR_ORG_SectionTypesId\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"15751?EId=390&SubId=15\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
+}
+
+    <Dropdown Id=HR_ORG_SectionTypesId  @ref="Ref_HR_ORG_SectionTypesId" Label="نوع قسمت" CssClass=""  DisplayFormat="DropDown" ExternalApi=false NotMapped=false TextGrid=false Text="" Value="@_Entity.HR_ORG_SectionTypesId" FieldName="HR_ORG_SectionTypesId" OnItemSelected="ItemSelected_HR_ORG_SectionsHR_ORG_SectionTypesId" Component="Component_HR_ORG_SectionsHR_ORG_SectionTypesId" _Entity="_Entity" >
+</Dropdown>
+@code {
+    public async Task ItemSelected_HR_ORG_SectionsHR_ORG_SectionTypesId(object _Item)
+    {
+        var Selected = Utility.JSON.ToObject<dynamic>(Utility.JSON.ToJson(_Item).Result).Result;
+     var Item = _Entity;
+
+      //Todo
+ //برای اینکه آی دی تغییر کند اینجا نیز باید تغییر کند
+ //بهتر است از پرایمیری کی استفاده شود
+ if (_Item != null)
+ {
+     Console.WriteLine(" Item Is Not Null");
+    Item.HR_ORG_SectionTypesId = Selected.Id;
+    
+ }
+ else
+ {
+     Console.WriteLine(" Item Is Null");
+      Item.HR_ORG_SectionTypesId =EntityHelper.SetPropertyNull(Item.HR_ORG_SectionTypesId);
+ }
+ Item.HR_ORG_SectionTypes = await Utility.JSON.ToObject<Entity.HR_ORG_SectionTypes>(await Utility.JSON.ToJson(_Item));
+    StateHasChanged();
+
+
+    
+
+    
+    }
+} 
+ 
+ 
+@code {
+    Baya.Models.ViewEngine.View_Component Component_HR_ORG_SectionsHR_ORG_SectionStatusId = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"EntityName\":\"قسمت‌های سازمانی\",\"primaryKey\":false,\"EntityID\":390,\"FieldId\":15978,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":656,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":false,\"RelationParentName\":\"HR_ORG_SectionStatus\",\"RelationParentModel\":\"HR_ORG_SectionStatus\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/HR_ORG_SectionStatus/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.Title}} {{item.Code}} </span>\",\"FieldsTemplate\":[{\"key\":\"Title\",\"value\":\"int\"},{\"key\":\"Code\",\"value\":\"int\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"modal\":true,\"label\":\"وضعیت قسمت‌ها\",\"tableView\":true,\"key\":\"HR_ORG_SectionStatusId\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"15978?EId=390&SubId=15\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
+}
+
+    <Dropdown Id=HR_ORG_SectionStatusId  @ref="Ref_HR_ORG_SectionStatusId" Label="وضعیت قسمت‌ها" CssClass=""  DisplayFormat="DropDown" ExternalApi=false NotMapped=false TextGrid=false Text="" Value="@_Entity.HR_ORG_SectionStatusId" FieldName="HR_ORG_SectionStatusId" OnItemSelected="ItemSelected_HR_ORG_SectionsHR_ORG_SectionStatusId" Component="Component_HR_ORG_SectionsHR_ORG_SectionStatusId" _Entity="_Entity" >
+</Dropdown>
+@code {
+    public async Task ItemSelected_HR_ORG_SectionsHR_ORG_SectionStatusId(object _Item)
+    {
+        var Selected = Utility.JSON.ToObject<dynamic>(Utility.JSON.ToJson(_Item).Result).Result;
+     var Item = _Entity;
+
+      //Todo
+ //برای اینکه آی دی تغییر کند اینجا نیز باید تغییر کند
+ //بهتر است از پرایمیری کی استفاده شود
+ if (_Item != null)
+ {
+     Console.WriteLine(" Item Is Not Null");
+    Item.HR_ORG_SectionStatusId = Selected.Id;
+    
+ }
+ else
+ {
+     Console.WriteLine(" Item Is Null");
+      Item.HR_ORG_SectionStatusId =EntityHelper.SetPropertyNull(Item.HR_ORG_SectionStatusId);
+ }
+ Item.HR_ORG_SectionStatus = await Utility.JSON.ToObject<Entity.HR_ORG_SectionStatus>(await Utility.JSON.ToJson(_Item));
+    StateHasChanged();
+
+
+    
+
+    
+    }
+} 
+ 
+ 
+@code {
+    Baya.Models.ViewEngine.View_Component Component_HR_ORG_SectionsBaseInfo_TaxCategoryId = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"EntityName\":\"قسمت‌های سازمانی\",\"primaryKey\":false,\"EntityID\":390,\"FieldId\":19511,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":656,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":false,\"RelationParentName\":\"BaseInfo_TaxCategory\",\"RelationParentModel\":\"BaseInfo_TaxCategory\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/BaseInfo_TaxCategory/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.Title}} </span>\",\"FieldsTemplate\":[{\"key\":\"Title\",\"value\":\"nvarchar(Max)\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"modal\":true,\"label\":\"دسته مالیاتی\",\"tableView\":true,\"key\":\"BaseInfo_TaxCategoryId\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"19511?EId=390&SubId=15\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
+}
+
+    <Dropdown Id=BaseInfo_TaxCategoryId  @ref="Ref_BaseInfo_TaxCategoryId" Label="دسته مالیاتی" CssClass=""  DisplayFormat="DropDown" ExternalApi=false NotMapped=false TextGrid=false Text="" Value="@_Entity.BaseInfo_TaxCategoryId" FieldName="BaseInfo_TaxCategoryId" OnItemSelected="ItemSelected_HR_ORG_SectionsBaseInfo_TaxCategoryId" Component="Component_HR_ORG_SectionsBaseInfo_TaxCategoryId" _Entity="_Entity" >
+</Dropdown>
+@code {
+    public async Task ItemSelected_HR_ORG_SectionsBaseInfo_TaxCategoryId(object _Item)
+    {
+        var Selected = Utility.JSON.ToObject<dynamic>(Utility.JSON.ToJson(_Item).Result).Result;
+     var Item = _Entity;
+
+      //Todo
+ //برای اینکه آی دی تغییر کند اینجا نیز باید تغییر کند
+ //بهتر است از پرایمیری کی استفاده شود
+ if (_Item != null)
+ {
+     Console.WriteLine(" Item Is Not Null");
+    Item.BaseInfo_TaxCategoryId = Selected.Id;
+    
+ }
+ else
+ {
+     Console.WriteLine(" Item Is Null");
+      Item.BaseInfo_TaxCategoryId =EntityHelper.SetPropertyNull(Item.BaseInfo_TaxCategoryId);
+ }
+ Item.BaseInfo_TaxCategory = await Utility.JSON.ToObject<Entity.BaseInfo_TaxCategory>(await Utility.JSON.ToJson(_Item));
+    StateHasChanged();
+
+
+    
+
+    
+    }
+} 
+
+<Input Id="Description" @ref="Ref_Description" Label="توضیحات"     @bind-Value="_Entity.Description" type="textarea"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"maxlength\":\"1000\"}").Result))></Input>
+
+</div>
+
+<div class="col-md-3">
+    
+</div>
+
+<div class="col-md-3">
+    
+</div>
+
+<div class="col-md-3">
+    
+</div>
+
+</div>
+<label for="HR_ORG_Chart_GridHR_ORG_SectionsId_386">چارت سازمانی
+   
+    
+</label>
+
+<DxGrid @ref="Grid_HR_ORG_Chart" Data="_Entity.HR_ORG_Chart" KeyFieldName="_Id" EditMode="GridEditMode.PopupEditForm"
+        EditModelSaving="OnEditModelSavingHR_ORG_Chart"
+        DataItemDeleting="OnDataItemDeletingHR_ORG_Chart"
+        PopupEditFormCssClass="ModalWidth"
+        PopupEditFormHeaderText="چارت سازمانی"
+        EditFormButtonsVisible="false"
+        CustomizeEditModel="CustomizeEditGrid_HR_ORG_Chart"
+        CustomizeElement="CustomizeRowsGrid_HR_ORG_Chart" 
+        Component="@((Utility.JSON.ToObject<View_Component>("{\"primaryKey\":false,\"EntityID\":386,\"FieldId\":386,\"NotNull\":false,\"ViewId\":0,\"NotMapped\":false,\"Relation\":false,\"RelationExternal\":false,\"RelationChildModel\":\"HR_ORG_Chart\",\"GridMainModel\":\"HR_ORG_Chart\",\"widget\":{\"altInput\":false,\"allowInput\":false,\"clickOpens\":false,\"enableDate\":false,\"enableTime\":false,\"noCalendar\":false,\"useLocaleSettings\":false,\"hourIncrement\":0,\"minuteIncrement\":0,\"time_24hr\":false},\"wysiwyg\":false,\"data\":{},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"FieldsTemplate\":[],\"refreshOn\":\"data\",\"reorder\":false,\"addAnotherPosition\":\"bottom\",\"layoutFixed\":false,\"enableRowGroups\":false,\"initEmpty\":false,\"disabled\":true,\"modal\":true,\"label\":\"چارت سازمانی\",\"tableView\":true,\"key\":\"GridHR_ORG_SectionsId_386\",\"type\":\"datagrid\",\"input\":true,\"placeholder\":\"GridHR_ORG_SectionsId_386\",\"modalEdit\":true,\"FieldUrl\":\"386?EId=386&SubId=15\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result))"
+         >
+    <Columns>
+    
+<DxGridCommandColumn Width="70px">
+    <HeaderTemplate Context="HeaderContext">
+       
+<a id=HR_ORG_Chart_GridHR_ORG_SectionsId_386ButtonNew class="btn btn-sm btn-green btnGridAddData" @onclick="@(() => StartEditNewRowAsync_Grid_HR_ORG_Chart())" style="text-decoration: none;" href="javascript:void(0);">
+    <span class="fal fa-plus-circle btnicon"></span>
+    <span>@languageContainer.Keys["DXGrid:New"]</span>
+</a>
+
+    </HeaderTemplate>
+    <CellDisplayTemplate Context="CellContext">
+       
+<a id=HR_ORG_Chart_GridHR_ORG_SectionsId_386ButtonEdit class="btn btn-sm btn-yellow-light btnEditGridData" @onclick="@(() => StartModalGrid_HR_ORG_Chart(CellContext))" style="text-decoration: none;" href="javascript:void(0);">
+    <span class="fal fa-pencil btnicon"></span>
+</a>
+
+       
+<a class="btn btn-sm btn-red-light btnDeleteGridData" @onclick="@(() => OnDeleteButtonClickGrid_HR_ORG_Chart(CellContext))" style="text-decoration: none;" href="javascript:void(0);">
+    <span class="fal fa-times-circle btnicon"></span>
+</a>
+
+    </CellDisplayTemplate>
+</DxGridCommandColumn>
+
+    <DxGridCommandColumn   Width="60px">
+           <HeaderTemplate Context="HeaderContext">
+               <a    style="text-decoration: none;"  >
+                
+                   <span>ردیف</span>
+               </a>
+           </HeaderTemplate>
+           <CellDisplayTemplate Context="CellContext">
+            @if (CellContext.VisibleIndex > 9){
+                <p>@(CellContext.VisibleIndex + 1)</p>
+            }else{
+                <p>@(((CellContext.Grid.PageIndex * CellContext.Grid.PageSize) + (CellContext.VisibleIndex + 1)))</p>
+            }
+          
+           </CellDisplayTemplate>
+     </DxGridCommandColumn>
+    <DxGridDataColumn Context="HR_ORG_SectionsId_" Caption="قسمت سازمانی" >
+    <CellDisplayTemplate>
+       
+@{
+    Baya.Models.ViewEngine.View_Component HeaderHR_ORG_SectionsId = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"primaryKey\":false,\"EntityID\":386,\"FieldId\":15685,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":656,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":false,\"RelationParentName\":\"HR_ORG_Sections\",\"RelationParentModel\":\"HR_ORG_Sections\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/View_HR_ORG_Sections/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.CompanieTitle}} {{item.HR_ORG_SectionsParentTitle}} {{item.Code}} {{item.Title}} </span>\",\"FieldsTemplate\":[{\"key\":\"CompanieTitle\",\"value\":\"nvarchar(Max)\"},{\"key\":\"HR_ORG_SectionsParentTitle\",\"value\":\"nvarchar(Max)\"},{\"key\":\"Code\",\"value\":\"nvarchar(Max)\"},{\"key\":\"Title\",\"value\":\"nvarchar(Max)\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"searchField\":\"CompanieTitle,HR_ORG_SectionsParentTitle,Code,Title\",\"modal\":true,\"label\":\"قسمت سازمانی\",\"tableView\":true,\"key\":\"HR_ORG_SectionsId\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"15685?EId=386&SubId=15\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
+    var RowHR_ORG_SectionsId = ((Entity.HR_ORG_Chart)HR_ORG_SectionsId_.DataItem).HR_ORG_SectionsId;
+}
+
+<Dropdown ExternalApi=false CssClass="" NotMapped=false TextGrid=true Value="@RowHR_ORG_SectionsId"   FieldName="HR_ORG_SectionsId" OnItemSelected="ItemSelected_HR_ORG_ChartHR_ORG_SectionsId_Header" Component="HeaderHR_ORG_SectionsId">
+</Dropdown>
+@code {
+    public async Task ItemSelected_HR_ORG_ChartHR_ORG_SectionsId_Header(object _Item)
+    {
+      //  var Selected = Utility.JSON.ToObject<dynamic>(Utility.JSON.ToJson(_Item).Result).Result;
+  //   HR_ORG_SectionsId
+
+  //  #CustomCode
+
+ //   
+
+  //  #OnItemSelected
+    }
+}
+
+    </CellDisplayTemplate>
+</DxGridDataColumn>
+<DxGridDataColumn Context="HR_ORG_PostsId_" Caption="پست سازمانی" >
+    <CellDisplayTemplate>
+       
+@{
+    Baya.Models.ViewEngine.View_Component HeaderHR_ORG_PostsId = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"primaryKey\":false,\"EntityID\":386,\"FieldId\":15684,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":656,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":false,\"RelationParentName\":\"HR_ORG_Posts\",\"RelationParentModel\":\"HR_ORG_Posts\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/HR_ORG_Posts/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.Title}} {{item.Code}} </span>\",\"FieldsTemplate\":[{\"key\":\"Title\",\"value\":\"nvarchar(Max)\"},{\"key\":\"Code\",\"value\":\"nvarchar(Max)\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"searchField\":\"Title,Code\",\"modal\":true,\"label\":\"پست سازمانی\",\"tableView\":true,\"key\":\"HR_ORG_PostsId\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"15684?EId=386&SubId=15\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
+    var RowHR_ORG_PostsId = ((Entity.HR_ORG_Chart)HR_ORG_PostsId_.DataItem).HR_ORG_PostsId;
+}
+
+<Dropdown ExternalApi=false CssClass="" NotMapped=false TextGrid=true Value="@RowHR_ORG_PostsId"   FieldName="HR_ORG_PostsId" OnItemSelected="ItemSelected_HR_ORG_ChartHR_ORG_PostsId_Header" Component="HeaderHR_ORG_PostsId">
+</Dropdown>
+@code {
+    public async Task ItemSelected_HR_ORG_ChartHR_ORG_PostsId_Header(object _Item)
+    {
+      //  var Selected = Utility.JSON.ToObject<dynamic>(Utility.JSON.ToJson(_Item).Result).Result;
+  //   HR_ORG_PostsId
+
+  //  #CustomCode
+
+ //   
+
+  //  #OnItemSelected
+    }
+}
+
+    </CellDisplayTemplate>
+</DxGridDataColumn>
+<DxGridDataColumn Context="IsApprover_" Caption="تایید کننده است؟" >
+    <CellDisplayTemplate>
+       
+@{
+    var HR_ORG_Chart_IsApprover = ((Entity.HR_ORG_Chart)IsApprover_.DataItem).IsApprover;
+}
+
+<p class="text-center " hidden="@(HR_ORG_Chart_IsApprover !=null ? !HR_ORG_Chart_IsApprover : true)">@languageContainer.Keys["DXGrid:Yes"]</p>
+
+<p class="text-center" hidden="@(HR_ORG_Chart_IsApprover !=null ? HR_ORG_Chart_IsApprover : true)">@languageContainer.Keys["DXGrid:No"]</p>
+ 
+
+    </CellDisplayTemplate>
+</DxGridDataColumn>
+<DxGridDataColumn DisplayFormat="0" Caption="تعداد مصوب"  FieldName="NumberOfApproved" />
+
+<DxGridDataColumn DisplayFormat="0" Caption="تعداد موجود"  FieldName="CurrentCount" />
+
+<DxGridDataColumn Context="HR_ORG_ChartStatusId_" Caption="وضعیت چارت" >
+    <CellDisplayTemplate>
+       
+@{
+    Baya.Models.ViewEngine.View_Component HeaderHR_ORG_ChartStatusId = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"primaryKey\":false,\"EntityID\":386,\"FieldId\":15977,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":656,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":false,\"RelationParentName\":\"HR_ORG_ChartStatus\",\"RelationParentModel\":\"HR_ORG_ChartStatus\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/HR_ORG_ChartStatus/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.Title}} {{item.Code}} </span>\",\"FieldsTemplate\":[{\"key\":\"Title\",\"value\":\"int\"},{\"key\":\"Code\",\"value\":\"int\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"searchField\":\"Title,Code\",\"modal\":true,\"label\":\"وضعیت چارت\",\"tableView\":true,\"key\":\"HR_ORG_ChartStatusId\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"15977?EId=386&SubId=15\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
+    var RowHR_ORG_ChartStatusId = ((Entity.HR_ORG_Chart)HR_ORG_ChartStatusId_.DataItem).HR_ORG_ChartStatusId;
+}
+
+<Dropdown ExternalApi=false CssClass="" NotMapped=false TextGrid=true Value="@RowHR_ORG_ChartStatusId"   FieldName="HR_ORG_ChartStatusId" OnItemSelected="ItemSelected_HR_ORG_ChartHR_ORG_ChartStatusId_Header" Component="HeaderHR_ORG_ChartStatusId">
+</Dropdown>
+@code {
+    public async Task ItemSelected_HR_ORG_ChartHR_ORG_ChartStatusId_Header(object _Item)
+    {
+      //  var Selected = Utility.JSON.ToObject<dynamic>(Utility.JSON.ToJson(_Item).Result).Result;
+  //   HR_ORG_ChartStatusId
+
+  //  #CustomCode
+
+ //   
+
+  //  #OnItemSelected
+    }
+}
+
+    </CellDisplayTemplate>
+</DxGridDataColumn>
+<DxGridDataColumn  Caption="توضیحات"  FieldName="Description" />
+
+<DxGridDataColumn  Caption="Id" Visible=false FieldName="Id" />
+
+<DxGridDataColumn  Caption="RequestID" Visible=false FieldName="RequestID" />
+
+<DxGridDataColumn  Caption="CreateUser" Visible=false FieldName="CreateUser" />
+
+<DxGridDataColumn  Caption="UpdateUser" Visible=false FieldName="UpdateUser" />
+
+<DxGridDataColumn  Caption="CreateDate" Visible=false FieldName="CreateDate" />
+
+<DxGridDataColumn  Caption="UpdateDate" Visible=false FieldName="UpdateDate" />
+
+<DxGridDataColumn  Caption="IsDelete" Visible=false FieldName="IsDelete" />
+
+
+</Columns>
+
+    <EditFormTemplate Context="EditFormContextHR_ORG_Chart">
+    @{
+        HR_ORG_Chart  = (Entity.HR_ORG_Chart)EditFormContextHR_ORG_Chart.EditModel;
+    }
+    <DxFormLayout>
+        <DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextHR_ORG_Chart">
+     
+ 
+@code {
+    Baya.Models.ViewEngine.View_Component Component_HR_ORG_ChartHR_ORG_SectionsId = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"primaryKey\":false,\"EntityID\":386,\"FieldId\":15685,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":656,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":false,\"RelationParentName\":\"HR_ORG_Sections\",\"RelationParentModel\":\"HR_ORG_Sections\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/View_HR_ORG_Sections/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.CompanieTitle}} {{item.HR_ORG_SectionsParentTitle}} {{item.Code}} {{item.Title}} </span>\",\"FieldsTemplate\":[{\"key\":\"CompanieTitle\",\"value\":\"nvarchar(Max)\"},{\"key\":\"HR_ORG_SectionsParentTitle\",\"value\":\"nvarchar(Max)\"},{\"key\":\"Code\",\"value\":\"nvarchar(Max)\"},{\"key\":\"Title\",\"value\":\"nvarchar(Max)\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"searchField\":\"CompanieTitle,HR_ORG_SectionsParentTitle,Code,Title\",\"modal\":true,\"label\":\"قسمت سازمانی\",\"tableView\":true,\"key\":\"HR_ORG_SectionsId\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"15685?EId=386&SubId=15\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
+}
+
+    <Dropdown Id=HR_ORG_Chart_HR_ORG_SectionsId  @ref="Ref_HR_ORG_Chart_HR_ORG_SectionsId" Label="قسمت سازمانی" CssClass=""  DisplayFormat="DropDown" ExternalApi=false NotMapped=false TextGrid=false Text="" Value="@HR_ORG_Chart.HR_ORG_SectionsId" FieldName="HR_ORG_SectionsId" OnItemSelected="ItemSelected_HR_ORG_ChartHR_ORG_SectionsId" Component="Component_HR_ORG_ChartHR_ORG_SectionsId" _Entity="_Entity" _EntityRow=HR_ORG_Chart>
+</Dropdown>
+@code {
+    public async Task ItemSelected_HR_ORG_ChartHR_ORG_SectionsId(object _Item)
+    {
+        var Selected = Utility.JSON.ToObject<dynamic>(Utility.JSON.ToJson(_Item).Result).Result;
+     var Item = HR_ORG_Chart;
+
+      //Todo
+ //برای اینکه آی دی تغییر کند اینجا نیز باید تغییر کند
+ //بهتر است از پرایمیری کی استفاده شود
+ if (_Item != null)
+ {
+     Console.WriteLine(" Item Is Not Null");
+    Item.HR_ORG_SectionsId = Selected.Id;
+    
+ }
+ else
+ {
+     Console.WriteLine(" Item Is Null");
+      Item.HR_ORG_SectionsId =EntityHelper.SetPropertyNull(Item.HR_ORG_SectionsId);
+ }
+ Item.HR_ORG_Sections = await Utility.JSON.ToObject<Entity.HR_ORG_Sections>(await Utility.JSON.ToJson(_Item));
+    StateHasChanged();
+
+
+    
+
+    
+    }
+} 
+
+</DxFormLayoutItem>
+
+<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextHR_ORG_Chart">
+     
+ 
+@code {
+    Baya.Models.ViewEngine.View_Component Component_HR_ORG_ChartHR_ORG_PostsId = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"primaryKey\":false,\"EntityID\":386,\"FieldId\":15684,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":656,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":false,\"RelationParentName\":\"HR_ORG_Posts\",\"RelationParentModel\":\"HR_ORG_Posts\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/HR_ORG_Posts/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.Title}} {{item.Code}} </span>\",\"FieldsTemplate\":[{\"key\":\"Title\",\"value\":\"nvarchar(Max)\"},{\"key\":\"Code\",\"value\":\"nvarchar(Max)\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"searchField\":\"Title,Code\",\"modal\":true,\"label\":\"پست سازمانی\",\"tableView\":true,\"key\":\"HR_ORG_PostsId\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"15684?EId=386&SubId=15\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
+}
+
+    <Dropdown Id=HR_ORG_Chart_HR_ORG_PostsId  @ref="Ref_HR_ORG_Chart_HR_ORG_PostsId" Label="پست سازمانی" CssClass=""  DisplayFormat="DropDown" ExternalApi=false NotMapped=false TextGrid=false Text="" Value="@HR_ORG_Chart.HR_ORG_PostsId" FieldName="HR_ORG_PostsId" OnItemSelected="ItemSelected_HR_ORG_ChartHR_ORG_PostsId" Component="Component_HR_ORG_ChartHR_ORG_PostsId" _Entity="_Entity" _EntityRow=HR_ORG_Chart>
+</Dropdown>
+@code {
+    public async Task ItemSelected_HR_ORG_ChartHR_ORG_PostsId(object _Item)
+    {
+        var Selected = Utility.JSON.ToObject<dynamic>(Utility.JSON.ToJson(_Item).Result).Result;
+     var Item = HR_ORG_Chart;
+
+      //Todo
+ //برای اینکه آی دی تغییر کند اینجا نیز باید تغییر کند
+ //بهتر است از پرایمیری کی استفاده شود
+ if (_Item != null)
+ {
+     Console.WriteLine(" Item Is Not Null");
+    Item.HR_ORG_PostsId = Selected.Id;
+    
+ }
+ else
+ {
+     Console.WriteLine(" Item Is Null");
+      Item.HR_ORG_PostsId =EntityHelper.SetPropertyNull(Item.HR_ORG_PostsId);
+ }
+ Item.HR_ORG_Posts = await Utility.JSON.ToObject<Entity.HR_ORG_Posts>(await Utility.JSON.ToJson(_Item));
+    StateHasChanged();
+
+
+    
+
+    
+    }
+} 
+
+</DxFormLayoutItem>
+
+<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextHR_ORG_Chart">
+    
+<Input Id="HR_ORG_Chart_IsApprover" @ref="Ref_HR_ORG_Chart_IsApprover" Label="تایید کننده است؟"     @bind-Value="HR_ORG_Chart.IsApprover" type="checkbox"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+</DxFormLayoutItem>
+
+<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextHR_ORG_Chart">
+    
+<Input Id="HR_ORG_Chart_NumberOfApproved" @ref="Ref_HR_ORG_Chart_NumberOfApproved" Label="تعداد مصوب"     @bind-Value="HR_ORG_Chart.NumberOfApproved" type="number"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+</DxFormLayoutItem>
+
+<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextHR_ORG_Chart">
+    
+<Input Id="HR_ORG_Chart_CurrentCount" @ref="Ref_HR_ORG_Chart_CurrentCount" Label="تعداد موجود"   Disabled=true  @bind-Value="HR_ORG_Chart.CurrentCount" type="number"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+</DxFormLayoutItem>
+
+<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextHR_ORG_Chart">
+     
+ 
+@code {
+    Baya.Models.ViewEngine.View_Component Component_HR_ORG_ChartHR_ORG_ChartStatusId = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"primaryKey\":false,\"EntityID\":386,\"FieldId\":15977,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":656,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":false,\"RelationParentName\":\"HR_ORG_ChartStatus\",\"RelationParentModel\":\"HR_ORG_ChartStatus\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/HR_ORG_ChartStatus/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.Title}} {{item.Code}} </span>\",\"FieldsTemplate\":[{\"key\":\"Title\",\"value\":\"int\"},{\"key\":\"Code\",\"value\":\"int\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"searchField\":\"Title,Code\",\"modal\":true,\"label\":\"وضعیت چارت\",\"tableView\":true,\"key\":\"HR_ORG_ChartStatusId\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"15977?EId=386&SubId=15\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
+}
+
+    <Dropdown Id=HR_ORG_Chart_HR_ORG_ChartStatusId  @ref="Ref_HR_ORG_Chart_HR_ORG_ChartStatusId" Label="وضعیت چارت" CssClass=""  DisplayFormat="DropDown" ExternalApi=false NotMapped=false TextGrid=false Text="" Value="@HR_ORG_Chart.HR_ORG_ChartStatusId" FieldName="HR_ORG_ChartStatusId" OnItemSelected="ItemSelected_HR_ORG_ChartHR_ORG_ChartStatusId" Component="Component_HR_ORG_ChartHR_ORG_ChartStatusId" _Entity="_Entity" _EntityRow=HR_ORG_Chart>
+</Dropdown>
+@code {
+    public async Task ItemSelected_HR_ORG_ChartHR_ORG_ChartStatusId(object _Item)
+    {
+        var Selected = Utility.JSON.ToObject<dynamic>(Utility.JSON.ToJson(_Item).Result).Result;
+     var Item = HR_ORG_Chart;
+
+      //Todo
+ //برای اینکه آی دی تغییر کند اینجا نیز باید تغییر کند
+ //بهتر است از پرایمیری کی استفاده شود
+ if (_Item != null)
+ {
+     Console.WriteLine(" Item Is Not Null");
+    Item.HR_ORG_ChartStatusId = Selected.Id;
+    
+ }
+ else
+ {
+     Console.WriteLine(" Item Is Null");
+      Item.HR_ORG_ChartStatusId =EntityHelper.SetPropertyNull(Item.HR_ORG_ChartStatusId);
+ }
+ Item.HR_ORG_ChartStatus = await Utility.JSON.ToObject<Entity.HR_ORG_ChartStatus>(await Utility.JSON.ToJson(_Item));
+    StateHasChanged();
+
+
+    
+
+    
+    }
+} 
+
+</DxFormLayoutItem>
+
+<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextHR_ORG_Chart">
+    
+<Input Id="HR_ORG_Chart_Description" @ref="Ref_HR_ORG_Chart_Description" Label="توضیحات"     @bind-Value="HR_ORG_Chart.Description" type="textarea"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"maxlength\":\"1000\"}").Result))></Input>
+
+</DxFormLayoutItem>
+
+<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextHR_ORG_Chart">
+    
+<Input Id="HR_ORG_Chart_Id" @ref="Ref_HR_ORG_Chart_Id"   CssClass="d-none"   @bind-Value="HR_ORG_Chart.Id" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+</DxFormLayoutItem>
+
+<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextHR_ORG_Chart">
+    
+<Input Id="HR_ORG_Chart_RequestID" @ref="Ref_HR_ORG_Chart_RequestID"      @bind-Value="HR_ORG_Chart.RequestID" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+</DxFormLayoutItem>
+
+<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextHR_ORG_Chart">
+    
+<Input Id="HR_ORG_Chart_CreateUser" @ref="Ref_HR_ORG_Chart_CreateUser"      @bind-Value="HR_ORG_Chart.CreateUser" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+</DxFormLayoutItem>
+
+<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextHR_ORG_Chart">
+    
+<Input Id="HR_ORG_Chart_UpdateUser" @ref="Ref_HR_ORG_Chart_UpdateUser"      @bind-Value="HR_ORG_Chart.UpdateUser" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+</DxFormLayoutItem>
+
+<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextHR_ORG_Chart">
+    
+<Input Id="HR_ORG_Chart_CreateDate" @ref="Ref_HR_ORG_Chart_CreateDate"   CssClass="d-none"   @bind-Value="HR_ORG_Chart.CreateDate" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+</DxFormLayoutItem>
+
+<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextHR_ORG_Chart">
+    
+<Input Id="HR_ORG_Chart_UpdateDate" @ref="Ref_HR_ORG_Chart_UpdateDate"   CssClass="d-none"   @bind-Value="HR_ORG_Chart.UpdateDate" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+</DxFormLayoutItem>
+
+<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextHR_ORG_Chart">
+    
+<Input Id="HR_ORG_Chart_IsDelete" @ref="Ref_HR_ORG_Chart_IsDelete"   CssClass="d-none"   @bind-Value="HR_ORG_Chart.IsDelete" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+</DxFormLayoutItem>
+
+
+        <DxFormLayoutItem ColSpanMd="12" Context="FormLayoutContextHR_ORG_Chart" CssClass="btn-modal-custom">
+            <DxButton Id="HR_ORG_Chart_GridHR_ORG_SectionsId_386ButtonSave" Click="@(() => SaveModalGrid_HR_ORG_Chart(EditFormContextHR_ORG_Chart))" Text="@languageContainer.Keys["DXGrid:Save"]" CssClass="btn btn-green px-5" />
+            
+<DxButton id="HR_ORG_Chart_GridHR_ORG_SectionsId_386ButtonSaveAndNew"    Text="ذخیره و جدید" Click="@(() => SaveAndNewGrid_HR_ORG_Chart(EditFormContextHR_ORG_Chart))" CssClass="btn btn-green" />
+
+
+            <DxButton Id="HR_ORG_Chart_GridHR_ORG_SectionsId_386ButtonCancel" Click="@(() => Grid_HR_ORG_Chart.CancelEditAsync())" Text="@languageContainer.Keys["DXGrid:Cancel"]" CssClass="btn btn-red" />
+            <button id="click_s"  hidden>submit</button>
+             <span>|</span>
+           
+            <DxButton Id="HR_ORG_Chart_GridHR_ORG_SectionsId_386ButtonBefore" Click="@(() => Dialog_Grid_HR_ORG_Chart(0,IndexGrid_HR_ORG_Chart,EditFormContextHR_ORG_Chart))" Text="قبلی" CssClass="btn btn-purple" />@* @languageContainer.Keys["DXGrid:??"] *@
+         
+            <DxButton Id="HR_ORG_Chart_GridHR_ORG_SectionsId_386ButtonNext" Click="@(() => Dialog_Grid_HR_ORG_Chart(1,IndexGrid_HR_ORG_Chart,EditFormContextHR_ORG_Chart))" Text="بعدی" CssClass="btn btn-purple" />
+
+        </DxFormLayoutItem>
+    </DxFormLayout>
+
+</EditFormTemplate>
+
+</DxGrid>
+
+<DxPopup @bind-Visible="@ConfirmationShownHR_ORG_Chart" HeaderText="@languageContainer.Keys["DXGrid:DeleteItem"]" Width="350px" CloseOnOutsideClick="false">
+
+    <BodyContentTemplate Context="EditFormContext">
+        <div class="py-3 px-5 text-center">
+            <p>@languageContainer.Keys["DXGrid:DeleteItemHint"]</p>
+            <div class="confirm-dialog-buttons">
+                <DxButton Text="@languageContainer.Keys["DXGrid:Yes"]" CssClass="btn btn-red px-4" Click="@OnYesButtonClickGrid_HR_ORG_Chart" />
+                <DxButton Text="@languageContainer.Keys["DXGrid:No"]" CssClass="btn btn-purple-light px-4" Click="@OnNoButtonClickGrid_HR_ORG_Chart" />
+            </div>
+        </div>
+    </BodyContentTemplate>
+</DxPopup>
+
+<DxPopup @bind-Visible="@ConfirmationHR_ORG_Chart" HeaderText="هشدار" Width="350px" CloseOnOutsideClick="false">
+    <BodyContentTemplate Context="EditFormContext">
+        <div class="py-3 px-5 text-center"> 
+            <p>اطلاعات این فرم تغییر کرده است آیا تغییرات ذخیره شود؟</p>
+            <div class="confirm-dialog-buttons">
+                <DxButton Text="بله" CssClass="btn btn-red px-4" Click="@OnYesButtonHR_ORG_Chart" />
+                <DxButton Text="خیر" CssClass="btn btn-purple-light px-4" Click="@OnNoButtonHR_ORG_Chart" />
+            </div>
+        </div>
+    </BodyContentTemplate>
+</DxPopup>
+@code {
+    // DxGrid? Grid_HR_ORG_Chart;
+    Entity.HR_ORG_Chart HR_ORG_Chart;
+    bool ConfirmationShownHR_ORG_Chart { get; set; } = false;
+    public Entity.HR_ORG_Chart SelectedItemGrid_HR_ORG_Chart { get; set; } = new Entity.HR_ORG_Chart();
+    /// <summary>
+    /// شماره ستون
+    /// </summary>
+    public int IndexGrid_HR_ORG_Chart { get; set; }
+
+    ///////////////////////
+    bool ConfirmationHR_ORG_Chart { get; set; } = false;
+    GridEditFormTemplateContext? _ContextFormTemplateHR_ORG_Chart { get; set; }
+    public int OpenDialogCodeHR_ORG_Chart { get; set; } = 0;
+    ////////////////////////
+
+    async Task OnEditModelSavingHR_ORG_Chart(GridEditModelSavingEventArgs arg)
+    {
+        var e = arg.EditModel;
+    bool NotValid = false;
+    //events
+       
+        
+      if (!NotValid)
+     {
+      SaveGrid_HR_ORG_Chart(arg.DataItem, arg.EditModel);
+     }
+}
+
+async void Dialog_Grid_HR_ORG_Chart(int _OpenDialogCode, int VisibleIndex, GridEditFormTemplateContext e)
+{
+    OpenDialogCodeHR_ORG_Chart = _OpenDialogCode;
+    if (!CheckChangedData(await Utility.JSON.ToJson(e.EditModel)))
+    {
+    _ContextFormTemplateHR_ORG_Chart = e;
+    ConfirmationHR_ORG_Chart = true;
+    }
+    else
+    {
+    await OnNoButtonHR_ORG_Chart();
+    }
+}
+async Task OnYesButtonHR_ORG_Chart()
+{
+
+    ConfirmationHR_ORG_Chart = false;
+    await Task.Delay(1500);
+    //bool FormValidate = await JSO.InvokeAsync<bool>("submitForm");
+    bool FormValidate =  await JS.InvokeAsync<bool>("submitForm");
+    if (FormValidate)
+    {
+        bool NotValid = false;
+    var e = _ContextFormTemplateHR_ORG_Chart.EditModel;
+         //events
+         
+
+        if (!NotValid)
+         {
+        SaveGrid_HR_ORG_Chart(_ContextFormTemplateHR_ORG_Chart.DataItem, _ContextFormTemplateHR_ORG_Chart.EditModel);
+            await Grid_HR_ORG_Chart.CancelEditAsync();
+         await ChangePageGrid_HR_ORG_Chart();
+         await SetEditFormContextGrid_HR_ORG_Chart();
+         }
+          
+    }
+
+}
+async Task OnNoButtonHR_ORG_Chart()
+{
+    ConfirmationHR_ORG_Chart = false;
+    await ChangePageGrid_HR_ORG_Chart();
+    await SetEditFormContextGrid_HR_ORG_Chart();
+
+}
+async Task SetEditFormContextGrid_HR_ORG_Chart()
+{
+    var e = (Entity.HR_ORG_Chart)Grid_HR_ORG_Chart.GetDataItem(IndexGrid_HR_ORG_Chart);
+    JsonData = await Utility.JSON.ToJson(e);
+}
+
+async Task ChangePageGrid_HR_ORG_Chart()
+{
+    int VisibleIndex = IndexGrid_HR_ORG_Chart;
+    try
+    {
+    if (OpenDialogCodeHR_ORG_Chart == 1)
+    {
+        if (VisibleIndex != (Grid_HR_ORG_Chart.GetVisibleRowCount() - 1))
+    { 
+            Grid_HR_ORG_Chart.CancelEditAsync();
+            IndexGrid_HR_ORG_Chart = VisibleIndex + 1;
+    Grid_HR_ORG_Chart.StartEditRowAsync(IndexGrid_HR_ORG_Chart);
+    }
+    }
+    else if (OpenDialogCodeHR_ORG_Chart == 0)
+    {
+        if (VisibleIndex != 0)
+        {
+
+            Grid_HR_ORG_Chart.CancelEditAsync();
+            IndexGrid_HR_ORG_Chart = VisibleIndex - 1;
+    Grid_HR_ORG_Chart.StartEditRowAsync(IndexGrid_HR_ORG_Chart);
+    }
+
+    }
+    var e = (Entity.HR_ORG_Chart)Grid_HR_ORG_Chart.GetDataItem(IndexGrid_HR_ORG_Chart);
+    JsonData = await Utility.JSON.ToJson(e);
+    await Task.Delay(300);
+    
+    StateHasChanged();
+    }
+    catch (Exception ex)
+    {
+
+    Console.WriteLine("error in ChagePage" + ex.Message);
+    }
+
+}
+
+async Task StartEditNewRowAsync_Grid_HR_ORG_Chart()
+{
+    IndexGrid_HR_ORG_Chart = Grid_HR_ORG_Chart.GetVisibleRowCount();
+Grid_HR_ORG_Chart.StartEditNewRowAsync().GetAwaiter();
+var e = new Entity.HR_ORG_Chart();
+JsonData = await Utility.JSON.ToJson(e);
+await Task.Delay(300);
+
+}
+
+async Task StartModalGrid_HR_ORG_Chart(GridCommandColumnCellDisplayTemplateContext Context)
+{
+    IndexGrid_HR_ORG_Chart = Context.VisibleIndex;
+Grid_HR_ORG_Chart.StartEditRowAsync(Context.VisibleIndex).GetAwaiter();
+var e = (Entity.HR_ORG_Chart)Context.DataItem;
+JsonData = await Utility.JSON.ToJson(e);
+await Task.Delay(300);
+
+   // await Task.Delay(500);
+}
+public async Task SaveModalGrid_HR_ORG_Chart(GridEditFormTemplateContext arg)
+{
+     //bool FormValidate = await JSO.InvokeAsync<bool>("submitForm");
+     bool FormValidate =  await JS.InvokeAsync<bool>("submitForm");
+
+    if(FormValidate){
+
+    var e = arg.EditModel;
+    bool NotValid = false;
+    //events
+    
+    if (!NotValid)
+    {
+        SaveGrid_HR_ORG_Chart(arg.DataItem, arg.EditModel);
+
+     await arg.Grid.CancelEditAsync(); 
+
+    }
+
+    }
+
+}
+public async Task SaveAndNewGrid_HR_ORG_Chart(GridEditFormTemplateContext arg)
+{ 
+     //bool FormValidate = await JSO.InvokeAsync<bool>("submitForm");
+     bool FormValidate = await JS.InvokeAsync<bool>("submitForm");
+     
+    if(FormValidate){
+       
+         var e = arg.EditModel;
+          bool NotValid = false;
+     //events
+    
+    if (!NotValid)
+    {
+        SaveGrid_HR_ORG_Chart(arg.DataItem, arg.EditModel);
+
+         await arg.Grid.CancelEditAsync();
+        await StartEditNewRowAsync_Grid_HR_ORG_Chart();
+
+    }
+          
+    }
+   
+}
+
+void PerviousPageGrid_HR_ORG_Chart(int VisibleIndex)
+{
+    try
+     {
+    if (VisibleIndex == 0)
+    {
+        Console.WriteLine(VisibleIndex.ToString());
+    }
+    else
+    {
+Grid_HR_ORG_Chart.CancelEditAsync();
+        IndexGrid_HR_ORG_Chart = VisibleIndex - 1;
+         Grid_HR_ORG_Chart.StartEditRowAsync(IndexGrid_HR_ORG_Chart);
+     }
+    }
+     catch (Exception e)
+     {
+    Console.WriteLine("PerviousPage Message");
+    Console.WriteLine(e.Message);
+    }
+
+}
+
+void NextPageGrid_HR_ORG_Chart(int VisibleIndex)
+{
+
+    if (VisibleIndex == Grid_HR_ORG_Chart.GetVisibleRowCount() - 1)
+    {
+    Console.WriteLine(VisibleIndex.ToString());
+    }
+    else
+    {
+    Console.WriteLine("NextPage Start Grid_HR_ORG_Chart ");
+    try
+    {
+Grid_HR_ORG_Chart.CancelEditAsync();
+        IndexGrid_HR_ORG_Chart = VisibleIndex + 1;
+         Grid_HR_ORG_Chart.StartEditRowAsync(IndexGrid_HR_ORG_Chart);
+     }
+    catch (Exception e)
+    {
+        Console.WriteLine("NextPage Message");
+        Console.WriteLine(e.Message);
+    }
+
+    }
+}
+
+public void SaveGrid_HR_ORG_Chart(object DataItem, object EditModel)
+{
+    var ListEntity = _Entity.HR_ORG_Chart;
+    var MainModel = (Entity.HR_ORG_Chart)DataItem;
+    if (MainModel != null)
+    {
+MainModel.HR_ORG_SectionsId = ((Entity.HR_ORG_Chart)EditModel).HR_ORG_SectionsId;
+MainModel.HR_ORG_Sections = ((Entity.HR_ORG_Chart)EditModel).HR_ORG_Sections;
+MainModel.HR_ORG_PostsId = ((Entity.HR_ORG_Chart)EditModel).HR_ORG_PostsId;
+MainModel.HR_ORG_Posts = ((Entity.HR_ORG_Chart)EditModel).HR_ORG_Posts;
+MainModel.IsApprover = ((Entity.HR_ORG_Chart)EditModel).IsApprover;
+MainModel.NumberOfApproved = ((Entity.HR_ORG_Chart)EditModel).NumberOfApproved;
+MainModel.CurrentCount = ((Entity.HR_ORG_Chart)EditModel).CurrentCount;
+MainModel.HR_ORG_ChartStatusId = ((Entity.HR_ORG_Chart)EditModel).HR_ORG_ChartStatusId;
+MainModel.HR_ORG_ChartStatus = ((Entity.HR_ORG_Chart)EditModel).HR_ORG_ChartStatus;
+MainModel.Description = ((Entity.HR_ORG_Chart)EditModel).Description;
+MainModel.Id = ((Entity.HR_ORG_Chart)EditModel).Id;
+MainModel.RequestID = ((Entity.HR_ORG_Chart)EditModel).RequestID;
+MainModel.CreateUser = ((Entity.HR_ORG_Chart)EditModel).CreateUser;
+MainModel.UpdateUser = ((Entity.HR_ORG_Chart)EditModel).UpdateUser;
+MainModel.CreateDate = ((Entity.HR_ORG_Chart)EditModel).CreateDate;
+MainModel.UpdateDate = ((Entity.HR_ORG_Chart)EditModel).UpdateDate;
+MainModel.IsDelete = ((Entity.HR_ORG_Chart)EditModel).IsDelete;
+
+    }
+    else
+    {
+    ListEntity.Add((Entity.HR_ORG_Chart)EditModel);
+    }
+}
+
+async Task OnDataItemDeletingHR_ORG_Chart(GridDataItemDeletingEventArgs e)
+    {
+    var ListEntity = _Entity.HR_ORG_Chart;
+    ListEntity.Remove((Entity.HR_ORG_Chart)e.DataItem);
+}
+async void OnDeleteButtonClickGrid_HR_ORG_Chart (GridCommandColumnCellDisplayTemplateContext ex)
+{
+    SelectedItemGrid_HR_ORG_Chart = (ex.DataItem as Entity.HR_ORG_Chart);
+    var e =SelectedItemGrid_HR_ORG_Chart;
+    
+     
+    Console.WriteLine("end OnDeleteButtonClickGrid_test_OrderBody 0");
+    ConfirmationShownHR_ORG_Chart = true;
+    await Task.Yield();
+     await InvokeAsync(StateHasChanged);
+    
+    Console.WriteLine("end OnDeleteButtonClickGrid_test_OrderBody 1");
+}
+async void OnYesButtonClickGrid_HR_ORG_Chart ()
+{
+       if (SelectedItemGrid_HR_ORG_Chart != null)
+    {
+      if (SelectedItemGrid_HR_ORG_Chart.Id == Guid.Empty)
+      {
+          var ListEntity = _Entity.HR_ORG_Chart;
+        ListEntity.Remove((Entity.HR_ORG_Chart)SelectedItemGrid_HR_ORG_Chart);
+     
+      }
+      else
+      {
+        var cleanModel = new Entity.HR_ORG_Chart();
+      // چک کن آیا پراپرتی IsDelete در این نوع وجود دارد؟
+        var prop = typeof(Entity.HR_ORG_Chart).GetProperty("IsDelete");
+        if (prop != null && prop.CanRead && prop.CanWrite)
+        {
+            // مقدار فعلی را بگیر
+            var currentValue = prop.GetValue(SelectedItemGrid_HR_ORG_Chart);
+
+            if (currentValue is bool boolValue)
+            {
+                // مقدار را معکوس کن
+                var newValue = !boolValue;
+
+                // روی هر دو شیء تنظیم کن
+                prop.SetValue(SelectedItemGrid_HR_ORG_Chart, newValue);
+                prop.SetValue(cleanModel, newValue);
+            }
+        }
+        EntityHelper.SetPropertyValue(cleanModel, cleanModel._GetIdName, SelectedItemGrid_HR_ORG_Chart._Id);
+    
+       
+       
+      }
+    }
+    var e= SelectedItemGrid_HR_ORG_Chart;
+    
+    Grid_HR_ORG_Chart.Reload();
+    ConfirmationShownHR_ORG_Chart = false;
+     await Task.Yield();
+    await InvokeAsync(StateHasChanged);
+
+}
+void OnNoButtonClickGrid_HR_ORG_Chart ()
+{
+    ConfirmationShownHR_ORG_Chart = false;
+}
+
+void CustomizeRowsGrid_HR_ORG_Chart(GridCustomizeElementEventArgs e)
+{
+    ///استایل سطر
+    if (e.ElementType == GridElementType.DataRow)
+    {
+    var item = ((Entity.HR_ORG_Chart)e.Grid.GetDataItem(e.VisibleIndex));
+
+       if (item.IsDelete == true)
+       {
+           e.CssClass = "bg-lightred disablediv";
+       }
+    }
+}
+
+async void CustomizeEditGrid_HR_ORG_Chart(GridCustomizeEditModelEventArgs e)
+{
+
+    if (e.IsNew)
+    {
+
+    var newRow = (Entity.HR_ORG_Chart)e.EditModel;
+
+     
+
+    }
+
+
+}
+public async void RowClickGrid_HR_ORG_Chart(GridRowClickEventArgs e)
+{
+
+}
+
+public async void RowDubbleClickGrid_HR_ORG_Chart(GridRowClickEventArgs e)
+{
+
+}
+}
+
+<Input Id="Id" @ref="Ref_Id"   CssClass="d-none"   @bind-Value="_Entity.Id" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+<Input Id="RequestID" @ref="Ref_RequestID"      @bind-Value="_Entity.RequestID" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+<Input Id="CreateUser" @ref="Ref_CreateUser"      @bind-Value="_Entity.CreateUser" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+<Input Id="UpdateUser" @ref="Ref_UpdateUser"      @bind-Value="_Entity.UpdateUser" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+<Input Id="CreateDate" @ref="Ref_CreateDate"   CssClass="d-none"   @bind-Value="_Entity.CreateDate" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+<Input Id="UpdateDate" @ref="Ref_UpdateDate"   CssClass="d-none"   @bind-Value="_Entity.UpdateDate" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+<Input Id="IsDelete" @ref="Ref_IsDelete"   CssClass="d-none"   @bind-Value="_Entity.IsDelete" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+    </EditForm>
+</div>
+
+@if (ShowSubmit)
+{
+    <button class="btn btn-sm btn-green" @onclick=Submit>ذخیره</button>
+}
+
+@code {
+    #region Function
+
+    //todo  جا به جا شود برده شود تو فایل  Peropeties
+    protected override async Task OnInitializedAsync()
+    {
+        Console.WriteLine("#log OnInitializedAsync");
+
+        TableGet = await Utility.JSON.ToObject<Table>("{\"Name\":\"HR_ORG_Sections\",\"GetNameAs\":\"HR_ORG_Sections\",\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"RequestID\",\"GetNameAs\":\"RequestID\"},{\"Name\":\"CreateUser\",\"GetNameAs\":\"CreateUser\"},{\"Name\":\"UpdateUser\",\"GetNameAs\":\"UpdateUser\"},{\"Name\":\"CreateDate\",\"GetNameAs\":\"CreateDate\"},{\"Name\":\"UpdateDate\",\"GetNameAs\":\"UpdateDate\"},{\"Name\":\"IsDelete\",\"GetNameAs\":\"IsDelete\"},{\"Name\":\"Title\",\"GetNameAs\":\"Title\"},{\"Name\":\"Description\",\"GetNameAs\":\"Description\"},{\"Name\":\"Code\",\"GetNameAs\":\"Code\"},{\"Name\":\"HR_ORG_SectionTypesId\",\"GetNameAs\":\"HR_ORG_SectionTypesId\"},{\"Name\":\"HR_ORG_SectionStatusId\",\"GetNameAs\":\"HR_ORG_SectionStatusId\"},{\"Name\":\"ParentId\",\"GetNameAs\":\"ParentId\"},{\"Name\":\"BaseInfo_TaxCategoryId\",\"GetNameAs\":\"BaseInfo_TaxCategoryId\"},{\"Name\":\"BaseInfo_ORG_CompaniesId\",\"GetNameAs\":\"BaseInfo_ORG_CompaniesId\"}],\"Relation\":[{\"Name\":\"HR_ORG_SectionStatus\",\"GetNameAs\":\"HR_ORG_SectionStatus\",\"ModeErtebat\":1,\"Column\":[{\"Name\":\"Code\",\"GetNameAs\":\"Code\"},{\"Name\":\"Title\",\"GetNameAs\":\"Title\"}],\"Relation\":[]},{\"Name\":\"HR_ORG_SectionTypes\",\"GetNameAs\":\"HR_ORG_SectionTypes\",\"ModeErtebat\":1,\"Column\":[{\"Name\":\"Level\",\"GetNameAs\":\"Level\"},{\"Name\":\"Title\",\"GetNameAs\":\"Title\"},{\"Name\":\"DeleteDateTime\",\"GetNameAs\":\"DeleteDateTime\"},{\"Name\":\"Description\",\"GetNameAs\":\"Description\"}],\"Relation\":[]},{\"Name\":\"BaseInfo_TaxCategory\",\"GetNameAs\":\"BaseInfo_TaxCategory\",\"ModeErtebat\":1,\"Column\":[{\"Name\":\"Title\",\"GetNameAs\":\"Title\"}],\"Relation\":[]},{\"Name\":\"BaseInfo_ORG_Companies\",\"GetNameAs\":\"BaseInfo_ORG_Companies\",\"ModeErtebat\":1,\"Column\":[{\"Name\":\"Code\",\"GetNameAs\":\"Code\"},{\"Name\":\"Title\",\"GetNameAs\":\"Title\"},{\"Name\":\"IsActive\",\"GetNameAs\":\"IsActive\"},{\"Name\":\"BaseInfo_ORG_SitesId\",\"GetNameAs\":\"BaseInfo_ORG_SitesId\"}],\"Relation\":[]},{\"Name\":\"Parent\",\"GetNameAs\":\"Parent\",\"ModeErtebat\":1,\"Column\":[{\"Name\":\"HR_EMP_EmployeesId\",\"GetNameAs\":\"HR_EMP_EmployeesId\"},{\"Name\":\"Status\",\"GetNameAs\":\"Status\"},{\"Name\":\"Title\",\"GetNameAs\":\"Title\"},{\"Name\":\"TitleEn\",\"GetNameAs\":\"TitleEn\"},{\"Name\":\"Description\",\"GetNameAs\":\"Description\"},{\"Name\":\"Code\",\"GetNameAs\":\"Code\"},{\"Name\":\"DeleteDateTime\",\"GetNameAs\":\"DeleteDateTime\"},{\"Name\":\"HR_ORG_SitesId\",\"GetNameAs\":\"HR_ORG_SitesId\"},{\"Name\":\"HR_ORG_SectionTypesId\",\"GetNameAs\":\"HR_ORG_SectionTypesId\"},{\"Name\":\"HR_Base_TaxCategoryId\",\"GetNameAs\":\"HR_Base_TaxCategoryId\"},{\"Name\":\"HR_ORG_SectionStatusId\",\"GetNameAs\":\"HR_ORG_SectionStatusId\"},{\"Name\":\"ParentId\",\"GetNameAs\":\"ParentId\"},{\"Name\":\"BaseInfo_ORG_SitesId\",\"GetNameAs\":\"BaseInfo_ORG_SitesId\"},{\"Name\":\"BaseInfo_TaxCategoryId\",\"GetNameAs\":\"BaseInfo_TaxCategoryId\"},{\"Name\":\"BaseInfo_ORG_CompaniesId\",\"GetNameAs\":\"BaseInfo_ORG_CompaniesId\"}],\"Relation\":[]},{\"Name\":\"HR_EMP_Employees\",\"GetNameAs\":\"HR_EMP_Employees\",\"ModeErtebat\":1,\"Column\":[{\"Name\":\"LastName\",\"GetNameAs\":\"LastName\"},{\"Name\":\"LastNameEn\",\"GetNameAs\":\"LastNameEn\"},{\"Name\":\"DeleteDateTime\",\"GetNameAs\":\"DeleteDateTime\"},{\"Name\":\"HR_EMP_StatusId\",\"GetNameAs\":\"HR_EMP_StatusId\"},{\"Name\":\"EmployeeLastPersonelNo\",\"GetNameAs\":\"EmployeeLastPersonelNo\"},{\"Name\":\"EmployeeNo\",\"GetNameAs\":\"EmployeeNo\"},{\"Name\":\"EmployeePersonelNo\",\"GetNameAs\":\"EmployeePersonelNo\"},{\"Name\":\"FirstName\",\"GetNameAs\":\"FirstName\"},{\"Name\":\"FirstNameEn\",\"GetNameAs\":\"FirstNameEn\"},{\"Name\":\"HR_Base_FactoryId\",\"GetNameAs\":\"HR_Base_FactoryId\"},{\"Name\":\"BaseInfo_ORG_CompaniesId\",\"GetNameAs\":\"BaseInfo_ORG_CompaniesId\"},{\"Name\":\"UserId\",\"GetNameAs\":\"UserId\"},{\"Name\":\"LastEmployeeNo\",\"GetNameAs\":\"LastEmployeeNo\"},{\"Name\":\"ProfilePicture\",\"GetNameAs\":\"ProfilePicture\"},{\"Name\":\"FullName\",\"GetNameAs\":\"FullName\"}],\"Relation\":[]},{\"Name\":\"HR_ORG_Chart\",\"GetNameAs\":\"HR_ORG_Chart\",\"ModeErtebat\":2,\"Column\":[{\"Name\":\"HR_ORG_SectionsId\",\"GetNameAs\":\"HR_ORG_SectionsId\"},{\"Name\":\"HR_ORG_PostsId\",\"GetNameAs\":\"HR_ORG_PostsId\"},{\"Name\":\"HR_ORG_ChartStatusId\",\"GetNameAs\":\"HR_ORG_ChartStatusId\"},{\"Name\":\"IsApprover\",\"GetNameAs\":\"IsApprover\"},{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"RequestID\",\"GetNameAs\":\"RequestID\"},{\"Name\":\"CreateUser\",\"GetNameAs\":\"CreateUser\"},{\"Name\":\"UpdateUser\",\"GetNameAs\":\"UpdateUser\"},{\"Name\":\"CreateDate\",\"GetNameAs\":\"CreateDate\"},{\"Name\":\"UpdateDate\",\"GetNameAs\":\"UpdateDate\"},{\"Name\":\"IsDelete\",\"GetNameAs\":\"IsDelete\"},{\"Name\":\"NumberOfApproved\",\"GetNameAs\":\"NumberOfApproved\"},{\"Name\":\"Description\",\"GetNameAs\":\"Description\"},{\"Name\":\"CurrentCount\",\"GetNameAs\":\"CurrentCount\"}],\"Relation\":[{\"Name\":\"HR_ORG_Sections\",\"GetNameAs\":\"HR_ORG_Sections\",\"ModeErtebat\":1,\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"Status\",\"GetNameAs\":\"Status\"},{\"Name\":\"Title\",\"GetNameAs\":\"Title\"},{\"Name\":\"TitleEn\",\"GetNameAs\":\"TitleEn\"},{\"Name\":\"Description\",\"GetNameAs\":\"Description\"},{\"Name\":\"Code\",\"GetNameAs\":\"Code\"},{\"Name\":\"DeleteDateTime\",\"GetNameAs\":\"DeleteDateTime\"},{\"Name\":\"HR_ORG_SitesId\",\"GetNameAs\":\"HR_ORG_SitesId\"},{\"Name\":\"HR_ORG_SectionTypesId\",\"GetNameAs\":\"HR_ORG_SectionTypesId\"},{\"Name\":\"HR_Base_TaxCategoryId\",\"GetNameAs\":\"HR_Base_TaxCategoryId\"},{\"Name\":\"HR_ORG_SectionStatusId\",\"GetNameAs\":\"HR_ORG_SectionStatusId\"},{\"Name\":\"ParentId\",\"GetNameAs\":\"ParentId\"},{\"Name\":\"BaseInfo_ORG_SitesId\",\"GetNameAs\":\"BaseInfo_ORG_SitesId\"},{\"Name\":\"BaseInfo_TaxCategoryId\",\"GetNameAs\":\"BaseInfo_TaxCategoryId\"},{\"Name\":\"BaseInfo_ORG_CompaniesId\",\"GetNameAs\":\"BaseInfo_ORG_CompaniesId\"},{\"Name\":\"HR_EMP_EmployeesId\",\"GetNameAs\":\"HR_EMP_EmployeesId\"}]},{\"Name\":\"HR_ORG_Posts\",\"GetNameAs\":\"HR_ORG_Posts\",\"ModeErtebat\":1,\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"State\",\"GetNameAs\":\"State\"},{\"Name\":\"Title\",\"GetNameAs\":\"Title\"},{\"Name\":\"TitleEn\",\"GetNameAs\":\"TitleEn\"},{\"Name\":\"DeleteDateTime\",\"GetNameAs\":\"DeleteDateTime\"},{\"Name\":\"Code\",\"GetNameAs\":\"Code\"},{\"Name\":\"Description\",\"GetNameAs\":\"Description\"},{\"Name\":\"AteyehSaz_InsuranceId\",\"GetNameAs\":\"AteyehSaz_InsuranceId\"},{\"Name\":\"HR_ORG_PositionsId\",\"GetNameAs\":\"HR_ORG_PositionsId\"},{\"Name\":\"HR_Base_InsuranceJobsId\",\"GetNameAs\":\"HR_Base_InsuranceJobsId\"},{\"Name\":\"PostCode\",\"GetNameAs\":\"PostCode\"}]},{\"Name\":\"HR_ORG_ChartStatus\",\"GetNameAs\":\"HR_ORG_ChartStatus\",\"ModeErtebat\":1,\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"Code\",\"GetNameAs\":\"Code\"},{\"Name\":\"Title\",\"GetNameAs\":\"Title\"}]}]}]}");
+        TablePost = await Utility.JSON.ToObject<Table>("{\"Name\":\"HR_ORG_Sections\",\"GetNameAs\":\"HR_ORG_Sections\",\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"RequestID\",\"GetNameAs\":\"RequestID\"},{\"Name\":\"CreateUser\",\"GetNameAs\":\"CreateUser\"},{\"Name\":\"UpdateUser\",\"GetNameAs\":\"UpdateUser\"},{\"Name\":\"CreateDate\",\"GetNameAs\":\"CreateDate\"},{\"Name\":\"UpdateDate\",\"GetNameAs\":\"UpdateDate\"},{\"Name\":\"IsDelete\",\"GetNameAs\":\"IsDelete\"},{\"Name\":\"Title\",\"GetNameAs\":\"Title\"},{\"Name\":\"Description\",\"GetNameAs\":\"Description\"},{\"Name\":\"Code\",\"GetNameAs\":\"Code\"},{\"Name\":\"HR_ORG_SectionTypesId\",\"GetNameAs\":\"HR_ORG_SectionTypesId\"},{\"Name\":\"HR_ORG_SectionStatusId\",\"GetNameAs\":\"HR_ORG_SectionStatusId\"},{\"Name\":\"ParentId\",\"GetNameAs\":\"ParentId\"},{\"Name\":\"BaseInfo_TaxCategoryId\",\"GetNameAs\":\"BaseInfo_TaxCategoryId\"},{\"Name\":\"BaseInfo_ORG_CompaniesId\",\"GetNameAs\":\"BaseInfo_ORG_CompaniesId\"}],\"Relation\":[{\"Name\":\"HR_ORG_Chart\",\"GetNameAs\":\"HR_ORG_Chart\",\"ModeErtebat\":2,\"Column\":[{\"Name\":\"HR_ORG_SectionsId\",\"GetNameAs\":\"HR_ORG_SectionsId\"},{\"Name\":\"HR_ORG_PostsId\",\"GetNameAs\":\"HR_ORG_PostsId\"},{\"Name\":\"HR_ORG_ChartStatusId\",\"GetNameAs\":\"HR_ORG_ChartStatusId\"},{\"Name\":\"IsApprover\",\"GetNameAs\":\"IsApprover\"},{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"RequestID\",\"GetNameAs\":\"RequestID\"},{\"Name\":\"CreateUser\",\"GetNameAs\":\"CreateUser\"},{\"Name\":\"UpdateUser\",\"GetNameAs\":\"UpdateUser\"},{\"Name\":\"CreateDate\",\"GetNameAs\":\"CreateDate\"},{\"Name\":\"UpdateDate\",\"GetNameAs\":\"UpdateDate\"},{\"Name\":\"IsDelete\",\"GetNameAs\":\"IsDelete\"},{\"Name\":\"NumberOfApproved\",\"GetNameAs\":\"NumberOfApproved\"},{\"Name\":\"Description\",\"GetNameAs\":\"Description\"},{\"Name\":\"CurrentCount\",\"GetNameAs\":\"CurrentCount\"}],\"Relation\":[]}]}");
+
+        config = CKEditorBundleOptions.DefaultConfig.WithHtmlEditing();
+        config.Language = "fa";
+
+        //بعداد اگه نیاز شد فرمی رو تو حالت غیر لاگین شده نمایش بدیم باید این  کد تغیر کنه
+        var user = (await _authenticationStateProvider.GetAuthenticationStateAsync()).User;
+        string UserID = user.FindFirst(c => c.Type == ClaimTypes.NameIdentifier).Value;
+        //داینامیک بشه
+        Dictionary<string, object> List = new Dictionary<string, object>();
+        //List.Add("UserID", Guid.Parse(UserID));
+        List.Add("UserID", UserID);
+        _User = await Domain.Utility.ConvertParameter.ConvertToObject(List);
+
+        Console.WriteLine("#log OnInitializedAsync End");
+
+        await base.OnInitializedAsync();
+    }
+
+    //todo  جا به جا شود برده شود تو فایل  Peropeties
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            Console.WriteLine("#log OnAfterRenderAsync");
+            await base.BeforGetData();
+
+            var Result = await GetData();
+
+            await base.AfterGetData();
+
+            StateHasChanged();
+
+            await OnFormloaded.InvokeAsync(Result);
+        }
+
+        await base.OnAfterRenderAsync(firstRender);
+    }
+
+    /// <summary>
+    /// دریافت داده
+    /// </summary>
+    /// <returns></returns>
+    public async Task<Baya.Models.Utility.Result> GetData()
+    {
+        await BeforGetData();
+
+        var DataResult = await ApiServer.External.Services.Data.Get(TableGet, QueryFilter, TableGet.Name, null);
+        
+        Baya.Models.Utility.Result Result = new Baya.Models.Utility.Result();
+
+        if (DataResult != null && DataResult.Status == HttpStatusCode.OK)
+        {
+            if (DataResult.Content != null)
+            {
+                string Data = DataResult.Content.ToString();
+                if (Data is not null)
+                {
+                    _Entity = await Utility.JSON.ToObject < Entity.HR_ORG_Sections>(Data);
+        }
+            }
+            else
+            {
+                _Entity = new Entity.HR_ORG_Sections();
+            //todo تشخیص دهد که داده ای وجود ندارد و دفه اول هست که فرم لود میشود
+            //todo اگه نیاز شد دالخ ORm خروجیش متفاوت باشه
+            //ست کردن دیفالت های فرم
+            if (true)
+                {//
+
+
+                    //نمونه ست کردن پارامتر روش اول
+                    //_Entity.InstantDelivery = _RequestParameters.UserId;
+
+                    //نمونه کد برای ست کردن پارامتر روش دوم
+                    //_Entity.InstantDelivery = await GetParameter("@@UserId@@");
+                }
+
+                SumaryMessage = "داده لود شده معتبر نمی باشد";
+                Result.Status = HttpStatusCode.InternalServerError;
+            }
+        }
+        else
+        {
+            SumaryMessage = "داده لود نشد";
+            Result.Status = HttpStatusCode.InternalServerError;
+        }
+
+        Result.Message = SumaryMessage;
+
+        StateHasChanged();
+
+        await AfterGetData();
+
+        return Result;
+    }
+
+    public override async Task SetParametersAsync(ParameterView parameters)
+    {
+        await base.SetParametersAsync(parameters);
+    }
+
+    protected override void OnInitialized()
+    {
+        //todo این خط برده شود داخل تابع پاینی ببینیم خطا داره یا نه
+        languageContainer.InitLocalizedComponent(this);
+    }
+
+
+    /// <summary>
+    /// بررسی تغییر دیتا
+    /// </summary>
+    /// <param name="Json"></param>
+    /// <returns></returns>
+    public bool CheckChangedData(string? Json)
+    {
+        if (string.Equals(JsonData, Json)) return true;
+        return false;
+    }
+
+    /// <summary>
+    /// ارسال داده
+    /// </summary>
+    /// <returns></returns>
+    public override async Task<Baya.Models.Utility.Result> Submit()
+    {
+        SumaryMessage = "";
+        Baya.Models.Utility.Result Result = new Baya.Models.Utility.Result();
+
+        if (!await FormValidator())
+        {
+            StateHasChanged();
+            Result.Status = HttpStatusCode.InternalServerError;
+            return Result;
+        }
+
+        if ((await BeforSubmit()).Status != HttpStatusCode.OK)
+        {
+            StateHasChanged();
+            Result.Status = HttpStatusCode.InternalServerError;
+            return Result;
+        }
+
+        _loadingService.Show();
+        var Resualt = await PostData();
+
+        if (Resualt)
+        {
+            Result.Status = HttpStatusCode.OK;
+
+            SumaryMessage = "داده ها با موفقیت ثبت شد";
+        }
+        else
+        {
+            Result.Status = HttpStatusCode.InternalServerError;
+            SumaryMessage = "ذخیره داده با مشکل مواجه شد";
+        }
+
+        Result.Message = SumaryMessage;
+
+        switch ((int)Result.Status)
+        {
+            case 200:
+                toastService.ShowSuccess(Result.Message);
+                break;
+            case 500:
+                toastService.ShowError(Result.Message);
+                break;
+            default:
+                break;
+        } 
+        _loadingService.Hide();
+        await AfterSubmit();
+
+        return Result;
+    }
+
+    /// <summary>
+    /// ارسال داده
+    /// </summary>
+    /// <returns></returns>
+    private async Task<bool> PostData()
+    {
+        string Data = await Utility.JSON.ToJson(_Entity);
+
+        bool IsOk = false;
+        var Model = await ApiServer.External.Services.Data.Put(Data, TablePost.Name, TablePost, RequestID?.ToString(), _User.UserID.ToString());
+        // بررسی وضعیت پاسخ
+        if (Model?.Status == HttpStatusCode.OK)
+        {
+            if (Model.Content != null && !IndependentForm)
+                { 
+                    string NewData = Model.Content.ToString();
+                    if (NewData is not null)
+                    {
+                        var NewEntity = await Utility.JSON.ToObject < Entity.HR_ORG_Sections>(NewData);
+                     await  GetDataForm(NewEntity._Id);
+                    }
+
+                }
+                IsOk = true;
+
+        }
+        return IsOk;
+    }
+
+
+    void SetLanguage(string language)
+    {
+        languageContainer.SetLanguage(System.Globalization.CultureInfo.GetCultureInfo(language));
+    }
+
+    // public void ValidFormSubmitted(EditContext editContext)
+    // {
+
+    // }
+
+    // public void InvalidFormSubmitted(EditContext editContext)
+    // {
+
+    // }
+    public async Task GetDataForm(object Id)
+    {
+        Type type = Id.GetType();
+        string TypeToQueryBuilder = Utility.TypeConverterQueryBuilder.ConvertCSharpTypeToQueryBuilder(type);
+        var NewQuery = new QueryBuilderFilterRule() { Condition = "AND" };
+        NewQuery.Rules = new List<QueryBuilderFilterRule>
+            {
+                    new QueryBuilderFilterRule()
+                    {
+                        Field = _Entity._GetIdName,
+                        Id = _Entity._GetIdName,
+                        Input = "text",
+                        Operator = "equal",
+                        Type =  TypeToQueryBuilder,
+                        Value = new string[]{ Id.ToString() },
+                    }
+            };
+        QueryFilter = NewQuery;
+        await GetData();
+        StateHasChanged();
+    }
+    #endregion
+}

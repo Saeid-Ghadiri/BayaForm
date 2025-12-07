@@ -1,0 +1,1270 @@
+@inherits Forms.Forms.Form_982_CUBase
+@namespace FormsPage
+
+@using AKSoftware.Localization.MultiLanguages.Blazor
+@using Baya.Models.Utility;
+@using Baya.Models.ORM
+@using Microsoft.AspNetCore.Components.Forms
+@using Microsoft.AspNetCore.Components.Authorization;
+@using System.Security.Claims
+@using System.Net
+@using Microsoft.JSInterop
+@using Baya.Models.ViewEngine
+@using Forms.Domain.Utility
+@using Castle.DynamicLinqQueryBuilder
+<style>
+    /* ************************************************** */
+.detailArea form div:not(.devdrop) {
+    margin-top: .1rem;
+}
+
+/* ************************************************** */
+.header-form {
+    height: 100px;
+    background: linear-gradient(96deg, #0d3b66, #6a0dad);
+    color: white;
+    border-bottom: 2px solid #ffffff33;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.25);
+    border-radius: 10px;
+    transition: all 0.3s ease-in-out;
+}
+
+.header-icon {
+    font-size: 56px;
+    color: #ffccff;
+    transition: transform 0.3s ease, color 0.3s ease;
+}
+
+.header-icon:hover {
+    transform: scale(1.1) rotate(-5deg);
+    color: #f5baff;
+}
+
+.header-title {
+    font-size: 25px;
+    font-weight: bold;
+    transition: color 0.3s ease;
+}
+
+.header-subtitle {
+    font-size: 14px;
+    opacity: 0.95;
+    transition: opacity 0.3s ease;
+}
+
+.header-text:hover .header-title {
+    color: #ffe0ff;
+}
+
+.header-text:hover .header-subtitle {
+    opacity: 1;
+}
+
+/* ********** */
+
+.col_bg1 {
+    border: 1px dashed rgba(99, 100, 102, 0.3);
+    background-color: rgba(189, 193, 196, 0.488);
+    border-radius: 0.5rem;
+    padding: 0.5rem;
+    margin: 1rem 0.1rem !important;
+    /*align-items: baseline;*/
+}
+
+.col_bg1:hover {
+    /* background-color: rgba(255, 193, 7, 0.03);
+  border-color: rgba(255, 193, 7, 0.5);*/
+}
+
+
+.col_bg {
+    /* border: 1px dashed rgba(88, 89, 104, 0.5);*/
+    /* طوسی خط‌چین */
+    background: #DEDED1;
+    /* background-color: #DEDED1; */
+    /* طوسی خیلی روشن */
+    border-radius: 0.5rem;
+    padding: 0.5rem;
+    margin: 1rem 0.1rem !important;
+}
+
+/* حذف کامل هاور */
+.col_bg:hover {
+    /* خالی بماند تا هیچ تغییری نکند */
+}
+</style>
+
+<Plugins.Tools.ConfirmDialog @ref="Confirm" />
+
+<span class="d-none">VersionForm:@VersionForm</span>
+@*
+@if (!string.IsNullOrEmpty(SumaryMessage))
+{
+    <div>
+        @SumaryMessage
+    </div>
+} *@
+
+@* <EditForm @ref="_Form" Model="_Entity" OnValidSubmit="ValidFormSubmitted" OnInvalidSubmit="InvalidFormSubmitted" OnSubmit="Submit"> *@
+<div class="@(ReadOnly?"FormReadOnly":"")">
+    <EditForm @ref="_Form" Model="_Entity" OnSubmit="Submit">
+        
+<div class="row ">
+    
+<div class="col-md-12">
+    <div  class="">
+    <header class="header-form d-flex align-items-center py-1">
+    <i class="fal fa-box header-icon px-3 fs-1"></i>
+    <div class="header-text">
+      <h4 class="header-title mb-1"> برگشت به انبار</h4>
+      <p class="header-subtitle">ایجاد و ویرایش  ثبت برگشت کالا از حواله مصرف در شماران</p>
+    </div>
+  </header>
+
+</div>
+<div  class="Gcol-sm-8 Gcol-md-6 Gcol-lg-12">
+    <div>
+  &nbsp;
+</div>
+</div>
+
+<div class="bg-light">
+    
+<div class="row ">
+    
+<div class="col-md-5">
+     
+ 
+@code {
+    Baya.Models.ViewEngine.View_Component Component_Shomaran_ReturnHavaleReturnHavale_List = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"EntityName\":\"برگشت کالا از حواله مصرف\",\"primaryKey\":false,\"EntityID\":730,\"FieldId\":30903,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":982,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":true,\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://shomaran.workcv.ir:2010/fa-ir/api/v1/view_REThavdtl/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"inputFormat\":\"DataGrid\",\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"factno\",\"template\":\"<span>{{item.factno}} {{item.tempno}} {{item.factdate}} </span>\",\"FieldsTemplate\":[{\"key\":\"factno\",\"value\":\"nvarchar(Max)\"},{\"key\":\"tempno\",\"value\":\"nvarchar(Max)\"},{\"key\":\"factdate\",\"value\":\"nvarchar(Max)\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"modal\":true,\"label\":\"فهرست برگشت به انبار\",\"tableView\":true,\"key\":\"ReturnHavale_List\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"30903?EId=730&SubId=28\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
+}
+
+    <Dropdown Id=ReturnHavale_List  @ref="Ref_ReturnHavale_List" Label="فهرست برگشت به انبار" CssClass=""  DisplayFormat="DataGrid" ExternalApi=true NotMapped=false TextGrid=false  Value="@_Entity.ReturnHavale_List" FieldName="ReturnHavale_List" OnItemSelected="ItemSelected_Shomaran_ReturnHavaleReturnHavale_List" Component="Component_Shomaran_ReturnHavaleReturnHavale_List" _Entity="_Entity" >
+</Dropdown>
+@code {
+    public async Task ItemSelected_Shomaran_ReturnHavaleReturnHavale_List(object _Item)
+    {
+        var Selected = Utility.JSON.ToObject<dynamic>(Utility.JSON.ToJson(_Item).Result).Result;
+     var Item = _Entity;
+
+    Item.ReturnHavale_List = Selected.factno;
+
+
+    
+
+    
+    }
+} 
+
+</div>
+
+<div class="col-md-7">
+    
+<div class="row col_bg1 px-2">
+    
+<div class="col-md-3">
+    
+<Input Id="FactNo" @ref="Ref_FactNo" Label="شماره"   Disabled=true  @bind-Value="_Entity.FactNo" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+</div>
+
+<div class="col-md-3">
+    
+<Input Id="FactDate" @ref="Ref_FactDate" Label="تاریخ"  CssClass=" PersianDatePicker"   @bind-Value="_Entity.FactDate" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"data-jdp\":\"  \",\"data-jdp-only-date\":\"   \"}").Result))></Input>
+
+</div>
+
+<div class="col-md-3">
+    
+<Input Id="Creator" @ref="Ref_Creator" Label="تنظیم کننده"   Disabled=true  @bind-Value="_Entity.Creator" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+</div>
+
+<div class="col-md-3">
+    
+<Input Id="TempNo" @ref="Ref_TempNo" Label="شماره عطف"     @bind-Value="_Entity.TempNo" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+</div>
+
+</div>
+
+<div class="row col_bg1 px-2">
+    
+<div class="col-md-6">
+     
+ 
+@code {
+    Baya.Models.ViewEngine.View_Component Component_Shomaran_ReturnHavaleCentCode = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"EntityName\":\"ReturnHavale\",\"primaryKey\":false,\"EntityID\":730,\"FieldId\":30285,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":982,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":true,\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://shomaran.workcv.ir:2010/fa-ir/api/v1/view_paycent/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"inputFormat\":\"DropDown\",\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"CENTCODE\",\"template\":\"<span>{{item.name}} {{item.CENTCODE}} </span>\",\"FieldsTemplate\":[{\"key\":\"name\",\"value\":\"nvarchar(Max)\"},{\"key\":\"CENTCODE\",\"value\":\"nvarchar(Max)\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"searchField\":\"name,CENTCODE\",\"modal\":true,\"label\":\"مرکز هزینه\",\"tableView\":true,\"key\":\"CentCode\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"30285?EId=730&SubId=28\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true,\"onitemselected\":\"CentCode_onitemselected\"}").Result;
+}
+
+    <Dropdown Id=CentCode  @ref="Ref_CentCode" Label="مرکز هزینه" CssClass=""  DisplayFormat="DropDown" ExternalApi=true NotMapped=false TextGrid=false  Value="@_Entity.CentCode" FieldName="CentCode" OnItemSelected="ItemSelected_Shomaran_ReturnHavaleCentCode" Component="Component_Shomaran_ReturnHavaleCentCode" _Entity="_Entity" >
+</Dropdown>
+@code {
+    public async Task ItemSelected_Shomaran_ReturnHavaleCentCode(object _Item)
+    {
+        var Selected = Utility.JSON.ToObject<dynamic>(Utility.JSON.ToJson(_Item).Result).Result;
+     var Item = _Entity;
+
+    Item.CentCode = Selected.CENTCODE;
+
+
+    
+
+    await CentCode_onitemselected( Selected);
+    }
+} 
+ 
+ 
+@code {
+    Baya.Models.ViewEngine.View_Component Component_Shomaran_ReturnHavaleInvCode = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"EntityName\":\"ReturnHavale\",\"primaryKey\":false,\"EntityID\":730,\"FieldId\":30287,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":982,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":true,\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://shomaran.workcv.ir:2010/fa-ir/api/v1/view_INV/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"inputFormat\":\"DropDown\",\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"INVCODE\",\"template\":\"<span>{{item.INVNAME}} {{item.INVCODE}} </span>\",\"FieldsTemplate\":[{\"key\":\"INVNAME\",\"value\":\"nvarchar(Max)\"},{\"key\":\"INVCODE\",\"value\":\"nvarchar(Max)\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"searchField\":\"INVNAME,INVCODE\",\"modal\":true,\"label\":\"انبار\",\"tableView\":true,\"key\":\"InvCode\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"30287?EId=730&SubId=28\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true,\"onitemselected\":\"InvCode_onitemselected\"}").Result;
+}
+
+    <Dropdown Id=InvCode  @ref="Ref_InvCode" Label="انبار" CssClass=""  DisplayFormat="DropDown" ExternalApi=true NotMapped=false TextGrid=false  Value="@_Entity.InvCode" FieldName="InvCode" OnItemSelected="ItemSelected_Shomaran_ReturnHavaleInvCode" Component="Component_Shomaran_ReturnHavaleInvCode" _Entity="_Entity" >
+</Dropdown>
+@code {
+    public async Task ItemSelected_Shomaran_ReturnHavaleInvCode(object _Item)
+    {
+        var Selected = Utility.JSON.ToObject<dynamic>(Utility.JSON.ToJson(_Item).Result).Result;
+     var Item = _Entity;
+
+    Item.InvCode = Selected.INVCODE;
+
+
+    
+
+    await InvCode_onitemselected( Selected);
+    }
+} 
+
+</div>
+
+<div class="col-md-6">
+    
+</div>
+
+</div>
+
+<div class="col_bg1 px-2">
+    
+<Input Id="Note" @ref="Ref_Note" Label="توضیحات"     @bind-Value="_Entity.Note" type="textarea"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+</div>
+
+<div class="row col_bg1 px-2">
+    
+<div class="col-md-3">
+    
+<Input Id="Year" @ref="Ref_Year" Label="سال"     @bind-Value="_Entity.Year" type="number"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+</div>
+
+<div class="col-md-3">
+    
+</div>
+
+<div class="col-md-3">
+    
+</div>
+
+<div class="col-md-3">
+    
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+<div  class="">
+    <hr class="hrdash bg-red">
+</div>
+<div  class="">
+    <div id="resid_header" 
+     class="rounded rounded-1 border border-0 fs-6 fw-bold p-2 d-flex justify-content-center align-items-center"
+     style="background-color:#b38cff;">
+
+  <span class="text-black">
+    اقلام مصرفی توسط سازنده
+  </span>
+
+</div>
+
+</div>
+<label for="Shomaran_ReturnHavaleDetail_GridShomaran_ReturnHavaleId_731">ReturnHavaleDetail
+   
+    
+</label>
+
+<DxGrid @ref="Grid_Shomaran_ReturnHavaleDetail" Data="_Entity.Shomaran_ReturnHavaleDetail" KeyFieldName="_Id" EditMode="GridEditMode.PopupEditForm"
+        EditModelSaving="OnEditModelSavingShomaran_ReturnHavaleDetail"
+        DataItemDeleting="OnDataItemDeletingShomaran_ReturnHavaleDetail"
+        PopupEditFormCssClass="ModalWidth"
+        PopupEditFormHeaderText="ReturnHavaleDetail"
+        EditFormButtonsVisible="false"
+        CustomizeEditModel="CustomizeEditGrid_Shomaran_ReturnHavaleDetail"
+        CustomizeElement="CustomizeRowsGrid_Shomaran_ReturnHavaleDetail" 
+        Component="@((Utility.JSON.ToObject<View_Component>("{\"primaryKey\":false,\"EntityID\":731,\"FieldId\":731,\"NotNull\":false,\"ViewId\":0,\"NotMapped\":false,\"Relation\":false,\"RelationExternal\":false,\"RelationChildModel\":\"Shomaran_ReturnHavaleDetail\",\"GridMainModel\":\"Shomaran_ReturnHavaleDetail\",\"widget\":{\"altInput\":false,\"allowInput\":false,\"clickOpens\":false,\"enableDate\":false,\"enableTime\":false,\"noCalendar\":false,\"useLocaleSettings\":false,\"hourIncrement\":0,\"minuteIncrement\":0,\"time_24hr\":false},\"wysiwyg\":false,\"data\":{},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"FieldsTemplate\":[],\"refreshOn\":\"data\",\"reorder\":false,\"addAnotherPosition\":\"bottom\",\"layoutFixed\":false,\"enableRowGroups\":false,\"initEmpty\":false,\"disabled\":true,\"modal\":true,\"label\":\"ReturnHavaleDetail\",\"tableView\":true,\"key\":\"GridShomaran_ReturnHavaleId_731\",\"type\":\"datagrid\",\"input\":true,\"placeholder\":\"GridShomaran_ReturnHavaleId_731\",\"modalEdit\":true,\"FieldUrl\":\"731?EId=731&SubId=28\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true,\"editmodelsaving\":\"GridShomaran_ReturnHavaleId_731_editmodelsaving\",\"afterrendermodal\":\"GridShomaran_ReturnHavaleId_731_afterrendermodal\"}").Result))"
+         >
+    <Columns>
+    
+<DxGridCommandColumn Width="70px">
+    <HeaderTemplate Context="HeaderContext">
+       
+<a id=Shomaran_ReturnHavaleDetail_GridShomaran_ReturnHavaleId_731ButtonNew class="btn btn-sm btn-green btnGridAddData" @onclick="@(() => StartEditNewRowAsync_Grid_Shomaran_ReturnHavaleDetail())" style="text-decoration: none;" href="javascript:void(0);">
+    <span class="fal fa-plus-circle btnicon"></span>
+    <span>@languageContainer.Keys["DXGrid:New"]</span>
+</a>
+
+    </HeaderTemplate>
+    <CellDisplayTemplate Context="CellContext">
+       
+<a id=Shomaran_ReturnHavaleDetail_GridShomaran_ReturnHavaleId_731ButtonEdit class="btn btn-sm btn-yellow-light btnEditGridData" @onclick="@(() => StartModalGrid_Shomaran_ReturnHavaleDetail(CellContext))" style="text-decoration: none;" href="javascript:void(0);">
+    <span class="fal fa-pencil btnicon"></span>
+</a>
+
+       
+<a class="btn btn-sm btn-red-light btnDeleteGridData" @onclick="@(() => OnDeleteButtonClickGrid_Shomaran_ReturnHavaleDetail(CellContext))" style="text-decoration: none;" href="javascript:void(0);">
+    <span class="fal fa-times-circle btnicon"></span>
+</a>
+
+    </CellDisplayTemplate>
+</DxGridCommandColumn>
+
+    <DxGridCommandColumn   Width="60px">
+           <HeaderTemplate Context="HeaderContext">
+               <a    style="text-decoration: none;"  >
+                
+                   <span>ردیف</span>
+               </a>
+           </HeaderTemplate>
+           <CellDisplayTemplate Context="CellContext">
+            @if (CellContext.VisibleIndex > 9){
+                <p>@(CellContext.VisibleIndex + 1)</p>
+            }else{
+                <p>@(((CellContext.Grid.PageIndex * CellContext.Grid.PageSize) + (CellContext.VisibleIndex + 1)))</p>
+            }
+          
+           </CellDisplayTemplate>
+     </DxGridCommandColumn>
+    <DxGridDataColumn Context="ProductSearch_" Caption="جستجو کالا" >
+    <CellDisplayTemplate>
+       
+@{
+    Baya.Models.ViewEngine.View_Component HeaderProductSearch = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"primaryKey\":false,\"EntityID\":731,\"FieldId\":30904,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":982,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":true,\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://shomaran.workcv.ir:2010/fa-ir/api/v1/view_parts/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"partcode\",\"template\":\"<span>{{item.partcode}} {{item.partno}} {{item.desc}} {{item.unit}} </span>\",\"FieldsTemplate\":[{\"key\":\"partcode\",\"value\":\"nvarchar(Max)\"},{\"key\":\"partno\",\"value\":\"nvarchar(Max)\"},{\"key\":\"desc\",\"value\":\"nvarchar(Max)\"},{\"key\":\"unit\",\"value\":\"nvarchar(Max)\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"searchField\":\"partcode,partno\",\"disableLimit\":false,\"noRefreshOnScroll\":false,\"modal\":true,\"label\":\"جستجو کالا\",\"tableView\":true,\"key\":\"ProductSearch\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"customClass\":\"Gcol-sm-8 Gcol-md-6 Gcol-lg-6\",\"FieldUrl\":\"30904?EId=731&SubId=28\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true,\"onitemselected\":\"ProductSearch_onitemselected\"}").Result;
+    var RowProductSearch = ((Entity.Shomaran_ReturnHavaleDetail)ProductSearch_.DataItem).ProductSearch;
+}
+
+<Dropdown ExternalApi=true CssClass="Gcol-sm-8 Gcol-md-6 Gcol-lg-6" NotMapped=false TextGrid=true Value="@RowProductSearch"   FieldName="ProductSearch" OnItemSelected="ItemSelected_Shomaran_ReturnHavaleDetailProductSearch_Header" Component="HeaderProductSearch">
+</Dropdown>
+@code {
+    public async Task ItemSelected_Shomaran_ReturnHavaleDetailProductSearch_Header(object _Item)
+    {
+      //  var Selected = Utility.JSON.ToObject<dynamic>(Utility.JSON.ToJson(_Item).Result).Result;
+  //   ProductSearch
+
+  //  #CustomCode
+
+ //   
+
+  //  #OnItemSelected
+    }
+}
+
+    </CellDisplayTemplate>
+</DxGridDataColumn>
+<DxGridDataColumn Context="html_" Caption="HTML" >
+    <CellDisplayTemplate>
+      <div  class="Gcol-sm-8 Gcol-md-6 Gcol-lg-6">
+    
+</div>
+
+    </CellDisplayTemplate>
+</DxGridDataColumn>
+<DxGridDataColumn  Caption="کد کالا"  FieldName="PartCode" />
+
+<DxGridDataColumn  Caption="نام کالا"  FieldName="ProductName" />
+
+<DxGridDataColumn  Caption="شماره فنی"  FieldName="ShomareFani" />
+
+<DxGridDataColumn DisplayFormat="G" Caption="مقدار اول"  FieldName="Amount" />
+
+<DxGridDataColumn  Caption="واحد"  FieldName="Unit" />
+
+<DxGridDataColumn  Caption="سفارش کالاها"  FieldName="Sefaresh" />
+
+<DxGridDataColumn  Caption="ردیابی کالا"  FieldName="Radyabi" />
+
+<DxGridDataColumn DisplayFormat="0" Caption="سال"  FieldName="Year" />
+
+<DxGridDataColumn  Caption="Id" Visible=false FieldName="Id" />
+
+<DxGridDataColumn  Caption="RequestID" Visible=false FieldName="RequestID" />
+
+<DxGridDataColumn  Caption="CreateUser" Visible=false FieldName="CreateUser" />
+
+<DxGridDataColumn  Caption="UpdateUser" Visible=false FieldName="UpdateUser" />
+
+<DxGridDataColumn  Caption="CreateDate" Visible=false FieldName="CreateDate" />
+
+<DxGridDataColumn  Caption="UpdateDate" Visible=false FieldName="UpdateDate" />
+
+<DxGridDataColumn  Caption="IsDelete" Visible=false FieldName="IsDelete" />
+
+<DxGridDataColumn DisplayFormat="0" Caption="ردیف دیتیل فرم" Visible=false FieldName="RowOrder" />
+
+
+</Columns>
+
+    <EditFormTemplate Context="EditFormContextShomaran_ReturnHavaleDetail">
+    @{
+        Shomaran_ReturnHavaleDetail  = (Entity.Shomaran_ReturnHavaleDetail)EditFormContextShomaran_ReturnHavaleDetail.EditModel;
+    }
+    <DxFormLayout>
+        <DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextShomaran_ReturnHavaleDetail">
+     
+ 
+@code {
+    Baya.Models.ViewEngine.View_Component Component_Shomaran_ReturnHavaleDetailProductSearch = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"primaryKey\":false,\"EntityID\":731,\"FieldId\":30904,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":982,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":true,\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://shomaran.workcv.ir:2010/fa-ir/api/v1/view_parts/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"partcode\",\"template\":\"<span>{{item.partcode}} {{item.partno}} {{item.desc}} {{item.unit}} </span>\",\"FieldsTemplate\":[{\"key\":\"partcode\",\"value\":\"nvarchar(Max)\"},{\"key\":\"partno\",\"value\":\"nvarchar(Max)\"},{\"key\":\"desc\",\"value\":\"nvarchar(Max)\"},{\"key\":\"unit\",\"value\":\"nvarchar(Max)\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"searchField\":\"partcode,partno\",\"disableLimit\":false,\"noRefreshOnScroll\":false,\"modal\":true,\"label\":\"جستجو کالا\",\"tableView\":true,\"key\":\"ProductSearch\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"customClass\":\"Gcol-sm-8 Gcol-md-6 Gcol-lg-6\",\"FieldUrl\":\"30904?EId=731&SubId=28\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true,\"onitemselected\":\"ProductSearch_onitemselected\"}").Result;
+}
+
+    <Dropdown Id=Shomaran_ReturnHavaleDetail_ProductSearch  @ref="Ref_Shomaran_ReturnHavaleDetail_ProductSearch" Label="جستجو کالا" CssClass="Gcol-sm-8 Gcol-md-6 Gcol-lg-6"  DisplayFormat="DropDown" ExternalApi=true NotMapped=false TextGrid=false  Value="@Shomaran_ReturnHavaleDetail.ProductSearch" FieldName="ProductSearch" OnItemSelected="ItemSelected_Shomaran_ReturnHavaleDetailProductSearch" Component="Component_Shomaran_ReturnHavaleDetailProductSearch" _Entity="_Entity" _EntityRow=Shomaran_ReturnHavaleDetail>
+</Dropdown>
+@code {
+    public async Task ItemSelected_Shomaran_ReturnHavaleDetailProductSearch(object _Item)
+    {
+        var Selected = Utility.JSON.ToObject<dynamic>(Utility.JSON.ToJson(_Item).Result).Result;
+     var Item = Shomaran_ReturnHavaleDetail;
+
+    Item.ProductSearch = Selected.partcode;
+
+
+    
+
+    await ProductSearch_onitemselected( Selected , Shomaran_ReturnHavaleDetail);
+    }
+} 
+
+</DxFormLayoutItem>
+
+<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextShomaran_ReturnHavaleDetail">
+    <div  class="Gcol-sm-8 Gcol-md-6 Gcol-lg-6">
+    
+</div>
+
+</DxFormLayoutItem>
+
+<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextShomaran_ReturnHavaleDetail">
+    
+<Input Id="Shomaran_ReturnHavaleDetail_PartCode" @ref="Ref_Shomaran_ReturnHavaleDetail_PartCode" Label="کد کالا"  CssClass="Gcol-sm-8 Gcol-md-6 Gcol-lg-3" Disabled=true  @bind-Value="Shomaran_ReturnHavaleDetail.PartCode" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"maxlength\":\"150\"}").Result))></Input>
+
+</DxFormLayoutItem>
+
+<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextShomaran_ReturnHavaleDetail">
+    
+<Input Id="Shomaran_ReturnHavaleDetail_ProductName" @ref="Ref_Shomaran_ReturnHavaleDetail_ProductName" Label="نام کالا"  CssClass="Gcol-sm-8 Gcol-md-6 Gcol-lg-3" Disabled=true  @bind-Value="Shomaran_ReturnHavaleDetail.ProductName" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"maxlength\":\"300\"}").Result))></Input>
+
+</DxFormLayoutItem>
+
+<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextShomaran_ReturnHavaleDetail">
+    
+<Input Id="Shomaran_ReturnHavaleDetail_ShomareFani" @ref="Ref_Shomaran_ReturnHavaleDetail_ShomareFani" Label="شماره فنی"  CssClass="Gcol-sm-8 Gcol-md-6 Gcol-lg-2" Disabled=true  @bind-Value="Shomaran_ReturnHavaleDetail.ShomareFani" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"maxlength\":\"150\"}").Result))></Input>
+
+</DxFormLayoutItem>
+
+<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextShomaran_ReturnHavaleDetail">
+    
+<Input Id="Shomaran_ReturnHavaleDetail_Amount" @ref="Ref_Shomaran_ReturnHavaleDetail_Amount" Label="مقدار اول"  CssClass="Gcol-sm-8 Gcol-md-6 Gcol-lg-2"   @bind-Value="Shomaran_ReturnHavaleDetail.Amount" type="number" ActiveSeperator=false    Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"step\":\"any\"}").Result))></Input>
+
+</DxFormLayoutItem>
+
+<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextShomaran_ReturnHavaleDetail">
+    
+<Input Id="Shomaran_ReturnHavaleDetail_Unit" @ref="Ref_Shomaran_ReturnHavaleDetail_Unit" Label="واحد"  CssClass="Gcol-sm-8 Gcol-md-6 Gcol-lg-2" Disabled=true  @bind-Value="Shomaran_ReturnHavaleDetail.Unit" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+</DxFormLayoutItem>
+
+<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextShomaran_ReturnHavaleDetail">
+    
+<Input Id="Shomaran_ReturnHavaleDetail_Sefaresh" @ref="Ref_Shomaran_ReturnHavaleDetail_Sefaresh" Label="سفارش کالاها"  CssClass="Gcol-sm-8 Gcol-md-6 Gcol-lg-6"   @bind-Value="Shomaran_ReturnHavaleDetail.Sefaresh" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+</DxFormLayoutItem>
+
+<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextShomaran_ReturnHavaleDetail">
+    
+<Input Id="Shomaran_ReturnHavaleDetail_Radyabi" @ref="Ref_Shomaran_ReturnHavaleDetail_Radyabi" Label="ردیابی کالا"  CssClass="Gcol-sm-8 Gcol-md-6 Gcol-lg-6"   @bind-Value="Shomaran_ReturnHavaleDetail.Radyabi" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+</DxFormLayoutItem>
+
+<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextShomaran_ReturnHavaleDetail">
+    
+<Input Id="Shomaran_ReturnHavaleDetail_Year" @ref="Ref_Shomaran_ReturnHavaleDetail_Year" Label="سال"  CssClass="Gcol-sm-8 Gcol-md-6 Gcol-lg-2"   @bind-Value="Shomaran_ReturnHavaleDetail.Year" type="number" ActiveSeperator=false    Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+</DxFormLayoutItem>
+
+<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextShomaran_ReturnHavaleDetail">
+    
+<Input Id="Shomaran_ReturnHavaleDetail_Id" @ref="Ref_Shomaran_ReturnHavaleDetail_Id"   CssClass="d-none"   @bind-Value="Shomaran_ReturnHavaleDetail.Id" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+</DxFormLayoutItem>
+
+<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextShomaran_ReturnHavaleDetail">
+    
+<Input Id="Shomaran_ReturnHavaleDetail_RequestID" @ref="Ref_Shomaran_ReturnHavaleDetail_RequestID"      @bind-Value="Shomaran_ReturnHavaleDetail.RequestID" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+</DxFormLayoutItem>
+
+<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextShomaran_ReturnHavaleDetail">
+    
+<Input Id="Shomaran_ReturnHavaleDetail_CreateUser" @ref="Ref_Shomaran_ReturnHavaleDetail_CreateUser"      @bind-Value="Shomaran_ReturnHavaleDetail.CreateUser" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+</DxFormLayoutItem>
+
+<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextShomaran_ReturnHavaleDetail">
+    
+<Input Id="Shomaran_ReturnHavaleDetail_UpdateUser" @ref="Ref_Shomaran_ReturnHavaleDetail_UpdateUser"      @bind-Value="Shomaran_ReturnHavaleDetail.UpdateUser" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+</DxFormLayoutItem>
+
+<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextShomaran_ReturnHavaleDetail">
+    
+<Input Id="Shomaran_ReturnHavaleDetail_CreateDate" @ref="Ref_Shomaran_ReturnHavaleDetail_CreateDate"   CssClass="d-none"   @bind-Value="Shomaran_ReturnHavaleDetail.CreateDate" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+</DxFormLayoutItem>
+
+<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextShomaran_ReturnHavaleDetail">
+    
+<Input Id="Shomaran_ReturnHavaleDetail_UpdateDate" @ref="Ref_Shomaran_ReturnHavaleDetail_UpdateDate"   CssClass="d-none"   @bind-Value="Shomaran_ReturnHavaleDetail.UpdateDate" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+</DxFormLayoutItem>
+
+<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextShomaran_ReturnHavaleDetail">
+    
+<Input Id="Shomaran_ReturnHavaleDetail_IsDelete" @ref="Ref_Shomaran_ReturnHavaleDetail_IsDelete"   CssClass="d-none"   @bind-Value="Shomaran_ReturnHavaleDetail.IsDelete" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+</DxFormLayoutItem>
+
+<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextShomaran_ReturnHavaleDetail">
+    
+<Input Id="Shomaran_ReturnHavaleDetail_RowOrder" @ref="Ref_Shomaran_ReturnHavaleDetail_RowOrder" Label="ردیف دیتیل فرم"  CssClass="d-none" Disabled=true  @bind-Value="Shomaran_ReturnHavaleDetail.RowOrder" type="number"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+</DxFormLayoutItem>
+
+
+        <DxFormLayoutItem ColSpanMd="12" Context="FormLayoutContextShomaran_ReturnHavaleDetail" CssClass="btn-modal-custom">
+            <DxButton Id="Shomaran_ReturnHavaleDetail_GridShomaran_ReturnHavaleId_731ButtonSave" Click="@(() => SaveModalGrid_Shomaran_ReturnHavaleDetail(EditFormContextShomaran_ReturnHavaleDetail))" Text="@languageContainer.Keys["DXGrid:Save"]" CssClass="btn btn-green px-5" />
+            
+<DxButton id="Shomaran_ReturnHavaleDetail_GridShomaran_ReturnHavaleId_731ButtonSaveAndNew"    Text="ذخیره و جدید" Click="@(() => SaveAndNewGrid_Shomaran_ReturnHavaleDetail(EditFormContextShomaran_ReturnHavaleDetail))" CssClass="btn btn-green" />
+
+
+            <DxButton Id="Shomaran_ReturnHavaleDetail_GridShomaran_ReturnHavaleId_731ButtonCancel" Click="@(() => Grid_Shomaran_ReturnHavaleDetail.CancelEditAsync())" Text="@languageContainer.Keys["DXGrid:Cancel"]" CssClass="btn btn-red" />
+            <button id="click_s"  hidden>submit</button>
+             <span>|</span>
+           
+            <DxButton Id="Shomaran_ReturnHavaleDetail_GridShomaran_ReturnHavaleId_731ButtonBefore" Click="@(() => Dialog_Grid_Shomaran_ReturnHavaleDetail(0,IndexGrid_Shomaran_ReturnHavaleDetail,EditFormContextShomaran_ReturnHavaleDetail))" Text="قبلی" CssClass="btn btn-purple" />@* @languageContainer.Keys["DXGrid:??"] *@
+         
+            <DxButton Id="Shomaran_ReturnHavaleDetail_GridShomaran_ReturnHavaleId_731ButtonNext" Click="@(() => Dialog_Grid_Shomaran_ReturnHavaleDetail(1,IndexGrid_Shomaran_ReturnHavaleDetail,EditFormContextShomaran_ReturnHavaleDetail))" Text="بعدی" CssClass="btn btn-purple" />
+
+        </DxFormLayoutItem>
+    </DxFormLayout>
+
+</EditFormTemplate>
+
+</DxGrid>
+
+<DxPopup @bind-Visible="@ConfirmationShownShomaran_ReturnHavaleDetail" HeaderText="@languageContainer.Keys["DXGrid:DeleteItem"]" Width="350px" CloseOnOutsideClick="false">
+
+    <BodyContentTemplate Context="EditFormContext">
+        <div class="py-3 px-5 text-center">
+            <p>@languageContainer.Keys["DXGrid:DeleteItemHint"]</p>
+            <div class="confirm-dialog-buttons">
+                <DxButton Text="@languageContainer.Keys["DXGrid:Yes"]" CssClass="btn btn-red px-4" Click="@OnYesButtonClickGrid_Shomaran_ReturnHavaleDetail" />
+                <DxButton Text="@languageContainer.Keys["DXGrid:No"]" CssClass="btn btn-purple-light px-4" Click="@OnNoButtonClickGrid_Shomaran_ReturnHavaleDetail" />
+            </div>
+        </div>
+    </BodyContentTemplate>
+</DxPopup>
+
+<DxPopup @bind-Visible="@ConfirmationShomaran_ReturnHavaleDetail" HeaderText="هشدار" Width="350px" CloseOnOutsideClick="false">
+    <BodyContentTemplate Context="EditFormContext">
+        <div class="py-3 px-5 text-center"> 
+            <p>اطلاعات این فرم تغییر کرده است آیا تغییرات ذخیره شود؟</p>
+            <div class="confirm-dialog-buttons">
+                <DxButton Text="بله" CssClass="btn btn-red px-4" Click="@OnYesButtonShomaran_ReturnHavaleDetail" />
+                <DxButton Text="خیر" CssClass="btn btn-purple-light px-4" Click="@OnNoButtonShomaran_ReturnHavaleDetail" />
+            </div>
+        </div>
+    </BodyContentTemplate>
+</DxPopup>
+@code {
+    // DxGrid? Grid_Shomaran_ReturnHavaleDetail;
+    Entity.Shomaran_ReturnHavaleDetail Shomaran_ReturnHavaleDetail;
+    bool ConfirmationShownShomaran_ReturnHavaleDetail { get; set; } = false;
+    public Entity.Shomaran_ReturnHavaleDetail SelectedItemGrid_Shomaran_ReturnHavaleDetail { get; set; } = new Entity.Shomaran_ReturnHavaleDetail();
+    /// <summary>
+    /// شماره ستون
+    /// </summary>
+    public int IndexGrid_Shomaran_ReturnHavaleDetail { get; set; }
+
+    ///////////////////////
+    bool ConfirmationShomaran_ReturnHavaleDetail { get; set; } = false;
+    GridEditFormTemplateContext? _ContextFormTemplateShomaran_ReturnHavaleDetail { get; set; }
+    public int OpenDialogCodeShomaran_ReturnHavaleDetail { get; set; } = 0;
+    ////////////////////////
+
+    async Task OnEditModelSavingShomaran_ReturnHavaleDetail(GridEditModelSavingEventArgs arg)
+    {
+        var e = arg.EditModel;
+    bool NotValid = false;
+    //events
+       NotValid = await GridShomaran_ReturnHavaleId_731_editmodelsaving(e);
+        
+      if (!NotValid)
+     {
+      SaveGrid_Shomaran_ReturnHavaleDetail(arg.DataItem, arg.EditModel);
+     }
+}
+
+async void Dialog_Grid_Shomaran_ReturnHavaleDetail(int _OpenDialogCode, int VisibleIndex, GridEditFormTemplateContext e)
+{
+    OpenDialogCodeShomaran_ReturnHavaleDetail = _OpenDialogCode;
+    if (!CheckChangedData(await Utility.JSON.ToJson(e.EditModel)))
+    {
+    _ContextFormTemplateShomaran_ReturnHavaleDetail = e;
+    ConfirmationShomaran_ReturnHavaleDetail = true;
+    }
+    else
+    {
+    await OnNoButtonShomaran_ReturnHavaleDetail();
+    }
+}
+async Task OnYesButtonShomaran_ReturnHavaleDetail()
+{
+
+    ConfirmationShomaran_ReturnHavaleDetail = false;
+    await Task.Delay(1500);
+    //bool FormValidate = await JSO.InvokeAsync<bool>("submitForm");
+    bool FormValidate =  await JS.InvokeAsync<bool>("submitForm");
+    if (FormValidate)
+    {
+        bool NotValid = false;
+    var e = _ContextFormTemplateShomaran_ReturnHavaleDetail.EditModel;
+         //events
+         NotValid = await GridShomaran_ReturnHavaleId_731_editmodelsaving(e);
+
+        if (!NotValid)
+         {
+        SaveGrid_Shomaran_ReturnHavaleDetail(_ContextFormTemplateShomaran_ReturnHavaleDetail.DataItem, _ContextFormTemplateShomaran_ReturnHavaleDetail.EditModel);
+            await Grid_Shomaran_ReturnHavaleDetail.CancelEditAsync();
+         await ChangePageGrid_Shomaran_ReturnHavaleDetail();
+         await SetEditFormContextGrid_Shomaran_ReturnHavaleDetail();
+         }
+          
+    }
+
+}
+async Task OnNoButtonShomaran_ReturnHavaleDetail()
+{
+    ConfirmationShomaran_ReturnHavaleDetail = false;
+    await ChangePageGrid_Shomaran_ReturnHavaleDetail();
+    await SetEditFormContextGrid_Shomaran_ReturnHavaleDetail();
+
+}
+async Task SetEditFormContextGrid_Shomaran_ReturnHavaleDetail()
+{
+    var e = (Entity.Shomaran_ReturnHavaleDetail)Grid_Shomaran_ReturnHavaleDetail.GetDataItem(IndexGrid_Shomaran_ReturnHavaleDetail);
+    JsonData = await Utility.JSON.ToJson(e);
+}
+
+async Task ChangePageGrid_Shomaran_ReturnHavaleDetail()
+{
+    int VisibleIndex = IndexGrid_Shomaran_ReturnHavaleDetail;
+    try
+    {
+    if (OpenDialogCodeShomaran_ReturnHavaleDetail == 1)
+    {
+        if (VisibleIndex != (Grid_Shomaran_ReturnHavaleDetail.GetVisibleRowCount() - 1))
+    { 
+            Grid_Shomaran_ReturnHavaleDetail.CancelEditAsync();
+            IndexGrid_Shomaran_ReturnHavaleDetail = VisibleIndex + 1;
+    Grid_Shomaran_ReturnHavaleDetail.StartEditRowAsync(IndexGrid_Shomaran_ReturnHavaleDetail);
+    }
+    }
+    else if (OpenDialogCodeShomaran_ReturnHavaleDetail == 0)
+    {
+        if (VisibleIndex != 0)
+        {
+
+            Grid_Shomaran_ReturnHavaleDetail.CancelEditAsync();
+            IndexGrid_Shomaran_ReturnHavaleDetail = VisibleIndex - 1;
+    Grid_Shomaran_ReturnHavaleDetail.StartEditRowAsync(IndexGrid_Shomaran_ReturnHavaleDetail);
+    }
+
+    }
+    var e = (Entity.Shomaran_ReturnHavaleDetail)Grid_Shomaran_ReturnHavaleDetail.GetDataItem(IndexGrid_Shomaran_ReturnHavaleDetail);
+    JsonData = await Utility.JSON.ToJson(e);
+    await Task.Delay(300);
+    await GridShomaran_ReturnHavaleId_731_afterrendermodal(e);
+    StateHasChanged();
+    }
+    catch (Exception ex)
+    {
+
+    Console.WriteLine("error in ChagePage" + ex.Message);
+    }
+
+}
+
+async Task StartEditNewRowAsync_Grid_Shomaran_ReturnHavaleDetail()
+{
+    IndexGrid_Shomaran_ReturnHavaleDetail = Grid_Shomaran_ReturnHavaleDetail.GetVisibleRowCount();
+Grid_Shomaran_ReturnHavaleDetail.StartEditNewRowAsync().GetAwaiter();
+var e = new Entity.Shomaran_ReturnHavaleDetail();
+JsonData = await Utility.JSON.ToJson(e);
+await Task.Delay(300);
+await GridShomaran_ReturnHavaleId_731_afterrendermodal(e);
+}
+
+async Task StartModalGrid_Shomaran_ReturnHavaleDetail(GridCommandColumnCellDisplayTemplateContext Context)
+{
+    IndexGrid_Shomaran_ReturnHavaleDetail = Context.VisibleIndex;
+Grid_Shomaran_ReturnHavaleDetail.StartEditRowAsync(Context.VisibleIndex).GetAwaiter();
+var e = (Entity.Shomaran_ReturnHavaleDetail)Context.DataItem;
+JsonData = await Utility.JSON.ToJson(e);
+await Task.Delay(300);
+await GridShomaran_ReturnHavaleId_731_afterrendermodal(e);
+   // await Task.Delay(500);
+}
+public async Task SaveModalGrid_Shomaran_ReturnHavaleDetail(GridEditFormTemplateContext arg)
+{
+     //bool FormValidate = await JSO.InvokeAsync<bool>("submitForm");
+     bool FormValidate =  await JS.InvokeAsync<bool>("submitForm");
+
+    if(FormValidate){
+
+    var e = arg.EditModel;
+    bool NotValid = false;
+    //events
+    NotValid = await GridShomaran_ReturnHavaleId_731_editmodelsaving(e);
+    if (!NotValid)
+    {
+        SaveGrid_Shomaran_ReturnHavaleDetail(arg.DataItem, arg.EditModel);
+
+     await arg.Grid.CancelEditAsync(); 
+
+    }
+
+    }
+
+}
+public async Task SaveAndNewGrid_Shomaran_ReturnHavaleDetail(GridEditFormTemplateContext arg)
+{ 
+     //bool FormValidate = await JSO.InvokeAsync<bool>("submitForm");
+     bool FormValidate = await JS.InvokeAsync<bool>("submitForm");
+     
+    if(FormValidate){
+       
+         var e = arg.EditModel;
+          bool NotValid = false;
+     //events
+    NotValid = await GridShomaran_ReturnHavaleId_731_editmodelsaving(e);
+    if (!NotValid)
+    {
+        SaveGrid_Shomaran_ReturnHavaleDetail(arg.DataItem, arg.EditModel);
+
+         await arg.Grid.CancelEditAsync();
+        await StartEditNewRowAsync_Grid_Shomaran_ReturnHavaleDetail();
+
+    }
+          
+    }
+   
+}
+
+void PerviousPageGrid_Shomaran_ReturnHavaleDetail(int VisibleIndex)
+{
+    try
+     {
+    if (VisibleIndex == 0)
+    {
+        Console.WriteLine(VisibleIndex.ToString());
+    }
+    else
+    {
+Grid_Shomaran_ReturnHavaleDetail.CancelEditAsync();
+        IndexGrid_Shomaran_ReturnHavaleDetail = VisibleIndex - 1;
+         Grid_Shomaran_ReturnHavaleDetail.StartEditRowAsync(IndexGrid_Shomaran_ReturnHavaleDetail);
+     }
+    }
+     catch (Exception e)
+     {
+    Console.WriteLine("PerviousPage Message");
+    Console.WriteLine(e.Message);
+    }
+
+}
+
+void NextPageGrid_Shomaran_ReturnHavaleDetail(int VisibleIndex)
+{
+
+    if (VisibleIndex == Grid_Shomaran_ReturnHavaleDetail.GetVisibleRowCount() - 1)
+    {
+    Console.WriteLine(VisibleIndex.ToString());
+    }
+    else
+    {
+    Console.WriteLine("NextPage Start Grid_Shomaran_ReturnHavaleDetail ");
+    try
+    {
+Grid_Shomaran_ReturnHavaleDetail.CancelEditAsync();
+        IndexGrid_Shomaran_ReturnHavaleDetail = VisibleIndex + 1;
+         Grid_Shomaran_ReturnHavaleDetail.StartEditRowAsync(IndexGrid_Shomaran_ReturnHavaleDetail);
+     }
+    catch (Exception e)
+    {
+        Console.WriteLine("NextPage Message");
+        Console.WriteLine(e.Message);
+    }
+
+    }
+}
+
+public void SaveGrid_Shomaran_ReturnHavaleDetail(object DataItem, object EditModel)
+{
+    var ListEntity = _Entity.Shomaran_ReturnHavaleDetail;
+    var MainModel = (Entity.Shomaran_ReturnHavaleDetail)DataItem;
+    if (MainModel != null)
+    {
+MainModel.ProductSearch = ((Entity.Shomaran_ReturnHavaleDetail)EditModel).ProductSearch;
+MainModel.PartCode = ((Entity.Shomaran_ReturnHavaleDetail)EditModel).PartCode;
+MainModel.ProductName = ((Entity.Shomaran_ReturnHavaleDetail)EditModel).ProductName;
+MainModel.ShomareFani = ((Entity.Shomaran_ReturnHavaleDetail)EditModel).ShomareFani;
+MainModel.Amount = ((Entity.Shomaran_ReturnHavaleDetail)EditModel).Amount;
+MainModel.Unit = ((Entity.Shomaran_ReturnHavaleDetail)EditModel).Unit;
+MainModel.Sefaresh = ((Entity.Shomaran_ReturnHavaleDetail)EditModel).Sefaresh;
+MainModel.Radyabi = ((Entity.Shomaran_ReturnHavaleDetail)EditModel).Radyabi;
+MainModel.Year = ((Entity.Shomaran_ReturnHavaleDetail)EditModel).Year;
+MainModel.Id = ((Entity.Shomaran_ReturnHavaleDetail)EditModel).Id;
+MainModel.RequestID = ((Entity.Shomaran_ReturnHavaleDetail)EditModel).RequestID;
+MainModel.CreateUser = ((Entity.Shomaran_ReturnHavaleDetail)EditModel).CreateUser;
+MainModel.UpdateUser = ((Entity.Shomaran_ReturnHavaleDetail)EditModel).UpdateUser;
+MainModel.CreateDate = ((Entity.Shomaran_ReturnHavaleDetail)EditModel).CreateDate;
+MainModel.UpdateDate = ((Entity.Shomaran_ReturnHavaleDetail)EditModel).UpdateDate;
+MainModel.IsDelete = ((Entity.Shomaran_ReturnHavaleDetail)EditModel).IsDelete;
+MainModel.RowOrder = ((Entity.Shomaran_ReturnHavaleDetail)EditModel).RowOrder;
+
+    }
+    else
+    {
+    ListEntity.Add((Entity.Shomaran_ReturnHavaleDetail)EditModel);
+    }
+}
+
+async Task OnDataItemDeletingShomaran_ReturnHavaleDetail(GridDataItemDeletingEventArgs e)
+    {
+    var ListEntity = _Entity.Shomaran_ReturnHavaleDetail;
+    ListEntity.Remove((Entity.Shomaran_ReturnHavaleDetail)e.DataItem);
+}
+async void OnDeleteButtonClickGrid_Shomaran_ReturnHavaleDetail (GridCommandColumnCellDisplayTemplateContext ex)
+{
+    SelectedItemGrid_Shomaran_ReturnHavaleDetail = (ex.DataItem as Entity.Shomaran_ReturnHavaleDetail);
+    var e =SelectedItemGrid_Shomaran_ReturnHavaleDetail;
+    
+     
+    Console.WriteLine("end OnDeleteButtonClickGrid_test_OrderBody 0");
+    ConfirmationShownShomaran_ReturnHavaleDetail = true;
+    await Task.Yield();
+     await InvokeAsync(StateHasChanged);
+    
+    Console.WriteLine("end OnDeleteButtonClickGrid_test_OrderBody 1");
+}
+async void OnYesButtonClickGrid_Shomaran_ReturnHavaleDetail ()
+{
+       if (SelectedItemGrid_Shomaran_ReturnHavaleDetail != null)
+    {
+      if (SelectedItemGrid_Shomaran_ReturnHavaleDetail.Id == Guid.Empty)
+      {
+          var ListEntity = _Entity.Shomaran_ReturnHavaleDetail;
+        ListEntity.Remove((Entity.Shomaran_ReturnHavaleDetail)SelectedItemGrid_Shomaran_ReturnHavaleDetail);
+     
+      }
+      else
+      {
+        var cleanModel = new Entity.Shomaran_ReturnHavaleDetail();
+      // چک کن آیا پراپرتی IsDelete در این نوع وجود دارد؟
+        var prop = typeof(Entity.Shomaran_ReturnHavaleDetail).GetProperty("IsDelete");
+        if (prop != null && prop.CanRead && prop.CanWrite)
+        {
+            // مقدار فعلی را بگیر
+            var currentValue = prop.GetValue(SelectedItemGrid_Shomaran_ReturnHavaleDetail);
+
+            if (currentValue is bool boolValue)
+            {
+                // مقدار را معکوس کن
+                var newValue = !boolValue;
+
+                // روی هر دو شیء تنظیم کن
+                prop.SetValue(SelectedItemGrid_Shomaran_ReturnHavaleDetail, newValue);
+                prop.SetValue(cleanModel, newValue);
+            }
+        }
+        EntityHelper.SetPropertyValue(cleanModel, cleanModel._GetIdName, SelectedItemGrid_Shomaran_ReturnHavaleDetail._Id);
+    
+       
+       
+      }
+    }
+    var e= SelectedItemGrid_Shomaran_ReturnHavaleDetail;
+    
+    Grid_Shomaran_ReturnHavaleDetail.Reload();
+    ConfirmationShownShomaran_ReturnHavaleDetail = false;
+     await Task.Yield();
+    await InvokeAsync(StateHasChanged);
+
+}
+void OnNoButtonClickGrid_Shomaran_ReturnHavaleDetail ()
+{
+    ConfirmationShownShomaran_ReturnHavaleDetail = false;
+}
+
+void CustomizeRowsGrid_Shomaran_ReturnHavaleDetail(GridCustomizeElementEventArgs e)
+{
+    ///استایل سطر
+    if (e.ElementType == GridElementType.DataRow)
+    {
+    var item = ((Entity.Shomaran_ReturnHavaleDetail)e.Grid.GetDataItem(e.VisibleIndex));
+
+       if (item.IsDelete == true)
+       {
+           e.CssClass = "bg-lightred disablediv";
+       }
+    }
+}
+
+async void CustomizeEditGrid_Shomaran_ReturnHavaleDetail(GridCustomizeEditModelEventArgs e)
+{
+
+    if (e.IsNew)
+    {
+
+    var newRow = (Entity.Shomaran_ReturnHavaleDetail)e.EditModel;
+
+     
+
+    }
+
+
+}
+public async void RowClickGrid_Shomaran_ReturnHavaleDetail(GridRowClickEventArgs e)
+{
+
+}
+
+public async void RowDubbleClickGrid_Shomaran_ReturnHavaleDetail(GridRowClickEventArgs e)
+{
+
+}
+}
+
+<Input Id="ApiResult" @ref="Ref_ApiResult" Label="ApiResult"     @bind-Value="_Entity.ApiResult" type="textarea"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+</div>
+
+<div class="col-md-3">
+    
+</div>
+
+<div class="col-md-3">
+    
+</div>
+
+<div class="col-md-3">
+    
+</div>
+
+<div class="col-md-3">
+    
+</div>
+
+<div class="col-md-12">
+    
+</div>
+
+</div>
+
+<Input Id="Id" @ref="Ref_Id"   CssClass="d-none"   @bind-Value="_Entity.Id" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+<Input Id="RequestID" @ref="Ref_RequestID"      @bind-Value="_Entity.RequestID" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+<Input Id="CreateUser" @ref="Ref_CreateUser"      @bind-Value="_Entity.CreateUser" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+<Input Id="UpdateUser" @ref="Ref_UpdateUser"      @bind-Value="_Entity.UpdateUser" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+<Input Id="CreateDate" @ref="Ref_CreateDate"   CssClass="d-none"   @bind-Value="_Entity.CreateDate" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+<Input Id="UpdateDate" @ref="Ref_UpdateDate"   CssClass="d-none"   @bind-Value="_Entity.UpdateDate" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+<Input Id="IsDelete" @ref="Ref_IsDelete"   CssClass="d-none"   @bind-Value="_Entity.IsDelete" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+    </EditForm>
+</div>
+
+@if (ShowSubmit)
+{
+    <button class="btn btn-sm btn-green" @onclick=Submit>ذخیره</button>
+}
+
+@code {
+    #region Function
+
+    //todo  جا به جا شود برده شود تو فایل  Peropeties
+    protected override async Task OnInitializedAsync()
+    {
+        Console.WriteLine("#log OnInitializedAsync");
+
+        TableGet = await Utility.JSON.ToObject<Table>("{\"Name\":\"Shomaran_ReturnHavale\",\"GetNameAs\":\"Shomaran_ReturnHavale\",\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"RequestID\",\"GetNameAs\":\"RequestID\"},{\"Name\":\"CreateUser\",\"GetNameAs\":\"CreateUser\"},{\"Name\":\"UpdateUser\",\"GetNameAs\":\"UpdateUser\"},{\"Name\":\"CreateDate\",\"GetNameAs\":\"CreateDate\"},{\"Name\":\"UpdateDate\",\"GetNameAs\":\"UpdateDate\"},{\"Name\":\"IsDelete\",\"GetNameAs\":\"IsDelete\"},{\"Name\":\"Creator\",\"GetNameAs\":\"Creator\"},{\"Name\":\"CentCode\",\"GetNameAs\":\"CentCode\"},{\"Name\":\"FactDate\",\"GetNameAs\":\"FactDate\"},{\"Name\":\"InvCode\",\"GetNameAs\":\"InvCode\"},{\"Name\":\"Note\",\"GetNameAs\":\"Note\"},{\"Name\":\"TempNo\",\"GetNameAs\":\"TempNo\"},{\"Name\":\"Year\",\"GetNameAs\":\"Year\"},{\"Name\":\"FactNo\",\"GetNameAs\":\"FactNo\"},{\"Name\":\"ApiResult\",\"GetNameAs\":\"ApiResult\"},{\"Name\":\"ReturnHavale_List\",\"GetNameAs\":\"ReturnHavale_List\"}],\"Relation\":[{\"Name\":\"Shomaran_ReturnHavaleDetail\",\"GetNameAs\":\"Shomaran_ReturnHavaleDetail\",\"ModeErtebat\":2,\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"RequestID\",\"GetNameAs\":\"RequestID\"},{\"Name\":\"CreateUser\",\"GetNameAs\":\"CreateUser\"},{\"Name\":\"UpdateUser\",\"GetNameAs\":\"UpdateUser\"},{\"Name\":\"CreateDate\",\"GetNameAs\":\"CreateDate\"},{\"Name\":\"UpdateDate\",\"GetNameAs\":\"UpdateDate\"},{\"Name\":\"IsDelete\",\"GetNameAs\":\"IsDelete\"},{\"Name\":\"Amount\",\"GetNameAs\":\"Amount\"},{\"Name\":\"PartCode\",\"GetNameAs\":\"PartCode\"},{\"Name\":\"Radyabi\",\"GetNameAs\":\"Radyabi\"},{\"Name\":\"Sefaresh\",\"GetNameAs\":\"Sefaresh\"},{\"Name\":\"RowOrder\",\"GetNameAs\":\"RowOrder\"},{\"Name\":\"Year\",\"GetNameAs\":\"Year\"},{\"Name\":\"ProductSearch\",\"GetNameAs\":\"ProductSearch\"},{\"Name\":\"ShomareFani\",\"GetNameAs\":\"ShomareFani\"},{\"Name\":\"ProductName\",\"GetNameAs\":\"ProductName\"},{\"Name\":\"Unit\",\"GetNameAs\":\"Unit\"}],\"Relation\":[]}]}");
+        TablePost = await Utility.JSON.ToObject<Table>("{\"Name\":\"Shomaran_ReturnHavale\",\"GetNameAs\":\"Shomaran_ReturnHavale\",\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"RequestID\",\"GetNameAs\":\"RequestID\"},{\"Name\":\"CreateUser\",\"GetNameAs\":\"CreateUser\"},{\"Name\":\"UpdateUser\",\"GetNameAs\":\"UpdateUser\"},{\"Name\":\"CreateDate\",\"GetNameAs\":\"CreateDate\"},{\"Name\":\"UpdateDate\",\"GetNameAs\":\"UpdateDate\"},{\"Name\":\"IsDelete\",\"GetNameAs\":\"IsDelete\"},{\"Name\":\"Creator\",\"GetNameAs\":\"Creator\"},{\"Name\":\"CentCode\",\"GetNameAs\":\"CentCode\"},{\"Name\":\"FactDate\",\"GetNameAs\":\"FactDate\"},{\"Name\":\"InvCode\",\"GetNameAs\":\"InvCode\"},{\"Name\":\"Note\",\"GetNameAs\":\"Note\"},{\"Name\":\"TempNo\",\"GetNameAs\":\"TempNo\"},{\"Name\":\"Year\",\"GetNameAs\":\"Year\"},{\"Name\":\"FactNo\",\"GetNameAs\":\"FactNo\"},{\"Name\":\"ApiResult\",\"GetNameAs\":\"ApiResult\"},{\"Name\":\"ReturnHavale_List\",\"GetNameAs\":\"ReturnHavale_List\"}],\"Relation\":[{\"Name\":\"Shomaran_ReturnHavaleDetail\",\"GetNameAs\":\"Shomaran_ReturnHavaleDetail\",\"ModeErtebat\":2,\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"RequestID\",\"GetNameAs\":\"RequestID\"},{\"Name\":\"CreateUser\",\"GetNameAs\":\"CreateUser\"},{\"Name\":\"UpdateUser\",\"GetNameAs\":\"UpdateUser\"},{\"Name\":\"CreateDate\",\"GetNameAs\":\"CreateDate\"},{\"Name\":\"UpdateDate\",\"GetNameAs\":\"UpdateDate\"},{\"Name\":\"IsDelete\",\"GetNameAs\":\"IsDelete\"},{\"Name\":\"Amount\",\"GetNameAs\":\"Amount\"},{\"Name\":\"PartCode\",\"GetNameAs\":\"PartCode\"},{\"Name\":\"Radyabi\",\"GetNameAs\":\"Radyabi\"},{\"Name\":\"Sefaresh\",\"GetNameAs\":\"Sefaresh\"},{\"Name\":\"RowOrder\",\"GetNameAs\":\"RowOrder\"},{\"Name\":\"Year\",\"GetNameAs\":\"Year\"},{\"Name\":\"ProductSearch\",\"GetNameAs\":\"ProductSearch\"},{\"Name\":\"ShomareFani\",\"GetNameAs\":\"ShomareFani\"},{\"Name\":\"ProductName\",\"GetNameAs\":\"ProductName\"},{\"Name\":\"Unit\",\"GetNameAs\":\"Unit\"}],\"Relation\":[]}]}");
+
+        config = CKEditorBundleOptions.DefaultConfig.WithHtmlEditing();
+        config.Language = "fa";
+
+        //بعداد اگه نیاز شد فرمی رو تو حالت غیر لاگین شده نمایش بدیم باید این  کد تغیر کنه
+        var user = (await _authenticationStateProvider.GetAuthenticationStateAsync()).User;
+        string UserID = user.FindFirst(c => c.Type == ClaimTypes.NameIdentifier).Value;
+        //داینامیک بشه
+        Dictionary<string, object> List = new Dictionary<string, object>();
+        //List.Add("UserID", Guid.Parse(UserID));
+        List.Add("UserID", UserID);
+        _User = await Domain.Utility.ConvertParameter.ConvertToObject(List);
+
+        Console.WriteLine("#log OnInitializedAsync End");
+
+        await base.OnInitializedAsync();
+    }
+
+    //todo  جا به جا شود برده شود تو فایل  Peropeties
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            Console.WriteLine("#log OnAfterRenderAsync");
+            await base.BeforGetData();
+
+            var Result = await GetData();
+
+            await base.AfterGetData();
+
+            StateHasChanged();
+
+            await OnFormloaded.InvokeAsync(Result);
+        }
+
+        await base.OnAfterRenderAsync(firstRender);
+    }
+
+    /// <summary>
+    /// دریافت داده
+    /// </summary>
+    /// <returns></returns>
+    public async Task<Baya.Models.Utility.Result> GetData()
+    {
+        await BeforGetData();
+
+        var DataResult = await ApiServer.External.Services.Data.Get(TableGet, QueryFilter, TableGet.Name, null);
+        
+        Baya.Models.Utility.Result Result = new Baya.Models.Utility.Result();
+
+        if (DataResult != null && DataResult.Status == HttpStatusCode.OK)
+        {
+            if (DataResult.Content != null)
+            {
+                string Data = DataResult.Content.ToString();
+                if (Data is not null)
+                {
+                    _Entity = await Utility.JSON.ToObject < Entity.Shomaran_ReturnHavale>(Data);
+        }
+            }
+            else
+            {
+                _Entity = new Entity.Shomaran_ReturnHavale();
+            //todo تشخیص دهد که داده ای وجود ندارد و دفه اول هست که فرم لود میشود
+            //todo اگه نیاز شد دالخ ORm خروجیش متفاوت باشه
+            //ست کردن دیفالت های فرم
+            if (true)
+                {//
+
+
+                    //نمونه ست کردن پارامتر روش اول
+                    //_Entity.InstantDelivery = _RequestParameters.UserId;
+
+                    //نمونه کد برای ست کردن پارامتر روش دوم
+                    //_Entity.InstantDelivery = await GetParameter("@@UserId@@");
+                }
+
+                SumaryMessage = "داده لود شده معتبر نمی باشد";
+                Result.Status = HttpStatusCode.InternalServerError;
+            }
+        }
+        else
+        {
+            SumaryMessage = "داده لود نشد";
+            Result.Status = HttpStatusCode.InternalServerError;
+        }
+
+        Result.Message = SumaryMessage;
+
+        StateHasChanged();
+
+        await AfterGetData();
+
+        return Result;
+    }
+
+    public override async Task SetParametersAsync(ParameterView parameters)
+    {
+        await base.SetParametersAsync(parameters);
+    }
+
+    protected override void OnInitialized()
+    {
+        //todo این خط برده شود داخل تابع پاینی ببینیم خطا داره یا نه
+        languageContainer.InitLocalizedComponent(this);
+    }
+
+
+    /// <summary>
+    /// بررسی تغییر دیتا
+    /// </summary>
+    /// <param name="Json"></param>
+    /// <returns></returns>
+    public bool CheckChangedData(string? Json)
+    {
+        if (string.Equals(JsonData, Json)) return true;
+        return false;
+    }
+
+    /// <summary>
+    /// ارسال داده
+    /// </summary>
+    /// <returns></returns>
+    public override async Task<Baya.Models.Utility.Result> Submit()
+    {
+        SumaryMessage = "";
+        Baya.Models.Utility.Result Result = new Baya.Models.Utility.Result();
+
+        if (!await FormValidator())
+        {
+            StateHasChanged();
+            Result.Status = HttpStatusCode.InternalServerError;
+            return Result;
+        }
+
+        if ((await BeforSubmit()).Status != HttpStatusCode.OK)
+        {
+            StateHasChanged();
+            Result.Status = HttpStatusCode.InternalServerError;
+            return Result;
+        }
+
+        _loadingService.Show();
+        var Resualt = await PostData();
+
+        if (Resualt)
+        {
+            Result.Status = HttpStatusCode.OK;
+
+            SumaryMessage = "داده ها با موفقیت ثبت شد";
+        }
+        else
+        {
+            Result.Status = HttpStatusCode.InternalServerError;
+            SumaryMessage = "ذخیره داده با مشکل مواجه شد";
+        }
+
+        Result.Message = SumaryMessage;
+
+        switch ((int)Result.Status)
+        {
+            case 200:
+                toastService.ShowSuccess(Result.Message);
+                break;
+            case 500:
+                toastService.ShowError(Result.Message);
+                break;
+            default:
+                break;
+        } 
+        _loadingService.Hide();
+        await AfterSubmit();
+
+        return Result;
+    }
+
+    /// <summary>
+    /// ارسال داده
+    /// </summary>
+    /// <returns></returns>
+    private async Task<bool> PostData()
+    {
+        string Data = await Utility.JSON.ToJson(_Entity);
+
+        bool IsOk = false;
+        var Model = await ApiServer.External.Services.Data.Put(Data, TablePost.Name, TablePost, RequestID?.ToString(), _User.UserID.ToString());
+        // بررسی وضعیت پاسخ
+        if (Model?.Status == HttpStatusCode.OK)
+        {
+            if (Model.Content != null && !IndependentForm)
+                { 
+                    string NewData = Model.Content.ToString();
+                    if (NewData is not null)
+                    {
+                        var NewEntity = await Utility.JSON.ToObject < Entity.Shomaran_ReturnHavale>(NewData);
+                     await  GetDataForm(NewEntity._Id);
+                    }
+
+                }
+                IsOk = true;
+
+        }
+        return IsOk;
+    }
+
+
+    void SetLanguage(string language)
+    {
+        languageContainer.SetLanguage(System.Globalization.CultureInfo.GetCultureInfo(language));
+    }
+
+    // public void ValidFormSubmitted(EditContext editContext)
+    // {
+
+    // }
+
+    // public void InvalidFormSubmitted(EditContext editContext)
+    // {
+
+    // }
+    public async Task GetDataForm(object Id)
+    {
+        Type type = Id.GetType();
+        string TypeToQueryBuilder = Utility.TypeConverterQueryBuilder.ConvertCSharpTypeToQueryBuilder(type);
+        var NewQuery = new QueryBuilderFilterRule() { Condition = "AND" };
+        NewQuery.Rules = new List<QueryBuilderFilterRule>
+            {
+                    new QueryBuilderFilterRule()
+                    {
+                        Field = _Entity._GetIdName,
+                        Id = _Entity._GetIdName,
+                        Input = "text",
+                        Operator = "equal",
+                        Type =  TypeToQueryBuilder,
+                        Value = new string[]{ Id.ToString() },
+                    }
+            };
+        QueryFilter = NewQuery;
+        await GetData();
+        StateHasChanged();
+    }
+    #endregion
+}

@@ -1,0 +1,1440 @@
+@inherits Forms.Forms.Form_688Base
+@namespace FormsPage
+
+@using AKSoftware.Localization.MultiLanguages.Blazor
+@using Baya.Models.ORM
+@using Castle.DynamicLinqQueryBuilder
+@using Microsoft.AspNetCore.Components.Forms
+@using Microsoft.AspNetCore.Components.Authorization;
+@using System.Security.Claims
+@using System.Net
+@using Microsoft.JSInterop
+@using Forms
+@using Utility
+@using Baya.Models.ViewEngine
+@using Forms.Domain.Utility
+<style>
+    /* ************************************************** */
+.detailArea form div:not(.devdrop) {
+    margin-top: .1rem;
+}
+
+.force-left input {
+    text-align: left !important;
+}
+
+/* ************************************************** */
+
+.form-header {
+    background: linear-gradient(to bottom, #6c5ffc, #0d1a52);
+    color: white;
+    padding: 1.5rem 2rem;
+    border-radius: 0.5rem 0.5rem 0 0;
+    margin-bottom: 0;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+    transition: all 0.3s ease;
+}
+
+.form-header:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 25px rgba(0, 0, 0, 0.2);
+}
+
+.form-header h2 {
+    font-weight: 700;
+    margin-bottom: 0;
+    display: flex;
+    align-items: center;
+    position: relative;
+    z-index: 2;
+}
+
+.form-header .icon {
+    font-size: 1.8rem;
+    margin-left: 15px;
+    animation: float 3s ease-in-out infinite;
+}
+
+.form-header::before {
+    content: "";
+    position: absolute;
+    top: -50%;
+    right: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0) 70%);
+    transform: rotate(45deg);
+    z-index: 1;
+    transition: all 0.5s ease;
+}
+
+.form-header:hover::before {
+    transform: rotate(45deg) translate(20px, 20px);
+}
+
+.form-header .decoration {
+    position: absolute;
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.05);
+    z-index: 1;
+}
+
+.form-header .decoration-1 {
+    top: -30px;
+    left: -30px;
+    width: 120px;
+    height: 120px;
+}
+
+.form-header .decoration-2 {
+    bottom: -40px;
+    right: -20px;
+    width: 80px;
+    height: 80px;
+}
+
+@@keyframes float {
+    0% {
+        transform: translateY(0px);
+    }
+
+    50% {
+        transform: translateY(-5px);
+    }
+
+    100% {
+        transform: translateY(0px);
+    }
+}
+
+@@keyframes pulse {
+    0% {
+        opacity: 0.3;
+    }
+
+    50% {
+        opacity: 0.1;
+    }
+
+    100% {
+        opacity: 0.3;
+    }
+}
+
+.pulse-animation {
+    animation: pulse 4s ease-in-out infinite;
+}
+
+/* ************************************************** */
+</style>
+
+<div class="@(ReadOnly?"FormReadOnly":"")">
+
+
+    <span class="d-none">VersionForm:@VersionForm</span>
+
+    <div class="formListi mt-3">
+        <div class="masterArea">
+            <div class="p-2 cardbox">
+
+                @*فیلد های مستر اگه نیاز شد اینجا قرار گیرد *@
+
+
+                <Form_688_Filter @ref="RefListFilter" OnSearch="@(f => SearchFilter(f))" _RequestParameters="@_RequestParameters" _CartablesParameters="@_CartablesParameters"></Form_688_Filter>
+
+
+                <div class="gridArea">
+
+                    @*
+                    فیلتر و گرید با یک لیست داده کار میکنند
+                    *@
+
+                    <label for="HR_Base_BankAccount_HR_Base_BankAccount">حساب بانکی
+   
+    
+</label>
+
+<DxGrid @ref="Grid_HR_Base_BankAccount" Data="_Entity" KeyFieldName="_Id" 
+        EditModelSaving="OnEditModelSavingHR_Base_BankAccount"
+        DataItemDeleting="OnDataItemDeletingHR_Base_BankAccount"
+        PopupEditFormCssClass="ModalWidth"
+        PopupEditFormHeaderText="حساب بانکی"
+        EditFormButtonsVisible="false"
+        CustomizeEditModel="CustomizeEditGrid_HR_Base_BankAccount"
+        CustomizeElement="CustomizeRowsGrid_HR_Base_BankAccount" 
+        Component="@((Utility.JSON.ToObject<View_Component>("{\"primaryKey\":false,\"EntityID\":357,\"FieldId\":0,\"ViewId\":688,\"NotMapped\":false,\"Relation\":false,\"RelationExternal\":false,\"RelationChildModel\":\"HR_Base_BankAccount\",\"GridMainModel\":\"HR_Base_BankAccount\",\"widget\":{\"altInput\":false,\"allowInput\":false,\"clickOpens\":false,\"enableDate\":false,\"enableTime\":false,\"noCalendar\":false,\"useLocaleSettings\":false,\"hourIncrement\":0,\"minuteIncrement\":0,\"time_24hr\":false},\"data\":{},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"FieldsTemplate\":[],\"refreshOn\":\"data\",\"reorder\":false,\"addAnotherPosition\":\"bottom\",\"layoutFixed\":false,\"enableRowGroups\":false,\"initEmpty\":false,\"modal\":true,\"StartCustomDataGrid\":true,\"label\":\"حساب بانکی\",\"tableView\":false,\"key\":\"HR_Base_BankAccount\",\"type\":\"datagrid\",\"input\":true,\"modalEdit\":false,\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result))"
+         >
+    <Columns>
+    
+<DxGridCommandColumn Width="70px">
+    <HeaderTemplate Context="HeaderContext">
+       
+<a id=HR_Base_BankAccount_HR_Base_BankAccountButtonNew class="btn btn-sm btn-green btnGridAddData" @onclick="@(() => StartEditNewRowAsync_Grid_HR_Base_BankAccount())" style="text-decoration: none;" href="javascript:void(0);">
+    <span class="fal fa-plus-circle btnicon"></span>
+    <span>@languageContainer.Keys["DXGrid:New"]</span>
+</a>
+
+    </HeaderTemplate>
+    <CellDisplayTemplate Context="CellContext">
+       
+<a id=HR_Base_BankAccount_HR_Base_BankAccountButtonEdit class="btn btn-sm btn-yellow-light btnEditGridData" @onclick="@(() => StartModalGrid_HR_Base_BankAccount(CellContext))" style="text-decoration: none;" href="javascript:void(0);">
+    <span class="fal fa-pencil btnicon"></span>
+</a>
+
+       
+<a class="btn btn-sm btn-red-light btnDeleteGridData" @onclick="@(() => OnDeleteButtonClickGrid_HR_Base_BankAccount(CellContext))" style="text-decoration: none;" href="javascript:void(0);">
+    <span class="fal fa-times-circle btnicon"></span>
+</a>
+
+    </CellDisplayTemplate>
+</DxGridCommandColumn>
+
+    <DxGridCommandColumn   Width="60px">
+           <HeaderTemplate Context="HeaderContext">
+               <a    style="text-decoration: none;"  >
+                
+                   <span>ردیف</span>
+               </a>
+           </HeaderTemplate>
+           <CellDisplayTemplate Context="CellContext">
+            @if (CellContext.VisibleIndex > 9){
+                <p>@(CellContext.VisibleIndex + 1)</p>
+            }else{
+                <p>@(((CellContext.Grid.PageIndex * CellContext.Grid.PageSize) + (CellContext.VisibleIndex + 1)))</p>
+            }
+          
+           </CellDisplayTemplate>
+     </DxGridCommandColumn>
+    <DxGridDataColumn  Caption="Id" Visible=false FieldName="Id" />
+
+<DxGridDataColumn  Caption="RequestID" Visible=false FieldName="RequestID" />
+
+<DxGridDataColumn  Caption="CreateUser" Visible=false FieldName="CreateUser" />
+
+<DxGridDataColumn  Caption="UpdateUser" Visible=false FieldName="UpdateUser" />
+
+<DxGridDataColumn  Caption="CreateDate" Visible=false FieldName="CreateDate" />
+
+<DxGridDataColumn  Caption="UpdateDate" Visible=false FieldName="UpdateDate" />
+
+<DxGridDataColumn  Caption="IsDelete" Visible=false FieldName="IsDelete" />
+
+<DxGridDataColumn  Caption="تاریخ افتتاح"  FieldName="OpeningDate" />
+
+<DxGridDataColumn  Caption="نام و نام خانوادگی صاحب حساب به جز پرسنل"  FieldName="OwnerFullName" />
+
+<DxGridDataColumn  Caption="شبا بانکی"  FieldName="IBAN" />
+
+<DxGridDataColumn  Caption="شماره کارت"  FieldName="CartNo" />
+
+<DxGridDataColumn  Caption="تاریخ اختتام"  FieldName="ClosingDate" />
+
+<DxGridDataColumn Context="IsActive_" Caption="فعال است؟" >
+    <CellDisplayTemplate>
+       
+@{
+    var HR_Base_BankAccount_IsActive = ((Entity.HR_Base_BankAccount)IsActive_.DataItem).IsActive;
+}
+
+<p class="text-center " hidden="@(HR_Base_BankAccount_IsActive !=null ? !HR_Base_BankAccount_IsActive : true)">@languageContainer.Keys["DXGrid:Yes"]</p>
+
+<p class="text-center" hidden="@(HR_Base_BankAccount_IsActive !=null ? HR_Base_BankAccount_IsActive : true)">@languageContainer.Keys["DXGrid:No"]</p>
+ 
+
+    </CellDisplayTemplate>
+</DxGridDataColumn>
+<DxGridDataColumn Context="HR_EMP_EmployeesId_" Caption="کارمند" >
+    <CellDisplayTemplate>
+       
+@{
+    Baya.Models.ViewEngine.View_Component HeaderHR_EMP_EmployeesId = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"primaryKey\":false,\"EntityID\":357,\"FieldId\":15252,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":688,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":false,\"RelationParentName\":\"HR_EMP_Employees\",\"RelationParentModel\":\"HR_EMP_Employees\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/HR_EMP_Employees/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"inputFormat\":\"DropDown\",\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.EmployeeNo}} {{item.FirstName}} {{item.LastName}} </span>\",\"FieldsTemplate\":[{\"key\":\"EmployeeNo\",\"value\":\"nvarchar(Max)\"},{\"key\":\"FirstName\",\"value\":\"nvarchar(Max)\"},{\"key\":\"LastName\",\"value\":\"nvarchar(Max)\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"searchField\":\"EmployeeNo,FirstName,LastName\",\"modal\":true,\"label\":\"کارمند\",\"tableView\":true,\"key\":\"HR_EMP_EmployeesId\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"15252?EId=357&SubId=15\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
+    var RowHR_EMP_EmployeesId = ((Entity.HR_Base_BankAccount)HR_EMP_EmployeesId_.DataItem).HR_EMP_EmployeesId;
+}
+
+<Dropdown ExternalApi=false CssClass="" NotMapped=false TextGrid=true Value="@RowHR_EMP_EmployeesId"   FieldName="HR_EMP_EmployeesId" OnItemSelected="ItemSelected_HR_Base_BankAccountHR_EMP_EmployeesId_Header" Component="HeaderHR_EMP_EmployeesId">
+</Dropdown>
+@code {
+    public async Task ItemSelected_HR_Base_BankAccountHR_EMP_EmployeesId_Header(object _Item)
+    {
+      //  var Selected = Utility.JSON.ToObject<dynamic>(Utility.JSON.ToJson(_Item).Result).Result;
+  //   HR_EMP_EmployeesId
+
+  //  #CustomCode
+
+ //   
+
+  //  #OnItemSelected
+    }
+}
+
+    </CellDisplayTemplate>
+</DxGridDataColumn>
+<DxGridDataColumn Context="BaseInfo_BankBranchesId_" Caption="نوع بانک، بانک و شعبه" >
+    <CellDisplayTemplate>
+       
+@{
+    Baya.Models.ViewEngine.View_Component HeaderBaseInfo_BankBranchesId = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"primaryKey\":false,\"EntityID\":357,\"FieldId\":19449,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":688,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":true,\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa-ir/api/v1/View_BankBranchesBanck/getlist\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"BankId\",\"template\":\"<span>{{item.BankTypeTitle}} {{item.BankTitle}} {{item.BankBranchesTitle}} </span>\",\"FieldsTemplate\":[{\"key\":\"BankTypeTitle\",\"value\":\"nvarchar(Max)\"},{\"key\":\"BankTitle\",\"value\":\"nvarchar(Max)\"},{\"key\":\"BankBranchesTitle\",\"value\":\"nvarchar(Max)\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"searchField\":\"BankTypeTitle,BankTitle,BankBranchesTitle\",\"modal\":true,\"label\":\"نوع بانک، بانک و شعبه\",\"tableView\":true,\"key\":\"BaseInfo_BankBranchesId\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"19449?EId=357&SubId=15\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
+    var RowBaseInfo_BankBranchesId = ((Entity.HR_Base_BankAccount)BaseInfo_BankBranchesId_.DataItem).BaseInfo_BankBranchesId;
+}
+
+<Dropdown ExternalApi=true CssClass="" NotMapped=false TextGrid=true Value="@RowBaseInfo_BankBranchesId"   FieldName="BaseInfo_BankBranchesId" OnItemSelected="ItemSelected_HR_Base_BankAccountBaseInfo_BankBranchesId_Header" Component="HeaderBaseInfo_BankBranchesId">
+</Dropdown>
+@code {
+    public async Task ItemSelected_HR_Base_BankAccountBaseInfo_BankBranchesId_Header(object _Item)
+    {
+      //  var Selected = Utility.JSON.ToObject<dynamic>(Utility.JSON.ToJson(_Item).Result).Result;
+  //   BaseInfo_BankBranchesId
+
+  //  #CustomCode
+
+ //   
+
+  //  #OnItemSelected
+    }
+}
+
+    </CellDisplayTemplate>
+</DxGridDataColumn>
+<DxGridDataColumn Context="BaseInfo_BankAccountTypeId_" Caption="نوع حساب بانکی" >
+    <CellDisplayTemplate>
+       
+@{
+    Baya.Models.ViewEngine.View_Component HeaderBaseInfo_BankAccountTypeId = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"primaryKey\":false,\"EntityID\":357,\"FieldId\":19486,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":688,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":false,\"RelationParentName\":\"BaseInfo_BankAccountType\",\"RelationParentModel\":\"BaseInfo_BankAccountType\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/BaseInfo_BankAccountType/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.Title}} </span>\",\"FieldsTemplate\":[{\"key\":\"Title\",\"value\":\"nvarchar(Max)\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"searchField\":\"Title\",\"modal\":true,\"label\":\"نوع حساب بانکی\",\"tableView\":true,\"key\":\"BaseInfo_BankAccountTypeId\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"19486?EId=357&SubId=15\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
+    var RowBaseInfo_BankAccountTypeId = ((Entity.HR_Base_BankAccount)BaseInfo_BankAccountTypeId_.DataItem).BaseInfo_BankAccountTypeId;
+}
+
+<Dropdown ExternalApi=false CssClass="" NotMapped=false TextGrid=true Value="@RowBaseInfo_BankAccountTypeId"   FieldName="BaseInfo_BankAccountTypeId" OnItemSelected="ItemSelected_HR_Base_BankAccountBaseInfo_BankAccountTypeId_Header" Component="HeaderBaseInfo_BankAccountTypeId">
+</Dropdown>
+@code {
+    public async Task ItemSelected_HR_Base_BankAccountBaseInfo_BankAccountTypeId_Header(object _Item)
+    {
+      //  var Selected = Utility.JSON.ToObject<dynamic>(Utility.JSON.ToJson(_Item).Result).Result;
+  //   BaseInfo_BankAccountTypeId
+
+  //  #CustomCode
+
+ //   
+
+  //  #OnItemSelected
+    }
+}
+
+    </CellDisplayTemplate>
+</DxGridDataColumn>
+<DxGridDataColumn  Caption="شماره حساب بانکی"  FieldName="BankAccountNumber" />
+
+<DxGridDataColumn Context="BaseInfo_BankId_" Caption="بانک" >
+    <CellDisplayTemplate>
+       
+@{
+    Baya.Models.ViewEngine.View_Component HeaderBaseInfo_BankId = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"primaryKey\":false,\"EntityID\":357,\"FieldId\":29973,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":688,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":false,\"RelationParentName\":\"BaseInfo_Bank\",\"RelationParentModel\":\"BaseInfo_Banks\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/BaseInfo_Banks/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.Title}} </span>\",\"FieldsTemplate\":[{\"key\":\"Title\",\"value\":\"nvarchar(Max)\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"searchField\":\"Title\",\"modal\":true,\"label\":\"بانک\",\"tableView\":true,\"key\":\"BaseInfo_BankId\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"29973?EId=357&SubId=15\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
+    var RowBaseInfo_BankId = ((Entity.HR_Base_BankAccount)BaseInfo_BankId_.DataItem).BaseInfo_BankId;
+}
+
+<Dropdown ExternalApi=false CssClass="" NotMapped=false TextGrid=true Value="@RowBaseInfo_BankId"   FieldName="BaseInfo_BankId" OnItemSelected="ItemSelected_HR_Base_BankAccountBaseInfo_BankId_Header" Component="HeaderBaseInfo_BankId">
+</Dropdown>
+@code {
+    public async Task ItemSelected_HR_Base_BankAccountBaseInfo_BankId_Header(object _Item)
+    {
+      //  var Selected = Utility.JSON.ToObject<dynamic>(Utility.JSON.ToJson(_Item).Result).Result;
+  //   BaseInfo_BankId
+
+  //  #CustomCode
+
+ //   
+
+  //  #OnItemSelected
+    }
+}
+
+    </CellDisplayTemplate>
+</DxGridDataColumn>
+
+</Columns>
+
+    
+</DxGrid>
+
+<DxPopup @bind-Visible="@ConfirmationShownHR_Base_BankAccount" HeaderText="@languageContainer.Keys["DXGrid:DeleteItem"]" Width="350px" CloseOnOutsideClick="false">
+
+    <BodyContentTemplate Context="EditFormContext">
+        <div class="py-3 px-5 text-center">
+            <p>@languageContainer.Keys["DXGrid:DeleteItemHint"]</p>
+            <div class="confirm-dialog-buttons">
+                <DxButton Text="@languageContainer.Keys["DXGrid:Yes"]" CssClass="btn btn-red px-4" Click="@OnYesButtonClickGrid_HR_Base_BankAccount" />
+                <DxButton Text="@languageContainer.Keys["DXGrid:No"]" CssClass="btn btn-purple-light px-4" Click="@OnNoButtonClickGrid_HR_Base_BankAccount" />
+            </div>
+        </div>
+    </BodyContentTemplate>
+</DxPopup>
+
+<DxPopup @bind-Visible="@ConfirmationHR_Base_BankAccount" HeaderText="هشدار" Width="350px" CloseOnOutsideClick="false">
+    <BodyContentTemplate Context="EditFormContext">
+        <div class="py-3 px-5 text-center"> 
+            <p>اطلاعات این فرم تغییر کرده است آیا تغییرات ذخیره شود؟</p>
+            <div class="confirm-dialog-buttons">
+                <DxButton Text="بله" CssClass="btn btn-red px-4" Click="@OnYesButtonHR_Base_BankAccount" />
+                <DxButton Text="خیر" CssClass="btn btn-purple-light px-4" Click="@OnNoButtonHR_Base_BankAccount" />
+            </div>
+        </div>
+    </BodyContentTemplate>
+</DxPopup>
+@code {
+    // DxGrid? Grid_HR_Base_BankAccount;
+    Entity.HR_Base_BankAccount HR_Base_BankAccount;
+    bool ConfirmationShownHR_Base_BankAccount { get; set; } = false;
+    public Entity.HR_Base_BankAccount SelectedItemGrid_HR_Base_BankAccount { get; set; } = new Entity.HR_Base_BankAccount();
+    /// <summary>
+    /// شماره ستون
+    /// </summary>
+    public int IndexGrid_HR_Base_BankAccount { get; set; }
+
+    ///////////////////////
+    bool ConfirmationHR_Base_BankAccount { get; set; } = false;
+    GridEditFormTemplateContext? _ContextFormTemplateHR_Base_BankAccount { get; set; }
+    public int OpenDialogCodeHR_Base_BankAccount { get; set; } = 0;
+    ////////////////////////
+
+    async Task OnEditModelSavingHR_Base_BankAccount(GridEditModelSavingEventArgs arg)
+    {
+        var e = arg.EditModel;
+    bool NotValid = false;
+    //events
+       
+        
+      if (!NotValid)
+     {
+      SaveGrid_HR_Base_BankAccount(arg.DataItem, arg.EditModel);
+     }
+}
+
+async void Dialog_Grid_HR_Base_BankAccount(int _OpenDialogCode, int VisibleIndex, GridEditFormTemplateContext e)
+{
+    OpenDialogCodeHR_Base_BankAccount = _OpenDialogCode;
+    if (!CheckChangedData(await Utility.JSON.ToJson(e.EditModel)))
+    {
+    _ContextFormTemplateHR_Base_BankAccount = e;
+    ConfirmationHR_Base_BankAccount = true;
+    }
+    else
+    {
+    await OnNoButtonHR_Base_BankAccount();
+    }
+}
+async Task OnYesButtonHR_Base_BankAccount()
+{
+
+    ConfirmationHR_Base_BankAccount = false;
+    await Task.Delay(1500);
+    //bool FormValidate = await JSO.InvokeAsync<bool>("submitForm");
+    bool FormValidate =  await JS.InvokeAsync<bool>("submitForm");
+    if (FormValidate)
+    {
+        bool NotValid = false;
+    var e = _ContextFormTemplateHR_Base_BankAccount.EditModel;
+         //events
+         
+
+        if (!NotValid)
+         {
+        SaveGrid_HR_Base_BankAccount(_ContextFormTemplateHR_Base_BankAccount.DataItem, _ContextFormTemplateHR_Base_BankAccount.EditModel);
+            await Grid_HR_Base_BankAccount.CancelEditAsync();
+         await ChangePageGrid_HR_Base_BankAccount();
+         await SetEditFormContextGrid_HR_Base_BankAccount();
+         }
+          
+    }
+
+}
+async Task OnNoButtonHR_Base_BankAccount()
+{
+    ConfirmationHR_Base_BankAccount = false;
+    await ChangePageGrid_HR_Base_BankAccount();
+    await SetEditFormContextGrid_HR_Base_BankAccount();
+
+}
+async Task SetEditFormContextGrid_HR_Base_BankAccount()
+{
+    var e = (Entity.HR_Base_BankAccount)Grid_HR_Base_BankAccount.GetDataItem(IndexGrid_HR_Base_BankAccount);
+    JsonData = await Utility.JSON.ToJson(e);
+}
+
+async Task ChangePageGrid_HR_Base_BankAccount()
+{
+    int VisibleIndex = IndexGrid_HR_Base_BankAccount;
+    try
+    {
+    if (OpenDialogCodeHR_Base_BankAccount == 1)
+    {
+        if (VisibleIndex != (Grid_HR_Base_BankAccount.GetVisibleRowCount() - 1))
+    { 
+            Grid_HR_Base_BankAccount.CancelEditAsync();
+            IndexGrid_HR_Base_BankAccount = VisibleIndex + 1;
+    Grid_HR_Base_BankAccount.StartEditRowAsync(IndexGrid_HR_Base_BankAccount);
+    }
+    }
+    else if (OpenDialogCodeHR_Base_BankAccount == 0)
+    {
+        if (VisibleIndex != 0)
+        {
+
+            Grid_HR_Base_BankAccount.CancelEditAsync();
+            IndexGrid_HR_Base_BankAccount = VisibleIndex - 1;
+    Grid_HR_Base_BankAccount.StartEditRowAsync(IndexGrid_HR_Base_BankAccount);
+    }
+
+    }
+    var e = (Entity.HR_Base_BankAccount)Grid_HR_Base_BankAccount.GetDataItem(IndexGrid_HR_Base_BankAccount);
+    JsonData = await Utility.JSON.ToJson(e);
+    await Task.Delay(300);
+    
+    StateHasChanged();
+    }
+    catch (Exception ex)
+    {
+
+    Console.WriteLine("error in ChagePage" + ex.Message);
+    }
+
+}
+
+async Task StartEditNewRowAsync_Grid_HR_Base_BankAccount()
+{
+    //تعداد سطرهای کل
+_VisibleIndex = Grid_HR_Base_BankAccount.GetVisibleRowCount();
+setFocusOff();
+IsNew = true;
+await ShowFormCU(null);
+var e = new Entity.HR_Base_BankAccount();
+await Task.Delay(300);
+
+}
+
+async Task StartModalGrid_HR_Base_BankAccount(GridCommandColumnCellDisplayTemplateContext Context)
+{
+    IsNew = false;
+setFocusOn();
+_VisibleIndex = Context.VisibleIndex;
+await ShowFormCU(Context.DataItem);
+var e = (Entity.HR_Base_BankAccount)Context.DataItem;
+await Task.Delay(300);
+
+   // await Task.Delay(500);
+}
+public async Task SaveModalGrid_HR_Base_BankAccount(GridEditFormTemplateContext arg)
+{
+     //bool FormValidate = await JSO.InvokeAsync<bool>("submitForm");
+     bool FormValidate =  await JS.InvokeAsync<bool>("submitForm");
+
+    if(FormValidate){
+
+    var e = arg.EditModel;
+    bool NotValid = false;
+    //events
+    
+    if (!NotValid)
+    {
+        SaveGrid_HR_Base_BankAccount(arg.DataItem, arg.EditModel);
+
+     await arg.Grid.CancelEditAsync(); 
+
+    }
+
+    }
+
+}
+public async Task SaveAndNewGrid_HR_Base_BankAccount(GridEditFormTemplateContext arg)
+{ 
+     //bool FormValidate = await JSO.InvokeAsync<bool>("submitForm");
+     bool FormValidate = await JS.InvokeAsync<bool>("submitForm");
+     
+    if(FormValidate){
+       
+         var e = arg.EditModel;
+          bool NotValid = false;
+     //events
+    
+    if (!NotValid)
+    {
+        SaveGrid_HR_Base_BankAccount(arg.DataItem, arg.EditModel);
+
+         await arg.Grid.CancelEditAsync();
+        await StartEditNewRowAsync_Grid_HR_Base_BankAccount();
+
+    }
+          
+    }
+   
+}
+
+void PerviousPageGrid_HR_Base_BankAccount(int VisibleIndex)
+{
+    try
+     {
+    if (VisibleIndex == 0)
+    {
+        Console.WriteLine(VisibleIndex.ToString());
+    }
+    else
+    {
+Grid_HR_Base_BankAccount.CancelEditAsync();
+        IndexGrid_HR_Base_BankAccount = VisibleIndex - 1;
+         Grid_HR_Base_BankAccount.StartEditRowAsync(IndexGrid_HR_Base_BankAccount);
+     }
+    }
+     catch (Exception e)
+     {
+    Console.WriteLine("PerviousPage Message");
+    Console.WriteLine(e.Message);
+    }
+
+}
+
+void NextPageGrid_HR_Base_BankAccount(int VisibleIndex)
+{
+
+    if (VisibleIndex == Grid_HR_Base_BankAccount.GetVisibleRowCount() - 1)
+    {
+    Console.WriteLine(VisibleIndex.ToString());
+    }
+    else
+    {
+    Console.WriteLine("NextPage Start Grid_HR_Base_BankAccount ");
+    try
+    {
+Grid_HR_Base_BankAccount.CancelEditAsync();
+        IndexGrid_HR_Base_BankAccount = VisibleIndex + 1;
+         Grid_HR_Base_BankAccount.StartEditRowAsync(IndexGrid_HR_Base_BankAccount);
+     }
+    catch (Exception e)
+    {
+        Console.WriteLine("NextPage Message");
+        Console.WriteLine(e.Message);
+    }
+
+    }
+}
+
+public void SaveGrid_HR_Base_BankAccount(object DataItem, object EditModel)
+{
+    var ListEntity = _Entity;
+    var MainModel = (Entity.HR_Base_BankAccount)DataItem;
+    if (MainModel != null)
+    {
+MainModel.Id = ((Entity.HR_Base_BankAccount)EditModel).Id;
+MainModel.RequestID = ((Entity.HR_Base_BankAccount)EditModel).RequestID;
+MainModel.CreateUser = ((Entity.HR_Base_BankAccount)EditModel).CreateUser;
+MainModel.UpdateUser = ((Entity.HR_Base_BankAccount)EditModel).UpdateUser;
+MainModel.CreateDate = ((Entity.HR_Base_BankAccount)EditModel).CreateDate;
+MainModel.UpdateDate = ((Entity.HR_Base_BankAccount)EditModel).UpdateDate;
+MainModel.IsDelete = ((Entity.HR_Base_BankAccount)EditModel).IsDelete;
+MainModel.OpeningDate = ((Entity.HR_Base_BankAccount)EditModel).OpeningDate;
+MainModel.OwnerFullName = ((Entity.HR_Base_BankAccount)EditModel).OwnerFullName;
+MainModel.IBAN = ((Entity.HR_Base_BankAccount)EditModel).IBAN;
+MainModel.CartNo = ((Entity.HR_Base_BankAccount)EditModel).CartNo;
+MainModel.ClosingDate = ((Entity.HR_Base_BankAccount)EditModel).ClosingDate;
+MainModel.IsActive = ((Entity.HR_Base_BankAccount)EditModel).IsActive;
+MainModel.HR_EMP_EmployeesId = ((Entity.HR_Base_BankAccount)EditModel).HR_EMP_EmployeesId;
+MainModel.HR_EMP_Employees = ((Entity.HR_Base_BankAccount)EditModel).HR_EMP_Employees;
+MainModel.BaseInfo_BankBranchesId = ((Entity.HR_Base_BankAccount)EditModel).BaseInfo_BankBranchesId;
+MainModel.BaseInfo_BankAccountTypeId = ((Entity.HR_Base_BankAccount)EditModel).BaseInfo_BankAccountTypeId;
+MainModel.BaseInfo_BankAccountType = ((Entity.HR_Base_BankAccount)EditModel).BaseInfo_BankAccountType;
+MainModel.BankAccountNumber = ((Entity.HR_Base_BankAccount)EditModel).BankAccountNumber;
+MainModel.BaseInfo_BankId = ((Entity.HR_Base_BankAccount)EditModel).BaseInfo_BankId;
+MainModel.BaseInfo_Bank = ((Entity.HR_Base_BankAccount)EditModel).BaseInfo_Bank;
+
+    }
+    else
+    {
+    ListEntity.Add((Entity.HR_Base_BankAccount)EditModel);
+    }
+}
+
+async Task OnDataItemDeletingHR_Base_BankAccount(GridDataItemDeletingEventArgs e)
+    {
+    var ListEntity = _Entity;
+    ListEntity.Remove((Entity.HR_Base_BankAccount)e.DataItem);
+}
+async void OnDeleteButtonClickGrid_HR_Base_BankAccount (GridCommandColumnCellDisplayTemplateContext ex)
+{
+    SelectedItemGrid_HR_Base_BankAccount = (ex.DataItem as Entity.HR_Base_BankAccount);
+    var e =SelectedItemGrid_HR_Base_BankAccount;
+    
+     
+    Console.WriteLine("end OnDeleteButtonClickGrid_test_OrderBody 0");
+    ConfirmationShownHR_Base_BankAccount = true;
+    await Task.Yield();
+     await InvokeAsync(StateHasChanged);
+    
+    Console.WriteLine("end OnDeleteButtonClickGrid_test_OrderBody 1");
+}
+async void OnYesButtonClickGrid_HR_Base_BankAccount ()
+{
+       if (SelectedItemGrid_HR_Base_BankAccount != null)
+    {
+      if (SelectedItemGrid_HR_Base_BankAccount.Id == Guid.Empty)
+      {
+          var ListEntity = _Entity;
+        ListEntity.Remove((Entity.HR_Base_BankAccount)SelectedItemGrid_HR_Base_BankAccount);
+     
+      }
+      else
+      {
+        var cleanModel = new Entity.HR_Base_BankAccount();
+      // چک کن آیا پراپرتی IsDelete در این نوع وجود دارد؟
+        var prop = typeof(Entity.HR_Base_BankAccount).GetProperty("IsDelete");
+        if (prop != null && prop.CanRead && prop.CanWrite)
+        {
+            // مقدار فعلی را بگیر
+            var currentValue = prop.GetValue(SelectedItemGrid_HR_Base_BankAccount);
+
+            if (currentValue is bool boolValue)
+            {
+                // مقدار را معکوس کن
+                var newValue = !boolValue;
+
+                // روی هر دو شیء تنظیم کن
+                prop.SetValue(SelectedItemGrid_HR_Base_BankAccount, newValue);
+                prop.SetValue(cleanModel, newValue);
+            }
+        }
+        EntityHelper.SetPropertyValue(cleanModel, cleanModel._GetIdName, SelectedItemGrid_HR_Base_BankAccount._Id);
+    
+      await PostDataDelete(cleanModel); 
+       
+      }
+    }
+    var e= SelectedItemGrid_HR_Base_BankAccount;
+    
+    Grid_HR_Base_BankAccount.Reload();
+    ConfirmationShownHR_Base_BankAccount = false;
+     await Task.Yield();
+    await InvokeAsync(StateHasChanged);
+
+}
+void OnNoButtonClickGrid_HR_Base_BankAccount ()
+{
+    ConfirmationShownHR_Base_BankAccount = false;
+}
+
+void CustomizeRowsGrid_HR_Base_BankAccount(GridCustomizeElementEventArgs e)
+{
+    ///استایل سطر
+    if (e.ElementType == GridElementType.DataRow)
+    {
+    var item = ((Entity.HR_Base_BankAccount)e.Grid.GetDataItem(e.VisibleIndex));
+
+       if (item.IsDelete == true)
+       {
+           e.CssClass = "bg-lightred disablediv";
+       }
+    }
+}
+
+async void CustomizeEditGrid_HR_Base_BankAccount(GridCustomizeEditModelEventArgs e)
+{
+
+    if (e.IsNew)
+    {
+
+    var newRow = (Entity.HR_Base_BankAccount)e.EditModel;
+
+     
+
+    }
+
+await ShowFormCU(e);
+}
+public async void RowClickGrid_HR_Base_BankAccount(GridRowClickEventArgs e)
+{
+if (!e.Grid.FocusedRowEnabled)
+{
+    setFocusOn();
+}
+IsNew = false;
+_VisibleIndex = e.VisibleIndex;
+ShowFormCU(e.Grid.GetDataItem(e.VisibleIndex));
+e.Grid.SetFocusedRowIndex(e.VisibleIndex);
+}
+
+public async void RowDubbleClickGrid_HR_Base_BankAccount(GridRowClickEventArgs e)
+{
+
+}
+}
+
+
+                    <DxPager @ref=DxPager VisibleNumericButtonCount="1" SwitchToInputBoxButtonCount="3" PageCount="@PageCount" NavigationMode="PagerNavigationMode.NumericButtons" ActivePageIndexChanged="PageIndexChanged" />
+                    @* دیالوگ برای سابمیت *@
+                    <DxPopup @bind-Visible="@Confirmation_Submit" HeaderText="Save" Width="350px" CloseOnOutsideClick="false">
+                        <BodyContentTemplate Context="EditFormContext">
+                            <div class="py-3 px-5 text-center">
+                                <p>آیا از ذخیره این رکورد مطمئن هستید</p>
+                                <div class="confirm-dialog-buttons">
+
+
+                                    <DxButton Text="Yes" Enabled="!isSending" CssClass="btn btn-red px-4" Click="@OnYesSubmitClick">
+                                        @* تبدیل دکمه به لود  *@
+                                        <DxWaitIndicator Visible="isSending" />
+                                        <span class="mx-2">@((isSending ? "Sending..." : "Send"))</span>
+
+                                    </DxButton>
+                                    <DxButton Text="No" CssClass="btn btn-purple-light px-4" Click="@OnNoSubmitClick" />
+                                </div>
+                            </div>
+                        </BodyContentTemplate>
+                    </DxPopup>
+                    @* دیالوگ برای ذخیره و رکورد جدید *@
+                    <DxPopup @bind-Visible="@Confirmation_SubmitNew" HeaderText="Save" Width="350px" CloseOnOutsideClick="false">
+
+                        <BodyContentTemplate Context="EditFormContext">
+                            <div class="py-3 px-5 text-center">
+                                <p>آیا از ذخیره این رکورد مطمئن هستید</p>
+                                <div class="confirm-dialog-buttons">
+                                    <DxButton Text="Yes" Enabled="!isSending" CssClass="btn btn-red px-4" Click="@OnYesSubmitNewClick">
+                                        <DxWaitIndicator Visible="isSending" />
+                                        <span class="mx-2">@((isSending ? "Sending..." : "Send"))</span>
+
+                                    </DxButton>
+                                    <DxButton Text="No" CssClass="btn btn-purple-light px-4" Click="@OnNoSubmitNewClick" />
+                                </div>
+                            </div>
+                        </BodyContentTemplate>
+                    </DxPopup>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="modal fade xyz-in @(ShowForm?"show d-block":"")" id="DetailDialog" tabindex="-1" aria-labelledby="DetailDialog2Label" aria-hidden="true" style="z-index:1049">
+        <div class="modal-dialog modal-fullscreen" style="z-index:1049;">
+            <div class="modal-content" xyz="fade up-25% perspective-2 stagger">
+                <div class="modal-header xyz-nested py-1" xyz="up-100% in-delay-3">
+                    <h1 class="modal-title fs-5 fw-black">جزئیات</h1>
+                    <button type="button" class="btn" @onclick="()=>ShowForm=false">
+                        <span class="fa fa-times"></span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="detailArea">
+                        @*
+            @if (Id != null)
+            {
+            <h3>Row Id: @Id </h3>
+            }
+
+            <div>
+            برای ایجاد هم از همین اصتفاده میشه
+            باید وقتی داخل گرید سطری انتخاب شد برای ویرایش
+            ارسال بشه به این فرم
+            فرم وقتی ویرایش کرد داده رو به ORM ارسال کنه برای ذخیره داده
+            و موجودیت بروز شده رو برگردونه که گرید هم بروز کنه داده رو
+            ***تغیراتی داخل فرم پاین نیاز هست اعمال شود
+            </div> *@
+
+                        <Form_688_CU @ref="RefForm" IndependentForm=false _CartablesParameters="_CartablesParameters" _RequestParameters="_RequestParameters"></Form_688_CU>
+                        <div class="mt-3">
+
+                            @if (DtComponent is not null && DtComponent.AccessEdit)
+                            {
+
+                                <DxButton Enabled="!isSending" id="btn_listi_Save" CssClass="btn btn-sm btn-green" Click="@OnYesSubmitClick">
+                                    @* تبدیل دکمه به لود  *@
+                                    <DxWaitIndicator Visible="isSending" />
+                                    <span class="mx-2">@((isSending ? "Sending..." : "ذخیره"))</span>
+
+                                </DxButton>
+
+                                <DxButton Enabled="!isSending" id="btn_listi_Save_close" CssClass="btn btn-sm btn-green" Click="@OnSubmitCloseClick">
+                                    @* تبدیل دکمه به لود  *@
+                                    <DxWaitIndicator Visible="isSending" />
+                                    <span class="mx-2">@((isSending ? "Sending..." : "ذخیره و بستن"))</span>
+
+                                </DxButton>
+                                @if (DtComponent.AccessNew)
+                                {
+                                    <DxButton Enabled="!isSending" id="btn_listi_Save_New" CssClass="btn btn-sm btn-green" Click="@OnYesSubmitNewClick">
+                                        @* تبدیل دکمه به لود  *@
+                                        <DxWaitIndicator Visible="isSending" />
+                                        <span class="mx-2">@((isSending ? "Sending..." : "ذخیره و جدید"))</span>
+
+                                    </DxButton>
+                                }
+                            }
+                            <button class="btn btn-sm btn-red" @onclick=SubmitCancell>انصراف</button>
+                            |
+
+                            <DxButton Text="Yes" Enabled="!isSending" id="btn_listi_Previous" CssClass="btn btn-sm btn-purple" Click="@BackRow">
+                                @* تبدیل دکمه به لود  *@
+                                <DxWaitIndicator Visible="isSending" />
+                                <span class="bi bi-chevron-right btnicon"></span>
+                                <span>@((isSending ? "wait..." : "قبلی"))</span>
+
+                            </DxButton>
+                            <DxButton Text="Yes" Enabled="!isSending" id="btn_listi_Next" CssClass="btn btn-sm btn-purple" Click="@NextRow">
+                                @* تبدیل دکمه به لود  *@
+                                <DxWaitIndicator Visible="isSending" />
+                                <span>@((isSending ? "wait..." : "بعدی"))</span>
+                                <span class="bi bi-chevron-left btnicon"></span>
+                            </DxButton>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal-backdrop fade @(ShowForm?"show":"")" style="z-index:1048"></div>
+    </div>
+
+</div>
+
+
+
+@code {
+    /// <summary>
+    /// مقداردهی بر اساس ایندکس فعال
+    /// </summary>
+    protected int? _VisibleIndex { get; set; }
+    //// <summary>
+    /// نمایش دیالوگ ذخیره
+    /// </summary>
+
+    public bool Confirmation_Submit { get; set; } = false;
+    /// <summary>
+    /// نمایش دیالوگ ذخیره و فرم جدید
+    /// </summary>
+    public bool Confirmation_SubmitNew { get; set; } = false;
+    /// <summary>
+    /// کامپوننت دیتاگرید
+    /// </summary>
+    public View_Component DtComponent { get; set; } = new View_Component();
+
+    //// <summary>
+    /// نمایش لودینگ
+    /// </summary>
+    public bool isSending { get; set; } = false;
+    /// <summary>
+    /// رکورد جدید می باشد یا ویرایش
+    /// </summary>
+
+    public bool IsNew { get; set; }
+
+    protected override void OnInitialized()
+    {
+        //todo این خط برده شود داخل تابع پاینی ببینیم خطا داره یا نه
+        languageContainer.InitLocalizedComponent(this);
+        //   RefListFilter = new();
+    }
+    protected override async Task OnInitializedAsync()
+    {
+        //بعداد اگه نیاز شد فرمی رو تو حالت غیر لاگین شده نمایش بدیم باید این  کد تغیر کنه
+        var user = (await _authenticationStateProvider.GetAuthenticationStateAsync()).User;
+        string UserID = user.FindFirst(c => c.Type == ClaimTypes.NameIdentifier).Value;
+        //داینامیک بشه
+        Dictionary<string, object> List = new Dictionary<string, object>();
+        List.Add("UserID", UserID);
+        _User = await Domain.Utility.ConvertParameter.ConvertToObject(List);
+
+        //     RefListFilter = new();
+        await base.OnInitializedAsync();
+    }
+
+    public override async Task SetParametersAsync(ParameterView parameters)
+    {
+        await base.SetParametersAsync(parameters);
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            await Task.Yield();
+            StateHasChanged();
+            if (Grid_HR_Base_BankAccount is not null)
+    {
+                DtComponent = (View_Component)Grid_HR_Base_BankAccount.Attributes.GetValueOrDefault("Component");
+    }
+
+            //JSO = await JS.InvokeAsync<IJSObjectReference>("import", "./js/FormFunctions.js?ver=1.2");
+
+            /*             var ResultConvert = await Forms.Domain.Utility.ConvertParameter.ConvertParametersToDaunamic(RequestParameters, CartablesParameters);
+            _RequestParameters = ResultConvert._RequestParameters;
+            _CartablesParameters = ResultConvert._CartablesParameters; */
+
+            /*    RefForm.CartablesParameters = CartablesParameters;
+            RefForm.RequestParameters = RequestParameters; */
+
+            await InvokeAsync(StateHasChanged);
+            await Task.Yield();
+            QueryFilter = new QueryBuilderFilterRule();
+            if ("{\"Condition\":\"AND\",\"Rules\":[{\"Field\":\"HR_EMP_EmployeesId\",\"Id\":\"15252\",\"Input\":\"text\",\"Operator\":\"contains\",\"Type\":\"string\",\"Value\":[]}]}" != "null" || "{\"Condition\":\"AND\",\"Rules\":[{\"Field\":\"HR_EMP_EmployeesId\",\"Id\":\"15252\",\"Input\":\"text\",\"Operator\":\"contains\",\"Type\":\"string\",\"Value\":[]}]}" != "{}")
+            {
+                QueryFilter = await JSON.ToObject<QueryBuilderFilterRule>("{\"Condition\":\"AND\",\"Rules\":[{\"Field\":\"HR_EMP_EmployeesId\",\"Id\":\"15252\",\"Input\":\"text\",\"Operator\":\"contains\",\"Type\":\"string\",\"Value\":[]}]}");
+
+            }
+
+
+            if (RefListFilter == null)
+            {
+
+                RefListFilter = new();
+            }
+
+            await InvokeAsync(StateHasChanged);
+            await Task.Yield();
+
+            RefListFilter.QueryFilter = QueryFilter;//برای این گذاشتم که فیلتر نال نره تو پکامپوننتش
+
+            await base.BeforGetData();
+            await InvokeAsync(StateHasChanged);
+            await Task.Yield();
+
+            await RefListFilter.SearchFilter();
+            await base.AfterGetData();
+            //ست کردن شماره صفحه به گرید
+            await SetPageIndex(0);
+
+            //          if (Grid_HR_Base_BankAccount.GetDataItem(0) != null)
+            //  {
+            //              await ShowFormCU(Grid_HR_Base_BankAccount.GetDataItem(0));
+            //  }
+        }
+
+        await base.OnAfterRenderAsync(firstRender);
+    }
+
+
+    public async Task SearchFilter(QueryBuilderFilterRule? Filter)
+    {
+
+        SearchQueryFilter = Filter;
+
+        //ریست پیج بندی
+        if (PageReset)
+            PageIndex = 0;
+        //
+        //فیلتر ارسال بشه برای ORM
+        //لیست ردیافتی بایند بشه تو لیست ListData
+        await LoadData();
+        PageReset = true;
+        StateHasChanged();
+    }
+
+    /// <summary>
+    /// لود دیتا گرید
+    /// </summary>
+    /// <returns></returns>
+    public async Task LoadData()
+    {
+
+        //string Url = "https://bayaorm.workcv.ir/fa/api/v1/HR_Base_BankAccount/GetList";
+        //string Url = "https://testorm.workcv.ir/fa/api/v1/HR_Base_BankAccount/GetList";
+        // string Url = "https://bayaorm.workcv.ir/fa/api/v1/HR_Base_BankAccount/GetList";
+
+        int skip = (PageIndex * PageSize);
+
+        var pagedResult = new PagedResult();
+
+        pagedResult.PageSize = PageSize;
+
+        pagedResult.PageNumber = skip;
+        await FillTableGet();
+
+        var R = await ApiServer.External.Services.Data.GetListPost(TableGet, SearchQueryFilter, pagedResult, "HR_Base_BankAccount");
+
+
+        if (R is not null)
+        {//اگه داده گرفته 
+            if (R.Status == System.Net.HttpStatusCode.OK)
+            {
+
+
+                var page = await Utility.JSON.ToObject<PagedResult>(R.Content?.ToString());
+
+                if (page?.Items != null)
+                {
+                    // مستقیم به لیست مدل تبدیل کن
+                    _Entity = await Utility.JSON.ToObject<List<Entity.HR_Base_BankAccount>>(
+               await Utility.JSON.ToJson(page.Items)
+                    );
+
+
+                }
+                if (page?.PagesCount != null)
+                {
+                    PageCount = page.PagesCount;
+                }
+      
+                //  _Entity = (await Utility.JSON.ToObject<List<Entity.HR_Base_BankAccount>>(R.Content?.ToString()));
+            }
+            else
+            {
+                Console.WriteLine("#Log LoadData Error:");
+              //  Console.WriteLine(R.Status);
+                Console.WriteLine(R.Content);
+                Console.WriteLine(R.Message);
+            }
+          
+            //await OnFormloaded.InvokeAsync(Result);
+        }
+        
+    }
+
+    /// <summary>
+    /// تابع پیج بندی
+    /// </summary>
+    /// <param name="Index"></param>
+    /// <returns></returns>
+    public async Task PageIndexChanged(int Index)
+    {
+        await SetPageIndex(Index);
+
+        await LoadData();
+    }
+
+
+    /// <summary>
+    /// دریافت داده فرم سمت راست CU
+    /// </summary>
+    /// <param name="Id"></param>
+    /// <returns></returns>
+    public async Task GetDataForm(object Id)
+    {
+        ShowForm = true;
+        Type type = Id.GetType();
+        string TypeToQueryBuilder = Utility.TypeConverterQueryBuilder.ConvertCSharpTypeToQueryBuilder(type);
+        var NewQuery = new QueryBuilderFilterRule() { Condition = "AND" };
+        NewQuery.Rules = new List<QueryBuilderFilterRule>
+            {
+                    new QueryBuilderFilterRule()
+                    {
+                        Field = PrimaryFieldName,
+                        Id = PrimaryFieldName,
+                        Input = "text",
+                        Operator = "equal",
+                        Type =  TypeToQueryBuilder,
+                        Value = new string[]{ Id.ToString() },
+                    }
+            };
+        RefForm.QueryFilter = NewQuery;
+        await RefForm.GetData();
+        StateHasChanged();
+    }
+    /// <summary>
+    /// بررسی تغییر دیتا
+    /// </summary>
+    /// <param name="Json"></param>
+    /// <returns></returns>
+    public bool CheckChangedData(string? Json)
+    {
+        if (string.Equals(JsonData, Json)) return true;
+        return false;
+    }
+    /// <summary>
+    /// سامبیت فرم
+    /// </summary>
+    /// <returns></returns>
+    public async Task Submit()
+    {
+        Confirmation_Submit = true;
+        // var R = await RefForm.Submit();
+
+        // if (R.Status != System.Net.HttpStatusCode.OK)
+        // {
+        //     toastService.ShowError("ذخیره سازی دچار خطا شد");
+        // }
+    }
+    /// <summary>
+    /// تایید ذخیره فرم
+    /// </summary>
+    /// <returns></returns>
+    public async Task OnYesSubmitClick()
+    {
+        PageReset = false;
+        await RefForm.Submit();
+        await RefListFilter.SearchFilter();
+        var PageIndex = Grid_HR_Base_BankAccount.PageIndex;
+    //اگر جدید بود برو بر روی خود رکورد جدید
+  // if (IsNew)
+  //     {
+  //         if (_VisibleIndex == (Grid_HR_Base_BankAccount.GetVisibleRowCount() - 1))
+  // {
+  //             PageIndex = PageIndex + 1;
+  //             _VisibleIndex = 0;
+  //         }
+  //         else
+  //         {
+  //             _VisibleIndex = _VisibleIndex.Value + 1;
+  //         }
+  //
+  //     }
+  //     await SelectRecord(PageIndex, _VisibleIndex.Value);
+    }
+
+    /// <summary>
+    /// ذخیره و بستن فرم
+    /// </summary>
+    /// <returns></returns>
+    public async Task OnSubmitCloseClick()
+    {
+        PageReset = false;
+        await SubmitAndRefreshData();
+        ShowForm = false;
+        await InvokeAsync(StateHasChanged);
+    }
+
+    /// <summary>
+    /// تایید ذخیره فرم
+    /// </summary>
+    /// <returns></returns>
+    public async Task OnYesSubmitNewClick()
+    {
+        PageReset = false;
+        await SubmitAndRefreshData();
+        StartEditNewRowAsync_Grid_HR_Base_BankAccount();
+    }
+
+    public async Task SubmitAndRefreshData()
+    {
+        isSending = true;
+        await RefForm.Submit();
+        await RefListFilter.SearchFilter();
+        await InvokeAsync(StateHasChanged);
+        Confirmation_SubmitNew = false;
+        isSending = false;
+    }
+
+    /// <summary>
+    /// انصراف ذخیره فرم
+    /// </summary>
+    /// <returns></returns>
+    public async Task OnNoSubmitClick()
+    {
+        Confirmation_Submit = false;
+    }
+
+    //// <summary>
+    /// فعال شدن دیالوگ ذخیره و فرم جدید
+    /// </summary>
+    /// <returns></returns>
+    public async Task SubmitNew()
+    {
+        Confirmation_SubmitNew = true;
+    }
+
+
+    /// <summary>
+    /// انصراف ذخیره فرم
+    /// </summary>
+    /// <returns></returns>
+    public async Task OnNoSubmitNewClick()
+    {
+        Confirmation_Submit = false;
+    }
+
+    /// <summary>
+    /// انصراف از ذخیره فرم
+    /// </summary>
+    /// <returns></returns>
+    public async Task SubmitCancell()
+    {
+       // await GetDataForm(null);
+        ShowForm = false;
+        PageReset = false;
+        await RefListFilter.SearchFilter();
+    }
+    /// <summary>
+    /// رکورد بعدی
+    /// </summary>
+    /// <returns></returns>
+    public async Task NextRow()
+    {
+
+
+        if (_VisibleIndex is null)
+        {
+            _VisibleIndex = 0;
+        }
+        else if (_VisibleIndex == (Grid_HR_Base_BankAccount.GetVisibleRowCount() - 1))
+    {
+            if (PageIndex < DxPager.PageCount)
+            {
+                PageIndex = PageIndex + 1;
+            }
+            else
+            {
+                PageIndex = 0;
+            }
+            _VisibleIndex = 0;
+        }
+        else
+        {
+            _VisibleIndex = _VisibleIndex.Value + 1;
+        }
+        await SelectRecord(PageIndex, _VisibleIndex.Value);
+
+    }
+    /// <summary>
+    /// رکورد قبلی
+    /// </summary>
+    /// <returns></returns>
+    public async Task BackRow()
+    {
+        if (_VisibleIndex is null)
+        {
+            _VisibleIndex = 0;
+        }
+        if (_VisibleIndex == 0)
+        {
+            if (PageIndex > 0)
+            {
+                PageIndex = PageIndex - 1;
+                _VisibleIndex = Grid_HR_Base_BankAccount.PageSize - 1;
+    }
+        }
+        else
+        {
+
+            _VisibleIndex = _VisibleIndex.Value - 1;
+        }
+        await SelectRecord(PageIndex, _VisibleIndex.Value);
+    }
+
+    void SetLanguage(string language)
+    {
+        languageContainer.SetLanguage(System.Globalization.CultureInfo.GetCultureInfo(language));
+    }
+
+
+    /// <summary>
+    /// نمایش دادن فرم CU برای ویرایش و ضافه کردن رکورد
+    /// </summary>
+    /// <param name="e"></param>
+    // public async Task ShowFormCU(GridCustomizeEditModelEventArgs e)
+    // {
+    //     Guid Id = Guid.Empty;
+    //     if (!e.IsNew)
+    //     {
+    //         var newRow = (Entity.HR_Base_BankAccount)e.EditModel;
+    //         Id = newRow.Id;
+    //     }
+    //     await GetDataForm(Id);
+    // }
+
+    /// <summary>
+    /// نمایش دادن فرم CU برای ویرایش و ضافه کردن رکورد
+    /// </summary>
+    /// <param name="e"></param>
+    public async Task ShowFormCU(object e)
+    {
+        await InvokeAsync(StateHasChanged);
+        await Task.Yield();
+        object Id = null;
+        Type type = null;
+        ShowForm = true;
+        await InvokeAsync(StateHasChanged);
+        await Task.Yield();
+        if (!IsNew)
+        {
+            var newRow = (Entity.HR_Base_BankAccount)e;
+    Id = newRow._Id;
+            await InvokeAsync(StateHasChanged);
+            await Task.Yield();
+        }
+        else
+        {
+            var newRow = new Entity.HR_Base_BankAccount();
+    Id = newRow._Id;
+        }
+        await InvokeAsync(StateHasChanged);
+        await Task.Yield();
+        await GetDataForm(Id);
+    }
+    /// <summary>
+    /// خاموش کردن فوکوس گرید
+    /// </summary>
+    /// <returns></returns>
+    public async Task setFocusOff()
+    {
+        //اگر فوکوس روشن بود خاموشش کن
+        if (Grid_HR_Base_BankAccount.FocusedRowEnabled)
+    {
+            //به علت یروزرسانی دیتاگرید و اینکه فوکوس باید مقدار اولیه داده شود از خط زیر استفاده می شود
+            Grid_HR_Base_BankAccount.BeginUpdate();
+    Grid_HR_Base_BankAccount.FocusedRowEnabled = false;
+    Grid_HR_Base_BankAccount.EndUpdate();
+    }
+
+    }
+    /// <summary>
+    /// فعال کردن فوکوس گرید
+    /// </summary>
+    /// <returns></returns>
+    public async Task setFocusOn()
+    {
+        if (!Grid_HR_Base_BankAccount.FocusedRowEnabled)
+    {
+            Grid_HR_Base_BankAccount.BeginUpdate();
+    Grid_HR_Base_BankAccount.FocusedRowEnabled = true;
+
+    Grid_HR_Base_BankAccount.EndUpdate();
+    }
+
+    }
+
+    public async Task SelectRecord(int PageIndex, int __VisibleIndex)
+    {
+
+        isSending = true;
+        await setFocusOn();
+        PageIndexChanged(PageIndex);
+        await ShowFormCU(Grid_HR_Base_BankAccount.GetDataItem(__VisibleIndex));
+    DxPager.ActivePageIndex = PageIndex;
+        Grid_HR_Base_BankAccount.BeginUpdate();
+    Grid_HR_Base_BankAccount.PageIndex = PageIndex;
+    Grid_HR_Base_BankAccount.EndUpdate();
+    Grid_HR_Base_BankAccount.SetFocusedRowIndex(__VisibleIndex);
+
+    isSending = false;
+    }
+
+    public async Task SetPageIndex(int Index)
+    {
+        PageIndex = Index;
+        Grid_HR_Base_BankAccount.BeginUpdate();
+    Grid_HR_Base_BankAccount.PageIndex = Index;
+    Grid_HR_Base_BankAccount.EndUpdate();
+    }
+    /// <summary>
+    /// ارسال داده
+    /// </summary>
+    /// <returns></returns>
+    private async Task<bool> PostDataDelete(Entity.HR_Base_BankAccount _entity)
+    {
+        string Data = await Utility.JSON.ToJson(_entity);
+
+        var TablePost = new Table();
+        TablePost.Name = "HR_Base_BankAccount";
+        TablePost.Column = new List<Coulmn>
+                    {
+                    new Coulmn {Name=_entity._GetIdName  , NameAs= _entity._GetIdName},
+                    new Coulmn {Name ="IsDelete",NameAs="IsDelete" }
+
+                    };
+        bool IsOk = false;
+        var Model = await ApiServer.External.Services.Data.Put(Data, TablePost.Name, TablePost, null, _User.UserID.ToString());
+        if (Model?.Status == HttpStatusCode.OK)
+        {
+            IsOk = true;
+        }
+
+        return IsOk;
+    }
+}

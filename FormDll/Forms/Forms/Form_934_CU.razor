@@ -1,0 +1,431 @@
+@inherits Forms.Forms.Form_934_CUBase
+@namespace FormsPage
+
+@using AKSoftware.Localization.MultiLanguages.Blazor
+@using Baya.Models.Utility;
+@using Baya.Models.ORM
+@using Microsoft.AspNetCore.Components.Forms
+@using Microsoft.AspNetCore.Components.Authorization;
+@using System.Security.Claims
+@using System.Net
+@using Microsoft.JSInterop
+@using Baya.Models.ViewEngine
+@using Forms.Domain.Utility
+@using Castle.DynamicLinqQueryBuilder
+<style>
+    
+</style>
+
+<Plugins.Tools.ConfirmDialog @ref="Confirm" />
+
+<span class="d-none">VersionForm:@VersionForm</span>
+@*
+@if (!string.IsNullOrEmpty(SumaryMessage))
+{
+    <div>
+        @SumaryMessage
+    </div>
+} *@
+
+@* <EditForm @ref="_Form" Model="_Entity" OnValidSubmit="ValidFormSubmitted" OnInvalidSubmit="InvalidFormSubmitted" OnSubmit="Submit"> *@
+<div class="@(ReadOnly?"FormReadOnly":"")">
+    <EditForm @ref="_Form" Model="_Entity" OnSubmit="Submit">
+        
+<Input Id="Id" @ref="Ref_Id"   CssClass="d-none"   @bind-Value="_Entity.Id" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+<Input Id="RequestID" @ref="Ref_RequestID"      @bind-Value="_Entity.RequestID" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+<Input Id="CreateUser" @ref="Ref_CreateUser"      @bind-Value="_Entity.CreateUser" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+<Input Id="UpdateUser" @ref="Ref_UpdateUser"      @bind-Value="_Entity.UpdateUser" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+<Input Id="CreateDate" @ref="Ref_CreateDate"   CssClass="d-none"   @bind-Value="_Entity.CreateDate" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+<Input Id="UpdateDate" @ref="Ref_UpdateDate"   CssClass="d-none"   @bind-Value="_Entity.UpdateDate" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+<Input Id="IsDelete" @ref="Ref_IsDelete"   CssClass="d-none"   @bind-Value="_Entity.IsDelete" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+<Input Id="OpeningDate" @ref="Ref_OpeningDate" Label="تاریخ افتتاح"  CssClass=" PersianDatePicker"   @bind-Value="_Entity.OpeningDate" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"data-jdp\":\"  \",\"data-jdp-only-date\":\"   \"}").Result))></Input>
+
+<Input Id="OwnerFullName" @ref="Ref_OwnerFullName" Label="صاحب حساب بجز پرسنل"     @bind-Value="_Entity.OwnerFullName" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"maxlength\":\"75\"}").Result))></Input>
+
+<Input Id="IBAN" @ref="Ref_IBAN" Label="شبا بانکی"     @bind-Value="_Entity.IBAN" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"maxlength\":\"27\"}").Result))></Input>
+
+<Input Id="CartNo" @ref="Ref_CartNo" Label="شماره کارت"     @bind-Value="_Entity.CartNo" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"maxlength\":\"17\"}").Result))></Input>
+
+<Input Id="ClosingDate" @ref="Ref_ClosingDate" Label="تاریخ اختتام"  CssClass=" PersianDatePicker"   @bind-Value="_Entity.ClosingDate" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"data-jdp\":\"  \",\"data-jdp-only-date\":\"   \"}").Result))></Input>
+
+<Input Id="IsActive" @ref="Ref_IsActive" Label="فعال است؟"     @bind-Value="_Entity.IsActive" type="checkbox"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+ 
+ 
+@code {
+    Baya.Models.ViewEngine.View_Component Component_HR_BankAccountsHR_EMP_EmployeesId = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"EntityName\":\"حساب بانکی\",\"primaryKey\":false,\"EntityID\":682,\"FieldId\":19500,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":934,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":false,\"RelationParentName\":\"HR_EMP_Employees\",\"RelationParentModel\":\"HR_EMP_Employees\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/HR_EMP_Employees/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.EmployeeNo}} {{item.FirstName}} {{item.LastName}} </span>\",\"FieldsTemplate\":[{\"key\":\"EmployeeNo\",\"value\":\"nvarchar(Max)\"},{\"key\":\"FirstName\",\"value\":\"nvarchar(Max)\"},{\"key\":\"LastName\",\"value\":\"nvarchar(Max)\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"modal\":true,\"label\":\"کارمند\",\"tableView\":true,\"key\":\"HR_EMP_EmployeesId\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"19500?EId=682&SubId=15\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
+}
+
+    <Dropdown Id=HR_EMP_EmployeesId  @ref="Ref_HR_EMP_EmployeesId" Label="کارمند" CssClass=""  DisplayFormat="DropDown" ExternalApi=false NotMapped=false TextGrid=false Text="" Value="@_Entity.HR_EMP_EmployeesId" FieldName="HR_EMP_EmployeesId" OnItemSelected="ItemSelected_HR_BankAccountsHR_EMP_EmployeesId" Component="Component_HR_BankAccountsHR_EMP_EmployeesId" _Entity="_Entity" >
+</Dropdown>
+@code {
+    public async Task ItemSelected_HR_BankAccountsHR_EMP_EmployeesId(object _Item)
+    {
+        var Selected = Utility.JSON.ToObject<dynamic>(Utility.JSON.ToJson(_Item).Result).Result;
+     var Item = _Entity;
+
+      //Todo
+ //برای اینکه آی دی تغییر کند اینجا نیز باید تغییر کند
+ //بهتر است از پرایمیری کی استفاده شود
+ if (_Item != null)
+ {
+     Console.WriteLine(" Item Is Not Null");
+    Item.HR_EMP_EmployeesId = Selected.Id;
+    
+ }
+ else
+ {
+     Console.WriteLine(" Item Is Null");
+      Item.HR_EMP_EmployeesId =EntityHelper.SetPropertyNull(Item.HR_EMP_EmployeesId);
+ }
+ Item.HR_EMP_Employees = await Utility.JSON.ToObject<Entity.HR_EMP_Employees>(await Utility.JSON.ToJson(_Item));
+    StateHasChanged();
+
+
+    
+
+    
+    }
+} 
+ 
+ 
+@code {
+    Baya.Models.ViewEngine.View_Component Component_HR_BankAccountsBaseInfo_BankBranchesId = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"EntityName\":\"حساب بانکی\",\"primaryKey\":false,\"EntityID\":682,\"FieldId\":19501,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":934,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":false,\"RelationParentName\":\"BaseInfo_BankBranches\",\"RelationParentModel\":\"BaseInfo_BankBranches\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/BaseInfo_BankBranches/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.Title}} </span>\",\"FieldsTemplate\":[{\"key\":\"Title\",\"value\":\"nvarchar(Max)\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"modal\":true,\"label\":\"شعبه بانک\",\"tableView\":true,\"key\":\"BaseInfo_BankBranchesId\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"19501?EId=682&SubId=15\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
+}
+
+    <Dropdown Id=BaseInfo_BankBranchesId  @ref="Ref_BaseInfo_BankBranchesId" Label="شعبه بانک" CssClass=""  DisplayFormat="DropDown" ExternalApi=false NotMapped=false TextGrid=false Text="" Value="@_Entity.BaseInfo_BankBranchesId" FieldName="BaseInfo_BankBranchesId" OnItemSelected="ItemSelected_HR_BankAccountsBaseInfo_BankBranchesId" Component="Component_HR_BankAccountsBaseInfo_BankBranchesId" _Entity="_Entity" >
+</Dropdown>
+@code {
+    public async Task ItemSelected_HR_BankAccountsBaseInfo_BankBranchesId(object _Item)
+    {
+        var Selected = Utility.JSON.ToObject<dynamic>(Utility.JSON.ToJson(_Item).Result).Result;
+     var Item = _Entity;
+
+      //Todo
+ //برای اینکه آی دی تغییر کند اینجا نیز باید تغییر کند
+ //بهتر است از پرایمیری کی استفاده شود
+ if (_Item != null)
+ {
+     Console.WriteLine(" Item Is Not Null");
+    Item.BaseInfo_BankBranchesId = Selected.Id;
+    
+ }
+ else
+ {
+     Console.WriteLine(" Item Is Null");
+      Item.BaseInfo_BankBranchesId =EntityHelper.SetPropertyNull(Item.BaseInfo_BankBranchesId);
+ }
+ Item.BaseInfo_BankBranches = await Utility.JSON.ToObject<Entity.BaseInfo_BankBranches>(await Utility.JSON.ToJson(_Item));
+    StateHasChanged();
+
+
+    
+
+    
+    }
+} 
+ 
+ 
+@code {
+    Baya.Models.ViewEngine.View_Component Component_HR_BankAccountsBaseInfo_BankAccountTypeId = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"EntityName\":\"حساب بانکی\",\"primaryKey\":false,\"EntityID\":682,\"FieldId\":19502,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":934,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":false,\"RelationParentName\":\"BaseInfo_BankAccountType\",\"RelationParentModel\":\"BaseInfo_BankAccountType\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/BaseInfo_BankAccountType/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.Title}} </span>\",\"FieldsTemplate\":[{\"key\":\"Title\",\"value\":\"nvarchar(Max)\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"modal\":true,\"label\":\"نوع حساب بانکی\",\"tableView\":true,\"key\":\"BaseInfo_BankAccountTypeId\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"19502?EId=682&SubId=15\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
+}
+
+    <Dropdown Id=BaseInfo_BankAccountTypeId  @ref="Ref_BaseInfo_BankAccountTypeId" Label="نوع حساب بانکی" CssClass=""  DisplayFormat="DropDown" ExternalApi=false NotMapped=false TextGrid=false Text="" Value="@_Entity.BaseInfo_BankAccountTypeId" FieldName="BaseInfo_BankAccountTypeId" OnItemSelected="ItemSelected_HR_BankAccountsBaseInfo_BankAccountTypeId" Component="Component_HR_BankAccountsBaseInfo_BankAccountTypeId" _Entity="_Entity" >
+</Dropdown>
+@code {
+    public async Task ItemSelected_HR_BankAccountsBaseInfo_BankAccountTypeId(object _Item)
+    {
+        var Selected = Utility.JSON.ToObject<dynamic>(Utility.JSON.ToJson(_Item).Result).Result;
+     var Item = _Entity;
+
+      //Todo
+ //برای اینکه آی دی تغییر کند اینجا نیز باید تغییر کند
+ //بهتر است از پرایمیری کی استفاده شود
+ if (_Item != null)
+ {
+     Console.WriteLine(" Item Is Not Null");
+    Item.BaseInfo_BankAccountTypeId = Selected.Id;
+    
+ }
+ else
+ {
+     Console.WriteLine(" Item Is Null");
+      Item.BaseInfo_BankAccountTypeId =EntityHelper.SetPropertyNull(Item.BaseInfo_BankAccountTypeId);
+ }
+ Item.BaseInfo_BankAccountType = await Utility.JSON.ToObject<Entity.BaseInfo_BankAccountType>(await Utility.JSON.ToJson(_Item));
+    StateHasChanged();
+
+
+    
+
+    
+    }
+} 
+
+    </EditForm>
+</div>
+
+@if (ShowSubmit)
+{
+    <button class="btn btn-sm btn-green" @onclick=Submit>ذخیره</button>
+}
+
+@code {
+    #region Function
+
+    //todo  جا به جا شود برده شود تو فایل  Peropeties
+    protected override async Task OnInitializedAsync()
+    {
+        Console.WriteLine("#log OnInitializedAsync");
+
+        TableGet = await Utility.JSON.ToObject<Table>("{\"Name\":\"HR_BankAccounts\",\"GetNameAs\":\"HR_BankAccounts\",\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"RequestID\",\"GetNameAs\":\"RequestID\"},{\"Name\":\"CreateUser\",\"GetNameAs\":\"CreateUser\"},{\"Name\":\"UpdateUser\",\"GetNameAs\":\"UpdateUser\"},{\"Name\":\"CreateDate\",\"GetNameAs\":\"CreateDate\"},{\"Name\":\"UpdateDate\",\"GetNameAs\":\"UpdateDate\"},{\"Name\":\"IsDelete\",\"GetNameAs\":\"IsDelete\"},{\"Name\":\"OpeningDate\",\"GetNameAs\":\"OpeningDate\"},{\"Name\":\"OwnerFullName\",\"GetNameAs\":\"OwnerFullName\"},{\"Name\":\"IBAN\",\"GetNameAs\":\"IBAN\"},{\"Name\":\"CartNo\",\"GetNameAs\":\"CartNo\"},{\"Name\":\"ClosingDate\",\"GetNameAs\":\"ClosingDate\"},{\"Name\":\"IsActive\",\"GetNameAs\":\"IsActive\"},{\"Name\":\"HR_EMP_EmployeesId\",\"GetNameAs\":\"HR_EMP_EmployeesId\"},{\"Name\":\"BaseInfo_BankBranchesId\",\"GetNameAs\":\"BaseInfo_BankBranchesId\"},{\"Name\":\"BaseInfo_BankAccountTypeId\",\"GetNameAs\":\"BaseInfo_BankAccountTypeId\"}],\"Relation\":[{\"Name\":\"HR_EMP_Employees\",\"GetNameAs\":\"HR_EMP_Employees\",\"ModeErtebat\":1,\"Column\":[{\"Name\":\"LastName\",\"GetNameAs\":\"LastName\"},{\"Name\":\"LastNameEn\",\"GetNameAs\":\"LastNameEn\"},{\"Name\":\"DeleteDateTime\",\"GetNameAs\":\"DeleteDateTime\"},{\"Name\":\"HR_EMP_StatusId\",\"GetNameAs\":\"HR_EMP_StatusId\"},{\"Name\":\"EmployeeLastPersonelNo\",\"GetNameAs\":\"EmployeeLastPersonelNo\"},{\"Name\":\"EmployeeNo\",\"GetNameAs\":\"EmployeeNo\"},{\"Name\":\"EmployeePersonelNo\",\"GetNameAs\":\"EmployeePersonelNo\"},{\"Name\":\"FirstName\",\"GetNameAs\":\"FirstName\"},{\"Name\":\"FirstNameEn\",\"GetNameAs\":\"FirstNameEn\"},{\"Name\":\"HR_Base_FactoryId\",\"GetNameAs\":\"HR_Base_FactoryId\"},{\"Name\":\"BaseInfo_ORG_CompaniesId\",\"GetNameAs\":\"BaseInfo_ORG_CompaniesId\"},{\"Name\":\"UserId\",\"GetNameAs\":\"UserId\"},{\"Name\":\"LastEmployeeNo\",\"GetNameAs\":\"LastEmployeeNo\"},{\"Name\":\"ProfilePicture\",\"GetNameAs\":\"ProfilePicture\"},{\"Name\":\"FullName\",\"GetNameAs\":\"FullName\"}],\"Relation\":[]},{\"Name\":\"BaseInfo_BankBranches\",\"GetNameAs\":\"BaseInfo_BankBranches\",\"ModeErtebat\":1,\"Column\":[{\"Name\":\"BaseInfo_CitiesId\",\"GetNameAs\":\"BaseInfo_CitiesId\"},{\"Name\":\"Title\",\"GetNameAs\":\"Title\"},{\"Name\":\"Address\",\"GetNameAs\":\"Address\"},{\"Name\":\"Code\",\"GetNameAs\":\"Code\"},{\"Name\":\"IsActive\",\"GetNameAs\":\"IsActive\"},{\"Name\":\"BaseInfo_BanksId\",\"GetNameAs\":\"BaseInfo_BanksId\"},{\"Name\":\"BaseInfo_CitiesAreasId\",\"GetNameAs\":\"BaseInfo_CitiesAreasId\"}],\"Relation\":[]},{\"Name\":\"BaseInfo_BankAccountType\",\"GetNameAs\":\"BaseInfo_BankAccountType\",\"ModeErtebat\":1,\"Column\":[{\"Name\":\"Title\",\"GetNameAs\":\"Title\"}],\"Relation\":[]}]}");
+        TablePost = await Utility.JSON.ToObject<Table>("{\"Name\":\"HR_BankAccounts\",\"GetNameAs\":\"HR_BankAccounts\",\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"RequestID\",\"GetNameAs\":\"RequestID\"},{\"Name\":\"CreateUser\",\"GetNameAs\":\"CreateUser\"},{\"Name\":\"UpdateUser\",\"GetNameAs\":\"UpdateUser\"},{\"Name\":\"CreateDate\",\"GetNameAs\":\"CreateDate\"},{\"Name\":\"UpdateDate\",\"GetNameAs\":\"UpdateDate\"},{\"Name\":\"IsDelete\",\"GetNameAs\":\"IsDelete\"},{\"Name\":\"OpeningDate\",\"GetNameAs\":\"OpeningDate\"},{\"Name\":\"OwnerFullName\",\"GetNameAs\":\"OwnerFullName\"},{\"Name\":\"IBAN\",\"GetNameAs\":\"IBAN\"},{\"Name\":\"CartNo\",\"GetNameAs\":\"CartNo\"},{\"Name\":\"ClosingDate\",\"GetNameAs\":\"ClosingDate\"},{\"Name\":\"IsActive\",\"GetNameAs\":\"IsActive\"},{\"Name\":\"HR_EMP_EmployeesId\",\"GetNameAs\":\"HR_EMP_EmployeesId\"},{\"Name\":\"BaseInfo_BankBranchesId\",\"GetNameAs\":\"BaseInfo_BankBranchesId\"},{\"Name\":\"BaseInfo_BankAccountTypeId\",\"GetNameAs\":\"BaseInfo_BankAccountTypeId\"}],\"Relation\":[]}");
+
+        config = CKEditorBundleOptions.DefaultConfig.WithHtmlEditing();
+        config.Language = "fa";
+
+        //بعداد اگه نیاز شد فرمی رو تو حالت غیر لاگین شده نمایش بدیم باید این  کد تغیر کنه
+        var user = (await _authenticationStateProvider.GetAuthenticationStateAsync()).User;
+        string UserID = user.FindFirst(c => c.Type == ClaimTypes.NameIdentifier).Value;
+        //داینامیک بشه
+        Dictionary<string, object> List = new Dictionary<string, object>();
+        //List.Add("UserID", Guid.Parse(UserID));
+        List.Add("UserID", UserID);
+        _User = await Domain.Utility.ConvertParameter.ConvertToObject(List);
+
+        Console.WriteLine("#log OnInitializedAsync End");
+
+        await base.OnInitializedAsync();
+    }
+
+    //todo  جا به جا شود برده شود تو فایل  Peropeties
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            Console.WriteLine("#log OnAfterRenderAsync");
+            await base.BeforGetData();
+
+            var Result = await GetData();
+
+            await base.AfterGetData();
+
+            StateHasChanged();
+
+            await OnFormloaded.InvokeAsync(Result);
+        }
+
+        await base.OnAfterRenderAsync(firstRender);
+    }
+
+    /// <summary>
+    /// دریافت داده
+    /// </summary>
+    /// <returns></returns>
+    public async Task<Baya.Models.Utility.Result> GetData()
+    {
+        await BeforGetData();
+
+        var DataResult = await ApiServer.External.Services.Data.Get(TableGet, QueryFilter, TableGet.Name, null);
+        
+        Baya.Models.Utility.Result Result = new Baya.Models.Utility.Result();
+
+        if (DataResult != null && DataResult.Status == HttpStatusCode.OK)
+        {
+            if (DataResult.Content != null)
+            {
+                string Data = DataResult.Content.ToString();
+                if (Data is not null)
+                {
+                    _Entity = await Utility.JSON.ToObject < Entity.HR_BankAccounts>(Data);
+        }
+            }
+            else
+            {
+                _Entity = new Entity.HR_BankAccounts();
+            //todo تشخیص دهد که داده ای وجود ندارد و دفه اول هست که فرم لود میشود
+            //todo اگه نیاز شد دالخ ORm خروجیش متفاوت باشه
+            //ست کردن دیفالت های فرم
+            if (true)
+                {//
+
+
+                    //نمونه ست کردن پارامتر روش اول
+                    //_Entity.InstantDelivery = _RequestParameters.UserId;
+
+                    //نمونه کد برای ست کردن پارامتر روش دوم
+                    //_Entity.InstantDelivery = await GetParameter("@@UserId@@");
+                }
+
+                SumaryMessage = "داده لود شده معتبر نمی باشد";
+                Result.Status = HttpStatusCode.InternalServerError;
+            }
+        }
+        else
+        {
+            SumaryMessage = "داده لود نشد";
+            Result.Status = HttpStatusCode.InternalServerError;
+        }
+
+        Result.Message = SumaryMessage;
+
+        StateHasChanged();
+
+        await AfterGetData();
+
+        return Result;
+    }
+
+    public override async Task SetParametersAsync(ParameterView parameters)
+    {
+        await base.SetParametersAsync(parameters);
+    }
+
+    protected override void OnInitialized()
+    {
+        //todo این خط برده شود داخل تابع پاینی ببینیم خطا داره یا نه
+        languageContainer.InitLocalizedComponent(this);
+    }
+
+
+    /// <summary>
+    /// بررسی تغییر دیتا
+    /// </summary>
+    /// <param name="Json"></param>
+    /// <returns></returns>
+    public bool CheckChangedData(string? Json)
+    {
+        if (string.Equals(JsonData, Json)) return true;
+        return false;
+    }
+
+    /// <summary>
+    /// ارسال داده
+    /// </summary>
+    /// <returns></returns>
+    public override async Task<Baya.Models.Utility.Result> Submit()
+    {
+        SumaryMessage = "";
+        Baya.Models.Utility.Result Result = new Baya.Models.Utility.Result();
+
+        if (!await FormValidator())
+        {
+            StateHasChanged();
+            Result.Status = HttpStatusCode.InternalServerError;
+            return Result;
+        }
+
+        if ((await BeforSubmit()).Status != HttpStatusCode.OK)
+        {
+            StateHasChanged();
+            Result.Status = HttpStatusCode.InternalServerError;
+            return Result;
+        }
+
+        _loadingService.Show();
+        var Resualt = await PostData();
+
+        if (Resualt)
+        {
+            Result.Status = HttpStatusCode.OK;
+
+            SumaryMessage = "داده ها با موفقیت ثبت شد";
+        }
+        else
+        {
+            Result.Status = HttpStatusCode.InternalServerError;
+            SumaryMessage = "ذخیره داده با مشکل مواجه شد";
+        }
+
+        Result.Message = SumaryMessage;
+
+        switch ((int)Result.Status)
+        {
+            case 200:
+                toastService.ShowSuccess(Result.Message);
+                break;
+            case 500:
+                toastService.ShowError(Result.Message);
+                break;
+            default:
+                break;
+        } 
+        _loadingService.Hide();
+        await AfterSubmit();
+
+        return Result;
+    }
+
+    /// <summary>
+    /// ارسال داده
+    /// </summary>
+    /// <returns></returns>
+    private async Task<bool> PostData()
+    {
+        string Data = await Utility.JSON.ToJson(_Entity);
+
+        bool IsOk = false;
+        var Model = await ApiServer.External.Services.Data.Put(Data, TablePost.Name, TablePost, RequestID?.ToString(), _User.UserID.ToString());
+        // بررسی وضعیت پاسخ
+        if (Model?.Status == HttpStatusCode.OK)
+        {
+            if (Model.Content != null && !IndependentForm)
+                { 
+                    string NewData = Model.Content.ToString();
+                    if (NewData is not null)
+                    {
+                        var NewEntity = await Utility.JSON.ToObject < Entity.HR_BankAccounts>(NewData);
+                     await  GetDataForm(NewEntity._Id);
+                    }
+
+                }
+                IsOk = true;
+
+        }
+        return IsOk;
+    }
+
+
+    void SetLanguage(string language)
+    {
+        languageContainer.SetLanguage(System.Globalization.CultureInfo.GetCultureInfo(language));
+    }
+
+    // public void ValidFormSubmitted(EditContext editContext)
+    // {
+
+    // }
+
+    // public void InvalidFormSubmitted(EditContext editContext)
+    // {
+
+    // }
+    public async Task GetDataForm(object Id)
+    {
+        Type type = Id.GetType();
+        string TypeToQueryBuilder = Utility.TypeConverterQueryBuilder.ConvertCSharpTypeToQueryBuilder(type);
+        var NewQuery = new QueryBuilderFilterRule() { Condition = "AND" };
+        NewQuery.Rules = new List<QueryBuilderFilterRule>
+            {
+                    new QueryBuilderFilterRule()
+                    {
+                        Field = _Entity._GetIdName,
+                        Id = _Entity._GetIdName,
+                        Input = "text",
+                        Operator = "equal",
+                        Type =  TypeToQueryBuilder,
+                        Value = new string[]{ Id.ToString() },
+                    }
+            };
+        QueryFilter = NewQuery;
+        await GetData();
+        StateHasChanged();
+    }
+    #endregion
+}

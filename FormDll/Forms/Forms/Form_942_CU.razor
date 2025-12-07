@@ -1,0 +1,1096 @@
+@inherits Forms.Forms.Form_942_CUBase
+@namespace FormsPage
+
+@using AKSoftware.Localization.MultiLanguages.Blazor
+@using Baya.Models.Utility;
+@using Baya.Models.ORM
+@using Microsoft.AspNetCore.Components.Forms
+@using Microsoft.AspNetCore.Components.Authorization;
+@using System.Security.Claims
+@using System.Net
+@using Microsoft.JSInterop
+@using Baya.Models.ViewEngine
+@using Forms.Domain.Utility
+@using Castle.DynamicLinqQueryBuilder
+<style>
+    /* ************************************************** */
+.detailArea form div:not(.devdrop) {
+    margin-top: .1rem;
+}
+
+/* ************************************************** */
+.header-form {
+    height: 100px;
+    background: linear-gradient(96deg, #0d3b66, #6a0dad);
+    color: white;
+    border-bottom: 2px solid #ffffff33;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.25);
+    border-radius: 10px;
+    transition: all 0.3s ease-in-out;
+}
+
+.header-icon {
+    font-size: 56px;
+    color: #ffccff;
+    transition: transform 0.3s ease, color 0.3s ease;
+}
+
+.header-icon:hover {
+    transform: scale(1.1) rotate(-5deg);
+    color: #f5baff;
+}
+
+.header-title {
+    font-size: 25px;
+    font-weight: bold;
+    transition: color 0.3s ease;
+}
+
+.header-subtitle {
+    font-size: 14px;
+    opacity: 0.95;
+    transition: opacity 0.3s ease;
+}
+
+.header-text:hover .header-title {
+    color: #ffe0ff;
+}
+
+.header-text:hover .header-subtitle {
+    opacity: 1;
+}
+</style>
+
+<Plugins.Tools.ConfirmDialog @ref="Confirm" />
+
+<span class="d-none">VersionForm:@VersionForm</span>
+@*
+@if (!string.IsNullOrEmpty(SumaryMessage))
+{
+    <div>
+        @SumaryMessage
+    </div>
+} *@
+
+@* <EditForm @ref="_Form" Model="_Entity" OnValidSubmit="ValidFormSubmitted" OnInvalidSubmit="InvalidFormSubmitted" OnSubmit="Submit"> *@
+<div class="@(ReadOnly?"FormReadOnly":"")">
+    <EditForm @ref="_Form" Model="_Entity" OnSubmit="Submit">
+        
+<div class="row ">
+    
+<div class="col-md-12">
+    <div  class="">
+    <header class="header-form d-flex align-items-center py-1">
+    <i class="fal fa-box header-icon px-3 fs-1"></i>
+    <div class="header-text">
+      <h4 class="header-title mb-1">رسید</h4>
+      <p class="header-subtitle">ایجاد و ویرایش رسید در شماران</p>
+    </div>
+  </header>
+
+</div>
+
+</div>
+
+<div class="col-md-12">
+    <label for="Shomaran_FactBuyDetail_GridShomaran_FACTBUYId_693">جزئیات رسید
+   
+    
+</label>
+
+<DxGrid @ref="Grid_Shomaran_FactBuyDetail" Data="_Entity.Shomaran_FactBuyDetail" KeyFieldName="_Id" EditMode="GridEditMode.PopupEditForm"
+        EditModelSaving="OnEditModelSavingShomaran_FactBuyDetail"
+        DataItemDeleting="OnDataItemDeletingShomaran_FactBuyDetail"
+        PopupEditFormCssClass="ModalWidth"
+        PopupEditFormHeaderText="جزئیات رسید"
+        EditFormButtonsVisible="false"
+        CustomizeEditModel="CustomizeEditGrid_Shomaran_FactBuyDetail"
+        CustomizeElement="CustomizeRowsGrid_Shomaran_FactBuyDetail" 
+        Component="@((Utility.JSON.ToObject<View_Component>("{\"primaryKey\":false,\"EntityID\":693,\"FieldId\":693,\"NotNull\":false,\"ViewId\":0,\"NotMapped\":false,\"Relation\":false,\"RelationExternal\":false,\"RelationChildModel\":\"Shomaran_FactBuyDetail\",\"GridMainModel\":\"Shomaran_FactBuyDetail\",\"widget\":{\"altInput\":false,\"allowInput\":false,\"clickOpens\":false,\"enableDate\":false,\"enableTime\":false,\"noCalendar\":false,\"useLocaleSettings\":false,\"hourIncrement\":0,\"minuteIncrement\":0,\"time_24hr\":false},\"wysiwyg\":false,\"data\":{},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"FieldsTemplate\":[],\"refreshOn\":\"data\",\"reorder\":false,\"addAnotherPosition\":\"bottom\",\"layoutFixed\":false,\"enableRowGroups\":false,\"initEmpty\":false,\"disabled\":true,\"modal\":true,\"label\":\"جزئیات رسید\",\"tableView\":true,\"key\":\"GridShomaran_FACTBUYId_693\",\"type\":\"datagrid\",\"input\":true,\"placeholder\":\"GridShomaran_FACTBUYId_693\",\"modalEdit\":true,\"FieldUrl\":\"693?EId=693&SubId=28\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result))"
+         >
+    <Columns>
+    
+<DxGridCommandColumn Width="70px">
+    <HeaderTemplate Context="HeaderContext">
+       
+<a id=Shomaran_FactBuyDetail_GridShomaran_FACTBUYId_693ButtonNew class="btn btn-sm btn-green btnGridAddData" @onclick="@(() => StartEditNewRowAsync_Grid_Shomaran_FactBuyDetail())" style="text-decoration: none;" href="javascript:void(0);">
+    <span class="fal fa-plus-circle btnicon"></span>
+    <span>@languageContainer.Keys["DXGrid:New"]</span>
+</a>
+
+    </HeaderTemplate>
+    <CellDisplayTemplate Context="CellContext">
+       
+<a id=Shomaran_FactBuyDetail_GridShomaran_FACTBUYId_693ButtonEdit class="btn btn-sm btn-yellow-light btnEditGridData" @onclick="@(() => StartModalGrid_Shomaran_FactBuyDetail(CellContext))" style="text-decoration: none;" href="javascript:void(0);">
+    <span class="fal fa-pencil btnicon"></span>
+</a>
+
+       
+<a class="btn btn-sm btn-red-light btnDeleteGridData" @onclick="@(() => OnDeleteButtonClickGrid_Shomaran_FactBuyDetail(CellContext))" style="text-decoration: none;" href="javascript:void(0);">
+    <span class="fal fa-times-circle btnicon"></span>
+</a>
+
+    </CellDisplayTemplate>
+</DxGridCommandColumn>
+
+    <DxGridCommandColumn   Width="60px">
+           <HeaderTemplate Context="HeaderContext">
+               <a    style="text-decoration: none;"  >
+                
+                   <span>ردیف</span>
+               </a>
+           </HeaderTemplate>
+           <CellDisplayTemplate Context="CellContext">
+            @if (CellContext.VisibleIndex > 9){
+                <p>@(CellContext.VisibleIndex + 1)</p>
+            }else{
+                <p>@(((CellContext.Grid.PageIndex * CellContext.Grid.PageSize) + (CellContext.VisibleIndex + 1)))</p>
+            }
+          
+           </CellDisplayTemplate>
+     </DxGridCommandColumn>
+    <DxGridDataColumn  Caption="Id" Visible=false FieldName="Id" />
+
+<DxGridDataColumn  Caption="RequestID" Visible=false FieldName="RequestID" />
+
+<DxGridDataColumn  Caption="CreateUser" Visible=false FieldName="CreateUser" />
+
+<DxGridDataColumn  Caption="UpdateUser" Visible=false FieldName="UpdateUser" />
+
+<DxGridDataColumn  Caption="CreateDate" Visible=false FieldName="CreateDate" />
+
+<DxGridDataColumn  Caption="UpdateDate" Visible=false FieldName="UpdateDate" />
+
+<DxGridDataColumn  Caption="IsDelete" Visible=false FieldName="IsDelete" />
+
+<DxGridDataColumn DisplayFormat="G" Caption="مقدار اول"  FieldName="AMOUNT" />
+
+<DxGridDataColumn  Caption="ردیابی کالا"  FieldName="RADYABI" />
+
+<DxGridDataColumn  Caption="سفارش کالاها"  FieldName="SEFARESH" />
+
+<DxGridDataColumn DisplayFormat="0" Caption="ردیف دیتیل فرم"  FieldName="ROW_ID" />
+
+<DxGridDataColumn DisplayFormat="0" Caption="سال"  FieldName="YEAR" />
+
+<DxGridDataColumn Context="PARTCODE_" Caption="کد کالای سیستمی" >
+    <CellDisplayTemplate>
+       
+@{
+    Baya.Models.ViewEngine.View_Component HeaderPARTCODE = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"primaryKey\":false,\"EntityID\":693,\"FieldId\":19665,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":942,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":true,\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://shomaran.workcv.ir:2010/fa-ir/api/v1/view_cardpart/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"inputFormat\":\"DropDown\",\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"partcode\",\"template\":\"<span>{{item.desc}} {{item.partno}} {{item.partcode}} </span>\",\"FieldsTemplate\":[{\"key\":\"desc\",\"value\":\"nvarchar(Max)\"},{\"key\":\"partno\",\"value\":\"nvarchar(Max)\"},{\"key\":\"partcode\",\"value\":\"nvarchar(Max)\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"modal\":true,\"label\":\"کد کالای سیستمی\",\"tableView\":true,\"key\":\"PARTCODE\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"19665?EId=693&SubId=28\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
+    var RowPARTCODE = ((Entity.Shomaran_FactBuyDetail)PARTCODE_.DataItem).PARTCODE;
+}
+
+<Dropdown ExternalApi=true CssClass="" NotMapped=false TextGrid=true Value="@RowPARTCODE"   FieldName="PARTCODE" OnItemSelected="ItemSelected_Shomaran_FactBuyDetailPARTCODE_Header" Component="HeaderPARTCODE">
+</Dropdown>
+@code {
+    public async Task ItemSelected_Shomaran_FactBuyDetailPARTCODE_Header(object _Item)
+    {
+      //  var Selected = Utility.JSON.ToObject<dynamic>(Utility.JSON.ToJson(_Item).Result).Result;
+  //   PARTCODE
+
+  //  #CustomCode
+
+ //   
+
+  //  #OnItemSelected
+    }
+}
+
+    </CellDisplayTemplate>
+</DxGridDataColumn>
+
+</Columns>
+
+    <EditFormTemplate Context="EditFormContextShomaran_FactBuyDetail">
+    @{
+        Shomaran_FactBuyDetail  = (Entity.Shomaran_FactBuyDetail)EditFormContextShomaran_FactBuyDetail.EditModel;
+    }
+    <DxFormLayout>
+        <DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextShomaran_FactBuyDetail">
+    
+<Input Id="Shomaran_FactBuyDetail_Id" @ref="Ref_Shomaran_FactBuyDetail_Id"   CssClass="d-none"   @bind-Value="Shomaran_FactBuyDetail.Id" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+</DxFormLayoutItem>
+
+<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextShomaran_FactBuyDetail">
+    
+<Input Id="Shomaran_FactBuyDetail_RequestID" @ref="Ref_Shomaran_FactBuyDetail_RequestID"      @bind-Value="Shomaran_FactBuyDetail.RequestID" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+</DxFormLayoutItem>
+
+<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextShomaran_FactBuyDetail">
+    
+<Input Id="Shomaran_FactBuyDetail_CreateUser" @ref="Ref_Shomaran_FactBuyDetail_CreateUser"      @bind-Value="Shomaran_FactBuyDetail.CreateUser" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+</DxFormLayoutItem>
+
+<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextShomaran_FactBuyDetail">
+    
+<Input Id="Shomaran_FactBuyDetail_UpdateUser" @ref="Ref_Shomaran_FactBuyDetail_UpdateUser"      @bind-Value="Shomaran_FactBuyDetail.UpdateUser" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+</DxFormLayoutItem>
+
+<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextShomaran_FactBuyDetail">
+    
+<Input Id="Shomaran_FactBuyDetail_CreateDate" @ref="Ref_Shomaran_FactBuyDetail_CreateDate"   CssClass="d-none"   @bind-Value="Shomaran_FactBuyDetail.CreateDate" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+</DxFormLayoutItem>
+
+<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextShomaran_FactBuyDetail">
+    
+<Input Id="Shomaran_FactBuyDetail_UpdateDate" @ref="Ref_Shomaran_FactBuyDetail_UpdateDate"   CssClass="d-none"   @bind-Value="Shomaran_FactBuyDetail.UpdateDate" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+</DxFormLayoutItem>
+
+<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextShomaran_FactBuyDetail">
+    
+<Input Id="Shomaran_FactBuyDetail_IsDelete" @ref="Ref_Shomaran_FactBuyDetail_IsDelete"   CssClass="d-none"   @bind-Value="Shomaran_FactBuyDetail.IsDelete" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+</DxFormLayoutItem>
+
+<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextShomaran_FactBuyDetail">
+    
+<Input Id="Shomaran_FactBuyDetail_AMOUNT" @ref="Ref_Shomaran_FactBuyDetail_AMOUNT" Label="مقدار اول"     @bind-Value="Shomaran_FactBuyDetail.AMOUNT" type="number"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"step\":\"any\"}").Result))></Input>
+
+</DxFormLayoutItem>
+
+<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextShomaran_FactBuyDetail">
+    
+<Input Id="Shomaran_FactBuyDetail_RADYABI" @ref="Ref_Shomaran_FactBuyDetail_RADYABI" Label="ردیابی کالا"     @bind-Value="Shomaran_FactBuyDetail.RADYABI" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"maxlength\":\"20\"}").Result))></Input>
+
+</DxFormLayoutItem>
+
+<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextShomaran_FactBuyDetail">
+    
+<Input Id="Shomaran_FactBuyDetail_SEFARESH" @ref="Ref_Shomaran_FactBuyDetail_SEFARESH" Label="سفارش کالاها"     @bind-Value="Shomaran_FactBuyDetail.SEFARESH" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"maxlength\":\"20\"}").Result))></Input>
+
+</DxFormLayoutItem>
+
+<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextShomaran_FactBuyDetail">
+    
+<Input Id="Shomaran_FactBuyDetail_ROW_ID" @ref="Ref_Shomaran_FactBuyDetail_ROW_ID" Label="ردیف دیتیل فرم"     @bind-Value="Shomaran_FactBuyDetail.ROW_ID" type="number"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+</DxFormLayoutItem>
+
+<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextShomaran_FactBuyDetail">
+    
+<Input Id="Shomaran_FactBuyDetail_YEAR" @ref="Ref_Shomaran_FactBuyDetail_YEAR" Label="سال"     @bind-Value="Shomaran_FactBuyDetail.YEAR" type="number"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+</DxFormLayoutItem>
+
+<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextShomaran_FactBuyDetail">
+     
+ 
+@code {
+    Baya.Models.ViewEngine.View_Component Component_Shomaran_FactBuyDetailPARTCODE = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"primaryKey\":false,\"EntityID\":693,\"FieldId\":19665,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":942,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":true,\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://shomaran.workcv.ir:2010/fa-ir/api/v1/view_cardpart/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"inputFormat\":\"DropDown\",\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"partcode\",\"template\":\"<span>{{item.desc}} {{item.partno}} {{item.partcode}} </span>\",\"FieldsTemplate\":[{\"key\":\"desc\",\"value\":\"nvarchar(Max)\"},{\"key\":\"partno\",\"value\":\"nvarchar(Max)\"},{\"key\":\"partcode\",\"value\":\"nvarchar(Max)\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"modal\":true,\"label\":\"کد کالای سیستمی\",\"tableView\":true,\"key\":\"PARTCODE\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"19665?EId=693&SubId=28\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
+}
+
+    <Dropdown Id=Shomaran_FactBuyDetail_PARTCODE  @ref="Ref_Shomaran_FactBuyDetail_PARTCODE" Label="کد کالای سیستمی" CssClass=""  DisplayFormat="DropDown" ExternalApi=true NotMapped=false TextGrid=false  Value="@Shomaran_FactBuyDetail.PARTCODE" FieldName="PARTCODE" OnItemSelected="ItemSelected_Shomaran_FactBuyDetailPARTCODE" Component="Component_Shomaran_FactBuyDetailPARTCODE" _Entity="_Entity" _EntityRow=Shomaran_FactBuyDetail>
+</Dropdown>
+@code {
+    public async Task ItemSelected_Shomaran_FactBuyDetailPARTCODE(object _Item)
+    {
+        var Selected = Utility.JSON.ToObject<dynamic>(Utility.JSON.ToJson(_Item).Result).Result;
+     var Item = Shomaran_FactBuyDetail;
+
+    Item.PARTCODE = Selected.partcode;
+
+
+    
+
+    
+    }
+} 
+
+</DxFormLayoutItem>
+
+
+        <DxFormLayoutItem ColSpanMd="12" Context="FormLayoutContextShomaran_FactBuyDetail" CssClass="btn-modal-custom">
+            <DxButton Id="Shomaran_FactBuyDetail_GridShomaran_FACTBUYId_693ButtonSave" Click="@(() => SaveModalGrid_Shomaran_FactBuyDetail(EditFormContextShomaran_FactBuyDetail))" Text="@languageContainer.Keys["DXGrid:Save"]" CssClass="btn btn-green px-5" />
+            
+<DxButton id="Shomaran_FactBuyDetail_GridShomaran_FACTBUYId_693ButtonSaveAndNew"    Text="ذخیره و جدید" Click="@(() => SaveAndNewGrid_Shomaran_FactBuyDetail(EditFormContextShomaran_FactBuyDetail))" CssClass="btn btn-green" />
+
+
+            <DxButton Id="Shomaran_FactBuyDetail_GridShomaran_FACTBUYId_693ButtonCancel" Click="@(() => Grid_Shomaran_FactBuyDetail.CancelEditAsync())" Text="@languageContainer.Keys["DXGrid:Cancel"]" CssClass="btn btn-red" />
+            <button id="click_s"  hidden>submit</button>
+             <span>|</span>
+           
+            <DxButton Id="Shomaran_FactBuyDetail_GridShomaran_FACTBUYId_693ButtonBefore" Click="@(() => Dialog_Grid_Shomaran_FactBuyDetail(0,IndexGrid_Shomaran_FactBuyDetail,EditFormContextShomaran_FactBuyDetail))" Text="قبلی" CssClass="btn btn-purple" />@* @languageContainer.Keys["DXGrid:??"] *@
+         
+            <DxButton Id="Shomaran_FactBuyDetail_GridShomaran_FACTBUYId_693ButtonNext" Click="@(() => Dialog_Grid_Shomaran_FactBuyDetail(1,IndexGrid_Shomaran_FactBuyDetail,EditFormContextShomaran_FactBuyDetail))" Text="بعدی" CssClass="btn btn-purple" />
+
+        </DxFormLayoutItem>
+    </DxFormLayout>
+
+</EditFormTemplate>
+
+</DxGrid>
+
+<DxPopup @bind-Visible="@ConfirmationShownShomaran_FactBuyDetail" HeaderText="@languageContainer.Keys["DXGrid:DeleteItem"]" Width="350px" CloseOnOutsideClick="false">
+
+    <BodyContentTemplate Context="EditFormContext">
+        <div class="py-3 px-5 text-center">
+            <p>@languageContainer.Keys["DXGrid:DeleteItemHint"]</p>
+            <div class="confirm-dialog-buttons">
+                <DxButton Text="@languageContainer.Keys["DXGrid:Yes"]" CssClass="btn btn-red px-4" Click="@OnYesButtonClickGrid_Shomaran_FactBuyDetail" />
+                <DxButton Text="@languageContainer.Keys["DXGrid:No"]" CssClass="btn btn-purple-light px-4" Click="@OnNoButtonClickGrid_Shomaran_FactBuyDetail" />
+            </div>
+        </div>
+    </BodyContentTemplate>
+</DxPopup>
+
+<DxPopup @bind-Visible="@ConfirmationShomaran_FactBuyDetail" HeaderText="هشدار" Width="350px" CloseOnOutsideClick="false">
+    <BodyContentTemplate Context="EditFormContext">
+        <div class="py-3 px-5 text-center"> 
+            <p>اطلاعات این فرم تغییر کرده است آیا تغییرات ذخیره شود؟</p>
+            <div class="confirm-dialog-buttons">
+                <DxButton Text="بله" CssClass="btn btn-red px-4" Click="@OnYesButtonShomaran_FactBuyDetail" />
+                <DxButton Text="خیر" CssClass="btn btn-purple-light px-4" Click="@OnNoButtonShomaran_FactBuyDetail" />
+            </div>
+        </div>
+    </BodyContentTemplate>
+</DxPopup>
+@code {
+    // DxGrid? Grid_Shomaran_FactBuyDetail;
+    Entity.Shomaran_FactBuyDetail Shomaran_FactBuyDetail;
+    bool ConfirmationShownShomaran_FactBuyDetail { get; set; } = false;
+    public Entity.Shomaran_FactBuyDetail SelectedItemGrid_Shomaran_FactBuyDetail { get; set; } = new Entity.Shomaran_FactBuyDetail();
+    /// <summary>
+    /// شماره ستون
+    /// </summary>
+    public int IndexGrid_Shomaran_FactBuyDetail { get; set; }
+
+    ///////////////////////
+    bool ConfirmationShomaran_FactBuyDetail { get; set; } = false;
+    GridEditFormTemplateContext? _ContextFormTemplateShomaran_FactBuyDetail { get; set; }
+    public int OpenDialogCodeShomaran_FactBuyDetail { get; set; } = 0;
+    ////////////////////////
+
+    async Task OnEditModelSavingShomaran_FactBuyDetail(GridEditModelSavingEventArgs arg)
+    {
+        var e = arg.EditModel;
+    bool NotValid = false;
+    //events
+       
+        
+      if (!NotValid)
+     {
+      SaveGrid_Shomaran_FactBuyDetail(arg.DataItem, arg.EditModel);
+     }
+}
+
+async void Dialog_Grid_Shomaran_FactBuyDetail(int _OpenDialogCode, int VisibleIndex, GridEditFormTemplateContext e)
+{
+    OpenDialogCodeShomaran_FactBuyDetail = _OpenDialogCode;
+    if (!CheckChangedData(await Utility.JSON.ToJson(e.EditModel)))
+    {
+    _ContextFormTemplateShomaran_FactBuyDetail = e;
+    ConfirmationShomaran_FactBuyDetail = true;
+    }
+    else
+    {
+    await OnNoButtonShomaran_FactBuyDetail();
+    }
+}
+async Task OnYesButtonShomaran_FactBuyDetail()
+{
+
+    ConfirmationShomaran_FactBuyDetail = false;
+    await Task.Delay(1500);
+    //bool FormValidate = await JSO.InvokeAsync<bool>("submitForm");
+    bool FormValidate =  await JS.InvokeAsync<bool>("submitForm");
+    if (FormValidate)
+    {
+        bool NotValid = false;
+    var e = _ContextFormTemplateShomaran_FactBuyDetail.EditModel;
+         //events
+         
+
+        if (!NotValid)
+         {
+        SaveGrid_Shomaran_FactBuyDetail(_ContextFormTemplateShomaran_FactBuyDetail.DataItem, _ContextFormTemplateShomaran_FactBuyDetail.EditModel);
+            await Grid_Shomaran_FactBuyDetail.CancelEditAsync();
+         await ChangePageGrid_Shomaran_FactBuyDetail();
+         await SetEditFormContextGrid_Shomaran_FactBuyDetail();
+         }
+          
+    }
+
+}
+async Task OnNoButtonShomaran_FactBuyDetail()
+{
+    ConfirmationShomaran_FactBuyDetail = false;
+    await ChangePageGrid_Shomaran_FactBuyDetail();
+    await SetEditFormContextGrid_Shomaran_FactBuyDetail();
+
+}
+async Task SetEditFormContextGrid_Shomaran_FactBuyDetail()
+{
+    var e = (Entity.Shomaran_FactBuyDetail)Grid_Shomaran_FactBuyDetail.GetDataItem(IndexGrid_Shomaran_FactBuyDetail);
+    JsonData = await Utility.JSON.ToJson(e);
+}
+
+async Task ChangePageGrid_Shomaran_FactBuyDetail()
+{
+    int VisibleIndex = IndexGrid_Shomaran_FactBuyDetail;
+    try
+    {
+    if (OpenDialogCodeShomaran_FactBuyDetail == 1)
+    {
+        if (VisibleIndex != (Grid_Shomaran_FactBuyDetail.GetVisibleRowCount() - 1))
+    { 
+            Grid_Shomaran_FactBuyDetail.CancelEditAsync();
+            IndexGrid_Shomaran_FactBuyDetail = VisibleIndex + 1;
+    Grid_Shomaran_FactBuyDetail.StartEditRowAsync(IndexGrid_Shomaran_FactBuyDetail);
+    }
+    }
+    else if (OpenDialogCodeShomaran_FactBuyDetail == 0)
+    {
+        if (VisibleIndex != 0)
+        {
+
+            Grid_Shomaran_FactBuyDetail.CancelEditAsync();
+            IndexGrid_Shomaran_FactBuyDetail = VisibleIndex - 1;
+    Grid_Shomaran_FactBuyDetail.StartEditRowAsync(IndexGrid_Shomaran_FactBuyDetail);
+    }
+
+    }
+    var e = (Entity.Shomaran_FactBuyDetail)Grid_Shomaran_FactBuyDetail.GetDataItem(IndexGrid_Shomaran_FactBuyDetail);
+    JsonData = await Utility.JSON.ToJson(e);
+    await Task.Delay(300);
+    
+    StateHasChanged();
+    }
+    catch (Exception ex)
+    {
+
+    Console.WriteLine("error in ChagePage" + ex.Message);
+    }
+
+}
+
+async Task StartEditNewRowAsync_Grid_Shomaran_FactBuyDetail()
+{
+    IndexGrid_Shomaran_FactBuyDetail = Grid_Shomaran_FactBuyDetail.GetVisibleRowCount();
+Grid_Shomaran_FactBuyDetail.StartEditNewRowAsync().GetAwaiter();
+var e = new Entity.Shomaran_FactBuyDetail();
+JsonData = await Utility.JSON.ToJson(e);
+await Task.Delay(300);
+
+}
+
+async Task StartModalGrid_Shomaran_FactBuyDetail(GridCommandColumnCellDisplayTemplateContext Context)
+{
+    IndexGrid_Shomaran_FactBuyDetail = Context.VisibleIndex;
+Grid_Shomaran_FactBuyDetail.StartEditRowAsync(Context.VisibleIndex).GetAwaiter();
+var e = (Entity.Shomaran_FactBuyDetail)Context.DataItem;
+JsonData = await Utility.JSON.ToJson(e);
+await Task.Delay(300);
+
+   // await Task.Delay(500);
+}
+public async Task SaveModalGrid_Shomaran_FactBuyDetail(GridEditFormTemplateContext arg)
+{
+     //bool FormValidate = await JSO.InvokeAsync<bool>("submitForm");
+     bool FormValidate =  await JS.InvokeAsync<bool>("submitForm");
+
+    if(FormValidate){
+
+    var e = arg.EditModel;
+    bool NotValid = false;
+    //events
+    
+    if (!NotValid)
+    {
+        SaveGrid_Shomaran_FactBuyDetail(arg.DataItem, arg.EditModel);
+
+     await arg.Grid.CancelEditAsync(); 
+
+    }
+
+    }
+
+}
+public async Task SaveAndNewGrid_Shomaran_FactBuyDetail(GridEditFormTemplateContext arg)
+{ 
+     //bool FormValidate = await JSO.InvokeAsync<bool>("submitForm");
+     bool FormValidate = await JS.InvokeAsync<bool>("submitForm");
+     
+    if(FormValidate){
+       
+         var e = arg.EditModel;
+          bool NotValid = false;
+     //events
+    
+    if (!NotValid)
+    {
+        SaveGrid_Shomaran_FactBuyDetail(arg.DataItem, arg.EditModel);
+
+         await arg.Grid.CancelEditAsync();
+        await StartEditNewRowAsync_Grid_Shomaran_FactBuyDetail();
+
+    }
+          
+    }
+   
+}
+
+void PerviousPageGrid_Shomaran_FactBuyDetail(int VisibleIndex)
+{
+    try
+     {
+    if (VisibleIndex == 0)
+    {
+        Console.WriteLine(VisibleIndex.ToString());
+    }
+    else
+    {
+Grid_Shomaran_FactBuyDetail.CancelEditAsync();
+        IndexGrid_Shomaran_FactBuyDetail = VisibleIndex - 1;
+         Grid_Shomaran_FactBuyDetail.StartEditRowAsync(IndexGrid_Shomaran_FactBuyDetail);
+     }
+    }
+     catch (Exception e)
+     {
+    Console.WriteLine("PerviousPage Message");
+    Console.WriteLine(e.Message);
+    }
+
+}
+
+void NextPageGrid_Shomaran_FactBuyDetail(int VisibleIndex)
+{
+
+    if (VisibleIndex == Grid_Shomaran_FactBuyDetail.GetVisibleRowCount() - 1)
+    {
+    Console.WriteLine(VisibleIndex.ToString());
+    }
+    else
+    {
+    Console.WriteLine("NextPage Start Grid_Shomaran_FactBuyDetail ");
+    try
+    {
+Grid_Shomaran_FactBuyDetail.CancelEditAsync();
+        IndexGrid_Shomaran_FactBuyDetail = VisibleIndex + 1;
+         Grid_Shomaran_FactBuyDetail.StartEditRowAsync(IndexGrid_Shomaran_FactBuyDetail);
+     }
+    catch (Exception e)
+    {
+        Console.WriteLine("NextPage Message");
+        Console.WriteLine(e.Message);
+    }
+
+    }
+}
+
+public void SaveGrid_Shomaran_FactBuyDetail(object DataItem, object EditModel)
+{
+    var ListEntity = _Entity.Shomaran_FactBuyDetail;
+    var MainModel = (Entity.Shomaran_FactBuyDetail)DataItem;
+    if (MainModel != null)
+    {
+MainModel.Id = ((Entity.Shomaran_FactBuyDetail)EditModel).Id;
+MainModel.RequestID = ((Entity.Shomaran_FactBuyDetail)EditModel).RequestID;
+MainModel.CreateUser = ((Entity.Shomaran_FactBuyDetail)EditModel).CreateUser;
+MainModel.UpdateUser = ((Entity.Shomaran_FactBuyDetail)EditModel).UpdateUser;
+MainModel.CreateDate = ((Entity.Shomaran_FactBuyDetail)EditModel).CreateDate;
+MainModel.UpdateDate = ((Entity.Shomaran_FactBuyDetail)EditModel).UpdateDate;
+MainModel.IsDelete = ((Entity.Shomaran_FactBuyDetail)EditModel).IsDelete;
+MainModel.AMOUNT = ((Entity.Shomaran_FactBuyDetail)EditModel).AMOUNT;
+MainModel.RADYABI = ((Entity.Shomaran_FactBuyDetail)EditModel).RADYABI;
+MainModel.SEFARESH = ((Entity.Shomaran_FactBuyDetail)EditModel).SEFARESH;
+MainModel.ROW_ID = ((Entity.Shomaran_FactBuyDetail)EditModel).ROW_ID;
+MainModel.YEAR = ((Entity.Shomaran_FactBuyDetail)EditModel).YEAR;
+MainModel.PARTCODE = ((Entity.Shomaran_FactBuyDetail)EditModel).PARTCODE;
+
+    }
+    else
+    {
+    ListEntity.Add((Entity.Shomaran_FactBuyDetail)EditModel);
+    }
+}
+
+async Task OnDataItemDeletingShomaran_FactBuyDetail(GridDataItemDeletingEventArgs e)
+    {
+    var ListEntity = _Entity.Shomaran_FactBuyDetail;
+    ListEntity.Remove((Entity.Shomaran_FactBuyDetail)e.DataItem);
+}
+async void OnDeleteButtonClickGrid_Shomaran_FactBuyDetail (GridCommandColumnCellDisplayTemplateContext ex)
+{
+    SelectedItemGrid_Shomaran_FactBuyDetail = (ex.DataItem as Entity.Shomaran_FactBuyDetail);
+    var e =SelectedItemGrid_Shomaran_FactBuyDetail;
+    
+     
+    Console.WriteLine("end OnDeleteButtonClickGrid_test_OrderBody 0");
+    ConfirmationShownShomaran_FactBuyDetail = true;
+    await Task.Yield();
+     await InvokeAsync(StateHasChanged);
+    
+    Console.WriteLine("end OnDeleteButtonClickGrid_test_OrderBody 1");
+}
+async void OnYesButtonClickGrid_Shomaran_FactBuyDetail ()
+{
+       if (SelectedItemGrid_Shomaran_FactBuyDetail != null)
+    {
+      if (SelectedItemGrid_Shomaran_FactBuyDetail.Id == Guid.Empty)
+      {
+          var ListEntity = _Entity.Shomaran_FactBuyDetail;
+        ListEntity.Remove((Entity.Shomaran_FactBuyDetail)SelectedItemGrid_Shomaran_FactBuyDetail);
+     
+      }
+      else
+      {
+        var cleanModel = new Entity.Shomaran_FactBuyDetail();
+      // چک کن آیا پراپرتی IsDelete در این نوع وجود دارد؟
+        var prop = typeof(Entity.Shomaran_FactBuyDetail).GetProperty("IsDelete");
+        if (prop != null && prop.CanRead && prop.CanWrite)
+        {
+            // مقدار فعلی را بگیر
+            var currentValue = prop.GetValue(SelectedItemGrid_Shomaran_FactBuyDetail);
+
+            if (currentValue is bool boolValue)
+            {
+                // مقدار را معکوس کن
+                var newValue = !boolValue;
+
+                // روی هر دو شیء تنظیم کن
+                prop.SetValue(SelectedItemGrid_Shomaran_FactBuyDetail, newValue);
+                prop.SetValue(cleanModel, newValue);
+            }
+        }
+        EntityHelper.SetPropertyValue(cleanModel, cleanModel._GetIdName, SelectedItemGrid_Shomaran_FactBuyDetail._Id);
+    
+       
+       
+      }
+    }
+    var e= SelectedItemGrid_Shomaran_FactBuyDetail;
+    
+    Grid_Shomaran_FactBuyDetail.Reload();
+    ConfirmationShownShomaran_FactBuyDetail = false;
+     await Task.Yield();
+    await InvokeAsync(StateHasChanged);
+
+}
+void OnNoButtonClickGrid_Shomaran_FactBuyDetail ()
+{
+    ConfirmationShownShomaran_FactBuyDetail = false;
+}
+
+void CustomizeRowsGrid_Shomaran_FactBuyDetail(GridCustomizeElementEventArgs e)
+{
+    ///استایل سطر
+    if (e.ElementType == GridElementType.DataRow)
+    {
+    var item = ((Entity.Shomaran_FactBuyDetail)e.Grid.GetDataItem(e.VisibleIndex));
+
+       if (item.IsDelete == true)
+       {
+           e.CssClass = "bg-lightred disablediv";
+       }
+    }
+}
+
+async void CustomizeEditGrid_Shomaran_FactBuyDetail(GridCustomizeEditModelEventArgs e)
+{
+
+    if (e.IsNew)
+    {
+
+    var newRow = (Entity.Shomaran_FactBuyDetail)e.EditModel;
+
+     
+
+    }
+
+
+}
+public async void RowClickGrid_Shomaran_FactBuyDetail(GridRowClickEventArgs e)
+{
+
+}
+
+public async void RowDubbleClickGrid_Shomaran_FactBuyDetail(GridRowClickEventArgs e)
+{
+
+}
+}
+
+</div>
+
+<div class="col-md-3">
+    
+<Input Id="FACTNO" @ref="Ref_FACTNO" Label="شماره رسید انبار یا فاکتور خرید"     @bind-Value="_Entity.FACTNO" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+<Input Id="FACTDATE" @ref="Ref_FACTDATE" Label="تاریخ رسید"  CssClass=" PersianDatePicker"   @bind-Value="_Entity.FACTDATE" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"data-jdp\":\"  \",\"data-jdp-only-date\":\"   \"}").Result))></Input>
+ 
+ 
+@code {
+    Baya.Models.ViewEngine.View_Component Component_Shomaran_FACTBUYORDERNO = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"EntityName\":\"رسید\",\"primaryKey\":false,\"EntityID\":692,\"FieldId\":19646,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":942,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":true,\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://shomaran.workcv.ir:2010/fa-ir/api/v1/view_anbordwant/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"inputFormat\":\"DropDown\",\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"ORDERNO\",\"template\":\"<span>{{item.ORDERNO}} {{item.ORDERDATE}} {{item.YEAR}} </span>\",\"FieldsTemplate\":[{\"key\":\"ORDERNO\",\"value\":\"nvarchar(Max)\"},{\"key\":\"ORDERDATE\",\"value\":\"nvarchar(Max)\"},{\"key\":\"YEAR\",\"value\":\"int\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"searchField\":\"ORDERNO\",\"disableLimit\":false,\"noRefreshOnScroll\":false,\"modal\":true,\"label\":\"درخواست خرید\",\"tableView\":true,\"key\":\"ORDERNO\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"19646?EId=692&SubId=28\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
+}
+
+    <Dropdown Id=ORDERNO  @ref="Ref_ORDERNO" Label="درخواست خرید" CssClass=""  DisplayFormat="DropDown" ExternalApi=true NotMapped=false TextGrid=false  Value="@_Entity.ORDERNO" FieldName="ORDERNO" OnItemSelected="ItemSelected_Shomaran_FACTBUYORDERNO" Component="Component_Shomaran_FACTBUYORDERNO" _Entity="_Entity" >
+</Dropdown>
+@code {
+    public async Task ItemSelected_Shomaran_FACTBUYORDERNO(object _Item)
+    {
+        var Selected = Utility.JSON.ToObject<dynamic>(Utility.JSON.ToJson(_Item).Result).Result;
+     var Item = _Entity;
+
+    Item.ORDERNO = Selected.ORDERNO;
+
+
+    
+
+    
+    }
+} 
+ 
+ 
+@code {
+    Baya.Models.ViewEngine.View_Component Component_Shomaran_FACTBUYINVCODE = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"EntityName\":\"رسید\",\"primaryKey\":false,\"EntityID\":692,\"FieldId\":19645,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":942,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":true,\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://shomaran.workcv.ir:2010/fa-ir/api/v1/view_INV/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"inputFormat\":\"DropDown\",\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"INVCODE\",\"template\":\"<span>{{item.INVNAME}} </span>\",\"FieldsTemplate\":[{\"key\":\"INVNAME\",\"value\":\"nvarchar(Max)\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"searchField\":\"INVCODE\",\"disableLimit\":false,\"noRefreshOnScroll\":false,\"modal\":true,\"label\":\"کد انبار\",\"tableView\":true,\"key\":\"INVCODE\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"19645?EId=692&SubId=28\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
+}
+
+    <Dropdown Id=INVCODE  @ref="Ref_INVCODE" Label="کد انبار" CssClass=""  DisplayFormat="DropDown" ExternalApi=true NotMapped=false TextGrid=false  Value="@_Entity.INVCODE" FieldName="INVCODE" OnItemSelected="ItemSelected_Shomaran_FACTBUYINVCODE" Component="Component_Shomaran_FACTBUYINVCODE" _Entity="_Entity" >
+</Dropdown>
+@code {
+    public async Task ItemSelected_Shomaran_FACTBUYINVCODE(object _Item)
+    {
+        var Selected = Utility.JSON.ToObject<dynamic>(Utility.JSON.ToJson(_Item).Result).Result;
+     var Item = _Entity;
+
+    Item.INVCODE = Selected.INVCODE;
+
+
+    
+
+    
+    }
+} 
+
+<Input Id="ORDERYEAR" @ref="Ref_ORDERYEAR" Label="سال درخواست خرید"     @bind-Value="_Entity.ORDERYEAR" type="number"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+<Input Id="PARTKIND" @ref="Ref_PARTKIND" Label="نوع کالا ( کالا مواد مصرفی1 یا اموال و اثاثیه2 یا رسید مستقیم مصرف3 یا رسید قطعه داغی4 است )"     @bind-Value="_Entity.PARTKIND" type="number"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+</div>
+
+<div class="col-md-3">
+    
+<Input Id="CREATOR" @ref="Ref_CREATOR" Label="یوزر ایجاد کننده"     @bind-Value="_Entity.CREATOR" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"maxlength\":\"20\"}").Result))></Input>
+
+</div>
+
+<div class="col-md-3">
+    
+<Input Id="FACTOR" @ref="Ref_FACTOR" Label="عطف رسید"     @bind-Value="_Entity.FACTOR" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"maxlength\":\"10\"}").Result))></Input>
+
+<Input Id="SELERNAME" @ref="Ref_SELERNAME" Label="نام فروشنده"     @bind-Value="_Entity.SELERNAME" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"maxlength\":\"100\"}").Result))></Input>
+
+<Input Id="SELERCODE" @ref="Ref_SELERCODE" Label="فروشنده کد"     @bind-Value="_Entity.SELERCODE" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"maxlength\":\"20\"}").Result))></Input>
+
+</div>
+
+<div class="col-md-3">
+    
+<Input Id="YEAR" @ref="Ref_YEAR" Label="سال"     @bind-Value="_Entity.YEAR" type="number"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+</div>
+
+<div class="col-md-12">
+    
+<Input Id="NOTE" @ref="Ref_NOTE" Label="توضیح"     @bind-Value="_Entity.NOTE" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"maxlength\":\"350\"}").Result))></Input>
+
+</div>
+
+</div>
+
+<Input Id="Id" @ref="Ref_Id"   CssClass="d-none"   @bind-Value="_Entity.Id" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+<Input Id="RequestID" @ref="Ref_RequestID"      @bind-Value="_Entity.RequestID" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+<Input Id="CreateUser" @ref="Ref_CreateUser"      @bind-Value="_Entity.CreateUser" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+<Input Id="UpdateUser" @ref="Ref_UpdateUser"      @bind-Value="_Entity.UpdateUser" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+<Input Id="CreateDate" @ref="Ref_CreateDate"   CssClass="d-none"   @bind-Value="_Entity.CreateDate" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+<Input Id="UpdateDate" @ref="Ref_UpdateDate"   CssClass="d-none"   @bind-Value="_Entity.UpdateDate" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+<Input Id="IsDelete" @ref="Ref_IsDelete"   CssClass="d-none"   @bind-Value="_Entity.IsDelete" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+<div class="row ">
+    
+<div class="col-md-6">
+    
+</div>
+
+<div class="col-md-6">
+    
+</div>
+
+</div>
+
+<Input Id="ApiResult" @ref="Ref_ApiResult" Label="ApiResult"     @bind-Value="_Entity.ApiResult" type="textarea"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+    </EditForm>
+</div>
+
+@if (ShowSubmit)
+{
+    <button class="btn btn-sm btn-green" @onclick=Submit>ذخیره</button>
+}
+
+@code {
+    #region Function
+
+    //todo  جا به جا شود برده شود تو فایل  Peropeties
+    protected override async Task OnInitializedAsync()
+    {
+        Console.WriteLine("#log OnInitializedAsync");
+
+        TableGet = await Utility.JSON.ToObject<Table>("{\"Name\":\"Shomaran_FACTBUY\",\"GetNameAs\":\"Shomaran_FACTBUY\",\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"RequestID\",\"GetNameAs\":\"RequestID\"},{\"Name\":\"CreateUser\",\"GetNameAs\":\"CreateUser\"},{\"Name\":\"UpdateUser\",\"GetNameAs\":\"UpdateUser\"},{\"Name\":\"CreateDate\",\"GetNameAs\":\"CreateDate\"},{\"Name\":\"UpdateDate\",\"GetNameAs\":\"UpdateDate\"},{\"Name\":\"IsDelete\",\"GetNameAs\":\"IsDelete\"},{\"Name\":\"CREATOR\",\"GetNameAs\":\"CREATOR\"},{\"Name\":\"FACTDATE\",\"GetNameAs\":\"FACTDATE\"},{\"Name\":\"FACTOR\",\"GetNameAs\":\"FACTOR\"},{\"Name\":\"INVCODE\",\"GetNameAs\":\"INVCODE\"},{\"Name\":\"ORDERNO\",\"GetNameAs\":\"ORDERNO\"},{\"Name\":\"ORDERYEAR\",\"GetNameAs\":\"ORDERYEAR\"},{\"Name\":\"PARTKIND\",\"GetNameAs\":\"PARTKIND\"},{\"Name\":\"SELERCODE\",\"GetNameAs\":\"SELERCODE\"},{\"Name\":\"SELERNAME\",\"GetNameAs\":\"SELERNAME\"},{\"Name\":\"NOTE\",\"GetNameAs\":\"NOTE\"},{\"Name\":\"YEAR\",\"GetNameAs\":\"YEAR\"},{\"Name\":\"FACTNO\",\"GetNameAs\":\"FACTNO\"},{\"Name\":\"ApiResult\",\"GetNameAs\":\"ApiResult\"}],\"Relation\":[{\"Name\":\"Shomaran_FactBuyDetail\",\"GetNameAs\":\"Shomaran_FactBuyDetail\",\"ModeErtebat\":2,\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"RequestID\",\"GetNameAs\":\"RequestID\"},{\"Name\":\"CreateUser\",\"GetNameAs\":\"CreateUser\"},{\"Name\":\"UpdateUser\",\"GetNameAs\":\"UpdateUser\"},{\"Name\":\"CreateDate\",\"GetNameAs\":\"CreateDate\"},{\"Name\":\"UpdateDate\",\"GetNameAs\":\"UpdateDate\"},{\"Name\":\"IsDelete\",\"GetNameAs\":\"IsDelete\"},{\"Name\":\"AMOUNT\",\"GetNameAs\":\"AMOUNT\"},{\"Name\":\"PARTCODE\",\"GetNameAs\":\"PARTCODE\"},{\"Name\":\"RADYABI\",\"GetNameAs\":\"RADYABI\"},{\"Name\":\"SEFARESH\",\"GetNameAs\":\"SEFARESH\"},{\"Name\":\"ROW_ID\",\"GetNameAs\":\"ROW_ID\"},{\"Name\":\"YEAR\",\"GetNameAs\":\"YEAR\"}],\"Relation\":[]}]}");
+        TablePost = await Utility.JSON.ToObject<Table>("{\"Name\":\"Shomaran_FACTBUY\",\"GetNameAs\":\"Shomaran_FACTBUY\",\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"RequestID\",\"GetNameAs\":\"RequestID\"},{\"Name\":\"CreateUser\",\"GetNameAs\":\"CreateUser\"},{\"Name\":\"UpdateUser\",\"GetNameAs\":\"UpdateUser\"},{\"Name\":\"CreateDate\",\"GetNameAs\":\"CreateDate\"},{\"Name\":\"UpdateDate\",\"GetNameAs\":\"UpdateDate\"},{\"Name\":\"IsDelete\",\"GetNameAs\":\"IsDelete\"},{\"Name\":\"CREATOR\",\"GetNameAs\":\"CREATOR\"},{\"Name\":\"FACTDATE\",\"GetNameAs\":\"FACTDATE\"},{\"Name\":\"FACTOR\",\"GetNameAs\":\"FACTOR\"},{\"Name\":\"INVCODE\",\"GetNameAs\":\"INVCODE\"},{\"Name\":\"ORDERNO\",\"GetNameAs\":\"ORDERNO\"},{\"Name\":\"ORDERYEAR\",\"GetNameAs\":\"ORDERYEAR\"},{\"Name\":\"PARTKIND\",\"GetNameAs\":\"PARTKIND\"},{\"Name\":\"SELERCODE\",\"GetNameAs\":\"SELERCODE\"},{\"Name\":\"SELERNAME\",\"GetNameAs\":\"SELERNAME\"},{\"Name\":\"NOTE\",\"GetNameAs\":\"NOTE\"},{\"Name\":\"YEAR\",\"GetNameAs\":\"YEAR\"},{\"Name\":\"FACTNO\",\"GetNameAs\":\"FACTNO\"},{\"Name\":\"ApiResult\",\"GetNameAs\":\"ApiResult\"}],\"Relation\":[{\"Name\":\"Shomaran_FactBuyDetail\",\"GetNameAs\":\"Shomaran_FactBuyDetail\",\"ModeErtebat\":2,\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"RequestID\",\"GetNameAs\":\"RequestID\"},{\"Name\":\"CreateUser\",\"GetNameAs\":\"CreateUser\"},{\"Name\":\"UpdateUser\",\"GetNameAs\":\"UpdateUser\"},{\"Name\":\"CreateDate\",\"GetNameAs\":\"CreateDate\"},{\"Name\":\"UpdateDate\",\"GetNameAs\":\"UpdateDate\"},{\"Name\":\"IsDelete\",\"GetNameAs\":\"IsDelete\"},{\"Name\":\"AMOUNT\",\"GetNameAs\":\"AMOUNT\"},{\"Name\":\"PARTCODE\",\"GetNameAs\":\"PARTCODE\"},{\"Name\":\"RADYABI\",\"GetNameAs\":\"RADYABI\"},{\"Name\":\"SEFARESH\",\"GetNameAs\":\"SEFARESH\"},{\"Name\":\"ROW_ID\",\"GetNameAs\":\"ROW_ID\"},{\"Name\":\"YEAR\",\"GetNameAs\":\"YEAR\"}],\"Relation\":[]}]}");
+
+        config = CKEditorBundleOptions.DefaultConfig.WithHtmlEditing();
+        config.Language = "fa";
+
+        //بعداد اگه نیاز شد فرمی رو تو حالت غیر لاگین شده نمایش بدیم باید این  کد تغیر کنه
+        var user = (await _authenticationStateProvider.GetAuthenticationStateAsync()).User;
+        string UserID = user.FindFirst(c => c.Type == ClaimTypes.NameIdentifier).Value;
+        //داینامیک بشه
+        Dictionary<string, object> List = new Dictionary<string, object>();
+        //List.Add("UserID", Guid.Parse(UserID));
+        List.Add("UserID", UserID);
+        _User = await Domain.Utility.ConvertParameter.ConvertToObject(List);
+
+        Console.WriteLine("#log OnInitializedAsync End");
+
+        await base.OnInitializedAsync();
+    }
+
+    //todo  جا به جا شود برده شود تو فایل  Peropeties
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            Console.WriteLine("#log OnAfterRenderAsync");
+            await base.BeforGetData();
+
+            var Result = await GetData();
+
+            await base.AfterGetData();
+
+            StateHasChanged();
+
+            await OnFormloaded.InvokeAsync(Result);
+        }
+
+        await base.OnAfterRenderAsync(firstRender);
+    }
+
+    /// <summary>
+    /// دریافت داده
+    /// </summary>
+    /// <returns></returns>
+    public async Task<Baya.Models.Utility.Result> GetData()
+    {
+        await BeforGetData();
+
+        var DataResult = await ApiServer.External.Services.Data.Get(TableGet, QueryFilter, TableGet.Name, null);
+        
+        Baya.Models.Utility.Result Result = new Baya.Models.Utility.Result();
+
+        if (DataResult != null && DataResult.Status == HttpStatusCode.OK)
+        {
+            if (DataResult.Content != null)
+            {
+                string Data = DataResult.Content.ToString();
+                if (Data is not null)
+                {
+                    _Entity = await Utility.JSON.ToObject < Entity.Shomaran_FACTBUY>(Data);
+        }
+            }
+            else
+            {
+                _Entity = new Entity.Shomaran_FACTBUY();
+            //todo تشخیص دهد که داده ای وجود ندارد و دفه اول هست که فرم لود میشود
+            //todo اگه نیاز شد دالخ ORm خروجیش متفاوت باشه
+            //ست کردن دیفالت های فرم
+            if (true)
+                {//
+
+
+                    //نمونه ست کردن پارامتر روش اول
+                    //_Entity.InstantDelivery = _RequestParameters.UserId;
+
+                    //نمونه کد برای ست کردن پارامتر روش دوم
+                    //_Entity.InstantDelivery = await GetParameter("@@UserId@@");
+                }
+
+                SumaryMessage = "داده لود شده معتبر نمی باشد";
+                Result.Status = HttpStatusCode.InternalServerError;
+            }
+        }
+        else
+        {
+            SumaryMessage = "داده لود نشد";
+            Result.Status = HttpStatusCode.InternalServerError;
+        }
+
+        Result.Message = SumaryMessage;
+
+        StateHasChanged();
+
+        await AfterGetData();
+
+        return Result;
+    }
+
+    public override async Task SetParametersAsync(ParameterView parameters)
+    {
+        await base.SetParametersAsync(parameters);
+    }
+
+    protected override void OnInitialized()
+    {
+        //todo این خط برده شود داخل تابع پاینی ببینیم خطا داره یا نه
+        languageContainer.InitLocalizedComponent(this);
+    }
+
+
+    /// <summary>
+    /// بررسی تغییر دیتا
+    /// </summary>
+    /// <param name="Json"></param>
+    /// <returns></returns>
+    public bool CheckChangedData(string? Json)
+    {
+        if (string.Equals(JsonData, Json)) return true;
+        return false;
+    }
+
+    /// <summary>
+    /// ارسال داده
+    /// </summary>
+    /// <returns></returns>
+    public override async Task<Baya.Models.Utility.Result> Submit()
+    {
+        SumaryMessage = "";
+        Baya.Models.Utility.Result Result = new Baya.Models.Utility.Result();
+
+        if (!await FormValidator())
+        {
+            StateHasChanged();
+            Result.Status = HttpStatusCode.InternalServerError;
+            return Result;
+        }
+
+        if ((await BeforSubmit()).Status != HttpStatusCode.OK)
+        {
+            StateHasChanged();
+            Result.Status = HttpStatusCode.InternalServerError;
+            return Result;
+        }
+
+        _loadingService.Show();
+        var Resualt = await PostData();
+
+        if (Resualt)
+        {
+            Result.Status = HttpStatusCode.OK;
+
+            SumaryMessage = "داده ها با موفقیت ثبت شد";
+        }
+        else
+        {
+            Result.Status = HttpStatusCode.InternalServerError;
+            SumaryMessage = "ذخیره داده با مشکل مواجه شد";
+        }
+
+        Result.Message = SumaryMessage;
+
+        switch ((int)Result.Status)
+        {
+            case 200:
+                toastService.ShowSuccess(Result.Message);
+                break;
+            case 500:
+                toastService.ShowError(Result.Message);
+                break;
+            default:
+                break;
+        } 
+        _loadingService.Hide();
+        await AfterSubmit();
+
+        return Result;
+    }
+
+    /// <summary>
+    /// ارسال داده
+    /// </summary>
+    /// <returns></returns>
+    private async Task<bool> PostData()
+    {
+        string Data = await Utility.JSON.ToJson(_Entity);
+
+        bool IsOk = false;
+        var Model = await ApiServer.External.Services.Data.Put(Data, TablePost.Name, TablePost, RequestID?.ToString(), _User.UserID.ToString());
+        // بررسی وضعیت پاسخ
+        if (Model?.Status == HttpStatusCode.OK)
+        {
+            if (Model.Content != null && !IndependentForm)
+                { 
+                    string NewData = Model.Content.ToString();
+                    if (NewData is not null)
+                    {
+                        var NewEntity = await Utility.JSON.ToObject < Entity.Shomaran_FACTBUY>(NewData);
+                     await  GetDataForm(NewEntity._Id);
+                    }
+
+                }
+                IsOk = true;
+
+        }
+        return IsOk;
+    }
+
+
+    void SetLanguage(string language)
+    {
+        languageContainer.SetLanguage(System.Globalization.CultureInfo.GetCultureInfo(language));
+    }
+
+    // public void ValidFormSubmitted(EditContext editContext)
+    // {
+
+    // }
+
+    // public void InvalidFormSubmitted(EditContext editContext)
+    // {
+
+    // }
+    public async Task GetDataForm(object Id)
+    {
+        Type type = Id.GetType();
+        string TypeToQueryBuilder = Utility.TypeConverterQueryBuilder.ConvertCSharpTypeToQueryBuilder(type);
+        var NewQuery = new QueryBuilderFilterRule() { Condition = "AND" };
+        NewQuery.Rules = new List<QueryBuilderFilterRule>
+            {
+                    new QueryBuilderFilterRule()
+                    {
+                        Field = _Entity._GetIdName,
+                        Id = _Entity._GetIdName,
+                        Input = "text",
+                        Operator = "equal",
+                        Type =  TypeToQueryBuilder,
+                        Value = new string[]{ Id.ToString() },
+                    }
+            };
+        QueryFilter = NewQuery;
+        await GetData();
+        StateHasChanged();
+    }
+    #endregion
+}
