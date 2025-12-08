@@ -14,7 +14,85 @@
 @using Baya.Models.ViewEngine
 @using Forms.Domain.Utility
 <style>
-    
+    /* ************************************************** */
+.detailArea form div:not(.devdrop) {
+    margin-top: .1rem;
+}
+
+/* ************************************************** */
+.header-form {
+    height: 100px;
+    background: linear-gradient(96deg, #0d3b66, #6a0dad);
+    color: white;
+    border-bottom: 2px solid #ffffff33;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.25);
+    border-radius: 10px;
+    transition: all 0.3s ease-in-out;
+}
+
+.header-icon {
+    font-size: 56px;
+    color: #ffccff;
+    transition: transform 0.3s ease, color 0.3s ease;
+}
+
+.header-icon:hover {
+    transform: scale(1.1) rotate(-5deg);
+    color: #f5baff;
+}
+
+.header-title {
+    font-size: 25px;
+    font-weight: bold;
+    transition: color 0.3s ease;
+}
+
+.header-subtitle {
+    font-size: 14px;
+    opacity: 0.95;
+    transition: opacity 0.3s ease;
+}
+
+.header-text:hover .header-title {
+    color: #ffe0ff;
+}
+
+.header-text:hover .header-subtitle {
+    opacity: 1;
+}
+
+/* ********** */
+
+.col_bg1 {
+    border: 1px dashed rgba(99, 100, 102, 0.3);
+    background-color: rgba(189, 193, 196, 0.488);
+    border-radius: 0.5rem;
+    padding: 0.5rem;
+    margin: 1rem 0.1rem !important;
+    /*align-items: baseline;*/
+}
+
+.col_bg1:hover {
+    /* background-color: rgba(255, 193, 7, 0.03);
+  border-color: rgba(255, 193, 7, 0.5);*/
+}
+
+
+.col_bg {
+    /* border: 1px dashed rgba(88, 89, 104, 0.5);*/
+    /* طوسی خط‌چین */
+    background: #DEDED1;
+    /* background-color: #DEDED1; */
+    /* طوسی خیلی روشن */
+    border-radius: 0.5rem;
+    padding: 0.5rem;
+    margin: 1rem 0.1rem !important;
+}
+
+/* حذف کامل هاور */
+.col_bg:hover {
+    /* خالی بماند تا هیچ تغییری نکند */
+}
 </style>
 
 <div class="@(ReadOnly?"FormReadOnly":"")">
@@ -267,6 +345,32 @@
     {
       //  var Selected = Utility.JSON.ToObject<dynamic>(Utility.JSON.ToJson(_Item).Result).Result;
   //   ProductType
+
+  //  #CustomCode
+
+ //   
+
+  //  #OnItemSelected
+    }
+}
+
+    </CellDisplayTemplate>
+</DxGridDataColumn>
+<DxGridDataColumn Context="PSOURCE_" Caption="نحوه تامین" >
+    <CellDisplayTemplate>
+       
+@{
+    Baya.Models.ViewEngine.View_Component HeaderPSOURCE = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"primaryKey\":false,\"EntityID\":759,\"FieldId\":31014,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":1020,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":true,\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://shomaran.workcv.ir:2010/fa-ir/api/v1/view_tamin_type/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"code\",\"template\":\"<span>{{item.code}} {{item.title}} </span>\",\"FieldsTemplate\":[{\"key\":\"code\",\"value\":\"int\"},{\"key\":\"title\",\"value\":\"nvarchar(Max)\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"modal\":true,\"label\":\"نحوه تامین\",\"tableView\":true,\"key\":\"PSOURCE\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"31014?EId=759&SubId=33\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
+    var RowPSOURCE = ((Entity.SH_Petco_InsertParts)PSOURCE_.DataItem).PSOURCE;
+}
+
+<Dropdown ExternalApi=true CssClass="" NotMapped=false TextGrid=true Value="@RowPSOURCE"   FieldName="PSOURCE" OnItemSelected="ItemSelected_SH_Petco_InsertPartsPSOURCE_Header" Component="HeaderPSOURCE">
+</Dropdown>
+@code {
+    public async Task ItemSelected_SH_Petco_InsertPartsPSOURCE_Header(object _Item)
+    {
+      //  var Selected = Utility.JSON.ToObject<dynamic>(Utility.JSON.ToJson(_Item).Result).Result;
+  //   PSOURCE
 
   //  #CustomCode
 
@@ -570,6 +674,7 @@ MainModel.Year = ((Entity.SH_Petco_InsertParts)EditModel).Year;
 MainModel.Product_List = ((Entity.SH_Petco_InsertParts)EditModel).Product_List;
 MainModel.ApiResult = ((Entity.SH_Petco_InsertParts)EditModel).ApiResult;
 MainModel.ProductType = ((Entity.SH_Petco_InsertParts)EditModel).ProductType;
+MainModel.PSOURCE = ((Entity.SH_Petco_InsertParts)EditModel).PSOURCE;
 
     }
     else

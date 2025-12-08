@@ -144,7 +144,7 @@ namespace Forms.Forms
     /// <summary>
     ///  ورژنی که فرم باهاش ساخته شده
     /// </summary>
-    public string? VersionForm { get; set; } = "5122";
+    public string? VersionForm { get; set; } = "5130";
 
     /// <summary>
     ///  موجودیت
@@ -180,25 +180,26 @@ namespace Forms.Forms
     #region FormProperty
 
 public Input<Guid> Ref_Id;
+public Dropdown Ref_Product_List;
+public Input<string?> Ref_PartNo;
+public Input<string?> Ref_ProductName;
+public Input<string?> Ref_SSTID;
+public Dropdown Ref_ProductType;
+public Dropdown Ref_GRCODE;
+public Dropdown Ref_SUBGRCODE;
+public Input<string?> Ref_TECNO;
+public Input<string?> Ref_TECDESC;
+public Dropdown Ref_Units;
+public Dropdown Ref_Units2;
+public Dropdown Ref_PSOURCE;
+public Input<int?> Ref_Year;
+public Input<string?> Ref_ApiResult;
 public Input<Guid?> Ref_RequestID;
 public Input<Guid?> Ref_CreateUser;
 public Input<Guid?> Ref_UpdateUser;
 public Input<DateTime?> Ref_CreateDate;
 public Input<DateTime?> Ref_UpdateDate;
 public Input<bool?> Ref_IsDelete;
-public Input<string?> Ref_PartNo;
-public Input<string?> Ref_ProductName;
-public Dropdown Ref_GRCODE;
-public Dropdown Ref_SUBGRCODE;
-public Dropdown Ref_Units;
-public Dropdown Ref_Units2;
-public Input<string?> Ref_SSTID;
-public Input<string?> Ref_TECNO;
-public Input<string?> Ref_TECDESC;
-public Input<int?> Ref_Year;
-public Dropdown Ref_Product_List;
-public Input<string?> Ref_ApiResult;
-public Dropdown Ref_ProductType;
 
 
     #endregion
