@@ -102,11 +102,13 @@ namespace Forms.Forms
 		/// <returns></returns>
 		public override async Task AfterGetData()
 		{
-
+			employeeId = _Entity.HR_EMP_EmployeesId.Value.ToString();
 		}
 
 
 		#region FunctionEvents
+
+		string employeeId = null;
 
 		public async Task<bool> CheckFieldValidation(Entity.HR_CVR_VerdictRecruiting Item)
 		{
@@ -215,7 +217,7 @@ namespace Forms.Forms
 				return;
 			}
 
-			string employeeId = Item.HR_EMP_EmployeesId.Value.ToString();
+			string detailEmployeeId = employeeId;
 
 			Console.WriteLine($"🔍 Fetching employee data for ID: {employeeId}");
 

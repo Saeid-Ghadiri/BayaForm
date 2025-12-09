@@ -199,7 +199,7 @@ namespace Forms.Forms
 		{
 			if (_Entity.SalaryInGroup.HasValue)
 			{
-				_Entity.ChildrenRightsGroup = (int)(_Entity.SalaryInGroup.Value * 0.1m);
+				_Entity.ChildrensRightsMinistryLabor = (int)(_Entity.SalaryInGroup.Value * 0.1m);
 			}
 			else
 			{
@@ -266,6 +266,7 @@ namespace Forms.Forms
 			}
 			StateHasChanged();
 		}
+
 
 		public async Task RightMarryMinistryLabor_oninput(ChangeEventArgs Selected)
 		{
