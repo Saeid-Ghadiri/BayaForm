@@ -267,7 +267,6 @@ namespace Forms.Forms
 			StateHasChanged();
 		}
 
-
 		public async Task RightMarryMinistryLabor_oninput(ChangeEventArgs Selected)
 		{
 			if (!_Entity.RightMarryGroup.HasValue)
