@@ -144,7 +144,7 @@ namespace Forms.Forms
     /// <summary>
     ///  ورژنی که فرم باهاش ساخته شده
     /// </summary>
-    public string? VersionForm { get; set; } = "5149";
+    public string? VersionForm { get; set; } = "5154";
 
     /// <summary>
     ///  موجودیت
@@ -197,7 +197,7 @@ public Input<string?> Ref_Note;
 public Input<string?> Ref_ApiResult;
 public DxGrid? Grid_SH_Petco_DepoOutDetail;
 
-public Input<int?> Ref_SH_Petco_DepoOutDetail_AMOUNT;
+public Input<decimal?> Ref_SH_Petco_DepoOutDetail_AMOUNT;
 public Dropdown Ref_SH_Petco_DepoOutDetail_InvCode;
 public Dropdown Ref_SH_Petco_DepoOutDetail_PartCode;
 public Input<string?> Ref_SH_Petco_DepoOutDetail_Radyabi;

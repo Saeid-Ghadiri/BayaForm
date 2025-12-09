@@ -144,7 +144,7 @@ namespace Forms.Forms
     /// <summary>
     ///  ورژنی که فرم باهاش ساخته شده
     /// </summary>
-    public string? VersionForm { get; set; } = "5149";
+    public string? VersionForm { get; set; } = "5154";
 
     /// <summary>
     ///  موجودیت
@@ -188,7 +188,7 @@ public Input<string?> Ref_Creator;
 public Dropdown Ref_InvCode;
 public Dropdown Ref_Receipt;
 public Dropdown Ref_PartCode;
-public Input<int?> Ref_Amount;
+public Input<decimal?> Ref_Amount;
 public Dropdown Ref_Product;
 public RadioBoolean Ref_QC;
 public Input<string?> Ref_Description;
@@ -199,7 +199,7 @@ public Dropdown Ref_SH_Petco_DepoInDetail_ProductSearch;
 public Input<string?> Ref_SH_Petco_DepoInDetail_ProductName;
 public Input<string?> Ref_SH_Petco_DepoInDetail_PartCode;
 public Input<string?> Ref_SH_Petco_DepoInDetail_ShomareFani;
-public Input<int?> Ref_SH_Petco_DepoInDetail_Amount;
+public Input<decimal?> Ref_SH_Petco_DepoInDetail_Amount;
 public Input<string?> Ref_SH_Petco_DepoInDetail_Unit;
 public Input<string?> Ref_SH_Petco_DepoInDetail_Note;
 public Input<string?> Ref_SH_Petco_DepoInDetail_Sefaresh;

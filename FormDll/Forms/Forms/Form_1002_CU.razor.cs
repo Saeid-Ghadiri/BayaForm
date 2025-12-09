@@ -102,13 +102,17 @@ namespace Forms.Forms
 		/// <returns></returns>
 		public override async Task AfterGetData()
 		{
-			employeeId = _Entity.HR_EMP_EmployeesId.Value.ToString();
 		}
 
 
 		#region FunctionEvents
 
-		string employeeId = null;
+		string employeeId = "";
+
+		public async Task HR_EMP_EmployeesId_onitemselected(Entity.HR_EMP_Employees Selected)
+		{
+			employeeId = _Entity.HR_EMP_EmployeesId.Value.ToString();
+		}
 
 		public async Task<bool> CheckFieldValidation(Entity.HR_CVR_VerdictRecruiting Item)
 		{

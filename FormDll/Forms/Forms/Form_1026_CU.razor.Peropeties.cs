@@ -144,7 +144,7 @@ namespace Forms.Forms
     /// <summary>
     ///  ورژنی که فرم باهاش ساخته شده
     /// </summary>
-    public string? VersionForm { get; set; } = "5149";
+    public string? VersionForm { get; set; } = "5154";
 
     /// <summary>
     ///  موجودیت
@@ -199,13 +199,13 @@ public Dropdown Ref_SH_Petco_AnnarrDetail_ProductSearch;
 public Input<string?> Ref_SH_Petco_AnnarrDetail_PARTCODE;
 public Input<string?> Ref_SH_Petco_AnnarrDetail_ProductName;
 public Input<string?> Ref_SH_Petco_AnnarrDetail_ShomareFani;
+public Input<decimal?> Ref_SH_Petco_AnnarrDetail_ARRAMOUNT;
 public Input<string?> Ref_SH_Petco_AnnarrDetail_Unit;
-public Input<int?> Ref_SH_Petco_AnnarrDetail_ARRAMOUNT;
+public Input<string?> Ref_SH_Petco_AnnarrDetail_DESC2;
 public Input<string?> Ref_SH_Petco_AnnarrDetail_RADYABI;
 public Input<string?> Ref_SH_Petco_AnnarrDetail_SEFARESH;
-public Input<string?> Ref_SH_Petco_AnnarrDetail_RowId;
 public Input<int?> Ref_SH_Petco_AnnarrDetail_YEAR;
-public Input<string?> Ref_SH_Petco_AnnarrDetail_DESC2;
+public Input<string?> Ref_SH_Petco_AnnarrDetail_RowId;
 public Input<string?> Ref_ApiResult;
 public Input<Guid?> Ref_RequestID;
 public Input<Guid?> Ref_CreateUser;

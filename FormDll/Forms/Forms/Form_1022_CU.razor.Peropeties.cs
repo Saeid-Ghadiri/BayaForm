@@ -144,7 +144,7 @@ namespace Forms.Forms
     /// <summary>
     ///  ورژنی که فرم باهاش ساخته شده
     /// </summary>
-    public string? VersionForm { get; set; } = "5149";
+    public string? VersionForm { get; set; } = "5154";
 
     /// <summary>
     ///  موجودیت
@@ -201,8 +201,8 @@ public Input<string?> Ref_SH_Petco_AnbordDetail_ProductName;
 public Input<string?> Ref_SH_Petco_AnbordDetail_ProductUnit;
 public Input<string?> Ref_SH_Petco_AnbordDetail_ShomareFani;
 public Input<string?> Ref_SH_Petco_AnbordDetail_TECDESC;
-public Input<int?> Ref_SH_Petco_AnbordDetail_ORDAMOUNT;
-public Input<int?> Ref_SH_Petco_AnbordDetail_OKAMOUNT;
+public Input<decimal?> Ref_SH_Petco_AnbordDetail_ORDAMOUNT;
+public Input<decimal?> Ref_SH_Petco_AnbordDetail_OKAMOUNT;
 public Input<string?> Ref_SH_Petco_AnbordDetail_DESC1;
 public Input<int?> Ref_SH_Petco_AnbordDetail_Year;
 public Input<string?> Ref_SH_Petco_AnbordDetail_RowId;
