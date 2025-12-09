@@ -55,8 +55,10 @@ namespace Forms.Forms
         /// </summary>
         public override async Task AfterGetData()
         {
-            await PrepareForDisplay();
-        }
+			await PrepareForDisplay();
+			await CalculateMonthlySalaries();
+			await CalculateChildrenRightsGroup();
+		}
 
         #region FunctionEvents
 
@@ -185,21 +187,79 @@ namespace Forms.Forms
             await UpdatePersianDateFromParts();
         }
 
+		/// <summary>
+		/// محاسبه حقوق 30 روزه بر اساس دستمزد روزانه (وزارت کار و گروه)
+		/// </summary>
+		private async Task CalculateMonthlySalaries()
+		{
+			_Entity.SalaryInGroup = _Entity.MinimumSalaryInGroup.HasValue
+				? _Entity.MinimumSalaryInGroup.Value * 30
+				: (int?)null;
+
+			_Entity.SalaryMinistryLabor = _Entity.MinimumSalaryMinistryLabor.HasValue
+				? _Entity.MinimumSalaryMinistryLabor.Value * 30
+				: (int?)null;
+		}
+
+		/// <summary>
+		/// محاسبه خودکار حق اولاد در گروه = 10% حقوق پایه گروه 30 روزه (بدون گرد کردن)
+		/// </summary>
+		private async Task CalculateChildrenRightsGroup()
+		{
+			if (_Entity.SalaryInGroup.HasValue)
+			{
+				_Entity.ChildrenRightsGroup = (int)(_Entity.SalaryInGroup.Value * 0.1m);
+			}
+			else
+			{
+				_Entity.ChildrenRightsGroup = null;
+			}
+		}
+
 		public async Task MinimumSalaryInGroup_oninput(ChangeEventArgs Selected)
 		{
-			var input = Selected?.Value?.ToString();
+			// ابتدا حقوق 30 روزه را محاسبه کن
+			await CalculateMonthlySalaries();
 
-			_Entity.ChildrenRightsGroup = null;
+			// سپس حق اولاد را بر اساس آن محاسبه کن
+			await CalculateChildrenRightsGroup();
 
-			if (!string.IsNullOrWhiteSpace(input) && decimal.TryParse(input, out var minimumSalary))
+			StateHasChanged();
+		}
+
+		public async Task MinistryLabourRightHousing_oninput(ChangeEventArgs Selected)
+		{
+			if (!_Entity.RightHousingGroup.HasValue)
 			{
-				// محاسبه دقیق 10%
-				decimal tenPercent = minimumSalary * 0.1m;
-
-				// فقط قسمت صحیح را نگه دار (بدون گرد کردن)
-				_Entity.ChildrenRightsGroup = (int)tenPercent;
+				_Entity.RightHousingGroup = _Entity.MinistryLabourRightHousing;
 			}
+			StateHasChanged();
+		}
 
+		public async Task BenKargariMinistryLabor_oninput(ChangeEventArgs Selected)
+		{
+			if (!_Entity.BenKargariGroup.HasValue)
+			{
+				_Entity.BenKargariGroup = _Entity.BenKargariMinistryLabor;
+			}
+			StateHasChanged();
+		}
+
+		public async Task RightMarryMinistryLabor_oninput(ChangeEventArgs Selected)
+		{
+			if (!_Entity.RightMarryGroup.HasValue)
+			{
+				_Entity.RightMarryGroup = _Entity.RightMarryMinistryLabor;
+			}
+			StateHasChanged();
+		}
+
+		public async Task ChildrensRightsMinistryLabor_oninput(ChangeEventArgs Selected)
+		{
+			if (!_Entity.ChildrenRightsGroup.HasValue)
+			{
+				_Entity.ChildrenRightsGroup = _Entity.ChildrensRightsMinistryLabor;
+			}
 			StateHasChanged();
 		}
 
