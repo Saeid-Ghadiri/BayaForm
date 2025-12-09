@@ -200,12 +200,49 @@ namespace Forms.Forms
 
 		public async Task GridHR_CVR_VerdictRecruitingId_711_afterrendermodal(Entity.HR_CVR_RecruitmentRules Item)
 		{
-			var data_emp = await EMP_Data.EmployeeData.EmployeeMasterDetail1(Item.HR_EMP_EmployeesId.ToString(), _User.UserID.ToString());
+			//var data_emp = await EMP_Data.EmployeeData.EmployeeMasterDetail1(Item.HR_EMP_EmployeesId.ToString(), _User.UserID.ToString());
 
-			Item.FirstName = data_emp.FirstName;
-			Item.LastName = data_emp.LastName;
-			Item.FatherName = data_emp.FatherName;
-			Item.NationalCode = data_emp.NationalCode;
+			//Item.FirstName = data_emp.FirstName;
+			//Item.LastName = data_emp.LastName;
+			//Item.FatherName = data_emp.FatherName;
+			//Item.NationalCode = data_emp.NationalCode;
+
+
+			// بررسی null بودن Item یا HR_EMP_EmployeesId
+			if (Item?.HR_EMP_EmployeesId == null)
+			{
+				Console.WriteLine("⚠️ Item or HR_EMP_EmployeesId is null. Skipping employee data load.");
+				return;
+			}
+
+			string employeeId = Item.HR_EMP_EmployeesId.Value.ToString();
+
+			Console.WriteLine($"🔍 Fetching employee data for ID: {employeeId}");
+
+			try
+			{
+				var data_emp = await EMP_Data.EmployeeData.EmployeeMasterDetail1(employeeId, _User.UserID.ToString());
+
+				if (data_emp == null)
+				{
+					Console.WriteLine($"❌ Employee data NOT FOUND for ID: {employeeId}");
+					return;
+				}
+
+				Console.WriteLine($"✅ Employee data loaded: {data_emp.FirstName} {data_emp.LastName}");
+
+				Item.FirstName = data_emp.FirstName;
+				Item.LastName = data_emp.LastName;
+				Item.FatherName = data_emp.FatherName;
+				Item.NationalCode = data_emp.NationalCode;
+
+				StateHasChanged();
+			}
+			catch (Exception ex)
+			{
+				Console.WriteLine($"💥 Exception in GridHR_CVR_VerdictRecruitingId_711_afterrendermodal: {ex}");
+			}
+
 		}
 
 		#endregion FunctionEvents
@@ -224,104 +261,116 @@ namespace EMP_Data
 {
 	public static class EmployeeData
 	{
-		public static async Task<Entity.HR_EMP_Employees_EmployeeInfos> EmployeeMasterDetail(string id, string _UserId)
-		{
-			var TablePost = new Table();
+		//public static async Task<Entity.HR_EMP_Employees_EmployeeInfos> EmployeeMasterDetail(string id, string _UserId)
+		//{
+		//	var TablePost = new Table();
 
-			TablePost.Name = "HR_EMP_Employees_EmployeeInfos";
+		//	TablePost.Name = "HR_EMP_Employees_EmployeeInfos";
 
-			TablePost.Column = new List<Coulmn>
-			{
-				new Coulmn {Name="Id" , NameAs= "Id"},
-				new Coulmn {Name ="FirstName",NameAs="FirstName" },
-				new Coulmn {Name ="LastName",NameAs="LastName" },
-				new Coulmn {Name ="FatherName",NameAs="FatherName" },
-				new Coulmn {Name ="NationalCode",NameAs="NationalCode" },
-                // new Coulmn {Name ="UserName",NameAs="UserName" },
-                // new Coulmn {Name ="UserName",NameAs="UserName" },
-                // new Coulmn {Name ="UserName",NameAs="UserName" },
-                // new Coulmn {Name ="UserName",NameAs="UserName" },
-                // new Coulmn {Name ="UserName",NameAs="UserName" }
-            };
+		//	TablePost.Column = new List<Coulmn>
+		//	{
+		//		new Coulmn {Name="Id" , NameAs= "Id"},
+		//		new Coulmn {Name ="FirstName",NameAs="FirstName" },
+		//		new Coulmn {Name ="LastName",NameAs="LastName" },
+		//		new Coulmn {Name ="FatherName",NameAs="FatherName" },
+		//		new Coulmn {Name ="NationalCode",NameAs="NationalCode" },
+		//              // new Coulmn {Name ="UserName",NameAs="UserName" },
+		//              // new Coulmn {Name ="UserName",NameAs="UserName" },
+		//              // new Coulmn {Name ="UserName",NameAs="UserName" },
+		//              // new Coulmn {Name ="UserName",NameAs="UserName" },
+		//              // new Coulmn {Name ="UserName",NameAs="UserName" }
+		//          };
 
-			// ساخت لیست قوانین
-			var NewQuery = new QueryBuilderFilterRule()
-			{ Condition = "AND" };
-			NewQuery.Rules = new List<QueryBuilderFilterRule>
-			{
-				new QueryBuilderFilterRule()
-				{
-					Field = "Id",
-					Id = "Id",
-					Input = "text",
-					Operator = "equal",
-					Type =  "string",
-					Value = new string[]{ id.ToString() },
-				}
-			};
+		//	// ساخت لیست قوانین
+		//	var NewQuery = new QueryBuilderFilterRule()
+		//	{ Condition = "AND" };
+		//	NewQuery.Rules = new List<QueryBuilderFilterRule>
+		//	{
+		//		new QueryBuilderFilterRule()
+		//		{
+		//			Field = "Id",
+		//			Id = "Id",
+		//			Input = "text",
+		//			Operator = "equal",
+		//			Type =  "string",
+		//			Value = new string[]{ id.ToString() },
+		//		}
+		//	};
 
-			bool IsOk = false;
+		//	bool IsOk = false;
 
-			var Model = await ApiServer.External.Services.Data.Get(TablePost, NewQuery, "HR_EMP_Employees_EmployeeInfos", _UserId);
+		//	var Model = await ApiServer.External.Services.Data.Get(TablePost, NewQuery, "HR_EMP_Employees_EmployeeInfos", _UserId);
 
-			if (Model?.Status == HttpStatusCode.OK)
-			{
-				Entity.HR_EMP_Employees_EmployeeInfos vw_emp_data = await JSON.ToObject<Entity.HR_EMP_Employees_EmployeeInfos>(Model.Content.ToString());
+		//	if (Model?.Status == HttpStatusCode.OK)
+		//	{
+		//		Entity.HR_EMP_Employees_EmployeeInfos vw_emp_data = await JSON.ToObject<Entity.HR_EMP_Employees_EmployeeInfos>(Model.Content.ToString());
 
-				return vw_emp_data;
-			}
-			return null;
-		}
+		//		return vw_emp_data;
+		//	}
+		//	return null;
+		//}
 
 		public static async Task<Entity.View_HR_EMP_EmployeeInfos> EmployeeMasterDetail1(string id, string _UserId)
 		{
-			var TablePost = new Table();
-
-			TablePost.Name = "HR_EMP_Employees_EmployeeInfos";
-
-			TablePost.Column = new List<Coulmn>
+			if (string.IsNullOrEmpty(id))
 			{
-				new Coulmn {Name="Id", NameAs= "Id"},
-				new Coulmn {Name ="FirstName", NameAs="FirstName" },
-				new Coulmn {Name ="LastName", NameAs="LastName" },
-				new Coulmn {Name ="FatherName", NameAs="FatherName" },
-				new Coulmn {Name ="NationalCode", NameAs="NationalCode" },
-                // new Coulmn {Name ="UserName",NameAs="UserName" },
-                // new Coulmn {Name ="UserName",NameAs="UserName" },
-                // new Coulmn {Name ="UserName",NameAs="UserName" },
-                // new Coulmn {Name ="UserName",NameAs="UserName" },
-                // new Coulmn {Name ="UserName",NameAs="UserName" }
-            };
+				Console.WriteLine("❌ Employee ID is null or empty in EmployeeMasterDetail1");
+				return null;
+			}
 
-			// ساخت لیست قوانین
-			var NewQuery = new QueryBuilderFilterRule()
-			{ Condition = "AND" };
-
-			NewQuery.Rules = new List<QueryBuilderFilterRule>
+			var TablePost = new Table
 			{
-				new QueryBuilderFilterRule()
+				Name = "View_HR_EMP_EmployeeInfos",
+				Column = new List<Coulmn>
 				{
-					Field = "Id",
-					Id = "Id",
-					Input = "text",
-					Operator = "equal",
-					Type =  "string",
-					Value = new string[]{ id.ToString() },
+					new Coulmn { Name = "Id", NameAs = "Id" },
+					new Coulmn { Name = "FirstName", NameAs = "FirstName" },
+					new Coulmn { Name = "LastName", NameAs = "LastName" },
+					new Coulmn { Name = "FatherName", NameAs = "FatherName" },
+					new Coulmn { Name = "NationalCode", NameAs = "NationalCode" },
+					// اگر نیاز داشتید HR_EMP_EmployeesId را هم بگیرید:
+					// new Coulmn { Name = "HR_EMP_EmployeesId", NameAs = "HR_EMP_EmployeesId" }
 				}
 			};
 
-			bool IsOk = false;
+			var NewQuery = new QueryBuilderFilterRule { Condition = "AND" };
+			NewQuery.Rules = new List<QueryBuilderFilterRule>
+			{
+				new QueryBuilderFilterRule
+				{
+					Field = "HR_EMP_EmployeesId", 
+					Id = "HR_EMP_EmployeesId",
+					Input = "text",
+					Operator = "equal",
+					Type = "string",
+					Value = new string[] { id } // این id باید مقدار HR_EMP_EmployeesId باشد
+				}
+			};
 
 			var Model = await ApiServer.External.Services.Data.Get(TablePost, NewQuery, "View_HR_EMP_EmployeeInfos", _UserId);
 
-			if (Model?.Status == HttpStatusCode.OK)
+			if (Model?.Status != HttpStatusCode.OK)
 			{
-				Entity.View_HR_EMP_EmployeeInfos vw_emp_data = await JSON.ToObject<Entity.View_HR_EMP_EmployeeInfos>(Model.Content.ToString());
-
-				return vw_emp_data;
+				Console.WriteLine($"❌ API error {Model?.Status} for employee ID: {id}");
+				return null;
 			}
 
-			return null;
+			if (string.IsNullOrEmpty(Model.Content?.ToString()))
+			{
+				Console.WriteLine($"❌ API returned empty content for ID: {id}");
+				return null;
+			}
+
+			try
+			{
+				var vw_emp_data = await JSON.ToObject<Entity.View_HR_EMP_EmployeeInfos>(Model.Content.ToString());
+				return vw_emp_data;
+			}
+			catch (Exception ex)
+			{
+				Console.WriteLine($"💥 JSON Deserialize error for ID {id}: {ex.Message}");
+				return null;
+			}
 		}
 	}
 }

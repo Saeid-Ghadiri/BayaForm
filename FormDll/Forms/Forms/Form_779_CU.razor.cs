@@ -55,9 +55,13 @@ namespace Forms.Forms
 		/// </summary>
 		public override async Task AfterGetData()
 		{
+			// تبدیل تاریخ
 			await PrepareForDisplay();
 
-			// محاسبه حق اولاد از فیلد حقوق پایه روزانه
+			// اول حقوق 30 روزه را محاسبه کن
+			await CalculateMonthlySalaries();
+
+			// دوم محاسبه حق اولاد از فیلد حقوق پایه روزانه
 			await CalculateChildrenRightsGroup();
 		}
 
