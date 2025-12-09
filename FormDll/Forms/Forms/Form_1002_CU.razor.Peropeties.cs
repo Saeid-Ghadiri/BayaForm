@@ -144,7 +144,7 @@ namespace Forms.Forms
     /// <summary>
     ///  ورژنی که فرم باهاش ساخته شده
     /// </summary>
-    public string? VersionForm { get; set; } = "5130";
+    public string? VersionForm { get; set; } = "5145";
 
     /// <summary>
     ///  موجودیت
@@ -272,6 +272,8 @@ public Input<int?> Ref_HR_CVR_RecruitmentRules_DailyPostRetentionStartDate;
 public Input<string?> Ref_HR_CVR_RecruitmentRules_IBAN;
 public Input<string?> Ref_HR_CVR_RecruitmentRules_InsuranceNumber;
 public Input<string?> Ref_HR_CVR_RecruitmentRules_BaseInfo_MilitaryStatusId;
+public Input<int?> Ref_HR_CVR_RecruitmentRules_RankSalary;
+public Input<int?> Ref_HR_CVR_RecruitmentRules_RankSalaryNew;
 public DxGrid? Grid_HR_CVR_DescriptionRulings;
 
 public Input<string?> Ref_HR_CVR_DescriptionRulings_Title;

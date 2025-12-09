@@ -144,7 +144,7 @@ namespace Forms.Forms
     /// <summary>
     ///  ورژنی که فرم باهاش ساخته شده
     /// </summary>
-    public string? VersionForm { get; set; } = "5130";
+    public string? VersionForm { get; set; } = "5145";
 
     /// <summary>
     ///  موجودیت
@@ -182,7 +182,6 @@ namespace Forms.Forms
 public Dropdown Ref_FactBuy_List;
 public Input<string?> Ref_FACTNO;
 public Input<string?> Ref_FACTDATE;
-public Input<short?> Ref_YEAR;
 public Input<string?> Ref_CREATOR;
 public Input<DateTime?> Ref_MiladiDate;
 public Input<string?> Ref_FACTOR;
@@ -194,6 +193,7 @@ public Dropdown Ref_ORDERNO;
 public Dropdown Ref_INVCODE;
 public Dropdown Ref_PARTKIND;
 public Input<string?> Ref_NOTE;
+public Input<short?> Ref_YEAR;
 public DxGrid? Grid_SH_PolFilm_FactBuyDetail;
 
 public Dropdown Ref_SH_PolFilm_FactBuyDetail_ProductSearch;

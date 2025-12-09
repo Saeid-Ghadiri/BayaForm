@@ -144,7 +144,7 @@ namespace Forms.Forms
     /// <summary>
     ///  ورژنی که فرم باهاش ساخته شده
     /// </summary>
-    public string? VersionForm { get; set; } = "5130";
+    public string? VersionForm { get; set; } = "5145";
 
     /// <summary>
     ///  موجودیت
@@ -180,38 +180,39 @@ namespace Forms.Forms
     #region FormProperty
 
 public Input<Guid> Ref_Id;
+public Dropdown Ref_Anbord_List;
+public Input<string?> Ref_ORDERNO;
+public Input<string?> Ref_CREATOR;
+public Input<string?> Ref_TEMPNO;
+public Input<string?> Ref_ORDERDATE;
+public Input<string?> Ref_NDATE;
+public Input<string?> Ref_OKFACTDATE;
+public Input<string?> Ref_REQPERSON;
+public Dropdown Ref_CENTCODE;
+public Dropdown Ref_INVCODE;
+public Dropdown Ref_PSOURCE;
+public Input<string?> Ref_Description;
+public Input<int?> Ref_YEAR;
+public DxGrid? Grid_SH_Petco_AnbordDetail;
+
+public Dropdown Ref_SH_Petco_AnbordDetail_ProductSearch;
+public Input<string?> Ref_SH_Petco_AnbordDetail_PARTCODE;
+public Input<string?> Ref_SH_Petco_AnbordDetail_ProductName;
+public Input<string?> Ref_SH_Petco_AnbordDetail_ProductUnit;
+public Input<string?> Ref_SH_Petco_AnbordDetail_ShomareFani;
+public Input<string?> Ref_SH_Petco_AnbordDetail_TECDESC;
+public Input<int?> Ref_SH_Petco_AnbordDetail_ORDAMOUNT;
+public Input<int?> Ref_SH_Petco_AnbordDetail_OKAMOUNT;
+public Input<string?> Ref_SH_Petco_AnbordDetail_DESC1;
+public Input<int?> Ref_SH_Petco_AnbordDetail_Year;
+public Input<string?> Ref_SH_Petco_AnbordDetail_RowId;
+public Input<string?> Ref_ApiResult;
 public Input<Guid?> Ref_RequestID;
 public Input<Guid?> Ref_CreateUser;
 public Input<Guid?> Ref_UpdateUser;
 public Input<DateTime?> Ref_CreateDate;
 public Input<DateTime?> Ref_UpdateDate;
 public Input<bool?> Ref_IsDelete;
-public Dropdown Ref_CENTCODE;
-public Input<string?> Ref_CREATOR;
-public Dropdown Ref_CLOSED;
-public Input<string?> Ref_REQPERSON;
-public Input<string?> Ref_ORDERNO;
-public Dropdown Ref_INVCODE;
-public Input<string?> Ref_NDATE;
-public Input<string?> Ref_ORDERDATE;
-public Input<string?> Ref_OKFACTDATE;
-public Dropdown Ref_PSOURCE;
-public Input<string?> Ref_TEMPNO;
-public Input<int?> Ref_YEAR;
-public Input<string?> Ref_Description;
-public Input<string?> Ref_ApiResult;
-public Dropdown Ref_Anbord_List;
-public DxGrid? Grid_SH_Petco_AnbordDetail;
-
-public Dropdown Ref_SH_Petco_AnbordDetail_ProductSearch;
-public Input<string?> Ref_SH_Petco_AnbordDetail_ProductName;
-public Input<string?> Ref_SH_Petco_AnbordDetail_ShomareFani;
-public Input<string?> Ref_SH_Petco_AnbordDetail_TECDESC;
-public Input<string?> Ref_SH_Petco_AnbordDetail_ProductUnit;
-public Input<int?> Ref_SH_Petco_AnbordDetail_OKAMOUNT;
-public Input<int?> Ref_SH_Petco_AnbordDetail_ORDAMOUNT;
-public Input<int?> Ref_SH_Petco_AnbordDetail_Year;
-public Input<string?> Ref_SH_Petco_AnbordDetail_DESC1;
 
 
     #endregion

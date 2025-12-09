@@ -80,7 +80,7 @@ namespace Forms.Forms
         /// <summary>
         ///  ورژنی که فرم باهاش ساخته شده
         /// </summary>
-        public string? VersionForm { get; set; } = "5130";
+        public string? VersionForm { get; set; } = "5145";
 
 
         /// <summary>
@@ -112,7 +112,7 @@ namespace Forms.Forms
 
 
 
-public Dropdown Ref_HR_CVR_TypesRulingsId;
+public Input2 Ref_NationalCode;
 
     }
 }

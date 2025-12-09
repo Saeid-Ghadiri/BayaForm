@@ -14,7 +14,85 @@
 @using Baya.Models.ViewEngine
 @using Forms.Domain.Utility
 <style>
-    
+    /* ************************************************** */
+.detailArea form div:not(.devdrop) {
+    margin-top: .1rem;
+}
+
+/* ************************************************** */
+.header-form {
+    height: 100px;
+    background: linear-gradient(96deg, #0d3b66, #6a0dad);
+    color: white;
+    border-bottom: 2px solid #ffffff33;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.25);
+    border-radius: 10px;
+    transition: all 0.3s ease-in-out;
+}
+
+.header-icon {
+    font-size: 56px;
+    color: #ffccff;
+    transition: transform 0.3s ease, color 0.3s ease;
+}
+
+.header-icon:hover {
+    transform: scale(1.1) rotate(-5deg);
+    color: #f5baff;
+}
+
+.header-title {
+    font-size: 25px;
+    font-weight: bold;
+    transition: color 0.3s ease;
+}
+
+.header-subtitle {
+    font-size: 14px;
+    opacity: 0.95;
+    transition: opacity 0.3s ease;
+}
+
+.header-text:hover .header-title {
+    color: #ffe0ff;
+}
+
+.header-text:hover .header-subtitle {
+    opacity: 1;
+}
+
+/* ********** */
+
+.col_bg1 {
+    border: 1px dashed rgba(99, 100, 102, 0.3);
+    background-color: rgba(189, 193, 196, 0.488);
+    border-radius: 0.5rem;
+    padding: 0.5rem;
+    margin: 1rem 0.1rem !important;
+    /*align-items: baseline;*/
+}
+
+.col_bg1:hover {
+    /* background-color: rgba(255, 193, 7, 0.03);
+  border-color: rgba(255, 193, 7, 0.5);*/
+}
+
+
+.col_bg {
+    /* border: 1px dashed rgba(88, 89, 104, 0.5);*/
+    /* طوسی خط‌چین */
+    background: #DEDED1;
+    /* background-color: #DEDED1; */
+    /* طوسی خیلی روشن */
+    border-radius: 0.5rem;
+    padding: 0.5rem;
+    margin: 1rem 0.1rem !important;
+}
+
+/* حذف کامل هاور */
+.col_bg:hover {
+    /* خالی بماند تا هیچ تغییری نکند */
+}
 </style>
 
 <div class="@(ReadOnly?"FormReadOnly":"")">
@@ -136,32 +214,6 @@
 </DxGridDataColumn>
 <DxGridDataColumn  Caption="تنظیم کننده"  FieldName="CREATOR" />
 
-<DxGridDataColumn Context="CLOSED_" Caption="باز یا بسته بودن درخواست" >
-    <CellDisplayTemplate>
-       
-@{
-    Baya.Models.ViewEngine.View_Component HeaderCLOSED = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"primaryKey\":false,\"EntityID\":762,\"FieldId\":31005,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":1022,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":false,\"RelationParentName\":\"CLOSEDNavigation\",\"RelationParentModel\":\"Shomaran_OpneClose\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/Shomaran_OpneClose/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.Code}} {{item.Title}} </span>\",\"FieldsTemplate\":[{\"key\":\"Code\",\"value\":\"int\"},{\"key\":\"Title\",\"value\":\"nvarchar(Max)\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"modal\":true,\"label\":\"باز یا بسته بودن درخواست\",\"tableView\":true,\"key\":\"CLOSED\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"31005?EId=762&SubId=33\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
-    var RowCLOSED = ((Entity.SH_Petco_Anbord)CLOSED_.DataItem).CLOSED;
-}
-
-<Dropdown ExternalApi=false CssClass="" NotMapped=false TextGrid=true Value="@RowCLOSED"   FieldName="CLOSED" OnItemSelected="ItemSelected_SH_Petco_AnbordCLOSED_Header" Component="HeaderCLOSED">
-</Dropdown>
-@code {
-    public async Task ItemSelected_SH_Petco_AnbordCLOSED_Header(object _Item)
-    {
-      //  var Selected = Utility.JSON.ToObject<dynamic>(Utility.JSON.ToJson(_Item).Result).Result;
-  //   CLOSED
-
-  //  #CustomCode
-
- //   
-
-  //  #OnItemSelected
-    }
-}
-
-    </CellDisplayTemplate>
-</DxGridDataColumn>
 <DxGridDataColumn  Caption="درخواست کننده"  FieldName="REQPERSON" />
 
 <DxGridDataColumn  Caption="شماره"  FieldName="ORDERNO" />
@@ -539,8 +591,6 @@ MainModel.UpdateDate = ((Entity.SH_Petco_Anbord)EditModel).UpdateDate;
 MainModel.IsDelete = ((Entity.SH_Petco_Anbord)EditModel).IsDelete;
 MainModel.CENTCODE = ((Entity.SH_Petco_Anbord)EditModel).CENTCODE;
 MainModel.CREATOR = ((Entity.SH_Petco_Anbord)EditModel).CREATOR;
-MainModel.CLOSED = ((Entity.SH_Petco_Anbord)EditModel).CLOSED;
-MainModel.CLOSEDNavigation = ((Entity.SH_Petco_Anbord)EditModel).CLOSEDNavigation;
 MainModel.REQPERSON = ((Entity.SH_Petco_Anbord)EditModel).REQPERSON;
 MainModel.ORDERNO = ((Entity.SH_Petco_Anbord)EditModel).ORDERNO;
 MainModel.INVCODE = ((Entity.SH_Petco_Anbord)EditModel).INVCODE;

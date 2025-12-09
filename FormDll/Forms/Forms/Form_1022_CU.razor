@@ -13,7 +13,85 @@
 @using Forms.Domain.Utility
 @using Castle.DynamicLinqQueryBuilder
 <style>
-    
+    /* ************************************************** */
+.detailArea form div:not(.devdrop) {
+    margin-top: .1rem;
+}
+
+/* ************************************************** */
+.header-form {
+    height: 100px;
+    background: linear-gradient(96deg, #0d3b66, #6a0dad);
+    color: white;
+    border-bottom: 2px solid #ffffff33;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.25);
+    border-radius: 10px;
+    transition: all 0.3s ease-in-out;
+}
+
+.header-icon {
+    font-size: 56px;
+    color: #ffccff;
+    transition: transform 0.3s ease, color 0.3s ease;
+}
+
+.header-icon:hover {
+    transform: scale(1.1) rotate(-5deg);
+    color: #f5baff;
+}
+
+.header-title {
+    font-size: 25px;
+    font-weight: bold;
+    transition: color 0.3s ease;
+}
+
+.header-subtitle {
+    font-size: 14px;
+    opacity: 0.95;
+    transition: opacity 0.3s ease;
+}
+
+.header-text:hover .header-title {
+    color: #ffe0ff;
+}
+
+.header-text:hover .header-subtitle {
+    opacity: 1;
+}
+
+/* ********** */
+
+.col_bg1 {
+    border: 1px dashed rgba(99, 100, 102, 0.3);
+    background-color: rgba(189, 193, 196, 0.488);
+    border-radius: 0.5rem;
+    padding: 0.5rem;
+    margin: 1rem 0.1rem !important;
+    /*align-items: baseline;*/
+}
+
+.col_bg1:hover {
+    /* background-color: rgba(255, 193, 7, 0.03);
+  border-color: rgba(255, 193, 7, 0.5);*/
+}
+
+
+.col_bg {
+    /* border: 1px dashed rgba(88, 89, 104, 0.5);*/
+    /* طوسی خط‌چین */
+    background: #DEDED1;
+    /* background-color: #DEDED1; */
+    /* طوسی خیلی روشن */
+    border-radius: 0.5rem;
+    padding: 0.5rem;
+    margin: 1rem 0.1rem !important;
+}
+
+/* حذف کامل هاور */
+.col_bg:hover {
+    /* خالی بماند تا هیچ تغییری نکند */
+}
 </style>
 
 <Plugins.Tools.ConfirmDialog @ref="Confirm" />
@@ -32,19 +110,119 @@
     <EditForm @ref="_Form" Model="_Entity" OnSubmit="Submit">
         
 <Input Id="Id" @ref="Ref_Id"   CssClass="d-none"   @bind-Value="_Entity.Id" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+<div  class="">
+    <header class="header-form d-flex align-items-center py-1">
+    <i class="fal fa-box header-icon px-3 fs-1"></i>
+    <div class="header-text">
+      <h4 class="header-title mb-1">ایجاد و ویرایش خرید</h4>
+      <p class="header-subtitle">ایجاد و ویرایش خرید در شماران</p>
+    </div>
+  </header>
+</div>
+<div  class="Gcol-sm-8 Gcol-md-6 Gcol-lg-12">
+    <div>
+  &nbsp;
+</div>
+</div>
 
-<Input Id="RequestID" @ref="Ref_RequestID"      @bind-Value="_Entity.RequestID" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
-
-<Input Id="CreateUser" @ref="Ref_CreateUser"      @bind-Value="_Entity.CreateUser" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
-
-<Input Id="UpdateUser" @ref="Ref_UpdateUser"      @bind-Value="_Entity.UpdateUser" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
-
-<Input Id="CreateDate" @ref="Ref_CreateDate"   CssClass="d-none"   @bind-Value="_Entity.CreateDate" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
-
-<Input Id="UpdateDate" @ref="Ref_UpdateDate"   CssClass="d-none"   @bind-Value="_Entity.UpdateDate" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
-
-<Input Id="IsDelete" @ref="Ref_IsDelete"   CssClass="d-none"   @bind-Value="_Entity.IsDelete" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+<div class="bg-light">
+    
+<div class="row ">
+    
+<div class="col-md-5">
+     
  
+@code {
+    Baya.Models.ViewEngine.View_Component Component_SH_Petco_AnbordAnbord_List = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"EntityName\":\"خرید\",\"primaryKey\":false,\"EntityID\":762,\"FieldId\":31020,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":1022,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":true,\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://shomaran.workcv.ir:2010/fa-ir/api/v1/view_anbordDTL/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"inputFormat\":\"DataGrid\",\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"ORDERNO\",\"template\":\"<span>{{item.ORDERNO}} {{item.TEMPNO}} {{item.ORDERDATE}} {{item.vaziat}} </span>\",\"FieldsTemplate\":[{\"key\":\"ORDERNO\",\"value\":\"nvarchar(Max)\"},{\"key\":\"TEMPNO\",\"value\":\"nvarchar(Max)\"},{\"key\":\"ORDERDATE\",\"value\":\"nvarchar(Max)\"},{\"key\":\"vaziat\",\"value\":\"nvarchar(Max)\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"searchField\":\"TEMPNO\",\"modal\":true,\"label\":\"فهرست خریدهای صادره\",\"tableView\":true,\"key\":\"Anbord_List\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"31020?EId=762&SubId=33\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
+}
+
+    <Dropdown Id=Anbord_List  @ref="Ref_Anbord_List" Label="فهرست خریدهای صادره" CssClass=""  DisplayFormat="DataGrid" ExternalApi=true NotMapped=false TextGrid=false  Value="@_Entity.Anbord_List" FieldName="Anbord_List" OnItemSelected="ItemSelected_SH_Petco_AnbordAnbord_List" Component="Component_SH_Petco_AnbordAnbord_List" _Entity="_Entity" >
+</Dropdown>
+@code {
+    public async Task ItemSelected_SH_Petco_AnbordAnbord_List(object _Item)
+    {
+        var Selected = Utility.JSON.ToObject<dynamic>(Utility.JSON.ToJson(_Item).Result).Result;
+     var Item = _Entity;
+
+    Item.Anbord_List = Selected.ORDERNO;
+
+
+    
+
+    
+    }
+} 
+
+</div>
+
+<div class="col-md-7">
+    
+<div class="row col_bg1 px-2">
+    
+<div class="col-md-4">
+    
+<Input Id="ORDERNO" @ref="Ref_ORDERNO" Label="شماره"     @bind-Value="_Entity.ORDERNO" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+</div>
+
+<div class="col-md-4">
+    
+<Input Id="CREATOR" @ref="Ref_CREATOR" Label="تنظیم کننده"     @bind-Value="_Entity.CREATOR" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+</div>
+
+<div class="col-md-4">
+    
+<Input Id="TEMPNO" @ref="Ref_TEMPNO" Label="شماره عطف"     @bind-Value="_Entity.TEMPNO" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+</div>
+
+</div>
+
+<div class="row col_bg1 px-2">
+    
+<div class="col-md-4">
+    
+<Input Id="ORDERDATE" @ref="Ref_ORDERDATE" Label="تاریخ درخواست خرید"  CssClass=" PersianDatePicker"   @bind-Value="_Entity.ORDERDATE" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"data-jdp\":\"  \",\"data-jdp-only-date\":\"   \"}").Result))></Input>
+
+</div>
+
+<div class="col-md-4">
+    
+<Input Id="NDATE" @ref="Ref_NDATE" Label="تاریخ تحویل"  CssClass=" PersianDatePicker"   @bind-Value="_Entity.NDATE" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"data-jdp\":\"  \",\"data-jdp-only-date\":\"   \"}").Result))></Input>
+
+</div>
+
+<div class="col-md-4">
+    
+<Input Id="OKFACTDATE" @ref="Ref_OKFACTDATE" Label="تاریخ تائید درخواست خرید"  CssClass=" PersianDatePicker"   @bind-Value="_Entity.OKFACTDATE" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"data-jdp\":\"  \",\"data-jdp-only-date\":\"   \"}").Result))></Input>
+
+</div>
+
+</div>
+
+<div class="row col_bg1 px-2">
+    
+<div class="col-md-4">
+    
+<Input Id="REQPERSON" @ref="Ref_REQPERSON" Label="درخواست کننده"     @bind-Value="_Entity.REQPERSON" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+</div>
+
+<div class="col-md-4">
+    
+</div>
+
+<div class="col-md-4">
+    
+</div>
+
+</div>
+
+<div class="row col_bg1 px-2">
+    
+<div class="col-md-4">
+     
  
 @code {
     Baya.Models.ViewEngine.View_Component Component_SH_Petco_AnbordCENTCODE = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"EntityName\":\"خرید\",\"primaryKey\":false,\"EntityID\":762,\"FieldId\":31003,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":1022,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":true,\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://shomaran.workcv.ir:2010/fa-ir/api/v1/view_paycent/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"CENTCODE\",\"template\":\"<span>{{item.name}} {{item.CENTCODE}} </span>\",\"FieldsTemplate\":[{\"key\":\"name\",\"value\":\"nvarchar(Max)\"},{\"key\":\"CENTCODE\",\"value\":\"nvarchar(Max)\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"searchField\":\"name,CENTCODE\",\"modal\":true,\"label\":\"مرکز هزینه\",\"tableView\":true,\"key\":\"CENTCODE\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"31003?EId=762&SubId=33\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
@@ -67,49 +245,22 @@
     }
 } 
 
-<Input Id="CREATOR" @ref="Ref_CREATOR" Label="تنظیم کننده"     @bind-Value="_Entity.CREATOR" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
- 
- 
-@code {
-    Baya.Models.ViewEngine.View_Component Component_SH_Petco_AnbordCLOSED = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"EntityName\":\"خرید\",\"primaryKey\":false,\"EntityID\":762,\"FieldId\":31005,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":1022,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":false,\"RelationParentName\":\"CLOSEDNavigation\",\"RelationParentModel\":\"Shomaran_OpneClose\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/Shomaran_OpneClose/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.Code}} {{item.Title}} </span>\",\"FieldsTemplate\":[{\"key\":\"Code\",\"value\":\"int\"},{\"key\":\"Title\",\"value\":\"nvarchar(Max)\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"modal\":true,\"label\":\"باز یا بسته بودن درخواست\",\"tableView\":true,\"key\":\"CLOSED\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"31005?EId=762&SubId=33\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
-}
+</div>
 
-    <Dropdown Id=CLOSED  @ref="Ref_CLOSED" Label="باز یا بسته بودن درخواست" CssClass=""  DisplayFormat="DropDown" ExternalApi=false NotMapped=false TextGrid=false Text="" Value="@_Entity.CLOSED" FieldName="CLOSED" OnItemSelected="ItemSelected_SH_Petco_AnbordCLOSED" Component="Component_SH_Petco_AnbordCLOSED" _Entity="_Entity" >
-</Dropdown>
-@code {
-    public async Task ItemSelected_SH_Petco_AnbordCLOSED(object _Item)
-    {
-        var Selected = Utility.JSON.ToObject<dynamic>(Utility.JSON.ToJson(_Item).Result).Result;
-     var Item = _Entity;
-
-      //Todo
- //برای اینکه آی دی تغییر کند اینجا نیز باید تغییر کند
- //بهتر است از پرایمیری کی استفاده شود
- if (_Item != null)
- {
-     Console.WriteLine(" Item Is Not Null");
-    Item.CLOSED = Selected.Id;
+<div class="col-md-4">
     
- }
- else
- {
-     Console.WriteLine(" Item Is Null");
-      Item.CLOSED =EntityHelper.SetPropertyNull(Item.CLOSED);
- }
- Item.CLOSEDNavigation = await Utility.JSON.ToObject<Entity.Shomaran_OpneClose>(await Utility.JSON.ToJson(_Item));
-    StateHasChanged();
+</div>
 
-
+<div class="col-md-4">
     
+</div>
 
+</div>
+
+<div class="row col_bg1 px-2">
     
-    }
-} 
-
-<Input Id="REQPERSON" @ref="Ref_REQPERSON" Label="درخواست کننده"     @bind-Value="_Entity.REQPERSON" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
-
-<Input Id="ORDERNO" @ref="Ref_ORDERNO" Label="شماره"     @bind-Value="_Entity.ORDERNO" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
- 
+<div class="col-md-4">
+     
  
 @code {
     Baya.Models.ViewEngine.View_Component Component_SH_Petco_AnbordINVCODE = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"EntityName\":\"خرید\",\"primaryKey\":false,\"EntityID\":762,\"FieldId\":31008,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":1022,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":true,\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://shomaran.workcv.ir:2010/fa-ir/api/v1/view_INV/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"INVCODE\",\"template\":\"<span>{{item.INVNAME}} {{item.INVCODE}} </span>\",\"FieldsTemplate\":[{\"key\":\"INVNAME\",\"value\":\"nvarchar(Max)\"},{\"key\":\"INVCODE\",\"value\":\"nvarchar(Max)\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"searchField\":\"INVCODE,INVNAME\",\"modal\":true,\"label\":\"نام انبار\",\"tableView\":true,\"key\":\"INVCODE\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"31008?EId=762&SubId=33\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
@@ -132,12 +283,22 @@
     }
 } 
 
-<Input Id="NDATE" @ref="Ref_NDATE" Label="تاریخ تحویل"  CssClass=" PersianDatePicker"   @bind-Value="_Entity.NDATE" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"data-jdp\":\"  \",\"data-jdp-only-date\":\"   \"}").Result))></Input>
+</div>
 
-<Input Id="ORDERDATE" @ref="Ref_ORDERDATE" Label="تاریخ درخواست خرید"  CssClass=" PersianDatePicker"   @bind-Value="_Entity.ORDERDATE" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"data-jdp\":\"  \",\"data-jdp-only-date\":\"   \"}").Result))></Input>
+<div class="col-md-4">
+    
+</div>
 
-<Input Id="OKFACTDATE" @ref="Ref_OKFACTDATE" Label="تاریخ تائید درخواست خرید"  CssClass=" PersianDatePicker"   @bind-Value="_Entity.OKFACTDATE" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"data-jdp\":\"  \",\"data-jdp-only-date\":\"   \"}").Result))></Input>
- 
+<div class="col-md-4">
+    
+</div>
+
+</div>
+
+<div class="row col_bg1 px-2">
+    
+<div class="col-md-4">
+     
  
 @code {
     Baya.Models.ViewEngine.View_Component Component_SH_Petco_AnbordPSOURCE = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"EntityName\":\"خرید\",\"primaryKey\":false,\"EntityID\":762,\"FieldId\":31015,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":1022,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":true,\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://shomaran.workcv.ir:2010/fa-ir/api/v1/view_tamin_type/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"code\",\"template\":\"<span>{{item.code}} {{item.title}} </span>\",\"FieldsTemplate\":[{\"key\":\"code\",\"value\":\"int\"},{\"key\":\"title\",\"value\":\"nvarchar(Max)\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"modal\":true,\"label\":\"مبنع تامین\",\"tableView\":true,\"key\":\"PSOURCE\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"31015?EId=762&SubId=33\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
@@ -160,35 +321,70 @@
     }
 } 
 
-<Input Id="TEMPNO" @ref="Ref_TEMPNO" Label="شماره عطف"     @bind-Value="_Entity.TEMPNO" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+</div>
 
-<Input Id="YEAR" @ref="Ref_YEAR" Label="سال"     @bind-Value="_Entity.YEAR" type="number"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+<div class="col-md-4">
+    
+</div>
 
+<div class="col-md-4">
+    
+</div>
+
+</div>
+
+<div class="row col_bg1 px-2">
+    
+<div class="col-md-6">
+    
 <Input Id="Description" @ref="Ref_Description" Label="توضیحات"     @bind-Value="_Entity.Description" type="textarea"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
 
-<Input Id="ApiResult" @ref="Ref_ApiResult" Label="ApiResult"     @bind-Value="_Entity.ApiResult" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
- 
- 
-@code {
-    Baya.Models.ViewEngine.View_Component Component_SH_Petco_AnbordAnbord_List = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"EntityName\":\"خرید\",\"primaryKey\":false,\"EntityID\":762,\"FieldId\":31020,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":1022,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":true,\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://shomaran.workcv.ir:2010/fa-ir/api/v1/view_anbordDTL/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"inputFormat\":\"DataGrid\",\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"ORDERNO\",\"template\":\"<span>{{item.ORDERNO}} {{item.TEMPNO}} {{item.ORDERDATE}} {{item.vaziat}} </span>\",\"FieldsTemplate\":[{\"key\":\"ORDERNO\",\"value\":\"nvarchar(Max)\"},{\"key\":\"TEMPNO\",\"value\":\"nvarchar(Max)\"},{\"key\":\"ORDERDATE\",\"value\":\"nvarchar(Max)\"},{\"key\":\"vaziat\",\"value\":\"nvarchar(Max)\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"searchField\":\"TEMPNO\",\"modal\":true,\"label\":\"فهرست خریدهای صادره\",\"tableView\":true,\"key\":\"Anbord_List\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"31020?EId=762&SubId=33\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
-}
+</div>
 
-    <Dropdown Id=Anbord_List  @ref="Ref_Anbord_List" Label="فهرست خریدهای صادره" CssClass=""  DisplayFormat="DataGrid" ExternalApi=true NotMapped=false TextGrid=false  Value="@_Entity.Anbord_List" FieldName="Anbord_List" OnItemSelected="ItemSelected_SH_Petco_AnbordAnbord_List" Component="Component_SH_Petco_AnbordAnbord_List" _Entity="_Entity" >
-</Dropdown>
-@code {
-    public async Task ItemSelected_SH_Petco_AnbordAnbord_List(object _Item)
-    {
-        var Selected = Utility.JSON.ToObject<dynamic>(Utility.JSON.ToJson(_Item).Result).Result;
-     var Item = _Entity;
-
-    Item.Anbord_List = Selected.ORDERNO;
-
-
+<div class="col-md-6">
     
+</div>
 
+</div>
+
+<div class="row col_bg1 px-2">
     
-    }
-} 
+<div class="col-md-4">
+    
+<Input Id="YEAR" @ref="Ref_YEAR" Label="سال"     @bind-Value="_Entity.YEAR" type="number"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+</div>
+
+<div class="col-md-4">
+    
+</div>
+
+<div class="col-md-4">
+    
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+<div  class="">
+    <hr class="hrdash bg-red">
+</div>
+<div  class="">
+    <div id="resid_header" 
+     class="rounded rounded-1 border border-0 fs-6 fw-bold p-2 d-flex justify-content-center align-items-center"
+     style="background-color:#b38cff;">
+
+  <span class="text-black">
+    اقلام مصرفی توسط سازنده
+  </span>
+
+</div>
+
+</div>
 <label for="SH_Petco_AnbordDetail_GridSH_Petco_AnbordId_763">جزئیات خرید
    
     
@@ -202,7 +398,7 @@
         EditFormButtonsVisible="false"
         CustomizeEditModel="CustomizeEditGrid_SH_Petco_AnbordDetail"
         CustomizeElement="CustomizeRowsGrid_SH_Petco_AnbordDetail" 
-        Component="@((Utility.JSON.ToObject<View_Component>("{\"primaryKey\":false,\"EntityID\":763,\"FieldId\":763,\"NotNull\":false,\"ViewId\":0,\"NotMapped\":false,\"Relation\":false,\"RelationExternal\":false,\"RelationChildModel\":\"SH_Petco_AnbordDetail\",\"GridMainModel\":\"SH_Petco_AnbordDetail\",\"widget\":{\"altInput\":false,\"allowInput\":false,\"clickOpens\":false,\"enableDate\":false,\"enableTime\":false,\"noCalendar\":false,\"useLocaleSettings\":false,\"hourIncrement\":0,\"minuteIncrement\":0,\"time_24hr\":false},\"wysiwyg\":false,\"data\":{},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"FieldsTemplate\":[],\"refreshOn\":\"data\",\"reorder\":false,\"addAnotherPosition\":\"bottom\",\"layoutFixed\":false,\"enableRowGroups\":false,\"initEmpty\":false,\"disabled\":true,\"modal\":true,\"label\":\"جزئیات خرید\",\"tableView\":true,\"key\":\"GridSH_Petco_AnbordId_763\",\"type\":\"datagrid\",\"input\":true,\"placeholder\":\"GridSH_Petco_AnbordId_763\",\"modalEdit\":true,\"FieldUrl\":\"763?EId=763&SubId=33\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result))"
+        Component="@((Utility.JSON.ToObject<View_Component>("{\"primaryKey\":false,\"EntityID\":763,\"FieldId\":763,\"NotNull\":false,\"ViewId\":0,\"NotMapped\":false,\"Relation\":false,\"RelationExternal\":false,\"RelationChildModel\":\"SH_Petco_AnbordDetail\",\"GridMainModel\":\"SH_Petco_AnbordDetail\",\"widget\":{\"altInput\":false,\"allowInput\":false,\"clickOpens\":false,\"enableDate\":false,\"enableTime\":false,\"noCalendar\":false,\"useLocaleSettings\":false,\"hourIncrement\":0,\"minuteIncrement\":0,\"time_24hr\":false},\"wysiwyg\":false,\"data\":{},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"FieldsTemplate\":[],\"refreshOn\":\"data\",\"reorder\":false,\"addAnotherPosition\":\"bottom\",\"layoutFixed\":false,\"enableRowGroups\":false,\"initEmpty\":false,\"disabled\":true,\"modal\":true,\"label\":\"جزئیات خرید\",\"tableView\":true,\"key\":\"GridSH_Petco_AnbordId_763\",\"type\":\"datagrid\",\"input\":true,\"placeholder\":\"GridSH_Petco_AnbordId_763\",\"modalEdit\":true,\"FieldUrl\":\"763?EId=763&SubId=33\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true,\"editmodelsaving\":\"GridSH_Petco_AnbordId_763_editmodelsaving\",\"afterrendermodal\":\"GridSH_Petco_AnbordId_763_afterrendermodal\"}").Result))"
          >
     <Columns>
     
@@ -249,11 +445,11 @@
     <CellDisplayTemplate>
        
 @{
-    Baya.Models.ViewEngine.View_Component HeaderProductSearch = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"primaryKey\":false,\"EntityID\":763,\"FieldId\":31021,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":1022,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":true,\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://shomaran.workcv.ir:2010/fa-ir/api/v1/view_parts/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"partcode\",\"template\":\"<span>{{item.partcode}} {{item.partno}} {{item.desc}} {{item.unit}} </span>\",\"FieldsTemplate\":[{\"key\":\"partcode\",\"value\":\"nvarchar(Max)\"},{\"key\":\"partno\",\"value\":\"nvarchar(Max)\"},{\"key\":\"desc\",\"value\":\"nvarchar(Max)\"},{\"key\":\"unit\",\"value\":\"nvarchar(Max)\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"searchField\":\"partcode,partno,desc\",\"modal\":true,\"label\":\"جستجو کالا\",\"tableView\":true,\"key\":\"ProductSearch\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"31021?EId=763&SubId=33\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
+    Baya.Models.ViewEngine.View_Component HeaderProductSearch = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"primaryKey\":false,\"EntityID\":763,\"FieldId\":31021,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":1022,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":true,\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://shomaran.workcv.ir:2010/fa-ir/api/v1/view_parts/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"partcode\",\"template\":\"<span>{{item.partcode}} {{item.partno}} {{item.desc}} {{item.unit}} </span>\",\"FieldsTemplate\":[{\"key\":\"partcode\",\"value\":\"nvarchar(Max)\"},{\"key\":\"partno\",\"value\":\"nvarchar(Max)\"},{\"key\":\"desc\",\"value\":\"nvarchar(Max)\"},{\"key\":\"unit\",\"value\":\"nvarchar(Max)\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"searchField\":\"partcode,partno,desc\",\"disableLimit\":false,\"noRefreshOnScroll\":false,\"modal\":true,\"label\":\"جستجو کالا\",\"tableView\":true,\"key\":\"ProductSearch\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"customClass\":\"Gcol-sm-8 Gcol-md-6 Gcol-lg-6\",\"FieldUrl\":\"31021?EId=763&SubId=33\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true,\"onitemselected\":\"ProductSearch_onitemselected\"}").Result;
     var RowProductSearch = ((Entity.SH_Petco_AnbordDetail)ProductSearch_.DataItem).ProductSearch;
 }
 
-<Dropdown ExternalApi=true CssClass="" NotMapped=false TextGrid=true Value="@RowProductSearch"   FieldName="ProductSearch" OnItemSelected="ItemSelected_SH_Petco_AnbordDetailProductSearch_Header" Component="HeaderProductSearch">
+<Dropdown ExternalApi=true CssClass="Gcol-sm-8 Gcol-md-6 Gcol-lg-6" NotMapped=false TextGrid=true Value="@RowProductSearch"   FieldName="ProductSearch" OnItemSelected="ItemSelected_SH_Petco_AnbordDetailProductSearch_Header" Component="HeaderProductSearch">
 </Dropdown>
 @code {
     public async Task ItemSelected_SH_Petco_AnbordDetailProductSearch_Header(object _Item)
@@ -271,21 +467,33 @@
 
     </CellDisplayTemplate>
 </DxGridDataColumn>
+<DxGridDataColumn Context="html_" Caption="HTML" >
+    <CellDisplayTemplate>
+      <div  class="Gcol-sm-8 Gcol-md-6 Gcol-lg-6">
+    
+</div>
+
+    </CellDisplayTemplate>
+</DxGridDataColumn>
+<DxGridDataColumn  Caption="کد کالا"  FieldName="PARTCODE" />
+
 <DxGridDataColumn  Caption="نام کالا"  FieldName="ProductName" />
+
+<DxGridDataColumn  Caption="واحد کالا"  FieldName="ProductUnit" />
 
 <DxGridDataColumn  Caption="شماره فنی"  FieldName="ShomareFani" />
 
 <DxGridDataColumn  Caption="مشخصات فنی"  FieldName="TECDESC" />
 
-<DxGridDataColumn  Caption="واحد کالا"  FieldName="ProductUnit" />
+<DxGridDataColumn DisplayFormat="0" Caption="مقدار درخواستی"  FieldName="ORDAMOUNT" />
 
 <DxGridDataColumn DisplayFormat="0" Caption="مقدار تائید شده"  FieldName="OKAMOUNT" />
 
-<DxGridDataColumn DisplayFormat="0" Caption="مقدار درخواستی"  FieldName="ORDAMOUNT" />
+<DxGridDataColumn  Caption="یادداشت"  FieldName="DESC1" />
 
 <DxGridDataColumn DisplayFormat="0" Caption="سال"  FieldName="Year" />
 
-<DxGridDataColumn  Caption="یادداشت"  FieldName="DESC1" />
+<DxGridDataColumn  Caption="ردیف دیتیل فرم" Visible=false FieldName="RowId" />
 
 
 </Columns>
@@ -299,10 +507,10 @@
      
  
 @code {
-    Baya.Models.ViewEngine.View_Component Component_SH_Petco_AnbordDetailProductSearch = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"primaryKey\":false,\"EntityID\":763,\"FieldId\":31021,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":1022,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":true,\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://shomaran.workcv.ir:2010/fa-ir/api/v1/view_parts/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"partcode\",\"template\":\"<span>{{item.partcode}} {{item.partno}} {{item.desc}} {{item.unit}} </span>\",\"FieldsTemplate\":[{\"key\":\"partcode\",\"value\":\"nvarchar(Max)\"},{\"key\":\"partno\",\"value\":\"nvarchar(Max)\"},{\"key\":\"desc\",\"value\":\"nvarchar(Max)\"},{\"key\":\"unit\",\"value\":\"nvarchar(Max)\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"searchField\":\"partcode,partno,desc\",\"modal\":true,\"label\":\"جستجو کالا\",\"tableView\":true,\"key\":\"ProductSearch\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"31021?EId=763&SubId=33\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
+    Baya.Models.ViewEngine.View_Component Component_SH_Petco_AnbordDetailProductSearch = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"primaryKey\":false,\"EntityID\":763,\"FieldId\":31021,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":1022,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":true,\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://shomaran.workcv.ir:2010/fa-ir/api/v1/view_parts/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"partcode\",\"template\":\"<span>{{item.partcode}} {{item.partno}} {{item.desc}} {{item.unit}} </span>\",\"FieldsTemplate\":[{\"key\":\"partcode\",\"value\":\"nvarchar(Max)\"},{\"key\":\"partno\",\"value\":\"nvarchar(Max)\"},{\"key\":\"desc\",\"value\":\"nvarchar(Max)\"},{\"key\":\"unit\",\"value\":\"nvarchar(Max)\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"searchField\":\"partcode,partno,desc\",\"disableLimit\":false,\"noRefreshOnScroll\":false,\"modal\":true,\"label\":\"جستجو کالا\",\"tableView\":true,\"key\":\"ProductSearch\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"customClass\":\"Gcol-sm-8 Gcol-md-6 Gcol-lg-6\",\"FieldUrl\":\"31021?EId=763&SubId=33\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true,\"onitemselected\":\"ProductSearch_onitemselected\"}").Result;
 }
 
-    <Dropdown Id=SH_Petco_AnbordDetail_ProductSearch  @ref="Ref_SH_Petco_AnbordDetail_ProductSearch" Label="جستجو کالا" CssClass=""  DisplayFormat="DropDown" ExternalApi=true NotMapped=false TextGrid=false  Value="@SH_Petco_AnbordDetail.ProductSearch" FieldName="ProductSearch" OnItemSelected="ItemSelected_SH_Petco_AnbordDetailProductSearch" Component="Component_SH_Petco_AnbordDetailProductSearch" _Entity="_Entity" _EntityRow=SH_Petco_AnbordDetail>
+    <Dropdown Id=SH_Petco_AnbordDetail_ProductSearch  @ref="Ref_SH_Petco_AnbordDetail_ProductSearch" Label="جستجو کالا" CssClass="Gcol-sm-8 Gcol-md-6 Gcol-lg-6"  DisplayFormat="DropDown" ExternalApi=true NotMapped=false TextGrid=false  Value="@SH_Petco_AnbordDetail.ProductSearch" FieldName="ProductSearch" OnItemSelected="ItemSelected_SH_Petco_AnbordDetailProductSearch" Component="Component_SH_Petco_AnbordDetailProductSearch" _Entity="_Entity" _EntityRow=SH_Petco_AnbordDetail>
 </Dropdown>
 @code {
     public async Task ItemSelected_SH_Petco_AnbordDetailProductSearch(object _Item)
@@ -315,57 +523,76 @@
 
     
 
-    
+    await ProductSearch_onitemselected( Selected , SH_Petco_AnbordDetail);
     }
 } 
 
 </DxFormLayoutItem>
 
 <DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextSH_Petco_AnbordDetail">
+    <div  class="Gcol-sm-8 Gcol-md-6 Gcol-lg-6">
     
-<Input Id="SH_Petco_AnbordDetail_ProductName" @ref="Ref_SH_Petco_AnbordDetail_ProductName" Label="نام کالا"     @bind-Value="SH_Petco_AnbordDetail.ProductName" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+</div>
 
 </DxFormLayoutItem>
 
 <DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextSH_Petco_AnbordDetail">
     
-<Input Id="SH_Petco_AnbordDetail_ShomareFani" @ref="Ref_SH_Petco_AnbordDetail_ShomareFani" Label="شماره فنی"     @bind-Value="SH_Petco_AnbordDetail.ShomareFani" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+<Input Id="SH_Petco_AnbordDetail_PARTCODE" @ref="Ref_SH_Petco_AnbordDetail_PARTCODE" Label="کد کالا"  CssClass="Gcol-sm-8 Gcol-md-6 Gcol-lg-3"   @bind-Value="SH_Petco_AnbordDetail.PARTCODE" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
 
 </DxFormLayoutItem>
 
 <DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextSH_Petco_AnbordDetail">
     
-<Input Id="SH_Petco_AnbordDetail_TECDESC" @ref="Ref_SH_Petco_AnbordDetail_TECDESC" Label="مشخصات فنی"     @bind-Value="SH_Petco_AnbordDetail.TECDESC" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+<Input Id="SH_Petco_AnbordDetail_ProductName" @ref="Ref_SH_Petco_AnbordDetail_ProductName" Label="نام کالا"  CssClass="Gcol-sm-8 Gcol-md-6 Gcol-lg-3"   @bind-Value="SH_Petco_AnbordDetail.ProductName" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
 
 </DxFormLayoutItem>
 
 <DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextSH_Petco_AnbordDetail">
     
-<Input Id="SH_Petco_AnbordDetail_ProductUnit" @ref="Ref_SH_Petco_AnbordDetail_ProductUnit" Label="واحد کالا"     @bind-Value="SH_Petco_AnbordDetail.ProductUnit" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+<Input Id="SH_Petco_AnbordDetail_ProductUnit" @ref="Ref_SH_Petco_AnbordDetail_ProductUnit" Label="واحد کالا"  CssClass="Gcol-sm-8 Gcol-md-6 Gcol-lg-2"   @bind-Value="SH_Petco_AnbordDetail.ProductUnit" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
 
 </DxFormLayoutItem>
 
 <DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextSH_Petco_AnbordDetail">
     
-<Input Id="SH_Petco_AnbordDetail_OKAMOUNT" @ref="Ref_SH_Petco_AnbordDetail_OKAMOUNT" Label="مقدار تائید شده"     @bind-Value="SH_Petco_AnbordDetail.OKAMOUNT" type="number"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+<Input Id="SH_Petco_AnbordDetail_ShomareFani" @ref="Ref_SH_Petco_AnbordDetail_ShomareFani" Label="شماره فنی"  CssClass="Gcol-sm-8 Gcol-md-6 Gcol-lg-2"   @bind-Value="SH_Petco_AnbordDetail.ShomareFani" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
 
 </DxFormLayoutItem>
 
 <DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextSH_Petco_AnbordDetail">
     
-<Input Id="SH_Petco_AnbordDetail_ORDAMOUNT" @ref="Ref_SH_Petco_AnbordDetail_ORDAMOUNT" Label="مقدار درخواستی"     @bind-Value="SH_Petco_AnbordDetail.ORDAMOUNT" type="number"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+<Input Id="SH_Petco_AnbordDetail_TECDESC" @ref="Ref_SH_Petco_AnbordDetail_TECDESC" Label="مشخصات فنی"  CssClass="Gcol-sm-8 Gcol-md-6 Gcol-lg-2"   @bind-Value="SH_Petco_AnbordDetail.TECDESC" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
 
 </DxFormLayoutItem>
 
 <DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextSH_Petco_AnbordDetail">
     
-<Input Id="SH_Petco_AnbordDetail_Year" @ref="Ref_SH_Petco_AnbordDetail_Year" Label="سال"     @bind-Value="SH_Petco_AnbordDetail.Year" type="number"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+<Input Id="SH_Petco_AnbordDetail_ORDAMOUNT" @ref="Ref_SH_Petco_AnbordDetail_ORDAMOUNT" Label="مقدار درخواستی"  CssClass="Gcol-sm-8 Gcol-md-6 Gcol-lg-3"   @bind-Value="SH_Petco_AnbordDetail.ORDAMOUNT" type="number" ActiveSeperator=false    Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
 
 </DxFormLayoutItem>
 
 <DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextSH_Petco_AnbordDetail">
     
-<Input Id="SH_Petco_AnbordDetail_DESC1" @ref="Ref_SH_Petco_AnbordDetail_DESC1" Label="یادداشت"     @bind-Value="SH_Petco_AnbordDetail.DESC1" type="textarea"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+<Input Id="SH_Petco_AnbordDetail_OKAMOUNT" @ref="Ref_SH_Petco_AnbordDetail_OKAMOUNT" Label="مقدار تائید شده"  CssClass="Gcol-sm-8 Gcol-md-6 Gcol-lg-3"   @bind-Value="SH_Petco_AnbordDetail.OKAMOUNT" type="number" ActiveSeperator=false    Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+</DxFormLayoutItem>
+
+<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextSH_Petco_AnbordDetail">
+    
+<Input Id="SH_Petco_AnbordDetail_DESC1" @ref="Ref_SH_Petco_AnbordDetail_DESC1" Label="یادداشت"  CssClass="Gcol-sm-8 Gcol-md-6 Gcol-lg-6"   @bind-Value="SH_Petco_AnbordDetail.DESC1" type="textarea"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+</DxFormLayoutItem>
+
+<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextSH_Petco_AnbordDetail">
+    
+<Input Id="SH_Petco_AnbordDetail_Year" @ref="Ref_SH_Petco_AnbordDetail_Year" Label="سال"  CssClass="Gcol-sm-8 Gcol-md-6 Gcol-lg-2"   @bind-Value="SH_Petco_AnbordDetail.Year" type="number" ActiveSeperator=false    Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+</DxFormLayoutItem>
+
+<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextSH_Petco_AnbordDetail">
+    
+<Input Id="SH_Petco_AnbordDetail_RowId" @ref="Ref_SH_Petco_AnbordDetail_RowId" Label="ردیف دیتیل فرم"  CssClass="d-none" Disabled=true  @bind-Value="SH_Petco_AnbordDetail.RowId" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
 
 </DxFormLayoutItem>
 
@@ -436,7 +663,7 @@
         var e = arg.EditModel;
     bool NotValid = false;
     //events
-       
+       NotValid = await GridSH_Petco_AnbordId_763_editmodelsaving(e);
         
       if (!NotValid)
      {
@@ -469,7 +696,7 @@ async Task OnYesButtonSH_Petco_AnbordDetail()
         bool NotValid = false;
     var e = _ContextFormTemplateSH_Petco_AnbordDetail.EditModel;
          //events
-         
+         NotValid = await GridSH_Petco_AnbordId_763_editmodelsaving(e);
 
         if (!NotValid)
          {
@@ -523,7 +750,7 @@ async Task ChangePageGrid_SH_Petco_AnbordDetail()
     var e = (Entity.SH_Petco_AnbordDetail)Grid_SH_Petco_AnbordDetail.GetDataItem(IndexGrid_SH_Petco_AnbordDetail);
     JsonData = await Utility.JSON.ToJson(e);
     await Task.Delay(300);
-    
+    await GridSH_Petco_AnbordId_763_afterrendermodal(e);
     StateHasChanged();
     }
     catch (Exception ex)
@@ -541,7 +768,7 @@ Grid_SH_Petco_AnbordDetail.StartEditNewRowAsync().GetAwaiter();
 var e = new Entity.SH_Petco_AnbordDetail();
 JsonData = await Utility.JSON.ToJson(e);
 await Task.Delay(300);
-
+await GridSH_Petco_AnbordId_763_afterrendermodal(e);
 }
 
 async Task StartModalGrid_SH_Petco_AnbordDetail(GridCommandColumnCellDisplayTemplateContext Context)
@@ -551,7 +778,7 @@ Grid_SH_Petco_AnbordDetail.StartEditRowAsync(Context.VisibleIndex).GetAwaiter();
 var e = (Entity.SH_Petco_AnbordDetail)Context.DataItem;
 JsonData = await Utility.JSON.ToJson(e);
 await Task.Delay(300);
-
+await GridSH_Petco_AnbordId_763_afterrendermodal(e);
    // await Task.Delay(500);
 }
 public async Task SaveModalGrid_SH_Petco_AnbordDetail(GridEditFormTemplateContext arg)
@@ -564,7 +791,7 @@ public async Task SaveModalGrid_SH_Petco_AnbordDetail(GridEditFormTemplateContex
     var e = arg.EditModel;
     bool NotValid = false;
     //events
-    
+    NotValid = await GridSH_Petco_AnbordId_763_editmodelsaving(e);
     if (!NotValid)
     {
         SaveGrid_SH_Petco_AnbordDetail(arg.DataItem, arg.EditModel);
@@ -586,7 +813,7 @@ public async Task SaveAndNewGrid_SH_Petco_AnbordDetail(GridEditFormTemplateConte
          var e = arg.EditModel;
           bool NotValid = false;
      //events
-    
+    NotValid = await GridSH_Petco_AnbordId_763_editmodelsaving(e);
     if (!NotValid)
     {
         SaveGrid_SH_Petco_AnbordDetail(arg.DataItem, arg.EditModel);
@@ -655,14 +882,16 @@ public void SaveGrid_SH_Petco_AnbordDetail(object DataItem, object EditModel)
     if (MainModel != null)
     {
 MainModel.ProductSearch = ((Entity.SH_Petco_AnbordDetail)EditModel).ProductSearch;
+MainModel.PARTCODE = ((Entity.SH_Petco_AnbordDetail)EditModel).PARTCODE;
 MainModel.ProductName = ((Entity.SH_Petco_AnbordDetail)EditModel).ProductName;
+MainModel.ProductUnit = ((Entity.SH_Petco_AnbordDetail)EditModel).ProductUnit;
 MainModel.ShomareFani = ((Entity.SH_Petco_AnbordDetail)EditModel).ShomareFani;
 MainModel.TECDESC = ((Entity.SH_Petco_AnbordDetail)EditModel).TECDESC;
-MainModel.ProductUnit = ((Entity.SH_Petco_AnbordDetail)EditModel).ProductUnit;
-MainModel.OKAMOUNT = ((Entity.SH_Petco_AnbordDetail)EditModel).OKAMOUNT;
 MainModel.ORDAMOUNT = ((Entity.SH_Petco_AnbordDetail)EditModel).ORDAMOUNT;
-MainModel.Year = ((Entity.SH_Petco_AnbordDetail)EditModel).Year;
+MainModel.OKAMOUNT = ((Entity.SH_Petco_AnbordDetail)EditModel).OKAMOUNT;
 MainModel.DESC1 = ((Entity.SH_Petco_AnbordDetail)EditModel).DESC1;
+MainModel.Year = ((Entity.SH_Petco_AnbordDetail)EditModel).Year;
+MainModel.RowId = ((Entity.SH_Petco_AnbordDetail)EditModel).RowId;
 
     }
     else
@@ -777,6 +1006,20 @@ public async void RowDubbleClickGrid_SH_Petco_AnbordDetail(GridRowClickEventArgs
 }
 }
 
+<Input Id="ApiResult" @ref="Ref_ApiResult" Label="ApiResult"     @bind-Value="_Entity.ApiResult" type="textarea"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+<Input Id="RequestID" @ref="Ref_RequestID"      @bind-Value="_Entity.RequestID" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+<Input Id="CreateUser" @ref="Ref_CreateUser"      @bind-Value="_Entity.CreateUser" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+<Input Id="UpdateUser" @ref="Ref_UpdateUser"      @bind-Value="_Entity.UpdateUser" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+<Input Id="CreateDate" @ref="Ref_CreateDate"   CssClass="d-none"   @bind-Value="_Entity.CreateDate" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+<Input Id="UpdateDate" @ref="Ref_UpdateDate"   CssClass="d-none"   @bind-Value="_Entity.UpdateDate" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+<Input Id="IsDelete" @ref="Ref_IsDelete"   CssClass="d-none"   @bind-Value="_Entity.IsDelete" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
     </EditForm>
 </div>
 
@@ -793,8 +1036,8 @@ public async void RowDubbleClickGrid_SH_Petco_AnbordDetail(GridRowClickEventArgs
     {
         Console.WriteLine("#log OnInitializedAsync");
 
-        TableGet = await Utility.JSON.ToObject<Table>("{\"Name\":\"SH_Petco_Anbord\",\"GetNameAs\":\"SH_Petco_Anbord\",\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"RequestID\",\"GetNameAs\":\"RequestID\"},{\"Name\":\"CreateUser\",\"GetNameAs\":\"CreateUser\"},{\"Name\":\"UpdateUser\",\"GetNameAs\":\"UpdateUser\"},{\"Name\":\"CreateDate\",\"GetNameAs\":\"CreateDate\"},{\"Name\":\"UpdateDate\",\"GetNameAs\":\"UpdateDate\"},{\"Name\":\"IsDelete\",\"GetNameAs\":\"IsDelete\"},{\"Name\":\"CENTCODE\",\"GetNameAs\":\"CENTCODE\"},{\"Name\":\"CREATOR\",\"GetNameAs\":\"CREATOR\"},{\"Name\":\"CLOSED\",\"GetNameAs\":\"CLOSED\"},{\"Name\":\"REQPERSON\",\"GetNameAs\":\"REQPERSON\"},{\"Name\":\"ORDERNO\",\"GetNameAs\":\"ORDERNO\"},{\"Name\":\"INVCODE\",\"GetNameAs\":\"INVCODE\"},{\"Name\":\"NDATE\",\"GetNameAs\":\"NDATE\"},{\"Name\":\"ORDERDATE\",\"GetNameAs\":\"ORDERDATE\"},{\"Name\":\"OKFACTDATE\",\"GetNameAs\":\"OKFACTDATE\"},{\"Name\":\"PSOURCE\",\"GetNameAs\":\"PSOURCE\"},{\"Name\":\"TEMPNO\",\"GetNameAs\":\"TEMPNO\"},{\"Name\":\"YEAR\",\"GetNameAs\":\"YEAR\"},{\"Name\":\"Description\",\"GetNameAs\":\"Description\"},{\"Name\":\"ApiResult\",\"GetNameAs\":\"ApiResult\"},{\"Name\":\"Anbord_List\",\"GetNameAs\":\"Anbord_List\"}],\"Relation\":[{\"Name\":\"CLOSEDNavigation\",\"GetNameAs\":\"CLOSEDNavigation\",\"ModeErtebat\":1,\"Column\":[{\"Name\":\"Title\",\"GetNameAs\":\"Title\"},{\"Name\":\"Code\",\"GetNameAs\":\"Code\"}],\"Relation\":[]},{\"Name\":\"SH_Petco_AnbordDetail\",\"GetNameAs\":\"SH_Petco_AnbordDetail\",\"ModeErtebat\":2,\"Column\":[{\"Name\":\"ProductSearch\",\"GetNameAs\":\"ProductSearch\"},{\"Name\":\"ProductName\",\"GetNameAs\":\"ProductName\"},{\"Name\":\"ShomareFani\",\"GetNameAs\":\"ShomareFani\"},{\"Name\":\"TECDESC\",\"GetNameAs\":\"TECDESC\"},{\"Name\":\"ProductUnit\",\"GetNameAs\":\"ProductUnit\"},{\"Name\":\"OKAMOUNT\",\"GetNameAs\":\"OKAMOUNT\"},{\"Name\":\"ORDAMOUNT\",\"GetNameAs\":\"ORDAMOUNT\"},{\"Name\":\"Year\",\"GetNameAs\":\"Year\"},{\"Name\":\"DESC1\",\"GetNameAs\":\"DESC1\"}],\"Relation\":[]}]}");
-        TablePost = await Utility.JSON.ToObject<Table>("{\"Name\":\"SH_Petco_Anbord\",\"GetNameAs\":\"SH_Petco_Anbord\",\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"RequestID\",\"GetNameAs\":\"RequestID\"},{\"Name\":\"CreateUser\",\"GetNameAs\":\"CreateUser\"},{\"Name\":\"UpdateUser\",\"GetNameAs\":\"UpdateUser\"},{\"Name\":\"CreateDate\",\"GetNameAs\":\"CreateDate\"},{\"Name\":\"UpdateDate\",\"GetNameAs\":\"UpdateDate\"},{\"Name\":\"IsDelete\",\"GetNameAs\":\"IsDelete\"},{\"Name\":\"CENTCODE\",\"GetNameAs\":\"CENTCODE\"},{\"Name\":\"CREATOR\",\"GetNameAs\":\"CREATOR\"},{\"Name\":\"CLOSED\",\"GetNameAs\":\"CLOSED\"},{\"Name\":\"REQPERSON\",\"GetNameAs\":\"REQPERSON\"},{\"Name\":\"ORDERNO\",\"GetNameAs\":\"ORDERNO\"},{\"Name\":\"INVCODE\",\"GetNameAs\":\"INVCODE\"},{\"Name\":\"NDATE\",\"GetNameAs\":\"NDATE\"},{\"Name\":\"ORDERDATE\",\"GetNameAs\":\"ORDERDATE\"},{\"Name\":\"OKFACTDATE\",\"GetNameAs\":\"OKFACTDATE\"},{\"Name\":\"PSOURCE\",\"GetNameAs\":\"PSOURCE\"},{\"Name\":\"TEMPNO\",\"GetNameAs\":\"TEMPNO\"},{\"Name\":\"YEAR\",\"GetNameAs\":\"YEAR\"},{\"Name\":\"Description\",\"GetNameAs\":\"Description\"},{\"Name\":\"ApiResult\",\"GetNameAs\":\"ApiResult\"},{\"Name\":\"Anbord_List\",\"GetNameAs\":\"Anbord_List\"}],\"Relation\":[{\"Name\":\"SH_Petco_AnbordDetail\",\"GetNameAs\":\"SH_Petco_AnbordDetail\",\"ModeErtebat\":2,\"Column\":[{\"Name\":\"ProductSearch\",\"GetNameAs\":\"ProductSearch\"},{\"Name\":\"ProductName\",\"GetNameAs\":\"ProductName\"},{\"Name\":\"ShomareFani\",\"GetNameAs\":\"ShomareFani\"},{\"Name\":\"TECDESC\",\"GetNameAs\":\"TECDESC\"},{\"Name\":\"ProductUnit\",\"GetNameAs\":\"ProductUnit\"},{\"Name\":\"OKAMOUNT\",\"GetNameAs\":\"OKAMOUNT\"},{\"Name\":\"ORDAMOUNT\",\"GetNameAs\":\"ORDAMOUNT\"},{\"Name\":\"Year\",\"GetNameAs\":\"Year\"},{\"Name\":\"DESC1\",\"GetNameAs\":\"DESC1\"}],\"Relation\":[]}]}");
+        TableGet = await Utility.JSON.ToObject<Table>("{\"Name\":\"SH_Petco_Anbord\",\"GetNameAs\":\"SH_Petco_Anbord\",\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"RequestID\",\"GetNameAs\":\"RequestID\"},{\"Name\":\"CreateUser\",\"GetNameAs\":\"CreateUser\"},{\"Name\":\"UpdateUser\",\"GetNameAs\":\"UpdateUser\"},{\"Name\":\"CreateDate\",\"GetNameAs\":\"CreateDate\"},{\"Name\":\"UpdateDate\",\"GetNameAs\":\"UpdateDate\"},{\"Name\":\"IsDelete\",\"GetNameAs\":\"IsDelete\"},{\"Name\":\"CENTCODE\",\"GetNameAs\":\"CENTCODE\"},{\"Name\":\"CREATOR\",\"GetNameAs\":\"CREATOR\"},{\"Name\":\"REQPERSON\",\"GetNameAs\":\"REQPERSON\"},{\"Name\":\"ORDERNO\",\"GetNameAs\":\"ORDERNO\"},{\"Name\":\"INVCODE\",\"GetNameAs\":\"INVCODE\"},{\"Name\":\"NDATE\",\"GetNameAs\":\"NDATE\"},{\"Name\":\"ORDERDATE\",\"GetNameAs\":\"ORDERDATE\"},{\"Name\":\"OKFACTDATE\",\"GetNameAs\":\"OKFACTDATE\"},{\"Name\":\"PSOURCE\",\"GetNameAs\":\"PSOURCE\"},{\"Name\":\"TEMPNO\",\"GetNameAs\":\"TEMPNO\"},{\"Name\":\"YEAR\",\"GetNameAs\":\"YEAR\"},{\"Name\":\"Description\",\"GetNameAs\":\"Description\"},{\"Name\":\"ApiResult\",\"GetNameAs\":\"ApiResult\"},{\"Name\":\"Anbord_List\",\"GetNameAs\":\"Anbord_List\"}],\"Relation\":[{\"Name\":\"CLOSEDNavigation\",\"GetNameAs\":\"CLOSEDNavigation\",\"ModeErtebat\":1,\"Column\":[{\"Name\":\"Title\",\"GetNameAs\":\"Title\"},{\"Name\":\"Code\",\"GetNameAs\":\"Code\"}],\"Relation\":[]},{\"Name\":\"SH_Petco_AnbordDetail\",\"GetNameAs\":\"SH_Petco_AnbordDetail\",\"ModeErtebat\":2,\"Column\":[{\"Name\":\"ProductSearch\",\"GetNameAs\":\"ProductSearch\"},{\"Name\":\"ProductName\",\"GetNameAs\":\"ProductName\"},{\"Name\":\"ShomareFani\",\"GetNameAs\":\"ShomareFani\"},{\"Name\":\"TECDESC\",\"GetNameAs\":\"TECDESC\"},{\"Name\":\"ProductUnit\",\"GetNameAs\":\"ProductUnit\"},{\"Name\":\"OKAMOUNT\",\"GetNameAs\":\"OKAMOUNT\"},{\"Name\":\"ORDAMOUNT\",\"GetNameAs\":\"ORDAMOUNT\"},{\"Name\":\"Year\",\"GetNameAs\":\"Year\"},{\"Name\":\"DESC1\",\"GetNameAs\":\"DESC1\"},{\"Name\":\"PARTCODE\",\"GetNameAs\":\"PARTCODE\"},{\"Name\":\"RowId\",\"GetNameAs\":\"RowId\"}],\"Relation\":[]}]}");
+        TablePost = await Utility.JSON.ToObject<Table>("{\"Name\":\"SH_Petco_Anbord\",\"GetNameAs\":\"SH_Petco_Anbord\",\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"RequestID\",\"GetNameAs\":\"RequestID\"},{\"Name\":\"CreateUser\",\"GetNameAs\":\"CreateUser\"},{\"Name\":\"UpdateUser\",\"GetNameAs\":\"UpdateUser\"},{\"Name\":\"CreateDate\",\"GetNameAs\":\"CreateDate\"},{\"Name\":\"UpdateDate\",\"GetNameAs\":\"UpdateDate\"},{\"Name\":\"IsDelete\",\"GetNameAs\":\"IsDelete\"},{\"Name\":\"CENTCODE\",\"GetNameAs\":\"CENTCODE\"},{\"Name\":\"CREATOR\",\"GetNameAs\":\"CREATOR\"},{\"Name\":\"REQPERSON\",\"GetNameAs\":\"REQPERSON\"},{\"Name\":\"ORDERNO\",\"GetNameAs\":\"ORDERNO\"},{\"Name\":\"INVCODE\",\"GetNameAs\":\"INVCODE\"},{\"Name\":\"NDATE\",\"GetNameAs\":\"NDATE\"},{\"Name\":\"ORDERDATE\",\"GetNameAs\":\"ORDERDATE\"},{\"Name\":\"OKFACTDATE\",\"GetNameAs\":\"OKFACTDATE\"},{\"Name\":\"PSOURCE\",\"GetNameAs\":\"PSOURCE\"},{\"Name\":\"TEMPNO\",\"GetNameAs\":\"TEMPNO\"},{\"Name\":\"YEAR\",\"GetNameAs\":\"YEAR\"},{\"Name\":\"Description\",\"GetNameAs\":\"Description\"},{\"Name\":\"ApiResult\",\"GetNameAs\":\"ApiResult\"},{\"Name\":\"Anbord_List\",\"GetNameAs\":\"Anbord_List\"}],\"Relation\":[{\"Name\":\"SH_Petco_AnbordDetail\",\"GetNameAs\":\"SH_Petco_AnbordDetail\",\"ModeErtebat\":2,\"Column\":[{\"Name\":\"ProductSearch\",\"GetNameAs\":\"ProductSearch\"},{\"Name\":\"ProductName\",\"GetNameAs\":\"ProductName\"},{\"Name\":\"ShomareFani\",\"GetNameAs\":\"ShomareFani\"},{\"Name\":\"TECDESC\",\"GetNameAs\":\"TECDESC\"},{\"Name\":\"ProductUnit\",\"GetNameAs\":\"ProductUnit\"},{\"Name\":\"OKAMOUNT\",\"GetNameAs\":\"OKAMOUNT\"},{\"Name\":\"ORDAMOUNT\",\"GetNameAs\":\"ORDAMOUNT\"},{\"Name\":\"Year\",\"GetNameAs\":\"Year\"},{\"Name\":\"DESC1\",\"GetNameAs\":\"DESC1\"},{\"Name\":\"PARTCODE\",\"GetNameAs\":\"PARTCODE\"},{\"Name\":\"RowId\",\"GetNameAs\":\"RowId\"}],\"Relation\":[]}]}");
 
         config = CKEditorBundleOptions.DefaultConfig.WithHtmlEditing();
         config.Language = "fa";
