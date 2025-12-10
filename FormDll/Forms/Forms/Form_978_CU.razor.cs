@@ -360,7 +360,26 @@ namespace Forms.Forms
             }
         }
 
-        #endregion FunctionEvents
+        public async Task  ProductSearch_onitemselected(dynamic Selected ,Entity.Shomaran_DepoOutDetail Item  )
+        {
+             /// <summary>
+            /// فیلدهای زیر فیلدهای اصلی برای نمایش در فرم هستند.
+            ///</summary>
+
+            //Console.WriteLine("start");
+            //  نام کالا
+            Item.ProductName = Selected.desc;
+            //Console.WriteLine(Selected.DESC);
+            //  نام دسته بندی فرعی
+            Item.shomarefani = Selected.partno;
+
+            // کد کالا
+            Item.PartCode = Selected.partcode;
+            //واحد کالا
+            Item.Unit = Selected.unit;
+        }
+
+		#endregion FunctionEvents
 
     }
 }

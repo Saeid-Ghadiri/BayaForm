@@ -107,13 +107,54 @@
   </header>
 
 </div>
+<div  class="">
+    <div>
+  &nbsp;
+</div>
+</div>
+
+<div class="bg-light">
+    
+<div class="row ">
+    
+<div class="col-md-5">
+    
+</div>
+
+<div class="col-md-7">
+    
+<div class="row ">
+    
+<div class="col-md-3">
+    
+<Input Id="Havno" @ref="Ref_Havno" Label="شماره ارسال کالا به سازنده"   Disabled=true  @bind-Value="_Entity.Havno" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
 
 </div>
 
 <div class="col-md-3">
     
-<Input Id="Havno" @ref="Ref_Havno" Label="شماره ارسال کالا به سازنده"     @bind-Value="_Entity.Havno" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
- 
+<Input Id="HAVDATE" @ref="Ref_HAVDATE" Label="تاریخ ارسال"  CssClass=" PersianDatePicker"   @bind-Value="_Entity.HAVDATE" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"data-jdp\":\"  \",\"data-jdp-only-date\":\"   \"}").Result))></Input>
+
+</div>
+
+<div class="col-md-3">
+    
+<Input Id="TempNo" @ref="Ref_TempNo" Label="عطف"     @bind-Value="_Entity.TempNo" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+</div>
+
+<div class="col-md-3">
+    
+<Input Id="Creator" @ref="Ref_Creator" Label="تنظیم کننده"   Disabled=true  @bind-Value="_Entity.Creator" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+</div>
+
+</div>
+
+<div class="row ">
+    
+<div class="col-md-4">
+     
  
 @code {
     Baya.Models.ViewEngine.View_Component Component_Shomaran_DepoOutProduct = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"EntityName\":\"ارسال کالا به سازنده (برون سپاری کالا)\",\"primaryKey\":false,\"EntityID\":718,\"FieldId\":30148,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":978,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":true,\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://shomaran.workcv.ir:2010/fa-ir/api/v1/View_product/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"inputFormat\":\"DropDown\",\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"code\",\"template\":\"<span>{{item.code}} {{item.title}} </span>\",\"FieldsTemplate\":[{\"key\":\"code\",\"value\":\"nvarchar(Max)\"},{\"key\":\"title\",\"value\":\"nvarchar(Max)\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"modal\":true,\"label\":\"تولیدی1 یا غیر تولیدی2\",\"tableView\":true,\"key\":\"Product\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"30148?EId=718&SubId=28\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
@@ -135,7 +176,23 @@
     
     }
 } 
- 
+
+</div>
+
+<div class="col-md-4">
+    
+</div>
+
+<div class="col-md-4">
+    
+</div>
+
+</div>
+
+<div class="row ">
+    
+<div class="col-md-8">
+     
  
 @code {
     Baya.Models.ViewEngine.View_Component Component_Shomaran_DepoOutReceipt = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"EntityName\":\"DepoOut\",\"primaryKey\":false,\"EntityID\":718,\"FieldId\":30149,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":978,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":true,\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://shomaran.workcv.ir:2010/fa-ir/api/v1/view_person/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"inputFormat\":\"DropDown\",\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"code\",\"template\":\"<span>{{item.code}} {{item.name}} {{item.HOMEADDR}} {{item.WORKADDR}} </span>\",\"FieldsTemplate\":[{\"key\":\"code\",\"value\":\"nvarchar(Max)\"},{\"key\":\"name\",\"value\":\"nvarchar(Max)\"},{\"key\":\"HOMEADDR\",\"value\":\"nvarchar(Max)\"},{\"key\":\"WORKADDR\",\"value\":\"nvarchar(Max)\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"searchField\":\"code,name\",\"modal\":true,\"label\":\"سازنده\",\"tableView\":true,\"key\":\"Receipt\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"30149?EId=718&SubId=28\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
@@ -158,41 +215,71 @@
     }
 } 
 
+</div>
+
+<div class="col-md-4">
+    
+</div>
+
+</div>
+
+<div class="row ">
+    
+<div class="col-md-6">
+    
 <Input Id="Note" @ref="Ref_Note" Label="توضیحات"     @bind-Value="_Entity.Note" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
 
 </div>
 
+<div class="col-md-6">
+    
+</div>
+
+</div>
+
+<div class="row ">
+    
 <div class="col-md-3">
     
-<Input Id="HAVDATE" @ref="Ref_HAVDATE" Label="تاریخ ارسال"  CssClass=" PersianDatePicker"   @bind-Value="_Entity.HAVDATE" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"data-jdp\":\"  \",\"data-jdp-only-date\":\"   \"}").Result))></Input>
+<Input Id="Year" @ref="Ref_Year" Label="سال"   Disabled=true  @bind-Value="_Entity.Year" type="number" ActiveSeperator=false    Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
 
 </div>
 
 <div class="col-md-3">
     
-<Input Id="TempNo" @ref="Ref_TempNo" Label="عطف"     @bind-Value="_Entity.TempNo" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
-
 </div>
 
 <div class="col-md-3">
     
-<Input Id="Creator" @ref="Ref_Creator" Label="تنظیم کننده"     @bind-Value="_Entity.Creator" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
-
-<Input Id="Year" @ref="Ref_Year" Label="سال"     @bind-Value="_Entity.Year" type="number" ActiveSeperator=false    Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
-
 </div>
 
-<div class="col-md-12">
-    <div  class="">
-    <div class="divider-with-icon my-4">
-  <span><i class="fas fa-industry"></i></span>
-</div>
+<div class="col-md-3">
+    
 </div>
 
 </div>
 
-<div class="col-md-12">
-    <label for="Shomaran_DepoOutDetail_GridShomaran_DepoOutId_723">DepoOutDetail
+</div>
+
+</div>
+
+</div>
+<div  class="">
+    <hr class="hrdash bg-red">
+</div>
+<div  class="">
+    <div id="resid_header" 
+     class="rounded rounded-1 border border-0 fs-6 fw-bold p-2 d-flex justify-content-center align-items-center"
+     style="background-color:#b38cff;">
+
+  <span class="text-black">
+    برون سپاری خرید خدمات
+  </span>
+
+</div>
+
+</div>
+<label for="Shomaran_DepoOutDetail_GridShomaran_DepoOutId_723">DepoOutDetail
    
     
 </label>
@@ -248,9 +335,7 @@
           
            </CellDisplayTemplate>
      </DxGridCommandColumn>
-    <DxGridDataColumn DisplayFormat="G" Caption="مقدار1"  FieldName="AMOUNT" />
-
-<DxGridDataColumn Context="InvCode_" Caption="کد انبار" >
+    <DxGridDataColumn Context="InvCode_" Caption="کد انبار" >
     <CellDisplayTemplate>
        
 @{
@@ -276,39 +361,19 @@
 
     </CellDisplayTemplate>
 </DxGridDataColumn>
-<DxGridDataColumn Context="PartCode_" Caption="کد کالای پشت سیستمی" >
-    <CellDisplayTemplate>
-       
-@{
-    Baya.Models.ViewEngine.View_Component HeaderPartCode = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"primaryKey\":false,\"EntityID\":723,\"FieldId\":30164,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":978,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":true,\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://shomaran.workcv.ir:2010/fa-ir/api/v1/view_cardpart/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"inputFormat\":\"DropDown\",\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"partcode\",\"template\":\"<span>{{item.desc}} {{item.partno}} {{item.partcode}} </span>\",\"FieldsTemplate\":[],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"searchField\":\"desc,partcode\",\"modal\":true,\"label\":\"کد کالای پشت سیستمی\",\"tableView\":true,\"key\":\"PartCode\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"30164?EId=723&SubId=28\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
-    var RowPartCode = ((Entity.Shomaran_DepoOutDetail)PartCode_.DataItem).PartCode;
-}
+<DxGridDataColumn  Caption="کد کالا"  FieldName="PartCode" />
 
-<Dropdown ExternalApi=true CssClass="" NotMapped=false TextGrid=true Value="@RowPartCode"   FieldName="PartCode" OnItemSelected="ItemSelected_Shomaran_DepoOutDetailPartCode_Header" Component="HeaderPartCode">
-</Dropdown>
-@code {
-    public async Task ItemSelected_Shomaran_DepoOutDetailPartCode_Header(object _Item)
-    {
-      //  var Selected = Utility.JSON.ToObject<dynamic>(Utility.JSON.ToJson(_Item).Result).Result;
-  //   PartCode
+<DxGridDataColumn DisplayFormat="G" Caption="مقدار1"  FieldName="AMOUNT" />
 
-  //  #CustomCode
-
- //   
-
-  //  #OnItemSelected
-    }
-}
-
-    </CellDisplayTemplate>
-</DxGridDataColumn>
 <DxGridDataColumn  Caption="ردیابی"  FieldName="Radyabi" />
 
 <DxGridDataColumn  Caption="سفارش"  FieldName="Sefaresh" />
 
-<DxGridDataColumn  Caption="ردیف"  FieldName="RowId" />
+<DxGridDataColumn  Caption="توضیحات"  FieldName="NoteD" />
 
 <DxGridDataColumn DisplayFormat="0" Caption="سال"  FieldName="Year" />
+
+<DxGridDataColumn  Caption="ردیف" Visible=false FieldName="RowId" />
 
 <DxGridDataColumn  Caption="Id" Visible=false FieldName="Id" />
 
@@ -324,7 +389,37 @@
 
 <DxGridDataColumn  Caption="IsDelete" Visible=false FieldName="IsDelete" />
 
-<DxGridDataColumn  Caption="توضیحات"  FieldName="NoteD" />
+<DxGridDataColumn Context="ProductSearch_" Caption="جستجو کالا" >
+    <CellDisplayTemplate>
+       
+@{
+    Baya.Models.ViewEngine.View_Component HeaderProductSearch = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"primaryKey\":false,\"EntityID\":723,\"FieldId\":31242,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":978,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":true,\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://shomaran.workcv.ir:2010/fa-ir/api/v1/view_parts/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"partcode\",\"template\":\"<span>{{item.partcode}} {{item.partno}} {{item.desc}} {{item.unit}} </span>\",\"FieldsTemplate\":[{\"key\":\"partcode\",\"value\":\"nvarchar(Max)\"},{\"key\":\"partno\",\"value\":\"nvarchar(Max)\"},{\"key\":\"desc\",\"value\":\"nvarchar(Max)\"},{\"key\":\"unit\",\"value\":\"nvarchar(Max)\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"searchField\":\"partcode,partno,desc\",\"modal\":true,\"label\":\"جستجو کالا\",\"tableView\":true,\"key\":\"ProductSearch\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"31242?EId=723&SubId=28\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true,\"onitemselected\":\"ProductSearch_onitemselected\"}").Result;
+    var RowProductSearch = ((Entity.Shomaran_DepoOutDetail)ProductSearch_.DataItem).ProductSearch;
+}
+
+<Dropdown ExternalApi=true CssClass="" NotMapped=false TextGrid=true Value="@RowProductSearch"   FieldName="ProductSearch" OnItemSelected="ItemSelected_Shomaran_DepoOutDetailProductSearch_Header" Component="HeaderProductSearch">
+</Dropdown>
+@code {
+    public async Task ItemSelected_Shomaran_DepoOutDetailProductSearch_Header(object _Item)
+    {
+      //  var Selected = Utility.JSON.ToObject<dynamic>(Utility.JSON.ToJson(_Item).Result).Result;
+  //   ProductSearch
+
+  //  #CustomCode
+
+ //   
+
+  //  #OnItemSelected
+    }
+}
+
+    </CellDisplayTemplate>
+</DxGridDataColumn>
+<DxGridDataColumn  Caption="شماره فنی"  FieldName="shomarefani" />
+
+<DxGridDataColumn  Caption="نام کالا"  FieldName="ProductName" />
+
+<DxGridDataColumn  Caption="واحد"  FieldName="Unit" />
 
 
 </Columns>
@@ -335,12 +430,6 @@
     }
     <DxFormLayout>
         <DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextShomaran_DepoOutDetail">
-    
-<Input Id="Shomaran_DepoOutDetail_AMOUNT" @ref="Ref_Shomaran_DepoOutDetail_AMOUNT" Label="مقدار1"     @bind-Value="Shomaran_DepoOutDetail.AMOUNT" type="number"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"step\":\"any\"}").Result))></Input>
-
-</DxFormLayoutItem>
-
-<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextShomaran_DepoOutDetail">
      
  
 @code {
@@ -367,28 +456,14 @@
 </DxFormLayoutItem>
 
 <DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextShomaran_DepoOutDetail">
-     
- 
-@code {
-    Baya.Models.ViewEngine.View_Component Component_Shomaran_DepoOutDetailPartCode = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"primaryKey\":false,\"EntityID\":723,\"FieldId\":30164,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":978,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":true,\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://shomaran.workcv.ir:2010/fa-ir/api/v1/view_cardpart/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"inputFormat\":\"DropDown\",\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"partcode\",\"template\":\"<span>{{item.desc}} {{item.partno}} {{item.partcode}} </span>\",\"FieldsTemplate\":[],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"searchField\":\"desc,partcode\",\"modal\":true,\"label\":\"کد کالای پشت سیستمی\",\"tableView\":true,\"key\":\"PartCode\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"30164?EId=723&SubId=28\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
-}
-
-    <Dropdown Id=Shomaran_DepoOutDetail_PartCode  @ref="Ref_Shomaran_DepoOutDetail_PartCode" Label="کد کالای پشت سیستمی" CssClass=""  DisplayFormat="DropDown" ExternalApi=true NotMapped=false TextGrid=false  Value="@Shomaran_DepoOutDetail.PartCode" FieldName="PartCode" OnItemSelected="ItemSelected_Shomaran_DepoOutDetailPartCode" Component="Component_Shomaran_DepoOutDetailPartCode" _Entity="_Entity" _EntityRow=Shomaran_DepoOutDetail>
-</Dropdown>
-@code {
-    public async Task ItemSelected_Shomaran_DepoOutDetailPartCode(object _Item)
-    {
-        var Selected = Utility.JSON.ToObject<dynamic>(Utility.JSON.ToJson(_Item).Result).Result;
-     var Item = Shomaran_DepoOutDetail;
-
-    Item.PartCode = Selected.partcode;
-
-
     
+<Input Id="Shomaran_DepoOutDetail_PartCode" @ref="Ref_Shomaran_DepoOutDetail_PartCode" Label="کد کالا"   Disabled=true  @bind-Value="Shomaran_DepoOutDetail.PartCode" type="textarea"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
 
+</DxFormLayoutItem>
+
+<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextShomaran_DepoOutDetail">
     
-    }
-} 
+<Input Id="Shomaran_DepoOutDetail_AMOUNT" @ref="Ref_Shomaran_DepoOutDetail_AMOUNT" Label="مقدار1"     @bind-Value="Shomaran_DepoOutDetail.AMOUNT" type="number"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"step\":\"any\"}").Result))></Input>
 
 </DxFormLayoutItem>
 
@@ -406,13 +481,19 @@
 
 <DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextShomaran_DepoOutDetail">
     
-<Input Id="Shomaran_DepoOutDetail_RowId" @ref="Ref_Shomaran_DepoOutDetail_RowId" Label="ردیف"     @bind-Value="Shomaran_DepoOutDetail.RowId" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+<Input Id="Shomaran_DepoOutDetail_NoteD" @ref="Ref_Shomaran_DepoOutDetail_NoteD" Label="توضیحات"     @bind-Value="Shomaran_DepoOutDetail.NoteD" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
 
 </DxFormLayoutItem>
 
 <DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextShomaran_DepoOutDetail">
     
-<Input Id="Shomaran_DepoOutDetail_Year" @ref="Ref_Shomaran_DepoOutDetail_Year" Label="سال"     @bind-Value="Shomaran_DepoOutDetail.Year" type="number"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+<Input Id="Shomaran_DepoOutDetail_Year" @ref="Ref_Shomaran_DepoOutDetail_Year" Label="سال"   Disabled=true  @bind-Value="Shomaran_DepoOutDetail.Year" type="number"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+</DxFormLayoutItem>
+
+<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextShomaran_DepoOutDetail">
+    
+<Input Id="Shomaran_DepoOutDetail_RowId" @ref="Ref_Shomaran_DepoOutDetail_RowId" Label="ردیف"  CssClass="d-none" Disabled=true  @bind-Value="Shomaran_DepoOutDetail.RowId" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
 
 </DxFormLayoutItem>
 
@@ -459,8 +540,46 @@
 </DxFormLayoutItem>
 
 <DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextShomaran_DepoOutDetail">
+     
+ 
+@code {
+    Baya.Models.ViewEngine.View_Component Component_Shomaran_DepoOutDetailProductSearch = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"primaryKey\":false,\"EntityID\":723,\"FieldId\":31242,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":978,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":true,\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://shomaran.workcv.ir:2010/fa-ir/api/v1/view_parts/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"partcode\",\"template\":\"<span>{{item.partcode}} {{item.partno}} {{item.desc}} {{item.unit}} </span>\",\"FieldsTemplate\":[{\"key\":\"partcode\",\"value\":\"nvarchar(Max)\"},{\"key\":\"partno\",\"value\":\"nvarchar(Max)\"},{\"key\":\"desc\",\"value\":\"nvarchar(Max)\"},{\"key\":\"unit\",\"value\":\"nvarchar(Max)\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"searchField\":\"partcode,partno,desc\",\"modal\":true,\"label\":\"جستجو کالا\",\"tableView\":true,\"key\":\"ProductSearch\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"31242?EId=723&SubId=28\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true,\"onitemselected\":\"ProductSearch_onitemselected\"}").Result;
+}
+
+    <Dropdown Id=Shomaran_DepoOutDetail_ProductSearch  @ref="Ref_Shomaran_DepoOutDetail_ProductSearch" Label="جستجو کالا" CssClass=""  DisplayFormat="DropDown" ExternalApi=true NotMapped=false TextGrid=false  Value="@Shomaran_DepoOutDetail.ProductSearch" FieldName="ProductSearch" OnItemSelected="ItemSelected_Shomaran_DepoOutDetailProductSearch" Component="Component_Shomaran_DepoOutDetailProductSearch" _Entity="_Entity" _EntityRow=Shomaran_DepoOutDetail>
+</Dropdown>
+@code {
+    public async Task ItemSelected_Shomaran_DepoOutDetailProductSearch(object _Item)
+    {
+        var Selected = Utility.JSON.ToObject<dynamic>(Utility.JSON.ToJson(_Item).Result).Result;
+     var Item = Shomaran_DepoOutDetail;
+
+    Item.ProductSearch = Selected.partcode;
+
+
     
-<Input Id="Shomaran_DepoOutDetail_NoteD" @ref="Ref_Shomaran_DepoOutDetail_NoteD" Label="توضیحات"     @bind-Value="Shomaran_DepoOutDetail.NoteD" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+    await ProductSearch_onitemselected( Selected , Shomaran_DepoOutDetail);
+    }
+} 
+
+</DxFormLayoutItem>
+
+<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextShomaran_DepoOutDetail">
+    
+<Input Id="Shomaran_DepoOutDetail_shomarefani" @ref="Ref_Shomaran_DepoOutDetail_shomarefani" Label="شماره فنی"   Disabled=true  @bind-Value="Shomaran_DepoOutDetail.shomarefani" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+</DxFormLayoutItem>
+
+<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextShomaran_DepoOutDetail">
+    
+<Input Id="Shomaran_DepoOutDetail_ProductName" @ref="Ref_Shomaran_DepoOutDetail_ProductName" Label="نام کالا"   Disabled=true  @bind-Value="Shomaran_DepoOutDetail.ProductName" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+</DxFormLayoutItem>
+
+<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextShomaran_DepoOutDetail">
+    
+<Input Id="Shomaran_DepoOutDetail_Unit" @ref="Ref_Shomaran_DepoOutDetail_Unit" Label="واحد"   Disabled=true  @bind-Value="Shomaran_DepoOutDetail.Unit" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
 
 </DxFormLayoutItem>
 
@@ -749,13 +868,14 @@ public void SaveGrid_Shomaran_DepoOutDetail(object DataItem, object EditModel)
     var MainModel = (Entity.Shomaran_DepoOutDetail)DataItem;
     if (MainModel != null)
     {
-MainModel.AMOUNT = ((Entity.Shomaran_DepoOutDetail)EditModel).AMOUNT;
 MainModel.InvCode = ((Entity.Shomaran_DepoOutDetail)EditModel).InvCode;
 MainModel.PartCode = ((Entity.Shomaran_DepoOutDetail)EditModel).PartCode;
+MainModel.AMOUNT = ((Entity.Shomaran_DepoOutDetail)EditModel).AMOUNT;
 MainModel.Radyabi = ((Entity.Shomaran_DepoOutDetail)EditModel).Radyabi;
 MainModel.Sefaresh = ((Entity.Shomaran_DepoOutDetail)EditModel).Sefaresh;
-MainModel.RowId = ((Entity.Shomaran_DepoOutDetail)EditModel).RowId;
+MainModel.NoteD = ((Entity.Shomaran_DepoOutDetail)EditModel).NoteD;
 MainModel.Year = ((Entity.Shomaran_DepoOutDetail)EditModel).Year;
+MainModel.RowId = ((Entity.Shomaran_DepoOutDetail)EditModel).RowId;
 MainModel.Id = ((Entity.Shomaran_DepoOutDetail)EditModel).Id;
 MainModel.RequestID = ((Entity.Shomaran_DepoOutDetail)EditModel).RequestID;
 MainModel.CreateUser = ((Entity.Shomaran_DepoOutDetail)EditModel).CreateUser;
@@ -763,7 +883,10 @@ MainModel.UpdateUser = ((Entity.Shomaran_DepoOutDetail)EditModel).UpdateUser;
 MainModel.CreateDate = ((Entity.Shomaran_DepoOutDetail)EditModel).CreateDate;
 MainModel.UpdateDate = ((Entity.Shomaran_DepoOutDetail)EditModel).UpdateDate;
 MainModel.IsDelete = ((Entity.Shomaran_DepoOutDetail)EditModel).IsDelete;
-MainModel.NoteD = ((Entity.Shomaran_DepoOutDetail)EditModel).NoteD;
+MainModel.ProductSearch = ((Entity.Shomaran_DepoOutDetail)EditModel).ProductSearch;
+MainModel.shomarefani = ((Entity.Shomaran_DepoOutDetail)EditModel).shomarefani;
+MainModel.ProductName = ((Entity.Shomaran_DepoOutDetail)EditModel).ProductName;
+MainModel.Unit = ((Entity.Shomaran_DepoOutDetail)EditModel).Unit;
 
     }
     else
@@ -878,6 +1001,32 @@ public async void RowDubbleClickGrid_Shomaran_DepoOutDetail(GridRowClickEventArg
 }
 }
 
+<Input Id="ApiResult" @ref="Ref_ApiResult" Label="ApiResult"     @bind-Value="_Entity.ApiResult" type="textarea"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+</div>
+
+<div class="col-md-3">
+    
+</div>
+
+<div class="col-md-3">
+    
+</div>
+
+<div class="col-md-3">
+    
+</div>
+
+<div class="col-md-3">
+    
+</div>
+
+<div class="col-md-12">
+    
+</div>
+
+<div class="col-md-12">
+    
 </div>
 
 </div>
@@ -896,8 +1045,6 @@ public async void RowDubbleClickGrid_Shomaran_DepoOutDetail(GridRowClickEventArg
 
 <Input Id="IsDelete" @ref="Ref_IsDelete"   CssClass="d-none"   @bind-Value="_Entity.IsDelete" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
 
-<Input Id="ApiResult" @ref="Ref_ApiResult" Label="ApiResult"     @bind-Value="_Entity.ApiResult" type="textarea"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
-
     </EditForm>
 </div>
 
@@ -914,8 +1061,8 @@ public async void RowDubbleClickGrid_Shomaran_DepoOutDetail(GridRowClickEventArg
     {
         Console.WriteLine("#log OnInitializedAsync");
 
-        TableGet = await Utility.JSON.ToObject<Table>("{\"Name\":\"Shomaran_DepoOut\",\"GetNameAs\":\"Shomaran_DepoOut\",\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"RequestID\",\"GetNameAs\":\"RequestID\"},{\"Name\":\"CreateUser\",\"GetNameAs\":\"CreateUser\"},{\"Name\":\"UpdateUser\",\"GetNameAs\":\"UpdateUser\"},{\"Name\":\"CreateDate\",\"GetNameAs\":\"CreateDate\"},{\"Name\":\"UpdateDate\",\"GetNameAs\":\"UpdateDate\"},{\"Name\":\"IsDelete\",\"GetNameAs\":\"IsDelete\"},{\"Name\":\"Havno\",\"GetNameAs\":\"Havno\"},{\"Name\":\"HAVDATE\",\"GetNameAs\":\"HAVDATE\"},{\"Name\":\"Product\",\"GetNameAs\":\"Product\"},{\"Name\":\"Receipt\",\"GetNameAs\":\"Receipt\"},{\"Name\":\"TempNo\",\"GetNameAs\":\"TempNo\"},{\"Name\":\"Year\",\"GetNameAs\":\"Year\"},{\"Name\":\"Note\",\"GetNameAs\":\"Note\"},{\"Name\":\"ApiResult\",\"GetNameAs\":\"ApiResult\"},{\"Name\":\"Creator\",\"GetNameAs\":\"Creator\"}],\"Relation\":[{\"Name\":\"Shomaran_DepoOutDetail\",\"GetNameAs\":\"Shomaran_DepoOutDetail\",\"ModeErtebat\":2,\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"RequestID\",\"GetNameAs\":\"RequestID\"},{\"Name\":\"CreateUser\",\"GetNameAs\":\"CreateUser\"},{\"Name\":\"UpdateUser\",\"GetNameAs\":\"UpdateUser\"},{\"Name\":\"CreateDate\",\"GetNameAs\":\"CreateDate\"},{\"Name\":\"UpdateDate\",\"GetNameAs\":\"UpdateDate\"},{\"Name\":\"IsDelete\",\"GetNameAs\":\"IsDelete\"},{\"Name\":\"AMOUNT\",\"GetNameAs\":\"AMOUNT\"},{\"Name\":\"InvCode\",\"GetNameAs\":\"InvCode\"},{\"Name\":\"PartCode\",\"GetNameAs\":\"PartCode\"},{\"Name\":\"Radyabi\",\"GetNameAs\":\"Radyabi\"},{\"Name\":\"Sefaresh\",\"GetNameAs\":\"Sefaresh\"},{\"Name\":\"RowId\",\"GetNameAs\":\"RowId\"},{\"Name\":\"Year\",\"GetNameAs\":\"Year\"},{\"Name\":\"NoteD\",\"GetNameAs\":\"NoteD\"}],\"Relation\":[]}]}");
-        TablePost = await Utility.JSON.ToObject<Table>("{\"Name\":\"Shomaran_DepoOut\",\"GetNameAs\":\"Shomaran_DepoOut\",\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"RequestID\",\"GetNameAs\":\"RequestID\"},{\"Name\":\"CreateUser\",\"GetNameAs\":\"CreateUser\"},{\"Name\":\"UpdateUser\",\"GetNameAs\":\"UpdateUser\"},{\"Name\":\"CreateDate\",\"GetNameAs\":\"CreateDate\"},{\"Name\":\"UpdateDate\",\"GetNameAs\":\"UpdateDate\"},{\"Name\":\"IsDelete\",\"GetNameAs\":\"IsDelete\"},{\"Name\":\"Havno\",\"GetNameAs\":\"Havno\"},{\"Name\":\"HAVDATE\",\"GetNameAs\":\"HAVDATE\"},{\"Name\":\"Product\",\"GetNameAs\":\"Product\"},{\"Name\":\"Receipt\",\"GetNameAs\":\"Receipt\"},{\"Name\":\"TempNo\",\"GetNameAs\":\"TempNo\"},{\"Name\":\"Year\",\"GetNameAs\":\"Year\"},{\"Name\":\"Note\",\"GetNameAs\":\"Note\"},{\"Name\":\"ApiResult\",\"GetNameAs\":\"ApiResult\"},{\"Name\":\"Creator\",\"GetNameAs\":\"Creator\"}],\"Relation\":[{\"Name\":\"Shomaran_DepoOutDetail\",\"GetNameAs\":\"Shomaran_DepoOutDetail\",\"ModeErtebat\":2,\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"RequestID\",\"GetNameAs\":\"RequestID\"},{\"Name\":\"CreateUser\",\"GetNameAs\":\"CreateUser\"},{\"Name\":\"UpdateUser\",\"GetNameAs\":\"UpdateUser\"},{\"Name\":\"CreateDate\",\"GetNameAs\":\"CreateDate\"},{\"Name\":\"UpdateDate\",\"GetNameAs\":\"UpdateDate\"},{\"Name\":\"IsDelete\",\"GetNameAs\":\"IsDelete\"},{\"Name\":\"AMOUNT\",\"GetNameAs\":\"AMOUNT\"},{\"Name\":\"InvCode\",\"GetNameAs\":\"InvCode\"},{\"Name\":\"PartCode\",\"GetNameAs\":\"PartCode\"},{\"Name\":\"Radyabi\",\"GetNameAs\":\"Radyabi\"},{\"Name\":\"Sefaresh\",\"GetNameAs\":\"Sefaresh\"},{\"Name\":\"RowId\",\"GetNameAs\":\"RowId\"},{\"Name\":\"Year\",\"GetNameAs\":\"Year\"},{\"Name\":\"NoteD\",\"GetNameAs\":\"NoteD\"}],\"Relation\":[]}]}");
+        TableGet = await Utility.JSON.ToObject<Table>("{\"Name\":\"Shomaran_DepoOut\",\"GetNameAs\":\"Shomaran_DepoOut\",\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"RequestID\",\"GetNameAs\":\"RequestID\"},{\"Name\":\"CreateUser\",\"GetNameAs\":\"CreateUser\"},{\"Name\":\"UpdateUser\",\"GetNameAs\":\"UpdateUser\"},{\"Name\":\"CreateDate\",\"GetNameAs\":\"CreateDate\"},{\"Name\":\"UpdateDate\",\"GetNameAs\":\"UpdateDate\"},{\"Name\":\"IsDelete\",\"GetNameAs\":\"IsDelete\"},{\"Name\":\"Havno\",\"GetNameAs\":\"Havno\"},{\"Name\":\"HAVDATE\",\"GetNameAs\":\"HAVDATE\"},{\"Name\":\"Product\",\"GetNameAs\":\"Product\"},{\"Name\":\"Receipt\",\"GetNameAs\":\"Receipt\"},{\"Name\":\"TempNo\",\"GetNameAs\":\"TempNo\"},{\"Name\":\"Year\",\"GetNameAs\":\"Year\"},{\"Name\":\"Note\",\"GetNameAs\":\"Note\"},{\"Name\":\"ApiResult\",\"GetNameAs\":\"ApiResult\"},{\"Name\":\"Creator\",\"GetNameAs\":\"Creator\"}],\"Relation\":[{\"Name\":\"Shomaran_DepoOutDetail\",\"GetNameAs\":\"Shomaran_DepoOutDetail\",\"ModeErtebat\":2,\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"RequestID\",\"GetNameAs\":\"RequestID\"},{\"Name\":\"CreateUser\",\"GetNameAs\":\"CreateUser\"},{\"Name\":\"UpdateUser\",\"GetNameAs\":\"UpdateUser\"},{\"Name\":\"CreateDate\",\"GetNameAs\":\"CreateDate\"},{\"Name\":\"UpdateDate\",\"GetNameAs\":\"UpdateDate\"},{\"Name\":\"IsDelete\",\"GetNameAs\":\"IsDelete\"},{\"Name\":\"AMOUNT\",\"GetNameAs\":\"AMOUNT\"},{\"Name\":\"InvCode\",\"GetNameAs\":\"InvCode\"},{\"Name\":\"PartCode\",\"GetNameAs\":\"PartCode\"},{\"Name\":\"Radyabi\",\"GetNameAs\":\"Radyabi\"},{\"Name\":\"Sefaresh\",\"GetNameAs\":\"Sefaresh\"},{\"Name\":\"RowId\",\"GetNameAs\":\"RowId\"},{\"Name\":\"Year\",\"GetNameAs\":\"Year\"},{\"Name\":\"NoteD\",\"GetNameAs\":\"NoteD\"},{\"Name\":\"ProductSearch\",\"GetNameAs\":\"ProductSearch\"},{\"Name\":\"shomarefani\",\"GetNameAs\":\"shomarefani\"},{\"Name\":\"ProductName\",\"GetNameAs\":\"ProductName\"},{\"Name\":\"Unit\",\"GetNameAs\":\"Unit\"}],\"Relation\":[]}]}");
+        TablePost = await Utility.JSON.ToObject<Table>("{\"Name\":\"Shomaran_DepoOut\",\"GetNameAs\":\"Shomaran_DepoOut\",\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"RequestID\",\"GetNameAs\":\"RequestID\"},{\"Name\":\"CreateUser\",\"GetNameAs\":\"CreateUser\"},{\"Name\":\"UpdateUser\",\"GetNameAs\":\"UpdateUser\"},{\"Name\":\"CreateDate\",\"GetNameAs\":\"CreateDate\"},{\"Name\":\"UpdateDate\",\"GetNameAs\":\"UpdateDate\"},{\"Name\":\"IsDelete\",\"GetNameAs\":\"IsDelete\"},{\"Name\":\"Havno\",\"GetNameAs\":\"Havno\"},{\"Name\":\"HAVDATE\",\"GetNameAs\":\"HAVDATE\"},{\"Name\":\"Product\",\"GetNameAs\":\"Product\"},{\"Name\":\"Receipt\",\"GetNameAs\":\"Receipt\"},{\"Name\":\"TempNo\",\"GetNameAs\":\"TempNo\"},{\"Name\":\"Year\",\"GetNameAs\":\"Year\"},{\"Name\":\"Note\",\"GetNameAs\":\"Note\"},{\"Name\":\"ApiResult\",\"GetNameAs\":\"ApiResult\"},{\"Name\":\"Creator\",\"GetNameAs\":\"Creator\"}],\"Relation\":[{\"Name\":\"Shomaran_DepoOutDetail\",\"GetNameAs\":\"Shomaran_DepoOutDetail\",\"ModeErtebat\":2,\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"RequestID\",\"GetNameAs\":\"RequestID\"},{\"Name\":\"CreateUser\",\"GetNameAs\":\"CreateUser\"},{\"Name\":\"UpdateUser\",\"GetNameAs\":\"UpdateUser\"},{\"Name\":\"CreateDate\",\"GetNameAs\":\"CreateDate\"},{\"Name\":\"UpdateDate\",\"GetNameAs\":\"UpdateDate\"},{\"Name\":\"IsDelete\",\"GetNameAs\":\"IsDelete\"},{\"Name\":\"AMOUNT\",\"GetNameAs\":\"AMOUNT\"},{\"Name\":\"InvCode\",\"GetNameAs\":\"InvCode\"},{\"Name\":\"PartCode\",\"GetNameAs\":\"PartCode\"},{\"Name\":\"Radyabi\",\"GetNameAs\":\"Radyabi\"},{\"Name\":\"Sefaresh\",\"GetNameAs\":\"Sefaresh\"},{\"Name\":\"RowId\",\"GetNameAs\":\"RowId\"},{\"Name\":\"Year\",\"GetNameAs\":\"Year\"},{\"Name\":\"NoteD\",\"GetNameAs\":\"NoteD\"},{\"Name\":\"ProductSearch\",\"GetNameAs\":\"ProductSearch\"},{\"Name\":\"shomarefani\",\"GetNameAs\":\"shomarefani\"},{\"Name\":\"ProductName\",\"GetNameAs\":\"ProductName\"},{\"Name\":\"Unit\",\"GetNameAs\":\"Unit\"}],\"Relation\":[]}]}");
 
         config = CKEditorBundleOptions.DefaultConfig.WithHtmlEditing();
         config.Language = "fa";
