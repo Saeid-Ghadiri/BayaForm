@@ -244,11 +244,11 @@
 </DxGridDataColumn>
 <DxGridDataColumn DisplayFormat="0" Caption="درصد جانبازی"  FieldName="VeteranPercentage" />
 
-<DxGridDataColumn DisplayFormat="0" Caption="تاریخ تولد - روز"  FieldName="BirthDateDD" />
+<DxGridDataColumn DisplayFormat="0" Caption="روز تاریخ تولد"  FieldName="BirthDateDD" />
 
-<DxGridDataColumn DisplayFormat="0" Caption="تاریخ تولد - ماه"  FieldName="BirthDateMM" />
+<DxGridDataColumn DisplayFormat="0" Caption="ماه تاریخ تولد"  FieldName="BirthDateMM" />
 
-<DxGridDataColumn DisplayFormat="0" Caption="تاریخ تولد - سال"  FieldName="BirthDateYYYY" />
+<DxGridDataColumn DisplayFormat="0" Caption="سال تاریخ تولد"  FieldName="BirthDateYYYY" />
 
 <DxGridDataColumn DisplayFormat="0" Caption="مدت اسارت-روز"  FieldName="Captivity_Days" />
 
@@ -282,11 +282,11 @@
 
     </CellDisplayTemplate>
 </DxGridDataColumn>
-<DxGridDataColumn Context="HR_EMP_EmployeesId_" Caption="کد کارمندی" >
+<DxGridDataColumn Context="HR_EMP_EmployeesId_" Caption="شناسه اطلاعات کارمند" >
     <CellDisplayTemplate>
        
 @{
-    Baya.Models.ViewEngine.View_Component HeaderHR_EMP_EmployeesId = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"primaryKey\":false,\"EntityID\":382,\"FieldId\":15596,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":678,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":false,\"RelationParentName\":\"HR_EMP_Employees\",\"RelationParentModel\":\"HR_EMP_Employees\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/HR_EMP_Employees/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.EmployeeNo}} {{item.LastName}} {{item.FirstName}} </span>\",\"FieldsTemplate\":[{\"key\":\"EmployeeNo\",\"value\":\"int\"},{\"key\":\"LastName\",\"value\":\"int\"},{\"key\":\"FirstName\",\"value\":\"int\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"searchField\":\"\",\"disabled\":false,\"modal\":true,\"label\":\"کد کارمندی\",\"tableView\":true,\"key\":\"HR_EMP_EmployeesId\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"15596?EId=382&SubId=15\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
+    Baya.Models.ViewEngine.View_Component HeaderHR_EMP_EmployeesId = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"primaryKey\":false,\"EntityID\":382,\"FieldId\":15596,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":678,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":false,\"RelationParentName\":\"HR_EMP_Employees\",\"RelationParentModel\":\"HR_EMP_Employees\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/HR_EMP_Employees/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.EmployeeNo}} {{item.FirstName}} {{item.LastName}} </span>\",\"FieldsTemplate\":[{\"key\":\"EmployeeNo\",\"value\":\"int\"},{\"key\":\"LastName\",\"value\":\"int\"},{\"key\":\"FirstName\",\"value\":\"int\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"searchField\":\"EmployeeNo,FirstName,LastName\",\"disabled\":false,\"modal\":true,\"label\":\"شناسه اطلاعات کارمند\",\"tableView\":true,\"key\":\"HR_EMP_EmployeesId\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"15596?EId=382&SubId=15\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
     var RowHR_EMP_EmployeesId = ((Entity.HR_EMP_EmployeeInfos)HR_EMP_EmployeesId_.DataItem).HR_EMP_EmployeesId;
 }
 
@@ -430,7 +430,7 @@
 
 <DxGridDataColumn  Caption="تاریخ استخدام در گروه - میلادی"  FieldName="EmploymentDateInGroup" />
 
-<DxGridDataColumn  Caption="تاریخ استخدام مبنا - میلادی"  FieldName="EmploymentStartDate" />
+<DxGridDataColumn  Caption="تاریخ آخرین تسویه حساب - میلادی"  FieldName="EmploymentStartDate" />
 
 <DxGridDataColumn Context="HR_Base_RelativeSelfSacerificId_" Caption="نسبت با ایثارگر" >
     <CellDisplayTemplate>
@@ -518,7 +518,7 @@
 
 <DxGridDataColumn  Caption="تاریخ استخدام در گروه"  FieldName="EmploymentDateInGroup_Fa" />
 
-<DxGridDataColumn  Caption="تاریخ استخدام مبنا"  FieldName="EmploymentStartDate_Fa" />
+<DxGridDataColumn  Caption="تاریخ آخرین تسویه حساب"  FieldName="EmploymentStartDate_Fa" />
 
 <DxGridDataColumn DisplayFormat="G" Caption="تاریخ استخدام (به روز):"  FieldName="DailyEmploymentDate" />
 

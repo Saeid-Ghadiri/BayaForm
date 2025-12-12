@@ -58,10 +58,10 @@
      
  
 @code {
-    Baya.Models.ViewEngine.View_Component Component_HR_EMP_EmployeeInfosHR_EMP_EmployeesId = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"EntityName\":\"اطلاعات کارمندان\",\"primaryKey\":false,\"EntityID\":382,\"FieldId\":15596,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":678,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":false,\"RelationParentName\":\"HR_EMP_Employees\",\"RelationParentModel\":\"HR_EMP_Employees\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/HR_EMP_Employees/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.EmployeeNo}} {{item.LastName}} {{item.FirstName}} </span>\",\"FieldsTemplate\":[{\"key\":\"EmployeeNo\",\"value\":\"int\"},{\"key\":\"LastName\",\"value\":\"int\"},{\"key\":\"FirstName\",\"value\":\"int\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"searchField\":\"\",\"disabled\":false,\"modal\":true,\"label\":\"کد کارمندی\",\"tableView\":true,\"key\":\"HR_EMP_EmployeesId\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"15596?EId=382&SubId=15\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true,\"onitemselected\":\"HR_EMP_EmployeesId_onitemselected\"}").Result;
+    Baya.Models.ViewEngine.View_Component Component_HR_EMP_EmployeeInfosHR_EMP_EmployeesId = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"EntityName\":\"اطلاعات کارمندان\",\"primaryKey\":false,\"EntityID\":382,\"FieldId\":15596,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":678,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":false,\"RelationParentName\":\"HR_EMP_Employees\",\"RelationParentModel\":\"HR_EMP_Employees\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/HR_EMP_Employees/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.EmployeeNo}} {{item.FirstName}} {{item.LastName}} </span>\",\"FieldsTemplate\":[{\"key\":\"EmployeeNo\",\"value\":\"int\"},{\"key\":\"LastName\",\"value\":\"int\"},{\"key\":\"FirstName\",\"value\":\"int\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"searchField\":\"EmployeeNo,FirstName,LastName\",\"disabled\":false,\"modal\":true,\"label\":\"شناسه اطلاعات کارمند\",\"tableView\":true,\"key\":\"HR_EMP_EmployeesId\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"15596?EId=382&SubId=15\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true,\"onitemselected\":\"HR_EMP_EmployeesId_onitemselected\"}").Result;
 }
 
-    <Dropdown Id=HR_EMP_EmployeesId  @ref="Ref_HR_EMP_EmployeesId" Label="کد کارمندی" CssClass=""  DisplayFormat="DropDown" ExternalApi=false NotMapped=false TextGrid=false Text="" Value="@_Entity.HR_EMP_EmployeesId" FieldName="HR_EMP_EmployeesId" OnItemSelected="ItemSelected_HR_EMP_EmployeeInfosHR_EMP_EmployeesId" Component="Component_HR_EMP_EmployeeInfosHR_EMP_EmployeesId" _Entity="_Entity" >
+    <Dropdown Id=HR_EMP_EmployeesId  @ref="Ref_HR_EMP_EmployeesId" Label="شناسه اطلاعات کارمند" CssClass=""  DisplayFormat="DropDown" ExternalApi=false NotMapped=false TextGrid=false Text="" Value="@_Entity.HR_EMP_EmployeesId" FieldName="HR_EMP_EmployeesId" OnItemSelected="ItemSelected_HR_EMP_EmployeeInfosHR_EMP_EmployeesId" Component="Component_HR_EMP_EmployeeInfosHR_EMP_EmployeesId" _Entity="_Entity" >
 </Dropdown>
 @code {
     public async Task ItemSelected_HR_EMP_EmployeeInfosHR_EMP_EmployeesId(object _Item)
@@ -182,19 +182,19 @@
 
 <div class="col-md-2">
     
-<Input Id="BirthDateYYYY" @ref="Ref_BirthDateYYYY" Label="تاریخ تولد - سال"     @bind-Value="_Entity.BirthDateYYYY" type="number"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"maxlength\":\"4\"}").Result))></Input>
+<Input Id="BirthDateYYYY" @ref="Ref_BirthDateYYYY" Label="سال تاریخ تولد"     @bind-Value="_Entity.BirthDateYYYY" type="number"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"maxlength\":\"4\"}").Result))></Input>
 
 </div>
 
 <div class="col-md-2">
     
-<Input Id="BirthDateMM" @ref="Ref_BirthDateMM" Label="تاریخ تولد - ماه"     @bind-Value="_Entity.BirthDateMM" type="number"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"maxlength\":\"2\"}").Result))></Input>
+<Input Id="BirthDateMM" @ref="Ref_BirthDateMM" Label="ماه تاریخ تولد"     @bind-Value="_Entity.BirthDateMM" type="number"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"maxlength\":\"2\"}").Result))></Input>
 
 </div>
 
 <div class="col-md-2">
     
-<Input Id="BirthDateDD" @ref="Ref_BirthDateDD" Label="تاریخ تولد - روز"     @bind-Value="_Entity.BirthDateDD" type="number"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"maxlength\":\"2\"}").Result))></Input>
+<Input Id="BirthDateDD" @ref="Ref_BirthDateDD" Label="روز تاریخ تولد"     @bind-Value="_Entity.BirthDateDD" type="number"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"maxlength\":\"2\"}").Result))></Input>
 
 </div>
 
@@ -676,7 +676,7 @@
 
 <div class="col-md-3">
     
-<Input Id="EmploymentStartDate" @ref="Ref_EmploymentStartDate" Label="تاریخ استخدام مبنا - میلادی"  CssClass=" PersianDatePicker" Disabled=true  @bind-Value="_Entity.EmploymentStartDate" type="datetime-local"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"data-jdp\":\"  \",\"data-jdp-only-date\":\"   \"}").Result))></Input>
+<Input Id="EmploymentStartDate" @ref="Ref_EmploymentStartDate" Label="تاریخ آخرین تسویه حساب - میلادی"  CssClass=" PersianDatePicker" Disabled=true  @bind-Value="_Entity.EmploymentStartDate" type="datetime-local"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"data-jdp\":\"  \",\"data-jdp-only-date\":\"   \"}").Result))></Input>
 
 </div>
 
@@ -761,7 +761,7 @@
 
 <Input Id="EmploymentDateInGroup_Fa" @ref="Ref_EmploymentDateInGroup_Fa" Label="تاریخ استخدام در گروه"  CssClass=" PersianDatePicker"   @bind-Value="_Entity.EmploymentDateInGroup_Fa" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"data-jdp\":\"  \",\"data-jdp-only-date\":\"   \"}").Result))></Input>
 
-<Input Id="EmploymentStartDate_Fa" @ref="Ref_EmploymentStartDate_Fa" Label="تاریخ استخدام مبنا"  CssClass=" PersianDatePicker"   @bind-Value="_Entity.EmploymentStartDate_Fa" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"data-jdp\":\"  \",\"data-jdp-only-date\":\"   \"}").Result))></Input>
+<Input Id="EmploymentStartDate_Fa" @ref="Ref_EmploymentStartDate_Fa" Label="تاریخ آخرین تسویه حساب"  CssClass=" PersianDatePicker"   @bind-Value="_Entity.EmploymentStartDate_Fa" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"data-jdp\":\"  \",\"data-jdp-only-date\":\"   \"}").Result))></Input>
 
 <Input Id="DailyEmploymentDate" @ref="Ref_DailyEmploymentDate" Label="تاریخ استخدام (به روز):"   Disabled=true  @bind-Value="_Entity.DailyEmploymentDate" type="number"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"step\":\"any\"}").Result))></Input>
 
