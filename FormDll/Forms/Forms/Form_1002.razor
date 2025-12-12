@@ -141,7 +141,7 @@ purple_bg {
 /* ************************************************** */
 .input-ymd input {
     display: inline-block;
-    max-width: 100%;
+    max-width: 120px !important;
     background: none !important;
     border: none;
     color: #6c5ffc;
@@ -151,6 +151,17 @@ purple_bg {
 }
 
 /* ************************************************** */
+.input-string input {
+    display: inline-block;
+    max-width: 140px !important;
+    background: none !important;
+    border: none;
+    color: #3928f3;
+    text-align: end;
+    font-size: 18px;
+    font-weight: 700;
+}
+
 /* ************************************************** */
 .Col_bg1 {
     border: 1px dashed rgb(255, 208, 139);
@@ -180,25 +191,30 @@ purple_bg {
 
 /* ************************************************** */
 
-/* ************************************************** */
 /* هدر بخش گرید فرم */
 .form-section-header {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-  background: linear-gradient(90deg, rgba(255, 255, 255, 0.15), rgba(17, 0, 201, 0.371));
-  color: #000437;
-  padding: 0.4rem 0.8rem;
-  border-radius: 0.5rem;
-  font-weight: 600;
-  font-size: 0.95rem;
-  margin-bottom: 0.75rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: linear-gradient(90deg, rgba(255, 255, 255, 0.15), rgba(17, 0, 201, 0.371));
+    color: #000437;
+    padding: 0.4rem 0.8rem;
+    border-radius: 0.5rem;
+    font-weight: 600;
+    font-size: 0.95rem;
+    margin-bottom: 0.75rem;
 }
 
 /*  آیکون هدر گرید فرم */
 .form-section-header i {
-  font-size: 1.1rem;
-  color: #50738e8a;
+    font-size: 1.1rem;
+    color: #50738e8a;
+}
+
+/* ************************************************** */
+
+.dxbl-grid-table .html-visible {
+    display: none !important;
 }
 
 /* ************************************************** */
@@ -295,6 +311,32 @@ purple_bg {
 
 <DxGridDataColumn  Caption="IsDelete" Visible=false FieldName="IsDelete" />
 
+<DxGridDataColumn Context="HR_EMP_EmployeesId_" Caption="اطلاعات کارمند" >
+    <CellDisplayTemplate>
+       
+@{
+    Baya.Models.ViewEngine.View_Component HeaderHR_EMP_EmployeesId = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"primaryKey\":false,\"EntityID\":440,\"FieldId\":30515,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":1002,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":true,\"RelationParentName\":\"HR_EMP_Employees\",\"RelationParentModel\":\"HR_EMP_Employees\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/HR_EMP_Employees_EmployeeInfos/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.EmployeeNo}} {{item.FirstName}} {{item.LastName}} {{item.BaseInfo_ORG_CompaniesTitle}} </span>\",\"FieldsTemplate\":[{\"key\":\"FirstName\",\"value\":\"nvarchar(Max)\"},{\"key\":\"LastName\",\"value\":\"nvarchar(Max)\"},{\"key\":\"EmployeeNo\",\"value\":\"nvarchar(Max)\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"searchField\":\"FirstName,LastName,EmployeeNo\",\"modal\":true,\"label\":\"اطلاعات کارمند\",\"tableView\":true,\"key\":\"HR_EMP_EmployeesId\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"30515?EId=440&SubId=15\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
+    var RowHR_EMP_EmployeesId = ((Entity.HR_CVR_VerdictRecruiting)HR_EMP_EmployeesId_.DataItem).HR_EMP_EmployeesId;
+}
+
+<Dropdown ExternalApi=true CssClass="" NotMapped=false TextGrid=true Value="@RowHR_EMP_EmployeesId"   FieldName="HR_EMP_EmployeesId" OnItemSelected="ItemSelected_HR_CVR_VerdictRecruitingHR_EMP_EmployeesId_Header" Component="HeaderHR_EMP_EmployeesId">
+</Dropdown>
+@code {
+    public async Task ItemSelected_HR_CVR_VerdictRecruitingHR_EMP_EmployeesId_Header(object _Item)
+    {
+      //  var Selected = Utility.JSON.ToObject<dynamic>(Utility.JSON.ToJson(_Item).Result).Result;
+  //   HR_EMP_EmployeesId
+
+  //  #CustomCode
+
+ //   
+
+  //  #OnItemSelected
+    }
+}
+
+    </CellDisplayTemplate>
+</DxGridDataColumn>
 <DxGridDataColumn Context="HR_CVR_PersonnelContractId_" Caption="اطلاعات قرارداد کارمند" >
     <CellDisplayTemplate>
        
@@ -609,32 +651,6 @@ purple_bg {
 
     </CellDisplayTemplate>
 </DxGridDataColumn>
-<DxGridDataColumn Context="HR_EMP_EmployeesId_" Caption="اطلاعات کارمند" >
-    <CellDisplayTemplate>
-       
-@{
-    Baya.Models.ViewEngine.View_Component HeaderHR_EMP_EmployeesId = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"primaryKey\":false,\"EntityID\":440,\"FieldId\":30515,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":1002,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":false,\"RelationParentName\":\"HR_EMP_Employees\",\"RelationParentModel\":\"HR_EMP_Employees\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/HR_EMP_Employees/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.FirstName}} {{item.LastName}} {{item.EmployeeNo}} </span>\",\"FieldsTemplate\":[{\"key\":\"FirstName\",\"value\":\"nvarchar(Max)\"},{\"key\":\"LastName\",\"value\":\"nvarchar(Max)\"},{\"key\":\"EmployeeNo\",\"value\":\"nvarchar(Max)\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"searchField\":\"FirstName,LastName,EmployeeNo\",\"modal\":true,\"label\":\"اطلاعات کارمند\",\"tableView\":true,\"key\":\"HR_EMP_EmployeesId\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"30515?EId=440&SubId=15\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
-    var RowHR_EMP_EmployeesId = ((Entity.HR_CVR_VerdictRecruiting)HR_EMP_EmployeesId_.DataItem).HR_EMP_EmployeesId;
-}
-
-<Dropdown ExternalApi=false CssClass="" NotMapped=false TextGrid=true Value="@RowHR_EMP_EmployeesId"   FieldName="HR_EMP_EmployeesId" OnItemSelected="ItemSelected_HR_CVR_VerdictRecruitingHR_EMP_EmployeesId_Header" Component="HeaderHR_EMP_EmployeesId">
-</Dropdown>
-@code {
-    public async Task ItemSelected_HR_CVR_VerdictRecruitingHR_EMP_EmployeesId_Header(object _Item)
-    {
-      //  var Selected = Utility.JSON.ToObject<dynamic>(Utility.JSON.ToJson(_Item).Result).Result;
-  //   HR_EMP_EmployeesId
-
-  //  #CustomCode
-
- //   
-
-  //  #OnItemSelected
-    }
-}
-
-    </CellDisplayTemplate>
-</DxGridDataColumn>
 
 </Columns>
 
@@ -914,6 +930,7 @@ MainModel.UpdateUser = ((Entity.HR_CVR_VerdictRecruiting)EditModel).UpdateUser;
 MainModel.CreateDate = ((Entity.HR_CVR_VerdictRecruiting)EditModel).CreateDate;
 MainModel.UpdateDate = ((Entity.HR_CVR_VerdictRecruiting)EditModel).UpdateDate;
 MainModel.IsDelete = ((Entity.HR_CVR_VerdictRecruiting)EditModel).IsDelete;
+MainModel.HR_EMP_EmployeesId = ((Entity.HR_CVR_VerdictRecruiting)EditModel).HR_EMP_EmployeesId;
 MainModel.HR_CVR_PersonnelContractId = ((Entity.HR_CVR_VerdictRecruiting)EditModel).HR_CVR_PersonnelContractId;
 MainModel.HR_CVR_TypesRulingsId = ((Entity.HR_CVR_VerdictRecruiting)EditModel).HR_CVR_TypesRulingsId;
 MainModel.HR_CVR_TypesRulings = ((Entity.HR_CVR_VerdictRecruiting)EditModel).HR_CVR_TypesRulings;
@@ -941,8 +958,6 @@ MainModel.HR_Base_InsuranceTypes = ((Entity.HR_CVR_VerdictRecruiting)EditModel).
 MainModel.ExecutionDateSentence_Fa = ((Entity.HR_CVR_VerdictRecruiting)EditModel).ExecutionDateSentence_Fa;
 MainModel.HR_CVR_JobGroupId = ((Entity.HR_CVR_VerdictRecruiting)EditModel).HR_CVR_JobGroupId;
 MainModel.HR_CVR_JobGroup = ((Entity.HR_CVR_VerdictRecruiting)EditModel).HR_CVR_JobGroup;
-MainModel.HR_EMP_EmployeesId = ((Entity.HR_CVR_VerdictRecruiting)EditModel).HR_EMP_EmployeesId;
-MainModel.HR_EMP_Employees = ((Entity.HR_CVR_VerdictRecruiting)EditModel).HR_EMP_Employees;
 
     }
     else

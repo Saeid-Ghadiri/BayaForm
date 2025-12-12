@@ -180,8 +180,6 @@
     
 <Input Id="FACTOR" @ref="Ref_FACTOR" Label="عطف رسید"     @bind-Value="_Entity.FACTOR" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"maxlength\":\"11\"}").Result))></Input>
 
-<Input Id="ORDERYEAR" @ref="Ref_ORDERYEAR" Label="سال درخواست خرید"     @bind-Value="_Entity.ORDERYEAR" type="number"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
-
 </div>
 
 </div>
@@ -304,7 +302,7 @@
 
 </div>
 
-<div class="">
+<div class="col_bg1 px-2">
      
  
 @code {
@@ -328,7 +326,7 @@
     }
 } 
 
-<div class="row ">
+<div class="row col_bg1 px-2">
     
 <div class="col-md-6">
     
@@ -342,11 +340,11 @@
 
 </div>
 
-<div class="row ">
+<div class="row col_bg1 px-2">
     
 <div class="col-md-3">
     
-<Input Id="YEAR" @ref="Ref_YEAR" Label="سال"     @bind-Value="_Entity.YEAR" type="number"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+<Input Id="YEAR" @ref="Ref_YEAR" Label="سال"   Disabled=true  @bind-Value="_Entity.YEAR" type="number"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
 
 </div>
 
@@ -360,6 +358,8 @@
 
 <div class="col-md-3">
     
+<Input Id="ORDERYEAR" @ref="Ref_ORDERYEAR" Label="سال درخواست خرید"     @bind-Value="_Entity.ORDERYEAR" type="number"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
 </div>
 
 </div>
@@ -672,7 +672,7 @@
 
 <DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextSH_PolFilm_FactBuyDetail">
     
-<Input Id="SH_PolFilm_FactBuyDetail_YEAR" @ref="Ref_SH_PolFilm_FactBuyDetail_YEAR" Label="سال"  CssClass="Gcol-sm-8 Gcol-md-6 Gcol-lg-2 "   @bind-Value="SH_PolFilm_FactBuyDetail.YEAR" type="number" ActiveSeperator=false    Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+<Input Id="SH_PolFilm_FactBuyDetail_YEAR" @ref="Ref_SH_PolFilm_FactBuyDetail_YEAR" Label="سال"  CssClass="Gcol-sm-8 Gcol-md-6 Gcol-lg-2 " Disabled=true  @bind-Value="SH_PolFilm_FactBuyDetail.YEAR" type="number" ActiveSeperator=false    Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
 
 </DxFormLayoutItem>
 

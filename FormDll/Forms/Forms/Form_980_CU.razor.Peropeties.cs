@@ -144,7 +144,7 @@ namespace Forms.Forms
     /// <summary>
     ///  ورژنی که فرم باهاش ساخته شده
     /// </summary>
-    public string? VersionForm { get; set; } = "5162";
+    public string? VersionForm { get; set; } = "5209";
 
     /// <summary>
     ///  موجودیت
@@ -186,7 +186,7 @@ public Input<string?> Ref_Creator;
 public Dropdown Ref_SInvCode;
 public Input<string?> Ref_TempNo;
 public Dropdown Ref_TInvCode;
-public Input<string?> Ref_Note;
+public Input<string?> Ref_TDesc;
 public Input<int?> Ref_Year;
 public DxGrid? Grid_Shomaran_TransDetail;
 
@@ -199,6 +199,7 @@ public Input<string?> Ref_Shomaran_TransDetail_Unit;
 public Input<string?> Ref_Shomaran_TransDetail_Note;
 public Input<string?> Ref_Shomaran_TransDetail_Sefaresh;
 public Input<string?> Ref_Shomaran_TransDetail_Radyabi;
+public Input<int?> Ref_Shomaran_TransDetail_Year;
 public Input<Guid> Ref_Shomaran_TransDetail_Id;
 public Input<Guid?> Ref_Shomaran_TransDetail_RequestID;
 public Input<Guid?> Ref_Shomaran_TransDetail_CreateUser;
@@ -206,7 +207,6 @@ public Input<Guid?> Ref_Shomaran_TransDetail_UpdateUser;
 public Input<DateTime?> Ref_Shomaran_TransDetail_CreateDate;
 public Input<DateTime?> Ref_Shomaran_TransDetail_UpdateDate;
 public Input<bool?> Ref_Shomaran_TransDetail_IsDelete;
-public Input<int?> Ref_Shomaran_TransDetail_Year;
 public Input<string?> Ref_Shomaran_TransDetail_RowOrder;
 public Input<string?> Ref_ApiResult;
 public Input<Guid> Ref_Id;

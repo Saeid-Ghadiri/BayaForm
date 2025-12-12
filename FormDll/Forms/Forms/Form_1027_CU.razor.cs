@@ -206,7 +206,7 @@ namespace Forms.Forms
 
                 Console.WriteLine("#Log depoOutData ::" + await JSON.ToJson(transData));
 
-                var data = await ApiServer.External.Services.ShomaranPetco.CreateTrans(ShomaranApiMode.Petco, transData);
+                var data = await ApiServer.External.Services.ShomaranPart.CreateTrans(ShomaranApiMode.Petco, transData);
 
 
                 Console.WriteLine("#Log End ::");
@@ -259,7 +259,7 @@ namespace Forms.Forms
                 //    Year = Convert.ToInt32(_Entity.Year),
                 //};
 
-                //var data = await ApiServer.External.Services.ShomaranPetco.UpdateTrans(ShomaranApiMode.Petco, transData);
+                //var data = await ApiServer.External.Services.ShomaranPart.UpdateTrans(ShomaranApiMode.Petco, transData);
 
                 //if (data.Status == HttpStatusCode.OK)
                 //{
@@ -278,7 +278,7 @@ namespace Forms.Forms
 
         public async Task<bool> GridSH_Petco_TransId_773_editmodelsaving(object e)
         {
-            var Item = (Entity.Shomaran_TransDetail)e;
+            var Item = (Entity.SH_Petco_TransDetail)e;
 
             if (!Item._IdIsEmpty.Value)
             {
@@ -303,7 +303,7 @@ namespace Forms.Forms
                     Year = Convert.ToInt32(_Entity.Year),
                 };
 
-                var data = await ApiServer.External.Services.ShomaranPart.UpdateTrans(ShomaranApiMode.Polfilm, transData);
+                var data = await ApiServer.External.Services.ShomaranPart.UpdateTrans(ShomaranApiMode.Petco, transData);
 
                 if (data.Status == HttpStatusCode.OK)
                 {
@@ -359,105 +359,6 @@ namespace Forms.Forms
         }
 
         #endregion FunctionEvents
-
-    }
-}
-
-namespace ApiServer.External.Services
-{
-    public partial class ShomaranPetco
-    {
-
-        public static async Task<Result> CreateTrans(ShomaranApiMode ApiMode, TransInput trans)
-        {
-            // Serialize the entire havaleData object into a JSON string
-            var DataJson = await JSON.ToJson(trans);
-
-            string shomaranApi = "";
-            switch (ApiMode)
-            {
-                case ShomaranApiMode.Polfilm:
-                    shomaranApi = "https://shomaran.workcv.ir:2010/{0}/api/v1/";
-                    break;
-                case ShomaranApiMode.Petco:
-                    shomaranApi = "https://shomaranpetcoorm.workcv.ir/{0}/api/v1/";
-                    break;
-                case ShomaranApiMode.Pelat:
-                    shomaranApi = "https://shomaranatlascellorm.workcv.ir/{0}/api/v1";
-                    break;
-                default:
-                    // Handle cases where the ApiMode is not recognized
-                    break;
-            }
-
-            var _content = new StringContent(DataJson, Encoding.UTF8, "application/json");
-
-            // Note: You may need to change the API endpoint "ShomaranHavale/InsertHavale"
-            // to match the correct one for creating a "Havale".
-            Result apiresult = await Send.PostAsync(_content, "ShomaranPetco/InsertTrans", shomaranApi, ApplicationType.None);
-
-            return apiresult;
-        }
-
-        public static async Task<Result> UpdateTrans(ShomaranApiMode ApiMode, TransUpdateInput trans)
-        {
-            // Serialize the entire havaleData object into a JSON string
-            var DataJson = await JSON.ToJson(trans);
-
-            string shomaranApi = "";
-            switch (ApiMode)
-            {
-                case ShomaranApiMode.Polfilm:
-                    shomaranApi = "https://shomaran.workcv.ir:2010/{0}/api/v1/";
-                    break;
-                case ShomaranApiMode.Petco:
-                    shomaranApi = "https://shomaranpetcoorm.workcv.ir/{0}/api/v1/";
-                    break;
-                case ShomaranApiMode.Pelat:
-                    shomaranApi = "https://shomaranatlascellorm.workcv.ir/{0}/api/v1";
-                    break;
-                default:
-                    // Handle cases where the ApiMode is not recognized
-                    break;
-            }
-
-            var _content = new StringContent(DataJson, Encoding.UTF8, "application/json");
-
-            // Note: You may need to change the API endpoint "ShomaranHavale/UpdateHavale"
-            // to match the correct one for creating a "Havale".
-            Result apiresult = await Send.PostAsync(_content, "ShomaranPetco/UpadteTrans", shomaranApi, ApplicationType.None);
-
-            return apiresult;
-        }
-
-
-        public static async Task<Result> DeleteTrans(ShomaranApiMode ApiMode, string factno, int year)
-        {
-            var DataJson = await JSON.ToJson(new
-            {
-                factno,
-                year
-            });
-            string shomaranApi = "";
-            switch (ApiMode)
-            {
-                case ShomaranApiMode.Polfilm:
-                    shomaranApi = "https://shomaran.workcv.ir:2010/{0}/api/v1/"; //https://api.workcv.ir/{0}/api/v1/
-                    break;
-                case ShomaranApiMode.Petco:
-                    shomaranApi = "https://shomaranpetcoorm.workcv.ir/{0}/api/v1/";
-                    break;
-                case ShomaranApiMode.Pelat:
-                    shomaranApi = "https://shomaranatlascellorm.workcv.ir/{0}/api/v1";
-                    break;
-                default:
-                    break;
-            }
-            var _content = new StringContent(DataJson, Encoding.UTF8, "application/json");
-            Result apiresult = await Send.PostAsync(_content, $"ShomaranPetco/DeleteTrans/{factno}/{year}", shomaranApi, ApplicationType.None);
-            return apiresult;
-        }
-
 
     }
 }

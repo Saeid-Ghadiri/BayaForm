@@ -13,7 +13,85 @@
 @using Forms.Domain.Utility
 @using Castle.DynamicLinqQueryBuilder
 <style>
-    
+    /* ************************************************** */
+.detailArea form div:not(.devdrop) {
+    margin-top: .1rem;
+}
+
+/* ************************************************** */
+.header-form {
+    height: 100px;
+    background: linear-gradient(96deg, #0d3b66, #6a0dad);
+    color: white;
+    border-bottom: 2px solid #ffffff33;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.25);
+    border-radius: 10px;
+    transition: all 0.3s ease-in-out;
+}
+
+.header-icon {
+    font-size: 56px;
+    color: #ffccff;
+    transition: transform 0.3s ease, color 0.3s ease;
+}
+
+.header-icon:hover {
+    transform: scale(1.1) rotate(-5deg);
+    color: #f5baff;
+}
+
+.header-title {
+    font-size: 25px;
+    font-weight: bold;
+    transition: color 0.3s ease;
+}
+
+.header-subtitle {
+    font-size: 14px;
+    opacity: 0.95;
+    transition: opacity 0.3s ease;
+}
+
+.header-text:hover .header-title {
+    color: #ffe0ff;
+}
+
+.header-text:hover .header-subtitle {
+    opacity: 1;
+}
+
+/* ********** */
+
+.col_bg1 {
+    border: 1px dashed rgba(99, 100, 102, 0.3);
+    background-color: rgba(189, 193, 196, 0.488);
+    border-radius: 0.5rem;
+    padding: 0.5rem;
+    margin: 1rem 0.1rem !important;
+    /*align-items: baseline;*/
+}
+
+.col_bg1:hover {
+    /* background-color: rgba(255, 193, 7, 0.03);
+  border-color: rgba(255, 193, 7, 0.5);*/
+}
+
+
+.col_bg {
+    /* border: 1px dashed rgba(88, 89, 104, 0.5);*/
+    /* طوسی خط‌چین */
+    background: #DEDED1;
+    /* background-color: #DEDED1; */
+    /* طوسی خیلی روشن */
+    border-radius: 0.5rem;
+    padding: 0.5rem;
+    margin: 1rem 0.1rem !important;
+}
+
+/* حذف کامل هاور */
+.col_bg:hover {
+    /* خالی بماند تا هیچ تغییری نکند */
+}
 </style>
 
 <Plugins.Tools.ConfirmDialog @ref="Confirm" />
@@ -56,10 +134,10 @@
      
  
 @code {
-    Baya.Models.ViewEngine.View_Component Component_SH_Petco_TransTrans_List = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"EntityName\":\"انتقال بین انبارها\",\"primaryKey\":false,\"EntityID\":772,\"FieldId\":31211,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":1027,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":true,\"RelationParentName\":\"\",\"RelationParentModel\":\"\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://shomaran.workcv.ir:2010/fa-ir/api/v1/view_transdtl/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"TEMPNO\",\"template\":\"<span>{{item.factno}} {{item.TEMPNO}} {{item.factdate}} {{item.SINVNAME}} {{item.TINVNAME}} </span>\",\"FieldsTemplate\":[{\"key\":\"factno\",\"value\":\"nvarchar(Max)\"},{\"key\":\"TEMPNO\",\"value\":\"nvarchar(Max)\"},{\"key\":\"factdate\",\"value\":\"nvarchar(Max)\"},{\"key\":\"SINVNAME\",\"value\":\"nvarchar(Max)\"},{\"key\":\"TINVNAME\",\"value\":\"nvarchar(Max)\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"searchField\":\"TEMPNO,factno\",\"disabled\":false,\"modal\":true,\"label\":\"فهرست انتقال بین انبارها\",\"tableView\":true,\"key\":\"Trans_List\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"31211?EId=772&SubId=33\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
+    Baya.Models.ViewEngine.View_Component Component_SH_Petco_TransTrans_List = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"EntityName\":\"انتقال بین انبارها\",\"primaryKey\":false,\"EntityID\":772,\"FieldId\":31211,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":1027,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":true,\"RelationParentName\":\"\",\"RelationParentModel\":\"\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://shomaran.workcv.ir:2010/fa-ir/api/v1/view_transdtl/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"inputFormat\":\"DataGrid\",\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"TEMPNO\",\"template\":\"<span>{{item.factno}} {{item.TEMPNO}} {{item.factdate}} {{item.SINVNAME}} {{item.TINVNAME}} </span>\",\"FieldsTemplate\":[{\"key\":\"factno\",\"value\":\"nvarchar(Max)\"},{\"key\":\"TEMPNO\",\"value\":\"nvarchar(Max)\"},{\"key\":\"factdate\",\"value\":\"nvarchar(Max)\"},{\"key\":\"SINVNAME\",\"value\":\"nvarchar(Max)\"},{\"key\":\"TINVNAME\",\"value\":\"nvarchar(Max)\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"searchField\":\"TEMPNO,factno\",\"disabled\":false,\"modal\":true,\"label\":\"فهرست انتقال بین انبارها\",\"tableView\":true,\"key\":\"Trans_List\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"31211?EId=772&SubId=33\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
 }
 
-    <Dropdown Id=Trans_List  @ref="Ref_Trans_List" Label="فهرست انتقال بین انبارها" CssClass=""  DisplayFormat="DropDown" ExternalApi=true NotMapped=false TextGrid=false  Value="@_Entity.Trans_List" FieldName="Trans_List" OnItemSelected="ItemSelected_SH_Petco_TransTrans_List" Component="Component_SH_Petco_TransTrans_List" _Entity="_Entity" >
+    <Dropdown Id=Trans_List  @ref="Ref_Trans_List" Label="فهرست انتقال بین انبارها" CssClass=""  DisplayFormat="DataGrid" ExternalApi=true NotMapped=false TextGrid=false  Value="@_Entity.Trans_List" FieldName="Trans_List" OnItemSelected="ItemSelected_SH_Petco_TransTrans_List" Component="Component_SH_Petco_TransTrans_List" _Entity="_Entity" >
 </Dropdown>
 @code {
     public async Task ItemSelected_SH_Petco_TransTrans_List(object _Item)
@@ -80,11 +158,11 @@
 
 <div class="col-md-6">
     
-<div class="row ">
+<div class="row col_bg1 px-2">
     
 <div class="col-md-4">
     
-<Input Id="FactNo" @ref="Ref_FactNo" Label="شماره"     @bind-Value="_Entity.FactNo" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+<Input Id="FactNo" @ref="Ref_FactNo" Label="شماره"   Disabled=true  @bind-Value="_Entity.FactNo" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
 
 </div>
 
@@ -96,13 +174,13 @@
 
 <div class="col-md-4">
     
-<Input Id="Creator" @ref="Ref_Creator" Label="تنظیم کننده"     @bind-Value="_Entity.Creator" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+<Input Id="Creator" @ref="Ref_Creator" Label="تنظیم کننده"   Disabled=true  @bind-Value="_Entity.Creator" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
 
 </div>
 
 </div>
 
-<div class="row ">
+<div class="row col_bg1 px-2">
     
 <div class="col-md-8">
      
@@ -138,7 +216,7 @@
 
 </div>
 
-<div class="row ">
+<div class="row col_bg1 px-2">
     
 <div class="col-md-8">
      
@@ -172,7 +250,7 @@
 
 </div>
 
-<div class="row ">
+<div class="row col_bg1 px-2">
     
 <div class="col-md-6">
     
@@ -186,19 +264,23 @@
 
 </div>
 
-<div class="row ">
+<div class="row col_bg1 px-2">
     
-<div class="col-md-4">
+<div class="col-md-3">
     
-<Input Id="Year" @ref="Ref_Year" Label="سال"     @bind-Value="_Entity.Year" type="number"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+<Input Id="Year" @ref="Ref_Year" Label="سال"   Disabled=true  @bind-Value="_Entity.Year" type="number"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
 
 </div>
 
-<div class="col-md-4">
+<div class="col-md-3">
     
 </div>
 
-<div class="col-md-4">
+<div class="col-md-3">
+    
+</div>
+
+<div class="col-md-3">
     
 </div>
 
@@ -385,19 +467,19 @@
 
 <DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextSH_Petco_TransDetail">
     
-<Input Id="SH_Petco_TransDetail_PartCode" @ref="Ref_SH_Petco_TransDetail_PartCode" Label="کد کالا"  CssClass="Gcol-sm-8 Gcol-md-6 Gcol-lg-3"   @bind-Value="SH_Petco_TransDetail.PartCode" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+<Input Id="SH_Petco_TransDetail_PartCode" @ref="Ref_SH_Petco_TransDetail_PartCode" Label="کد کالا"  CssClass="Gcol-sm-8 Gcol-md-6 Gcol-lg-3" Disabled=true  @bind-Value="SH_Petco_TransDetail.PartCode" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
 
 </DxFormLayoutItem>
 
 <DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextSH_Petco_TransDetail">
     
-<Input Id="SH_Petco_TransDetail_ProductName" @ref="Ref_SH_Petco_TransDetail_ProductName" Label="نام کالا"  CssClass="Gcol-sm-8 Gcol-md-6 Gcol-lg-3"   @bind-Value="SH_Petco_TransDetail.ProductName" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+<Input Id="SH_Petco_TransDetail_ProductName" @ref="Ref_SH_Petco_TransDetail_ProductName" Label="نام کالا"  CssClass="Gcol-sm-8 Gcol-md-6 Gcol-lg-3" Disabled=true  @bind-Value="SH_Petco_TransDetail.ProductName" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
 
 </DxFormLayoutItem>
 
 <DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextSH_Petco_TransDetail">
     
-<Input Id="SH_Petco_TransDetail_ShomareFani" @ref="Ref_SH_Petco_TransDetail_ShomareFani" Label="شماره فنی"  CssClass="Gcol-sm-8 Gcol-md-6 Gcol-lg-2"   @bind-Value="SH_Petco_TransDetail.ShomareFani" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+<Input Id="SH_Petco_TransDetail_ShomareFani" @ref="Ref_SH_Petco_TransDetail_ShomareFani" Label="شماره فنی"  CssClass="Gcol-sm-8 Gcol-md-6 Gcol-lg-2" Disabled=true  @bind-Value="SH_Petco_TransDetail.ShomareFani" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
 
 </DxFormLayoutItem>
 
@@ -409,7 +491,7 @@
 
 <DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextSH_Petco_TransDetail">
     
-<Input Id="SH_Petco_TransDetail_Unit" @ref="Ref_SH_Petco_TransDetail_Unit" Label="واحد"  CssClass="Gcol-sm-8 Gcol-md-6 Gcol-lg-2"   @bind-Value="SH_Petco_TransDetail.Unit" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+<Input Id="SH_Petco_TransDetail_Unit" @ref="Ref_SH_Petco_TransDetail_Unit" Label="واحد"  CssClass="Gcol-sm-8 Gcol-md-6 Gcol-lg-2" Disabled=true  @bind-Value="SH_Petco_TransDetail.Unit" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
 
 </DxFormLayoutItem>
 
@@ -440,7 +522,7 @@
 
 <DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextSH_Petco_TransDetail">
     
-<Input Id="SH_Petco_TransDetail_Year" @ref="Ref_SH_Petco_TransDetail_Year" Label="سال"  CssClass="Gcol-sm-8 Gcol-md-6 Gcol-lg-2"   @bind-Value="SH_Petco_TransDetail.Year" type="number" ActiveSeperator=false    Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+<Input Id="SH_Petco_TransDetail_Year" @ref="Ref_SH_Petco_TransDetail_Year" Label="سال"  CssClass="Gcol-sm-8 Gcol-md-6 Gcol-lg-2" Disabled=true  @bind-Value="SH_Petco_TransDetail.Year" type="number" ActiveSeperator=false    Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
 
 </DxFormLayoutItem>
 

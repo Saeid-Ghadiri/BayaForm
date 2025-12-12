@@ -144,7 +144,7 @@ namespace Forms.Forms
     /// <summary>
     ///  ورژنی که فرم باهاش ساخته شده
     /// </summary>
-    public string? VersionForm { get; set; } = "5162";
+    public string? VersionForm { get; set; } = "5209";
 
     /// <summary>
     ///  موجودیت
@@ -182,6 +182,7 @@ namespace Forms.Forms
 public Dropdown Ref_FactbBuy_List;
 public Input<string?> Ref_FACTNO;
 public Input<string?> Ref_FactDate;
+public Input<string?> Ref_FACTOR;
 public Input<string?> Ref_TempNo;
 public Input<string?> Ref_Creator;
 public Dropdown Ref_SelerCode;
@@ -203,6 +204,7 @@ public Input<decimal?> Ref_Shomaran_FactbBuyDetail_Amount;
 public Input<string?> Ref_Shomaran_FactbBuyDetail_Unit;
 public Input<string?> Ref_Shomaran_FactbBuyDetail_Sefaresh;
 public Input<string?> Ref_Shomaran_FactbBuyDetail_Radyabi;
+public Input<int?> Ref_Shomaran_FactbBuyDetail_Year;
 public Input<Guid> Ref_Shomaran_FactbBuyDetail_Id;
 public Input<Guid?> Ref_Shomaran_FactbBuyDetail_RequestID;
 public Input<Guid?> Ref_Shomaran_FactbBuyDetail_CreateUser;
@@ -211,7 +213,6 @@ public Input<DateTime?> Ref_Shomaran_FactbBuyDetail_CreateDate;
 public Input<DateTime?> Ref_Shomaran_FactbBuyDetail_UpdateDate;
 public Input<bool?> Ref_Shomaran_FactbBuyDetail_IsDelete;
 public Input<int?> Ref_Shomaran_FactbBuyDetail_RowId;
-public Input<int?> Ref_Shomaran_FactbBuyDetail_Year;
 public Input<string?> Ref_ApiResult;
 public Input<Guid> Ref_Id;
 public Input<Guid?> Ref_RequestID;

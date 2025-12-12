@@ -147,7 +147,7 @@ namespace Forms.Forms
             {
                 //// ثبت
 
-                var data = await ApiServer.External.Services.ShomaranPetco.InsertPart(
+                var data = await ApiServer.External.Services.ShomaranPart.InsertPart3(
                     ShomaranApiMode.Petco,
                     _Entity.PartNo,
                     _Entity.ProductName,
@@ -185,7 +185,7 @@ namespace Forms.Forms
             {
                 //بروز رسانی
 
-                var data = await ApiServer.External.Services.ShomaranPetco.UpdatePart(
+                var data = await ApiServer.External.Services.ShomaranPart.UpdatePart3(
                     ShomaranApiMode.Petco,
                     _Entity.PartNo,
                     _Entity.ProductName,
@@ -253,99 +253,6 @@ namespace Forms.Forms
         }
 
 		#endregion FunctionEvents
-
-    }
-}
-
-namespace ApiServer.External.Services
-{
-    public partial class ShomaranPetco
-    {
-
-
-        public static async Task<Result> InsertPart(ShomaranApiMode ApiMode, string partNo, string desc, string grCode, string subGrCode,
-            int partKind, string sstId, string tecNo, string tecDesc, string unit, string unit1, int year)
-        {
-            Console.WriteLine("InsertPart");
-            var DataJson = await JSON.ToJson(new
-            {
-                partNo,
-                desc,
-                grCode,
-                subGrCode,
-                partKind,
-                sstId,
-                tecNo,
-                tecDesc,
-                unit,
-                unit1,
-                year
-            });
-            Console.WriteLine("InsertPart 1");
-            string shomaranApi = "";
-            switch (ApiMode)
-            {
-                case ShomaranApiMode.Polfilm:
-                    shomaranApi = "https://shomaran.workcv.ir:2010/{0}/api/v1/"; //https://api.workcv.ir/{0}/api/v1/
-                    break;
-                case ShomaranApiMode.Petco:
-                    shomaranApi = "https://shomaranpetcoorm.workcv.ir/{0}/api/v1/";
-                    break;
-                case ShomaranApiMode.Pelat:
-                    shomaranApi = "https://shomaranatlascellorm.workcv.ir/{0}/api/v1";
-                    break;
-                default:
-                    break;
-            }
-            Console.WriteLine("InsertPart 3");
-            var _content = new StringContent(DataJson, Encoding.UTF8, "application/json");
-            Result apiresult = await Send.PostAsync(_content, "ShomaranPetco/InsertPart", shomaranApi, ApplicationType.None);
-            Console.WriteLine("InsertPart 4");
-            return apiresult;
-        }
-
-
-
-        public static async Task<Result> UpdatePart(ShomaranApiMode ApiMode, string partNo, string desc, string grCode, string subGrCode,
-            int partKind, string sstId, string tecNo, string tecDesc, string unit, string unit1, int year)
-        {
-            Console.WriteLine("UpdatePart");
-            var DataJson = await JSON.ToJson(new
-            {
-                partNo,
-                desc,
-                grCode,
-                subGrCode,
-                partKind,
-                sstId,
-                tecNo,
-                tecDesc,
-                unit,
-                unit1,
-                year
-            });
-            Console.WriteLine("UpdatePart 1");
-            string shomaranApi = "";
-            switch (ApiMode)
-            {
-                case ShomaranApiMode.Polfilm:
-                    shomaranApi = "https://shomaran.workcv.ir:2010/{0}/api/v1/"; //https://api.workcv.ir/{0}/api/v1/
-                    break;
-                case ShomaranApiMode.Petco:
-                    shomaranApi = "https://shomaranpetcoorm.workcv.ir/{0}/api/v1/";
-                    break;
-                case ShomaranApiMode.Pelat:
-                    shomaranApi = "https://shomaranatlascellorm.workcv.ir/{0}/api/v1";
-                    break;
-                default:
-                    break;
-            }
-            Console.WriteLine("UpdatePart 3");
-            var _content = new StringContent(DataJson, Encoding.UTF8, "application/json");
-            Result apiresult = await Send.PostAsync(_content, "ShomaranPetco/UpdatePart", shomaranApi, ApplicationType.None);
-            Console.WriteLine("UpdatePart 4");
-            return apiresult;
-        }
 
     }
 }

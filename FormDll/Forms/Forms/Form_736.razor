@@ -564,11 +564,11 @@ purple_bg {
     <CellDisplayTemplate>
        
 @{
-    Baya.Models.ViewEngine.View_Component HeaderHR_EMP_EmployeesId = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"primaryKey\":false,\"EntityID\":440,\"FieldId\":30515,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":736,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":false,\"RelationParentName\":\"HR_EMP_Employees\",\"RelationParentModel\":\"HR_EMP_Employees\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/HR_EMP_Employees/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.FirstName}} {{item.LastName}} {{item.EmployeeNo}} </span>\",\"FieldsTemplate\":[{\"key\":\"FirstName\",\"value\":\"nvarchar(Max)\"},{\"key\":\"LastName\",\"value\":\"nvarchar(Max)\"},{\"key\":\"EmployeeNo\",\"value\":\"nvarchar(Max)\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"searchField\":\"FirstName,LastName,EmployeeNo\",\"disabled\":false,\"modal\":true,\"label\":\"اطلاعات کارمند\",\"tableView\":true,\"key\":\"HR_EMP_EmployeesId\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"30515?EId=440&SubId=15\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
+    Baya.Models.ViewEngine.View_Component HeaderHR_EMP_EmployeesId = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"primaryKey\":false,\"EntityID\":440,\"FieldId\":30515,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":736,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":true,\"RelationParentName\":\"HR_EMP_Employees\",\"RelationParentModel\":\"HR_EMP_Employees\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/HR_EMP_Employees_EmployeeInfos/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.EmployeeNo}} {{item.FirstName}} {{item.LastName}} {{item.BaseInfo_ORG_CompaniesTitle}} </span>\",\"FieldsTemplate\":[{\"key\":\"FirstName\",\"value\":\"nvarchar(Max)\"},{\"key\":\"LastName\",\"value\":\"nvarchar(Max)\"},{\"key\":\"EmployeeNo\",\"value\":\"nvarchar(Max)\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"searchField\":\"FirstName,LastName,EmployeeNo\",\"disabled\":false,\"modal\":true,\"label\":\"اطلاعات کارمند\",\"tableView\":true,\"key\":\"HR_EMP_EmployeesId\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"30515?EId=440&SubId=15\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
     var RowHR_EMP_EmployeesId = ((Entity.HR_CVR_VerdictRecruiting)HR_EMP_EmployeesId_.DataItem).HR_EMP_EmployeesId;
 }
 
-<Dropdown ExternalApi=false CssClass="" NotMapped=false TextGrid=true Value="@RowHR_EMP_EmployeesId"   FieldName="HR_EMP_EmployeesId" OnItemSelected="ItemSelected_HR_CVR_VerdictRecruitingHR_EMP_EmployeesId_Header" Component="HeaderHR_EMP_EmployeesId">
+<Dropdown ExternalApi=true CssClass="" NotMapped=false TextGrid=true Value="@RowHR_EMP_EmployeesId"   FieldName="HR_EMP_EmployeesId" OnItemSelected="ItemSelected_HR_CVR_VerdictRecruitingHR_EMP_EmployeesId_Header" Component="HeaderHR_EMP_EmployeesId">
 </Dropdown>
 @code {
     public async Task ItemSelected_HR_CVR_VerdictRecruitingHR_EMP_EmployeesId_Header(object _Item)
@@ -894,7 +894,6 @@ MainModel.ExecutionDateSentence_Fa = ((Entity.HR_CVR_VerdictRecruiting)EditModel
 MainModel.HR_CVR_JobGroupId = ((Entity.HR_CVR_VerdictRecruiting)EditModel).HR_CVR_JobGroupId;
 MainModel.HR_CVR_JobGroup = ((Entity.HR_CVR_VerdictRecruiting)EditModel).HR_CVR_JobGroup;
 MainModel.HR_EMP_EmployeesId = ((Entity.HR_CVR_VerdictRecruiting)EditModel).HR_EMP_EmployeesId;
-MainModel.HR_EMP_Employees = ((Entity.HR_CVR_VerdictRecruiting)EditModel).HR_EMP_Employees;
 
     }
     else

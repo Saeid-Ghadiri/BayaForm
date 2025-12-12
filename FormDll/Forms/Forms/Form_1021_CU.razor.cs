@@ -235,7 +235,7 @@ namespace Forms.Forms
                 };
 
 
-                var data = await ApiServer.External.Services.ShomaranPetco.CreateHavale(ShomaranApiMode.Petco, havaleData);
+                var data = await ApiServer.External.Services.ShomaranPart.CreateHavale2(ShomaranApiMode.Petco, havaleData);
 
 
                 Console.WriteLine("#Log End ::");
@@ -300,7 +300,7 @@ namespace Forms.Forms
                 Year = Convert.ToInt32(_Entity.Year),
             };
             //Console.WriteLine(await JSON.ToJson(havaleDto));
-            var data = await ApiServer.External.Services.ShomaranPetco.UpdateHavale(ShomaranApiMode.Petco, havaleDto);
+            var data = await ApiServer.External.Services.ShomaranPart.UpdateHavale2(ShomaranApiMode.Petco, havaleDto);
 
             if (data.Status == HttpStatusCode.OK)
             {
@@ -365,108 +365,6 @@ namespace Forms.Forms
         }
 
         #endregion FunctionEvents
-
-    }
-}
-
-namespace ApiServer.External.Services
-{
-    public partial class ShomaranPetco
-    {
-
-        public static async Task<Result> CreateHavale(ShomaranApiMode ApiMode, HavaleDto havaleData)
-        {
-            // Serialize the entire havaleData object into a JSON string
-            var DataJson = await JSON.ToJson(havaleData);
-
-            string shomaranApi = "";
-            switch (ApiMode)
-            {
-                case ShomaranApiMode.Polfilm:
-                    shomaranApi = "https://shomaran.workcv.ir:2010/{0}/api/v1/";
-                    break;
-                case ShomaranApiMode.Petco:
-                    shomaranApi = "https://shomaranpetcoorm.workcv.ir/{0}/api/v1/";
-                    break;
-                case ShomaranApiMode.Pelat:
-                    shomaranApi = "https://shomaranatlascellorm.workcv.ir/{0}/api/v1";
-                    break;
-                default:
-                    // Handle cases where the ApiMode is not recognized
-                    break;
-            }
-
-            var _content = new StringContent(DataJson, Encoding.UTF8, "application/json");
-
-            // Note: You may need to change the API endpoint "ShomaranHavale/InsertHavale"
-            // to match the correct one for creating a "Havale".
-            Result apiresult = await Send.PostAsync(_content, "ShomaranPart/InsertHavale", shomaranApi, ApplicationType.None);
-
-            return apiresult;
-        }
-
-        public static async Task<Result> UpdateHavale(ShomaranApiMode ApiMode, HavaleUpdateInput havaleData)
-        {
-            // Serialize the entire havaleData object into a JSON string
-            var DataJson = await JSON.ToJson(havaleData);
-
-            string shomaranApi = "";
-            switch (ApiMode)
-            {
-                case ShomaranApiMode.Polfilm:
-                    shomaranApi = "https://shomaran.workcv.ir:2010/{0}/api/v1/";
-                    break;
-                case ShomaranApiMode.Petco:
-                    shomaranApi = "https://shomaranpetcoorm.workcv.ir/{0}/api/v1/";
-                    break;
-                case ShomaranApiMode.Pelat:
-                    shomaranApi = "https://shomaranatlascellorm.workcv.ir/{0}/api/v1";
-                    break;
-                default:
-                    // Handle cases where the ApiMode is not recognized
-                    break;
-            }
-
-            var _content = new StringContent(DataJson, Encoding.UTF8, "application/json");
-
-            // Note: You may need to change the API endpoint "ShomaranHavale/InsertHavale"
-            // to match the correct one for creating a "Havale".
-            Result apiresult = await Send.PostAsync(_content, "ShomaranPart/UpdateHavale", shomaranApi, ApplicationType.None);
-
-            return apiresult;
-        }
-
-
-        public static async Task<Result> DeleteHavale(ShomaranApiMode ApiMode, string factNo, int year)
-        {
-            Console.WriteLine("DeleteHavale2");
-            var DataJson = await JSON.ToJson(new
-            {
-                factNo,
-                year
-            });
-            Console.WriteLine("DeleteHavale2 1");
-            string shomaranApi = "";
-            switch (ApiMode)
-            {
-                case ShomaranApiMode.Polfilm:
-                    shomaranApi = "https://shomaran.workcv.ir:2010/{0}/api/v1/"; //https://api.workcv.ir/{0}/api/v1/
-                    break;
-                case ShomaranApiMode.Petco:
-                    shomaranApi = "https://shomaranpetcoorm.workcv.ir/{0}/api/v1/";
-                    break;
-                case ShomaranApiMode.Pelat:
-                    shomaranApi = "https://shomaranatlascellorm.workcv.ir/{0}/api/v1";
-                    break;
-                default:
-                    break;
-            }
-            Console.WriteLine("DeleteHavale2 3");
-            var _content = new StringContent(DataJson, Encoding.UTF8, "application/json");
-            Result apiresult = await Send.PostAsync(_content, $"ShomaranPart/DeleteHavale/{factNo}/{year}", shomaranApi, ApplicationType.None);
-            Console.WriteLine("DeleteHavale2 4");
-            return apiresult;
-        }
 
     }
 }

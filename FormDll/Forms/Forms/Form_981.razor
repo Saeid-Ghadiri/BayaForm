@@ -274,7 +274,7 @@
 
 <DxGridDataColumn  Caption="آدرس فروشنده"  FieldName="SelerAddr" />
 
-<DxGridDataColumn  Caption="شماره عطف"  FieldName="TempNo" />
+<DxGridDataColumn  Caption="عطف" Visible=false FieldName="TempNo" />
 
 <DxGridDataColumn DisplayFormat="0" Caption="سال"  FieldName="Year" />
 
@@ -338,7 +338,7 @@
     <CellDisplayTemplate>
        
 @{
-    Baya.Models.ViewEngine.View_Component HeaderFactbBuy_List = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"primaryKey\":false,\"EntityID\":728,\"FieldId\":30898,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":981,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":true,\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://shomaran.workcv.ir:2010/fa-ir/api/v1/view_FACTBBUYdtl2/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"inputFormat\":\"DataGrid\",\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"FACTNO\",\"template\":\"<span>{{item.FACTNO}} {{item.TEMPNO}} {{item.factdate}} </span>\",\"FieldsTemplate\":[{\"key\":\"FACTNO\",\"value\":\"nvarchar(Max)\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"searchField\":\"FACTNO\",\"modal\":true,\"label\":\"فهرست حواله برگشت از خرید\",\"tableView\":true,\"key\":\"FactbBuy_List\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"30898?EId=728&SubId=28\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
+    Baya.Models.ViewEngine.View_Component HeaderFactbBuy_List = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"primaryKey\":false,\"EntityID\":728,\"FieldId\":30898,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":981,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":true,\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://shomaran.workcv.ir:2010/fa-ir/api/v1/view_FACTBBUYdtl2/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"inputFormat\":\"DataGrid\",\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"FACTNO\",\"template\":\"<span>{{item.FACTNO}} {{item.TEMPNO}} {{item.factdate}} {{item.FACTOR}} </span>\",\"FieldsTemplate\":[{\"key\":\"FACTNO\",\"value\":\"nvarchar(Max)\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"searchField\":\"FACTNO\",\"modal\":true,\"label\":\"فهرست حواله برگشت از خرید\",\"tableView\":true,\"key\":\"FactbBuy_List\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"30898?EId=728&SubId=28\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
     var RowFactbBuy_List = ((Entity.Shomaran_FactbBuy)FactbBuy_List_.DataItem).FactbBuy_List;
 }
 
@@ -360,6 +360,8 @@
 
     </CellDisplayTemplate>
 </DxGridDataColumn>
+<DxGridDataColumn  Caption="شماره عطف"  FieldName="FACTOR" />
+
 
 </Columns>
 
@@ -654,6 +656,7 @@ MainModel.ApiResult = ((Entity.Shomaran_FactbBuy)EditModel).ApiResult;
 MainModel.BUYKIND = ((Entity.Shomaran_FactbBuy)EditModel).BUYKIND;
 MainModel.NBARGASHT = ((Entity.Shomaran_FactbBuy)EditModel).NBARGASHT;
 MainModel.FactbBuy_List = ((Entity.Shomaran_FactbBuy)EditModel).FactbBuy_List;
+MainModel.FACTOR = ((Entity.Shomaran_FactbBuy)EditModel).FACTOR;
 
     }
     else

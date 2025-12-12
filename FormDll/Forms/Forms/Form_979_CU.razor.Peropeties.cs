@@ -144,7 +144,7 @@ namespace Forms.Forms
     /// <summary>
     ///  ورژنی که فرم باهاش ساخته شده
     /// </summary>
-    public string? VersionForm { get; set; } = "5162";
+    public string? VersionForm { get; set; } = "5209";
 
     /// <summary>
     ///  موجودیت
@@ -186,12 +186,12 @@ public Input<string?> Ref_TEMPNO;
 public Input<string?> Ref_CREATOR;
 public Input<string?> Ref_ContractType;
 public Dropdown Ref_CONCODE;
+public Input<int?> Ref_ORDERYEAR;
 public Dropdown Ref_ORDERNO;
 public Input<string?> Ref_ConfirmDate;
 public Input<string?> Ref_Person;
 public Input<string?> Ref_Description;
 public Input<int?> Ref_YEAR;
-public Input<int?> Ref_ORDERYEAR;
 public DxGrid? Grid_Shomaran_AnnarrDetail;
 
 public Dropdown Ref_Shomaran_AnnarrDetail_ProductSearch;
@@ -203,6 +203,7 @@ public Input<string?> Ref_Shomaran_AnnarrDetail_Unit;
 public Input<string?> Ref_Shomaran_AnnarrDetail_DESC2;
 public Input<string?> Ref_Shomaran_AnnarrDetail_SEFARESH;
 public Input<string?> Ref_Shomaran_AnnarrDetail_RADYABI;
+public Input<int?> Ref_Shomaran_AnnarrDetail_YEAR;
 public Input<Guid> Ref_Shomaran_AnnarrDetail_Id;
 public Input<Guid?> Ref_Shomaran_AnnarrDetail_RequestID;
 public Input<Guid?> Ref_Shomaran_AnnarrDetail_CreateUser;
@@ -211,7 +212,6 @@ public Input<DateTime?> Ref_Shomaran_AnnarrDetail_CreateDate;
 public Input<DateTime?> Ref_Shomaran_AnnarrDetail_UpdateDate;
 public Input<bool?> Ref_Shomaran_AnnarrDetail_IsDelete;
 public Input<string?> Ref_Shomaran_AnnarrDetail_RowId;
-public Input<int?> Ref_Shomaran_AnnarrDetail_YEAR;
 public Input<string?> Ref_ApiResult;
 public Input<Guid> Ref_Id;
 public Input<Guid?> Ref_RequestID;

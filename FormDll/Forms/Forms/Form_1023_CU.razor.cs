@@ -233,7 +233,7 @@ namespace Forms.Forms
 
                 Console.WriteLine("#Log factbuyData ::" + await JSON.ToJson(factbuyData));
 
-                var data = await ApiServer.External.Services.ShomaranPetco.CreateFactBuy(ShomaranApiMode.Petco, factbuyData);
+                var data = await ApiServer.External.Services.ShomaranPart.CreateFactBuy2(ShomaranApiMode.Petco, factbuyData);
 
 
                 Console.WriteLine("#Log End ::");
@@ -323,7 +323,7 @@ namespace Forms.Forms
                     Year = Convert.ToInt32(_Entity.YEAR),
                 };
 
-                var data = await ApiServer.External.Services.ShomaranPetco.UpdateFactBuy(ShomaranApiMode.Petco, factBuyData);
+                var data = await ApiServer.External.Services.ShomaranPart.UpdateFactBuy2(ShomaranApiMode.Petco, factBuyData);
 
                 if (data.Status == HttpStatusCode.OK)
                 {
@@ -387,103 +387,6 @@ namespace Forms.Forms
         }
 
         #endregion FunctionEvents
-
-    }
-}
-
-namespace ApiServer.External.Services
-{
-    public partial class ShomaranPetco
-    {
-
-        public static async Task<Result> CreateFactBuy(ShomaranApiMode ApiMode, FactbuyDto factbuyDto)
-        {
-            // Serialize the entire havaleData object into a JSON string
-            var DataJson = await JSON.ToJson(factbuyDto);
-
-            string shomaranApi = "";
-            switch (ApiMode)
-            {
-                case ShomaranApiMode.Polfilm:
-                    shomaranApi = "https://shomaran.workcv.ir:2010/{0}/api/v1/";
-                    break;
-                case ShomaranApiMode.Petco:
-                    shomaranApi = "https://shomaranpetcoorm.workcv.ir/{0}/api/v1/";
-                    break;
-                case ShomaranApiMode.Pelat:
-                    shomaranApi = "https://shomaranatlascellorm.workcv.ir/{0}/api/v1";
-                    break;
-                default:
-                    // Handle cases where the ApiMode is not recognized
-                    break;
-            }
-
-            var _content = new StringContent(DataJson, Encoding.UTF8, "application/json");
-
-            // Note: You may need to change the API endpoint "ShomaranHavale/InsertHavale"
-            // to match the correct one for creating a "Havale".
-            Result apiresult = await Send.PostAsync(_content, "ShomaranPetco/InsertFactbuy", shomaranApi, ApplicationType.None);
-
-            return apiresult;
-        }
-        public static async Task<Result> UpdateFactBuy(ShomaranApiMode ApiMode, UpdateFactBuyRequest trans)
-        {
-            // Serialize the entire havaleData object into a JSON string
-            var DataJson = await JSON.ToJson(trans);
-
-            string shomaranApi = "";
-            switch (ApiMode)
-            {
-                case ShomaranApiMode.Polfilm:
-                    shomaranApi = "https://shomaran.workcv.ir:2010/{0}/api/v1/";
-                    break;
-                case ShomaranApiMode.Petco:
-                    shomaranApi = "https://shomaranpetcoorm.workcv.ir/{0}/api/v1/";
-                    break;
-                case ShomaranApiMode.Pelat:
-                    shomaranApi = "https://shomaranatlascellorm.workcv.ir/{0}/api/v1";
-                    break;
-                default:
-                    // Handle cases where the ApiMode is not recognized
-                    break;
-            }
-
-            var _content = new StringContent(DataJson, Encoding.UTF8, "application/json");
-
-            // Note: You may need to change the API endpoint "ShomaranHavale/UpdateHavale"
-            // to match the correct one for creating a "Havale".
-            Result apiresult = await Send.PostAsync(_content, "ShomaranPetco/UpdateFactBuy", shomaranApi, ApplicationType.None);
-
-            return apiresult;
-        }
-
-
-        public static async Task<Result> DeleteFactbuy2(ShomaranApiMode ApiMode, string factNo, int year)
-        {
-            var DataJson = await JSON.ToJson(new
-            {
-                factNo,
-                year
-            });
-            string shomaranApi = "";
-            switch (ApiMode)
-            {
-                case ShomaranApiMode.Polfilm:
-                    shomaranApi = "https://shomaran.workcv.ir:2010/{0}/api/v1/"; //https://api.workcv.ir/{0}/api/v1/
-                    break;
-                case ShomaranApiMode.Petco:
-                    shomaranApi = "https://shomaranpetcoorm.workcv.ir/{0}/api/v1/";
-                    break;
-                case ShomaranApiMode.Pelat:
-                    shomaranApi = "https://shomaranatlascellorm.workcv.ir/{0}/api/v1";
-                    break;
-                default:
-                    break;
-            }
-            var _content = new StringContent(DataJson, Encoding.UTF8, "application/json");
-            Result apiresult = await Send.PostAsync(_content, $"ShomaranPetco/DeleteFactbuy/{factNo}/{year}", shomaranApi, ApplicationType.None);
-            return apiresult;
-        }
 
     }
 }

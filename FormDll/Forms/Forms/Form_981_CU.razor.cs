@@ -191,6 +191,7 @@ namespace Forms.Forms
                     Console.WriteLine("#Detail {item.Year}:" + item.Year);
                 }
 
+                _Entity.TempNo = _Entity.FACTOR;
                 FactbBuyHeader factbBuyData = new()
                 {
                     //

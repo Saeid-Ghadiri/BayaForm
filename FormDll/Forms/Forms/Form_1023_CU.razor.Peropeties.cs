@@ -144,7 +144,7 @@ namespace Forms.Forms
     /// <summary>
     ///  ورژنی که فرم باهاش ساخته شده
     /// </summary>
-    public string? VersionForm { get; set; } = "5162";
+    public string? VersionForm { get; set; } = "5209";
 
     /// <summary>
     ///  موجودیت
@@ -182,11 +182,10 @@ namespace Forms.Forms
 public Input<Guid> Ref_Id;
 public Dropdown Ref_FactBuy_List;
 public Input<string?> Ref_FACTNO;
-public Input<string?> Ref_CREATOR;
-public Input<string?> Ref_FACTOR;
 public Input<string?> Ref_FACTDATE;
+public Input<string?> Ref_CREATOR;
 public Input<DateTime?> Ref_MiladiDate;
-public Input<int?> Ref_ORDERYEAR;
+public Input<string?> Ref_FACTOR;
 public Dropdown Ref_SELERCODE;
 public Input<string?> Ref_SELERNAME;
 public Input<string?> Ref_SelerAddr;
@@ -195,12 +194,14 @@ public Dropdown Ref_INVCODE;
 public Dropdown Ref_PARTKIND;
 public Input<string?> Ref_NOTE;
 public Input<int?> Ref_YEAR;
+public Input<int?> Ref_ORDERYEAR;
 public DxGrid? Grid_SH_Petco_FactBuyDetail;
 
 public Dropdown Ref_SH_Petco_FactBuyDetail_ProductSearch;
 public Input<string?> Ref_SH_Petco_FactBuyDetail_ProductName;
 public Input<string?> Ref_SH_Petco_FactBuyDetail_PARTCODE;
 public Input<string?> Ref_SH_Petco_FactBuyDetail_ShomareFani;
+public Input<decimal?> Ref_SH_Petco_FactBuyDetail_AMOUNT;
 public Input<string?> Ref_SH_Petco_FactBuyDetail_ProductUnit;
 public Input<string?> Ref_SH_Petco_FactBuyDetail_NoteD;
 public Input<string?> Ref_SH_Petco_FactBuyDetail_RADYABI;

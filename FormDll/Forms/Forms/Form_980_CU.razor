@@ -59,6 +59,7 @@
 .header-text:hover .header-subtitle {
     opacity: 1;
 }
+
 /* ********** */
 
 .col_bg1 {
@@ -135,7 +136,7 @@
      
  
 @code {
-    Baya.Models.ViewEngine.View_Component Component_Shomaran_TransTrans_List = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"EntityName\":\"انتقال بین انبارها\",\"primaryKey\":false,\"EntityID\":726,\"FieldId\":30880,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":980,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":true,\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://shomaran.workcv.ir:2010/fa-ir/api/v1/view_transdtl/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"inputFormat\":\"DataGrid\",\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"TEMPNO\",\"template\":\"<span>{{item.factno}} {{item.TEMPNO}} {{item.factdate}} {{item.SINVNAME}} {{item.TINVNAME}} </span>\",\"FieldsTemplate\":[{\"key\":\"factno\",\"value\":\"nvarchar(Max)\"},{\"key\":\"TEMPNO\",\"value\":\"nvarchar(Max)\"},{\"key\":\"factdate\",\"value\":\"nvarchar(Max)\"},{\"key\":\"SINVNAME\",\"value\":\"nvarchar(Max)\"},{\"key\":\"TINVNAME\",\"value\":\"nvarchar(Max)\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"searchField\":\"TEMPNO,factno\",\"modal\":true,\"label\":\"فهرست انتقال بین انبارها\",\"tableView\":true,\"key\":\"Trans_List\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"30880?EId=726&SubId=28\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
+    Baya.Models.ViewEngine.View_Component Component_Shomaran_TransTrans_List = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"EntityName\":\"انتقال بین انبارها\",\"primaryKey\":false,\"EntityID\":726,\"FieldId\":30880,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":980,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":true,\"RelationParentName\":\"\",\"RelationParentModel\":\"\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://shomaran.workcv.ir:2010/fa-ir/api/v1/view_transdtl/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"inputFormat\":\"DataGrid\",\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"TEMPNO\",\"template\":\"<span>{{item.factno}} {{item.TEMPNO}} {{item.factdate}} {{item.SINVNAME}} {{item.TINVNAME}} </span>\",\"FieldsTemplate\":[{\"key\":\"factno\",\"value\":\"nvarchar(Max)\"},{\"key\":\"TEMPNO\",\"value\":\"nvarchar(Max)\"},{\"key\":\"factdate\",\"value\":\"nvarchar(Max)\"},{\"key\":\"SINVNAME\",\"value\":\"nvarchar(Max)\"},{\"key\":\"TINVNAME\",\"value\":\"nvarchar(Max)\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"searchField\":\"TEMPNO,factno\",\"disabled\":false,\"modal\":true,\"label\":\"فهرست انتقال بین انبارها\",\"tableView\":true,\"key\":\"Trans_List\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"30880?EId=726&SubId=28\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
 }
 
     <Dropdown Id=Trans_List  @ref="Ref_Trans_List" Label="فهرست انتقال بین انبارها" CssClass=""  DisplayFormat="DataGrid" ExternalApi=true NotMapped=false TextGrid=false  Value="@_Entity.Trans_List" FieldName="Trans_List" OnItemSelected="ItemSelected_Shomaran_TransTrans_List" Component="Component_Shomaran_TransTrans_List" _Entity="_Entity" >
@@ -187,7 +188,7 @@
      
  
 @code {
-    Baya.Models.ViewEngine.View_Component Component_Shomaran_TransSInvCode = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"EntityName\":\"Trans\",\"primaryKey\":false,\"EntityID\":726,\"FieldId\":30221,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":980,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":true,\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://shomaran.workcv.ir:2010/fa-ir/api/v1/view_INV/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"inputFormat\":\"DropDown\",\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"INVCODE\",\"template\":\"<span>{{item.INVNAME}} {{item.INVCODE}} </span>\",\"FieldsTemplate\":[{\"key\":\"INVNAME\",\"value\":\"nvarchar(Max)\"},{\"key\":\"INVCODE\",\"value\":\"nvarchar(Max)\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"searchField\":\"INVNAME,INVCODE\",\"modal\":true,\"label\":\"انبار مبدا\",\"tableView\":true,\"key\":\"SInvCode\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"30221?EId=726&SubId=28\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true,\"onitemselected\":\"SInvCode_onitemselected\"}").Result;
+    Baya.Models.ViewEngine.View_Component Component_Shomaran_TransSInvCode = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"EntityName\":\"Trans\",\"primaryKey\":false,\"EntityID\":726,\"FieldId\":30221,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":980,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":true,\"RelationParentName\":\"\",\"RelationParentModel\":\"\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://shomaran.workcv.ir:2010/fa-ir/api/v1/view_INV/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"inputFormat\":\"DropDown\",\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"INVCODE\",\"template\":\"<span>{{item.INVNAME}} {{item.INVCODE}} </span>\",\"FieldsTemplate\":[{\"key\":\"INVNAME\",\"value\":\"nvarchar(Max)\"},{\"key\":\"INVCODE\",\"value\":\"nvarchar(Max)\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"searchField\":\"INVNAME,INVCODE\",\"disabled\":false,\"modal\":true,\"label\":\"انبار مبدا\",\"tableView\":true,\"key\":\"SInvCode\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"30221?EId=726&SubId=28\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true,\"onitemselected\":\"SInvCode_onitemselected\"}").Result;
 }
 
     <Dropdown Id=SInvCode  @ref="Ref_SInvCode" Label="انبار مبدا" CssClass=""  DisplayFormat="DropDown" ExternalApi=true NotMapped=false TextGrid=false  Value="@_Entity.SInvCode" FieldName="SInvCode" OnItemSelected="ItemSelected_Shomaran_TransSInvCode" Component="Component_Shomaran_TransSInvCode" _Entity="_Entity" >
@@ -223,7 +224,7 @@
      
  
 @code {
-    Baya.Models.ViewEngine.View_Component Component_Shomaran_TransTInvCode = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"EntityName\":\"Trans\",\"primaryKey\":false,\"EntityID\":726,\"FieldId\":30222,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":980,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":true,\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://shomaran.workcv.ir:2010/fa-ir/api/v1/view_INV/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"inputFormat\":\"DropDown\",\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"INVCODE\",\"template\":\"<span>{{item.INVNAME}} {{item.INVCODE}} </span>\",\"FieldsTemplate\":[{\"key\":\"INVNAME\",\"value\":\"nvarchar(Max)\"},{\"key\":\"INVCODE\",\"value\":\"nvarchar(Max)\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"searchField\":\"INVNAME,INVCODE\",\"modal\":true,\"label\":\"انبار مقصد\",\"tableView\":true,\"key\":\"TInvCode\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"30222?EId=726&SubId=28\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true,\"onitemselected\":\"TInvCode_onitemselected\"}").Result;
+    Baya.Models.ViewEngine.View_Component Component_Shomaran_TransTInvCode = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"EntityName\":\"Trans\",\"primaryKey\":false,\"EntityID\":726,\"FieldId\":30222,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":980,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":true,\"RelationParentName\":\"\",\"RelationParentModel\":\"\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://shomaran.workcv.ir:2010/fa-ir/api/v1/view_INV/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"inputFormat\":\"DropDown\",\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"INVCODE\",\"template\":\"<span>{{item.INVNAME}} {{item.INVCODE}} </span>\",\"FieldsTemplate\":[{\"key\":\"INVNAME\",\"value\":\"nvarchar(Max)\"},{\"key\":\"INVCODE\",\"value\":\"nvarchar(Max)\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"searchField\":\"INVNAME,INVCODE\",\"disabled\":false,\"modal\":true,\"label\":\"انبار مقصد\",\"tableView\":true,\"key\":\"TInvCode\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"30222?EId=726&SubId=28\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true,\"onitemselected\":\"TInvCode_onitemselected\"}").Result;
 }
 
     <Dropdown Id=TInvCode  @ref="Ref_TInvCode" Label="انبار مقصد" CssClass=""  DisplayFormat="DropDown" ExternalApi=true NotMapped=false TextGrid=false  Value="@_Entity.TInvCode" FieldName="TInvCode" OnItemSelected="ItemSelected_Shomaran_TransTInvCode" Component="Component_Shomaran_TransTInvCode" _Entity="_Entity" >
@@ -255,7 +256,7 @@
     
 <div class="col-md-6">
     
-<Input Id="Note" @ref="Ref_Note" Label="توضیح"     @bind-Value="_Entity.Note" type="textarea"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+<Input Id="TDesc" @ref="Ref_TDesc" Label="توضیحات"     @bind-Value="_Entity.TDesc" type="textarea"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
 
 </div>
 
@@ -265,19 +266,23 @@
 
 </div>
 
-<div class="row ">
+<div class="row col_bg1 px-2">
     
-<div class="col-md-4">
+<div class="col-md-3">
     
-<Input Id="Year" @ref="Ref_Year" Label="سال"     @bind-Value="_Entity.Year" type="number"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+<Input Id="Year" @ref="Ref_Year" Label="سال"   Disabled=true  @bind-Value="_Entity.Year" type="number"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
 
 </div>
 
-<div class="col-md-4">
+<div class="col-md-3">
     
 </div>
 
-<div class="col-md-4">
+<div class="col-md-3">
+    
+</div>
+
+<div class="col-md-3">
     
 </div>
 
@@ -363,7 +368,7 @@
     <CellDisplayTemplate>
        
 @{
-    Baya.Models.ViewEngine.View_Component HeaderProductSearch = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"primaryKey\":false,\"EntityID\":727,\"FieldId\":30881,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":980,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":true,\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://shomaran.workcv.ir:2010/fa-ir/api/v1/view_parts/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"partcode\",\"template\":\"<span>{{item.partcode}} {{item.partno}} {{item.desc}} {{item.unit}} </span>\",\"FieldsTemplate\":[{\"key\":\"partcode\",\"value\":\"nvarchar(Max)\"},{\"key\":\"partno\",\"value\":\"nvarchar(Max)\"},{\"key\":\"desc\",\"value\":\"nvarchar(Max)\"},{\"key\":\"unit\",\"value\":\"nvarchar(Max)\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"searchField\":\"partcode,partno\",\"disableLimit\":false,\"noRefreshOnScroll\":false,\"modal\":true,\"label\":\"جستجو کالا\",\"tableView\":true,\"key\":\"ProductSearch\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"customClass\":\"Gcol-sm-8 Gcol-md-6 Gcol-lg-6\",\"FieldUrl\":\"30881?EId=727&SubId=28\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true,\"onitemselected\":\"ProductSearch_onitemselected\"}").Result;
+    Baya.Models.ViewEngine.View_Component HeaderProductSearch = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"primaryKey\":false,\"EntityID\":727,\"FieldId\":30881,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":980,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":true,\"RelationParentName\":\"\",\"RelationParentModel\":\"\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://shomaran.workcv.ir:2010/fa-ir/api/v1/view_parts/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"partcode\",\"template\":\"<span>{{item.partcode}} {{item.partno}} {{item.desc}} {{item.unit}} </span>\",\"FieldsTemplate\":[{\"key\":\"partcode\",\"value\":\"nvarchar(Max)\"},{\"key\":\"partno\",\"value\":\"nvarchar(Max)\"},{\"key\":\"desc\",\"value\":\"nvarchar(Max)\"},{\"key\":\"unit\",\"value\":\"nvarchar(Max)\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"searchField\":\"partcode,partno\",\"disableLimit\":false,\"noRefreshOnScroll\":false,\"disabled\":false,\"modal\":true,\"label\":\"جستجو کالا\",\"tableView\":true,\"key\":\"ProductSearch\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"customClass\":\"Gcol-sm-8 Gcol-md-6 Gcol-lg-6\",\"FieldUrl\":\"30881?EId=727&SubId=28\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true,\"onitemselected\":\"ProductSearch_onitemselected\"}").Result;
     var RowProductSearch = ((Entity.Shomaran_TransDetail)ProductSearch_.DataItem).ProductSearch;
 }
 
@@ -417,6 +422,8 @@
 
 <DxGridDataColumn  Caption="شماره ردیابی"  FieldName="Radyabi" />
 
+<DxGridDataColumn DisplayFormat="0" Caption="سال"  FieldName="Year" />
+
 <DxGridDataColumn  Caption="Id" Visible=false FieldName="Id" />
 
 <DxGridDataColumn  Caption="RequestID" Visible=false FieldName="RequestID" />
@@ -430,8 +437,6 @@
 <DxGridDataColumn  Caption="UpdateDate" Visible=false FieldName="UpdateDate" />
 
 <DxGridDataColumn  Caption="IsDelete" Visible=false FieldName="IsDelete" />
-
-<DxGridDataColumn DisplayFormat="0" Caption="سال"  FieldName="Year" />
 
 <DxGridDataColumn  Caption="ردیف دیتیل" Visible=false FieldName="RowOrder" />
 
@@ -447,7 +452,7 @@
      
  
 @code {
-    Baya.Models.ViewEngine.View_Component Component_Shomaran_TransDetailProductSearch = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"primaryKey\":false,\"EntityID\":727,\"FieldId\":30881,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":980,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":true,\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://shomaran.workcv.ir:2010/fa-ir/api/v1/view_parts/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"partcode\",\"template\":\"<span>{{item.partcode}} {{item.partno}} {{item.desc}} {{item.unit}} </span>\",\"FieldsTemplate\":[{\"key\":\"partcode\",\"value\":\"nvarchar(Max)\"},{\"key\":\"partno\",\"value\":\"nvarchar(Max)\"},{\"key\":\"desc\",\"value\":\"nvarchar(Max)\"},{\"key\":\"unit\",\"value\":\"nvarchar(Max)\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"searchField\":\"partcode,partno\",\"disableLimit\":false,\"noRefreshOnScroll\":false,\"modal\":true,\"label\":\"جستجو کالا\",\"tableView\":true,\"key\":\"ProductSearch\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"customClass\":\"Gcol-sm-8 Gcol-md-6 Gcol-lg-6\",\"FieldUrl\":\"30881?EId=727&SubId=28\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true,\"onitemselected\":\"ProductSearch_onitemselected\"}").Result;
+    Baya.Models.ViewEngine.View_Component Component_Shomaran_TransDetailProductSearch = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"primaryKey\":false,\"EntityID\":727,\"FieldId\":30881,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":980,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":true,\"RelationParentName\":\"\",\"RelationParentModel\":\"\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://shomaran.workcv.ir:2010/fa-ir/api/v1/view_parts/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"partcode\",\"template\":\"<span>{{item.partcode}} {{item.partno}} {{item.desc}} {{item.unit}} </span>\",\"FieldsTemplate\":[{\"key\":\"partcode\",\"value\":\"nvarchar(Max)\"},{\"key\":\"partno\",\"value\":\"nvarchar(Max)\"},{\"key\":\"desc\",\"value\":\"nvarchar(Max)\"},{\"key\":\"unit\",\"value\":\"nvarchar(Max)\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"searchField\":\"partcode,partno\",\"disableLimit\":false,\"noRefreshOnScroll\":false,\"disabled\":false,\"modal\":true,\"label\":\"جستجو کالا\",\"tableView\":true,\"key\":\"ProductSearch\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"customClass\":\"Gcol-sm-8 Gcol-md-6 Gcol-lg-6\",\"FieldUrl\":\"30881?EId=727&SubId=28\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true,\"onitemselected\":\"ProductSearch_onitemselected\"}").Result;
 }
 
     <Dropdown Id=Shomaran_TransDetail_ProductSearch  @ref="Ref_Shomaran_TransDetail_ProductSearch" Label="جستجو کالا" CssClass="Gcol-sm-8 Gcol-md-6 Gcol-lg-6"  DisplayFormat="DropDown" ExternalApi=true NotMapped=false TextGrid=false  Value="@Shomaran_TransDetail.ProductSearch" FieldName="ProductSearch" OnItemSelected="ItemSelected_Shomaran_TransDetailProductSearch" Component="Component_Shomaran_TransDetailProductSearch" _Entity="_Entity" _EntityRow=Shomaran_TransDetail>
@@ -533,6 +538,12 @@
 
 <DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextShomaran_TransDetail">
     
+<Input Id="Shomaran_TransDetail_Year" @ref="Ref_Shomaran_TransDetail_Year" Label="سال"  CssClass="Gcol-sm-8 Gcol-md-6 Gcol-lg-2" Disabled=true  @bind-Value="Shomaran_TransDetail.Year" type="number" ActiveSeperator=false    Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+</DxFormLayoutItem>
+
+<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextShomaran_TransDetail">
+    
 <Input Id="Shomaran_TransDetail_Id" @ref="Ref_Shomaran_TransDetail_Id"   CssClass="d-none"   @bind-Value="Shomaran_TransDetail.Id" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
 
 </DxFormLayoutItem>
@@ -570,12 +581,6 @@
 <DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextShomaran_TransDetail">
     
 <Input Id="Shomaran_TransDetail_IsDelete" @ref="Ref_Shomaran_TransDetail_IsDelete"   CssClass="d-none"   @bind-Value="Shomaran_TransDetail.IsDelete" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
-
-</DxFormLayoutItem>
-
-<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextShomaran_TransDetail">
-    
-<Input Id="Shomaran_TransDetail_Year" @ref="Ref_Shomaran_TransDetail_Year" Label="سال"     @bind-Value="Shomaran_TransDetail.Year" type="number"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
 
 </DxFormLayoutItem>
 
@@ -879,6 +884,7 @@ MainModel.Unit = ((Entity.Shomaran_TransDetail)EditModel).Unit;
 MainModel.Note = ((Entity.Shomaran_TransDetail)EditModel).Note;
 MainModel.Sefaresh = ((Entity.Shomaran_TransDetail)EditModel).Sefaresh;
 MainModel.Radyabi = ((Entity.Shomaran_TransDetail)EditModel).Radyabi;
+MainModel.Year = ((Entity.Shomaran_TransDetail)EditModel).Year;
 MainModel.Id = ((Entity.Shomaran_TransDetail)EditModel).Id;
 MainModel.RequestID = ((Entity.Shomaran_TransDetail)EditModel).RequestID;
 MainModel.CreateUser = ((Entity.Shomaran_TransDetail)EditModel).CreateUser;
@@ -886,7 +892,6 @@ MainModel.UpdateUser = ((Entity.Shomaran_TransDetail)EditModel).UpdateUser;
 MainModel.CreateDate = ((Entity.Shomaran_TransDetail)EditModel).CreateDate;
 MainModel.UpdateDate = ((Entity.Shomaran_TransDetail)EditModel).UpdateDate;
 MainModel.IsDelete = ((Entity.Shomaran_TransDetail)EditModel).IsDelete;
-MainModel.Year = ((Entity.Shomaran_TransDetail)EditModel).Year;
 MainModel.RowOrder = ((Entity.Shomaran_TransDetail)EditModel).RowOrder;
 
     }
@@ -1062,8 +1067,8 @@ public async void RowDubbleClickGrid_Shomaran_TransDetail(GridRowClickEventArgs 
     {
         Console.WriteLine("#log OnInitializedAsync");
 
-        TableGet = await Utility.JSON.ToObject<Table>("{\"Name\":\"Shomaran_Trans\",\"GetNameAs\":\"Shomaran_Trans\",\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"RequestID\",\"GetNameAs\":\"RequestID\"},{\"Name\":\"CreateUser\",\"GetNameAs\":\"CreateUser\"},{\"Name\":\"UpdateUser\",\"GetNameAs\":\"UpdateUser\"},{\"Name\":\"CreateDate\",\"GetNameAs\":\"CreateDate\"},{\"Name\":\"UpdateDate\",\"GetNameAs\":\"UpdateDate\"},{\"Name\":\"IsDelete\",\"GetNameAs\":\"IsDelete\"},{\"Name\":\"Creator\",\"GetNameAs\":\"Creator\"},{\"Name\":\"FactDate\",\"GetNameAs\":\"FactDate\"},{\"Name\":\"SInvCode\",\"GetNameAs\":\"SInvCode\"},{\"Name\":\"TInvCode\",\"GetNameAs\":\"TInvCode\"},{\"Name\":\"TempNo\",\"GetNameAs\":\"TempNo\"},{\"Name\":\"Year\",\"GetNameAs\":\"Year\"},{\"Name\":\"FactNo\",\"GetNameAs\":\"FactNo\"},{\"Name\":\"Note\",\"GetNameAs\":\"Note\"},{\"Name\":\"ApiResult\",\"GetNameAs\":\"ApiResult\"},{\"Name\":\"Trans_List\",\"GetNameAs\":\"Trans_List\"}],\"Relation\":[{\"Name\":\"Shomaran_TransDetail\",\"GetNameAs\":\"Shomaran_TransDetail\",\"ModeErtebat\":2,\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"RequestID\",\"GetNameAs\":\"RequestID\"},{\"Name\":\"CreateUser\",\"GetNameAs\":\"CreateUser\"},{\"Name\":\"UpdateUser\",\"GetNameAs\":\"UpdateUser\"},{\"Name\":\"CreateDate\",\"GetNameAs\":\"CreateDate\"},{\"Name\":\"UpdateDate\",\"GetNameAs\":\"UpdateDate\"},{\"Name\":\"IsDelete\",\"GetNameAs\":\"IsDelete\"},{\"Name\":\"Amount\",\"GetNameAs\":\"Amount\"},{\"Name\":\"Note\",\"GetNameAs\":\"Note\"},{\"Name\":\"PartCode\",\"GetNameAs\":\"PartCode\"},{\"Name\":\"Radyabi\",\"GetNameAs\":\"Radyabi\"},{\"Name\":\"Sefaresh\",\"GetNameAs\":\"Sefaresh\"},{\"Name\":\"RowOrder\",\"GetNameAs\":\"RowOrder\"},{\"Name\":\"Year\",\"GetNameAs\":\"Year\"},{\"Name\":\"ProductSearch\",\"GetNameAs\":\"ProductSearch\"},{\"Name\":\"ShomareFani\",\"GetNameAs\":\"ShomareFani\"},{\"Name\":\"ProductName\",\"GetNameAs\":\"ProductName\"},{\"Name\":\"Unit\",\"GetNameAs\":\"Unit\"}],\"Relation\":[]}]}");
-        TablePost = await Utility.JSON.ToObject<Table>("{\"Name\":\"Shomaran_Trans\",\"GetNameAs\":\"Shomaran_Trans\",\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"RequestID\",\"GetNameAs\":\"RequestID\"},{\"Name\":\"CreateUser\",\"GetNameAs\":\"CreateUser\"},{\"Name\":\"UpdateUser\",\"GetNameAs\":\"UpdateUser\"},{\"Name\":\"CreateDate\",\"GetNameAs\":\"CreateDate\"},{\"Name\":\"UpdateDate\",\"GetNameAs\":\"UpdateDate\"},{\"Name\":\"IsDelete\",\"GetNameAs\":\"IsDelete\"},{\"Name\":\"Creator\",\"GetNameAs\":\"Creator\"},{\"Name\":\"FactDate\",\"GetNameAs\":\"FactDate\"},{\"Name\":\"SInvCode\",\"GetNameAs\":\"SInvCode\"},{\"Name\":\"TInvCode\",\"GetNameAs\":\"TInvCode\"},{\"Name\":\"TempNo\",\"GetNameAs\":\"TempNo\"},{\"Name\":\"Year\",\"GetNameAs\":\"Year\"},{\"Name\":\"FactNo\",\"GetNameAs\":\"FactNo\"},{\"Name\":\"Note\",\"GetNameAs\":\"Note\"},{\"Name\":\"ApiResult\",\"GetNameAs\":\"ApiResult\"},{\"Name\":\"Trans_List\",\"GetNameAs\":\"Trans_List\"}],\"Relation\":[{\"Name\":\"Shomaran_TransDetail\",\"GetNameAs\":\"Shomaran_TransDetail\",\"ModeErtebat\":2,\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"RequestID\",\"GetNameAs\":\"RequestID\"},{\"Name\":\"CreateUser\",\"GetNameAs\":\"CreateUser\"},{\"Name\":\"UpdateUser\",\"GetNameAs\":\"UpdateUser\"},{\"Name\":\"CreateDate\",\"GetNameAs\":\"CreateDate\"},{\"Name\":\"UpdateDate\",\"GetNameAs\":\"UpdateDate\"},{\"Name\":\"IsDelete\",\"GetNameAs\":\"IsDelete\"},{\"Name\":\"Amount\",\"GetNameAs\":\"Amount\"},{\"Name\":\"Note\",\"GetNameAs\":\"Note\"},{\"Name\":\"PartCode\",\"GetNameAs\":\"PartCode\"},{\"Name\":\"Radyabi\",\"GetNameAs\":\"Radyabi\"},{\"Name\":\"Sefaresh\",\"GetNameAs\":\"Sefaresh\"},{\"Name\":\"RowOrder\",\"GetNameAs\":\"RowOrder\"},{\"Name\":\"Year\",\"GetNameAs\":\"Year\"},{\"Name\":\"ProductSearch\",\"GetNameAs\":\"ProductSearch\"},{\"Name\":\"ShomareFani\",\"GetNameAs\":\"ShomareFani\"},{\"Name\":\"ProductName\",\"GetNameAs\":\"ProductName\"},{\"Name\":\"Unit\",\"GetNameAs\":\"Unit\"}],\"Relation\":[]}]}");
+        TableGet = await Utility.JSON.ToObject<Table>("{\"Name\":\"Shomaran_Trans\",\"GetNameAs\":\"Shomaran_Trans\",\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"RequestID\",\"GetNameAs\":\"RequestID\"},{\"Name\":\"CreateUser\",\"GetNameAs\":\"CreateUser\"},{\"Name\":\"UpdateUser\",\"GetNameAs\":\"UpdateUser\"},{\"Name\":\"CreateDate\",\"GetNameAs\":\"CreateDate\"},{\"Name\":\"UpdateDate\",\"GetNameAs\":\"UpdateDate\"},{\"Name\":\"IsDelete\",\"GetNameAs\":\"IsDelete\"},{\"Name\":\"Creator\",\"GetNameAs\":\"Creator\"},{\"Name\":\"FactDate\",\"GetNameAs\":\"FactDate\"},{\"Name\":\"SInvCode\",\"GetNameAs\":\"SInvCode\"},{\"Name\":\"TInvCode\",\"GetNameAs\":\"TInvCode\"},{\"Name\":\"TDesc\",\"GetNameAs\":\"TDesc\"},{\"Name\":\"TempNo\",\"GetNameAs\":\"TempNo\"},{\"Name\":\"Year\",\"GetNameAs\":\"Year\"},{\"Name\":\"FactNo\",\"GetNameAs\":\"FactNo\"},{\"Name\":\"ApiResult\",\"GetNameAs\":\"ApiResult\"},{\"Name\":\"Trans_List\",\"GetNameAs\":\"Trans_List\"}],\"Relation\":[{\"Name\":\"Shomaran_TransDetail\",\"GetNameAs\":\"Shomaran_TransDetail\",\"ModeErtebat\":2,\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"RequestID\",\"GetNameAs\":\"RequestID\"},{\"Name\":\"CreateUser\",\"GetNameAs\":\"CreateUser\"},{\"Name\":\"UpdateUser\",\"GetNameAs\":\"UpdateUser\"},{\"Name\":\"CreateDate\",\"GetNameAs\":\"CreateDate\"},{\"Name\":\"UpdateDate\",\"GetNameAs\":\"UpdateDate\"},{\"Name\":\"IsDelete\",\"GetNameAs\":\"IsDelete\"},{\"Name\":\"Amount\",\"GetNameAs\":\"Amount\"},{\"Name\":\"Note\",\"GetNameAs\":\"Note\"},{\"Name\":\"PartCode\",\"GetNameAs\":\"PartCode\"},{\"Name\":\"Radyabi\",\"GetNameAs\":\"Radyabi\"},{\"Name\":\"Sefaresh\",\"GetNameAs\":\"Sefaresh\"},{\"Name\":\"RowOrder\",\"GetNameAs\":\"RowOrder\"},{\"Name\":\"Year\",\"GetNameAs\":\"Year\"},{\"Name\":\"ProductSearch\",\"GetNameAs\":\"ProductSearch\"},{\"Name\":\"ShomareFani\",\"GetNameAs\":\"ShomareFani\"},{\"Name\":\"ProductName\",\"GetNameAs\":\"ProductName\"},{\"Name\":\"Unit\",\"GetNameAs\":\"Unit\"}],\"Relation\":[]}]}");
+        TablePost = await Utility.JSON.ToObject<Table>("{\"Name\":\"Shomaran_Trans\",\"GetNameAs\":\"Shomaran_Trans\",\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"RequestID\",\"GetNameAs\":\"RequestID\"},{\"Name\":\"CreateUser\",\"GetNameAs\":\"CreateUser\"},{\"Name\":\"UpdateUser\",\"GetNameAs\":\"UpdateUser\"},{\"Name\":\"CreateDate\",\"GetNameAs\":\"CreateDate\"},{\"Name\":\"UpdateDate\",\"GetNameAs\":\"UpdateDate\"},{\"Name\":\"IsDelete\",\"GetNameAs\":\"IsDelete\"},{\"Name\":\"Creator\",\"GetNameAs\":\"Creator\"},{\"Name\":\"FactDate\",\"GetNameAs\":\"FactDate\"},{\"Name\":\"SInvCode\",\"GetNameAs\":\"SInvCode\"},{\"Name\":\"TInvCode\",\"GetNameAs\":\"TInvCode\"},{\"Name\":\"TDesc\",\"GetNameAs\":\"TDesc\"},{\"Name\":\"TempNo\",\"GetNameAs\":\"TempNo\"},{\"Name\":\"Year\",\"GetNameAs\":\"Year\"},{\"Name\":\"FactNo\",\"GetNameAs\":\"FactNo\"},{\"Name\":\"ApiResult\",\"GetNameAs\":\"ApiResult\"},{\"Name\":\"Trans_List\",\"GetNameAs\":\"Trans_List\"}],\"Relation\":[{\"Name\":\"Shomaran_TransDetail\",\"GetNameAs\":\"Shomaran_TransDetail\",\"ModeErtebat\":2,\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"RequestID\",\"GetNameAs\":\"RequestID\"},{\"Name\":\"CreateUser\",\"GetNameAs\":\"CreateUser\"},{\"Name\":\"UpdateUser\",\"GetNameAs\":\"UpdateUser\"},{\"Name\":\"CreateDate\",\"GetNameAs\":\"CreateDate\"},{\"Name\":\"UpdateDate\",\"GetNameAs\":\"UpdateDate\"},{\"Name\":\"IsDelete\",\"GetNameAs\":\"IsDelete\"},{\"Name\":\"Amount\",\"GetNameAs\":\"Amount\"},{\"Name\":\"Note\",\"GetNameAs\":\"Note\"},{\"Name\":\"PartCode\",\"GetNameAs\":\"PartCode\"},{\"Name\":\"Radyabi\",\"GetNameAs\":\"Radyabi\"},{\"Name\":\"Sefaresh\",\"GetNameAs\":\"Sefaresh\"},{\"Name\":\"RowOrder\",\"GetNameAs\":\"RowOrder\"},{\"Name\":\"Year\",\"GetNameAs\":\"Year\"},{\"Name\":\"ProductSearch\",\"GetNameAs\":\"ProductSearch\"},{\"Name\":\"ShomareFani\",\"GetNameAs\":\"ShomareFani\"},{\"Name\":\"ProductName\",\"GetNameAs\":\"ProductName\"},{\"Name\":\"Unit\",\"GetNameAs\":\"Unit\"}],\"Relation\":[]}]}");
 
         config = CKEditorBundleOptions.DefaultConfig.WithHtmlEditing();
         config.Language = "fa";
