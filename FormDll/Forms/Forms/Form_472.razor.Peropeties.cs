@@ -144,7 +144,7 @@ namespace Forms.Forms
     /// <summary>
     ///  ورژنی که فرم باهاش ساخته شده
     /// </summary>
-    public string? VersionForm { get; set; } = "5211";
+    public string? VersionForm { get; set; } = "5224";
 
     /// <summary>
     ///  موجودیت
@@ -202,6 +202,7 @@ public RadioBoolean Ref_SCM_ProductRequestDetails_ForeignMachineryProductTrueFas
 public Dropdown Ref_SCM_ProductRequestDetails_Global_SCMRequestTypeId;
 public Input<double?> Ref_SCM_ProductRequestDetails_DeficitSupplyNumber;
 public Input<int?> Ref_SCM_ProductRequestDetails_DeliveryCode;
+public Input<string?> Ref_SCM_ProductRequestDetails_PARTCODE;
 public RadioBoolean Ref_SCM_ProductRequestDetails_ProductDelivery;
 public RadioBoolean Ref_SCM_ProductRequestDetails_FutureActionTrueFalse;
 public Input<Guid> Ref_SCM_ProductRequestDetails_Id;
@@ -218,7 +219,6 @@ public Input<string?> Ref_SCM_ProductRequestDetails_ProductSubCategoryIdText;
 public Input<string?> Ref_SCM_ProductRequestDetails_ShomaranFiscalYearText;
 public Input<string?> Ref_SCM_ProductRequestDetails_IsExistText;
 public Input<int?> Ref_SCM_ProductRequestDetails_MapGroupCodeNum;
-public Input<string?> Ref_SCM_ProductRequestDetails_PARTCODE;
 public Input<Guid> Ref_Id;
 public Input<Guid?> Ref_RequestID;
 public Input<Guid?> Ref_CreateUser;

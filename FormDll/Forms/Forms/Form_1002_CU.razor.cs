@@ -212,27 +212,19 @@ namespace Forms.Forms
 			{
 				Console.WriteLine(":: Log Grid EmpInfo :: " + await JSON.ToJson(EmpInfo));
 				Console.WriteLine(":: Log Grid EmpInfo.RankSalaryNew :: " + EmpInfo.RankSalaryNew);
+
 				Console.WriteLine("EmpInfo is null? " + (EmpInfo == null));
-				
-				//Console.WriteLine("Ref is null? " + (Ref_HR_CVR_RecruitmentRules_JobSalaryRankNew == null));
+				Console.WriteLine("Ref is null? " + (Ref_HR_CVR_RecruitmentRules_JobSalaryRankNew == null));
 
-				//Console.WriteLine("EmpInfo.RankSalaryNew = " + EmpInfo.RankSalaryNew);
+				Console.WriteLine("EmpInfo.RankSalaryNew = " + EmpInfo.RankSalaryNew);
 
+				Ref_HR_CVR_RecruitmentRules_JobSalaryRankNew.SetDisabled(true);
 
+				//Ref_HR_CVR_RecruitmentRules_JobSalaryRankNew.Value = EmpInfo.RankSalaryNew;
 
 				Console.WriteLine(":: Log Grid JobSalaryRankNew :: " + Ref_HR_CVR_RecruitmentRules_JobSalaryRankNew.Value);
 
-				// مزد شغل
-				//Ref_HR_CVR_RecruitmentRules_JobSalaryRankNew.Value = EmpInfo.RankSalaryNew;
-				Item.JobSalaryRankNew = EmpInfo.RankSalaryNew;
-				//Ref_HR_CVR_RecruitmentRules_JobSalaryRankNew.SetDisabled(true);
 
-				// مزد رتبه
-				//Ref_HR_CVR_RecruitmentRules_JobSalaryRankNew.Value = EmpInfo.RankSalaryNew;
-				Item.JobSalaryRankNew = EmpInfo.RankSalaryNew;
-
-				// 
-				//Ref_HR_CVR_RecruitmentRules_JobSalaryRankNew.Value = EmpInfo.RankSalaryNew;
 				Item.JobSalaryRankNew = EmpInfo.RankSalaryNew;
 
 				Console.WriteLine(":: Log Grid JobSalaryRankNew :: " + Item.JobSalaryRankNew);

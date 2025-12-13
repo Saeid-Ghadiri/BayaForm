@@ -144,7 +144,7 @@ namespace Forms.Forms
     /// <summary>
     ///  ورژنی که فرم باهاش ساخته شده
     /// </summary>
-    public string? VersionForm { get; set; } = "5211";
+    public string? VersionForm { get; set; } = "5224";
 
     /// <summary>
     ///  موجودیت
@@ -180,6 +180,7 @@ namespace Forms.Forms
     #region FormProperty
 
 public Dropdown Ref_HR_EMP_EmployeesId;
+public ElementReference Ref_submit;
 public Dropdown Ref_HR_CVR_PersonnelContractId;
 public Dropdown Ref_HR_CVR_VerdictRecruitingId;
 public Dropdown Ref_HR_CVR_TypesRulingsId;
@@ -276,6 +277,20 @@ public Input<DateTime?> Ref_HR_CVR_RecruitmentRules_PostRetentionStartDate;
 public Input<string?> Ref_HR_CVR_RecruitmentRules_PostRetentionCancellationDate_Fa;
 public Input<DateTime?> Ref_HR_CVR_RecruitmentRules_PostRetentionCancellationDate;
 public Input<int?> Ref_HR_CVR_RecruitmentRules_DailyPostRetentionStartDate;
+public DxGrid? Grid_HR_CVR_EveryPostVerdict;
+
+public Input<Guid> Ref_HR_CVR_EveryPostVerdict_Id;
+public Input<Guid?> Ref_HR_CVR_EveryPostVerdict_RequestID;
+public Input<Guid?> Ref_HR_CVR_EveryPostVerdict_CreateUser;
+public Input<Guid?> Ref_HR_CVR_EveryPostVerdict_UpdateUser;
+public Input<DateTime?> Ref_HR_CVR_EveryPostVerdict_CreateDate;
+public Input<DateTime?> Ref_HR_CVR_EveryPostVerdict_UpdateDate;
+public Input<bool?> Ref_HR_CVR_EveryPostVerdict_IsDelete;
+public Dropdown Ref_HR_CVR_EveryPostVerdict_HR_CVR_VerdictRecruitingId;
+public RadioBoolean Ref_HR_CVR_EveryPostVerdict_PostType;
+public RadioBoolean Ref_HR_CVR_EveryPostVerdict_SectionsType;
+public Dropdown Ref_HR_CVR_EveryPostVerdict_HR_ORG_SectionsId;
+public Dropdown Ref_HR_CVR_EveryPostVerdict_HR_ORG_PostsId;
 public DxGrid? Grid_HR_CVR_DescriptionRulings;
 
 public Input<string?> Ref_HR_CVR_DescriptionRulings_Title;
