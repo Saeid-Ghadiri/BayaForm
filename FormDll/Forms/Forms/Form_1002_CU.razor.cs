@@ -1,7 +1,9 @@
+using ApiServer.External.Services;
 using Baya.Models.ORM;
 using Baya.Models.Utility;
 using Baya.Models.Utility.Entity;
 using Baya.Models.Utility.Menu;
+using BlazorBootstrap;
 using Blazored.Toast.Services;
 using Castle.DynamicLinqQueryBuilder;
 using DateUtils;
@@ -10,8 +12,10 @@ using Entity;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.JSInterop;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Sitko.Blazor.CKEditor;
+using SP_ContractTime;
 using System;
 using System.Globalization;
 using System.Net;
@@ -102,6 +106,7 @@ namespace Forms.Forms
 		/// <returns></returns>
 		public override async Task AfterGetData()
 		{
+			await GetEmpId(_Entity.HR_EMP_EmployeesId.ToString());
 		}
 
 
@@ -109,7 +114,7 @@ namespace Forms.Forms
 
 		string employeeId = "";
 
-
+		EmployeeInfo EmpInfo = new();
 
 		public async Task<bool> CheckFieldValidation(Entity.HR_CVR_VerdictRecruiting Item)
 		{
@@ -203,78 +208,117 @@ namespace Forms.Forms
 
 		public async Task GridHR_CVR_VerdictRecruitingId_711_afterrendermodal(Entity.HR_CVR_RecruitmentRules Item)
 		{
-			string detailEmployeeId = employeeId;
-
-			Console.WriteLine($"🔍 Fetching employee data for ID: {detailEmployeeId}");
-
 			try
 			{
-				var emp_data = await EMP_Data.EmployeeData.EmployeeMasterDetail(detailEmployeeId, _User.UserID.ToString());
+				Console.WriteLine(":: Log Grid EmpInfo :: " + await JSON.ToJson(EmpInfo));
+				Console.WriteLine(":: Log Grid EmpInfo.RankSalaryNew :: " + EmpInfo.RankSalaryNew);
+				Console.WriteLine("EmpInfo is null? " + (EmpInfo == null));
+				
+				//Console.WriteLine("Ref is null? " + (Ref_HR_CVR_RecruitmentRules_JobSalaryRankNew == null));
 
-				var x = await Utility.JSON.ToJson(emp_data);
-				Console.WriteLine("Log :: data_emp Data ::" + x);
+				//Console.WriteLine("EmpInfo.RankSalaryNew = " + EmpInfo.RankSalaryNew);
 
 
-				if (emp_data == null)
-				{
-					Console.WriteLine($"❌ Employee data NOT FOUND for ID: {detailEmployeeId}");
-					return;
-				}
 
-				Console.WriteLine($"✅ Employee data loaded: {emp_data.FirstName} {emp_data.LastName}");
+				Console.WriteLine(":: Log Grid JobSalaryRankNew :: " + Ref_HR_CVR_RecruitmentRules_JobSalaryRankNew.Value);
 
-				// شماره بیمه در بخش 
-				//Ref_HR_CVR_RecruitmentRules_InsuranceNumber.Value = _Entity.InsuranceNumber;
+				// مزد شغل
+				//Ref_HR_CVR_RecruitmentRules_JobSalaryRankNew.Value = EmpInfo.RankSalaryNew;
+				Item.JobSalaryRankNew = EmpInfo.RankSalaryNew;
+				//Ref_HR_CVR_RecruitmentRules_JobSalaryRankNew.SetDisabled(true);
 
-				Ref_HR_CVR_RecruitmentRules_EmployeeNo.Value = emp_data.EmployeeNo;
-				Ref_HR_CVR_RecruitmentRules_FirstName.Value = emp_data.FirstName;
-				Ref_HR_CVR_RecruitmentRules_LastName.Value = emp_data.LastName;
-				Ref_HR_CVR_RecruitmentRules_FatherName.Value = emp_data.FatherName;
-				Ref_HR_CVR_RecruitmentRules_NationalCode.Value = emp_data.NationalCode;
-				Ref_HR_CVR_RecruitmentRules_IdCardNo.Value = emp_data.IdCardNo;
-				Ref_HR_CVR_RecruitmentRules_BirthDate_Fa.Value = emp_data.BirthDate_Fa;
-				Ref_HR_CVR_RecruitmentRules_BaseInfo_GenderId.Value = emp_data.BaseInfo_GenderTitle;
-				Ref_HR_CVR_RecruitmentRules_BaseInfo_MaritalStatusId.Value = emp_data.BaseInfo_MaritalStatusTitle;
-				Ref_HR_CVR_RecruitmentRules_EmployeeAgeText.Value = emp_data.EmployeeAgeText;
-				Ref_HR_CVR_RecruitmentRules_CityOfIssue.Value = emp_data.CityOfIssueTitle;
-				Ref_HR_CVR_RecruitmentRules_CityOfBirth.Value = emp_data.CityOfBirthTitle;
-				Ref_HR_CVR_RecruitmentRules_EmploymentDateInGroup_Fa.Value = emp_data.EmploymentDateInGroup_Fa;
-				//Ref_HR_CVR_RecruitmentRules_DailyEmploymentDateInGroup.Value = emp_data.DailyEmploymentDateInGroup; 
-				Ref_HR_CVR_RecruitmentRules_EmploymentDate_Fa.Value = emp_data.EmploymentDate_Fa;
-				//Ref_HR_CVR_RecruitmentRules_DailyEmploymentDate.Value = emp_data.DailyEmploymentDate; 
-				Ref_HR_CVR_RecruitmentRules_EmploymentStartDate_Fa.Value = emp_data.EmploymentStartDate_Fa;
+				// مزد رتبه
+				//Ref_HR_CVR_RecruitmentRules_JobSalaryRankNew.Value = EmpInfo.RankSalaryNew;
+				Item.JobSalaryRankNew = EmpInfo.RankSalaryNew;
 
-				//// اطلاعات حساب بانکی
-				//// HR_Base_AcademicDegrees
-				//Ref_HR_CVR_RecruitmentRules_BankAccountNumber.Value = empBnakAcc.BankAccountNumber;
-				//Ref_HR_CVR_RecruitmentRules_IBAN.Value = empBnakAcc.IBAN;
+				// 
+				//Ref_HR_CVR_RecruitmentRules_JobSalaryRankNew.Value = EmpInfo.RankSalaryNew;
+				Item.JobSalaryRankNew = EmpInfo.RankSalaryNew;
 
-				//// مدرک تحصیلی
-				////Ref_HR_CVR_RecruitmentRules_HR_Base_AcademicDegreesId.Value = emp_data.HR_Base_AcademicDegreesTitle; // مدرک تحصیلی اصلا برای این ویو نیست
+				Console.WriteLine(":: Log Grid JobSalaryRankNew :: " + Item.JobSalaryRankNew);
+
+				// Todo::
+				await GetEmpDataGrid(Item);
+
 
 				StateHasChanged();
 			}
 			catch (Exception ex)
 			{
-				Console.WriteLine($"💥 Exception in GridHR_CVR_VerdictRecruitingId_711_afterrendermodal: {ex}");
+				Console.WriteLine($"💥 Exception in Grid => AfterRender Error :: {ex}");
 			}
 
+		}
+
+		private async Task GetEmpDataGrid(Entity.HR_CVR_RecruitmentRules Item)
+		{
+			string detailEmployeeId = employeeId;
+
+			Console.WriteLine($"🔍 Fetching employee data for ID: {detailEmployeeId}");
+
+			var emp_data = await EMP_Data.EmployeeData.EmployeeMasterDetail(detailEmployeeId, _User.UserID.ToString());
+
+			var x = await Utility.JSON.ToJson(emp_data);
+			Console.WriteLine("Log :: data_emp Data ::" + x);
+
+
+			if (emp_data == null)
+			{
+				Console.WriteLine($"❌ Employee data NOT FOUND for ID: {detailEmployeeId}");
+				return;
+			}
+
+			Console.WriteLine($"✅ Employee data loaded: {emp_data.FirstName} {emp_data.LastName}");
+
+			// شماره بیمه در بخش 
+			//Ref_HR_CVR_RecruitmentRules_InsuranceNumber.Value = _Entity.InsuranceNumber;
+
+			Ref_HR_CVR_RecruitmentRules_EmployeeNo.Value = emp_data.EmployeeNo;
+			Ref_HR_CVR_RecruitmentRules_EmployeeNo.SetDisabled(true);
+			Ref_HR_CVR_RecruitmentRules_FirstName.Value = emp_data.FirstName;
+			Ref_HR_CVR_RecruitmentRules_LastName.Value = emp_data.LastName;
+			Ref_HR_CVR_RecruitmentRules_FatherName.Value = emp_data.FatherName;
+			Ref_HR_CVR_RecruitmentRules_NationalCode.Value = emp_data.NationalCode;
+			Ref_HR_CVR_RecruitmentRules_IdCardNo.Value = emp_data.IdCardNo;
+			Ref_HR_CVR_RecruitmentRules_BirthDate_Fa.Value = emp_data.BirthDate_Fa;
+			Ref_HR_CVR_RecruitmentRules_BaseInfo_GenderId.Value = emp_data.BaseInfo_GenderTitle;
+			Ref_HR_CVR_RecruitmentRules_BaseInfo_MaritalStatusId.Value = emp_data.BaseInfo_MaritalStatusTitle;
+			Ref_HR_CVR_RecruitmentRules_EmployeeAgeText.Value = emp_data.EmployeeAgeText;
+			Ref_HR_CVR_RecruitmentRules_CityOfIssue.Value = emp_data.CityOfIssueTitle;
+			Ref_HR_CVR_RecruitmentRules_CityOfBirth.Value = emp_data.CityOfBirthTitle;
+			Ref_HR_CVR_RecruitmentRules_EmploymentDateInGroup_Fa.Value = emp_data.EmploymentDateInGroup_Fa;
+			//Ref_HR_CVR_RecruitmentRules_DailyEmploymentDateInGroup.Value = emp_data.DailyEmploymentDateInGroup; 
+			Ref_HR_CVR_RecruitmentRules_EmploymentDate_Fa.Value = emp_data.EmploymentDate_Fa;
+			//Ref_HR_CVR_RecruitmentRules_DailyEmploymentDate.Value = emp_data.DailyEmploymentDate; 
+			Ref_HR_CVR_RecruitmentRules_EmploymentStartDate_Fa.Value = emp_data.EmploymentStartDate_Fa;
+
+			//// اطلاعات حساب بانکی
+			//// HR_Base_AcademicDegrees
+			//Ref_HR_CVR_RecruitmentRules_BankAccountNumber.Value = empBnakAcc.BankAccountNumber;
+			//Ref_HR_CVR_RecruitmentRules_IBAN.Value = empBnakAcc.IBAN;
+
+			//// مدرک تحصیلی
+			////Ref_HR_CVR_RecruitmentRules_HR_Base_AcademicDegreesId.Value = emp_data.HR_Base_AcademicDegreesTitle; // مدرک تحصیلی اصلا برای این ویو نیست
+			StateHasChanged();
 		}
 
 		//public async Task HR_EMP_EmployeesId_onitemselected(Entity.HR_EMP_Employees Selected)
 		public async Task HR_EMP_EmployeesId_onitemselected(dynamic Selected)
 		{
-
-			Console.WriteLine("#Log +++++++++++++ 0001");
-			Console.WriteLine("#Log::  Selected:Id :: " + Selected.Id);
-
-			employeeId = Selected.Id.ToString();
-
-			Console.WriteLine("#Log +++++++++++++ 0002");
-
-
 			var x = await Utility.JSON.ToJson(Selected);
 			Console.WriteLine("Log :: Selected Data ::" + x);
+
+			await GetEmpId(Selected.Id.ToString());
+		}
+
+		private async Task GetEmpId(string Id)
+		{
+			Console.WriteLine("#Log +++++++++++++ 0001");
+			Console.WriteLine("#Log::  Selected:Id :: " + Id);
+
+			employeeId = Id;
+
+			Console.WriteLine("#Log +++++++++++++ 0002");
 		}
 
 		public async Task Grid_HR_EMP_EmployeesId_onitemselected(dynamic Selected, Entity.HR_CVR_RecruitmentRules Item)
@@ -293,6 +337,85 @@ namespace Forms.Forms
 
 			await Task.Delay(100);
 			Ref_HR_CVR_RecruitmentRules_HR_EMP_EmployeesId.LoadData();
+		}
+
+		public async Task SP_Verdict_onclick(MouseEventArgs Selected)
+		{
+			Console.WriteLine("### 🟡 شروع فراخوانی PersonnelContract ###");
+
+			if (_Entity?.HR_EMP_EmployeesId == null)
+			{
+				await _MSG.ShowWarning("لطفاً ابتدا کارمند را انتخاب کنید.");
+				Console.WriteLine("❌ HR_EMP_EmployeesId null است");
+				return;
+			}
+
+			var R = await BayaApi.PersonnelVerdictInfos(
+				ShomaranApiMode.Polfilm,
+				new PersonnelContractRequest
+				{
+					EmployeesId = _Entity.HR_EMP_EmployeesId.Value
+				}
+			);
+
+			if (R == null)
+			{
+				await _MSG.ShowError("خروجی وب سرویس null است");
+				Console.WriteLine("❌ خطا: R == null");
+				return;
+			}
+
+			var jsonResponse = R.Content.ToString();
+			Console.WriteLine("### 🟡 jsonResponse کامل ###");
+			Console.WriteLine(jsonResponse);
+
+			if (!jsonResponse.TrimStart().StartsWith("{"))
+			{
+				await _MSG.ShowError("خروجی وب سرویس JSON نیست:\n" + jsonResponse);
+				Console.WriteLine("❌ خطا: پاسخ JSON نیست");
+				return;
+			}
+
+			try
+			{
+
+				var response = JsonConvert.DeserializeObject<RootResponse>(jsonResponse);
+
+				if (response?.DataSets == null || response.DataSets.Count == 0)
+				{
+					await _MSG.ShowError("DataSets خالی است");
+					return;
+				}
+
+				var employee = response.DataSets[0][0];
+				var A =
+					employee.RankSalaryNew;
+
+				EmpInfo = employee;
+
+				Console.WriteLine(":: Log EmpInfo :: " + await JSON.ToJson(EmpInfo));
+
+				// --- نمایش دیالوگ ---
+				var options = new BlazorBootstrap.ConfirmDialogOptions
+				{
+					YesButtonText = "بازگشت به حکم کارگزینی",
+					YesButtonColor = ButtonColor.Info,
+					NoButtonText = "",
+				};
+
+				string htmlString = $@"
+					<div style='direction: ltr; text-align: left; line-height: 1.8;'>
+						<div><strong>داده A:</strong> {A} </div>
+					</div>";
+
+				await Confirm.ShowAsync("", htmlString, options);
+				Console.WriteLine("✅ ### اتمام عملیات با موفقیت ###");
+			}
+			catch (Exception ex)
+			{
+				Console.WriteLine("❌ خطا در پردازش کلی: " + ex.Message);
+				await _MSG.ShowError("خطا در پردازش SP: " + ex.Message);
+			}
 		}
 
 		#endregion FunctionEvents
@@ -330,7 +453,7 @@ namespace EMP_Data
 				Column = new List<Coulmn>
 				{
 					new Coulmn { Name = "Id", NameAs = "Id" }, // شناسه رکورد (GUID)
-					new Coulmn { Name = "HR_EMP_EmployeesId", NameAs = "HR_EMP_EmployeesId" }, // شناسه اطلاعات کارمند (مرتبط با جدول اصلی HR_EMP_Employees)
+					//new Coulmn { Name = "HR_EMP_EmployeesId", NameAs = "HR_EMP_EmployeesId" }, // شناسه اطلاعات کارمند (مرتبط با جدول اصلی HR_EMP_Employees)
 					new Coulmn { Name = "EmployeeNo", NameAs = "EmployeeNo" }, // کد کارمندی
 					new Coulmn { Name = "LastEmployeeNO", NameAs = "LastEmployeeNO" }, // آخرین کد کارمندی
 					new Coulmn { Name = "EmployeePersonelNo", NameAs = "EmployeePersonelNo" }, // شماره پرسنلی کارمند
@@ -340,74 +463,74 @@ namespace EMP_Data
 					new Coulmn { Name = "FatherName", NameAs = "FatherName" }, // نام پدر
 					new Coulmn { Name = "NationalCode", NameAs = "NationalCode" }, // کد ملی
 					new Coulmn { Name = "IdCardNo", NameAs = "IdCardNo" }, // شماره شناسنامه
-					new Coulmn { Name = "BirthDate_Fa", NameAs = "BirthDate_Fa" }, // تاریخ تولد (شمسی به صورت رشته)
-					new Coulmn { Name = "BirthDate", NameAs = "BirthDate" }, // تاریخ تولد (میلادی)
-					new Coulmn { Name = "BirthDateDD", NameAs = "BirthDateDD" }, // روز تاریخ تولد
-					new Coulmn { Name = "BirthDateMM", NameAs = "BirthDateMM" }, // ماه تاریخ تولد
-					new Coulmn { Name = "BirthDateYYYY", NameAs = "BirthDateYYYY" }, // سال تاریخ تولد
-					new Coulmn { Name = "CityOfBirth", NameAs = "CityOfBirth" }, // شناسه شهر محل تولد
-					new Coulmn { Name = "CityOfBirthTitle", NameAs = "CityOfBirthTitle" }, // نام شهر محل تولد
-					new Coulmn { Name = "CityOfIssue", NameAs = "CityOfIssue" }, // شناسه شهر محل صدور
-					new Coulmn { Name = "CityIssueTitle", NameAs = "CityIssueTitle" }, // نام شهر محل صدور
-					new Coulmn { Name = "Address", NameAs = "Address" }, // نشانی
-					new Coulmn { Name = "Mobile", NameAs = "Mobile" }, // تلفن همراه
-					new Coulmn { Name = "Phone", NameAs = "Phone" }, // شماره تلفن ثابت
-					new Coulmn { Name = "EmploymentDate_Fa", NameAs = "EmploymentDate_Fa" }, // تاریخ استخدام (شمسی)
-					new Coulmn { Name = "EmploymentStartDate_Fa", NameAs = "EmploymentStartDate_Fa" }, // تاریخ آخرین تسویه حساب (شمسی)
-					new Coulmn { Name = "EmploymentDateInGroup_Fa", NameAs = "EmploymentDateInGroup_Fa" }, // تاریخ استخدام در گروه (شمسی)
-					new Coulmn { Name = "EmploymentDate", NameAs = "EmploymentDate" }, // تاریخ استخدام (میلادی)
-					new Coulmn { Name = "EmploymentStartDate", NameAs = "EmploymentStartDate" }, // تاریخ آخرین تسویه حساب (میلادی)
-					new Coulmn { Name = "EmploymentDateInGroup", NameAs = "EmploymentDateInGroup" }, // تاریخ استخدام در گروه (میلادی)
-					new Coulmn { Name = "EmployeeAge", NameAs = "EmployeeAge" }, // سن کارمند (به روز)
-					new Coulmn { Name = "EmployeeAgeText", NameAs = "EmployeeAgeText" }, // سن کارمند (به صورت متن، مثلاً "13593سال")
-					new Coulmn { Name = "EmployeeWorkExperienceText", NameAs = "EmployeeWorkExperienceText" }, // سابقه کار کارمند (به روز)
-					new Coulmn { Name = "BaseInfo_MaritalStatusId", NameAs = "BaseInfo_MaritalStatusId" }, // شناسه وضعیت تاهل
-					new Coulmn { Name = "BaseInfo_MaritalStatusTitle", NameAs = "BaseInfo_MaritalStatusTitle" }, // عنوان وضعیت تاهل
-					new Coulmn { Name = "BaseInfo_GenderId", NameAs = "BaseInfo_GenderId" }, // شناسه جنسیت
-					new Coulmn { Name = "BaseInfo_GenderTitle", NameAs = "BaseInfo_GenderTitle" }, // عنوان جنسیت
-					new Coulmn { Name = "BaseInfo_MilitaryStatusId", NameAs = "BaseInfo_MilitaryStatusId" }, // شناسه وضعیت نظام وظیفه
-					new Coulmn { Name = "BaseInfo_MilitaryStatusTitle", NameAs = "BaseInfo_MilitaryStatusTitle" }, // عنوان وضعیت نظام وظیفه
-					new Coulmn { Name = "BaseInfo_CitiesAreasId", NameAs = "BaseInfo_CitiesAreasId" }, // شناسه منطقه شهری
-					new Coulmn { Name = "BaseInfo_CitiesAreasTitle", NameAs = "BaseInfo_CitiesAreasTitle" }, // عنوان منطقه شهری
-					new Coulmn { Name = "BaseInfo_ORG_CompaniesId", NameAs = "BaseInfo_ORG_CompaniesId" }, // شناسه شرکت
-					new Coulmn { Name = "BaseInfo_ORG_CompaniesTitle", NameAs = "BaseInfo_ORG_CompaniesTitle" }, // نام شرکت
-					new Coulmn { Name = "HR_EMP_StatusId", NameAs = "HR_EMP_StatusId" }, // شناسه وضعیت کارمند
-					new Coulmn { Name = "HR_EMP_StatusTitle", NameAs = "HR_EMP_StatusTitle" }, // عنوان وضعیت کارمند
-					new Coulmn { Name = "HR_Base_TransportServiceId", NameAs = "HR_Base_TransportServiceId" }, // شناسه خدمات حمل و نقل
-					new Coulmn { Name = "HR_Base_TransportServiceTitle", NameAs = "HR_Base_TransportServiceTitle" }, // عنوان خدمات حمل و نقل
-					new Coulmn { Name = "HasTransportService", NameAs = "HasTransportService" }, // سرویس ایاب ذهاب دارد؟
-					new Coulmn { Name = "SupplementaryInsurance", NameAs = "SupplementaryInsurance" }, // بیمه تکمیلی
-					new Coulmn { Name = "lifeInsurance", NameAs = "lifeInsurance" }, // بیمه عمر
-					new Coulmn { Name = "AccidentInsurance", NameAs = "AccidentInsurance" }, // بیمه حوادث
-					new Coulmn { Name = "Arzagh", NameAs = "Arzagh" }, // ارزاق دارد؟
-					new Coulmn { Name = "HasDisabledChild", NameAs = "HasDisabledChild" }, // فرزند معلول دارد؟
-					new Coulmn { Name = "MartyrsFamily", NameAs = "MartyrsFamily" }, // خانواده شهدا
-					new Coulmn { Name = "MartyrsChild", NameAs = "MartyrsChild" }, // فرزند شهید
-					new Coulmn { Name = "JebheMotanaveb_Days", NameAs = "JebheMotanaveb_Days" }, // مدت جبهه متناوب (روز)
-					new Coulmn { Name = "JebheMotavali_Days", NameAs = "JebheMotavali_Days" }, // مدت جبهه متوالی (روز)
-					new Coulmn { Name = "Captivity_Days", NameAs = "Captivity_Days" }, // مدت اسارت (روز)
-					new Coulmn { Name = "Relatives_Captivity_Days", NameAs = "Relatives_Captivity_Days" }, // مدت اسارت فرد مرتبط (روز)
-					new Coulmn { Name = "Relatives_Jebhe_Days", NameAs = "Relatives_Jebhe_Days" }, // مدت جبهه فرد مرتبط (روز)
-					new Coulmn { Name = "Relatives_VeteranPercentage", NameAs = "Relatives_VeteranPercentage" }, // درصد جانبازی فرد مرتبط
-					new Coulmn { Name = "VeteranPercentage", NameAs = "VeteranPercentage" }, // درصد جانبازی کارمند
-					new Coulmn { Name = "SanavatEnteghali_Day", NameAs = "SanavatEnteghali_Day" }, // سنوات انتقالی (روز)
-					new Coulmn { Name = "IsActive", NameAs = "IsActive" }, // فعال
-					new Coulmn { Name = "FullName", NameAs = "FullName" }, // نام کامل
-					//new Coulmn { Name = "UserId", NameAs = "UserId" }, // شناسه کاربر سیستمی
-					// فیلدهای ContactEmployee
-					new Coulmn { Name = "ContactEmployee_FullName", NameAs = "ContactEmployee_FullName" }, // نام و نام خانوادگی فرد مرتبط
-					new Coulmn { Name = "ContactEmployee_Address", NameAs = "ContactEmployee_Address" }, // نشانی فرد مرتبط
-					new Coulmn { Name = "ContactEmployee_Tel", NameAs = "ContactEmployee_Tel" }, // شماره تلفن ضروری فرد مرتبط
-					// فیلدهای نسبت به سایر جداول
-					new Coulmn { Name = "HR_Base_ContactEmployeeRelativeId", NameAs = "HR_Base_ContactEmployeeRelativeId" }, // شناسه نسبت فرد با کارمند
-					new Coulmn { Name = "HR_Base_ContactEmployeeRelativeTitle", NameAs = "HR_Base_ContactEmployeeRelativeTitle" }, // عنوان نسبت فرد با کارمند
-					// فیلدهای سیستمی
-					//new Coulmn { Name = "CreateDate", NameAs = "CreateDate" }, // تاریخ ایجاد رکورد
-					//new Coulmn { Name = "UpdateDate", NameAs = "UpdateDate" }, // تاریخ آخرین ویرایش رکورد
-					//new Coulmn { Name = "CreateUser", NameAs = "CreateUser" }, // شناسه کاربر ایجادکننده
-					//new Coulmn { Name = "UpdateUser", NameAs = "UpdateUser" }, // شناسه کاربر ویرایش‌کننده
-					//new Coulmn { Name = "IsDelete", NameAs = "IsDelete" }, // حذف منطقی
-					//new Coulmn { Name = "RequestID", NameAs = "RequestID" }, // شناسه درخواست
+					//new Coulmn { Name = "BirthDate_Fa", NameAs = "BirthDate_Fa" }, // تاریخ تولد (شمسی به صورت رشته)
+					//new Coulmn { Name = "BirthDate", NameAs = "BirthDate" }, // تاریخ تولد (میلادی)
+					//new Coulmn { Name = "BirthDateDD", NameAs = "BirthDateDD" }, // روز تاریخ تولد
+					//new Coulmn { Name = "BirthDateMM", NameAs = "BirthDateMM" }, // ماه تاریخ تولد
+					//new Coulmn { Name = "BirthDateYYYY", NameAs = "BirthDateYYYY" }, // سال تاریخ تولد
+					//new Coulmn { Name = "CityOfBirth", NameAs = "CityOfBirth" }, // شناسه شهر محل تولد
+					//new Coulmn { Name = "CityOfBirthTitle", NameAs = "CityOfBirthTitle" }, // نام شهر محل تولد
+					//new Coulmn { Name = "CityOfIssue", NameAs = "CityOfIssue" }, // شناسه شهر محل صدور
+					//new Coulmn { Name = "CityIssueTitle", NameAs = "CityIssueTitle" }, // نام شهر محل صدور
+					//new Coulmn { Name = "Address", NameAs = "Address" }, // نشانی
+					//new Coulmn { Name = "Mobile", NameAs = "Mobile" }, // تلفن همراه
+					//new Coulmn { Name = "Phone", NameAs = "Phone" }, // شماره تلفن ثابت
+					//new Coulmn { Name = "EmploymentDate_Fa", NameAs = "EmploymentDate_Fa" }, // تاریخ استخدام (شمسی)
+					//new Coulmn { Name = "EmploymentStartDate_Fa", NameAs = "EmploymentStartDate_Fa" }, // تاریخ آخرین تسویه حساب (شمسی)
+					//new Coulmn { Name = "EmploymentDateInGroup_Fa", NameAs = "EmploymentDateInGroup_Fa" }, // تاریخ استخدام در گروه (شمسی)
+					//new Coulmn { Name = "EmploymentDate", NameAs = "EmploymentDate" }, // تاریخ استخدام (میلادی)
+					//new Coulmn { Name = "EmploymentStartDate", NameAs = "EmploymentStartDate" }, // تاریخ آخرین تسویه حساب (میلادی)
+					//new Coulmn { Name = "EmploymentDateInGroup", NameAs = "EmploymentDateInGroup" }, // تاریخ استخدام در گروه (میلادی)
+					//new Coulmn { Name = "EmployeeAge", NameAs = "EmployeeAge" }, // سن کارمند (به روز)
+					//new Coulmn { Name = "EmployeeAgeText", NameAs = "EmployeeAgeText" }, // سن کارمند (به صورت متن، مثلاً "13593سال")
+					//new Coulmn { Name = "EmployeeWorkExperienceText", NameAs = "EmployeeWorkExperienceText" }, // سابقه کار کارمند (به روز)
+					//new Coulmn { Name = "BaseInfo_MaritalStatusId", NameAs = "BaseInfo_MaritalStatusId" }, // شناسه وضعیت تاهل
+					//new Coulmn { Name = "BaseInfo_MaritalStatusTitle", NameAs = "BaseInfo_MaritalStatusTitle" }, // عنوان وضعیت تاهل
+					//new Coulmn { Name = "BaseInfo_GenderId", NameAs = "BaseInfo_GenderId" }, // شناسه جنسیت
+					//new Coulmn { Name = "BaseInfo_GenderTitle", NameAs = "BaseInfo_GenderTitle" }, // عنوان جنسیت
+					//new Coulmn { Name = "BaseInfo_MilitaryStatusId", NameAs = "BaseInfo_MilitaryStatusId" }, // شناسه وضعیت نظام وظیفه
+					//new Coulmn { Name = "BaseInfo_MilitaryStatusTitle", NameAs = "BaseInfo_MilitaryStatusTitle" }, // عنوان وضعیت نظام وظیفه
+					//new Coulmn { Name = "BaseInfo_CitiesAreasId", NameAs = "BaseInfo_CitiesAreasId" }, // شناسه منطقه شهری
+					//new Coulmn { Name = "BaseInfo_CitiesAreasTitle", NameAs = "BaseInfo_CitiesAreasTitle" }, // عنوان منطقه شهری
+					//new Coulmn { Name = "BaseInfo_ORG_CompaniesId", NameAs = "BaseInfo_ORG_CompaniesId" }, // شناسه شرکت
+					//new Coulmn { Name = "BaseInfo_ORG_CompaniesTitle", NameAs = "BaseInfo_ORG_CompaniesTitle" }, // نام شرکت
+					//new Coulmn { Name = "HR_EMP_StatusId", NameAs = "HR_EMP_StatusId" }, // شناسه وضعیت کارمند
+					//new Coulmn { Name = "HR_EMP_StatusTitle", NameAs = "HR_EMP_StatusTitle" }, // عنوان وضعیت کارمند
+					//new Coulmn { Name = "HR_Base_TransportServiceId", NameAs = "HR_Base_TransportServiceId" }, // شناسه خدمات حمل و نقل
+					//new Coulmn { Name = "HR_Base_TransportServiceTitle", NameAs = "HR_Base_TransportServiceTitle" }, // عنوان خدمات حمل و نقل
+					//new Coulmn { Name = "HasTransportService", NameAs = "HasTransportService" }, // سرویس ایاب ذهاب دارد؟
+					//new Coulmn { Name = "SupplementaryInsurance", NameAs = "SupplementaryInsurance" }, // بیمه تکمیلی
+					//new Coulmn { Name = "lifeInsurance", NameAs = "lifeInsurance" }, // بیمه عمر
+					//new Coulmn { Name = "AccidentInsurance", NameAs = "AccidentInsurance" }, // بیمه حوادث
+					//new Coulmn { Name = "Arzagh", NameAs = "Arzagh" }, // ارزاق دارد؟
+					//new Coulmn { Name = "HasDisabledChild", NameAs = "HasDisabledChild" }, // فرزند معلول دارد؟
+					//new Coulmn { Name = "MartyrsFamily", NameAs = "MartyrsFamily" }, // خانواده شهدا
+					//new Coulmn { Name = "MartyrsChild", NameAs = "MartyrsChild" }, // فرزند شهید
+					//new Coulmn { Name = "JebheMotanaveb_Days", NameAs = "JebheMotanaveb_Days" }, // مدت جبهه متناوب (روز)
+					//new Coulmn { Name = "JebheMotavali_Days", NameAs = "JebheMotavali_Days" }, // مدت جبهه متوالی (روز)
+					//new Coulmn { Name = "Captivity_Days", NameAs = "Captivity_Days" }, // مدت اسارت (روز)
+					//new Coulmn { Name = "Relatives_Captivity_Days", NameAs = "Relatives_Captivity_Days" }, // مدت اسارت فرد مرتبط (روز)
+					//new Coulmn { Name = "Relatives_Jebhe_Days", NameAs = "Relatives_Jebhe_Days" }, // مدت جبهه فرد مرتبط (روز)
+					//new Coulmn { Name = "Relatives_VeteranPercentage", NameAs = "Relatives_VeteranPercentage" }, // درصد جانبازی فرد مرتبط
+					//new Coulmn { Name = "VeteranPercentage", NameAs = "VeteranPercentage" }, // درصد جانبازی کارمند
+					//new Coulmn { Name = "SanavatEnteghali_Day", NameAs = "SanavatEnteghali_Day" }, // سنوات انتقالی (روز)
+					//new Coulmn { Name = "IsActive", NameAs = "IsActive" }, // فعال
+					//new Coulmn { Name = "FullName", NameAs = "FullName" }, // نام کامل
+					////new Coulmn { Name = "UserId", NameAs = "UserId" }, // شناسه کاربر سیستمی
+					//// فیلدهای ContactEmployee
+					//new Coulmn { Name = "ContactEmployee_FullName", NameAs = "ContactEmployee_FullName" }, // نام و نام خانوادگی فرد مرتبط
+					//new Coulmn { Name = "ContactEmployee_Address", NameAs = "ContactEmployee_Address" }, // نشانی فرد مرتبط
+					//new Coulmn { Name = "ContactEmployee_Tel", NameAs = "ContactEmployee_Tel" }, // شماره تلفن ضروری فرد مرتبط
+					//// فیلدهای نسبت به سایر جداول
+					//new Coulmn { Name = "HR_Base_ContactEmployeeRelativeId", NameAs = "HR_Base_ContactEmployeeRelativeId" }, // شناسه نسبت فرد با کارمند
+					//new Coulmn { Name = "HR_Base_ContactEmployeeRelativeTitle", NameAs = "HR_Base_ContactEmployeeRelativeTitle" }, // عنوان نسبت فرد با کارمند
+					//// فیلدهای سیستمی
+					////new Coulmn { Name = "CreateDate", NameAs = "CreateDate" }, // تاریخ ایجاد رکورد
+					////new Coulmn { Name = "UpdateDate", NameAs = "UpdateDate" }, // تاریخ آخرین ویرایش رکورد
+					////new Coulmn { Name = "CreateUser", NameAs = "CreateUser" }, // شناسه کاربر ایجادکننده
+					////new Coulmn { Name = "UpdateUser", NameAs = "UpdateUser" }, // شناسه کاربر ویرایش‌کننده
+					////new Coulmn { Name = "IsDelete", NameAs = "IsDelete" }, // حذف منطقی
+					////new Coulmn { Name = "RequestID", NameAs = "RequestID" }, // شناسه درخواست
 				}
 			};
 

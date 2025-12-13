@@ -14,6 +14,7 @@ using System;
 using System.Globalization;
 using System.Net;
 using System.Text;
+using System.Text.Json.Serialization;
 using Utility;
 using static DevExpress.ReportServer.Printing.RemoteDocumentSource;
 
@@ -579,8 +580,115 @@ namespace SP_ContractTime
 	{
 		public string PositionClasificationId { get; set; }
 	}
-}
 
+
+	public class RootResponse
+	{
+		public List<List<EmployeeInfo>> DataSets { get; set; }
+	}
+
+	public class EmployeeInfo
+	{
+		public Guid Id { get; set; }
+
+		public string EmployeeNo { get; set; }
+		public string EmployeePersonelNo { get; set; }
+
+		public string FirstName { get; set; }
+		public string LastName { get; set; }
+		public string FatherName { get; set; }
+
+		public string IdCardNo { get; set; }
+		public string NationalCode { get; set; }
+
+		public string CityOfIssueTitle { get; set; }
+
+		[JsonProperty("BirthDate_Fa")]
+		public string BirthDateFa { get; set; }
+
+		public string BaseInfo_MaritalStatusTitle { get; set; }
+
+		public Guid BaseInfo_MaritalStatusId { get; set; }
+		public Guid BaseInfo_GenderId { get; set; }
+
+		public string BaseInfo_GenderTitle { get; set; }
+
+		// کلید خالی در JSON
+		[JsonProperty("")]
+		public string EducationTitle { get; set; }
+
+		public string BaseInfo_MilitaryStatusTitle { get; set; }
+
+		public string EmploymentDate_Fa { get; set; }
+		public string EmploymentDateInGroup_Fa { get; set; }
+		public string EmploymentStartDate_Fa { get; set; }
+		public string ExecutionDateSentence_Fa { get; set; }
+
+		public string BankAccountNumber { get; set; }
+		public string IBAN { get; set; }
+		public string InsuranceNumber { get; set; }
+
+		public Guid SectionId { get; set; }
+
+		[JsonProperty("زیر بخش")]
+		public Guid SubSectionId { get; set; }
+
+		public Guid? PostsId { get; set; }
+		public Guid? PositionsId { get; set; }
+
+		public string HR_CVR_JobTitle { get; set; }
+		public string Code { get; set; }
+		public string JobGroupTitle { get; set; }
+
+		public decimal? Rank { get; set; }
+
+		public decimal RecruitmentAllowance { get; set; }
+		public decimal SalaryHistory { get; set; }
+
+		public decimal? CoefficientDifficultAndHarmfulJobs { get; set; }
+		public decimal? TotalDailyBaseWage { get; set; }
+
+		public decimal DailyAdjustmentDifference { get; set; }
+
+		public decimal MinistryLabourRightHousing { get; set; }
+		public decimal MinistryLaborRightFood { get; set; }
+		public decimal RightMarryMinistryLabor { get; set; }
+		public decimal ChildrensRightsMinistryLabor { get; set; }
+		public decimal WelfareMotivationalBenefits { get; set; }
+		public decimal OtherBenefits { get; set; }
+
+		public decimal? TotalMonthlySalaryBenefits { get; set; }
+
+		public decimal RankSalary { get; set; }
+		public decimal JobSalaryRank { get; set; }
+
+		public decimal RankSalaryNew { get; set; }
+		public decimal SalaryHistoryNew { get; set; }
+
+		public decimal RightGuardianship { get; set; }
+		public decimal RightGuardianshipNew { get; set; }
+
+		public decimal CoefficientDurabilityPost { get; set; }
+		public decimal CoefficientDurabilityPostNew { get; set; }
+
+		public decimal CoefficientDifficultAndHarmfulJobsNew { get; set; }
+
+		public decimal TotalDailyBaseWageNew { get; set; }
+
+		public decimal RightMarryMinistryLaborNew { get; set; }
+		public decimal RecruitmentAllowanceNew { get; set; }
+
+		public decimal MinistryLabourRightHousingNew { get; set; }
+		public decimal MinistryLaborRightFoodNew { get; set; }
+
+		public decimal ChildrensRightsMinistryLaborNew { get; set; }
+		public decimal WelfareMotivationalBenefitsNew { get; set; }
+
+		public decimal TotalMonthlySalaryBenefitsNew { get; set; }
+	}
+
+
+}
 
 namespace ApiServer.External.Services
 {
@@ -641,7 +749,6 @@ namespace ApiServer.External.Services
 			return apiresult;
 		}
 
-
 		public static async Task<Result> GetAllContract(ShomaranApiMode ApiMode, PersonnelContractRequest input)
 		{
 			var DataJson = await JSON.ToJson(input);
@@ -665,6 +772,35 @@ namespace ApiServer.External.Services
 			var _content = new StringContent(DataJson, Encoding.UTF8, "application/json");
 
 			Result apiresult = await Send.PostAsync(_content, "BayaApi/GetAllContract", shomaranApi, ApplicationType.None);
+
+			return apiresult;
+		}
+
+		// ***********************************************
+
+		public static async Task<Result> PersonnelVerdictInfos(ShomaranApiMode ApiMode, PersonnelContractRequest input)
+		{
+			var DataJson = await JSON.ToJson(input);
+
+			string shomaranApi = "";
+			switch (ApiMode)
+			{
+				case ShomaranApiMode.Polfilm:
+					shomaranApi = "https://shomaran.workcv.ir:2010/{0}/api/v1/";
+					break;
+				case ShomaranApiMode.Petco:
+					shomaranApi = "https://shomaranpetcoorm.workcv.ir/{0}/api/v1/";
+					break;
+				case ShomaranApiMode.Pelat:
+					shomaranApi = "https://shomaranatlascellorm.workcv.ir/{0}/api/v1";
+					break;
+				default:
+					break;
+			}
+
+			var _content = new StringContent(DataJson, Encoding.UTF8, "application/json");
+
+			Result apiresult = await Send.PostAsync(_content, "BayaApi/PersonnelVerdictInfos", shomaranApi, ApplicationType.None);
 
 			return apiresult;
 		}
