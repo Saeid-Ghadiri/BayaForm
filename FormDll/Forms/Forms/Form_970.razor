@@ -216,11 +216,11 @@
     <CellDisplayTemplate>
        
 @{
-    Baya.Models.ViewEngine.View_Component HeaderHR_EMP_EmployeesId = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"primaryKey\":false,\"EntityID\":711,\"FieldId\":29947,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":970,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":false,\"RelationParentName\":\"HR_EMP_Employees\",\"RelationParentModel\":\"HR_EMP_Employees\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/HR_EMP_Employees/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.FirstName}} {{item.LastName}} {{item.EmployeeNo}} </span>\",\"FieldsTemplate\":[{\"key\":\"FirstName\",\"value\":\"nvarchar(Max)\"},{\"key\":\"LastName\",\"value\":\"nvarchar(Max)\"},{\"key\":\"EmployeeNo\",\"value\":\"nvarchar(Max)\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"searchField\":\"\",\"disabled\":false,\"modal\":true,\"label\":\"اطلاعات کارمند\",\"tableView\":true,\"key\":\"HR_EMP_EmployeesId\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"29947?EId=711&SubId=15\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
+    Baya.Models.ViewEngine.View_Component HeaderHR_EMP_EmployeesId = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"primaryKey\":false,\"EntityID\":711,\"FieldId\":29947,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":970,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":true,\"RelationParentName\":\"HR_EMP_Employees\",\"RelationParentModel\":\"HR_EMP_Employees\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/HR_EMP_Employees_EmployeeInfos/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.EmployeeNo}} {{item.FirstName}} {{item.LastName}} {{item.BaseInfo_ORG_CompaniesTitle}} </span>\",\"FieldsTemplate\":[{\"key\":\"FirstName\",\"value\":\"nvarchar(Max)\"},{\"key\":\"LastName\",\"value\":\"nvarchar(Max)\"},{\"key\":\"EmployeeNo\",\"value\":\"nvarchar(Max)\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"searchField\":\"EmployeeNo,FirstName,LastName,BaseInfo_ORG_CompaniesTitle\",\"modal\":true,\"label\":\"اطلاعات کارمند\",\"tableView\":true,\"key\":\"HR_EMP_EmployeesId\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"29947?EId=711&SubId=15\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
     var RowHR_EMP_EmployeesId = ((Entity.HR_CVR_RecruitmentRules)HR_EMP_EmployeesId_.DataItem).HR_EMP_EmployeesId;
 }
 
-<Dropdown ExternalApi=false CssClass="" NotMapped=false TextGrid=true Value="@RowHR_EMP_EmployeesId"   FieldName="HR_EMP_EmployeesId" OnItemSelected="ItemSelected_HR_CVR_RecruitmentRulesHR_EMP_EmployeesId_Header" Component="HeaderHR_EMP_EmployeesId">
+<Dropdown ExternalApi=true CssClass="" NotMapped=false TextGrid=true Value="@RowHR_EMP_EmployeesId"   FieldName="HR_EMP_EmployeesId" OnItemSelected="ItemSelected_HR_CVR_RecruitmentRulesHR_EMP_EmployeesId_Header" Component="HeaderHR_EMP_EmployeesId">
 </Dropdown>
 @code {
     public async Task ItemSelected_HR_CVR_RecruitmentRulesHR_EMP_EmployeesId_Header(object _Item)
@@ -242,7 +242,7 @@
     <CellDisplayTemplate>
        
 @{
-    Baya.Models.ViewEngine.View_Component HeaderHR_ORG_SectionsId = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"primaryKey\":false,\"EntityID\":711,\"FieldId\":29948,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":970,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":false,\"RelationParentName\":\"HR_ORG_Sections\",\"RelationParentModel\":\"HR_ORG_Sections\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/HR_ORG_Sections/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.Title}} </span>\",\"FieldsTemplate\":[{\"key\":\"Title\",\"value\":\"nvarchar(Max)\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"searchField\":\"\",\"disabled\":false,\"modal\":true,\"label\":\"قسمت‌های سازمانی\",\"tableView\":true,\"key\":\"HR_ORG_SectionsId\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"29948?EId=711&SubId=15\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
+    Baya.Models.ViewEngine.View_Component HeaderHR_ORG_SectionsId = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"primaryKey\":false,\"EntityID\":711,\"FieldId\":29948,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":970,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":false,\"RelationParentName\":\"HR_ORG_Sections\",\"RelationParentModel\":\"HR_ORG_Sections\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/HR_ORG_Sections/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.Title}} </span>\",\"FieldsTemplate\":[{\"key\":\"Title\",\"value\":\"nvarchar(Max)\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"modal\":true,\"label\":\"قسمت‌های سازمانی\",\"tableView\":true,\"key\":\"HR_ORG_SectionsId\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"29948?EId=711&SubId=15\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
     var RowHR_ORG_SectionsId = ((Entity.HR_CVR_RecruitmentRules)HR_ORG_SectionsId_.DataItem).HR_ORG_SectionsId;
 }
 
@@ -268,7 +268,7 @@
     <CellDisplayTemplate>
        
 @{
-    Baya.Models.ViewEngine.View_Component HeaderHR_ORG_PostsId = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"primaryKey\":false,\"EntityID\":711,\"FieldId\":29949,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":970,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":false,\"RelationParentName\":\"HR_ORG_Posts\",\"RelationParentModel\":\"HR_ORG_Posts\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/HR_ORG_Posts/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.Code}} {{item.Title}} </span>\",\"FieldsTemplate\":[{\"key\":\"Code\",\"value\":\"nvarchar(Max)\"},{\"key\":\"Title\",\"value\":\"nvarchar(Max)\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"searchField\":\"\",\"disabled\":false,\"modal\":true,\"label\":\"پست‌های سازمانی\",\"tableView\":true,\"key\":\"HR_ORG_PostsId\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"29949?EId=711&SubId=15\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
+    Baya.Models.ViewEngine.View_Component HeaderHR_ORG_PostsId = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"primaryKey\":false,\"EntityID\":711,\"FieldId\":29949,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":970,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":false,\"RelationParentName\":\"HR_ORG_Posts\",\"RelationParentModel\":\"HR_ORG_Posts\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/HR_ORG_Posts/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.Code}} {{item.Title}} </span>\",\"FieldsTemplate\":[{\"key\":\"Code\",\"value\":\"nvarchar(Max)\"},{\"key\":\"Title\",\"value\":\"nvarchar(Max)\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"modal\":true,\"label\":\"پست‌های سازمانی\",\"tableView\":true,\"key\":\"HR_ORG_PostsId\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"29949?EId=711&SubId=15\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
     var RowHR_ORG_PostsId = ((Entity.HR_CVR_RecruitmentRules)HR_ORG_PostsId_.DataItem).HR_ORG_PostsId;
 }
 
@@ -294,7 +294,7 @@
     <CellDisplayTemplate>
        
 @{
-    Baya.Models.ViewEngine.View_Component HeaderHR_CVR_JobId = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"primaryKey\":false,\"EntityID\":711,\"FieldId\":29950,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":970,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":false,\"RelationParentName\":\"HR_CVR_Job\",\"RelationParentModel\":\"HR_CVR_Job\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/HR_CVR_Job/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.Title}} {{item.Code}} </span>\",\"FieldsTemplate\":[{\"key\":\"Title\",\"value\":\"nvarchar(Max)\"},{\"key\":\"Code\",\"value\":\"nvarchar(Max)\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"searchField\":\"\",\"disabled\":false,\"modal\":true,\"label\":\"شغل کارمند\",\"tableView\":true,\"key\":\"HR_CVR_JobId\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"29950?EId=711&SubId=15\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
+    Baya.Models.ViewEngine.View_Component HeaderHR_CVR_JobId = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"primaryKey\":false,\"EntityID\":711,\"FieldId\":29950,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":970,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":false,\"RelationParentName\":\"HR_CVR_Job\",\"RelationParentModel\":\"HR_CVR_Job\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/HR_CVR_Job/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.Title}} {{item.Code}} </span>\",\"FieldsTemplate\":[{\"key\":\"Title\",\"value\":\"nvarchar(Max)\"},{\"key\":\"Code\",\"value\":\"nvarchar(Max)\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"modal\":true,\"label\":\"شغل کارمند\",\"tableView\":true,\"key\":\"HR_CVR_JobId\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"29950?EId=711&SubId=15\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
     var RowHR_CVR_JobId = ((Entity.HR_CVR_RecruitmentRules)HR_CVR_JobId_.DataItem).HR_CVR_JobId;
 }
 
@@ -320,7 +320,7 @@
     <CellDisplayTemplate>
        
 @{
-    Baya.Models.ViewEngine.View_Component HeaderHR_CVR_JobGroupId = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"primaryKey\":false,\"EntityID\":711,\"FieldId\":29951,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":970,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":false,\"RelationParentName\":\"HR_CVR_JobGroup\",\"RelationParentModel\":\"HR_CVR_JobGroup\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/HR_CVR_JobGroup/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.Title}} </span>\",\"FieldsTemplate\":[{\"key\":\"Title\",\"value\":\"nvarchar(Max)\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"searchField\":\"\",\"disabled\":false,\"modal\":true,\"label\":\"گروه شغلی کارمند\",\"tableView\":true,\"key\":\"HR_CVR_JobGroupId\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"29951?EId=711&SubId=15\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
+    Baya.Models.ViewEngine.View_Component HeaderHR_CVR_JobGroupId = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"primaryKey\":false,\"EntityID\":711,\"FieldId\":29951,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":970,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":false,\"RelationParentName\":\"HR_CVR_JobGroup\",\"RelationParentModel\":\"HR_CVR_JobGroup\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/HR_CVR_JobGroup/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.Title}} </span>\",\"FieldsTemplate\":[{\"key\":\"Title\",\"value\":\"nvarchar(Max)\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"modal\":true,\"label\":\"گروه شغلی کارمند\",\"tableView\":true,\"key\":\"HR_CVR_JobGroupId\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"29951?EId=711&SubId=15\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
     var RowHR_CVR_JobGroupId = ((Entity.HR_CVR_RecruitmentRules)HR_CVR_JobGroupId_.DataItem).HR_CVR_JobGroupId;
 }
 
@@ -346,7 +346,7 @@
     <CellDisplayTemplate>
        
 @{
-    Baya.Models.ViewEngine.View_Component HeaderHR_CVR_SalaryHistoryId = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"primaryKey\":false,\"EntityID\":711,\"FieldId\":29980,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":970,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":false,\"RelationParentName\":\"HR_CVR_SalaryHistory\",\"RelationParentModel\":\"HR_CVR_SalaryHistory\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/HR_CVR_SalaryHistory/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.StartDate_Fa}} {{item.SalaryGroup}} {{item.SalaryMinistryLabor}} {{item.SalaryGroup}} </span>\",\"FieldsTemplate\":[{\"key\":\"StartDate_Fa\",\"value\":\"nvarchar(Max)\"},{\"key\":\"SalaryGroup\",\"value\":\"nvarchar(Max)\"},{\"key\":\"SalaryMinistryLabor\",\"value\":\"nvarchar(Max)\"},{\"key\":\"SalaryGroup\",\"value\":\"nvarchar(Max)\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"searchField\":\"\",\"disabled\":false,\"modal\":true,\"label\":\"مزد سنوات\",\"tableView\":true,\"key\":\"HR_CVR_SalaryHistoryId\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"29980?EId=711&SubId=15\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
+    Baya.Models.ViewEngine.View_Component HeaderHR_CVR_SalaryHistoryId = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"primaryKey\":false,\"EntityID\":711,\"FieldId\":29980,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":970,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":false,\"RelationParentName\":\"HR_CVR_SalaryHistory\",\"RelationParentModel\":\"HR_CVR_SalaryHistory\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/HR_CVR_SalaryHistory/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.StartDate_Fa}} {{item.SalaryGroup}} {{item.SalaryMinistryLabor}} {{item.SalaryGroup}} </span>\",\"FieldsTemplate\":[{\"key\":\"StartDate_Fa\",\"value\":\"nvarchar(Max)\"},{\"key\":\"SalaryGroup\",\"value\":\"nvarchar(Max)\"},{\"key\":\"SalaryMinistryLabor\",\"value\":\"nvarchar(Max)\"},{\"key\":\"SalaryGroup\",\"value\":\"nvarchar(Max)\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"modal\":true,\"label\":\"مزد سنوات\",\"tableView\":true,\"key\":\"HR_CVR_SalaryHistoryId\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"29980?EId=711&SubId=15\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
     var RowHR_CVR_SalaryHistoryId = ((Entity.HR_CVR_RecruitmentRules)HR_CVR_SalaryHistoryId_.DataItem).HR_CVR_SalaryHistoryId;
 }
 
@@ -372,7 +372,7 @@
     <CellDisplayTemplate>
        
 @{
-    Baya.Models.ViewEngine.View_Component HeaderHR_CVR_JobSalaryRankId = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"primaryKey\":false,\"EntityID\":711,\"FieldId\":29981,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":970,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":true,\"RelationParentName\":\"\",\"RelationParentModel\":\"\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/View_HR_CVR_JobSalaryRank/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.HR_CVR_JobGroupTitle}} {{item.AmountWagesMinistLabor}} {{item.AmountWagesGroupJob}} {{item.AmountWagesMinistryLabor}} {{item.GroupRankSalaryAmount}} </span>\",\"FieldsTemplate\":[{\"key\":\"HR_CVR_JobGroupTitle\",\"value\":\"nvarchar(Max)\"},{\"key\":\"AmountWagesMinistLabor\",\"value\":\"int\"},{\"key\":\"AmountWagesGroupJob\",\"value\":\"int\"},{\"key\":\"AmountWagesMinistryLabor\",\"value\":\"int\"},{\"key\":\"GroupRankSalaryAmount\",\"value\":\"int\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"searchField\":\"\",\"disabled\":false,\"modal\":true,\"label\":\"مزد شغل گروه\",\"tableView\":true,\"key\":\"HR_CVR_JobSalaryRankId\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"29981?EId=711&SubId=15\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
+    Baya.Models.ViewEngine.View_Component HeaderHR_CVR_JobSalaryRankId = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"primaryKey\":false,\"EntityID\":711,\"FieldId\":29981,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":970,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":true,\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/View_HR_CVR_JobSalaryRank/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.HR_CVR_JobGroupTitle}} {{item.AmountWagesMinistLabor}} {{item.AmountWagesGroupJob}} {{item.AmountWagesMinistryLabor}} {{item.GroupRankSalaryAmount}} </span>\",\"FieldsTemplate\":[{\"key\":\"HR_CVR_JobGroupTitle\",\"value\":\"nvarchar(Max)\"},{\"key\":\"AmountWagesMinistLabor\",\"value\":\"int\"},{\"key\":\"AmountWagesGroupJob\",\"value\":\"int\"},{\"key\":\"AmountWagesMinistryLabor\",\"value\":\"int\"},{\"key\":\"GroupRankSalaryAmount\",\"value\":\"int\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"modal\":true,\"label\":\"مزد شغل گروه\",\"tableView\":true,\"key\":\"HR_CVR_JobSalaryRankId\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"29981?EId=711&SubId=15\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
     var RowHR_CVR_JobSalaryRankId = ((Entity.HR_CVR_RecruitmentRules)HR_CVR_JobSalaryRankId_.DataItem).HR_CVR_JobSalaryRankId;
 }
 
@@ -398,7 +398,7 @@
     <CellDisplayTemplate>
        
 @{
-    Baya.Models.ViewEngine.View_Component HeaderHR_CVR_RightGuardianshipId = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"primaryKey\":false,\"EntityID\":711,\"FieldId\":29984,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":970,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":true,\"RelationParentName\":\"\",\"RelationParentModel\":\"\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/View_HR_CVR_RightGuardianship/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.HR_ORG_PositionsTitle}} {{item.RialCoefficient}} {{item.DirectScore}} {{item.DirectScore}} {{item.HR_ORG_PositionClassificationTitle}} </span>\",\"FieldsTemplate\":[{\"key\":\"HR_ORG_PositionsTitle\",\"value\":\"nvarchar(Max)\"},{\"key\":\"RialCoefficient\",\"value\":\"int\"},{\"key\":\"DirectScore\",\"value\":\"int\"},{\"key\":\"DirectScore\",\"value\":\"int\"},{\"key\":\"HR_ORG_PositionClassificationTitle\",\"value\":\"int\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"searchField\":\"\",\"disabled\":false,\"modal\":true,\"label\":\"حق سرپرستی (پست)\",\"tableView\":true,\"key\":\"HR_CVR_RightGuardianshipId\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"29984?EId=711&SubId=15\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
+    Baya.Models.ViewEngine.View_Component HeaderHR_CVR_RightGuardianshipId = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"primaryKey\":false,\"EntityID\":711,\"FieldId\":29984,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":970,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":true,\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/View_HR_CVR_RightGuardianship/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.HR_ORG_PositionsTitle}} {{item.RialCoefficient}} {{item.DirectScore}} {{item.DirectScore}} {{item.HR_ORG_PositionClassificationTitle}} </span>\",\"FieldsTemplate\":[{\"key\":\"HR_ORG_PositionsTitle\",\"value\":\"nvarchar(Max)\"},{\"key\":\"RialCoefficient\",\"value\":\"int\"},{\"key\":\"DirectScore\",\"value\":\"int\"},{\"key\":\"DirectScore\",\"value\":\"int\"},{\"key\":\"HR_ORG_PositionClassificationTitle\",\"value\":\"int\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"modal\":true,\"label\":\"حق سرپرستی (پست)\",\"tableView\":true,\"key\":\"HR_CVR_RightGuardianshipId\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"29984?EId=711&SubId=15\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
     var RowHR_CVR_RightGuardianshipId = ((Entity.HR_CVR_RecruitmentRules)HR_CVR_RightGuardianshipId_.DataItem).HR_CVR_RightGuardianshipId;
 }
 
@@ -424,7 +424,7 @@
     <CellDisplayTemplate>
        
 @{
-    Baya.Models.ViewEngine.View_Component HeaderHR_CVR_ApprovalsMinistryLaborGroupId = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"primaryKey\":false,\"EntityID\":711,\"FieldId\":29989,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":970,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":false,\"RelationParentName\":\"HR_CVR_ApprovalsMinistryLaborGroup\",\"RelationParentModel\":\"HR_CVR_ApprovalsMinistryLaborGroup\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/HR_CVR_ApprovalsMinistryLaborGroup/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.StartDate_Fa}} </span>\",\"FieldsTemplate\":[{\"key\":\"StartDate_Fa\",\"value\":\"nvarchar(Max)\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"searchField\":\"\",\"disabled\":false,\"modal\":true,\"label\":\"اطلاعات مصوبات وزارت کار\",\"tableView\":true,\"key\":\"HR_CVR_ApprovalsMinistryLaborGroupId\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"29989?EId=711&SubId=15\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
+    Baya.Models.ViewEngine.View_Component HeaderHR_CVR_ApprovalsMinistryLaborGroupId = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"primaryKey\":false,\"EntityID\":711,\"FieldId\":29989,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":970,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":false,\"RelationParentName\":\"HR_CVR_ApprovalsMinistryLaborGroup\",\"RelationParentModel\":\"HR_CVR_ApprovalsMinistryLaborGroup\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/HR_CVR_ApprovalsMinistryLaborGroup/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.StartDate_Fa}} </span>\",\"FieldsTemplate\":[{\"key\":\"StartDate_Fa\",\"value\":\"nvarchar(Max)\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"modal\":true,\"label\":\"اطلاعات مصوبات وزارت کار\",\"tableView\":true,\"key\":\"HR_CVR_ApprovalsMinistryLaborGroupId\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"29989?EId=711&SubId=15\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
     var RowHR_CVR_ApprovalsMinistryLaborGroupId = ((Entity.HR_CVR_RecruitmentRules)HR_CVR_ApprovalsMinistryLaborGroupId_.DataItem).HR_CVR_ApprovalsMinistryLaborGroupId;
 }
 
@@ -450,19 +450,19 @@
 
 <DxGridDataColumn DisplayFormat="G" Caption="مزد سنوات"  FieldName="SalaryHistory" />
 
-<DxGridDataColumn DisplayFormat="0" Caption="حق سرپرستی (پست)"  FieldName="RightGuardianship" />
+<DxGridDataColumn DisplayFormat="G" Caption="حق سرپرستی (پست)"  FieldName="RightGuardianship" />
 
 <DxGridDataColumn DisplayFormat="0" Caption="مزایای ماندگاری پست"  FieldName="CoefficientDurabilityPost" />
 
-<DxGridDataColumn DisplayFormat="0" Caption="شرایط نامساعد محیط کار"  FieldName="CoefficientDifficultAndHarmfulJobs" />
+<DxGridDataColumn DisplayFormat="G" Caption="شرایط نامساعد محیط کار جدید"  FieldName="CoefficientDifficultAndHarmfulJobs" />
 
-<DxGridDataColumn DisplayFormat="0" Caption="جمع مزد مبنای روزانه"  FieldName="TotalDailyBaseWage" />
+<DxGridDataColumn DisplayFormat="G" Caption="جمع مزد مبنای روزانه"  FieldName="TotalDailyBaseWage" />
 
-<DxGridDataColumn DisplayFormat="0" Caption="تفاوت تطبیق روزانه"  FieldName="DailyAdjustmentDifference" />
+<DxGridDataColumn DisplayFormat="G" Caption="تفاوت تطبیق روزانه"  FieldName="DailyAdjustmentDifference" />
 
 <DxGridDataColumn DisplayFormat="0" Caption="کمک هزینه مسکن"  FieldName="MinistryLabourRightHousing" />
 
-<DxGridDataColumn DisplayFormat="0" Caption="حق خوار و بار"  FieldName="MinistryLaborRightFood" />
+<DxGridDataColumn DisplayFormat="G" Caption="حق خوار و بار"  FieldName="MinistryLaborRightFood" />
 
 <DxGridDataColumn DisplayFormat="0" Caption="حق تاهل"  FieldName="RightMarryMinistryLabor" />
 
@@ -502,35 +502,35 @@
 </DxGridDataColumn>
 <DxGridDataColumn DisplayFormat="G" Caption="حق جذب"  FieldName="RecruitmentAllowance" />
 
-<DxGridDataColumn DisplayFormat="G" Caption="حق جذب"  FieldName="RecruitmentAllowanceNew" />
+<DxGridDataColumn DisplayFormat="G" Caption="حق جذب جدید"  FieldName="RecruitmentAllowanceNew" />
 
-<DxGridDataColumn DisplayFormat="G" Caption="مزد شغل گروه"  FieldName="JobSalaryRankNew" />
+<DxGridDataColumn DisplayFormat="G" Caption="مزد شغل گروه جدید"  FieldName="JobSalaryRankNew" />
 
-<DxGridDataColumn DisplayFormat="G" Caption="مزد سنوات"  FieldName="SalaryHistoryNew" />
+<DxGridDataColumn DisplayFormat="G" Caption="مزد سنوات جدید"  FieldName="SalaryHistoryNew" />
 
 <DxGridDataColumn DisplayFormat="G" Caption="حق سرپرستی (پست)"  FieldName="RightGuardianshipNew" />
 
-<DxGridDataColumn DisplayFormat="G" Caption="مزایای ماندگاری پست"  FieldName="CoefficientDurabilityPostNew" />
+<DxGridDataColumn DisplayFormat="G" Caption="مزایای ماندگاری پست جدید"  FieldName="CoefficientDurabilityPostNew" />
 
 <DxGridDataColumn DisplayFormat="G" Caption="شرایط نامساعد محیط کار"  FieldName="CoefficientDifficultAndHarmfulJobsNew" />
 
-<DxGridDataColumn DisplayFormat="G" Caption="جمع مزد مبنای روزانه"  FieldName="TotalDailyBaseWageNew" />
+<DxGridDataColumn DisplayFormat="G" Caption="جمع مزد مبنای روزانه جدید"  FieldName="TotalDailyBaseWageNew" />
 
-<DxGridDataColumn DisplayFormat="G" Caption="تفاوت تطبیق روزانه"  FieldName="DailyAdjustmentDifferenceNew" />
+<DxGridDataColumn DisplayFormat="G" Caption="تفاوت تطبیق روزانه جدید"  FieldName="DailyAdjustmentDifferenceNew" />
 
-<DxGridDataColumn DisplayFormat="G" Caption="کمک هزینه مسکن"  FieldName="MinistryLabourRightHousingNew" />
+<DxGridDataColumn DisplayFormat="G" Caption="کمک هزینه مسکن جدید"  FieldName="MinistryLabourRightHousingNew" />
 
-<DxGridDataColumn DisplayFormat="0" Caption="حق خوار و بار جدید"  FieldName="MinistryLaborRightFoodNew" />
+<DxGridDataColumn DisplayFormat="G" Caption="حق خوار و بار جدید"  FieldName="MinistryLaborRightFoodNew" />
 
-<DxGridDataColumn DisplayFormat="0" Caption="حق تاهل جدید"  FieldName="RightMarryMinistryLaborNew" />
+<DxGridDataColumn DisplayFormat="G" Caption="حق تاهل جدید"  FieldName="RightMarryMinistryLaborNew" />
 
-<DxGridDataColumn DisplayFormat="0" Caption="حق اولاد جدید"  FieldName="ChildrensRightsMinistryLaborNew" />
+<DxGridDataColumn DisplayFormat="G" Caption="حق اولاد جدید"  FieldName="ChildrensRightsMinistryLaborNew" />
 
-<DxGridDataColumn DisplayFormat="0" Caption="مزایای رفاهی و انگیزه‌ای جدید"  FieldName="WelfareMotivationalBenefitsNew" />
+<DxGridDataColumn DisplayFormat="G" Caption="مزایای رفاهی و انگیزه‌ای جدید"  FieldName="WelfareMotivationalBenefitsNew" />
 
-<DxGridDataColumn DisplayFormat="0" Caption="سایر مزایا جدید"  FieldName="OtherBenefitsNew" />
+<DxGridDataColumn DisplayFormat="G" Caption="سایر مزایا جدید"  FieldName="OtherBenefitsNew" />
 
-<DxGridDataColumn DisplayFormat="0" Caption="جمع کل دستمزد و مزایا جدید"  FieldName="TotalMonthlySalaryBenefitsNew" />
+<DxGridDataColumn DisplayFormat="G" Caption="جمع کل دستمزد و مزایا جدید"  FieldName="TotalMonthlySalaryBenefitsNew" />
 
 
 </Columns>
@@ -812,7 +812,6 @@ MainModel.CreateDate = ((Entity.HR_CVR_RecruitmentRules)EditModel).CreateDate;
 MainModel.UpdateDate = ((Entity.HR_CVR_RecruitmentRules)EditModel).UpdateDate;
 MainModel.IsDelete = ((Entity.HR_CVR_RecruitmentRules)EditModel).IsDelete;
 MainModel.HR_EMP_EmployeesId = ((Entity.HR_CVR_RecruitmentRules)EditModel).HR_EMP_EmployeesId;
-MainModel.HR_EMP_Employees = ((Entity.HR_CVR_RecruitmentRules)EditModel).HR_EMP_Employees;
 MainModel.HR_ORG_SectionsId = ((Entity.HR_CVR_RecruitmentRules)EditModel).HR_ORG_SectionsId;
 MainModel.HR_ORG_Sections = ((Entity.HR_CVR_RecruitmentRules)EditModel).HR_ORG_Sections;
 MainModel.HR_ORG_PostsId = ((Entity.HR_CVR_RecruitmentRules)EditModel).HR_ORG_PostsId;

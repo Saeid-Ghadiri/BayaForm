@@ -241,7 +241,7 @@
 
 <Input Id="Description" @ref="Ref_Description" Label="توضیحات"     @bind-Value="_Entity.Description" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
 
-<Input Id="IsActive" @ref="Ref_IsActive" Label="فعال است؟"     @bind-Value="_Entity.IsActive" type="checkbox"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+<Input Id="IsActive" @ref="Ref_IsActive" Label="فعال است؟"     @bind-Value="_Entity.IsActive" type="checkbox"    oninput="@(e => IsActive_oninput(e ))"  Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
 
 </div>
 

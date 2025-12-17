@@ -144,7 +144,7 @@ namespace Forms.Forms
     /// <summary>
     ///  ورژنی که فرم باهاش ساخته شده
     /// </summary>
-    public string? VersionForm { get; set; } = "5224";
+    public string? VersionForm { get; set; } = "5266";
 
     /// <summary>
     ///  موجودیت
@@ -213,6 +213,7 @@ public Input<DateTime?> Ref_Shomaran_FactbBuyDetail_CreateDate;
 public Input<DateTime?> Ref_Shomaran_FactbBuyDetail_UpdateDate;
 public Input<bool?> Ref_Shomaran_FactbBuyDetail_IsDelete;
 public Input<int?> Ref_Shomaran_FactbBuyDetail_RowId;
+public Dropdown Ref_Shomaran_FactbBuyDetail_PayCode;
 public Input<string?> Ref_ApiResult;
 public Input<Guid> Ref_Id;
 public Input<Guid?> Ref_RequestID;

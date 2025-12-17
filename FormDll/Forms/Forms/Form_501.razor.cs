@@ -611,10 +611,12 @@ namespace Forms.Forms
 
           public async Task Global_SCMRequestTypeId_onitemselected(Entity.Global_SCMRequestType Selected, Entity.SCMPETCO_ProductRequestDetails Item)
         {
-            // Console.WriteLine(await Utility.JSON.ToJson(Selected));
+             Console.WriteLine(await Utility.JSON.ToJson(Selected));
 
             try
             {
+                Item.Global_SCMRequestTypeId = Selected.Id;
+                StateHasChanged();
                 // 3 حالت سویچ طراحی شده بررسی خواهد شد.
                 await CheckModeTahvilKharid([1, 2, 3], Item);
             }
@@ -625,19 +627,6 @@ namespace Forms.Forms
             }
         }
 
-        public async Task DeliveryCode_NotMapped_oninput(ChangeEventArgs Selected)
-        {
-            // تکمیل فیلد کد تحویل کالا در همه ردیف های گرید
-            var List = _Entity.SCMPETCO_ProductRequestDetails.ToList();
-
-            foreach (var Item in List)
-            {
-                Item.GetDeliveryCode = int.Parse(Selected.Value.ToString());
-            }
-
-            StateHasChanged();
-
-        }
 
        	public async Task  FutureAction_oninput(ChangeEventArgs Selected ,Entity.SCMPETCO_ProductRequestDetails Item  )
         {
@@ -651,6 +640,17 @@ namespace Forms.Forms
             {
                 OkItem.SetVisible(false);
             }
+        }
+
+		public async Task  DeliveryCode_NotMapped_oninput(ChangeEventArgs Selected   )
+        {
+
+            var List = _Entity.SCMPETCO_ProductRequestDetails.ToList();
+            foreach (var Item in List)
+            {
+                Item.GetDeliveryCode = int.Parse(Selected.Value.ToString());
+            }
+            StateHasChanged();
         }
 
 		#endregion FunctionEvents

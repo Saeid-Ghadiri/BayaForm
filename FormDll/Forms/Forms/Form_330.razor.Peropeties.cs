@@ -144,7 +144,7 @@ namespace Forms.Forms
     /// <summary>
     ///  ورژنی که فرم باهاش ساخته شده
     /// </summary>
-    public string? VersionForm { get; set; } = "5224";
+    public string? VersionForm { get; set; } = "5266";
 
     /// <summary>
     ///  موجودیت
@@ -190,10 +190,10 @@ public Input<string?> Ref_SCMPETCO_ProductRequestDetails_ProductCodeText;
 public Input<string?> Ref_SCMPETCO_ProductRequestDetails_ProductUnitText;
 public Input<double?> Ref_SCMPETCO_ProductRequestDetails_ProductInventoryText;
 public Input<double?> Ref_SCMPETCO_ProductRequestDetails_ProductRequestingQTY;
-public RadioBoolean Ref_SCMPETCO_ProductRequestDetails_ForeignMachineryProduct;
 public Dropdown Ref_SCMPETCO_ProductRequestDetails_SCMPETCO_PriorityId;
-public Input<int?> Ref_SCMPETCO_ProductRequestDetails_DeliveryCode;
+public RadioBoolean Ref_SCMPETCO_ProductRequestDetails_ForeignMachineryProduct;
 public Input<string?> Ref_SCMPETCO_ProductRequestDetails_PlaceOfUseProduct;
+public Input<int?> Ref_SCMPETCO_ProductRequestDetails_DeliveryCode;
 public Input<string?> Ref_SCMPETCO_ProductRequestDetails_ProductRowDescription;
 public Input<string?> Ref_SCMPETCO_ProductRequestDetails_Description2;
 public Input<Guid> Ref_SCMPETCO_ProductRequestDetails_Id;

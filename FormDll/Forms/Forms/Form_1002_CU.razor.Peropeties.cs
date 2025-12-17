@@ -144,7 +144,7 @@ namespace Forms.Forms
     /// <summary>
     ///  ورژنی که فرم باهاش ساخته شده
     /// </summary>
-    public string? VersionForm { get; set; } = "5224";
+    public string? VersionForm { get; set; } = "5266";
 
     /// <summary>
     ///  موجودیت
@@ -200,6 +200,20 @@ public Input<string?> Ref_ExecutionDateSentence_Fa;
 public Input<DateTime?> Ref_ExecutionDateSentence;
 public Dropdown Ref_HR_CVR_JobId;
 public Dropdown Ref_HR_CVR_JobGroupId;
+public DxGrid? Grid_HR_CVR_EveryPostVerdict;
+
+public Dropdown Ref_HR_CVR_EveryPostVerdict_HR_CVR_VerdictRecruitingId;
+public Dropdown Ref_HR_CVR_EveryPostVerdict_HR_ORG_SectionsId;
+public RadioBoolean Ref_HR_CVR_EveryPostVerdict_SectionsType;
+public Dropdown Ref_HR_CVR_EveryPostVerdict_HR_ORG_PostsId;
+public RadioBoolean Ref_HR_CVR_EveryPostVerdict_PostType;
+public Input<Guid> Ref_HR_CVR_EveryPostVerdict_Id;
+public Input<Guid?> Ref_HR_CVR_EveryPostVerdict_RequestID;
+public Input<Guid?> Ref_HR_CVR_EveryPostVerdict_CreateUser;
+public Input<Guid?> Ref_HR_CVR_EveryPostVerdict_UpdateUser;
+public Input<DateTime?> Ref_HR_CVR_EveryPostVerdict_CreateDate;
+public Input<DateTime?> Ref_HR_CVR_EveryPostVerdict_UpdateDate;
+public Input<bool?> Ref_HR_CVR_EveryPostVerdict_IsDelete;
 public DxGrid? Grid_HR_CVR_RecruitmentRules;
 
 public Dropdown Ref_HR_CVR_RecruitmentRules_HR_EMP_EmployeesId;
@@ -233,23 +247,23 @@ public Dropdown Ref_HR_CVR_RecruitmentRules_HR_CVR_RightGuardianshipId;
 public Dropdown Ref_HR_CVR_RecruitmentRules_HR_CVR_SalaryHistoryId;
 public Input<decimal?> Ref_HR_CVR_RecruitmentRules_JobSalaryRank;
 public Input<decimal?> Ref_HR_CVR_RecruitmentRules_JobSalaryRankNew;
-public Input<int?> Ref_HR_CVR_RecruitmentRules_RankSalary;
-public Input<int?> Ref_HR_CVR_RecruitmentRules_RankSalaryNew;
+public Input<decimal?> Ref_HR_CVR_RecruitmentRules_RankSalary;
+public Input<decimal?> Ref_HR_CVR_RecruitmentRules_RankSalaryNew;
 public Input<decimal?> Ref_HR_CVR_RecruitmentRules_SalaryHistory;
 public Input<decimal?> Ref_HR_CVR_RecruitmentRules_SalaryHistoryNew;
-public Input<int?> Ref_HR_CVR_RecruitmentRules_RightGuardianship;
+public Input<decimal?> Ref_HR_CVR_RecruitmentRules_RightGuardianship;
 public Input<decimal?> Ref_HR_CVR_RecruitmentRules_RightGuardianshipNew;
 public Input<int?> Ref_HR_CVR_RecruitmentRules_CoefficientDurabilityPost;
 public Input<decimal?> Ref_HR_CVR_RecruitmentRules_CoefficientDurabilityPostNew;
 public Input<decimal?> Ref_HR_CVR_RecruitmentRules_CoefficientDifficultAndHarmfulJobsNew;
-public Input<int?> Ref_HR_CVR_RecruitmentRules_CoefficientDifficultAndHarmfulJobs;
-public Input<double?> Ref_HR_CVR_RecruitmentRules_TotalDailyBaseWageNew;
-public Input<int?> Ref_HR_CVR_RecruitmentRules_TotalDailyBaseWage;
-public Input<int?> Ref_HR_CVR_RecruitmentRules_DailyAdjustmentDifference;
+public Input<decimal?> Ref_HR_CVR_RecruitmentRules_CoefficientDifficultAndHarmfulJobs;
+public Input<decimal?> Ref_HR_CVR_RecruitmentRules_TotalDailyBaseWage;
+public Input<decimal?> Ref_HR_CVR_RecruitmentRules_TotalDailyBaseWageNew;
+public Input<decimal?> Ref_HR_CVR_RecruitmentRules_DailyAdjustmentDifference;
 public Input<decimal?> Ref_HR_CVR_RecruitmentRules_DailyAdjustmentDifferenceNew;
 public Input<decimal?> Ref_HR_CVR_RecruitmentRules_RecruitmentAllowance;
 public Input<decimal?> Ref_HR_CVR_RecruitmentRules_RecruitmentAllowanceNew;
-public Input<int?> Ref_HR_CVR_RecruitmentRules_MinistryLaborRightFood;
+public Input<decimal?> Ref_HR_CVR_RecruitmentRules_MinistryLaborRightFood;
 public Input<decimal?> Ref_HR_CVR_RecruitmentRules_MinistryLaborRightFoodNew;
 public Input<int?> Ref_HR_CVR_RecruitmentRules_MinistryLabourRightHousing;
 public Input<decimal?> Ref_HR_CVR_RecruitmentRules_MinistryLabourRightHousingNew;
@@ -277,20 +291,6 @@ public Input<DateTime?> Ref_HR_CVR_RecruitmentRules_PostRetentionStartDate;
 public Input<string?> Ref_HR_CVR_RecruitmentRules_PostRetentionCancellationDate_Fa;
 public Input<DateTime?> Ref_HR_CVR_RecruitmentRules_PostRetentionCancellationDate;
 public Input<int?> Ref_HR_CVR_RecruitmentRules_DailyPostRetentionStartDate;
-public DxGrid? Grid_HR_CVR_EveryPostVerdict;
-
-public Input<Guid> Ref_HR_CVR_EveryPostVerdict_Id;
-public Input<Guid?> Ref_HR_CVR_EveryPostVerdict_RequestID;
-public Input<Guid?> Ref_HR_CVR_EveryPostVerdict_CreateUser;
-public Input<Guid?> Ref_HR_CVR_EveryPostVerdict_UpdateUser;
-public Input<DateTime?> Ref_HR_CVR_EveryPostVerdict_CreateDate;
-public Input<DateTime?> Ref_HR_CVR_EveryPostVerdict_UpdateDate;
-public Input<bool?> Ref_HR_CVR_EveryPostVerdict_IsDelete;
-public Dropdown Ref_HR_CVR_EveryPostVerdict_HR_CVR_VerdictRecruitingId;
-public RadioBoolean Ref_HR_CVR_EveryPostVerdict_PostType;
-public RadioBoolean Ref_HR_CVR_EveryPostVerdict_SectionsType;
-public Dropdown Ref_HR_CVR_EveryPostVerdict_HR_ORG_SectionsId;
-public Dropdown Ref_HR_CVR_EveryPostVerdict_HR_ORG_PostsId;
 public DxGrid? Grid_HR_CVR_DescriptionRulings;
 
 public Input<string?> Ref_HR_CVR_DescriptionRulings_Title;

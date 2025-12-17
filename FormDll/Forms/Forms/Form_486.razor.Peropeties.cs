@@ -144,7 +144,7 @@ namespace Forms.Forms
     /// <summary>
     ///  ورژنی که فرم باهاش ساخته شده
     /// </summary>
-    public string? VersionForm { get; set; } = "5224";
+    public string? VersionForm { get; set; } = "5266";
 
     /// <summary>
     ///  موجودیت

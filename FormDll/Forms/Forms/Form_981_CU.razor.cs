@@ -170,6 +170,7 @@ namespace Forms.Forms
                 var transDetails = _Entity.Shomaran_FactbBuyDetail.Select(p => new FactbBuyDetail()
                 {
                     Amount = Convert.ToDecimal(p.Amount),
+                    PayCode = p.PayCode,
                     //Amount2 = Convert.ToDecimal(p.Amount2),
                     PartCode = p.PartCode,
                     Radyabi = p.Radyabi,
@@ -286,6 +287,7 @@ namespace Forms.Forms
 
                     Amount = Convert.ToDecimal(Item.Amount),
                     PartCode = Item.PartCode,
+                    PayCode = Item.PayCode,
                     // Radyabi = RowId.Radyabi,
                     // Sefaresh = RowId.SEFARESH,
                     RowId = Convert.ToInt32(Item.RowId),
@@ -489,6 +491,7 @@ public sealed class FactbBuyDetail
     public decimal Amount { get; set; }     // AMOUNT
     //public decimal Amount2 { get; set; }    // AMOUNT2
     public string PartCode { get; set; }    // PARTCODE (ضروری)
+    public string? PayCode { get; set; }
     public string Radyabi { get; set; }     // RADYABI
     public string Sefaresh { get; set; }    // SEFARESH
     public int RowId { get; set; }          // ROW_ID
@@ -522,6 +525,7 @@ public sealed class UpdateFactbBuyInput
     // detail
     public decimal Amount { get; set; }     // @AMOUNT
     public string PartCode { get; set; }    // @PARTCODE
+    public string? PayCode { get; set; }
     //public string Radyabi { get; set; }     // @RADYABI
     //public string Sefaresh { get; set; }    // @SEFARESH
     public int RowId { get; set; }           // @YEAR

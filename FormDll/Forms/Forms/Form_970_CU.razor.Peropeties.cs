@@ -144,7 +144,7 @@ namespace Forms.Forms
     /// <summary>
     ///  ورژنی که فرم باهاش ساخته شده
     /// </summary>
-    public string? VersionForm { get; set; } = "5224";
+    public string? VersionForm { get; set; } = "5266";
 
     /// <summary>
     ///  موجودیت
@@ -190,20 +190,20 @@ public Dropdown Ref_HR_CVR_RightGuardianshipId;
 public Dropdown Ref_HR_CVR_ApprovalsMinistryLaborGroupId;
 public Input<decimal?> Ref_JobSalaryRank;
 public Input<decimal?> Ref_SalaryHistory;
-public Input<int?> Ref_RightGuardianship;
+public Input<decimal?> Ref_RightGuardianship;
 public Input<int?> Ref_CoefficientDurabilityPost;
-public Input<int?> Ref_CoefficientDifficultAndHarmfulJobs;
-public Input<int?> Ref_TotalDailyBaseWage;
+public Input<decimal?> Ref_CoefficientDifficultAndHarmfulJobs;
+public Input<decimal?> Ref_TotalDailyBaseWage;
 public Input<decimal?> Ref_JobSalaryRankNew;
 public Input<decimal?> Ref_SalaryHistoryNew;
 public Input<decimal?> Ref_RightGuardianshipNew;
 public Input<decimal?> Ref_CoefficientDurabilityPostNew;
 public Input<decimal?> Ref_CoefficientDifficultAndHarmfulJobsNew;
-public Input<double?> Ref_TotalDailyBaseWageNew;
-public Input<int?> Ref_DailyAdjustmentDifference;
+public Input<decimal?> Ref_TotalDailyBaseWageNew;
+public Input<decimal?> Ref_DailyAdjustmentDifference;
 public Input<decimal?> Ref_RecruitmentAllowance;
 public Input<int?> Ref_MinistryLabourRightHousing;
-public Input<int?> Ref_MinistryLaborRightFood;
+public Input<decimal?> Ref_MinistryLaborRightFood;
 public Input<int?> Ref_RightMarryMinistryLabor;
 public Input<int?> Ref_ChildrensRightsMinistryLabor;
 public Input<int?> Ref_WelfareMotivationalBenefits;

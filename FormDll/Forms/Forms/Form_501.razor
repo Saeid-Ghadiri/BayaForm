@@ -92,46 +92,7 @@ WidthAuto input {
 </div>
 
 </div>
- 
-<nav class="">
-    <div class="nav nav-tabs" id="nav-tab" role="tablist">
-        <button class="nav-link  active" id="nav-tabs_tab1" data-bs-toggle="tab" data-bs-target="#tabs_tab1_tab"
-        type="button" role="tab" aria-controls="tabs_tab1_tab" aria-selected="true">
-    اطلاعات کاربر
-</button>
-<button class="nav-link " id="nav-tabs_tab2" data-bs-toggle="tab" data-bs-target="#tabs_tab2_tab"
-        type="button" role="tab" aria-controls="tabs_tab2_tab" >
-    کاربر درخواست دهنده
-</button>
-<button class="nav-link " id="nav-tabs_tab3" data-bs-toggle="tab" data-bs-target="#tabs_tab3_tab"
-        type="button" role="tab" aria-controls="tabs_tab3_tab" >
-    راهنما
-</button>
 
-    </div>
-</nav>
-<div class="tab-content" id="nav-tabContent">
-    <div class="tab-pane fade   show active" id="tabs_tab1_tab" role="tabpanel" aria-labelledby="nav-tabs_tab1">
-   
-<div class="row ">
-    
-<div class="col-md-6">
-    
-<Input Id="DeliveryCode_NotMapped" @ref="Ref_DeliveryCode_NotMapped" Label="ثبت کد تحویل"     @bind-Value="_Entity.DeliveryCode_NotMapped" type="text"    oninput="@(e => DeliveryCode_NotMapped_oninput(e ))"  Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
-
-</div>
-
-<div class="col-md-6">
-    
-<Input Id="CancellationReason" @ref="Ref_CancellationReason" Label="دلیل لغو کلی درخواست"     @bind-Value="_Entity.CancellationReason" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"maxlength\":\"350\"}").Result))></Input>
-
-</div>
-
-</div>
-
-</div> 
-<div class="tab-pane fade  " id="tabs_tab2_tab" role="tabpanel" aria-labelledby="nav-tabs_tab2">
-   
 <div class="row ">
     
 <div class="col-md-6">
@@ -180,15 +141,101 @@ WidthAuto input {
 </div>
 
 </div>
+ 
+<nav class="">
+    <div class="nav nav-tabs" id="nav-tab" role="tablist">
+        <button class="nav-link  active" id="nav-tabs_tab1" data-bs-toggle="tab" data-bs-target="#tabs_tab1_tab"
+        type="button" role="tab" aria-controls="tabs_tab1_tab" aria-selected="true">
+    اقدامات انباردار
+</button>
+<button class="nav-link " id="nav-tabs_tab3" data-bs-toggle="tab" data-bs-target="#tabs_tab3_tab"
+        type="button" role="tab" aria-controls="tabs_tab3_tab" >
+    راهنمای انباردار
+</button>
+
+    </div>
+</nav>
+<div class="tab-content" id="nav-tabContent">
+    <div class="tab-pane fade   show active" id="tabs_tab1_tab" role="tabpanel" aria-labelledby="nav-tabs_tab1">
+   
+<div class="row card flex-row pb-2 m-1 bg-border">
+    
+<div class="col-md-12">
+    <div  class="">
+    <div class="p-3 rounded rounded-2" style="background-color:#ffe5b4;">
+  <div class="p-3 rounded rounded-1 fs-5 fw-black" style="background-color:#ff9f3f;">
+    اطلاعات بخش انبار
+  </div>
+  <p class="pt-2 fs-5 fw-bold lh-base">
+    بر اساس ثبت کد تحویل کالا در این قسمت،  در کلیه ردیف‌های درخواست
+    به صورت خودکار نمایش داده خواهد شد و نیازی نیست بر هر ردیف به صورت جداگانه ثبت گردد.
+  </p>
+  <span class="pt-2 fs-5 fw-bold text-danger">نکته: </span>
+  <p class="pt-2 fs-5 fw-bold lh-base">
+    در صورت نیاز امکان تغییر دستی هر یک از ردیف‌ها از طریق ویرایش آن ردیف امکان‌پذیر است.
+  </p>
+</div>
+
+</div>
+
+</div>
+
+<div class="col-md-4">
+    
+<Input Id="DeliveryCode_NotMapped" @ref="Ref_DeliveryCode_NotMapped" Label="ثبت کد تحویل"     @bind-Value="_Entity.DeliveryCode_NotMapped" type="text"    oninput="@(e => DeliveryCode_NotMapped_oninput(e ))"  Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+</div>
+
+<div class="col-md-4">
+    
+</div>
+
+<div class="col-md-4">
+    
+<Input Id="CancellationReason" @ref="Ref_CancellationReason" Label="دلیل لغو کلی درخواست"     @bind-Value="_Entity.CancellationReason" type="textarea"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"maxlength\":\"350\"}").Result))></Input>
+
+</div>
+
+</div>
 
 </div> 
 <div class="tab-pane fade  " id="tabs_tab3_tab" role="tabpanel" aria-labelledby="nav-tabs_tab3">
-   
+   <div  class="pt-3">
+    <div class="vstack gap-3">
+
+  <!-- Step 1: نارنجی کم‌رنگ -->
+  <div class="fs-6 fw-bold rounded p-2 d-flex align-items-center" style="background-color:#ffe5b4;">
+    <span class="bi bi-box-arrow-in-down text-white me-2" style="font-size:18px;"></span>
+    در صورت «تحویل»، کد تحویل کالا را از درخواست‌دهنده دریافت کرده و کالا را تحویل دهید.
+  </div>
+
+  <!-- Step 2: نارنجی متوسط -->
+  <div class="fs-6 fw-bold rounded p-2 d-flex align-items-center" style="background-color:#ffbf7f;">
+    <span class="bi bi-pencil-square text-white me-2" style="font-size:18px;"></span>
+    در این مرحله، انباردار می‌تواند با توجه به موجودی انبار، نوع درخواست را ویرایش کند.
+  </div>
+
+  <!-- Step 3: نارنجی پررنگ -->
+  <div class="fs-6 fw-bold rounded p-2 d-flex align-items-center" style="background-color:#ff9f3f;">
+    <span class="bi bi-journal-check text-white me-2" style="font-size:18px;"></span>
+    در صورت تحویل کالا، تعداد واگذاری را وارد کنید. اگر نوع درخواست به خرید تغییر کرد، تعداد تامین کسری را وارد نمایید.
+  </div>
+
+</div>
+
+</div>
+
 </div> 
 
 </div>
-<div  class="">
-    
+<div  class="Gcol-sm-8 Gcol-md-6 Gcol-lg-12">
+    <div class="mt-2 rounded rounded-1 border border-0 fs-6 fw-black p-2 d-flex justify-content-center align-items-center" style="background-color:#ffc87c;">
+  <span class="bi bi-box-arrow-in-down text-white me-2" style="font-size:20px;"></span>
+  <span class="text-dark">
+     دریافت کد تحویل کالا
+  </span>
+</div>
+
 </div>
 
 <DxGrid @ref="Grid_SCMPETCO_ProductRequestDetails" Data="_Entity.SCMPETCO_ProductRequestDetails" KeyFieldName="_Id" EditMode="GridEditMode.PopupEditForm"
@@ -283,11 +330,11 @@ WidthAuto input {
     <CellDisplayTemplate>
        
 @{
-    Baya.Models.ViewEngine.View_Component HeaderSCMPETCO_PriorityId = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"primaryKey\":false,\"EntityID\":200,\"FieldId\":2178,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":501,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":false,\"RelationParentName\":\"SCMPETCO_Priority\",\"RelationParentModel\":\"SCMPETCO_Priority\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/SCMPETCO_Priority/GetList\"},\"validate\":{\"required\":true,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.PriorityTitle}} </span>\",\"FieldsTemplate\":[],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"searchField\":\"DESC,PARTNO\",\"disableLimit\":false,\"noRefreshOnScroll\":false,\"disabled\":false,\"modal\":true,\"label\":\"اولویت\",\"tableView\":true,\"key\":\"SCMPETCO_PriorityId\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"customClass\":\"Gcol-sm-8 Gcol-md-6 Gcol-lg-3\",\"FieldUrl\":\"2178?EId=200&SubId=19\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
+    Baya.Models.ViewEngine.View_Component HeaderSCMPETCO_PriorityId = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"primaryKey\":false,\"EntityID\":200,\"FieldId\":2178,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":501,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":false,\"RelationParentName\":\"SCMPETCO_Priority\",\"RelationParentModel\":\"SCMPETCO_Priority\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/SCMPETCO_Priority/GetList\"},\"validate\":{\"required\":true,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.PriorityTitle}} </span>\",\"FieldsTemplate\":[],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"searchField\":\"DESC,PARTNO\",\"disableLimit\":false,\"noRefreshOnScroll\":false,\"disabled\":false,\"modal\":true,\"label\":\"اولویت\",\"tableView\":true,\"key\":\"SCMPETCO_PriorityId\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"customClass\":\"Gcol-sm-8 Gcol-md-6 Gcol-lg-4\",\"FieldUrl\":\"2178?EId=200&SubId=19\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
     var RowSCMPETCO_PriorityId = ((Entity.SCMPETCO_ProductRequestDetails)SCMPETCO_PriorityId_.DataItem).SCMPETCO_PriorityId;
 }
 
-<Dropdown ExternalApi=false CssClass="Gcol-sm-8 Gcol-md-6 Gcol-lg-3" NotMapped=false TextGrid=true Value="@RowSCMPETCO_PriorityId"   FieldName="SCMPETCO_PriorityId" OnItemSelected="ItemSelected_SCMPETCO_ProductRequestDetailsSCMPETCO_PriorityId_Header" Component="HeaderSCMPETCO_PriorityId">
+<Dropdown ExternalApi=false CssClass="Gcol-sm-8 Gcol-md-6 Gcol-lg-4" NotMapped=false TextGrid=true Value="@RowSCMPETCO_PriorityId"   FieldName="SCMPETCO_PriorityId" OnItemSelected="ItemSelected_SCMPETCO_ProductRequestDetailsSCMPETCO_PriorityId_Header" Component="HeaderSCMPETCO_PriorityId">
 </Dropdown>
 @code {
     public async Task ItemSelected_SCMPETCO_ProductRequestDetailsSCMPETCO_PriorityId_Header(object _Item)
@@ -307,20 +354,6 @@ WidthAuto input {
 </DxGridDataColumn>
 <DxGridDataColumn DisplayFormat="G" Caption="تعداد یا مقدار درخواستی"  FieldName="ProductRequestingQTY" />
 
-<DxGridDataColumn Context="ForeignMachineryProduct_" Caption="نحوه تامین کالا" >
-    <CellDisplayTemplate>
-       
-@{
-    var SCMPETCO_ProductRequestDetails_ForeignMachineryProduct = ((Entity.SCMPETCO_ProductRequestDetails)ForeignMachineryProduct_.DataItem).ForeignMachineryProduct;
-}
-
-<p class="text-center " hidden="@(SCMPETCO_ProductRequestDetails_ForeignMachineryProduct !=null ? !SCMPETCO_ProductRequestDetails_ForeignMachineryProduct : true)">داخلی</p>
-
-<p class="text-center" hidden="@(SCMPETCO_ProductRequestDetails_ForeignMachineryProduct !=null ? SCMPETCO_ProductRequestDetails_ForeignMachineryProduct : true)">خارجی</p>
-
-
-    </CellDisplayTemplate>
-</DxGridDataColumn>
 <DxGridDataColumn  Caption="محل مصرف کالا"  FieldName="PlaceOfUseProduct" />
 
 <DxGridDataColumn  Caption="توضیحات درخواست کننده"  FieldName="ProductRowDescription" />
@@ -363,6 +396,28 @@ WidthAuto input {
   //  #OnItemSelected
     }
 }
+
+    </CellDisplayTemplate>
+</DxGridDataColumn>
+<DxGridDataColumn Context="ForeignMachineryProduct_" Caption="نحوه تامین کالا" >
+    <CellDisplayTemplate>
+       
+@{
+    var SCMPETCO_ProductRequestDetails_ForeignMachineryProduct = ((Entity.SCMPETCO_ProductRequestDetails)ForeignMachineryProduct_.DataItem).ForeignMachineryProduct;
+}
+
+<p class="text-center " hidden="@(SCMPETCO_ProductRequestDetails_ForeignMachineryProduct !=null ? !SCMPETCO_ProductRequestDetails_ForeignMachineryProduct : true)">داخلی</p>
+
+<p class="text-center" hidden="@(SCMPETCO_ProductRequestDetails_ForeignMachineryProduct !=null ? SCMPETCO_ProductRequestDetails_ForeignMachineryProduct : true)">خارجی</p>
+
+
+    </CellDisplayTemplate>
+</DxGridDataColumn>
+<DxGridDataColumn Context="html2_" Caption="HTML" >
+    <CellDisplayTemplate>
+      <div  class="Gcol-sm-8 Gcol-md-6 Gcol-lg-12">
+    <hr class="hrdash">
+</div>
 
     </CellDisplayTemplate>
 </DxGridDataColumn>
@@ -474,25 +529,25 @@ WidthAuto input {
 
 <DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextSCMPETCO_ProductRequestDetails">
     
-<Input Id="SCMPETCO_ProductRequestDetails_ProductNameText" @ref="Ref_SCMPETCO_ProductRequestDetails_ProductNameText" Label="نام کالا شماران"  CssClass="Gcol-sm-8 Gcol-md-6 Gcol-lg-3" Disabled=true Required=true @bind-Value="SCMPETCO_ProductRequestDetails.ProductNameText" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+<Input Id="SCMPETCO_ProductRequestDetails_ProductNameText" @ref="Ref_SCMPETCO_ProductRequestDetails_ProductNameText" Label="نام کالا شماران"  CssClass="Gcol-sm-8 Gcol-md-6 Gcol-lg-4" Disabled=true Required=true @bind-Value="SCMPETCO_ProductRequestDetails.ProductNameText" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
 
 </DxFormLayoutItem>
 
 <DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextSCMPETCO_ProductRequestDetails">
     
-<Input Id="SCMPETCO_ProductRequestDetails_ProductCodeText" @ref="Ref_SCMPETCO_ProductRequestDetails_ProductCodeText" Label="کد کالا شماران"  CssClass="Gcol-sm-8 Gcol-md-6 Gcol-lg-3" Disabled=true  @bind-Value="SCMPETCO_ProductRequestDetails.ProductCodeText" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+<Input Id="SCMPETCO_ProductRequestDetails_ProductCodeText" @ref="Ref_SCMPETCO_ProductRequestDetails_ProductCodeText" Label="کد کالا شماران"  CssClass="Gcol-sm-8 Gcol-md-6 Gcol-lg-4" Disabled=true  @bind-Value="SCMPETCO_ProductRequestDetails.ProductCodeText" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
 
 </DxFormLayoutItem>
 
 <DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextSCMPETCO_ProductRequestDetails">
     
-<Input Id="SCMPETCO_ProductRequestDetails_ProductUnitText" @ref="Ref_SCMPETCO_ProductRequestDetails_ProductUnitText" Label="واحد کالا شماران"  CssClass="Gcol-sm-8 Gcol-md-6 Gcol-lg-3" Disabled=true  @bind-Value="SCMPETCO_ProductRequestDetails.ProductUnitText" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+<Input Id="SCMPETCO_ProductRequestDetails_ProductUnitText" @ref="Ref_SCMPETCO_ProductRequestDetails_ProductUnitText" Label="واحد کالا شماران"  CssClass="Gcol-sm-8 Gcol-md-6 Gcol-lg-4" Disabled=true  @bind-Value="SCMPETCO_ProductRequestDetails.ProductUnitText" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
 
 </DxFormLayoutItem>
 
 <DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextSCMPETCO_ProductRequestDetails">
     
-<Input Id="SCMPETCO_ProductRequestDetails_ProductInventoryText" @ref="Ref_SCMPETCO_ProductRequestDetails_ProductInventoryText" Label="موجودی کالا شماران"  CssClass="Gcol-sm-8 Gcol-md-6 Gcol-lg-3" Disabled=true  @bind-Value="SCMPETCO_ProductRequestDetails.ProductInventoryText" type="number" ActiveSeperator=false    Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"step\":\"any\"}").Result))></Input>
+<Input Id="SCMPETCO_ProductRequestDetails_ProductInventoryText" @ref="Ref_SCMPETCO_ProductRequestDetails_ProductInventoryText" Label="موجودی کالا شماران"  CssClass="Gcol-sm-8 Gcol-md-6 Gcol-lg-4" Disabled=true  @bind-Value="SCMPETCO_ProductRequestDetails.ProductInventoryText" type="number" ActiveSeperator=false    Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"step\":\"any\"}").Result))></Input>
 
 </DxFormLayoutItem>
 
@@ -500,10 +555,10 @@ WidthAuto input {
      
  
 @code {
-    Baya.Models.ViewEngine.View_Component Component_SCMPETCO_ProductRequestDetailsSCMPETCO_PriorityId = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"primaryKey\":false,\"EntityID\":200,\"FieldId\":2178,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":501,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":false,\"RelationParentName\":\"SCMPETCO_Priority\",\"RelationParentModel\":\"SCMPETCO_Priority\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/SCMPETCO_Priority/GetList\"},\"validate\":{\"required\":true,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.PriorityTitle}} </span>\",\"FieldsTemplate\":[],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"searchField\":\"DESC,PARTNO\",\"disableLimit\":false,\"noRefreshOnScroll\":false,\"disabled\":false,\"modal\":true,\"label\":\"اولویت\",\"tableView\":true,\"key\":\"SCMPETCO_PriorityId\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"customClass\":\"Gcol-sm-8 Gcol-md-6 Gcol-lg-3\",\"FieldUrl\":\"2178?EId=200&SubId=19\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
+    Baya.Models.ViewEngine.View_Component Component_SCMPETCO_ProductRequestDetailsSCMPETCO_PriorityId = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"primaryKey\":false,\"EntityID\":200,\"FieldId\":2178,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":501,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":false,\"RelationParentName\":\"SCMPETCO_Priority\",\"RelationParentModel\":\"SCMPETCO_Priority\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/SCMPETCO_Priority/GetList\"},\"validate\":{\"required\":true,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.PriorityTitle}} </span>\",\"FieldsTemplate\":[],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"searchField\":\"DESC,PARTNO\",\"disableLimit\":false,\"noRefreshOnScroll\":false,\"disabled\":false,\"modal\":true,\"label\":\"اولویت\",\"tableView\":true,\"key\":\"SCMPETCO_PriorityId\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"customClass\":\"Gcol-sm-8 Gcol-md-6 Gcol-lg-4\",\"FieldUrl\":\"2178?EId=200&SubId=19\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
 }
 
-    <Dropdown Id=SCMPETCO_ProductRequestDetails_SCMPETCO_PriorityId  @ref="Ref_SCMPETCO_ProductRequestDetails_SCMPETCO_PriorityId" Label="اولویت" CssClass="Gcol-sm-8 Gcol-md-6 Gcol-lg-3" Required=true DisplayFormat="DropDown" ExternalApi=false NotMapped=false TextGrid=false Text="" Value="@SCMPETCO_ProductRequestDetails.SCMPETCO_PriorityId" FieldName="SCMPETCO_PriorityId" OnItemSelected="ItemSelected_SCMPETCO_ProductRequestDetailsSCMPETCO_PriorityId" Component="Component_SCMPETCO_ProductRequestDetailsSCMPETCO_PriorityId" _Entity="_Entity" _EntityRow=SCMPETCO_ProductRequestDetails>
+    <Dropdown Id=SCMPETCO_ProductRequestDetails_SCMPETCO_PriorityId  @ref="Ref_SCMPETCO_ProductRequestDetails_SCMPETCO_PriorityId" Label="اولویت" CssClass="Gcol-sm-8 Gcol-md-6 Gcol-lg-4" Required=true DisplayFormat="DropDown" ExternalApi=false NotMapped=false TextGrid=false Text="" Value="@SCMPETCO_ProductRequestDetails.SCMPETCO_PriorityId" FieldName="SCMPETCO_PriorityId" OnItemSelected="ItemSelected_SCMPETCO_ProductRequestDetailsSCMPETCO_PriorityId" Component="Component_SCMPETCO_ProductRequestDetailsSCMPETCO_PriorityId" _Entity="_Entity" _EntityRow=SCMPETCO_ProductRequestDetails>
 </Dropdown>
 @code {
     public async Task ItemSelected_SCMPETCO_ProductRequestDetailsSCMPETCO_PriorityId(object _Item)
@@ -539,37 +594,31 @@ WidthAuto input {
 
 <DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextSCMPETCO_ProductRequestDetails">
     
-<Input Id="SCMPETCO_ProductRequestDetails_ProductRequestingQTY" @ref="Ref_SCMPETCO_ProductRequestDetails_ProductRequestingQTY" Label="تعداد یا مقدار درخواستی"  CssClass="Gcol-sm-8 Gcol-md-6 Gcol-lg-3"  Required=true @bind-Value="SCMPETCO_ProductRequestDetails.ProductRequestingQTY" type="number" ActiveSeperator=false    Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"step\":\"any\"}").Result))></Input>
+<Input Id="SCMPETCO_ProductRequestDetails_ProductRequestingQTY" @ref="Ref_SCMPETCO_ProductRequestDetails_ProductRequestingQTY" Label="تعداد یا مقدار درخواستی"  CssClass="Gcol-sm-8 Gcol-md-6 Gcol-lg-4"  Required=true @bind-Value="SCMPETCO_ProductRequestDetails.ProductRequestingQTY" type="number" ActiveSeperator=false    Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"step\":\"any\"}").Result))></Input>
 
 </DxFormLayoutItem>
 
 <DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextSCMPETCO_ProductRequestDetails">
     
-<RadioBoolean @ref="Ref_SCMPETCO_ProductRequestDetails_ForeignMachineryProduct" InLine=true Id="SCMPETCO_ProductRequestDetails_ForeignMachineryProduct"   LabelTrue="داخلی" LabelFalse="خارجی" Label="نحوه تامین کالا" @bind-Value="SCMPETCO_ProductRequestDetails.ForeignMachineryProduct" CssClass="Gcol-sm-8 Gcol-md-6 Gcol-lg-3" ></RadioBoolean>
+<Input Id="SCMPETCO_ProductRequestDetails_PlaceOfUseProduct" @ref="Ref_SCMPETCO_ProductRequestDetails_PlaceOfUseProduct" Label="محل مصرف کالا"  CssClass="Gcol-sm-8 Gcol-md-6 Gcol-lg-6"  Required=true @bind-Value="SCMPETCO_ProductRequestDetails.PlaceOfUseProduct" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
 
 </DxFormLayoutItem>
 
 <DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextSCMPETCO_ProductRequestDetails">
     
-<Input Id="SCMPETCO_ProductRequestDetails_PlaceOfUseProduct" @ref="Ref_SCMPETCO_ProductRequestDetails_PlaceOfUseProduct" Label="محل مصرف کالا"  CssClass="Gcol-sm-8 Gcol-md-6 Gcol-lg-3"  Required=true @bind-Value="SCMPETCO_ProductRequestDetails.PlaceOfUseProduct" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+<Input Id="SCMPETCO_ProductRequestDetails_ProductRowDescription" @ref="Ref_SCMPETCO_ProductRequestDetails_ProductRowDescription" Label="توضیحات درخواست کننده"  CssClass="Gcol-sm-8 Gcol-md-6 Gcol-lg-6" Disabled=true  @bind-Value="SCMPETCO_ProductRequestDetails.ProductRowDescription" type="textarea"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
 
 </DxFormLayoutItem>
 
 <DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextSCMPETCO_ProductRequestDetails">
     
-<Input Id="SCMPETCO_ProductRequestDetails_ProductRowDescription" @ref="Ref_SCMPETCO_ProductRequestDetails_ProductRowDescription" Label="توضیحات درخواست کننده"  CssClass="Gcol-sm-8 Gcol-md-6 Gcol-lg-4" Disabled=true  @bind-Value="SCMPETCO_ProductRequestDetails.ProductRowDescription" type="textarea"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+<Input Id="SCMPETCO_ProductRequestDetails_Description2" @ref="Ref_SCMPETCO_ProductRequestDetails_Description2" Label="توضیحات تایید کننده"  CssClass="Gcol-sm-8 Gcol-md-6 Gcol-lg-6" Disabled=true  @bind-Value="SCMPETCO_ProductRequestDetails.Description2" type="textarea"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
 
 </DxFormLayoutItem>
 
 <DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextSCMPETCO_ProductRequestDetails">
     
-<Input Id="SCMPETCO_ProductRequestDetails_Description2" @ref="Ref_SCMPETCO_ProductRequestDetails_Description2" Label="توضیحات تایید کننده"  CssClass="Gcol-sm-8 Gcol-md-6 Gcol-lg-4" Disabled=true  @bind-Value="SCMPETCO_ProductRequestDetails.Description2" type="textarea"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
-
-</DxFormLayoutItem>
-
-<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextSCMPETCO_ProductRequestDetails">
-    
-<Input Id="SCMPETCO_ProductRequestDetails_Description3" @ref="Ref_SCMPETCO_ProductRequestDetails_Description3" Label="توضیحات تصویب کننده"  CssClass="Gcol-sm-8 Gcol-md-6 Gcol-lg-4" Disabled=true  @bind-Value="SCMPETCO_ProductRequestDetails.Description3" type="textarea"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+<Input Id="SCMPETCO_ProductRequestDetails_Description3" @ref="Ref_SCMPETCO_ProductRequestDetails_Description3" Label="توضیحات تصویب کننده"  CssClass="Gcol-sm-8 Gcol-md-6 Gcol-lg-6" Disabled=true  @bind-Value="SCMPETCO_ProductRequestDetails.Description3" type="textarea"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
 
 </DxFormLayoutItem>
 
@@ -626,25 +675,38 @@ WidthAuto input {
 
 <DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextSCMPETCO_ProductRequestDetails">
     
-<Input Id="SCMPETCO_ProductRequestDetails_DeficitSupplyNumber" @ref="Ref_SCMPETCO_ProductRequestDetails_DeficitSupplyNumber" Label="تعداد تامین کسری"  CssClass="Gcol-sm-8 Gcol-md-6 Gcol-lg-3"  Required=true @bind-Value="SCMPETCO_ProductRequestDetails.DeficitSupplyNumber" type="number" ActiveSeperator=false    Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"step\":\"any\"}").Result))></Input>
+<RadioBoolean @ref="Ref_SCMPETCO_ProductRequestDetails_ForeignMachineryProduct" InLine=true Id="SCMPETCO_ProductRequestDetails_ForeignMachineryProduct"   LabelTrue="داخلی" LabelFalse="خارجی" Label="نحوه تامین کالا" @bind-Value="SCMPETCO_ProductRequestDetails.ForeignMachineryProduct" CssClass="Gcol-sm-8 Gcol-md-6 Gcol-lg-6" ></RadioBoolean>
+
+</DxFormLayoutItem>
+
+<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextSCMPETCO_ProductRequestDetails">
+    <div  class="Gcol-sm-8 Gcol-md-6 Gcol-lg-12">
+    <hr class="hrdash">
+</div>
 
 </DxFormLayoutItem>
 
 <DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextSCMPETCO_ProductRequestDetails">
     
-<Input Id="SCMPETCO_ProductRequestDetails_NumberofProductDelivery" @ref="Ref_SCMPETCO_ProductRequestDetails_NumberofProductDelivery" Label="تعداد یا مقدار واگذاری کالا"  CssClass="Gcol-sm-8 Gcol-md-6 Gcol-lg-3"  Required=true @bind-Value="SCMPETCO_ProductRequestDetails.NumberofProductDelivery" type="number" ActiveSeperator=false    Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"step\":\"any\"}").Result))></Input>
+<Input Id="SCMPETCO_ProductRequestDetails_DeficitSupplyNumber" @ref="Ref_SCMPETCO_ProductRequestDetails_DeficitSupplyNumber" Label="تعداد تامین کسری"  CssClass="Gcol-sm-8 Gcol-md-6 Gcol-lg-4"  Required=true @bind-Value="SCMPETCO_ProductRequestDetails.DeficitSupplyNumber" type="number" ActiveSeperator=false    Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"step\":\"any\"}").Result))></Input>
 
 </DxFormLayoutItem>
 
 <DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextSCMPETCO_ProductRequestDetails">
     
-<Input Id="SCMPETCO_ProductRequestDetails_GetDeliveryCode" @ref="Ref_SCMPETCO_ProductRequestDetails_GetDeliveryCode" Label="دریافت کد تحویل کالا"  CssClass="Gcol-sm-8 Gcol-md-6 Gcol-lg-6"   @bind-Value="SCMPETCO_ProductRequestDetails.GetDeliveryCode" type="number" ActiveSeperator=false    Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+<Input Id="SCMPETCO_ProductRequestDetails_NumberofProductDelivery" @ref="Ref_SCMPETCO_ProductRequestDetails_NumberofProductDelivery" Label="تعداد یا مقدار واگذاری کالا"  CssClass="Gcol-sm-8 Gcol-md-6 Gcol-lg-4"  Required=true @bind-Value="SCMPETCO_ProductRequestDetails.NumberofProductDelivery" type="number" ActiveSeperator=false    Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"step\":\"any\"}").Result))></Input>
 
 </DxFormLayoutItem>
 
 <DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextSCMPETCO_ProductRequestDetails">
     
-<Input Id="SCMPETCO_ProductRequestDetails_DescriptionWarehouseKeeper" @ref="Ref_SCMPETCO_ProductRequestDetails_DescriptionWarehouseKeeper" Label="توضیحات انباردار"  CssClass="Gcol-sm-8 Gcol-md-6 Gcol-lg-6"   @bind-Value="SCMPETCO_ProductRequestDetails.DescriptionWarehouseKeeper" type="textarea"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+<Input Id="SCMPETCO_ProductRequestDetails_GetDeliveryCode" @ref="Ref_SCMPETCO_ProductRequestDetails_GetDeliveryCode" Label="دریافت کد تحویل کالا"  CssClass="Gcol-sm-8 Gcol-md-6 Gcol-lg-4"   @bind-Value="SCMPETCO_ProductRequestDetails.GetDeliveryCode" type="number" ActiveSeperator=false    Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+</DxFormLayoutItem>
+
+<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextSCMPETCO_ProductRequestDetails">
+    
+<Input Id="SCMPETCO_ProductRequestDetails_DescriptionWarehouseKeeper" @ref="Ref_SCMPETCO_ProductRequestDetails_DescriptionWarehouseKeeper" Label="توضیحات انباردار"  CssClass="Gcol-sm-8 Gcol-md-6 Gcol-lg-12"   @bind-Value="SCMPETCO_ProductRequestDetails.DescriptionWarehouseKeeper" type="textarea"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
 
 </DxFormLayoutItem>
 
@@ -1040,13 +1102,13 @@ MainModel.ProductInventoryText = ((Entity.SCMPETCO_ProductRequestDetails)EditMod
 MainModel.SCMPETCO_PriorityId = ((Entity.SCMPETCO_ProductRequestDetails)EditModel).SCMPETCO_PriorityId;
 MainModel.SCMPETCO_Priority = ((Entity.SCMPETCO_ProductRequestDetails)EditModel).SCMPETCO_Priority;
 MainModel.ProductRequestingQTY = ((Entity.SCMPETCO_ProductRequestDetails)EditModel).ProductRequestingQTY;
-MainModel.ForeignMachineryProduct = ((Entity.SCMPETCO_ProductRequestDetails)EditModel).ForeignMachineryProduct;
 MainModel.PlaceOfUseProduct = ((Entity.SCMPETCO_ProductRequestDetails)EditModel).PlaceOfUseProduct;
 MainModel.ProductRowDescription = ((Entity.SCMPETCO_ProductRequestDetails)EditModel).ProductRowDescription;
 MainModel.Description2 = ((Entity.SCMPETCO_ProductRequestDetails)EditModel).Description2;
 MainModel.Description3 = ((Entity.SCMPETCO_ProductRequestDetails)EditModel).Description3;
 MainModel.Global_SCMRequestTypeId = ((Entity.SCMPETCO_ProductRequestDetails)EditModel).Global_SCMRequestTypeId;
 MainModel.Global_SCMRequestType = ((Entity.SCMPETCO_ProductRequestDetails)EditModel).Global_SCMRequestType;
+MainModel.ForeignMachineryProduct = ((Entity.SCMPETCO_ProductRequestDetails)EditModel).ForeignMachineryProduct;
 MainModel.DeficitSupplyNumber = ((Entity.SCMPETCO_ProductRequestDetails)EditModel).DeficitSupplyNumber;
 MainModel.NumberofProductDelivery = ((Entity.SCMPETCO_ProductRequestDetails)EditModel).NumberofProductDelivery;
 MainModel.GetDeliveryCode = ((Entity.SCMPETCO_ProductRequestDetails)EditModel).GetDeliveryCode;
@@ -1181,6 +1243,9 @@ public async void RowDubbleClickGrid_SCMPETCO_ProductRequestDetails(GridRowClick
 
 }
 }
+<div  class="">
+    
+</div>
 
 <Input Id="Id" @ref="Ref_Id"   CssClass="d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none"   @bind-Value="_Entity.Id" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
 
@@ -1216,8 +1281,8 @@ public async void RowDubbleClickGrid_SCMPETCO_ProductRequestDetails(GridRowClick
     {
         Console.WriteLine("#log OnInitializedAsync");
 
-        TableGet = await Utility.JSON.ToObject<Table>("{\"Name\":\"SCMPETCO_ProductRequest\",\"GetNameAs\":\"SCMPETCO_ProductRequest\",\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"RequestID\",\"GetNameAs\":\"RequestID\"},{\"Name\":\"CreateUser\",\"GetNameAs\":\"CreateUser\"},{\"Name\":\"UpdateUser\",\"GetNameAs\":\"UpdateUser\"},{\"Name\":\"CreateDate\",\"GetNameAs\":\"CreateDate\"},{\"Name\":\"UpdateDate\",\"GetNameAs\":\"UpdateDate\"},{\"Name\":\"IsDelete\",\"GetNameAs\":\"IsDelete\"},{\"Name\":\"SystemUser\",\"GetNameAs\":\"SystemUser\"},{\"Name\":\"SystemUnitUser\",\"GetNameAs\":\"SystemUnitUser\"},{\"Name\":\"SystemSectionUser\",\"GetNameAs\":\"SystemSectionUser\"},{\"Name\":\"UserCompanyName\",\"GetNameAs\":\"UserCompanyName\"},{\"Name\":\"DeliveryCode_NotMapped\",\"GetNameAs\":\"DeliveryCode_NotMapped\"},{\"Name\":\"CancelledBy\",\"GetNameAs\":\"CancelledBy\"},{\"Name\":\"CancellationReason\",\"GetNameAs\":\"CancellationReason\"},{\"Name\":\"CancellationAt\",\"GetNameAs\":\"CancellationAt\"}],\"Relation\":[{\"Name\":\"SCMPETCO_QCInspectionArea\",\"GetNameAs\":\"SCMPETCO_QCInspectionArea\",\"ModeErtebat\":1,\"Column\":[{\"Name\":\"Code\",\"GetNameAs\":\"Code\"},{\"Name\":\"Title\",\"GetNameAs\":\"Title\"}],\"Relation\":[]},{\"Name\":\"SCMPETCO_ICT_Departments\",\"GetNameAs\":\"SCMPETCO_ICT_Departments\",\"ModeErtebat\":1,\"Column\":[{\"Name\":\"Code\",\"GetNameAs\":\"Code\"},{\"Name\":\"Title\",\"GetNameAs\":\"Title\"}],\"Relation\":[]},{\"Name\":\"SCMPETCO_ProductRequestDetails\",\"GetNameAs\":\"SCMPETCO_ProductRequestDetails\",\"ModeErtebat\":2,\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"RequestID\",\"GetNameAs\":\"RequestID\"},{\"Name\":\"CreateUser\",\"GetNameAs\":\"CreateUser\"},{\"Name\":\"UpdateUser\",\"GetNameAs\":\"UpdateUser\"},{\"Name\":\"CreateDate\",\"GetNameAs\":\"CreateDate\"},{\"Name\":\"UpdateDate\",\"GetNameAs\":\"UpdateDate\"},{\"Name\":\"IsDelete\",\"GetNameAs\":\"IsDelete\"},{\"Name\":\"ProductMainCategoryText\",\"GetNameAs\":\"ProductMainCategoryText\"},{\"Name\":\"ProductMainCategoryIdText\",\"GetNameAs\":\"ProductMainCategoryIdText\"},{\"Name\":\"ProductSubCategoryText\",\"GetNameAs\":\"ProductSubCategoryText\"},{\"Name\":\"ProductSubCategoryIdText\",\"GetNameAs\":\"ProductSubCategoryIdText\"},{\"Name\":\"ProductCodeText\",\"GetNameAs\":\"ProductCodeText\"},{\"Name\":\"ProductUnitText\",\"GetNameAs\":\"ProductUnitText\"},{\"Name\":\"ShomaranFiscalYearText\",\"GetNameAs\":\"ShomaranFiscalYearText\"},{\"Name\":\"ProductInventoryText\",\"GetNameAs\":\"ProductInventoryText\"},{\"Name\":\"ProductRequestingQTY\",\"GetNameAs\":\"ProductRequestingQTY\"},{\"Name\":\"SCMPETCO_PriorityId\",\"GetNameAs\":\"SCMPETCO_PriorityId\"},{\"Name\":\"PlaceOfUseProduct\",\"GetNameAs\":\"PlaceOfUseProduct\"},{\"Name\":\"ProductRowDescription\",\"GetNameAs\":\"ProductRowDescription\"},{\"Name\":\"ProductNameText\",\"GetNameAs\":\"ProductNameText\"},{\"Name\":\"ForeignMachineryProduct\",\"GetNameAs\":\"ForeignMachineryProduct\"},{\"Name\":\"FutureAction\",\"GetNameAs\":\"FutureAction\"},{\"Name\":\"Description2\",\"GetNameAs\":\"Description2\"},{\"Name\":\"Description3\",\"GetNameAs\":\"Description3\"},{\"Name\":\"DeficitSupplyNumber\",\"GetNameAs\":\"DeficitSupplyNumber\"},{\"Name\":\"NumberofProductDelivery\",\"GetNameAs\":\"NumberofProductDelivery\"},{\"Name\":\"IsExist\",\"GetNameAs\":\"IsExist\"},{\"Name\":\"DescriptionWarehouseKeeper\",\"GetNameAs\":\"DescriptionWarehouseKeeper\"},{\"Name\":\"ProductDelivery\",\"GetNameAs\":\"ProductDelivery\"},{\"Name\":\"DeliveryCode\",\"GetNameAs\":\"DeliveryCode\"},{\"Name\":\"GetDeliveryCode\",\"GetNameAs\":\"GetDeliveryCode\"},{\"Name\":\"DateTimeDeliveryCode\",\"GetNameAs\":\"DateTimeDeliveryCode\"},{\"Name\":\"Global_SCMRequestTypeId\",\"GetNameAs\":\"Global_SCMRequestTypeId\"}],\"Relation\":[{\"Name\":\"SCMPETCO_Priority\",\"GetNameAs\":\"SCMPETCO_Priority\",\"ModeErtebat\":1,\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"PriorityTitle\",\"GetNameAs\":\"PriorityTitle\"},{\"Name\":\"PriorityDateTime\",\"GetNameAs\":\"PriorityDateTime\"},{\"Name\":\"PriorityDescription\",\"GetNameAs\":\"PriorityDescription\"}]},{\"Name\":\"Global_SCMRequestType\",\"GetNameAs\":\"Global_SCMRequestType\",\"ModeErtebat\":1,\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"Title\",\"GetNameAs\":\"Title\"}]}]}]}");
-        TablePost = await Utility.JSON.ToObject<Table>("{\"Name\":\"SCMPETCO_ProductRequest\",\"GetNameAs\":\"SCMPETCO_ProductRequest\",\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"RequestID\",\"GetNameAs\":\"RequestID\"},{\"Name\":\"CreateUser\",\"GetNameAs\":\"CreateUser\"},{\"Name\":\"UpdateUser\",\"GetNameAs\":\"UpdateUser\"},{\"Name\":\"CreateDate\",\"GetNameAs\":\"CreateDate\"},{\"Name\":\"UpdateDate\",\"GetNameAs\":\"UpdateDate\"},{\"Name\":\"IsDelete\",\"GetNameAs\":\"IsDelete\"},{\"Name\":\"SystemUser\",\"GetNameAs\":\"SystemUser\"},{\"Name\":\"SystemUnitUser\",\"GetNameAs\":\"SystemUnitUser\"},{\"Name\":\"SystemSectionUser\",\"GetNameAs\":\"SystemSectionUser\"},{\"Name\":\"UserCompanyName\",\"GetNameAs\":\"UserCompanyName\"},{\"Name\":\"DeliveryCode_NotMapped\",\"GetNameAs\":\"DeliveryCode_NotMapped\"},{\"Name\":\"CancelledBy\",\"GetNameAs\":\"CancelledBy\"},{\"Name\":\"CancellationReason\",\"GetNameAs\":\"CancellationReason\"},{\"Name\":\"CancellationAt\",\"GetNameAs\":\"CancellationAt\"}],\"Relation\":[{\"Name\":\"SCMPETCO_ProductRequestDetails\",\"GetNameAs\":\"SCMPETCO_ProductRequestDetails\",\"ModeErtebat\":2,\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"RequestID\",\"GetNameAs\":\"RequestID\"},{\"Name\":\"CreateUser\",\"GetNameAs\":\"CreateUser\"},{\"Name\":\"UpdateUser\",\"GetNameAs\":\"UpdateUser\"},{\"Name\":\"CreateDate\",\"GetNameAs\":\"CreateDate\"},{\"Name\":\"UpdateDate\",\"GetNameAs\":\"UpdateDate\"},{\"Name\":\"IsDelete\",\"GetNameAs\":\"IsDelete\"},{\"Name\":\"ProductMainCategoryText\",\"GetNameAs\":\"ProductMainCategoryText\"},{\"Name\":\"ProductMainCategoryIdText\",\"GetNameAs\":\"ProductMainCategoryIdText\"},{\"Name\":\"ProductSubCategoryText\",\"GetNameAs\":\"ProductSubCategoryText\"},{\"Name\":\"ProductSubCategoryIdText\",\"GetNameAs\":\"ProductSubCategoryIdText\"},{\"Name\":\"ProductCodeText\",\"GetNameAs\":\"ProductCodeText\"},{\"Name\":\"ProductUnitText\",\"GetNameAs\":\"ProductUnitText\"},{\"Name\":\"ShomaranFiscalYearText\",\"GetNameAs\":\"ShomaranFiscalYearText\"},{\"Name\":\"ProductInventoryText\",\"GetNameAs\":\"ProductInventoryText\"},{\"Name\":\"ProductRequestingQTY\",\"GetNameAs\":\"ProductRequestingQTY\"},{\"Name\":\"SCMPETCO_PriorityId\",\"GetNameAs\":\"SCMPETCO_PriorityId\"},{\"Name\":\"PlaceOfUseProduct\",\"GetNameAs\":\"PlaceOfUseProduct\"},{\"Name\":\"ProductRowDescription\",\"GetNameAs\":\"ProductRowDescription\"},{\"Name\":\"ProductNameText\",\"GetNameAs\":\"ProductNameText\"},{\"Name\":\"ForeignMachineryProduct\",\"GetNameAs\":\"ForeignMachineryProduct\"},{\"Name\":\"FutureAction\",\"GetNameAs\":\"FutureAction\"},{\"Name\":\"Description2\",\"GetNameAs\":\"Description2\"},{\"Name\":\"Description3\",\"GetNameAs\":\"Description3\"},{\"Name\":\"DeficitSupplyNumber\",\"GetNameAs\":\"DeficitSupplyNumber\"},{\"Name\":\"NumberofProductDelivery\",\"GetNameAs\":\"NumberofProductDelivery\"},{\"Name\":\"IsExist\",\"GetNameAs\":\"IsExist\"},{\"Name\":\"DescriptionWarehouseKeeper\",\"GetNameAs\":\"DescriptionWarehouseKeeper\"},{\"Name\":\"ProductDelivery\",\"GetNameAs\":\"ProductDelivery\"},{\"Name\":\"DeliveryCode\",\"GetNameAs\":\"DeliveryCode\"},{\"Name\":\"GetDeliveryCode\",\"GetNameAs\":\"GetDeliveryCode\"},{\"Name\":\"DateTimeDeliveryCode\",\"GetNameAs\":\"DateTimeDeliveryCode\"},{\"Name\":\"Global_SCMRequestTypeId\",\"GetNameAs\":\"Global_SCMRequestTypeId\"}],\"Relation\":[]}]}");
+        TableGet = await Utility.JSON.ToObject<Table>("{\"Name\":\"SCMPETCO_ProductRequest\",\"GetNameAs\":\"SCMPETCO_ProductRequest\",\"Column\":[{\"Name\":\"DeliveryCode_NotMapped\",\"GetNameAs\":\"DeliveryCode_NotMapped\"},{\"Name\":\"CancelledBy\",\"GetNameAs\":\"CancelledBy\"},{\"Name\":\"CancellationReason\",\"GetNameAs\":\"CancellationReason\"},{\"Name\":\"CancellationAt\",\"GetNameAs\":\"CancellationAt\"},{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"RequestID\",\"GetNameAs\":\"RequestID\"},{\"Name\":\"CreateUser\",\"GetNameAs\":\"CreateUser\"},{\"Name\":\"UpdateUser\",\"GetNameAs\":\"UpdateUser\"},{\"Name\":\"CreateDate\",\"GetNameAs\":\"CreateDate\"},{\"Name\":\"UpdateDate\",\"GetNameAs\":\"UpdateDate\"},{\"Name\":\"IsDelete\",\"GetNameAs\":\"IsDelete\"},{\"Name\":\"SystemUser\",\"GetNameAs\":\"SystemUser\"},{\"Name\":\"SystemUnitUser\",\"GetNameAs\":\"SystemUnitUser\"},{\"Name\":\"SystemSectionUser\",\"GetNameAs\":\"SystemSectionUser\"},{\"Name\":\"UserCompanyName\",\"GetNameAs\":\"UserCompanyName\"}],\"Relation\":[{\"Name\":\"SCMPETCO_QCInspectionArea\",\"GetNameAs\":\"SCMPETCO_QCInspectionArea\",\"ModeErtebat\":1,\"Column\":[{\"Name\":\"Code\",\"GetNameAs\":\"Code\"},{\"Name\":\"Title\",\"GetNameAs\":\"Title\"}],\"Relation\":[]},{\"Name\":\"SCMPETCO_ICT_Departments\",\"GetNameAs\":\"SCMPETCO_ICT_Departments\",\"ModeErtebat\":1,\"Column\":[{\"Name\":\"Code\",\"GetNameAs\":\"Code\"},{\"Name\":\"Title\",\"GetNameAs\":\"Title\"}],\"Relation\":[]},{\"Name\":\"SCMPETCO_ProductRequestDetails\",\"GetNameAs\":\"SCMPETCO_ProductRequestDetails\",\"ModeErtebat\":2,\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"RequestID\",\"GetNameAs\":\"RequestID\"},{\"Name\":\"CreateUser\",\"GetNameAs\":\"CreateUser\"},{\"Name\":\"UpdateUser\",\"GetNameAs\":\"UpdateUser\"},{\"Name\":\"CreateDate\",\"GetNameAs\":\"CreateDate\"},{\"Name\":\"UpdateDate\",\"GetNameAs\":\"UpdateDate\"},{\"Name\":\"IsDelete\",\"GetNameAs\":\"IsDelete\"},{\"Name\":\"ProductMainCategoryText\",\"GetNameAs\":\"ProductMainCategoryText\"},{\"Name\":\"ProductMainCategoryIdText\",\"GetNameAs\":\"ProductMainCategoryIdText\"},{\"Name\":\"ProductSubCategoryText\",\"GetNameAs\":\"ProductSubCategoryText\"},{\"Name\":\"ProductSubCategoryIdText\",\"GetNameAs\":\"ProductSubCategoryIdText\"},{\"Name\":\"ProductCodeText\",\"GetNameAs\":\"ProductCodeText\"},{\"Name\":\"ProductUnitText\",\"GetNameAs\":\"ProductUnitText\"},{\"Name\":\"ShomaranFiscalYearText\",\"GetNameAs\":\"ShomaranFiscalYearText\"},{\"Name\":\"ProductInventoryText\",\"GetNameAs\":\"ProductInventoryText\"},{\"Name\":\"ProductRequestingQTY\",\"GetNameAs\":\"ProductRequestingQTY\"},{\"Name\":\"SCMPETCO_PriorityId\",\"GetNameAs\":\"SCMPETCO_PriorityId\"},{\"Name\":\"PlaceOfUseProduct\",\"GetNameAs\":\"PlaceOfUseProduct\"},{\"Name\":\"ProductRowDescription\",\"GetNameAs\":\"ProductRowDescription\"},{\"Name\":\"ProductNameText\",\"GetNameAs\":\"ProductNameText\"},{\"Name\":\"ForeignMachineryProduct\",\"GetNameAs\":\"ForeignMachineryProduct\"},{\"Name\":\"FutureAction\",\"GetNameAs\":\"FutureAction\"},{\"Name\":\"Description2\",\"GetNameAs\":\"Description2\"},{\"Name\":\"Description3\",\"GetNameAs\":\"Description3\"},{\"Name\":\"DeficitSupplyNumber\",\"GetNameAs\":\"DeficitSupplyNumber\"},{\"Name\":\"NumberofProductDelivery\",\"GetNameAs\":\"NumberofProductDelivery\"},{\"Name\":\"IsExist\",\"GetNameAs\":\"IsExist\"},{\"Name\":\"DescriptionWarehouseKeeper\",\"GetNameAs\":\"DescriptionWarehouseKeeper\"},{\"Name\":\"ProductDelivery\",\"GetNameAs\":\"ProductDelivery\"},{\"Name\":\"DeliveryCode\",\"GetNameAs\":\"DeliveryCode\"},{\"Name\":\"GetDeliveryCode\",\"GetNameAs\":\"GetDeliveryCode\"},{\"Name\":\"DateTimeDeliveryCode\",\"GetNameAs\":\"DateTimeDeliveryCode\"},{\"Name\":\"Global_SCMRequestTypeId\",\"GetNameAs\":\"Global_SCMRequestTypeId\"}],\"Relation\":[{\"Name\":\"SCMPETCO_Priority\",\"GetNameAs\":\"SCMPETCO_Priority\",\"ModeErtebat\":1,\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"PriorityTitle\",\"GetNameAs\":\"PriorityTitle\"},{\"Name\":\"PriorityDateTime\",\"GetNameAs\":\"PriorityDateTime\"},{\"Name\":\"PriorityDescription\",\"GetNameAs\":\"PriorityDescription\"}]},{\"Name\":\"Global_SCMRequestType\",\"GetNameAs\":\"Global_SCMRequestType\",\"ModeErtebat\":1,\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"Title\",\"GetNameAs\":\"Title\"}]}]}]}");
+        TablePost = await Utility.JSON.ToObject<Table>("{\"Name\":\"SCMPETCO_ProductRequest\",\"GetNameAs\":\"SCMPETCO_ProductRequest\",\"Column\":[{\"Name\":\"DeliveryCode_NotMapped\",\"GetNameAs\":\"DeliveryCode_NotMapped\"},{\"Name\":\"CancelledBy\",\"GetNameAs\":\"CancelledBy\"},{\"Name\":\"CancellationReason\",\"GetNameAs\":\"CancellationReason\"},{\"Name\":\"CancellationAt\",\"GetNameAs\":\"CancellationAt\"},{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"RequestID\",\"GetNameAs\":\"RequestID\"},{\"Name\":\"CreateUser\",\"GetNameAs\":\"CreateUser\"},{\"Name\":\"UpdateUser\",\"GetNameAs\":\"UpdateUser\"},{\"Name\":\"CreateDate\",\"GetNameAs\":\"CreateDate\"},{\"Name\":\"UpdateDate\",\"GetNameAs\":\"UpdateDate\"},{\"Name\":\"IsDelete\",\"GetNameAs\":\"IsDelete\"},{\"Name\":\"SystemUser\",\"GetNameAs\":\"SystemUser\"},{\"Name\":\"SystemUnitUser\",\"GetNameAs\":\"SystemUnitUser\"},{\"Name\":\"SystemSectionUser\",\"GetNameAs\":\"SystemSectionUser\"},{\"Name\":\"UserCompanyName\",\"GetNameAs\":\"UserCompanyName\"}],\"Relation\":[{\"Name\":\"SCMPETCO_ProductRequestDetails\",\"GetNameAs\":\"SCMPETCO_ProductRequestDetails\",\"ModeErtebat\":2,\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"RequestID\",\"GetNameAs\":\"RequestID\"},{\"Name\":\"CreateUser\",\"GetNameAs\":\"CreateUser\"},{\"Name\":\"UpdateUser\",\"GetNameAs\":\"UpdateUser\"},{\"Name\":\"CreateDate\",\"GetNameAs\":\"CreateDate\"},{\"Name\":\"UpdateDate\",\"GetNameAs\":\"UpdateDate\"},{\"Name\":\"IsDelete\",\"GetNameAs\":\"IsDelete\"},{\"Name\":\"ProductMainCategoryText\",\"GetNameAs\":\"ProductMainCategoryText\"},{\"Name\":\"ProductMainCategoryIdText\",\"GetNameAs\":\"ProductMainCategoryIdText\"},{\"Name\":\"ProductSubCategoryText\",\"GetNameAs\":\"ProductSubCategoryText\"},{\"Name\":\"ProductSubCategoryIdText\",\"GetNameAs\":\"ProductSubCategoryIdText\"},{\"Name\":\"ProductCodeText\",\"GetNameAs\":\"ProductCodeText\"},{\"Name\":\"ProductUnitText\",\"GetNameAs\":\"ProductUnitText\"},{\"Name\":\"ShomaranFiscalYearText\",\"GetNameAs\":\"ShomaranFiscalYearText\"},{\"Name\":\"ProductInventoryText\",\"GetNameAs\":\"ProductInventoryText\"},{\"Name\":\"ProductRequestingQTY\",\"GetNameAs\":\"ProductRequestingQTY\"},{\"Name\":\"SCMPETCO_PriorityId\",\"GetNameAs\":\"SCMPETCO_PriorityId\"},{\"Name\":\"PlaceOfUseProduct\",\"GetNameAs\":\"PlaceOfUseProduct\"},{\"Name\":\"ProductRowDescription\",\"GetNameAs\":\"ProductRowDescription\"},{\"Name\":\"ProductNameText\",\"GetNameAs\":\"ProductNameText\"},{\"Name\":\"ForeignMachineryProduct\",\"GetNameAs\":\"ForeignMachineryProduct\"},{\"Name\":\"FutureAction\",\"GetNameAs\":\"FutureAction\"},{\"Name\":\"Description2\",\"GetNameAs\":\"Description2\"},{\"Name\":\"Description3\",\"GetNameAs\":\"Description3\"},{\"Name\":\"DeficitSupplyNumber\",\"GetNameAs\":\"DeficitSupplyNumber\"},{\"Name\":\"NumberofProductDelivery\",\"GetNameAs\":\"NumberofProductDelivery\"},{\"Name\":\"IsExist\",\"GetNameAs\":\"IsExist\"},{\"Name\":\"DescriptionWarehouseKeeper\",\"GetNameAs\":\"DescriptionWarehouseKeeper\"},{\"Name\":\"ProductDelivery\",\"GetNameAs\":\"ProductDelivery\"},{\"Name\":\"DeliveryCode\",\"GetNameAs\":\"DeliveryCode\"},{\"Name\":\"GetDeliveryCode\",\"GetNameAs\":\"GetDeliveryCode\"},{\"Name\":\"DateTimeDeliveryCode\",\"GetNameAs\":\"DateTimeDeliveryCode\"},{\"Name\":\"Global_SCMRequestTypeId\",\"GetNameAs\":\"Global_SCMRequestTypeId\"}],\"Relation\":[]}]}");
 
         config = CKEditorBundleOptions.DefaultConfig.WithHtmlEditing();
         config.Language = "fa";
@@ -1291,7 +1356,7 @@ _Entity.UserCompanyName = _RequestParameters.UserStarterCompanyName;
 _Entity.SystemUnitUser = _RequestParameters.UserStarterUnitName;
 _Entity.SystemSectionUser = _RequestParameters.UserStarterSectionName;
 _Entity.CancelledBy = _CartablesParameters.CurentUserFullName;
-_Entity.CancellationAt = "1404/09/15";
+_Entity.CancellationAt = "1404/09/25";
 
 
                     //نمونه ست کردن پارامتر روش اول

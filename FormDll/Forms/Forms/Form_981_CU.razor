@@ -546,6 +546,32 @@
 
 <DxGridDataColumn DisplayFormat="0" Caption="ردیف " Visible=false FieldName="RowId" />
 
+<DxGridDataColumn Context="PayCode_" Caption="نوع هزینه" >
+    <CellDisplayTemplate>
+       
+@{
+    Baya.Models.ViewEngine.View_Component HeaderPayCode = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"primaryKey\":false,\"EntityID\":729,\"FieldId\":31372,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":981,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":true,\"RelationParentName\":\"\",\"RelationParentModel\":\"\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://shomaran.workcv.ir:2010/fa-ir/api/v1/view_pays/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"code\",\"template\":\"<span>{{item.name}} {{item.code}} </span>\",\"FieldsTemplate\":[{\"key\":\"name\",\"value\":\"nvarchar(Max)\"},{\"key\":\"code\",\"value\":\"nvarchar(Max)\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"searchField\":\"name,code\",\"disabled\":false,\"modal\":true,\"label\":\"نوع هزینه\",\"tableView\":true,\"key\":\"PayCode\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"31372?EId=729&SubId=28\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
+    var RowPayCode = ((Entity.Shomaran_FactbBuyDetail)PayCode_.DataItem).PayCode;
+}
+
+<Dropdown ExternalApi=true CssClass="" NotMapped=false TextGrid=true Value="@RowPayCode"   FieldName="PayCode" OnItemSelected="ItemSelected_Shomaran_FactbBuyDetailPayCode_Header" Component="HeaderPayCode">
+</Dropdown>
+@code {
+    public async Task ItemSelected_Shomaran_FactbBuyDetailPayCode_Header(object _Item)
+    {
+      //  var Selected = Utility.JSON.ToObject<dynamic>(Utility.JSON.ToJson(_Item).Result).Result;
+  //   PayCode
+
+  //  #CustomCode
+
+ //   
+
+  //  #OnItemSelected
+    }
+}
+
+    </CellDisplayTemplate>
+</DxGridDataColumn>
 
 </Columns>
 
@@ -687,6 +713,32 @@
 <DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextShomaran_FactbBuyDetail">
     
 <Input Id="Shomaran_FactbBuyDetail_RowId" @ref="Ref_Shomaran_FactbBuyDetail_RowId" Label="ردیف "  CssClass="d-none" Disabled=true  @bind-Value="Shomaran_FactbBuyDetail.RowId" type="number"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+</DxFormLayoutItem>
+
+<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextShomaran_FactbBuyDetail">
+     
+ 
+@code {
+    Baya.Models.ViewEngine.View_Component Component_Shomaran_FactbBuyDetailPayCode = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"primaryKey\":false,\"EntityID\":729,\"FieldId\":31372,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":981,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":true,\"RelationParentName\":\"\",\"RelationParentModel\":\"\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://shomaran.workcv.ir:2010/fa-ir/api/v1/view_pays/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"code\",\"template\":\"<span>{{item.name}} {{item.code}} </span>\",\"FieldsTemplate\":[{\"key\":\"name\",\"value\":\"nvarchar(Max)\"},{\"key\":\"code\",\"value\":\"nvarchar(Max)\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"searchField\":\"name,code\",\"disabled\":false,\"modal\":true,\"label\":\"نوع هزینه\",\"tableView\":true,\"key\":\"PayCode\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"31372?EId=729&SubId=28\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
+}
+
+    <Dropdown Id=Shomaran_FactbBuyDetail_PayCode  @ref="Ref_Shomaran_FactbBuyDetail_PayCode" Label="نوع هزینه" CssClass=""  DisplayFormat="DropDown" ExternalApi=true NotMapped=false TextGrid=false  Value="@Shomaran_FactbBuyDetail.PayCode" FieldName="PayCode" OnItemSelected="ItemSelected_Shomaran_FactbBuyDetailPayCode" Component="Component_Shomaran_FactbBuyDetailPayCode" _Entity="_Entity" _EntityRow=Shomaran_FactbBuyDetail>
+</Dropdown>
+@code {
+    public async Task ItemSelected_Shomaran_FactbBuyDetailPayCode(object _Item)
+    {
+        var Selected = Utility.JSON.ToObject<dynamic>(Utility.JSON.ToJson(_Item).Result).Result;
+     var Item = Shomaran_FactbBuyDetail;
+
+    Item.PayCode = Selected.code;
+
+
+    
+
+    
+    }
+} 
 
 </DxFormLayoutItem>
 
@@ -992,6 +1044,7 @@ MainModel.CreateDate = ((Entity.Shomaran_FactbBuyDetail)EditModel).CreateDate;
 MainModel.UpdateDate = ((Entity.Shomaran_FactbBuyDetail)EditModel).UpdateDate;
 MainModel.IsDelete = ((Entity.Shomaran_FactbBuyDetail)EditModel).IsDelete;
 MainModel.RowId = ((Entity.Shomaran_FactbBuyDetail)EditModel).RowId;
+MainModel.PayCode = ((Entity.Shomaran_FactbBuyDetail)EditModel).PayCode;
 
     }
     else
@@ -1166,8 +1219,8 @@ public async void RowDubbleClickGrid_Shomaran_FactbBuyDetail(GridRowClickEventAr
     {
         Console.WriteLine("#log OnInitializedAsync");
 
-        TableGet = await Utility.JSON.ToObject<Table>("{\"Name\":\"Shomaran_FactbBuy\",\"GetNameAs\":\"Shomaran_FactbBuy\",\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"RequestID\",\"GetNameAs\":\"RequestID\"},{\"Name\":\"CreateUser\",\"GetNameAs\":\"CreateUser\"},{\"Name\":\"UpdateUser\",\"GetNameAs\":\"UpdateUser\"},{\"Name\":\"CreateDate\",\"GetNameAs\":\"CreateDate\"},{\"Name\":\"UpdateDate\",\"GetNameAs\":\"UpdateDate\"},{\"Name\":\"IsDelete\",\"GetNameAs\":\"IsDelete\"},{\"Name\":\"Creator\",\"GetNameAs\":\"Creator\"},{\"Name\":\"FactDate\",\"GetNameAs\":\"FactDate\"},{\"Name\":\"InvCode\",\"GetNameAs\":\"InvCode\"},{\"Name\":\"Note\",\"GetNameAs\":\"Note\"},{\"Name\":\"PartKind\",\"GetNameAs\":\"PartKind\"},{\"Name\":\"SelerCode\",\"GetNameAs\":\"SelerCode\"},{\"Name\":\"SelerName\",\"GetNameAs\":\"SelerName\"},{\"Name\":\"SelerAddr\",\"GetNameAs\":\"SelerAddr\"},{\"Name\":\"TempNo\",\"GetNameAs\":\"TempNo\"},{\"Name\":\"Year\",\"GetNameAs\":\"Year\"},{\"Name\":\"FACTNO\",\"GetNameAs\":\"FACTNO\"},{\"Name\":\"BUYKIND\",\"GetNameAs\":\"BUYKIND\"},{\"Name\":\"FACTOR\",\"GetNameAs\":\"FACTOR\"},{\"Name\":\"NBARGASHT\",\"GetNameAs\":\"NBARGASHT\"},{\"Name\":\"ApiResult\",\"GetNameAs\":\"ApiResult\"},{\"Name\":\"FactbBuy_List\",\"GetNameAs\":\"FactbBuy_List\"}],\"Relation\":[{\"Name\":\"Shomaran_FactbBuyDetail\",\"GetNameAs\":\"Shomaran_FactbBuyDetail\",\"ModeErtebat\":2,\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"RequestID\",\"GetNameAs\":\"RequestID\"},{\"Name\":\"CreateUser\",\"GetNameAs\":\"CreateUser\"},{\"Name\":\"UpdateUser\",\"GetNameAs\":\"UpdateUser\"},{\"Name\":\"CreateDate\",\"GetNameAs\":\"CreateDate\"},{\"Name\":\"UpdateDate\",\"GetNameAs\":\"UpdateDate\"},{\"Name\":\"IsDelete\",\"GetNameAs\":\"IsDelete\"},{\"Name\":\"Amount\",\"GetNameAs\":\"Amount\"},{\"Name\":\"PartCode\",\"GetNameAs\":\"PartCode\"},{\"Name\":\"Radyabi\",\"GetNameAs\":\"Radyabi\"},{\"Name\":\"Sefaresh\",\"GetNameAs\":\"Sefaresh\"},{\"Name\":\"RowId\",\"GetNameAs\":\"RowId\"},{\"Name\":\"Year\",\"GetNameAs\":\"Year\"},{\"Name\":\"ProductSearch\",\"GetNameAs\":\"ProductSearch\"},{\"Name\":\"ShomareFani\",\"GetNameAs\":\"ShomareFani\"},{\"Name\":\"ProductName\",\"GetNameAs\":\"ProductName\"},{\"Name\":\"Unit\",\"GetNameAs\":\"Unit\"}],\"Relation\":[]}]}");
-        TablePost = await Utility.JSON.ToObject<Table>("{\"Name\":\"Shomaran_FactbBuy\",\"GetNameAs\":\"Shomaran_FactbBuy\",\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"RequestID\",\"GetNameAs\":\"RequestID\"},{\"Name\":\"CreateUser\",\"GetNameAs\":\"CreateUser\"},{\"Name\":\"UpdateUser\",\"GetNameAs\":\"UpdateUser\"},{\"Name\":\"CreateDate\",\"GetNameAs\":\"CreateDate\"},{\"Name\":\"UpdateDate\",\"GetNameAs\":\"UpdateDate\"},{\"Name\":\"IsDelete\",\"GetNameAs\":\"IsDelete\"},{\"Name\":\"Creator\",\"GetNameAs\":\"Creator\"},{\"Name\":\"FactDate\",\"GetNameAs\":\"FactDate\"},{\"Name\":\"InvCode\",\"GetNameAs\":\"InvCode\"},{\"Name\":\"Note\",\"GetNameAs\":\"Note\"},{\"Name\":\"PartKind\",\"GetNameAs\":\"PartKind\"},{\"Name\":\"SelerCode\",\"GetNameAs\":\"SelerCode\"},{\"Name\":\"SelerName\",\"GetNameAs\":\"SelerName\"},{\"Name\":\"SelerAddr\",\"GetNameAs\":\"SelerAddr\"},{\"Name\":\"TempNo\",\"GetNameAs\":\"TempNo\"},{\"Name\":\"Year\",\"GetNameAs\":\"Year\"},{\"Name\":\"FACTNO\",\"GetNameAs\":\"FACTNO\"},{\"Name\":\"BUYKIND\",\"GetNameAs\":\"BUYKIND\"},{\"Name\":\"FACTOR\",\"GetNameAs\":\"FACTOR\"},{\"Name\":\"NBARGASHT\",\"GetNameAs\":\"NBARGASHT\"},{\"Name\":\"ApiResult\",\"GetNameAs\":\"ApiResult\"},{\"Name\":\"FactbBuy_List\",\"GetNameAs\":\"FactbBuy_List\"}],\"Relation\":[{\"Name\":\"Shomaran_FactbBuyDetail\",\"GetNameAs\":\"Shomaran_FactbBuyDetail\",\"ModeErtebat\":2,\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"RequestID\",\"GetNameAs\":\"RequestID\"},{\"Name\":\"CreateUser\",\"GetNameAs\":\"CreateUser\"},{\"Name\":\"UpdateUser\",\"GetNameAs\":\"UpdateUser\"},{\"Name\":\"CreateDate\",\"GetNameAs\":\"CreateDate\"},{\"Name\":\"UpdateDate\",\"GetNameAs\":\"UpdateDate\"},{\"Name\":\"IsDelete\",\"GetNameAs\":\"IsDelete\"},{\"Name\":\"Amount\",\"GetNameAs\":\"Amount\"},{\"Name\":\"PartCode\",\"GetNameAs\":\"PartCode\"},{\"Name\":\"Radyabi\",\"GetNameAs\":\"Radyabi\"},{\"Name\":\"Sefaresh\",\"GetNameAs\":\"Sefaresh\"},{\"Name\":\"RowId\",\"GetNameAs\":\"RowId\"},{\"Name\":\"Year\",\"GetNameAs\":\"Year\"},{\"Name\":\"ProductSearch\",\"GetNameAs\":\"ProductSearch\"},{\"Name\":\"ShomareFani\",\"GetNameAs\":\"ShomareFani\"},{\"Name\":\"ProductName\",\"GetNameAs\":\"ProductName\"},{\"Name\":\"Unit\",\"GetNameAs\":\"Unit\"}],\"Relation\":[]}]}");
+        TableGet = await Utility.JSON.ToObject<Table>("{\"Name\":\"Shomaran_FactbBuy\",\"GetNameAs\":\"Shomaran_FactbBuy\",\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"RequestID\",\"GetNameAs\":\"RequestID\"},{\"Name\":\"CreateUser\",\"GetNameAs\":\"CreateUser\"},{\"Name\":\"UpdateUser\",\"GetNameAs\":\"UpdateUser\"},{\"Name\":\"CreateDate\",\"GetNameAs\":\"CreateDate\"},{\"Name\":\"UpdateDate\",\"GetNameAs\":\"UpdateDate\"},{\"Name\":\"IsDelete\",\"GetNameAs\":\"IsDelete\"},{\"Name\":\"Creator\",\"GetNameAs\":\"Creator\"},{\"Name\":\"FactDate\",\"GetNameAs\":\"FactDate\"},{\"Name\":\"InvCode\",\"GetNameAs\":\"InvCode\"},{\"Name\":\"Note\",\"GetNameAs\":\"Note\"},{\"Name\":\"PartKind\",\"GetNameAs\":\"PartKind\"},{\"Name\":\"SelerCode\",\"GetNameAs\":\"SelerCode\"},{\"Name\":\"SelerName\",\"GetNameAs\":\"SelerName\"},{\"Name\":\"SelerAddr\",\"GetNameAs\":\"SelerAddr\"},{\"Name\":\"TempNo\",\"GetNameAs\":\"TempNo\"},{\"Name\":\"Year\",\"GetNameAs\":\"Year\"},{\"Name\":\"FACTNO\",\"GetNameAs\":\"FACTNO\"},{\"Name\":\"BUYKIND\",\"GetNameAs\":\"BUYKIND\"},{\"Name\":\"FACTOR\",\"GetNameAs\":\"FACTOR\"},{\"Name\":\"NBARGASHT\",\"GetNameAs\":\"NBARGASHT\"},{\"Name\":\"ApiResult\",\"GetNameAs\":\"ApiResult\"},{\"Name\":\"FactbBuy_List\",\"GetNameAs\":\"FactbBuy_List\"}],\"Relation\":[{\"Name\":\"Shomaran_FactbBuyDetail\",\"GetNameAs\":\"Shomaran_FactbBuyDetail\",\"ModeErtebat\":2,\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"RequestID\",\"GetNameAs\":\"RequestID\"},{\"Name\":\"CreateUser\",\"GetNameAs\":\"CreateUser\"},{\"Name\":\"UpdateUser\",\"GetNameAs\":\"UpdateUser\"},{\"Name\":\"CreateDate\",\"GetNameAs\":\"CreateDate\"},{\"Name\":\"UpdateDate\",\"GetNameAs\":\"UpdateDate\"},{\"Name\":\"IsDelete\",\"GetNameAs\":\"IsDelete\"},{\"Name\":\"Amount\",\"GetNameAs\":\"Amount\"},{\"Name\":\"PartCode\",\"GetNameAs\":\"PartCode\"},{\"Name\":\"Radyabi\",\"GetNameAs\":\"Radyabi\"},{\"Name\":\"Sefaresh\",\"GetNameAs\":\"Sefaresh\"},{\"Name\":\"RowId\",\"GetNameAs\":\"RowId\"},{\"Name\":\"Year\",\"GetNameAs\":\"Year\"},{\"Name\":\"ProductSearch\",\"GetNameAs\":\"ProductSearch\"},{\"Name\":\"ShomareFani\",\"GetNameAs\":\"ShomareFani\"},{\"Name\":\"ProductName\",\"GetNameAs\":\"ProductName\"},{\"Name\":\"Unit\",\"GetNameAs\":\"Unit\"},{\"Name\":\"PayCode\",\"GetNameAs\":\"PayCode\"}],\"Relation\":[]}]}");
+        TablePost = await Utility.JSON.ToObject<Table>("{\"Name\":\"Shomaran_FactbBuy\",\"GetNameAs\":\"Shomaran_FactbBuy\",\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"RequestID\",\"GetNameAs\":\"RequestID\"},{\"Name\":\"CreateUser\",\"GetNameAs\":\"CreateUser\"},{\"Name\":\"UpdateUser\",\"GetNameAs\":\"UpdateUser\"},{\"Name\":\"CreateDate\",\"GetNameAs\":\"CreateDate\"},{\"Name\":\"UpdateDate\",\"GetNameAs\":\"UpdateDate\"},{\"Name\":\"IsDelete\",\"GetNameAs\":\"IsDelete\"},{\"Name\":\"Creator\",\"GetNameAs\":\"Creator\"},{\"Name\":\"FactDate\",\"GetNameAs\":\"FactDate\"},{\"Name\":\"InvCode\",\"GetNameAs\":\"InvCode\"},{\"Name\":\"Note\",\"GetNameAs\":\"Note\"},{\"Name\":\"PartKind\",\"GetNameAs\":\"PartKind\"},{\"Name\":\"SelerCode\",\"GetNameAs\":\"SelerCode\"},{\"Name\":\"SelerName\",\"GetNameAs\":\"SelerName\"},{\"Name\":\"SelerAddr\",\"GetNameAs\":\"SelerAddr\"},{\"Name\":\"TempNo\",\"GetNameAs\":\"TempNo\"},{\"Name\":\"Year\",\"GetNameAs\":\"Year\"},{\"Name\":\"FACTNO\",\"GetNameAs\":\"FACTNO\"},{\"Name\":\"BUYKIND\",\"GetNameAs\":\"BUYKIND\"},{\"Name\":\"FACTOR\",\"GetNameAs\":\"FACTOR\"},{\"Name\":\"NBARGASHT\",\"GetNameAs\":\"NBARGASHT\"},{\"Name\":\"ApiResult\",\"GetNameAs\":\"ApiResult\"},{\"Name\":\"FactbBuy_List\",\"GetNameAs\":\"FactbBuy_List\"}],\"Relation\":[{\"Name\":\"Shomaran_FactbBuyDetail\",\"GetNameAs\":\"Shomaran_FactbBuyDetail\",\"ModeErtebat\":2,\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"RequestID\",\"GetNameAs\":\"RequestID\"},{\"Name\":\"CreateUser\",\"GetNameAs\":\"CreateUser\"},{\"Name\":\"UpdateUser\",\"GetNameAs\":\"UpdateUser\"},{\"Name\":\"CreateDate\",\"GetNameAs\":\"CreateDate\"},{\"Name\":\"UpdateDate\",\"GetNameAs\":\"UpdateDate\"},{\"Name\":\"IsDelete\",\"GetNameAs\":\"IsDelete\"},{\"Name\":\"Amount\",\"GetNameAs\":\"Amount\"},{\"Name\":\"PartCode\",\"GetNameAs\":\"PartCode\"},{\"Name\":\"Radyabi\",\"GetNameAs\":\"Radyabi\"},{\"Name\":\"Sefaresh\",\"GetNameAs\":\"Sefaresh\"},{\"Name\":\"RowId\",\"GetNameAs\":\"RowId\"},{\"Name\":\"Year\",\"GetNameAs\":\"Year\"},{\"Name\":\"ProductSearch\",\"GetNameAs\":\"ProductSearch\"},{\"Name\":\"ShomareFani\",\"GetNameAs\":\"ShomareFani\"},{\"Name\":\"ProductName\",\"GetNameAs\":\"ProductName\"},{\"Name\":\"Unit\",\"GetNameAs\":\"Unit\"},{\"Name\":\"PayCode\",\"GetNameAs\":\"PayCode\"}],\"Relation\":[]}]}");
 
         config = CKEditorBundleOptions.DefaultConfig.WithHtmlEditing();
         config.Language = "fa";

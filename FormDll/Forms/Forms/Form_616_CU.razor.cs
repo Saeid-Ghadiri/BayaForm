@@ -146,6 +146,8 @@ namespace Forms.Forms
     /// <returns></returns>
     public override async Task<Result> BeforSubmit()
     {
+            var x = await Utility.JSON.ToJson(_Entity);
+			Console.WriteLine("Log :: form 616 Data ::" + x);
         return new Result() { Status = HttpStatusCode.OK };
     }
 
@@ -179,7 +181,13 @@ namespace Forms.Forms
 
     #region FunctionEvents
 
-    #endregion FunctionEvents
+    public async Task  IsActive_oninput(ChangeEventArgs Selected   )
+        {
+            Console.WriteLine("Log::: IsActive:: "+ Selected.Value);
+            
+        }
+
+		#endregion FunctionEvents
 
 }
 }

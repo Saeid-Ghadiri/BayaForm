@@ -144,7 +144,7 @@ namespace Forms.Forms
     /// <summary>
     ///  ورژنی که فرم باهاش ساخته شده
     /// </summary>
-    public string? VersionForm { get; set; } = "5224";
+    public string? VersionForm { get; set; } = "5266";
 
     /// <summary>
     ///  موجودیت
@@ -193,7 +193,6 @@ public Input<double?> Ref_SCMPETCO_ProductRequestDetails_ProductRequestingQTY;
 public Dropdown Ref_SCMPETCO_ProductRequestDetails_SCMPETCO_PriorityId;
 public Input<double?> Ref_SCMPETCO_ProductRequestDetails_DeficitSupplyNumber;
 public Input<string?> Ref_SCMPETCO_ProductRequestDetails_PlaceOfUseProduct;
-public RadioBoolean Ref_SCMPETCO_ProductRequestDetails_ForeignMachineryProduct;
 public Input<string?> Ref_SCMPETCO_ProductRequestDetails_ProductRowDescription;
 public Input<string?> Ref_SCMPETCO_ProductRequestDetails_DescriptionOfTechnicalOffice;
 public RadioBoolean Ref_SCMPETCO_ProductRequestDetails_ProductDataSheet;
@@ -202,7 +201,11 @@ public RadioBoolean Ref_SCMPETCO_ProductRequestDetails_Inquiry;
 public FileUploadPage.Uploader<Entity.SCMPETCO_ProductRequestDetails_InquiryFirst> Ref_SCMPETCO_ProductRequestDetails_SCMPETCO_ProductRequestDetails_InquiryFirst;
 public FileUploadPage.Uploader<Entity.SCMPETCO_ProductRequestDetails_InquirySecondFile> Ref_SCMPETCO_ProductRequestDetails_SCMPETCO_ProductRequestDetails_InquirySecondFile;
 public FileUploadPage.Uploader<Entity.SCMPETCO_ProductRequestDetails_InquiryThirdFile> Ref_SCMPETCO_ProductRequestDetails_SCMPETCO_ProductRequestDetails_InquiryThirdFile;
+public RadioBoolean Ref_SCMPETCO_ProductRequestDetails_ForeignMachineryProduct;
 public RadioBoolean Ref_SCMPETCO_ProductRequestDetails_IsPostponedPurchase;
+public Input<double?> Ref_SCMPETCO_ProductRequestDetails_CurrentPurchaseQuantity;
+public RadioBoolean Ref_SCMPETCO_ProductRequestDetails_IsMarkedForDeletion;
+public Input<double?> Ref_SCMPETCO_ProductRequestDetails_MarkedForDeletionCount;
 public Input<double?> Ref_SCMPETCO_ProductRequestDetails_TheNumberDeliveredByLogistics1;
 public Input<Guid> Ref_SCMPETCO_ProductRequestDetails_Id;
 public Input<Guid?> Ref_SCMPETCO_ProductRequestDetails_RequestID;
@@ -211,6 +214,7 @@ public Input<Guid?> Ref_SCMPETCO_ProductRequestDetails_UpdateUser;
 public Input<DateTime?> Ref_SCMPETCO_ProductRequestDetails_CreateDate;
 public Input<DateTime?> Ref_SCMPETCO_ProductRequestDetails_UpdateDate;
 public Input<bool?> Ref_SCMPETCO_ProductRequestDetails_IsDelete;
+public Input<string?> Ref_SCMPETCO_ProductRequestDetails_SystemDescription;
 public Input<Guid> Ref_Id;
 public Input<Guid?> Ref_RequestID;
 public Input<Guid?> Ref_CreateUser;

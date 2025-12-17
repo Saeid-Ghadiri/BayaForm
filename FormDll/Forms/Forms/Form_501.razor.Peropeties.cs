@@ -144,7 +144,7 @@ namespace Forms.Forms
     /// <summary>
     ///  ورژنی که فرم باهاش ساخته شده
     /// </summary>
-    public string? VersionForm { get; set; } = "5224";
+    public string? VersionForm { get; set; } = "5266";
 
     /// <summary>
     ///  موجودیت
@@ -179,12 +179,12 @@ namespace Forms.Forms
 
     #region FormProperty
 
-public Input<string?> Ref_DeliveryCode_NotMapped;
-public Input<string?> Ref_CancellationReason;
 public Input<string?> Ref_SystemUser;
 public Input<string?> Ref_UserCompanyName;
 public Input<string?> Ref_SystemUnitUser;
 public Input<string?> Ref_SystemSectionUser;
+public Input<string?> Ref_DeliveryCode_NotMapped;
+public Input<string?> Ref_CancellationReason;
 public DxGrid? Grid_SCMPETCO_ProductRequestDetails;
 
 public Dropdown Ref_SCMPETCO_ProductRequestDetails_ProductName_NotMapped;
@@ -194,12 +194,12 @@ public Input<string?> Ref_SCMPETCO_ProductRequestDetails_ProductUnitText;
 public Input<double?> Ref_SCMPETCO_ProductRequestDetails_ProductInventoryText;
 public Dropdown Ref_SCMPETCO_ProductRequestDetails_SCMPETCO_PriorityId;
 public Input<double?> Ref_SCMPETCO_ProductRequestDetails_ProductRequestingQTY;
-public RadioBoolean Ref_SCMPETCO_ProductRequestDetails_ForeignMachineryProduct;
 public Input<string?> Ref_SCMPETCO_ProductRequestDetails_PlaceOfUseProduct;
 public Input<string?> Ref_SCMPETCO_ProductRequestDetails_ProductRowDescription;
 public Input<string?> Ref_SCMPETCO_ProductRequestDetails_Description2;
 public Input<string?> Ref_SCMPETCO_ProductRequestDetails_Description3;
 public Dropdown Ref_SCMPETCO_ProductRequestDetails_Global_SCMRequestTypeId;
+public RadioBoolean Ref_SCMPETCO_ProductRequestDetails_ForeignMachineryProduct;
 public Input<double?> Ref_SCMPETCO_ProductRequestDetails_DeficitSupplyNumber;
 public Input<double?> Ref_SCMPETCO_ProductRequestDetails_NumberofProductDelivery;
 public Input<int?> Ref_SCMPETCO_ProductRequestDetails_GetDeliveryCode;

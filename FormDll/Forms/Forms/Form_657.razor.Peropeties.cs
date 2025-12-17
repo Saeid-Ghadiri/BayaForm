@@ -144,7 +144,7 @@ namespace Forms.Forms
     /// <summary>
     ///  ورژنی که فرم باهاش ساخته شده
     /// </summary>
-    public string? VersionForm { get; set; } = "5224";
+    public string? VersionForm { get; set; } = "5266";
 
     /// <summary>
     ///  موجودیت
@@ -179,14 +179,13 @@ namespace Forms.Forms
 
     #region FormProperty
 
-public Dropdown Ref_KH_TempNoNum_NotMapped;
-public Input<Guid?> Ref_KH_ORDERNO_GUID;
-public Dropdown Ref_KH_KharidDTL;
-public Input<string?> Ref_CancellationReason;
 public Input<string?> Ref_SystemUser;
 public Input<string?> Ref_UserCompanyName;
 public Input<string?> Ref_SystemUnitUser;
 public Input<string?> Ref_SystemSectionUser;
+public Dropdown Ref_KH_TempNoNum_NotMapped;
+public Input<string?> Ref_CancellationReason;
+public Dropdown Ref_KH_KharidDTL;
 public DxGrid? Grid_SCMPETCO_ProductRequestDetails;
 
 public Input<string?> Ref_SCMPETCO_ProductRequestDetails_ProductNameText;
@@ -236,6 +235,7 @@ public Input<DateTime?> Ref_UpdateDate;
 public Input<bool?> Ref_IsDelete;
 public Input<string?> Ref_CancelledBy;
 public Input<string?> Ref_CancellationAt;
+public Input<Guid?> Ref_KH_ORDERNO_GUID;
 
 
     #endregion
