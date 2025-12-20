@@ -144,7 +144,7 @@ namespace Forms.Forms
     /// <summary>
     ///  ورژنی که فرم باهاش ساخته شده
     /// </summary>
-    public string? VersionForm { get; set; } = "5266";
+    public string? VersionForm { get; set; } = "5280";
 
     /// <summary>
     ///  موجودیت
@@ -205,6 +205,7 @@ public Input<DateTime?> Ref_SCMPETCO_ProductRequestDetails_UpdateDate;
 public Input<bool?> Ref_SCMPETCO_ProductRequestDetails_IsDelete;
 public RadioBoolean Ref_SCMPETCO_ProductRequestDetails_FutureAction;
 public RadioBoolean Ref_SCMPETCO_ProductRequestDetails_ProductDelivery;
+public RadioBoolean Ref_SCMPETCO_ProductRequestDetails_EnableLaterPurchace2;
 public Input<Guid> Ref_Id;
 public Input<Guid?> Ref_RequestID;
 public Input<Guid?> Ref_CreateUser;

@@ -68,7 +68,7 @@ namespace Forms.Forms
 			SyncDataMasterToDetails();
 
 			// محاسبه سن کارمند
-			PrepareEmployeeAge();
+			//PrepareEmployeeAge();
 
 			// تبدیل تاریخ‌های تولد در تمام ردیف‌های گرید
 			PrepareBirthDatesForSubmit();
@@ -130,7 +130,7 @@ namespace Forms.Forms
 			SyncDataMasterToDetails();
 
 			// محاسبه سن کارمند
-			PrepareEmployeeAge();
+			//PrepareEmployeeAge();
 		}
 
 		#region FunctionEvents
@@ -185,21 +185,16 @@ namespace Forms.Forms
 			SyncDataMasterToDetails();
 
 			// محاسبه سن کارمند
-			PrepareEmployeeAge();
+			//PrepareEmployeeAge();
 
 			// Item.IsActive = true; ---------- گزینه فعال / غیر فعال
-			if (Item.IsActive.HasValue && Item.IsActive.Value)
+			if (!Item.IsActive.HasValue)
 			{
 				Item.IsActive = true;
 				Ref_HR_EMP_EmployeeInfos_IsActive.AddAttribute("checked", "checked");
 				Console.WriteLine("Log-IsActive :::" + Item.IsActive);
 			}
-			else
-			{
-				Item.IsActive = false;
-				Ref_HR_EMP_EmployeeInfos_IsActive.RemoveAttribute("checked");
-				Console.WriteLine("Log-IsActive :::" + Item.IsActive);
-			}
+
 
 			// حذف دکمه های گرید جزئیات اطلاعات کارمند
 			await EmployeeInfos_Grid_Buttons(isInModal: true);

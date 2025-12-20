@@ -156,7 +156,10 @@ return new Result() { Status = HttpStatusCode.OK };
     /// <returns></returns>
     public override async Task AfterGetData()
     {
-
+        foreach (var item in _Entity.SCMPETCO_ProductRequestDetails)
+        {
+            item.EnableLaterPurchace2 = true;
+        }
     }
 
     #region FunctionEvents

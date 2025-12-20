@@ -262,7 +262,7 @@ namespace Forms.Forms
 
 			var R = await BayaApi.PersonnelContract(
 				ShomaranApiMode.Polfilm,
-				new PersonnelContractRequest
+				new EmpId
 				{
 					EmployeesId = _Entity.HR_EMP_EmployeesId.Value
 				}
@@ -503,7 +503,7 @@ namespace SP_Contract {
 		{
 			var R = await BayaApi.PersonnelContract(
 				ShomaranApiMode.Polfilm,
-				new PersonnelContractRequest
+				new EmpId
 				{
 					EmployeesId = HR_EMP_EmployeesId
 				}
@@ -685,6 +685,9 @@ namespace SP_ContractTime
 		public decimal WelfareMotivationalBenefitsNew { get; set; }
 
 		public decimal TotalMonthlySalaryBenefitsNew { get; set; }
+		public decimal JobSalaryRankNew { get; set; }
+		public decimal DailyAdjustmentDifferenceNew { get; set; }
+		public decimal OtherBenefitsNew { get; set; }
 	}
 
 
@@ -695,7 +698,7 @@ namespace ApiServer.External.Services
 	public partial class BayaApi
 	{
 
-		public static async Task<Result> PersonnelContract(ShomaranApiMode ApiMode, PersonnelContractRequest input)
+		public static async Task<Result> PersonnelContract(ShomaranApiMode ApiMode, EmpId input)
 		{
 			var DataJson = await JSON.ToJson(input);
 
@@ -749,7 +752,7 @@ namespace ApiServer.External.Services
 			return apiresult;
 		}
 
-		public static async Task<Result> GetAllContract(ShomaranApiMode ApiMode, PersonnelContractRequest input)
+		public static async Task<Result> GetAllContract(ShomaranApiMode ApiMode, EmpId input)
 		{
 			var DataJson = await JSON.ToJson(input);
 
@@ -778,7 +781,7 @@ namespace ApiServer.External.Services
 
 		// ***********************************************
 
-		public static async Task<Result> PersonnelVerdictInfos(ShomaranApiMode ApiMode, PersonnelContractRequest input)
+		public static async Task<Result> PersonnelVerdictInfos(ShomaranApiMode ApiMode, EmpId input)
 		{
 			var DataJson = await JSON.ToJson(input);
 
@@ -804,11 +807,37 @@ namespace ApiServer.External.Services
 
 			return apiresult;
 		}
+		public static async Task<Result> ExecuteSp(ShomaranApiMode ApiMode, StoredProcedureRequestDto input)
+		{
+			var DataJson = await JSON.ToJson(input);
+
+			string shomaranApi = "";
+			switch (ApiMode)
+			{
+				case ShomaranApiMode.Polfilm:
+					shomaranApi = "https://shomaran.workcv.ir:2010/{0}/api/v1/";
+					break;
+				case ShomaranApiMode.Petco:
+					shomaranApi = "https://shomaranpetcoorm.workcv.ir/{0}/api/v1/";
+					break;
+				case ShomaranApiMode.Pelat:
+					shomaranApi = "https://shomaranatlascellorm.workcv.ir/{0}/api/v1";
+					break;
+				default:
+					break;
+			}
+
+			var _content = new StringContent(DataJson, Encoding.UTF8, "application/json");
+
+			Result apiresult = await Send.PostAsync(_content, "BayaApi/ExecuteSp", shomaranApi, ApplicationType.None);
+
+			return apiresult;
+		}
 	}
 }
 
 
-public class PersonnelContractRequest
+public class EmpId
 {
 	public Guid EmployeesId { get; set; }
 }
@@ -829,4 +858,101 @@ public class ContractTimeData
 {
 	public string Shamsi { get; set; }
 	public DateTime Miladi { get; set; }
+}
+
+
+public class VerdictRequest
+{
+	// بخش اصلی 
+	// شناسه کارمند
+	public Guid EmployeesId { get; set; }
+
+	// نوع حکم
+	public string? HR_CVR_TypesRulingsId { get; set; }
+
+	// نوع پرداخت آکورد
+	public string? TypeBonusPayment { get; set; }
+
+	// وضعیت حکم
+	public string? HR_StatusVerdictRecruitingId { get; set; }
+
+	// **************************************************
+	// بخش محاسبات حقوق حکم
+
+	// مزد شغل گروه
+	public decimal? JobSalaryRank { get; set; }
+
+	// مزد رتبه
+	public decimal? RankSalary { get; set; }
+
+	// مزد سنوات
+	public decimal? SalaryHistory { get; set; }
+
+	// حق سرپرستی (پست)
+	public decimal? RightGuardianship { get; set; }
+
+	// مزایای ماندگاری پست
+	public decimal? CoefficientDurabilityPost { get; set; }
+
+	// شرایط نامساعد محیط کار
+	public decimal? CoefficientDifficultAndHarmfulJobs { get; set; }
+
+	// جمع مزد مبنای روزانه
+	public decimal? TotalDailyBaseWage { get; set; }
+
+	// **************************************************
+
+	// تفاوت تطبیق روزانه
+	public decimal? DailyAdjustmentDifference { get; set; }
+
+	// حق جذب
+	public decimal? RecruitmentAllowance { get; set; }
+
+	// کمک هزینه مسکن
+	public decimal? MinistryLabourRightHousing { get; set; }
+
+	// حق خوار و بار
+	public decimal? MinistryLaborRightFood { get; set; }
+
+	// حق اولاد
+	public decimal? ChildrensRightsMinistryLabor { get; set; }
+
+	// مزایای رفاهی و انگیزه‌ای
+	public decimal? WelfareMotivationalBenefits { get; set; }
+
+	// حق تاهل
+	public decimal RightMarryMinistryLabor { get; set; }
+	
+	// سایر مزایا
+	public decimal OtherBenefits { get; set; }
+
+	// جمع کل دستمزد و مزایا
+	public decimal? TotalMonthlySalaryBenefits { get; set; }
+
+
+	// **************************************************
+	// بخش پست های هر حکم
+	// قسمت‌های سازمانی
+	public string? HR_ORG_SectionsId { get; set; }
+
+	// نوع قسمت
+	public bool? SectionsType { get; set; }
+
+	// پست‌های سازمانی
+	public string? HR_ORG_PostsId { get; set; }
+
+	// نوع پست
+	public string? PostType { get; set; }
+
+	// تاریخ اجرای حکم
+	public string? ExecutionDateSentence_Fa { get; set; } //  شمسی
+	public DateOnly? ExecutionDateSentence { get; set; } // میلادی
+
+
+}
+
+public class StoredProcedureRequestDto
+{
+	public string StoredProcedureName { get; set; } = string.Empty;
+	public string JsonInput { get; set; } = string.Empty;
 }

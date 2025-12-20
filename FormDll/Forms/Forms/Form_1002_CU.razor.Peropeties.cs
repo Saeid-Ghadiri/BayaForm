@@ -144,7 +144,7 @@ namespace Forms.Forms
     /// <summary>
     ///  ورژنی که فرم باهاش ساخته شده
     /// </summary>
-    public string? VersionForm { get; set; } = "5266";
+    public string? VersionForm { get; set; } = "5280";
 
     /// <summary>
     ///  موجودیت
@@ -188,18 +188,6 @@ public Dropdown Ref_HR_Base_InsuranceTypesId;
 public Input<string?> Ref_InsuranceNumber;
 public RadioBoolean Ref_TypeBonusPayment;
 public Dropdown Ref_HR_StatusVerdictRecruitingId;
-public Dropdown Ref_RegisterUserId;
-public Input<string?> Ref_RegisterTime;
-public Dropdown Ref_ConfirmerUserId;
-public Input<string?> Ref_ConfirmerTime;
-public Dropdown Ref_ApproverUserId;
-public Input<string?> Ref_ApproverTime;
-public Dropdown Ref_NullifierUserId;
-public Input<string?> Ref_NullifierTime;
-public Input<string?> Ref_ExecutionDateSentence_Fa;
-public Input<DateTime?> Ref_ExecutionDateSentence;
-public Dropdown Ref_HR_CVR_JobId;
-public Dropdown Ref_HR_CVR_JobGroupId;
 public DxGrid? Grid_HR_CVR_EveryPostVerdict;
 
 public Dropdown Ref_HR_CVR_EveryPostVerdict_HR_CVR_VerdictRecruitingId;
@@ -214,6 +202,18 @@ public Input<Guid?> Ref_HR_CVR_EveryPostVerdict_UpdateUser;
 public Input<DateTime?> Ref_HR_CVR_EveryPostVerdict_CreateDate;
 public Input<DateTime?> Ref_HR_CVR_EveryPostVerdict_UpdateDate;
 public Input<bool?> Ref_HR_CVR_EveryPostVerdict_IsDelete;
+public Dropdown Ref_RegisterUserId;
+public Input<string?> Ref_RegisterTime;
+public Dropdown Ref_ConfirmerUserId;
+public Input<string?> Ref_ConfirmerTime;
+public Dropdown Ref_ApproverUserId;
+public Input<string?> Ref_ApproverTime;
+public Dropdown Ref_NullifierUserId;
+public Input<string?> Ref_NullifierTime;
+public Input<string?> Ref_ExecutionDateSentence_Fa;
+public Input<DateTime?> Ref_ExecutionDateSentence;
+public Dropdown Ref_HR_CVR_JobId;
+public Dropdown Ref_HR_CVR_JobGroupId;
 public DxGrid? Grid_HR_CVR_RecruitmentRules;
 
 public Dropdown Ref_HR_CVR_RecruitmentRules_HR_EMP_EmployeesId;
@@ -253,7 +253,7 @@ public Input<decimal?> Ref_HR_CVR_RecruitmentRules_SalaryHistory;
 public Input<decimal?> Ref_HR_CVR_RecruitmentRules_SalaryHistoryNew;
 public Input<decimal?> Ref_HR_CVR_RecruitmentRules_RightGuardianship;
 public Input<decimal?> Ref_HR_CVR_RecruitmentRules_RightGuardianshipNew;
-public Input<int?> Ref_HR_CVR_RecruitmentRules_CoefficientDurabilityPost;
+public Input<decimal?> Ref_HR_CVR_RecruitmentRules_CoefficientDurabilityPost;
 public Input<decimal?> Ref_HR_CVR_RecruitmentRules_CoefficientDurabilityPostNew;
 public Input<decimal?> Ref_HR_CVR_RecruitmentRules_CoefficientDifficultAndHarmfulJobsNew;
 public Input<decimal?> Ref_HR_CVR_RecruitmentRules_CoefficientDifficultAndHarmfulJobs;
@@ -265,17 +265,17 @@ public Input<decimal?> Ref_HR_CVR_RecruitmentRules_RecruitmentAllowance;
 public Input<decimal?> Ref_HR_CVR_RecruitmentRules_RecruitmentAllowanceNew;
 public Input<decimal?> Ref_HR_CVR_RecruitmentRules_MinistryLaborRightFood;
 public Input<decimal?> Ref_HR_CVR_RecruitmentRules_MinistryLaborRightFoodNew;
-public Input<int?> Ref_HR_CVR_RecruitmentRules_MinistryLabourRightHousing;
+public Input<decimal?> Ref_HR_CVR_RecruitmentRules_MinistryLabourRightHousing;
 public Input<decimal?> Ref_HR_CVR_RecruitmentRules_MinistryLabourRightHousingNew;
-public Input<int?> Ref_HR_CVR_RecruitmentRules_RightMarryMinistryLabor;
+public Input<decimal?> Ref_HR_CVR_RecruitmentRules_RightMarryMinistryLabor;
 public Input<decimal?> Ref_HR_CVR_RecruitmentRules_RightMarryMinistryLaborNew;
-public Input<int?> Ref_HR_CVR_RecruitmentRules_ChildrensRightsMinistryLabor;
+public Input<decimal?> Ref_HR_CVR_RecruitmentRules_ChildrensRightsMinistryLabor;
 public Input<decimal?> Ref_HR_CVR_RecruitmentRules_ChildrensRightsMinistryLaborNew;
-public Input<int?> Ref_HR_CVR_RecruitmentRules_WelfareMotivationalBenefits;
+public Input<decimal?> Ref_HR_CVR_RecruitmentRules_WelfareMotivationalBenefits;
 public Input<decimal?> Ref_HR_CVR_RecruitmentRules_WelfareMotivationalBenefitsNew;
-public Input<int?> Ref_HR_CVR_RecruitmentRules_OtherBenefits;
+public Input<decimal?> Ref_HR_CVR_RecruitmentRules_OtherBenefits;
 public Input<decimal?> Ref_HR_CVR_RecruitmentRules_OtherBenefitsNew;
-public Input<int?> Ref_HR_CVR_RecruitmentRules_TotalMonthlySalaryBenefits;
+public Input<decimal?> Ref_HR_CVR_RecruitmentRules_TotalMonthlySalaryBenefits;
 public Input<decimal?> Ref_HR_CVR_RecruitmentRules_TotalMonthlySalaryBenefitsNew;
 public Dropdown Ref_HR_CVR_RecruitmentRules_HR_CVR_LaborCouncilFixedValuesId;
 public Dropdown Ref_HR_CVR_RecruitmentRules_HR_CVR_AnnualBaseWageIncreaseRatesId;
@@ -291,10 +291,24 @@ public Input<DateTime?> Ref_HR_CVR_RecruitmentRules_PostRetentionStartDate;
 public Input<string?> Ref_HR_CVR_RecruitmentRules_PostRetentionCancellationDate_Fa;
 public Input<DateTime?> Ref_HR_CVR_RecruitmentRules_PostRetentionCancellationDate;
 public Input<int?> Ref_HR_CVR_RecruitmentRules_DailyPostRetentionStartDate;
+public Input<Guid> Ref_HR_CVR_RecruitmentRules_Id;
+public Input<Guid?> Ref_HR_CVR_RecruitmentRules_RequestID;
+public Input<Guid?> Ref_HR_CVR_RecruitmentRules_CreateUser;
+public Input<Guid?> Ref_HR_CVR_RecruitmentRules_UpdateUser;
+public Input<DateTime?> Ref_HR_CVR_RecruitmentRules_CreateDate;
+public Input<DateTime?> Ref_HR_CVR_RecruitmentRules_UpdateDate;
+public Input<bool?> Ref_HR_CVR_RecruitmentRules_IsDelete;
 public DxGrid? Grid_HR_CVR_DescriptionRulings;
 
 public Input<string?> Ref_HR_CVR_DescriptionRulings_Title;
 public Input<bool?> Ref_HR_CVR_DescriptionRulings_IsActive;
+public Input<Guid> Ref_HR_CVR_DescriptionRulings_Id;
+public Input<Guid?> Ref_HR_CVR_DescriptionRulings_RequestID;
+public Input<Guid?> Ref_HR_CVR_DescriptionRulings_CreateUser;
+public Input<Guid?> Ref_HR_CVR_DescriptionRulings_UpdateUser;
+public Input<DateTime?> Ref_HR_CVR_DescriptionRulings_CreateDate;
+public Input<DateTime?> Ref_HR_CVR_DescriptionRulings_UpdateDate;
+public Input<bool?> Ref_HR_CVR_DescriptionRulings_IsDelete;
 public Input<Guid> Ref_Id;
 public Input<Guid?> Ref_RequestID;
 public Input<Guid?> Ref_CreateUser;

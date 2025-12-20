@@ -222,6 +222,8 @@ purple_bg {
 
 <Input2 id="NationalCode" @ref="Ref_NationalCode" Label="کد ملی"  CssClass="filterCol"       type="text"    Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"maxlength\":\"50\"}").Result))></Input2>
 
+<Input2 id="EmployeeNo" @ref="Ref_EmployeeNo" Label="کد کارمندی"  CssClass="filterCol"       type="text"    Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"maxlength\":\"20\"}").Result))></Input2>
+
 
         <div class="col-xl-2 col-lg-2 col-md-auto mt-2 align-content-end">
             <button class="btn btn-sm btn-purple" @onclick=SearchFilter>
@@ -293,6 +295,7 @@ purple_bg {
         //await ReplaceInFilter("52255", Ref_SCM_ProductRequestDetails_ProductName_NotMapped.Value, QueryFilter);
         
 await ReplaceInFilter("30878", Ref_NationalCode.Value, QueryFilter);
+await ReplaceInFilter("31370", Ref_EmployeeNo.Value, QueryFilter);
 
  
         await ReplaceSystemParametrInFilter(QueryFilter);

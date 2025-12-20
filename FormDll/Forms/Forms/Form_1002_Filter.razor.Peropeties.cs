@@ -80,7 +80,7 @@ namespace Forms.Forms
         /// <summary>
         ///  ورژنی که فرم باهاش ساخته شده
         /// </summary>
-        public string? VersionForm { get; set; } = "5266";
+        public string? VersionForm { get; set; } = "5280";
 
 
         /// <summary>
@@ -113,6 +113,7 @@ namespace Forms.Forms
 
 
 public Input2 Ref_NationalCode;
+public Input2 Ref_EmployeeNo;
 
     }
 }

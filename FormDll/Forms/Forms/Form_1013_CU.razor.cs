@@ -138,7 +138,7 @@ namespace Forms.Forms
 
 			var R = await BayaApi.PersonnelContract(
 				ShomaranApiMode.Polfilm,
-				new PersonnelContractRequest
+				new EmpId
 				{
 					EmployeesId = _Entity.HR_EMP_EmployeesId.Value
 				}

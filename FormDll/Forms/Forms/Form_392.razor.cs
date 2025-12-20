@@ -252,57 +252,16 @@ namespace Forms.Forms
         }
 
         #region FunctionEvents
-        /*
-        //public bool AfterCreateNewRow()
-        //{
-        //    List<Entity.SCMPETCO_ProductRequestDetails> newItems = new List<Entity.SCMPETCO_ProductRequestDetails>();
-        //    foreach (var item in _Entity.SCMPETCO_ProductRequestDetails)
-        //    {
-        //        if (item.CurrentPurchaseQuantity < item.ProductRequestingQTY)
-        //        {
-        //            var newDetail = System.Text.Json.JsonSerializer
-        //                    .Deserialize<Entity.SCMPETCO_ProductRequestDetails>(
-        //                        System.Text.Json.JsonSerializer.Serialize(item)
-        //                    )!;
-        //            //newDetail = item;
-        //            newDetail.Id = Guid.Empty;
-        //            var newCount = item.ProductRequestingQTY - item.CurrentPurchaseQuantity;
-        //            newDetail.ProductRequestingQTY = newCount;
-        //            //newDetail.EnableLaterPurchace = true;
-        //            newDetail.IsPostponedPurchase = true;
-
-        //            // آیتم قبلی
-        //            //توضیحات
-        //            item.SystemDescription = $"این درخواست در بیش از یک نوبت خریداری میشود و تعداد درخواستی کاربر {item.ProductRequestingQTY} بوده و اکنون تعداد خریداری توسط تدارکات {item.CurrentPurchaseQuantity} است. پس یک ردیف جدید برای خرید مابقی یا کنسل مابقی ایجاد شد";
-
-        //            item.ProductRequestingQTY = item.CurrentPurchaseQuantity;
-        //            item.IsPostponedPurchase = false;
-
-        //            newItems.Add(newDetail);
-
-        //        }
-        //    }
-
-        //    _Entity.SCMPETCO_ProductRequestDetails = _Entity.SCMPETCO_ProductRequestDetails
-        //            .Concat(newItems)
-        //            .ToList();
-
-        //    //foreach (var newItem in newItems)
-        //    //{
-        //    //    _Entity.SCMPETCO_ProductRequestDetails.Add(newItem);
-        //    //}
-
-        //    StateHasChanged();
-
-        //    return true;
-        //}
-        */
+       
 
         public bool AfterBuyOrRequestCancellRow()
         {
             List<Entity.SCMPETCO_ProductRequestDetails> newItems = new List<Entity.SCMPETCO_ProductRequestDetails>();
             foreach (var item in _Entity.SCMPETCO_ProductRequestDetails)
             {
+                item.EnableLaterPurchace = false;// مهم
+                item.EnableLaterPurchace2 = false;// مهم
+
                 if (item.IsPostponedPurchase.HasValue && item.IsPostponedPurchase.Value && item.CurrentPurchaseQuantity.Value > 0
                     && item.IsMarkedForDeletion.HasValue && item.IsMarkedForDeletion.Value && item.MarkedForDeletionCount.Value > 0)
                 {
@@ -310,16 +269,16 @@ namespace Forms.Forms
                     {
                         var firstQtt = item.ProductRequestingQTY.ToString();
                         item.ProductRequestingQTY = item.ProductRequestingQTY - item.MarkedForDeletionCount;
+                        
 
                         var newDetail = System.Text.Json.JsonSerializer
                                 .Deserialize<Entity.SCMPETCO_ProductRequestDetails>(
                                     System.Text.Json.JsonSerializer.Serialize(item)
                                 )!;
-                        //newDetail = item;
+                        //
                         newDetail.Id = Guid.Empty;
                         var newCount = item.ProductRequestingQTY - item.CurrentPurchaseQuantity;
                         newDetail.ProductRequestingQTY = newCount;
-                        //newDetail.EnableLaterPurchace = true;
                         newDetail.IsPostponedPurchase = true;
                         newDetail.IsMarkedForDeletion = false;
                         // آیتم قبلی
@@ -354,15 +313,15 @@ namespace Forms.Forms
                 {
                     if (item.CurrentPurchaseQuantity < item.ProductRequestingQTY)
                     {
+
                         var newDetail = System.Text.Json.JsonSerializer
                                 .Deserialize<Entity.SCMPETCO_ProductRequestDetails>(
                                     System.Text.Json.JsonSerializer.Serialize(item)
                                 )!;
-                        //newDetail = item;
+                        //
                         newDetail.Id = Guid.Empty;
                         var newCount = item.ProductRequestingQTY - item.CurrentPurchaseQuantity;
                         newDetail.ProductRequestingQTY = newCount;
-                        //newDetail.EnableLaterPurchace = true;
                         newDetail.IsPostponedPurchase = true;
 
                         // آیتم قبلی
@@ -379,11 +338,12 @@ namespace Forms.Forms
                 else if (item.IsPostponedPurchase.HasValue && !item.IsPostponedPurchase.Value
                    && item.IsMarkedForDeletion.HasValue && item.IsMarkedForDeletion.Value && item.MarkedForDeletionCount.Value > 0)
                 {
+                    
                     var newDetail = System.Text.Json.JsonSerializer
                            .Deserialize<Entity.SCMPETCO_ProductRequestDetails>(
                                System.Text.Json.JsonSerializer.Serialize(item)
                            )!;
-                    //newDetail = item;
+                    //
                     newDetail.Id = Guid.Empty;
                     newDetail.ProductRequestingQTY = item.MarkedForDeletionCount;
                     newDetail.IsMarkedForDeletion = true;
@@ -397,8 +357,7 @@ namespace Forms.Forms
 
                     item.ProductRequestingQTY = newCount;
                     item.IsMarkedForDeletion = false;
-                    //newItems.Add(newDetail);
-                    _Entity.SCMPETCO_ProductRequestDetails.Add(newDetail);
+                    newItems.Add(newDetail);
                 }
             }
 
@@ -406,7 +365,7 @@ namespace Forms.Forms
                         .Concat(newItems)
                         .ToList();
 
-            StateHasChanged();
+            //StateHasChanged();
 
             return true;
         }

@@ -176,6 +176,10 @@ namespace Forms.Forms
         /// <returns></returns>
         public override async Task AfterGetData()
         {
+            foreach (var item in _Entity.SCMPETCO_ProductRequestDetails)
+            {
+                item.EnableLaterPurchace = true;
+            }
         }
 
         #region FunctionEvents
