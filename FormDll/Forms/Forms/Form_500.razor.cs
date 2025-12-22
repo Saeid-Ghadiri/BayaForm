@@ -58,46 +58,6 @@ namespace Forms.Forms
         {
             bool IsValid = true;
 
-            var List = _Entity.SCMPETCO_ProductRequestDetails.ToList();
-
-
-            foreach (var Item in List)
-            {
-                // Item.Global_ShomaranInfoId
-
-                if (Item.Global_ShomaranInfoId == null)
-                {
-                    IsValid = false;
-
-                    toastService.ShowError("لطفا گزینه ارتباط با شماران را تکمیل نمایید.",
-                        settings =>
-                        {
-                            settings.Timeout = 4;
-                            settings.ShowProgressBar = true;
-                            settings.PauseProgressOnHover = true;
-                        });
-                }
-
-                if (Item.Global_ShomaranInfoId.HasValue)
-                {
-                    if ((Item.Global_ShomaranInfoId.Value.ToString() == "a5b1bc7b-8bb7-ef11-a4fa-005056a2b6bd" && Item.T_FACTNO_GUID.Value == null) ||
-                       (Item.Global_ShomaranInfoId.Value.ToString() == "09cf6986-8bb7-ef11-a4fa-005056a2b6bd" && Item.KH_ORDERNO_GUID.Value == null) ||
-                       (Item.Global_ShomaranInfoId.Value.ToString() == "0acf6986-8bb7-ef11-a4fa-005056a2b6bd" && Item.FB_FACTNO_GUID.Value == null)
-                      )
-
-                    {
-                        IsValid = false;
-
-                        toastService.ShowError("لطفا گزینه جستجوی عطف را تکمیل نمایید.",
-                            settings =>
-                            {
-                                settings.Timeout = 4;
-                                settings.ShowProgressBar = true;
-                                settings.PauseProgressOnHover = true;
-                            });
-                    }
-                }
-            }
 
             return IsValid;
         }
@@ -305,26 +265,15 @@ namespace Forms.Forms
             var Item = (Entity.SCMPETCO_ProductRequestDetails)e;
 
             // انتخاب نوع ثبت عطف در شماران
-            if (Item.Global_ShomaranInfoId == null)
-            {
-                IsCancelled = true;
-
-                toastService.ShowError("لطفا گزینه  ارتباط با شماران را تکمیل نمایید.",
-                    settings =>
-                    {
-                        settings.Timeout = 4;
-                        settings.ShowProgressBar = true;
-                        settings.PauseProgressOnHover = true;
-                    });
-            }
+            
 
             if (Item.Global_ShomaranInfoId.HasValue)
             {
 
-                if ((Item.Global_ShomaranInfoId.Value.ToString() == "a5b1bc7b-8bb7-ef11-a4fa-005056a2b6bd" && !Item.T_FACTNO_GUID.HasValue) ||
-                   (Item.Global_ShomaranInfoId.Value.ToString() == "09cf6986-8bb7-ef11-a4fa-005056a2b6bd" && !Item.KH_CENTCODE_GUID.HasValue) ||
-                   (Item.Global_ShomaranInfoId.Value.ToString() == "0acf6986-8bb7-ef11-a4fa-005056a2b6bd" && !Item.FB_FACTNO_GUID.HasValue)
-                  )
+                if ((Item.Global_ShomaranInfoId.Value.ToString() == "a5b1bc7b-8bb7-ef11-a4fa-005056a2b6bd" && !Item.T_FACTNO_GUID.HasValue) 
+                // ||(Item.Global_ShomaranInfoId.Value.ToString() == "09cf6986-8bb7-ef11-a4fa-005056a2b6bd" && !Item.KH_CENTCODE_GUID.HasValue) ||
+                //(Item.Global_ShomaranInfoId.Value.ToString() == "0acf6986-8bb7-ef11-a4fa-005056a2b6bd" && !Item.FB_FACTNO_GUID.HasValue)
+                )
                 {
                     IsCancelled = true;
 
@@ -358,6 +307,9 @@ namespace Forms.Forms
 
             //Console.WriteLine("log 0 ");
 
+            await HavaleMasrafIsVisible(true);
+
+            /*
             // انتخاب نوع ثبت عطف در شماران      
             if (!Item.Global_ShomaranInfoId.HasValue)
             {
@@ -394,6 +346,8 @@ namespace Forms.Forms
 
                 }
             }
+
+            */
 
             if (Item.T_FACTNO_GUID.HasValue)
             {

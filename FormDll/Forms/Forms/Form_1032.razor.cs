@@ -305,6 +305,9 @@ namespace Forms.Forms
             List<Entity.SCMPETCO_ProductRequestDetails> newItems = new List<Entity.SCMPETCO_ProductRequestDetails>();
             foreach (var item in _Entity.SCMPETCO_ProductRequestDetails)
             {
+                item.EnableLaterPurchace = false;// مهم
+                item.EnableLaterPurchace2 = false;// مهم
+                
                 if (item.IsPostponedPurchase.HasValue && item.IsPostponedPurchase.Value && item.CurrentPurchaseQuantity.Value > 0
                     && item.IsMarkedForDeletion.HasValue && item.IsMarkedForDeletion.Value && item.MarkedForDeletionCount.Value > 0)
                 {

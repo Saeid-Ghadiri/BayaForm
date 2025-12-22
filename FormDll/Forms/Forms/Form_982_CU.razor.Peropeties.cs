@@ -144,7 +144,7 @@ namespace Forms.Forms
     /// <summary>
     ///  ورژنی که فرم باهاش ساخته شده
     /// </summary>
-    public string? VersionForm { get; set; } = "5280";
+    public string? VersionForm { get; set; } = "5306";
 
     /// <summary>
     ///  موجودیت
@@ -207,6 +207,7 @@ public Input<DateTime?> Ref_Shomaran_ReturnHavaleDetail_CreateDate;
 public Input<DateTime?> Ref_Shomaran_ReturnHavaleDetail_UpdateDate;
 public Input<bool?> Ref_Shomaran_ReturnHavaleDetail_IsDelete;
 public Input<int?> Ref_Shomaran_ReturnHavaleDetail_RowOrder;
+public Dropdown Ref_Shomaran_ReturnHavaleDetail_CENTCODE3;
 public Input<string?> Ref_ApiResult;
 public Input<Guid> Ref_Id;
 public Input<Guid?> Ref_RequestID;

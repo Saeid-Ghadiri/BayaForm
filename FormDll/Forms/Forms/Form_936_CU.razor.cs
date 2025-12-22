@@ -622,8 +622,6 @@ namespace SP_ContractTime
 		public string EmploymentDate_Fa { get; set; }
 		public string EmploymentDateInGroup_Fa { get; set; }
 		public string EmploymentStartDate_Fa { get; set; }
-		public string ExecutionDateSentence_Fa { get; set; }
-
 		public string BankAccountNumber { get; set; }
 		public string IBAN { get; set; }
 		public string InsuranceNumber { get; set; }
@@ -688,9 +686,17 @@ namespace SP_ContractTime
 		public decimal JobSalaryRankNew { get; set; }
 		public decimal DailyAdjustmentDifferenceNew { get; set; }
 		public decimal OtherBenefitsNew { get; set; }
+		public string HR_CVR_TypesRulingsId { get; set; }
+		public string TypeBonusPayment { get; set; }
+		public string HR_StatusVerdictRecruitingId { get; set; }
+		public string HR_ORG_SectionsId { get; set; }
+		public bool SectionsType { get; set; }
+		public string HR_ORG_PostsId { get; set; }
+		public bool PostType { get; set; }
+
+		public string ExecutionDateSentence_Fa { get; set; }
+		public DateOnly ExecutionDateSentence { get; set; }
 	}
-
-
 }
 
 namespace ApiServer.External.Services
@@ -922,7 +928,7 @@ public class VerdictRequest
 
 	// حق تاهل
 	public decimal RightMarryMinistryLabor { get; set; }
-	
+
 	// سایر مزایا
 	public decimal OtherBenefits { get; set; }
 
@@ -942,12 +948,32 @@ public class VerdictRequest
 	public string? HR_ORG_PostsId { get; set; }
 
 	// نوع پست
-	public string? PostType { get; set; }
+	public bool? PostType { get; set; }
 
 	// تاریخ اجرای حکم
 	public string? ExecutionDateSentence_Fa { get; set; } //  شمسی
 	public DateOnly? ExecutionDateSentence { get; set; } // میلادی
 
+
+	// ********************************
+
+	public decimal? JobSalaryRankNew { get; set; }
+	public decimal? RankSalaryNew { get; set; }
+	public decimal? SalaryHistoryNew { get; set; }
+	public decimal? RightGuardianshipNew { get; set; }
+	public decimal? CoefficientDurabilityPostNew { get; set; }
+	public decimal? CoefficientDifficultAndHarmfulJobsNew { get; set; }
+	public decimal? TotalDailyBaseWageNew { get; set; }
+
+	public decimal? DailyAdjustmentDifferenceNew { get; set; }
+	public decimal? RecruitmentAllowanceNew { get; set; }
+	public decimal? MinistryLabourRightHousingNew { get; set; }
+	public decimal? MinistryLaborRightFoodNew { get; set; }
+	public decimal? ChildrensRightsMinistryLaborNew { get; set; }
+	public decimal? WelfareMotivationalBenefitsNew { get; set; }
+	public decimal? RightMarryMinistryLaborNew { get; set; }
+	public decimal? OtherBenefitsNew { get; set; }
+	public decimal? TotalMonthlySalaryBenefitsNew { get; set; }
 
 }
 

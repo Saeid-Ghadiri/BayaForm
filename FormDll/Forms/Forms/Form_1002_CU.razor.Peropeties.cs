@@ -144,7 +144,7 @@ namespace Forms.Forms
     /// <summary>
     ///  ورژنی که فرم باهاش ساخته شده
     /// </summary>
-    public string? VersionForm { get; set; } = "5280";
+    public string? VersionForm { get; set; } = "5306";
 
     /// <summary>
     ///  موجودیت
@@ -181,6 +181,7 @@ namespace Forms.Forms
 
 public Dropdown Ref_HR_EMP_EmployeesId;
 public ElementReference Ref_submit;
+public ElementReference Ref_submit1;
 public Dropdown Ref_HR_CVR_PersonnelContractId;
 public Dropdown Ref_HR_CVR_VerdictRecruitingId;
 public Dropdown Ref_HR_CVR_TypesRulingsId;

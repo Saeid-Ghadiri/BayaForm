@@ -289,7 +289,7 @@ namespace Forms.Forms
                 //Code = _Entity.Code,
                 //FormCode = _Entity.FormCode != null ? _Entity.FormCode : "",//formCode,
                 //MainMnt = Convert.ToDecimal(_Entity.MainMnt),
-                //PayCode = _Entity.PayCode,
+                //PayCode = Item.CENTCODE3,
                 //
                 Note = _Entity.Note,
                 TempNo = _Entity.TempNo,

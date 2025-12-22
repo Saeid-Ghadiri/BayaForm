@@ -37,7 +37,6 @@ namespace Forms.Forms
 		/// <returns></returns>
 		protected override async Task OnInitializedAsync()
 		{
-
 		}
 
 		/// <summary>
@@ -61,7 +60,6 @@ namespace Forms.Forms
 		public override async Task<bool> FormValidator()
 		{
 			bool IsValid = true;
-
 
 			//foreach (var Item in List)
 			//{
@@ -408,7 +406,6 @@ namespace Forms.Forms
 					foreach (var item in _Entity.HR_CVR_RecruitmentRules)
 					{
 						// مزد شغل
-						// item.JobSalaryRankNew = EmpInfo.JobSalaryRankNew; // اصلی اینه ولی در استورد اشتباه شده است
 						item.JobSalaryRankNew = EmpInfo.JobSalaryRankNew;
 						Console.WriteLine($":: Log Set JobSalaryRankNew for item {item._Id} :: {item.JobSalaryRankNew}");
 
@@ -435,8 +432,8 @@ namespace Forms.Forms
 						// جمع کل مزد مبنا
 						item.TotalDailyBaseWageNew = EmpInfo.TotalDailyBaseWageNew;
 						Console.WriteLine($":: Log Set TotalDailyBaseWageNew for item {item._Id} :: {item.TotalDailyBaseWageNew}");
+						Ref_HR_CVR_RecruitmentRules_TotalMonthlySalaryBenefitsNew.SetDisabled(true);
 
-						// این فیلد به استورد باید اضافه گردد
 						// تفاوت تطبیق روزانه
 						item.DailyAdjustmentDifferenceNew = EmpInfo.DailyAdjustmentDifferenceNew;
 						Console.WriteLine($":: Log Set DailyAdjustmentDifferenceNew for item {item._Id} :: {item.DailyAdjustmentDifferenceNew}");
@@ -448,32 +445,36 @@ namespace Forms.Forms
 						// کمک هزینه مسکن
 						item.MinistryLabourRightHousingNew = EmpInfo.MinistryLabourRightHousingNew;
 						Console.WriteLine($":: Log Set MinistryLabourRightHousingNew for item {item._Id} :: {item.MinistryLabourRightHousingNew}");
+						Ref_HR_CVR_RecruitmentRules_MinistryLabourRightHousingNew.SetDisabled(true);
 
 						// حق خوار و بار
 						item.MinistryLaborRightFoodNew = EmpInfo.MinistryLaborRightFoodNew;
 						Console.WriteLine($":: Log Set MinistryLaborRightFoodNew for item {item._Id} :: {item.MinistryLaborRightFoodNew}");
+						Ref_HR_CVR_RecruitmentRules_MinistryLaborRightFoodNew.SetDisabled(true);
 
 						// حق اولاد
 						item.ChildrensRightsMinistryLaborNew = EmpInfo.ChildrensRightsMinistryLaborNew;
 						Console.WriteLine($":: Log Set ChildrensRightsMinistryLaborNew for item {item._Id} :: {item.ChildrensRightsMinistryLaborNew}");
-
+						Ref_HR_CVR_RecruitmentRules_ChildrensRightsMinistryLaborNew.SetDisabled(true);
 
 						// مزایای رفاهی انگیزه ای ماهانه
 						item.WelfareMotivationalBenefitsNew = EmpInfo.WelfareMotivationalBenefitsNew;
 						Console.WriteLine($":: Log Set WelfareMotivationalBenefitsNew for item {item._Id} :: {item.WelfareMotivationalBenefitsNew}");
+						Ref_HR_CVR_RecruitmentRules_WelfareMotivationalBenefitsNew.SetDisabled(true);
 
 						// حق تاهل
-						item.ChildrensRightsMinistryLaborNew = EmpInfo.ChildrensRightsMinistryLaborNew;
-						Console.WriteLine($":: Log Set ChildrensRightsMinistryLaborNew for item {item._Id} :: {item.ChildrensRightsMinistryLaborNew}");
+						item.RightMarryMinistryLaborNew = EmpInfo.RightMarryMinistryLaborNew;
+						Console.WriteLine($":: Log Set RightMarryMinistryLaborNew for item {item._Id} :: {item.RightMarryMinistryLaborNew}");
+						Ref_HR_CVR_RecruitmentRules_RightMarryMinistryLaborNew.SetDisabled(true);
 
-						// این فیلد به استورد باید اضافه گردد
 						// سایر مزایا
 						item.OtherBenefitsNew = EmpInfo.OtherBenefitsNew;
 						Console.WriteLine($":: Log Set OtherBenefitsNew for item {item._Id} :: {item.OtherBenefitsNew}");
 
 						// جمع کل دستمزد مزایایی قانونی و جمع مزد مبنا
-						item.RankSalaryNew = EmpInfo.RankSalaryNew;
-						Console.WriteLine($":: Log Set JobSalaryRankNew for item {item._Id} :: {item.JobSalaryRankNew}");
+						item.TotalMonthlySalaryBenefitsNew = EmpInfo.TotalMonthlySalaryBenefitsNew;
+						Console.WriteLine($":: Log Set TotalMonthlySalaryBenefitsNew for item {item._Id} :: {item.TotalMonthlySalaryBenefitsNew}");
+						Ref_HR_CVR_RecruitmentRules_TotalMonthlySalaryBenefitsNew.SetDisabled(true);
 					}
 				}
 
@@ -504,7 +505,9 @@ namespace Forms.Forms
 					new() { Title = "حق مسکن", Value = rule?.MinistryLabourRightHousingNew },
 					new() { Title = "حق خوار و بار", Value = rule?.MinistryLaborRightFoodNew },
 					new() { Title = "حق اولاد", Value = rule?.ChildrensRightsMinistryLaborNew },
+					new() { Title = "حق تاهل", Value = rule?.RightMarryMinistryLaborNew },
 					new() { Title = "مزایای رفاهی انگیزشی", Value = rule?.WelfareMotivationalBenefitsNew },
+					//new() { Title = "جمع کل مزد مبنا و مزایای قانونی", Value = rule?.TotalMonthlySalaryBenefitsNew },
 				};
 
 
@@ -517,6 +520,17 @@ namespace Forms.Forms
 				</tr>
 				"));
 
+				decimal totalSum = rule?.TotalMonthlySalaryBenefitsNew ?? 0m;
+				//decimal totalSum1 = previewList.Sum(x => x.Value ?? 0m);
+
+				var totalRow = $@"
+				<tr style='background:#fff3cd; font-weight:bold;'>
+					<td style='padding:8px'>جمع کل</td>
+					<td style='padding:8px; text-align:right; color:#b02a37'>
+						{totalSum.ToString("N0")}
+					</td>
+				</tr>";
+
 				string htmlString = $@"
 				<div style='direction: rtl; font-family: tahoma;'>
 					<table style='width:100%; border-collapse: collapse;' border='1'>
@@ -528,12 +542,12 @@ namespace Forms.Forms
 						</thead>
 						<tbody>
 							{rows}
+							{totalRow}
 						</tbody>
 					</table>
 				</div>";
 
 				await Confirm.ShowAsync("پیش‌نمایش محاسبات حکم", htmlString, options);
-
 
 				Console.WriteLine("✅ ### اتمام عملیات با موفقیت ###");
 			}
@@ -543,10 +557,6 @@ namespace Forms.Forms
 				await _MSG.ShowError("خطا در پردازش SP: " + ex.Message);
 			}
 			#endregion - 1
-
-
-
-			
 		}
 
 		public async Task SP_Verdict_Json_onclick(MouseEventArgs Selected)
@@ -555,6 +565,8 @@ namespace Forms.Forms
 
 			var VerdictDTO = new VerdictRequest()
 			{
+				// شناسه کارمند
+				EmployeesId = Guid.Parse(employeeId),
 				// مزد شغل
 				// item.JobSalaryRankNew = EmpInfo.JobSalaryRankNew; // اصلی اینه ولی در استورد اشتباه شده است
 				JobSalaryRank = EmpInfo.JobSalaryRankNew,
@@ -604,7 +616,47 @@ namespace Forms.Forms
 				OtherBenefits = EmpInfo.OtherBenefitsNew,
 
 				// جمع کل دستمزد مزایایی قانونی و جمع مزد مبنا
-				TotalMonthlySalaryBenefits = EmpInfo.TotalMonthlySalaryBenefitsNew
+				TotalMonthlySalaryBenefits = EmpInfo.TotalMonthlySalaryBenefitsNew,
+				
+				// ************************************************
+
+				HR_CVR_TypesRulingsId = EmpInfo.HR_CVR_TypesRulingsId,
+
+				TypeBonusPayment = EmpInfo.TypeBonusPayment,
+
+				HR_StatusVerdictRecruitingId = EmpInfo.HR_StatusVerdictRecruitingId,
+
+				HR_ORG_SectionsId = EmpInfo.HR_ORG_SectionsId,
+
+				SectionsType = EmpInfo.SectionsType,
+
+				HR_ORG_PostsId = EmpInfo.HR_ORG_PostsId,
+
+				PostType = EmpInfo.PostType,
+
+				ExecutionDateSentence_Fa = EmpInfo.ExecutionDateSentence_Fa,
+
+				ExecutionDateSentence = EmpInfo.ExecutionDateSentence,
+
+				// *********************************************************
+				// فیلدهای جدید
+				JobSalaryRankNew = EmpInfo.JobSalaryRankNew,
+				RankSalaryNew = EmpInfo.RankSalaryNew,
+				SalaryHistoryNew = EmpInfo.SalaryHistoryNew,
+				RightGuardianshipNew = EmpInfo.RightGuardianshipNew,
+				CoefficientDurabilityPostNew = EmpInfo.CoefficientDurabilityPostNew,
+				CoefficientDifficultAndHarmfulJobsNew = EmpInfo.CoefficientDifficultAndHarmfulJobsNew,
+				TotalDailyBaseWageNew = EmpInfo.TotalDailyBaseWageNew,
+
+				DailyAdjustmentDifferenceNew = EmpInfo.DailyAdjustmentDifferenceNew,
+				RecruitmentAllowanceNew = EmpInfo.RecruitmentAllowanceNew,
+				MinistryLabourRightHousingNew = EmpInfo.MinistryLabourRightHousingNew,
+				MinistryLaborRightFoodNew = EmpInfo.MinistryLaborRightFoodNew,
+				ChildrensRightsMinistryLaborNew = EmpInfo.ChildrensRightsMinistryLaborNew,
+				WelfareMotivationalBenefitsNew = EmpInfo.WelfareMotivationalBenefitsNew,
+				RightMarryMinistryLaborNew = EmpInfo.RightMarryMinistryLaborNew,
+				OtherBenefitsNew = EmpInfo.OtherBenefitsNew,
+				TotalMonthlySalaryBenefitsNew = EmpInfo.TotalMonthlySalaryBenefitsNew
 			};
 
 			var json = System.Text.Json.JsonSerializer.Serialize(VerdictDTO);
@@ -683,7 +735,9 @@ namespace Forms.Forms
 					new() { Title = "حق مسکن", Value = rule?.MinistryLabourRightHousingNew },
 					new() { Title = "حق خوار و بار", Value = rule?.MinistryLaborRightFoodNew },
 					new() { Title = "حق اولاد", Value = rule?.ChildrensRightsMinistryLaborNew },
+					new() { Title = "حق تاهل", Value = rule?.RightMarryMinistryLaborNew },
 					new() { Title = "مزایای رفاهی انگیزشی", Value = rule?.WelfareMotivationalBenefitsNew },
+					//new() { Title = "جمع کل مزد مبنا و مزایای قانونی", Value = rule?.TotalMonthlySalaryBenefitsNew },
 				};
 
 
@@ -723,7 +777,6 @@ namespace Forms.Forms
 			}
 
 			#endregion - 2
-
 		}
 		#endregion
 
@@ -746,25 +799,13 @@ namespace Forms.Forms
 			try
 			{
 				Console.WriteLine(":: Log Grid EmpInfo :: " + await JSON.ToJson(EmpInfo));
-				Console.WriteLine(":: Log Grid EmpInfo.RankSalaryNew :: " + EmpInfo.RankSalaryNew);
 
 				Console.WriteLine("EmpInfo is null? " + (EmpInfo == null));
-				Console.WriteLine("Ref is null? " + (Ref_HR_CVR_RecruitmentRules_JobSalaryRankNew == null));
-
-				Console.WriteLine("EmpInfo.RankSalaryNew = " + EmpInfo.RankSalaryNew);
-
-				Ref_HR_CVR_RecruitmentRules_JobSalaryRankNew.SetDisabled(true);
-
-				//Ref_HR_CVR_RecruitmentRules_JobSalaryRankNew.Value = EmpInfo.RankSalaryNew;
-
-				Console.WriteLine(":: Log Grid JobSalaryRankNew :: " + Ref_HR_CVR_RecruitmentRules_JobSalaryRankNew.Value);
-
-				Item.JobSalaryRankNew = EmpInfo.RankSalaryNew;
-				Console.WriteLine(":: Log Grid JobSalaryRankNew :: " + Item.JobSalaryRankNew);
+				
+				// **********************************************************************************************************
 
 				// مزد شغل
-				// item.JobSalaryRankNew = EmpInfo.JobSalaryRankNew; // اصلی اینه ولی در استورد اشتباه شده است
-				Item.JobSalaryRankNew = EmpInfo.RankSalaryNew;
+				Item.JobSalaryRankNew = EmpInfo.JobSalaryRankNew;
 				Console.WriteLine($":: Log Set JobSalaryRankNew for item {Item._Id} :: {Item.JobSalaryRankNew}");
 
 				// مزد رتبه
@@ -791,10 +832,9 @@ namespace Forms.Forms
 				Item.TotalDailyBaseWageNew = EmpInfo.TotalDailyBaseWageNew;
 				Console.WriteLine($":: Log Set TotalDailyBaseWageNew for item {Item._Id} :: {Item.TotalDailyBaseWageNew}");
 
-				// این فیلد به استورد باید اضافه گردد
 				// تفاوت تطبیق روزانه
-				//Item.DailyAdjustmentDifferenceNew = EmpInfo.DailyAdjustmentDifferenceNew;
-				//Console.WriteLine($":: Log Set DailyAdjustmentDifferenceNew for item {Item._Id} :: {Item.DailyAdjustmentDifferenceNew}");
+				Item.DailyAdjustmentDifferenceNew = EmpInfo.DailyAdjustmentDifferenceNew;
+				Console.WriteLine($":: Log Set DailyAdjustmentDifferenceNew for item {Item._Id} :: {Item.DailyAdjustmentDifferenceNew}");
 
 				// حق جذب
 				Item.RecruitmentAllowanceNew = EmpInfo.RecruitmentAllowanceNew;
@@ -803,32 +843,36 @@ namespace Forms.Forms
 				// کمک هزینه مسکن
 				Item.MinistryLabourRightHousingNew = EmpInfo.MinistryLabourRightHousingNew;
 				Console.WriteLine($":: Log Set MinistryLabourRightHousingNew for item {Item._Id} :: {Item.MinistryLabourRightHousingNew}");
+				Ref_HR_CVR_RecruitmentRules_MinistryLabourRightHousingNew.SetDisabled(true);
 
 				// حق خوار و بار
 				Item.MinistryLaborRightFoodNew = EmpInfo.MinistryLaborRightFoodNew;
 				Console.WriteLine($":: Log Set MinistryLaborRightFoodNew for item {Item._Id} :: {Item.MinistryLaborRightFoodNew}");
+				Ref_HR_CVR_RecruitmentRules_MinistryLaborRightFoodNew.SetDisabled(true);
 
 				// حق اولاد
 				Item.ChildrensRightsMinistryLaborNew = EmpInfo.ChildrensRightsMinistryLaborNew;
 				Console.WriteLine($":: Log Set ChildrensRightsMinistryLaborNew for item {Item._Id} :: {Item.ChildrensRightsMinistryLaborNew}");
-
+				Ref_HR_CVR_RecruitmentRules_ChildrensRightsMinistryLaborNew.SetDisabled(true);
 
 				// مزایای رفاهی انگیزه ای ماهانه
 				Item.WelfareMotivationalBenefitsNew = EmpInfo.WelfareMotivationalBenefitsNew;
 				Console.WriteLine($":: Log Set WelfareMotivationalBenefitsNew for item {Item._Id} :: {Item.WelfareMotivationalBenefitsNew}");
+				Ref_HR_CVR_RecruitmentRules_WelfareMotivationalBenefitsNew.SetDisabled(true);
 
 				// حق تاهل
-				Item.ChildrensRightsMinistryLaborNew = EmpInfo.ChildrensRightsMinistryLaborNew;
-				Console.WriteLine($":: Log Set ChildrensRightsMinistryLaborNew for item {Item._Id} :: {Item.ChildrensRightsMinistryLaborNew}");
+				Item.RightMarryMinistryLaborNew = EmpInfo.RightMarryMinistryLaborNew;
+				Console.WriteLine($":: Log Set RightMarryMinistryLaborNew for item {Item._Id} :: {Item.RightMarryMinistryLaborNew}");
+				Ref_HR_CVR_RecruitmentRules_RightMarryMinistryLaborNew.SetDisabled(true);
 
-				// این فیلد به استورد باید اضافه گردد
 				// سایر مزایا
-				//Item.OtherBenefitsNew = EmpInfo.OtherBenefitsNew;
-				//Console.WriteLine($":: Log Set OtherBenefitsNew for item {Item._Id} :: {Item.OtherBenefitsNew}");
+				Item.OtherBenefitsNew = EmpInfo.OtherBenefitsNew;
+				Console.WriteLine($":: Log Set OtherBenefitsNew for item {Item._Id} :: {Item.OtherBenefitsNew}");
 
 				// جمع کل دستمزد مزایایی قانونی و جمع مزد مبنا
-				Item.RankSalaryNew = EmpInfo.RankSalaryNew;
-				Console.WriteLine($":: Log Set JobSalaryRankNew for item {Item._Id} :: {Item.JobSalaryRankNew}");
+				Item.TotalMonthlySalaryBenefitsNew = EmpInfo.TotalMonthlySalaryBenefitsNew;
+				Console.WriteLine($":: Log Set TotalMonthlySalaryBenefitsNew for item {Item._Id} :: {Item.TotalMonthlySalaryBenefitsNew}");
+				Ref_HR_CVR_RecruitmentRules_TotalMonthlySalaryBenefitsNew.SetDisabled(true);
 
 				// تکمیل فیلدهای گرید ::
 				await GetEmpDataGrid(Item);
@@ -964,7 +1008,7 @@ namespace Forms.Forms
 		}
 		#endregion
 
-		#region
+		#region SetZiroLastVerdictRule
 		private async Task SetZiroLastVerdictRule()
 		{
 			foreach (var Item2 in _Entity.HR_CVR_RecruitmentRules)
@@ -1177,6 +1221,7 @@ namespace EMP_Data
 {
 	public static class EmployeeData
 	{
+		#region EmployeeMasterDetail
 		/// <summary>
 		/// HR_EMP_Employees_EmployeeInfos
 		/// این یک ویو دیتابیسی از جداول کارمند و جزئیات اطلاعات کارمند است
@@ -1279,10 +1324,8 @@ namespace EMP_Data
 				}
 			};
 
-
-
 			var NewQuery = new QueryBuilderFilterRule { Condition = "AND" };
-				NewQuery.Rules = new List<QueryBuilderFilterRule>
+			NewQuery.Rules = new List<QueryBuilderFilterRule>
 			{
 				new QueryBuilderFilterRule
 				{
@@ -1320,7 +1363,9 @@ namespace EMP_Data
 				return null;
 			}
 		}
+		#endregion
 
+		#region LastVerdictEmp
 		/// <summary>
 		/// جدول و نمایش آخرین حکم کارمند
 		/// </summary>
@@ -1416,6 +1461,7 @@ namespace EMP_Data
 				return null;
 			}
 		}
+		#endregion 
 
 		#region ApplyToLastRecruitmentRules
 		/// <summary>
