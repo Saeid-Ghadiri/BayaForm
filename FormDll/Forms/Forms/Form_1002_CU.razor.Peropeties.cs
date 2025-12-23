@@ -144,7 +144,7 @@ namespace Forms.Forms
     /// <summary>
     ///  ورژنی که فرم باهاش ساخته شده
     /// </summary>
-    public string? VersionForm { get; set; } = "5306";
+    public string? VersionForm { get; set; } = "5322";
 
     /// <summary>
     ///  موجودیت
@@ -191,7 +191,6 @@ public RadioBoolean Ref_TypeBonusPayment;
 public Dropdown Ref_HR_StatusVerdictRecruitingId;
 public DxGrid? Grid_HR_CVR_EveryPostVerdict;
 
-public Dropdown Ref_HR_CVR_EveryPostVerdict_HR_CVR_VerdictRecruitingId;
 public Dropdown Ref_HR_CVR_EveryPostVerdict_HR_ORG_SectionsId;
 public RadioBoolean Ref_HR_CVR_EveryPostVerdict_SectionsType;
 public Dropdown Ref_HR_CVR_EveryPostVerdict_HR_ORG_PostsId;
@@ -203,6 +202,7 @@ public Input<Guid?> Ref_HR_CVR_EveryPostVerdict_UpdateUser;
 public Input<DateTime?> Ref_HR_CVR_EveryPostVerdict_CreateDate;
 public Input<DateTime?> Ref_HR_CVR_EveryPostVerdict_UpdateDate;
 public Input<bool?> Ref_HR_CVR_EveryPostVerdict_IsDelete;
+public Dropdown Ref_HR_CVR_EveryPostVerdict_HR_CVR_VerdictRecruitingId;
 public Dropdown Ref_RegisterUserId;
 public Input<string?> Ref_RegisterTime;
 public Dropdown Ref_ConfirmerUserId;

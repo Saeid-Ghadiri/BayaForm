@@ -144,7 +144,7 @@ namespace Forms.Forms
     /// <summary>
     ///  ورژنی که فرم باهاش ساخته شده
     /// </summary>
-    public string? VersionForm { get; set; } = "5306";
+    public string? VersionForm { get; set; } = "5322";
 
     /// <summary>
     ///  موجودیت
@@ -226,6 +226,51 @@ public Input<DateTime?> Ref_CreateDate;
 public Input<DateTime?> Ref_UpdateDate;
 public Input<bool?> Ref_IsDelete;
 public Dropdown Ref_HR_CVR_VerdictRecruitingId;
+public Dropdown Ref_HR_CVR_LaborCouncilFixedValuesId;
+public Dropdown Ref_HR_CVR_AnnualBaseWageIncreaseRatesId;
+public Input<bool?> Ref_HasSupervisionRight;
+public Input<string?> Ref_SupervisionRightStartDate_Fa;
+public Input<DateTime?> Ref_SupervisionRightStartDate;
+public Input<string?> Ref_SupervisionRightCancellationDate_Fa;
+public Input<DateTime?> Ref_SupervisionRightCancellationDate;
+public Input<int?> Ref_DailySupervisionRightStartDate;
+public Input<bool?> Ref_HasPostRetentionRight;
+public Input<string?> Ref_PostRetentionStartDate_Fa;
+public Input<DateTime?> Ref_PostRetentionStartDate;
+public Input<string?> Ref_PostRetentionCancellationDate_Fa;
+public Input<DateTime?> Ref_PostRetentionCancellationDate;
+public Input<int?> Ref_DailyPostRetentionStartDate;
+public Input<string?> Ref_FirstName;
+public Input<string?> Ref_LastName;
+public Input<string?> Ref_FatherName;
+public Input<string?> Ref_IdCardNo;
+public Input<string?> Ref_NationalCode;
+public Input<string?> Ref_CityOfIssue;
+public Input<string?> Ref_BirthDate_Fa;
+public Input<string?> Ref_BaseInfo_MaritalStatusId;
+public Input<string?> Ref_BaseInfo_MilitaryStatusId;
+public Input<string?> Ref_HR_Base_AcademicDegreesId;
+public Input<string?> Ref_EmploymentDateInGroup_Fa;
+public Input<string?> Ref_DailyEmploymentDate;
+public Input<string?> Ref_EmploymentDate_Fa;
+public Input<string?> Ref_DailyEmploymentDateInGroup;
+public Input<string?> Ref_EmploymentStartDate_Fa;
+public Input<string?> Ref_BankAccountNumber;
+public Input<string?> Ref_IBAN;
+public Input<string?> Ref_InsuranceNumber;
+public Input<decimal?> Ref_RankSalary;
+public Input<decimal?> Ref_RankSalaryNew;
+public Input<string?> Ref_EmployeeAgeText;
+public Input<string?> Ref_BaseInfo_GenderId;
+public Input<string?> Ref_CityOfBirth;
+public Input<string?> Ref_EmployeeNo;
+public Input<int?> Ref_EmployeeChildrenCount;
+public Input<bool?> Ref_IsChildAllowanceGrantedToEmployee;
+public Input<string?> Ref_FirstChildAllowanceEstablishmentDate_Fa;
+public Input<DateTime?> Ref_FirstChildAllowanceEstablishmentDate;
+public Input<bool?> Ref_IsMarriageAllowanceGrantedToEmployee;
+public Input<string?> Ref_FirstMarriageAllowanceEstablishmentDate_Fa;
+public Input<DateTime?> Ref_FirstMarriageAllowanceEstablishmentDate;
 
 
     #endregion

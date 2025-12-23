@@ -144,7 +144,7 @@ namespace Forms.Forms
     /// <summary>
     ///  ورژنی که فرم باهاش ساخته شده
     /// </summary>
-    public string? VersionForm { get; set; } = "5306";
+    public string? VersionForm { get; set; } = "5322";
 
     /// <summary>
     ///  موجودیت
@@ -200,10 +200,6 @@ public Input<DateTime?> Ref_ExecutionDateSentence;
 public Dropdown Ref_HR_CVR_JobId;
 public Dropdown Ref_HR_CVR_JobGroupId;
 public Input<byte?> Ref_Rank;
-public DxGrid? Grid_HR_CVR_DescriptionRulings;
-
-public Input<string?> Ref_HR_CVR_DescriptionRulings_Title;
-public Input<bool?> Ref_HR_CVR_DescriptionRulings_IsActive;
 public Input<Guid> Ref_Id;
 public Input<Guid?> Ref_RequestID;
 public Input<Guid?> Ref_CreateUser;

@@ -627,75 +627,73 @@ namespace SP_ContractTime
 		public string InsuranceNumber { get; set; }
 
 		public Guid SectionId { get; set; }
-
-		[JsonProperty("زیر بخش")]
 		public Guid SubSectionId { get; set; }
-
 		public Guid? PostsId { get; set; }
 		public Guid? PositionsId { get; set; }
-
-		public string HR_CVR_JobTitle { get; set; }
-		public string Code { get; set; }
-		public string JobGroupTitle { get; set; }
-
+		public string? HR_CVR_JobTitle { get; set; }
+		public string? Code { get; set; }
+		public string? JobGroupTitle { get; set; }
 		public decimal? Rank { get; set; }
-
-		public decimal RecruitmentAllowance { get; set; }
-		public decimal SalaryHistory { get; set; }
-
+		public decimal? RecruitmentAllowance { get; set; }
+		public decimal? SalaryHistory { get; set; }
 		public decimal? CoefficientDifficultAndHarmfulJobs { get; set; }
 		public decimal? TotalDailyBaseWage { get; set; }
-
-		public decimal DailyAdjustmentDifference { get; set; }
-
-		public decimal MinistryLabourRightHousing { get; set; }
-		public decimal MinistryLaborRightFood { get; set; }
-		public decimal RightMarryMinistryLabor { get; set; }
-		public decimal ChildrensRightsMinistryLabor { get; set; }
-		public decimal WelfareMotivationalBenefits { get; set; }
-		public decimal OtherBenefits { get; set; }
-
+		public decimal? DailyAdjustmentDifference { get; set; }
+		public decimal? MinistryLabourRightHousing { get; set; }
+		public decimal? MinistryLaborRightFood { get; set; }
+		public decimal? RightMarryMinistryLabor { get; set; }
+		public decimal? ChildrensRightsMinistryLabor { get; set; }
+		public decimal? WelfareMotivationalBenefits { get; set; }
+		public decimal? OtherBenefits { get; set; }
 		public decimal? TotalMonthlySalaryBenefits { get; set; }
+		public decimal? RankSalary { get; set; }
+		public decimal? JobSalaryRank { get; set; }
+		public decimal? RankSalaryNew { get; set; }
+		public decimal? SalaryHistoryNew { get; set; }
+		public decimal? RightGuardianship { get; set; }
+		public decimal? RightGuardianshipNew { get; set; }
+		public decimal? CoefficientDurabilityPost { get; set; }
+		public decimal? CoefficientDurabilityPostNew { get; set; }
+		public decimal? CoefficientDifficultAndHarmfulJobsNew { get; set; }
+		public decimal? TotalDailyBaseWageNew { get; set; }
+		public decimal? RightMarryMinistryLaborNew { get; set; }
+		public decimal? RecruitmentAllowanceNew { get; set; }
+		public decimal? MinistryLabourRightHousingNew { get; set; }
+		public decimal? MinistryLaborRightFoodNew { get; set; }
+		public decimal? ChildrensRightsMinistryLaborNew { get; set; }
+		public decimal? WelfareMotivationalBenefitsNew { get; set; }
+		public decimal? TotalMonthlySalaryBenefitsNew { get; set; }
+		public decimal? JobSalaryRankNew { get; set; }
+		public decimal? DailyAdjustmentDifferenceNew { get; set; }
+		public decimal? OtherBenefitsNew { get; set; }
 
-		public decimal RankSalary { get; set; }
-		public decimal JobSalaryRank { get; set; }
+		// نوع حکم کارمند
+		public string? HR_CVR_TypesRulingsId { get; set; }
 
-		public decimal RankSalaryNew { get; set; }
-		public decimal SalaryHistoryNew { get; set; }
+		// نوع بیمه
+		public string? HR_Base_InsuranceTypesId { get; set; }
 
-		public decimal RightGuardianship { get; set; }
-		public decimal RightGuardianshipNew { get; set; }
+		// نوع پرداخت آکورد
+		public string? TypeBonusPayment { get; set; }
 
-		public decimal CoefficientDurabilityPost { get; set; }
-		public decimal CoefficientDurabilityPostNew { get; set; }
+		// وضعیت حکم
+		public string? HR_StatusVerdictRecruitingId { get; set; }
 
-		public decimal CoefficientDifficultAndHarmfulJobsNew { get; set; }
+		// عنوان قسمت های سازمانی در جدول پست های حکم
+		public string? HR_ORG_SectionsId { get; set; }
 
-		public decimal TotalDailyBaseWageNew { get; set; }
+		// نوع قسمت در جدول پست های حکم
+		public bool? SectionsType { get; set; }
 
-		public decimal RightMarryMinistryLaborNew { get; set; }
-		public decimal RecruitmentAllowanceNew { get; set; }
+		// عنوان پست سازمانی در جدول پست های حکم
+		public string? HR_ORG_PostsId { get; set; }
 
-		public decimal MinistryLabourRightHousingNew { get; set; }
-		public decimal MinistryLaborRightFoodNew { get; set; }
+		// 
+		public bool? PostType { get; set; }
 
-		public decimal ChildrensRightsMinistryLaborNew { get; set; }
-		public decimal WelfareMotivationalBenefitsNew { get; set; }
-
-		public decimal TotalMonthlySalaryBenefitsNew { get; set; }
-		public decimal JobSalaryRankNew { get; set; }
-		public decimal DailyAdjustmentDifferenceNew { get; set; }
-		public decimal OtherBenefitsNew { get; set; }
-		public string HR_CVR_TypesRulingsId { get; set; }
-		public string TypeBonusPayment { get; set; }
-		public string HR_StatusVerdictRecruitingId { get; set; }
-		public string HR_ORG_SectionsId { get; set; }
-		public bool SectionsType { get; set; }
-		public string HR_ORG_PostsId { get; set; }
-		public bool PostType { get; set; }
-
-		public string ExecutionDateSentence_Fa { get; set; }
-		public DateOnly ExecutionDateSentence { get; set; }
+		//  تاریخ اجرای حکم
+		public string? ExecutionDateSentence_Fa { get; set; } // شمسی
+		public DateOnly? ExecutionDateSentence { get; set; } // میلادی
 	}
 }
 
@@ -927,10 +925,10 @@ public class VerdictRequest
 	public decimal? WelfareMotivationalBenefits { get; set; }
 
 	// حق تاهل
-	public decimal RightMarryMinistryLabor { get; set; }
+	public decimal? RightMarryMinistryLabor { get; set; }
 
 	// سایر مزایا
-	public decimal OtherBenefits { get; set; }
+	public decimal? OtherBenefits { get; set; }
 
 	// جمع کل دستمزد و مزایا
 	public decimal? TotalMonthlySalaryBenefits { get; set; }
@@ -954,6 +952,10 @@ public class VerdictRequest
 	public string? ExecutionDateSentence_Fa { get; set; } //  شمسی
 	public DateOnly? ExecutionDateSentence { get; set; } // میلادی
 
+	// نوع بیمه کارمند
+	public string? HR_Base_InsuranceTypesId { get; set; } //  شمسی
+
+
 
 	// ********************************
 
@@ -964,7 +966,6 @@ public class VerdictRequest
 	public decimal? CoefficientDurabilityPostNew { get; set; }
 	public decimal? CoefficientDifficultAndHarmfulJobsNew { get; set; }
 	public decimal? TotalDailyBaseWageNew { get; set; }
-
 	public decimal? DailyAdjustmentDifferenceNew { get; set; }
 	public decimal? RecruitmentAllowanceNew { get; set; }
 	public decimal? MinistryLabourRightHousingNew { get; set; }

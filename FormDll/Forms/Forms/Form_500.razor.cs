@@ -412,7 +412,17 @@ namespace Forms.Forms
         {
         }
 
-        #endregion FunctionEvents
+        public async Task TempNoNum_NotMapped_onitemselected(dynamic Selected)
+        {
+            foreach (var item in _Entity.SCMPETCO_ProductRequestDetails)
+            {
+                await HavaleMasrafSetShomaran(Selected, item);
+            }
+
+            StateHasChanged();
+        }
+
+		#endregion FunctionEvents
 
     }
 }

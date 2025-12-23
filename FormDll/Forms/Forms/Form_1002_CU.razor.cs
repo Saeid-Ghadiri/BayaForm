@@ -113,8 +113,6 @@ namespace Forms.Forms
 			// فراخوانی - آخرین حکم و قرارداد
 			await LastEmpVerdictAndContract(_Entity.HR_EMP_EmployeesId.ToString());
 
-
-			
 		}
 
 		#region FunctionEvents
@@ -122,7 +120,6 @@ namespace Forms.Forms
 		string employeeId = "";
 
 		SP_ContractTime.EmployeeInfo EmpInfo = new();
-
 
 		#region Validation
 		public async Task<bool> CheckFieldValidation(Entity.HR_CVR_VerdictRecruiting Item)
@@ -336,7 +333,7 @@ namespace Forms.Forms
 		{
 		}
 
-		
+
 		#endregion MasterData
 
 		#region btn_SP_Verdict
@@ -374,7 +371,7 @@ namespace Forms.Forms
 
 			var jsonResponse = R.Content.ToString();
 			Console.WriteLine("### 🟡 jsonResponse کامل ###");
-			Console.WriteLine(jsonResponse);
+			Console.WriteLine("#Log :: jsonResponse (R.Content.ToString()) :: " + jsonResponse);
 
 			if (!jsonResponse.TrimStart().StartsWith("{"))
 			{
@@ -432,7 +429,7 @@ namespace Forms.Forms
 						// جمع کل مزد مبنا
 						item.TotalDailyBaseWageNew = EmpInfo.TotalDailyBaseWageNew;
 						Console.WriteLine($":: Log Set TotalDailyBaseWageNew for item {item._Id} :: {item.TotalDailyBaseWageNew}");
-						Ref_HR_CVR_RecruitmentRules_TotalMonthlySalaryBenefitsNew.SetDisabled(true);
+						Ref_HR_CVR_RecruitmentRules_TotalDailyBaseWageNew.SetDisabled(true);
 
 						// تفاوت تطبیق روزانه
 						item.DailyAdjustmentDifferenceNew = EmpInfo.DailyAdjustmentDifferenceNew;
@@ -567,8 +564,8 @@ namespace Forms.Forms
 			{
 				// شناسه کارمند
 				EmployeesId = Guid.Parse(employeeId),
+
 				// مزد شغل
-				// item.JobSalaryRankNew = EmpInfo.JobSalaryRankNew; // اصلی اینه ولی در استورد اشتباه شده است
 				JobSalaryRank = EmpInfo.JobSalaryRankNew,
 
 				// مزد رتبه
@@ -589,7 +586,6 @@ namespace Forms.Forms
 				// جمع کل مزد مبنا
 				TotalDailyBaseWage = EmpInfo.TotalDailyBaseWageNew,
 
-				// این فیلد به استورد باید اضافه گردد
 				// تفاوت تطبیق روزانه
 				DailyAdjustmentDifference = EmpInfo.DailyAdjustmentDifferenceNew,
 
@@ -617,45 +613,88 @@ namespace Forms.Forms
 
 				// جمع کل دستمزد مزایایی قانونی و جمع مزد مبنا
 				TotalMonthlySalaryBenefits = EmpInfo.TotalMonthlySalaryBenefitsNew,
-				
+
 				// ************************************************
 
+				// نوع حکم کارمند
 				HR_CVR_TypesRulingsId = EmpInfo.HR_CVR_TypesRulingsId,
 
+				// نوع بیمه کارمند
+				HR_Base_InsuranceTypesId = EmpInfo.HR_Base_InsuranceTypesId,
+
+				// نوع پرداخت آکورد
 				TypeBonusPayment = EmpInfo.TypeBonusPayment,
 
+				// وضعیت حکم
 				HR_StatusVerdictRecruitingId = EmpInfo.HR_StatusVerdictRecruitingId,
 
+				// عنوان قسمت های سازمانی در جدول پست های حکم
 				HR_ORG_SectionsId = EmpInfo.HR_ORG_SectionsId,
 
+				// نوع قسمت در جدول پست های حکم
 				SectionsType = EmpInfo.SectionsType,
 
+				// عنوان پست سازمانی در جدول پست های حکم
 				HR_ORG_PostsId = EmpInfo.HR_ORG_PostsId,
 
+				// نوع پست در جدول پست های حکم
 				PostType = EmpInfo.PostType,
 
+				// تاریخ اجرای حکم - شمسی
 				ExecutionDateSentence_Fa = EmpInfo.ExecutionDateSentence_Fa,
 
+				// تاریخ اجرای حکم - میلادی
 				ExecutionDateSentence = EmpInfo.ExecutionDateSentence,
 
 				// *********************************************************
 				// فیلدهای جدید
+
+				// مزد شغل گروه جدید
 				JobSalaryRankNew = EmpInfo.JobSalaryRankNew,
+
+				// مزد رتبه جدید
 				RankSalaryNew = EmpInfo.RankSalaryNew,
+
+				// مزد سنوات جدید
 				SalaryHistoryNew = EmpInfo.SalaryHistoryNew,
+
+				// حق سرپرستی (پست) جدید
 				RightGuardianshipNew = EmpInfo.RightGuardianshipNew,
+
+				// مزایای ماندگاری پست جدید
 				CoefficientDurabilityPostNew = EmpInfo.CoefficientDurabilityPostNew,
+
+				// شرایط نامساعد محیط کار جدید
 				CoefficientDifficultAndHarmfulJobsNew = EmpInfo.CoefficientDifficultAndHarmfulJobsNew,
+
+				// جمع مزد مبنای روزانه جدید
 				TotalDailyBaseWageNew = EmpInfo.TotalDailyBaseWageNew,
 
+				// تفاوت تطبیق روزانه جدید
 				DailyAdjustmentDifferenceNew = EmpInfo.DailyAdjustmentDifferenceNew,
+
+				// حق جذب جدید
 				RecruitmentAllowanceNew = EmpInfo.RecruitmentAllowanceNew,
+
+				// کمک هزینه مسکن جدید
 				MinistryLabourRightHousingNew = EmpInfo.MinistryLabourRightHousingNew,
+
+				// حق خوار و بار جدید
 				MinistryLaborRightFoodNew = EmpInfo.MinistryLaborRightFoodNew,
+
+				// حق اولاد جدید
 				ChildrensRightsMinistryLaborNew = EmpInfo.ChildrensRightsMinistryLaborNew,
+
+				// مزایای رفاهی و انگیزه‌ای جدید
 				WelfareMotivationalBenefitsNew = EmpInfo.WelfareMotivationalBenefitsNew,
+
+				// حق تاهل جدید
 				RightMarryMinistryLaborNew = EmpInfo.RightMarryMinistryLaborNew,
+
+				// سایر مزایا جدید
 				OtherBenefitsNew = EmpInfo.OtherBenefitsNew,
+
+				// جمع کل 
 				TotalMonthlySalaryBenefitsNew = EmpInfo.TotalMonthlySalaryBenefitsNew
 			};
 
@@ -788,8 +827,48 @@ namespace Forms.Forms
 			return false;
 		}
 
+		#region WaitComponentLoaded
+		/// <summary>
+		/// منتظر می‌ماند تا کامپوننت لود شود و سپس SetDisabled را فراخوانی می‌کند
+		/// </summary>
+		/// <param name="componentRef">مرجع کامپوننت</param>
+		/// <param name="maxWaitTimeMs">حداکثر زمان انتظار به میلی‌ثانیه (پیش‌فرض: 5000)</param>
+		/// <returns></returns>
+		private async Task<bool> WaitComponentLoaded(dynamic componentRef, int maxWaitTimeMs = 5000)
+		{
+			if (componentRef != null)
+			{
+				return true;
+			}
+
+			// منتظر می‌مانیم تا کامپوننت لود شود
+			int waitedTime = 0;
+			int delayInterval = 50; // هر 50 میلی‌ثانیه چک می‌کنیم
+
+			while (componentRef == null && waitedTime < maxWaitTimeMs)
+			{
+				await Task.Delay(delayInterval);
+				waitedTime += delayInterval;
+				StateHasChanged(); // برای به‌روزرسانی UI
+			}
+
+			if (componentRef != null)
+			{
+				return true;
+			}
+			else
+			{
+				Console.WriteLine($"⚠️ Warning: Component was not loaded after waiting {maxWaitTimeMs}ms");
+				return false;
+			}
+		}
+		#endregion
+
 		public async Task GridHR_CVR_VerdictRecruitingId_711_afterrendermodal(Entity.HR_CVR_RecruitmentRules Item)
 		{
+			await Task.Yield();
+			StateHasChanged();
+
 			// برای اولین بار وقتی ردیفی در گرید وجود ندارد کلیه عدد های در تابع را 0.0 می کند
 			if (_Entity.HR_CVR_RecruitmentRules.Count == 0)
 			{
@@ -801,7 +880,7 @@ namespace Forms.Forms
 				Console.WriteLine(":: Log Grid EmpInfo :: " + await JSON.ToJson(EmpInfo));
 
 				Console.WriteLine("EmpInfo is null? " + (EmpInfo == null));
-				
+
 				// **********************************************************************************************************
 
 				// مزد شغل
@@ -831,7 +910,10 @@ namespace Forms.Forms
 				// جمع کل مزد مبنا
 				Item.TotalDailyBaseWageNew = EmpInfo.TotalDailyBaseWageNew;
 				Console.WriteLine($":: Log Set TotalDailyBaseWageNew for item {Item._Id} :: {Item.TotalDailyBaseWageNew}");
-
+				if (await WaitComponentLoaded(Ref_HR_CVR_RecruitmentRules_TotalDailyBaseWageNew))
+				{
+					Ref_HR_CVR_RecruitmentRules_TotalDailyBaseWageNew.SetDisabled(true);
+				}
 				// تفاوت تطبیق روزانه
 				Item.DailyAdjustmentDifferenceNew = EmpInfo.DailyAdjustmentDifferenceNew;
 				Console.WriteLine($":: Log Set DailyAdjustmentDifferenceNew for item {Item._Id} :: {Item.DailyAdjustmentDifferenceNew}");
@@ -843,27 +925,42 @@ namespace Forms.Forms
 				// کمک هزینه مسکن
 				Item.MinistryLabourRightHousingNew = EmpInfo.MinistryLabourRightHousingNew;
 				Console.WriteLine($":: Log Set MinistryLabourRightHousingNew for item {Item._Id} :: {Item.MinistryLabourRightHousingNew}");
-				Ref_HR_CVR_RecruitmentRules_MinistryLabourRightHousingNew.SetDisabled(true);
+				if (await WaitComponentLoaded(Ref_HR_CVR_RecruitmentRules_MinistryLabourRightHousingNew))
+				{
+					Ref_HR_CVR_RecruitmentRules_MinistryLabourRightHousingNew.SetDisabled(true);
+				}
 
 				// حق خوار و بار
 				Item.MinistryLaborRightFoodNew = EmpInfo.MinistryLaborRightFoodNew;
 				Console.WriteLine($":: Log Set MinistryLaborRightFoodNew for item {Item._Id} :: {Item.MinistryLaborRightFoodNew}");
-				Ref_HR_CVR_RecruitmentRules_MinistryLaborRightFoodNew.SetDisabled(true);
+				if (await WaitComponentLoaded(Ref_HR_CVR_RecruitmentRules_MinistryLaborRightFoodNew))
+				{
+					Ref_HR_CVR_RecruitmentRules_MinistryLaborRightFoodNew.SetDisabled(true);
+				}
 
 				// حق اولاد
 				Item.ChildrensRightsMinistryLaborNew = EmpInfo.ChildrensRightsMinistryLaborNew;
 				Console.WriteLine($":: Log Set ChildrensRightsMinistryLaborNew for item {Item._Id} :: {Item.ChildrensRightsMinistryLaborNew}");
-				Ref_HR_CVR_RecruitmentRules_ChildrensRightsMinistryLaborNew.SetDisabled(true);
+				if (await WaitComponentLoaded(Ref_HR_CVR_RecruitmentRules_ChildrensRightsMinistryLaborNew))
+				{
+					Ref_HR_CVR_RecruitmentRules_ChildrensRightsMinistryLaborNew.SetDisabled(true);
+				}
 
 				// مزایای رفاهی انگیزه ای ماهانه
 				Item.WelfareMotivationalBenefitsNew = EmpInfo.WelfareMotivationalBenefitsNew;
 				Console.WriteLine($":: Log Set WelfareMotivationalBenefitsNew for item {Item._Id} :: {Item.WelfareMotivationalBenefitsNew}");
-				Ref_HR_CVR_RecruitmentRules_WelfareMotivationalBenefitsNew.SetDisabled(true);
+				if (await WaitComponentLoaded(Ref_HR_CVR_RecruitmentRules_WelfareMotivationalBenefitsNew))
+				{
+					Ref_HR_CVR_RecruitmentRules_WelfareMotivationalBenefitsNew.SetDisabled(true);
+				}
 
 				// حق تاهل
 				Item.RightMarryMinistryLaborNew = EmpInfo.RightMarryMinistryLaborNew;
 				Console.WriteLine($":: Log Set RightMarryMinistryLaborNew for item {Item._Id} :: {Item.RightMarryMinistryLaborNew}");
-				Ref_HR_CVR_RecruitmentRules_RightMarryMinistryLaborNew.SetDisabled(true);
+				if (await WaitComponentLoaded(Ref_HR_CVR_RecruitmentRules_RightMarryMinistryLaborNew))
+				{
+					Ref_HR_CVR_RecruitmentRules_RightMarryMinistryLaborNew.SetDisabled(true);
+				}
 
 				// سایر مزایا
 				Item.OtherBenefitsNew = EmpInfo.OtherBenefitsNew;
@@ -872,7 +969,10 @@ namespace Forms.Forms
 				// جمع کل دستمزد مزایایی قانونی و جمع مزد مبنا
 				Item.TotalMonthlySalaryBenefitsNew = EmpInfo.TotalMonthlySalaryBenefitsNew;
 				Console.WriteLine($":: Log Set TotalMonthlySalaryBenefitsNew for item {Item._Id} :: {Item.TotalMonthlySalaryBenefitsNew}");
-				Ref_HR_CVR_RecruitmentRules_TotalMonthlySalaryBenefitsNew.SetDisabled(true);
+				if (await WaitComponentLoaded(Ref_HR_CVR_RecruitmentRules_TotalMonthlySalaryBenefitsNew))
+				{
+					Ref_HR_CVR_RecruitmentRules_TotalMonthlySalaryBenefitsNew.SetDisabled(true);
+				}
 
 				// تکمیل فیلدهای گرید ::
 				await GetEmpDataGrid(Item);
@@ -885,7 +985,6 @@ namespace Forms.Forms
 				{
 					await EMP_Data.EmployeeData.ApplyToLastRecruitmentRules(Item, _User.UserID.ToString());
 				}
-
 
 				StateHasChanged();
 			}
@@ -1461,7 +1560,7 @@ namespace EMP_Data
 				return null;
 			}
 		}
-		#endregion 
+		#endregion
 
 		#region ApplyToLastRecruitmentRules
 		/// <summary>

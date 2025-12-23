@@ -42,6 +42,11 @@
     int PageIndex { get; set; }
 
     int PageSize { get; set; } = 10;
+    
+    /// <summary>
+    /// فیلتر QueryBuilder ذخیره شده برای استفاده در بارگذاری داده‌ها
+    /// </summary>
+    private QueryBuilderFilterRule _currentFilter;
 
     static int VALIDATION_DELAY = 500;
     System.Threading.Timer timer = null;
@@ -285,17 +290,21 @@
             Url += "limit=" + PageSize + "&skip=" + skip;
 
 
-            if (!string.IsNullOrEmpty(SearchText))
+            if (_currentFilter != null)
+            {//اگه فیلتر کوئری بیلدر ارسال شده استفاده کن
+                Url += "&Filter=" + await Utility.JSON.ToJson(_currentFilter);
+            }
+            else if (!string.IsNullOrEmpty(SearchText))
             {//اگه تکست جستجو پره اونم ارسال کنه
 
                 var searchfieldsList = Component.searchField.Split(",").ToList();
-                string Filter = "{\"condition\":\"OR\",\"rules\":[";
+                string searchFilter = "{\"condition\":\"OR\",\"rules\":[";
                 foreach (var item in searchfieldsList)
                 {
-                    Filter += "{\"id\":\"" + item + "\",\"field\":\"" + item + "\",\"type\":\"string\",\"input\":\"text\",\"operator\":\"contains\",\"value\":[\"" + SearchText + "\"]},";
+                    searchFilter += "{\"id\":\"" + item + "\",\"field\":\"" + item + "\",\"type\":\"string\",\"input\":\"text\",\"operator\":\"contains\",\"value\":[\"" + SearchText + "\"]},";
                 }
-                Filter += "],\"not\":false,\"valid\":true}";
-                Url += "&Filter=" + Filter;
+                searchFilter += "],\"not\":false,\"valid\":true}";
+                Url += "&Filter=" + searchFilter;
             }
 
             //روشی که جواب نداد درون سرور داخل لوکال درست بود
@@ -355,74 +364,8 @@
 
     public async Task SearchFilter(QueryBuilderFilterRule Filter)
     {
-        ListColumn = new List<View_values>();
-        if (Component.data is not null && !string.IsNullOrEmpty(Component.data.url))
-        {//اگه لود با URL هست
-
-            int skip = (PageIndex * PageSize);
-
-            //todo بعدا باید عوض بشه و مدلش تغیر کنه
-            //لیست ستون ها در بیاد
-            //<span>{{item.PriorityTitle}} </span>
-            //<span>{{item.Title}} {{item.Id}} </span>
-            //<span>{{item.Title:عنوان}} {{item.Id:آیدی}} </span>
-            //<span>{{item.PriorityTitle}} {{item.PriorityDescription}} </span>
-            var template = Component.template;
-            template = template.Replace("<span>", "");
-            template = template.Replace("</span>", "");
-            template = template.Replace("item.", "");
-            template = template.Replace("&#160;", "");
-            template = template.Trim();
-            var List = template.Split(" ").ToList();
-
-
-            //List = List.Select(x => x.Replace("{{", "").Replace("}}", "")).ToList();
-            List<KeyValuePair<string, string>> list = ConvertParameter.GetTemplate(Component.template).Result;
-
-            foreach (var item in list)
-            {
-                //عنوان رو نشون بدیم
-                //ListColumn.Add(new View_values() { key = "PriorityTitle", label = "عنوان" });
-                ListColumn.Add(new View_values() { key = item.Key, label = item.Value });
-            }
-
-            string Url = Component.data.url;
-
-            // حذف هر QueryString قبلی از آدرس
-            if (!string.IsNullOrEmpty(Url))
-            {
-                var qIndex = Url.IndexOf('?');
-                if (qIndex >= 0)
-                {
-                    Url = Url.Substring(0, qIndex);
-                }
-            }
-
-            // ساخت QueryString جدید
-            Url += "?Filter=" + await Utility.JSON.ToJson(Filter);
-            Url += "&limit=" + PageSize + "&skip=" + skip;
-
-            //روشی که جواب نداد درون سرور داخل لوکال درست بود
-            //var GetData = await Http.GetStringAsync(Url);
-            //Data = (await Utility.JSON.ToObject<List<object>>(GetData));
-
-            var R = await ApiServer.External.Send.GetAsync(Url);
-            if (R is not null)
-            {//اگه داده گرفته
-
-                if (R.Status == System.Net.HttpStatusCode.OK)
-                {
-                    Data = await Utility.JSON.ToObject<List<object>>(R.Content?.ToString());
-                }
-                else
-                {
-                    Console.WriteLine("#Log LoadData Error:");
-                    Console.WriteLine(R.Status);
-                    Console.WriteLine(R.Content);
-                    Console.WriteLine(R.Message);
-                }
-            }
-        }
+        _currentFilter = Filter;
+        await LoadData();
     }
     
     /// <summary>
@@ -433,6 +376,7 @@
         Data= null;
         PageIndex = 0;
         SearchText = null;
+        _currentFilter = null;
         StateHasChanged();
     }
 

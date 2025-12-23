@@ -532,6 +532,192 @@
 
 <DxGridDataColumn DisplayFormat="G" Caption="جمع کل دستمزد و مزایا جدید"  FieldName="TotalMonthlySalaryBenefitsNew" />
 
+<DxGridDataColumn Context="HR_CVR_LaborCouncilFixedValuesId_" Caption="ضریب ريالی (عدد ثابت تعیین شده وزارت کار)" >
+    <CellDisplayTemplate>
+       
+@{
+    Baya.Models.ViewEngine.View_Component HeaderHR_CVR_LaborCouncilFixedValuesId = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"primaryKey\":false,\"EntityID\":711,\"FieldId\":30604,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":970,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":false,\"RelationParentName\":\"HR_CVR_LaborCouncilFixedValues\",\"RelationParentModel\":\"HR_CVR_LaborCouncilFixedValues\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/HR_CVR_LaborCouncilFixedValues/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"inputFormat\":\"DropDown\",\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.StartDate_Fa}} {{item.FixedNumberValueGroup}} </span>\",\"FieldsTemplate\":[{\"key\":\"StartDate_Fa\",\"value\":\"nvarchar(Max)\"},{\"key\":\"FixedNumberValueGroup\",\"value\":\"int\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"searchField\":\"StartDate_Fa,FixedNumberValueGroup\",\"disabled\":false,\"modal\":true,\"label\":\"ضریب ريالی (عدد ثابت تعیین شده وزارت کار)\",\"tableView\":true,\"key\":\"HR_CVR_LaborCouncilFixedValuesId\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"30604?EId=711&SubId=15\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
+    var RowHR_CVR_LaborCouncilFixedValuesId = ((Entity.HR_CVR_RecruitmentRules)HR_CVR_LaborCouncilFixedValuesId_.DataItem).HR_CVR_LaborCouncilFixedValuesId;
+}
+
+<Dropdown ExternalApi=false CssClass="" NotMapped=false TextGrid=true Value="@RowHR_CVR_LaborCouncilFixedValuesId"   FieldName="HR_CVR_LaborCouncilFixedValuesId" OnItemSelected="ItemSelected_HR_CVR_RecruitmentRulesHR_CVR_LaborCouncilFixedValuesId_Header" Component="HeaderHR_CVR_LaborCouncilFixedValuesId">
+</Dropdown>
+@code {
+    public async Task ItemSelected_HR_CVR_RecruitmentRulesHR_CVR_LaborCouncilFixedValuesId_Header(object _Item)
+    {
+      //  var Selected = Utility.JSON.ToObject<dynamic>(Utility.JSON.ToJson(_Item).Result).Result;
+  //   HR_CVR_LaborCouncilFixedValuesId
+
+  //  #CustomCode
+
+ //   
+
+  //  #OnItemSelected
+    }
+}
+
+    </CellDisplayTemplate>
+</DxGridDataColumn>
+<DxGridDataColumn Context="HR_CVR_AnnualBaseWageIncreaseRatesId_" Caption="درصد ثابت افزایش مزد مبنا وزارت کار" >
+    <CellDisplayTemplate>
+       
+@{
+    Baya.Models.ViewEngine.View_Component HeaderHR_CVR_AnnualBaseWageIncreaseRatesId = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"primaryKey\":false,\"EntityID\":711,\"FieldId\":30605,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":970,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":false,\"RelationParentName\":\"HR_CVR_AnnualBaseWageIncreaseRates\",\"RelationParentModel\":\"HR_CVR_AnnualBaseWageIncreaseRates\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/HR_CVR_AnnualBaseWageIncreaseRates/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"inputFormat\":\"DropDown\",\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.StartDate_Fa}} {{item.IncreasePercentGroup}} </span>\",\"FieldsTemplate\":[{\"key\":\"StartDate_Fa\",\"value\":\"nvarchar(Max)\"},{\"key\":\"IncreasePercentGroup\",\"value\":\"int\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"searchField\":\"StartDate_Fa,IncreasePercentGroup\",\"disabled\":false,\"modal\":true,\"label\":\"درصد ثابت افزایش مزد مبنا وزارت کار\",\"tableView\":true,\"key\":\"HR_CVR_AnnualBaseWageIncreaseRatesId\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"30605?EId=711&SubId=15\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
+    var RowHR_CVR_AnnualBaseWageIncreaseRatesId = ((Entity.HR_CVR_RecruitmentRules)HR_CVR_AnnualBaseWageIncreaseRatesId_.DataItem).HR_CVR_AnnualBaseWageIncreaseRatesId;
+}
+
+<Dropdown ExternalApi=false CssClass="" NotMapped=false TextGrid=true Value="@RowHR_CVR_AnnualBaseWageIncreaseRatesId"   FieldName="HR_CVR_AnnualBaseWageIncreaseRatesId" OnItemSelected="ItemSelected_HR_CVR_RecruitmentRulesHR_CVR_AnnualBaseWageIncreaseRatesId_Header" Component="HeaderHR_CVR_AnnualBaseWageIncreaseRatesId">
+</Dropdown>
+@code {
+    public async Task ItemSelected_HR_CVR_RecruitmentRulesHR_CVR_AnnualBaseWageIncreaseRatesId_Header(object _Item)
+    {
+      //  var Selected = Utility.JSON.ToObject<dynamic>(Utility.JSON.ToJson(_Item).Result).Result;
+  //   HR_CVR_AnnualBaseWageIncreaseRatesId
+
+  //  #CustomCode
+
+ //   
+
+  //  #OnItemSelected
+    }
+}
+
+    </CellDisplayTemplate>
+</DxGridDataColumn>
+<DxGridDataColumn Context="HasSupervisionRight_" Caption="حق سرپرستی دارد؟" >
+    <CellDisplayTemplate>
+       
+@{
+    var HR_CVR_RecruitmentRules_HasSupervisionRight = ((Entity.HR_CVR_RecruitmentRules)HasSupervisionRight_.DataItem).HasSupervisionRight;
+}
+
+<p class="text-center " hidden="@(HR_CVR_RecruitmentRules_HasSupervisionRight !=null ? !HR_CVR_RecruitmentRules_HasSupervisionRight : true)">@languageContainer.Keys["DXGrid:Yes"]</p>
+
+<p class="text-center" hidden="@(HR_CVR_RecruitmentRules_HasSupervisionRight !=null ? HR_CVR_RecruitmentRules_HasSupervisionRight : true)">@languageContainer.Keys["DXGrid:No"]</p>
+ 
+
+    </CellDisplayTemplate>
+</DxGridDataColumn>
+<DxGridDataColumn  Caption="تاریخ ثبت حق سرپرستی"  FieldName="SupervisionRightStartDate_Fa" />
+
+<DxGridDataColumn  Caption="تاریخ ثبت حق سرپرستی - میلادی" Visible=false FieldName="SupervisionRightStartDate" />
+
+<DxGridDataColumn  Caption="تاریخ لغو حق سرپرستی"  FieldName="SupervisionRightCancellationDate_Fa" />
+
+<DxGridDataColumn  Caption="تاریخ لغو حق سرپرستی - میلادی" Visible=false FieldName="SupervisionRightCancellationDate" />
+
+<DxGridDataColumn DisplayFormat="0" Caption="تاریخ ثبت حق سرپرستی به روز"  FieldName="DailySupervisionRightStartDate" />
+
+<DxGridDataColumn Context="HasPostRetentionRight_" Caption="مزایای مانداگاری پست دارد؟" >
+    <CellDisplayTemplate>
+       
+@{
+    var HR_CVR_RecruitmentRules_HasPostRetentionRight = ((Entity.HR_CVR_RecruitmentRules)HasPostRetentionRight_.DataItem).HasPostRetentionRight;
+}
+
+<p class="text-center " hidden="@(HR_CVR_RecruitmentRules_HasPostRetentionRight !=null ? !HR_CVR_RecruitmentRules_HasPostRetentionRight : true)">@languageContainer.Keys["DXGrid:Yes"]</p>
+
+<p class="text-center" hidden="@(HR_CVR_RecruitmentRules_HasPostRetentionRight !=null ? HR_CVR_RecruitmentRules_HasPostRetentionRight : true)">@languageContainer.Keys["DXGrid:No"]</p>
+ 
+
+    </CellDisplayTemplate>
+</DxGridDataColumn>
+<DxGridDataColumn  Caption="تاریخ ثبت مزایای ماندگاری پست"  FieldName="PostRetentionStartDate_Fa" />
+
+<DxGridDataColumn  Caption="تاریخ ثبت مزایای ماندگاری پست - میلادی" Visible=false FieldName="PostRetentionStartDate" />
+
+<DxGridDataColumn  Caption="تاریخ لغو مزایای ماندگاری پست"  FieldName="PostRetentionCancellationDate_Fa" />
+
+<DxGridDataColumn  Caption="تاریخ لغو مزایای ماندگاری پست - میلادی" Visible=false FieldName="PostRetentionCancellationDate" />
+
+<DxGridDataColumn DisplayFormat="0" Caption="تاریخ ثبت مزایای ماندگاری پست به روز"  FieldName="DailyPostRetentionStartDate" />
+
+<DxGridDataColumn  Caption="نام"  FieldName="FirstName" />
+
+<DxGridDataColumn  Caption="نام خانوادگی"  FieldName="LastName" />
+
+<DxGridDataColumn  Caption="نام پدر"  FieldName="FatherName" />
+
+<DxGridDataColumn  Caption="شماره شناسنامه"  FieldName="IdCardNo" />
+
+<DxGridDataColumn  Caption="کد ملی"  FieldName="NationalCode" />
+
+<DxGridDataColumn  Caption="محل صدور"  FieldName="CityOfIssue" />
+
+<DxGridDataColumn  Caption="تاریخ تولد"  FieldName="BirthDate_Fa" />
+
+<DxGridDataColumn  Caption="وضعیت تاهل"  FieldName="BaseInfo_MaritalStatusId" />
+
+<DxGridDataColumn  Caption="وضعیت نظام وظیفه"  FieldName="BaseInfo_MilitaryStatusId" />
+
+<DxGridDataColumn  Caption="تحصیحات"  FieldName="HR_Base_AcademicDegreesId" />
+
+<DxGridDataColumn  Caption="تاریخ استخدام در گروه"  FieldName="EmploymentDateInGroup_Fa" />
+
+<DxGridDataColumn  Caption="تاریخ استخدام (به روز):"  FieldName="DailyEmploymentDate" />
+
+<DxGridDataColumn  Caption="تاریخ استخدام"  FieldName="EmploymentDate_Fa" />
+
+<DxGridDataColumn  Caption="تاریخ استخدام در گروه (به روز):"  FieldName="DailyEmploymentDateInGroup" />
+
+<DxGridDataColumn  Caption="تاریخ آخرین تسویه حساب"  FieldName="EmploymentStartDate_Fa" />
+
+<DxGridDataColumn  Caption="شماره حساب بانکی"  FieldName="BankAccountNumber" />
+
+<DxGridDataColumn  Caption="شماره شبا بانکی"  FieldName="IBAN" />
+
+<DxGridDataColumn  Caption="شماره بیمه"  FieldName="InsuranceNumber" />
+
+<DxGridDataColumn DisplayFormat="G" Caption="مزد رتبه "  FieldName="RankSalary" />
+
+<DxGridDataColumn DisplayFormat="G" Caption="مزد رتبه جدید"  FieldName="RankSalaryNew" />
+
+<DxGridDataColumn  Caption="سن کارمند:"  FieldName="EmployeeAgeText" />
+
+<DxGridDataColumn  Caption="جنسیت"  FieldName="BaseInfo_GenderId" />
+
+<DxGridDataColumn  Caption="شهر محل تولد"  FieldName="CityOfBirth" />
+
+<DxGridDataColumn  Caption="کد کارمندی"  FieldName="EmployeeNo" />
+
+<DxGridDataColumn DisplayFormat="0" Caption="تعداد فرزند کارمند"  FieldName="EmployeeChildrenCount" />
+
+<DxGridDataColumn Context="IsChildAllowanceGrantedToEmployee_" Caption="آیا حق اولاد به کارمند تعلق می گیرد؟" >
+    <CellDisplayTemplate>
+       
+@{
+    var HR_CVR_RecruitmentRules_IsChildAllowanceGrantedToEmployee = ((Entity.HR_CVR_RecruitmentRules)IsChildAllowanceGrantedToEmployee_.DataItem).IsChildAllowanceGrantedToEmployee;
+}
+
+<p class="text-center " hidden="@(HR_CVR_RecruitmentRules_IsChildAllowanceGrantedToEmployee !=null ? !HR_CVR_RecruitmentRules_IsChildAllowanceGrantedToEmployee : true)">@languageContainer.Keys["DXGrid:Yes"]</p>
+
+<p class="text-center" hidden="@(HR_CVR_RecruitmentRules_IsChildAllowanceGrantedToEmployee !=null ? HR_CVR_RecruitmentRules_IsChildAllowanceGrantedToEmployee : true)">@languageContainer.Keys["DXGrid:No"]</p>
+ 
+
+    </CellDisplayTemplate>
+</DxGridDataColumn>
+<DxGridDataColumn  Caption="تاریخ اولین برقراری حق اولاد"  FieldName="FirstChildAllowanceEstablishmentDate_Fa" />
+
+<DxGridDataColumn  Caption="تاریخ اولین برقراری حق اولاد - میلادی" Visible=false FieldName="FirstChildAllowanceEstablishmentDate" />
+
+<DxGridDataColumn Context="IsMarriageAllowanceGrantedToEmployee_" Caption="آیا به کارمند حق تاهل تعلق می گیرد؟" >
+    <CellDisplayTemplate>
+       
+@{
+    var HR_CVR_RecruitmentRules_IsMarriageAllowanceGrantedToEmployee = ((Entity.HR_CVR_RecruitmentRules)IsMarriageAllowanceGrantedToEmployee_.DataItem).IsMarriageAllowanceGrantedToEmployee;
+}
+
+<p class="text-center " hidden="@(HR_CVR_RecruitmentRules_IsMarriageAllowanceGrantedToEmployee !=null ? !HR_CVR_RecruitmentRules_IsMarriageAllowanceGrantedToEmployee : true)">@languageContainer.Keys["DXGrid:Yes"]</p>
+
+<p class="text-center" hidden="@(HR_CVR_RecruitmentRules_IsMarriageAllowanceGrantedToEmployee !=null ? HR_CVR_RecruitmentRules_IsMarriageAllowanceGrantedToEmployee : true)">@languageContainer.Keys["DXGrid:No"]</p>
+ 
+
+    </CellDisplayTemplate>
+</DxGridDataColumn>
+<DxGridDataColumn  Caption="تاریخ اولین برقراری حق تاهل"  FieldName="FirstMarriageAllowanceEstablishmentDate_Fa" />
+
+<DxGridDataColumn  Caption="تاریخ اولین برقراری حق تاهل - میلادی" Visible=false FieldName="FirstMarriageAllowanceEstablishmentDate" />
+
 
 </Columns>
 
@@ -856,6 +1042,53 @@ MainModel.ChildrensRightsMinistryLaborNew = ((Entity.HR_CVR_RecruitmentRules)Edi
 MainModel.WelfareMotivationalBenefitsNew = ((Entity.HR_CVR_RecruitmentRules)EditModel).WelfareMotivationalBenefitsNew;
 MainModel.OtherBenefitsNew = ((Entity.HR_CVR_RecruitmentRules)EditModel).OtherBenefitsNew;
 MainModel.TotalMonthlySalaryBenefitsNew = ((Entity.HR_CVR_RecruitmentRules)EditModel).TotalMonthlySalaryBenefitsNew;
+MainModel.HR_CVR_LaborCouncilFixedValuesId = ((Entity.HR_CVR_RecruitmentRules)EditModel).HR_CVR_LaborCouncilFixedValuesId;
+MainModel.HR_CVR_LaborCouncilFixedValues = ((Entity.HR_CVR_RecruitmentRules)EditModel).HR_CVR_LaborCouncilFixedValues;
+MainModel.HR_CVR_AnnualBaseWageIncreaseRatesId = ((Entity.HR_CVR_RecruitmentRules)EditModel).HR_CVR_AnnualBaseWageIncreaseRatesId;
+MainModel.HR_CVR_AnnualBaseWageIncreaseRates = ((Entity.HR_CVR_RecruitmentRules)EditModel).HR_CVR_AnnualBaseWageIncreaseRates;
+MainModel.HasSupervisionRight = ((Entity.HR_CVR_RecruitmentRules)EditModel).HasSupervisionRight;
+MainModel.SupervisionRightStartDate_Fa = ((Entity.HR_CVR_RecruitmentRules)EditModel).SupervisionRightStartDate_Fa;
+MainModel.SupervisionRightStartDate = ((Entity.HR_CVR_RecruitmentRules)EditModel).SupervisionRightStartDate;
+MainModel.SupervisionRightCancellationDate_Fa = ((Entity.HR_CVR_RecruitmentRules)EditModel).SupervisionRightCancellationDate_Fa;
+MainModel.SupervisionRightCancellationDate = ((Entity.HR_CVR_RecruitmentRules)EditModel).SupervisionRightCancellationDate;
+MainModel.DailySupervisionRightStartDate = ((Entity.HR_CVR_RecruitmentRules)EditModel).DailySupervisionRightStartDate;
+MainModel.HasPostRetentionRight = ((Entity.HR_CVR_RecruitmentRules)EditModel).HasPostRetentionRight;
+MainModel.PostRetentionStartDate_Fa = ((Entity.HR_CVR_RecruitmentRules)EditModel).PostRetentionStartDate_Fa;
+MainModel.PostRetentionStartDate = ((Entity.HR_CVR_RecruitmentRules)EditModel).PostRetentionStartDate;
+MainModel.PostRetentionCancellationDate_Fa = ((Entity.HR_CVR_RecruitmentRules)EditModel).PostRetentionCancellationDate_Fa;
+MainModel.PostRetentionCancellationDate = ((Entity.HR_CVR_RecruitmentRules)EditModel).PostRetentionCancellationDate;
+MainModel.DailyPostRetentionStartDate = ((Entity.HR_CVR_RecruitmentRules)EditModel).DailyPostRetentionStartDate;
+MainModel.FirstName = ((Entity.HR_CVR_RecruitmentRules)EditModel).FirstName;
+MainModel.LastName = ((Entity.HR_CVR_RecruitmentRules)EditModel).LastName;
+MainModel.FatherName = ((Entity.HR_CVR_RecruitmentRules)EditModel).FatherName;
+MainModel.IdCardNo = ((Entity.HR_CVR_RecruitmentRules)EditModel).IdCardNo;
+MainModel.NationalCode = ((Entity.HR_CVR_RecruitmentRules)EditModel).NationalCode;
+MainModel.CityOfIssue = ((Entity.HR_CVR_RecruitmentRules)EditModel).CityOfIssue;
+MainModel.BirthDate_Fa = ((Entity.HR_CVR_RecruitmentRules)EditModel).BirthDate_Fa;
+MainModel.BaseInfo_MaritalStatusId = ((Entity.HR_CVR_RecruitmentRules)EditModel).BaseInfo_MaritalStatusId;
+MainModel.BaseInfo_MilitaryStatusId = ((Entity.HR_CVR_RecruitmentRules)EditModel).BaseInfo_MilitaryStatusId;
+MainModel.HR_Base_AcademicDegreesId = ((Entity.HR_CVR_RecruitmentRules)EditModel).HR_Base_AcademicDegreesId;
+MainModel.EmploymentDateInGroup_Fa = ((Entity.HR_CVR_RecruitmentRules)EditModel).EmploymentDateInGroup_Fa;
+MainModel.DailyEmploymentDate = ((Entity.HR_CVR_RecruitmentRules)EditModel).DailyEmploymentDate;
+MainModel.EmploymentDate_Fa = ((Entity.HR_CVR_RecruitmentRules)EditModel).EmploymentDate_Fa;
+MainModel.DailyEmploymentDateInGroup = ((Entity.HR_CVR_RecruitmentRules)EditModel).DailyEmploymentDateInGroup;
+MainModel.EmploymentStartDate_Fa = ((Entity.HR_CVR_RecruitmentRules)EditModel).EmploymentStartDate_Fa;
+MainModel.BankAccountNumber = ((Entity.HR_CVR_RecruitmentRules)EditModel).BankAccountNumber;
+MainModel.IBAN = ((Entity.HR_CVR_RecruitmentRules)EditModel).IBAN;
+MainModel.InsuranceNumber = ((Entity.HR_CVR_RecruitmentRules)EditModel).InsuranceNumber;
+MainModel.RankSalary = ((Entity.HR_CVR_RecruitmentRules)EditModel).RankSalary;
+MainModel.RankSalaryNew = ((Entity.HR_CVR_RecruitmentRules)EditModel).RankSalaryNew;
+MainModel.EmployeeAgeText = ((Entity.HR_CVR_RecruitmentRules)EditModel).EmployeeAgeText;
+MainModel.BaseInfo_GenderId = ((Entity.HR_CVR_RecruitmentRules)EditModel).BaseInfo_GenderId;
+MainModel.CityOfBirth = ((Entity.HR_CVR_RecruitmentRules)EditModel).CityOfBirth;
+MainModel.EmployeeNo = ((Entity.HR_CVR_RecruitmentRules)EditModel).EmployeeNo;
+MainModel.EmployeeChildrenCount = ((Entity.HR_CVR_RecruitmentRules)EditModel).EmployeeChildrenCount;
+MainModel.IsChildAllowanceGrantedToEmployee = ((Entity.HR_CVR_RecruitmentRules)EditModel).IsChildAllowanceGrantedToEmployee;
+MainModel.FirstChildAllowanceEstablishmentDate_Fa = ((Entity.HR_CVR_RecruitmentRules)EditModel).FirstChildAllowanceEstablishmentDate_Fa;
+MainModel.FirstChildAllowanceEstablishmentDate = ((Entity.HR_CVR_RecruitmentRules)EditModel).FirstChildAllowanceEstablishmentDate;
+MainModel.IsMarriageAllowanceGrantedToEmployee = ((Entity.HR_CVR_RecruitmentRules)EditModel).IsMarriageAllowanceGrantedToEmployee;
+MainModel.FirstMarriageAllowanceEstablishmentDate_Fa = ((Entity.HR_CVR_RecruitmentRules)EditModel).FirstMarriageAllowanceEstablishmentDate_Fa;
+MainModel.FirstMarriageAllowanceEstablishmentDate = ((Entity.HR_CVR_RecruitmentRules)EditModel).FirstMarriageAllowanceEstablishmentDate;
 
     }
     else

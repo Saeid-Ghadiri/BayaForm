@@ -163,7 +163,7 @@
 
     protected override async Task OnInitializedAsync()
     {
-     Console.WriteLine(Label + " " + Value?.ToString());
+     //Console.WriteLine(Label + " " + Value?.ToString());
         DropdownSelected = "انتخاب کنید";
         //ست نمودن اولیه مقدار داخل دراپ دان
         if (!NotMapped)
@@ -348,7 +348,7 @@
                      var firstItem = data.First;
                      for (int i = 0; i < list.Count; i++)
                      {
-                         Console.WriteLine(list[i]);
+                         //Console.WriteLine(list[i]);
                          item_ = list[i].Key;
                          if (i == 0)
                          {
@@ -365,7 +365,7 @@
                      // Process as an object if needed
                      for (int i = 0; i < list.Count; i++)
                      {
-                         Console.WriteLine(list[i]);
+                         //Console.WriteLine(list[i]);
                          item_ = list[i].Key;
                          if (i == 0)
                          {
@@ -580,17 +580,20 @@
     RefDataGrid.SetEntity(t);
 
     }
-       public async Task ResetDropdown()
-   {
-       DropdownSelected = "انتخاب کنید";
-    Value = null;
-       await OnItemSelected.InvokeAsync(null);
+    public async Task ResetDropdown()
+    {
+        DropdownSelected = "انتخاب کنید";
+        Value = null;
 
-                // ریست کردن گرید و پاک کردن داده‌های آن
-            if (RefDataGrid != null)
-            {
-                RefDataGrid.ResetGrid();
-            }
-   }
+        // ریست کردن گرید و پاک کردن داده‌های آن
+        if (RefDataGrid != null)
+        {
+            RefDataGrid.ResetGrid();
+        }
+
+        //await OnItemSelected.InvokeAsync(null);
+
+    }
+
     #endregion
 }
