@@ -52,9 +52,40 @@ namespace Forms.Forms
 
 		public override async Task BeforGetData() { }
 
-		public override async Task AfterGetData() { }
+		public override async Task AfterGetData()
+		{
+			//if (_Entity?.HR_EMP_EmployeesId.ToString() != null)
+			//{
+			//	// بررسی جدول مدت قرارداد
+			//	await SP_CheckContractTime();
+			//}
+		}
 
 		#region FunctionEvents
+
+		#region EMP_Id_Selected
+		public async Task HR_EMP_EmployeesId_onitemselected(dynamic Selected)
+		{
+			#region SetEmpIdToContractId
+			Entity.HR_CVR_PersonnelContract pc_Id = new();
+			pc_Id.HR_EMP_EmployeesId = Selected.Id;
+
+			Console.WriteLine("#Log 1" + pc_Id);
+
+			Ref_HR_CVR_PersonnelContractId.SetEntity(pc_Id);
+
+			Console.WriteLine(await Utility.JSON.ToJson(pc_Id));
+			await Ref_HR_CVR_PersonnelContractId.ItemSelected(pc_Id);
+
+			Console.WriteLine("#Log 2");
+
+			await Task.Delay(100);
+			await Ref_HR_CVR_PersonnelContractId.LoadData();
+			#endregion
+
+
+		}
+		#endregion
 
 		#region Utility Methods
 
@@ -125,9 +156,21 @@ namespace Forms.Forms
 
 		#endregion
 
+		#region SP_CheckContractTime
 		public async Task submit_onclick(MouseEventArgs Selected)
 		{
+			await SP_CheckContractTime();
+		}
+		public async Task SP_CheckContractTime()
+		{
 			Console.WriteLine("### 🟡 شروع فراخوانی PersonnelContract ###");
+
+
+			if (_Entity == null)
+			{
+				Console.WriteLine("❌ _Entity null است");
+				return;
+			}
 
 			if (_Entity?.HR_EMP_EmployeesId == null)
 			{
@@ -136,6 +179,8 @@ namespace Forms.Forms
 				return;
 			}
 
+			Console.WriteLine("❌ var before R ::");
+
 			var R = await BayaApi.PersonnelContract(
 				ShomaranApiMode.Polfilm,
 				new EmpId
@@ -143,6 +188,13 @@ namespace Forms.Forms
 					EmployeesId = _Entity.HR_EMP_EmployeesId.Value
 				}
 			);
+
+			if (R?.Content == null)
+			{
+				await _MSG.ShowError("Content خروجی وب سرویس null است");
+				Console.WriteLine("❌ R.Content == null");
+				return;
+			}
 
 			if (R == null)
 			{
@@ -185,7 +237,7 @@ namespace Forms.Forms
 				var A = aModel.CountOfAllContract;
 
 				// پر کردن فیلد شمارنده از روی SP
-				_Entity.Counter = A;
+				_Entity.ContractTimeCounter = A.ToString();
 
 				Console.WriteLine($"✅ A = {A}");
 
@@ -257,7 +309,7 @@ namespace Forms.Forms
 
 					await Task.Delay(100);
 
-					Console.WriteLine("#Log:3::" + filter);
+					Console.WriteLine("#Log :: filter ::" + filter);
 
 					// LoadData رشته می‌خواهد
 					await Ref_HR_CRS_ContractTimeId.Search(filter);
@@ -300,8 +352,14 @@ namespace Forms.Forms
 				await _MSG.ShowError("خطا در پردازش SP: " + ex.Message);
 			}
 		}
+		#endregion
 
+		#region SP_EndTimeOfContract
 		public async Task submit1_onclick(MouseEventArgs Selected)
+		{
+			await SP_EndTimeOfContract();
+		}
+		public async Task SP_EndTimeOfContract()
 		{
 			// --- بررسی فیلدها به صورت جداگانه ---
 			if (_Entity?.HR_EMP_EmployeesId == null || _Entity.HR_EMP_EmployeesId == Guid.Empty)
@@ -393,104 +451,24 @@ namespace Forms.Forms
 				_Entity.StartDate_Fa + "\n" +
 				_Entity.HR_CRS_ContractTimeId.ToString());
 		}
+		#endregion
 
-		// public async Task HR_CRS_ContractTimeId_onitemselected(Entity.HR_CRS_ContractTime Selected)
-		// {
-		// 	//Console.WriteLine($"🟡 HR_CRS_ContractTimeId_onitemselected: Selected = {(Selected != null ? Selected.Id.ToString() : "null")}");
-
-		// 	//if (Selected == null || Selected.Id == Guid.Empty)
-		// 	//{
-		// 	//	Console.WriteLine("⚠️ انتخاب null یا Guid.Empty");
-		// 	//	return;
-		// 	//}
-
-		// 	//// فقط پر کردن فیلدهای نمایشی
-		// 	//await FillContractTimeDisplayFields(Selected.Id);
-
-
-		// 	//// اگر Selected null باشد (مثلاً وقتی ResetDropdown فراخوانی می‌شود)، از متد خارج می‌شویم
-		// 	//if (Selected == null)
-		// 	//{
-		// 	//	Console.WriteLine("#Log: Selected is null - dropdown was reset");
-		// 	//	return;
-		// 	//}
-
-		// 	//Console.WriteLine("#Log:0::");
-
-		// 	//var jsonSelected = await Utility.JSON.ToJson(Selected);
-		// 	//Console.WriteLine(jsonSelected);
-
-		// 	//string selectedId = Selected.Id.ToString();
-
-		// 	//Console.WriteLine("#Log:1::" + selectedId);
-
-		// 	//if (string.IsNullOrWhiteSpace(selectedId))
-		// 	//{
-		// 	//	Console.WriteLine("#Log: Selected tracking code is empty");
-		// 	//	return; // یا LoadData("") ارسال شود
-		// 	//}
-
-
-
-		// 	//List<string> x = new List<string>();
-
-		// 	//// SP_Contract.spContract.GetContractListC ==> در فرم 936 وجود دارد.
-		// 	//var getlistc =await SP_Contract.spContract.GetContractListC(_Entity.HR_EMP_EmployeesId.Value);
-		// 	//foreach (var item in getlistc)
-		// 	//{
-		// 	//	x.Add(item.Id.ToString());
-		// 	//}
-
-		// 	//// درست: مدل اصلی QueryBuilderFilter
-		// 	//QueryBuilderFilterRule filter = new QueryBuilderFilterRule()
-		// 	//{
-		// 	//	Condition = "OR",
-		// 	//	Rules = new List<QueryBuilderFilterRule>()
-		// 	//	{
-		// 	//		new QueryBuilderFilterRule()
-		// 	//		{
-		// 	//			Id = "Id",
-		// 	//			Field = "Id",
-		// 	//			Type = "string",
-		// 	//			Input = "text",
-		// 	//			Operator = "equal",
-		// 	//			Value = x.ToArray()
-		// 	//		}
-		// 	//	}
-		// 	//};
-
-		// 	//await Task.Delay(100);
-
-		// 	//Console.WriteLine("#Log:3::" + filter);
-
-		// 	//// LoadData رشته می‌خواهد
-		// 	//await Ref_HR_CRS_ContractTimeId.Search(filter);
-		// }
-
-		public async Task  HR_CRS_ContractTimeId_onitemselected(Entity.HR_CRS_ContractTime Selected   )
-        {
-
-            
-        }
-
-		public async Task  HR_EMP_EmployeesId_onitemselected(Entity.HR_EMP_Employees Selected   )
-        { 
-			Entity.HR_CVR_PersonnelContract personnelContract_Id = new();
-			personnelContract_Id.HR_EMP_EmployeesId = Selected.Id;
-
-			Console.WriteLine("#Log 1" + personnelContract_Id);
-
-			Ref_HR_CVR_PersonnelContractId.SetEntity(personnelContract_Id);
-
-			Console.WriteLine(await Utility.JSON.ToJson(personnelContract_Id));
-			await Ref_HR_CVR_PersonnelContractId.ItemSelected(personnelContract_Id);
-
-			Console.WriteLine("#Log 2");
-
-			await Task.Delay(100);
-			await Ref_HR_CVR_PersonnelContractId.LoadData();
-        }
-
+		public async Task HR_CRS_ContractTimeId_onitemselected(Entity.HR_CRS_ContractTime Selected)
+		{
+			//Ref_HR_CRS_ContractTimeId.Value =
+			// طبقه بندی سمت
+			Ref_HR_ORG_PositionClassification.Value = Selected.HR_ORG_PositionClassification.Title;
+			// نوع مدت قرارداد
+			Ref_HR_ContractTimeType.Value = Selected.HR_ContractTimeType.Title;
+			// از تعداد ماه
+			Ref_FromNumber.Value = Selected.FromNumber.Value.ToString();
+			// تا تعداد ماه
+			Ref_ToNumber.Value = Selected.ToNumber.Value.ToString();
+			// نوع قرارداد
+			Ref_HR_EmployeeContractType.Value = Selected.HR_EmployeeContractType.Title;
+			// شمارنده از هر بخش مدت قرارداد
+			Ref_ContractTimeCounter.Value = Selected.ContractTimeCounter.ToString();
+		}
 		#endregion FunctionEvents
 	}
 }

@@ -113,13 +113,21 @@ namespace Forms.Forms
 			// فراخوانی - آخرین حکم و قرارداد
 			await LastEmpVerdictAndContract(_Entity.HR_EMP_EmployeesId.ToString());
 
+			// 
+			//if (_Entity.HR_EMP_EmployeesId.ToString() != null)
+			//{
+			//	await SP_Verdict();
+			//}
 		}
+
+		//private async Task 
 
 		#region FunctionEvents
 
 		string employeeId = "";
 
 		SP_ContractTime.EmployeeInfo EmpInfo = new();
+		SP_ContractTime.EmployeeInfo emp_data = new();
 
 		#region Validation
 		public async Task<bool> CheckFieldValidation(Entity.HR_CVR_VerdictRecruiting Item)
@@ -167,6 +175,9 @@ namespace Forms.Forms
 			await LastEmpVerdictAndContract(Selected.Id.ToString());
 
 			StateHasChanged(); // تضمین رندر مجدد UI
+
+			// صدا زدن SP اول
+			//await SP_Verdict();
 		}
 
 		/// <summary>
@@ -344,6 +355,11 @@ namespace Forms.Forms
 		/// <returns></returns>
 		public async Task SP_Verdict_onclick(MouseEventArgs Selected)
 		{
+			await SP_Verdict();
+		}
+
+		public async Task SP_Verdict()
+		{
 			#region - 1 WITH EmpId
 			Console.WriteLine("### 🟡 شروع فراخوانی PersonnelContract ###");
 
@@ -517,7 +533,10 @@ namespace Forms.Forms
 				</tr>
 				"));
 
+				// جمع کل بر اساس خروجی استورد است
 				decimal totalSum = rule?.TotalMonthlySalaryBenefitsNew ?? 0m;
+
+				// برای شرایطی که از استورد داده ها فراخوانی نشود
 				//decimal totalSum1 = previewList.Sum(x => x.Value ?? 0m);
 
 				var totalRow = $@"
@@ -557,6 +576,11 @@ namespace Forms.Forms
 		}
 
 		public async Task SP_Verdict_Json_onclick(MouseEventArgs Selected)
+		{
+			await SP_Verdict_Json();
+		}
+
+		public async Task SP_Verdict_Json()
 		{
 			#region - 2 WITH JSON
 
@@ -789,6 +813,20 @@ namespace Forms.Forms
 				</tr>
 				"));
 
+				// جمع کل بر اساس خروجی استورد است
+				decimal totalSum = rule?.TotalMonthlySalaryBenefitsNew ?? 0m;
+
+				// برای شرایطی که از استورد داده ها فراخوانی نشود
+				//decimal totalSum1 = previewList.Sum(x => x.Value ?? 0m);
+
+				var totalRow = $@"
+				<tr style='background:#fff3cd; font-weight:bold;'>
+					<td style='padding:8px'>جمع کل</td>
+					<td style='padding:8px; text-align:right; color:#b02a37'>
+						{totalSum.ToString("N0")}
+					</td>
+				</tr>";
+
 				string htmlString = $@"
 				<div style='direction: rtl; font-family: tahoma;'>
 					<table style='width:100%; border-collapse: collapse;' border='1'>
@@ -800,6 +838,7 @@ namespace Forms.Forms
 						</thead>
 						<tbody>
 							{rows}
+							{totalRow}
 						</tbody>
 					</table>
 				</div>";
@@ -1027,11 +1066,110 @@ namespace Forms.Forms
 		/// <returns></returns>
 		private async Task GetEmpDataGrid(Entity.HR_CVR_RecruitmentRules Item)
 		{
+			await Task.Yield();
+			//StateHasChanged();
+
+			#region 1
+			//string detailEmployeeId = employeeId;
+
+			//Console.WriteLine($"🔍 Fetching employee data for ID: {detailEmployeeId}");
+
+			//var emp_data = await EMP_Data.EmployeeData.EmployeeMasterDetail(detailEmployeeId, _User.UserID.ToString());
+
+			//var x = await Utility.JSON.ToJson(emp_data);
+			//Console.WriteLine("Log :: data_emp Data ::" + x);
+
+
+			//if (emp_data == null)
+			//{
+			//	Console.WriteLine($"❌ Employee data NOT FOUND for ID: {detailEmployeeId}");
+			//	return;
+			//}
+
+			//Console.WriteLine($"✅ Employee data loaded: {emp_data.FirstName} {emp_data.LastName}");
+
+			//// شماره بیمه در بخش 
+			////Ref_HR_CVR_RecruitmentRules_InsuranceNumber.Value = _Entity.InsuranceNumber;
+
+			//Ref_HR_CVR_RecruitmentRules_EmployeeNo.Value = emp_data.EmployeeNo;
+			//Ref_HR_CVR_RecruitmentRules_EmployeeNo.SetDisabled(true);
+			//Ref_HR_CVR_RecruitmentRules_FirstName.Value = emp_data.FirstName;
+			//Ref_HR_CVR_RecruitmentRules_LastName.Value = emp_data.LastName;
+			//Ref_HR_CVR_RecruitmentRules_FatherName.Value = emp_data.FatherName;
+			//Ref_HR_CVR_RecruitmentRules_NationalCode.Value = emp_data.NationalCode;
+			//Ref_HR_CVR_RecruitmentRules_IdCardNo.Value = emp_data.IdCardNo;
+			//Ref_HR_CVR_RecruitmentRules_BirthDate_Fa.Value = emp_data.BirthDate_Fa;
+			//Ref_HR_CVR_RecruitmentRules_BaseInfo_GenderId.Value = emp_data.BaseInfo_GenderTitle;
+			//Ref_HR_CVR_RecruitmentRules_BaseInfo_MaritalStatusId.Value = emp_data.BaseInfo_MaritalStatusTitle;
+			//Ref_HR_CVR_RecruitmentRules_EmployeeAgeText.Value = emp_data.EmployeeAgeText;
+			//Ref_HR_CVR_RecruitmentRules_CityOfIssue.Value = emp_data.CityOfIssueTitle;
+			//Ref_HR_CVR_RecruitmentRules_CityOfBirth.Value = emp_data.CityOfBirthTitle;
+			//Ref_HR_CVR_RecruitmentRules_EmploymentDateInGroup_Fa.Value = emp_data.EmploymentDateInGroup_Fa;
+			////Ref_HR_CVR_RecruitmentRules_DailyEmploymentDateInGroup.Value = emp_data.DailyEmploymentDateInGroup; 
+			//Ref_HR_CVR_RecruitmentRules_EmploymentDate_Fa.Value = emp_data.EmploymentDate_Fa;
+			////Ref_HR_CVR_RecruitmentRules_DailyEmploymentDate.Value = emp_data.DailyEmploymentDate; 
+			//Ref_HR_CVR_RecruitmentRules_EmploymentStartDate_Fa.Value = emp_data.EmploymentStartDate_Fa;
+
+			////// اطلاعات حساب بانکی
+			////// HR_Base_AcademicDegrees
+			////Ref_HR_CVR_RecruitmentRules_BankAccountNumber.Value = empBnakAcc.BankAccountNumber;
+			////Ref_HR_CVR_RecruitmentRules_IBAN.Value = empBnakAcc.IBAN;
+
+			////// مدرک تحصیلی
+			//////Ref_HR_CVR_RecruitmentRules_HR_Base_AcademicDegreesId.Value = emp_data.HR_Base_AcademicDegreesTitle; // مدرک تحصیلی اصلا برای این ویو نیست
+			#endregion
+
+
+			#region
 			string detailEmployeeId = employeeId;
 
 			Console.WriteLine($"🔍 Fetching employee data for ID: {detailEmployeeId}");
 
-			var emp_data = await EMP_Data.EmployeeData.EmployeeMasterDetail(detailEmployeeId, _User.UserID.ToString());
+			//var emp_data1 = await EMP_Data.EmployeeData.EmployeeMasterDetail(detailEmployeeId, _User.UserID.ToString());
+
+			//var R = await BayaApi.PersonnelVerdictInfos(
+			//	ShomaranApiMode.Polfilm,
+			//	new EmpId
+			//	{
+			//		EmployeesId = Guid.Parse(detailEmployeeId)
+			//	}
+			//);
+
+			//if (R == null)
+			//{
+			//	await _MSG.ShowError("خروجی وب سرویس null است");
+			//	Console.WriteLine("❌ خطا: R == null");
+			//	return;
+			//}
+
+			//var jsonResponse = R.Content.ToString();
+			//Console.WriteLine("### 🟡 jsonResponse کامل ###");
+			//Console.WriteLine("#Log :: jsonResponse (R.Content.ToString()) :: " + jsonResponse);
+
+			//if (!jsonResponse.TrimStart().StartsWith("{"))
+			//{
+			//	await _MSG.ShowError("خروجی وب سرویس JSON نیست:\n" + jsonResponse);
+			//	Console.WriteLine("❌ خطا: پاسخ JSON نیست");
+			//	return;
+			//}
+
+			//var response = Newtonsoft.Json.JsonConvert.DeserializeObject<RootResponse>(jsonResponse);
+
+			//if (response?.DataSets == null || response.DataSets.Count == 0)
+			//{
+			//	await _MSG.ShowError("DataSets خالی است");
+			//	return;
+			//}
+
+			//var employee = response.DataSets[0][0];
+			////var A =
+			////	employee.RankSalaryNew;
+
+			SP_ContractTime.EmployeeInfo emp_data = new();
+			emp_data = EmpInfo;
+
+
+			// *************************************
 
 			var x = await Utility.JSON.ToJson(emp_data);
 			Console.WriteLine("Log :: data_emp Data ::" + x);
@@ -1062,21 +1200,39 @@ namespace Forms.Forms
 			Ref_HR_CVR_RecruitmentRules_CityOfIssue.Value = emp_data.CityOfIssueTitle;
 			Ref_HR_CVR_RecruitmentRules_CityOfBirth.Value = emp_data.CityOfBirthTitle;
 			Ref_HR_CVR_RecruitmentRules_EmploymentDateInGroup_Fa.Value = emp_data.EmploymentDateInGroup_Fa;
-			//Ref_HR_CVR_RecruitmentRules_DailyEmploymentDateInGroup.Value = emp_data.DailyEmploymentDateInGroup; 
 			Ref_HR_CVR_RecruitmentRules_EmploymentDate_Fa.Value = emp_data.EmploymentDate_Fa;
-			//Ref_HR_CVR_RecruitmentRules_DailyEmploymentDate.Value = emp_data.DailyEmploymentDate; 
 			Ref_HR_CVR_RecruitmentRules_EmploymentStartDate_Fa.Value = emp_data.EmploymentStartDate_Fa;
 
-			//// اطلاعات حساب بانکی
-			//// HR_Base_AcademicDegrees
-			//Ref_HR_CVR_RecruitmentRules_BankAccountNumber.Value = empBnakAcc.BankAccountNumber;
-			//Ref_HR_CVR_RecruitmentRules_IBAN.Value = empBnakAcc.IBAN;
+			//فیلد تحصیلات بلاتکلیف است  / در زیرسیستم جذب و استخدام است
+			//Ref_HR_CVR_RecruitmentRules_HR_Base_AcademicDegreesId = emp_data.HR_Base_AcademicDegreesTitle;
 
-			//// مدرک تحصیلی
-			////Ref_HR_CVR_RecruitmentRules_HR_Base_AcademicDegreesId.Value = emp_data.HR_Base_AcademicDegreesTitle; // مدرک تحصیلی اصلا برای این ویو نیست
+			// نظام وظیفه
+			Ref_HR_CVR_RecruitmentRules_BaseInfo_MilitaryStatusId.Value = emp_data.BaseInfo_MilitaryStatusTitle;
+			// حساب بانکی
+			Ref_HR_CVR_RecruitmentRules_BankAccountNumber.Value = emp_data.BankAccountNumber;
+			// شماره شبا
+			Ref_HR_CVR_RecruitmentRules_IBAN.Value = emp_data.IBAN;
+			// شماره بیمه
+			Ref_HR_CVR_RecruitmentRules_InsuranceNumber.Value = emp_data.InsuranceNumber;
+			// شناسه قسمت سازمانی
+			Ref_HR_CVR_RecruitmentRules_HR_ORG_SectionsId.Value = emp_data.HR_ORG_SectionsId;
+			// شناسه پست سازمانی
+			Ref_HR_CVR_RecruitmentRules_HR_ORG_PostsId.Value = emp_data.HR_ORG_PostsId;
+			// در SP نیست
+			// جدول مصوبات
+			//Ref_HR_CVR_RecruitmentRules_HR_CVR_ApprovalsMinistryLaborGroupId.Value = emp_data.HR_CVR_ApprovalsMinistryLaborGroupId;
+			// عنوان شغلی
+			Ref_HR_CVR_RecruitmentRules_HR_CVR_JobId.Value = emp_data.HR_CVR_JobTitle;
+			// گروه شغلی
+			Ref_HR_CVR_RecruitmentRules_HR_CVR_JobGroupId.Value = emp_data.JobGroupTitle;
+
+			// تعداد فرزند کارمند
+			//Ref_HR_CVR_RecruitmentRules_EmployeeChildrenCount.Value = emp_data.EmployeeChildrenCount;
+
+
+			#endregion
 			StateHasChanged();
 		}
-
 
 		#region ApplyToLastRecruitmentRules
 		/// <summary>

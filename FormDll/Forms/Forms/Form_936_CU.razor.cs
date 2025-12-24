@@ -590,44 +590,34 @@ namespace SP_ContractTime
 	public class EmployeeInfo
 	{
 		public Guid Id { get; set; }
+		public string? EmployeeNo { get; set; }
+		public string? EmployeePersonelNo { get; set; }
+		public string? FirstName { get; set; }
+		public string? LastName { get; set; }
+		public string? FatherName { get; set; }
+		public string? IdCardNo { get; set; }
+		public string? NationalCode { get; set; }
+		public string? CityOfIssueTitle { get; set; }
+		public string? CityOfBirthTitle { get; set; }
+		public string? BirthDate_Fa { get; set; }
+		public string? BaseInfo_MaritalStatusTitle { get; set; }
 
-		public string EmployeeNo { get; set; }
-		public string EmployeePersonelNo { get; set; }
+		public Guid? BaseInfo_MaritalStatusId { get; set; }
+		public Guid? BaseInfo_GenderId { get; set; }
 
-		public string FirstName { get; set; }
-		public string LastName { get; set; }
-		public string FatherName { get; set; }
-
-		public string IdCardNo { get; set; }
-		public string NationalCode { get; set; }
-
-		public string CityOfIssueTitle { get; set; }
-
-		[JsonProperty("BirthDate_Fa")]
-		public string BirthDateFa { get; set; }
-
-		public string BaseInfo_MaritalStatusTitle { get; set; }
-
-		public Guid BaseInfo_MaritalStatusId { get; set; }
-		public Guid BaseInfo_GenderId { get; set; }
-
-		public string BaseInfo_GenderTitle { get; set; }
-
-		// کلید خالی در JSON
-		[JsonProperty("")]
-		public string EducationTitle { get; set; }
-
-		public string BaseInfo_MilitaryStatusTitle { get; set; }
-
-		public string EmploymentDate_Fa { get; set; }
-		public string EmploymentDateInGroup_Fa { get; set; }
-		public string EmploymentStartDate_Fa { get; set; }
-		public string BankAccountNumber { get; set; }
-		public string IBAN { get; set; }
-		public string InsuranceNumber { get; set; }
-
-		public Guid SectionId { get; set; }
-		public Guid SubSectionId { get; set; }
+		public string? BaseInfo_GenderTitle { get; set; }
+		public string? EmployeeAgeText { get; set; }
+		public int? EmployeeAge { get; set; }
+		public string? EducationTitle { get; set; }
+		public string? BaseInfo_MilitaryStatusTitle { get; set; }
+		public string? EmploymentDate_Fa { get; set; }
+		public string? EmploymentDateInGroup_Fa { get; set; }
+		public string? EmploymentStartDate_Fa { get; set; }
+		public string? BankAccountNumber { get; set; }
+		public string? IBAN { get; set; }
+		public string? InsuranceNumber { get; set; }
+		public Guid? SectionId { get; set; }
+		public Guid? SubSectionId { get; set; }
 		public Guid? PostsId { get; set; }
 		public Guid? PositionsId { get; set; }
 		public string? HR_CVR_JobTitle { get; set; }
@@ -688,7 +678,7 @@ namespace SP_ContractTime
 		// عنوان پست سازمانی در جدول پست های حکم
 		public string? HR_ORG_PostsId { get; set; }
 
-		// 
+		// نوع پست
 		public bool? PostType { get; set; }
 
 		//  تاریخ اجرای حکم
