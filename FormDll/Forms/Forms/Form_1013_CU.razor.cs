@@ -453,10 +453,14 @@ namespace Forms.Forms
 		}
 		#endregion
 
-		public async Task HR_CRS_ContractTimeId_onitemselected(Entity.HR_CRS_ContractTime Selected)
+		public async Task HR_CRS_ContractTimeId_onitemselected(dynamic Selected)
 		{
+			Console.WriteLine("Log :: Grid_ContractTime Data ::");
 			//Ref_HR_CRS_ContractTimeId.Value =
 			// طبقه بندی سمت
+			var x = await Utility.JSON.ToJson(Selected);
+			Console.WriteLine("Log :: Grid_ContractTime Data ::" + x);
+
 			Ref_HR_ORG_PositionClassification.Value = Selected.HR_ORG_PositionClassification.Title;
 			// نوع مدت قرارداد
 			Ref_HR_ContractTimeType.Value = Selected.HR_ContractTimeType.Title;
