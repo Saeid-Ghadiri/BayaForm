@@ -114,10 +114,10 @@ namespace Forms.Forms
 			await LastEmpVerdictAndContract(_Entity.HR_EMP_EmployeesId.ToString());
 
 			// 
-			//if (_Entity.HR_EMP_EmployeesId.ToString() != null)
-			//{
-			//	await SP_Verdict();
-			//}
+			// if (_Entity.HR_EMP_EmployeesId.ToString() != null)
+			// {
+			// 	await SP_Verdict();
+			// }
 		}
 
 		//private async Task 
@@ -126,8 +126,8 @@ namespace Forms.Forms
 
 		string employeeId = "";
 
-		SP_ContractTime.EmployeeInfo EmpInfo = new();
-		SP_ContractTime.EmployeeInfo emp_data = new();
+		VerdictDataModel.EmployeeInfo EmpInfo = new();
+		VerdictDataModel.EmployeeInfo emp_data = new();
 
 		#region Validation
 		public async Task<bool> CheckFieldValidation(Entity.HR_CVR_VerdictRecruiting Item)
@@ -398,7 +398,7 @@ namespace Forms.Forms
 
 			try
 			{
-				var response = Newtonsoft.Json.JsonConvert.DeserializeObject<RootResponse>(jsonResponse);
+				var response = Newtonsoft.Json.JsonConvert.DeserializeObject<VerdictDataModel.RootResponse>(jsonResponse);
 
 				if (response?.DataSets == null || response.DataSets.Count == 0)
 				{
@@ -533,10 +533,7 @@ namespace Forms.Forms
 				</tr>
 				"));
 
-				// جمع کل بر اساس خروجی استورد است
 				decimal totalSum = rule?.TotalMonthlySalaryBenefitsNew ?? 0m;
-
-				// برای شرایطی که از استورد داده ها فراخوانی نشود
 				//decimal totalSum1 = previewList.Sum(x => x.Value ?? 0m);
 
 				var totalRow = $@"
@@ -584,7 +581,7 @@ namespace Forms.Forms
 		{
 			#region - 2 WITH JSON
 
-			var VerdictDTO = new VerdictRequest()
+			var VerdictDTO = new VerdictDataModel.VerdictRequest()
 			{
 				// شناسه کارمند
 				EmployeesId = Guid.Parse(employeeId),
@@ -757,7 +754,7 @@ namespace Forms.Forms
 
 			try
 			{
-				var response2 = Newtonsoft.Json.JsonConvert.DeserializeObject<RootResponse>(jsonResponse2);
+				var response2 = Newtonsoft.Json.JsonConvert.DeserializeObject<VerdictDataModel.RootResponse>(jsonResponse2);
 
 				if (response2?.DataSets == null || response2.DataSets.Count == 0)
 				{
@@ -813,20 +810,6 @@ namespace Forms.Forms
 				</tr>
 				"));
 
-				// جمع کل بر اساس خروجی استورد است
-				decimal totalSum = rule?.TotalMonthlySalaryBenefitsNew ?? 0m;
-
-				// برای شرایطی که از استورد داده ها فراخوانی نشود
-				//decimal totalSum1 = previewList.Sum(x => x.Value ?? 0m);
-
-				var totalRow = $@"
-				<tr style='background:#fff3cd; font-weight:bold;'>
-					<td style='padding:8px'>جمع کل</td>
-					<td style='padding:8px; text-align:right; color:#b02a37'>
-						{totalSum.ToString("N0")}
-					</td>
-				</tr>";
-
 				string htmlString = $@"
 				<div style='direction: rtl; font-family: tahoma;'>
 					<table style='width:100%; border-collapse: collapse;' border='1'>
@@ -838,7 +821,6 @@ namespace Forms.Forms
 						</thead>
 						<tbody>
 							{rows}
-							{totalRow}
 						</tbody>
 					</table>
 				</div>";
@@ -1013,6 +995,19 @@ namespace Forms.Forms
 					Ref_HR_CVR_RecruitmentRules_TotalMonthlySalaryBenefitsNew.SetDisabled(true);
 				}
 
+
+				// **********
+				// جمع کل مزد مبنا قبلی
+				if (await WaitComponentLoaded(Ref_HR_CVR_RecruitmentRules_TotalDailyBaseWage))
+				{
+					Ref_HR_CVR_RecruitmentRules_TotalDailyBaseWage.SetDisabled(true);
+				}
+				// جمع کل دستمزد مزایایی قانونی و جمع مزد مبنا قبلی
+				if (await WaitComponentLoaded(Ref_HR_CVR_RecruitmentRules_TotalMonthlySalaryBenefits))
+				{
+					Ref_HR_CVR_RecruitmentRules_TotalMonthlySalaryBenefits.SetDisabled(true);
+				}
+
 				// تکمیل فیلدهای گرید ::
 				await GetEmpDataGrid(Item);
 
@@ -1067,107 +1062,15 @@ namespace Forms.Forms
 		private async Task GetEmpDataGrid(Entity.HR_CVR_RecruitmentRules Item)
 		{
 			await Task.Yield();
-			//StateHasChanged();
 
-			#region 1
-			//string detailEmployeeId = employeeId;
+			#region EmployeeDataFetchWithSP
 
-			//Console.WriteLine($"🔍 Fetching employee data for ID: {detailEmployeeId}");
-
-			//var emp_data = await EMP_Data.EmployeeData.EmployeeMasterDetail(detailEmployeeId, _User.UserID.ToString());
-
-			//var x = await Utility.JSON.ToJson(emp_data);
-			//Console.WriteLine("Log :: data_emp Data ::" + x);
-
-
-			//if (emp_data == null)
-			//{
-			//	Console.WriteLine($"❌ Employee data NOT FOUND for ID: {detailEmployeeId}");
-			//	return;
-			//}
-
-			//Console.WriteLine($"✅ Employee data loaded: {emp_data.FirstName} {emp_data.LastName}");
-
-			//// شماره بیمه در بخش 
-			////Ref_HR_CVR_RecruitmentRules_InsuranceNumber.Value = _Entity.InsuranceNumber;
-
-			//Ref_HR_CVR_RecruitmentRules_EmployeeNo.Value = emp_data.EmployeeNo;
-			//Ref_HR_CVR_RecruitmentRules_EmployeeNo.SetDisabled(true);
-			//Ref_HR_CVR_RecruitmentRules_FirstName.Value = emp_data.FirstName;
-			//Ref_HR_CVR_RecruitmentRules_LastName.Value = emp_data.LastName;
-			//Ref_HR_CVR_RecruitmentRules_FatherName.Value = emp_data.FatherName;
-			//Ref_HR_CVR_RecruitmentRules_NationalCode.Value = emp_data.NationalCode;
-			//Ref_HR_CVR_RecruitmentRules_IdCardNo.Value = emp_data.IdCardNo;
-			//Ref_HR_CVR_RecruitmentRules_BirthDate_Fa.Value = emp_data.BirthDate_Fa;
-			//Ref_HR_CVR_RecruitmentRules_BaseInfo_GenderId.Value = emp_data.BaseInfo_GenderTitle;
-			//Ref_HR_CVR_RecruitmentRules_BaseInfo_MaritalStatusId.Value = emp_data.BaseInfo_MaritalStatusTitle;
-			//Ref_HR_CVR_RecruitmentRules_EmployeeAgeText.Value = emp_data.EmployeeAgeText;
-			//Ref_HR_CVR_RecruitmentRules_CityOfIssue.Value = emp_data.CityOfIssueTitle;
-			//Ref_HR_CVR_RecruitmentRules_CityOfBirth.Value = emp_data.CityOfBirthTitle;
-			//Ref_HR_CVR_RecruitmentRules_EmploymentDateInGroup_Fa.Value = emp_data.EmploymentDateInGroup_Fa;
-			////Ref_HR_CVR_RecruitmentRules_DailyEmploymentDateInGroup.Value = emp_data.DailyEmploymentDateInGroup; 
-			//Ref_HR_CVR_RecruitmentRules_EmploymentDate_Fa.Value = emp_data.EmploymentDate_Fa;
-			////Ref_HR_CVR_RecruitmentRules_DailyEmploymentDate.Value = emp_data.DailyEmploymentDate; 
-			//Ref_HR_CVR_RecruitmentRules_EmploymentStartDate_Fa.Value = emp_data.EmploymentStartDate_Fa;
-
-			////// اطلاعات حساب بانکی
-			////// HR_Base_AcademicDegrees
-			////Ref_HR_CVR_RecruitmentRules_BankAccountNumber.Value = empBnakAcc.BankAccountNumber;
-			////Ref_HR_CVR_RecruitmentRules_IBAN.Value = empBnakAcc.IBAN;
-
-			////// مدرک تحصیلی
-			//////Ref_HR_CVR_RecruitmentRules_HR_Base_AcademicDegreesId.Value = emp_data.HR_Base_AcademicDegreesTitle; // مدرک تحصیلی اصلا برای این ویو نیست
-			#endregion
-
-
-			#region
 			string detailEmployeeId = employeeId;
 
 			Console.WriteLine($"🔍 Fetching employee data for ID: {detailEmployeeId}");
 
-			//var emp_data1 = await EMP_Data.EmployeeData.EmployeeMasterDetail(detailEmployeeId, _User.UserID.ToString());
-
-			//var R = await BayaApi.PersonnelVerdictInfos(
-			//	ShomaranApiMode.Polfilm,
-			//	new EmpId
-			//	{
-			//		EmployeesId = Guid.Parse(detailEmployeeId)
-			//	}
-			//);
-
-			//if (R == null)
-			//{
-			//	await _MSG.ShowError("خروجی وب سرویس null است");
-			//	Console.WriteLine("❌ خطا: R == null");
-			//	return;
-			//}
-
-			//var jsonResponse = R.Content.ToString();
-			//Console.WriteLine("### 🟡 jsonResponse کامل ###");
-			//Console.WriteLine("#Log :: jsonResponse (R.Content.ToString()) :: " + jsonResponse);
-
-			//if (!jsonResponse.TrimStart().StartsWith("{"))
-			//{
-			//	await _MSG.ShowError("خروجی وب سرویس JSON نیست:\n" + jsonResponse);
-			//	Console.WriteLine("❌ خطا: پاسخ JSON نیست");
-			//	return;
-			//}
-
-			//var response = Newtonsoft.Json.JsonConvert.DeserializeObject<RootResponse>(jsonResponse);
-
-			//if (response?.DataSets == null || response.DataSets.Count == 0)
-			//{
-			//	await _MSG.ShowError("DataSets خالی است");
-			//	return;
-			//}
-
-			//var employee = response.DataSets[0][0];
-			////var A =
-			////	employee.RankSalaryNew;
-
-			SP_ContractTime.EmployeeInfo emp_data = new();
+			VerdictDataModel.EmployeeInfo emp_data = new();
 			emp_data = EmpInfo;
-
 
 			// *************************************
 
@@ -1182,9 +1085,6 @@ namespace Forms.Forms
 			}
 
 			Console.WriteLine($"✅ Employee data loaded: {emp_data.FirstName} {emp_data.LastName}");
-
-			// شماره بیمه در بخش 
-			//Ref_HR_CVR_RecruitmentRules_InsuranceNumber.Value = _Entity.InsuranceNumber;
 
 			Ref_HR_CVR_RecruitmentRules_EmployeeNo.Value = emp_data.EmployeeNo;
 			Ref_HR_CVR_RecruitmentRules_EmployeeNo.SetDisabled(true);
@@ -1202,6 +1102,9 @@ namespace Forms.Forms
 			Ref_HR_CVR_RecruitmentRules_EmploymentDateInGroup_Fa.Value = emp_data.EmploymentDateInGroup_Fa;
 			Ref_HR_CVR_RecruitmentRules_EmploymentDate_Fa.Value = emp_data.EmploymentDate_Fa;
 			Ref_HR_CVR_RecruitmentRules_EmploymentStartDate_Fa.Value = emp_data.EmploymentStartDate_Fa;
+
+			// شماره بیمه در بخش 
+			Ref_HR_CVR_RecruitmentRules_InsuranceNumber.Value = _Entity.InsuranceNumber;
 
 			//فیلد تحصیلات بلاتکلیف است  / در زیرسیستم جذب و استخدام است
 			//Ref_HR_CVR_RecruitmentRules_HR_Base_AcademicDegreesId = emp_data.HR_Base_AcademicDegreesTitle;
@@ -1227,7 +1130,9 @@ namespace Forms.Forms
 			Ref_HR_CVR_RecruitmentRules_HR_CVR_JobGroupId.Value = emp_data.JobGroupTitle;
 
 			// تعداد فرزند کارمند
-			//Ref_HR_CVR_RecruitmentRules_EmployeeChildrenCount.Value = emp_data.EmployeeChildrenCount;
+			Ref_HR_CVR_RecruitmentRules_EmployeeChildrenCount.Value = emp_data.CountChilderen;
+			// تاریخ برقراری حق اولاد
+			Ref_HR_CVR_RecruitmentRules_FirstChildAllowanceEstablishmentDate_Fa.Value = emp_data.StartChildRightsGroupDate_Fa;
 
 
 			#endregion
@@ -1454,6 +1359,15 @@ namespace Forms.Forms
 			//Item.TotalDailyBaseWage = Convert.ToInt32(total);
 		}
 
+		#endregion
+
+		#region CalculateTotal
+		public async Task JobSalaryRank_oninput(ChangeEventArgs Selected, Entity.HR_CVR_RecruitmentRules Item)
+		{
+		}
+		public async Task JobSalaryRankNew_oninput(ChangeEventArgs Selected, Entity.HR_CVR_RecruitmentRules Item)
+		{
+		}
 		#endregion
 
 		#endregion FunctionEvents

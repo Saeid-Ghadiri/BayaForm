@@ -211,6 +211,49 @@
 }
 
 /* ************************************************** */
+
+.dxbl-grid-table .html-visible {
+    display: none !important;
+}
+
+.dropdown-search .devdrop #Search {
+    display: none !important;
+}
+
+.thNormal .dxbl-grid-table .dxbl-grid-header .dxbl-grid-header-content {
+    font-weight: normal;
+}
+
+.titleHeadBarBlue {
+    background: #0088ff12;
+    padding: 0.5rem;
+    border-radius: 0.4rem;
+    font-weight: 900;
+}
+
+.ModalWidth {
+    max-width: 1700px !important;
+}
+
+.ContractTime .btn {
+    font-size: 0.8rem;
+    background-color: rgb(58, 60, 60);
+    color: #e0ebff;
+}
+
+.input-string input {
+    display: inline-block;
+    max-width: 140px !important;
+    background: none !important;
+    border: none;
+    text-align: start !important;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.input-string label {
+    font-size: 14px;
+}
 </style>
 
 <Plugins.Tools.ConfirmDialog @ref="Confirm" />
@@ -244,10 +287,17 @@
 </div>
 
 </div>
+<div  class="">
+    <div class="titleHeadBarBlue mb-2" style="border-inline-start:4px solid #6166ff;">
+اطلاعات کارمند
+</div>
+</div>
 
+<div class="">
+    
 <div class="row ">
     
-<div class="col-md-6">
+<div class="col-md-4">
      
  
 @code {
@@ -288,20 +338,51 @@
 
 </div>
 
-<div class="col-md-6">
+<div class="col-md-8">
     
 </div>
 
 </div>
 
+</div>
+
 <div class="">
+    
+<div class="row ">
+    
+<div class="col-md-3">
+    
+</div>
+
+<div class="col-md-3">
+    
+</div>
+
+<div class="col-md-3">
+    
+</div>
+
+<div class="col-md-3">
+    
+</div>
+
+</div>
+
+</div>
+<div  class="">
+    <div class="titleHeadBarBlue mb-2" style="border-inline-start:4px solid #329675;">
+  اطلاعات قراردادهای کارمند
+</div>
+</div>
+
+<div class="dropdown-search">
      
  
 @code {
-    Baya.Models.ViewEngine.View_Component Component_HR_CRS_ExtensionPersonnelContractHR_CVR_PersonnelContractId = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"EntityName\":\"تمدید قرارداد پرسنل\",\"primaryKey\":false,\"EntityID\":457,\"FieldId\":30676,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":1013,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":true,\"RelationParentName\":\"HR_CVR_PersonnelContract\",\"RelationParentModel\":\"HR_CVR_PersonnelContract\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/View_HR_CVR_PersonnelContract/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"inputFormat\":\"DataGrid\",\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.HR_EMP_EmployeesId}} {{item.ContractNo}} {{item.HR_CVR_TypeContractTitle}} {{item.HR_CVR_EmploymentTypeTitle}} {{item.StartDate_Fa}} {{item.EndDate_Fa}} {{item.HR_StatusPersonnelContractTitle}} </span>\",\"FieldsTemplate\":[{\"key\":\"Id\",\"value\":\"uniqueidentifier\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"searchField\":\"Id\",\"disabled\":false,\"modal\":true,\"label\":\"اطلاعات قرارداد کارمند\",\"tableView\":true,\"key\":\"HR_CVR_PersonnelContractId\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"30676?EId=457&SubId=15\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
+    Baya.Models.ViewEngine.View_Component Component_HR_CRS_ExtensionPersonnelContractHR_CVR_PersonnelContractId = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"EntityName\":\"تمدید قرارداد پرسنل\",\"primaryKey\":false,\"EntityID\":457,\"FieldId\":30676,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":1013,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":true,\"RelationParentName\":\"HR_CVR_PersonnelContract\",\"RelationParentModel\":\"HR_CVR_PersonnelContract\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/View_HR_CVR_PersonnelContract/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"inputFormat\":\"DataGrid\",\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.HR_EMP_EmployeesId}} {{item.ContractNo}} {{item.HR_CVR_TypeContractTitle}} {{item.HR_CVR_EmploymentTypeTitle}} {{item.StartDate_Fa}} {{item.EndDate_Fa}} {{item.HR_StatusPersonnelContractTitle}} </span>\",\"FieldsTemplate\":[{\"key\":\"Id\",\"value\":\"uniqueidentifier\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"searchField\":\"Id\",\"disableLimit\":false,\"noRefreshOnScroll\":false,\"disabled\":false,\"modal\":true,\"label\":\"اطلاعات قرارداد کارمند\",\"tableView\":true,\"key\":\"HR_CVR_PersonnelContractId\",\"type\":\"select\",\"input\":true,\"hideLabel\":true,\"modalEdit\":false,\"customClass\":\"thNormal\",\"FieldUrl\":\"30676?EId=457&SubId=15\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
 }
 
-    <Dropdown Id=HR_CVR_PersonnelContractId  @ref="Ref_HR_CVR_PersonnelContractId" Label="اطلاعات قرارداد کارمند" CssClass=""  DisplayFormat="DataGrid" ExternalApi=true NotMapped=false TextGrid=false  Value="@_Entity.HR_CVR_PersonnelContractId" FieldName="HR_CVR_PersonnelContractId" OnItemSelected="ItemSelected_HR_CRS_ExtensionPersonnelContractHR_CVR_PersonnelContractId" Component="Component_HR_CRS_ExtensionPersonnelContractHR_CVR_PersonnelContractId" _Entity="_Entity" >
+    <Dropdown Id=HR_CVR_PersonnelContractId  @ref="Ref_HR_CVR_PersonnelContractId"  CssClass="thNormal"  DisplayFormat="DataGrid" ExternalApi=true NotMapped=false TextGrid=false  Value="@_Entity.HR_CVR_PersonnelContractId" FieldName="HR_CVR_PersonnelContractId" OnItemSelected="ItemSelected_HR_CRS_ExtensionPersonnelContractHR_CVR_PersonnelContractId" Component="Component_HR_CRS_ExtensionPersonnelContractHR_CVR_PersonnelContractId" _Entity="_Entity" >
 </Dropdown>
 @code {
     public async Task ItemSelected_HR_CRS_ExtensionPersonnelContractHR_CVR_PersonnelContractId(object _Item)
@@ -334,6 +415,11 @@
 <div  class="">
     <hr class="hrdash bg-purple">
 </div>
+<div  class="">
+    <div class="titleHeadBarBlue mb-2" style="border-inline-start:4px solid #327593;">
+سایر اطلاعات قرارداد کارمند
+</div>
+</div>
 
 <div class="row ">
     
@@ -343,10 +429,10 @@
  
  
 @code {
-    Baya.Models.ViewEngine.View_Component Component_HR_CRS_ExtensionPersonnelContractHR_CVR_TypeContractId = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"EntityName\":\"تمدید قرارداد پرسنل\",\"primaryKey\":false,\"EntityID\":457,\"FieldId\":16661,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":1013,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":false,\"RelationParentName\":\"HR_CVR_TypeContract\",\"RelationParentModel\":\"HR_CVR_TypeContract\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/HR_CVR_TypeContract/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.Title}} </span>\",\"FieldsTemplate\":[{\"key\":\"Title\",\"value\":\"int\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"searchField\":\"\",\"disabled\":false,\"modal\":true,\"label\":\"نوع قرارداد جدید\",\"tableView\":true,\"key\":\"HR_CVR_TypeContractId\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"16661?EId=457&SubId=15\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
+    Baya.Models.ViewEngine.View_Component Component_HR_CRS_ExtensionPersonnelContractHR_CVR_TypeContractId = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"EntityName\":\"تمدید قرارداد پرسنل\",\"primaryKey\":false,\"EntityID\":457,\"FieldId\":16661,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":1013,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":false,\"RelationParentName\":\"HR_CVR_TypeContract\",\"RelationParentModel\":\"HR_CVR_TypeContract\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/HR_CVR_TypeContract/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.Title}} </span>\",\"FieldsTemplate\":[{\"key\":\"Title\",\"value\":\"int\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"searchField\":\"Title\",\"disabled\":false,\"modal\":true,\"label\":\"انواع قرارداد\",\"tableView\":true,\"key\":\"HR_CVR_TypeContractId\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"16661?EId=457&SubId=15\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
 }
 
-    <Dropdown Id=HR_CVR_TypeContractId  @ref="Ref_HR_CVR_TypeContractId" Label="نوع قرارداد جدید" CssClass=""  DisplayFormat="DropDown" ExternalApi=false NotMapped=false TextGrid=false Text="" Value="@_Entity.HR_CVR_TypeContractId" FieldName="HR_CVR_TypeContractId" OnItemSelected="ItemSelected_HR_CRS_ExtensionPersonnelContractHR_CVR_TypeContractId" Component="Component_HR_CRS_ExtensionPersonnelContractHR_CVR_TypeContractId" _Entity="_Entity" >
+    <Dropdown Id=HR_CVR_TypeContractId  @ref="Ref_HR_CVR_TypeContractId" Label="انواع قرارداد" CssClass=""  DisplayFormat="DropDown" ExternalApi=false NotMapped=false TextGrid=false Text="" Value="@_Entity.HR_CVR_TypeContractId" FieldName="HR_CVR_TypeContractId" OnItemSelected="ItemSelected_HR_CRS_ExtensionPersonnelContractHR_CVR_TypeContractId" Component="Component_HR_CRS_ExtensionPersonnelContractHR_CVR_TypeContractId" _Entity="_Entity" >
 </Dropdown>
 @code {
     public async Task ItemSelected_HR_CRS_ExtensionPersonnelContractHR_CVR_TypeContractId(object _Item)
@@ -456,9 +542,11 @@
 
 <div class="col-md-8">
     
+<div class="ContractTime">
+    
 <div class="row ">
     
-<div class="col-md-8">
+<div class="col-md-9">
      
  
 @code {
@@ -499,77 +587,75 @@
 
 </div>
 
-<div class="col-md-4">
+<div class="col-md-3">
     
-<Button Label="SP1" Id="submit" CssClass=" btn btn-info" onclick="@(e => submit_onclick(e ))"   ></Button>
+<Button Label="بررسی جدول مدت قرارداد" Id="submit" CssClass=" btn btn" onclick="@(e => submit_onclick(e ))"   ></Button>
 
-<Button Label="SP2" Id="submit1" CssClass=" btn btn-info" onclick="@(e => submit1_onclick(e ))"   ></Button>
+<Button Label="محاسبه تاریخ اتمام قرارداد" Id="submit1" CssClass=" btn btn" onclick="@(e => submit1_onclick(e ))"   ></Button>
 
 </div>
 
-<div class="col-md-3">
-    
-<Input Id="HR_ORG_PositionClassification" @ref="Ref_HR_ORG_PositionClassification" Label="طبقه بندی سمت"   Disabled=true  @bind-Value="_Entity.HR_ORG_PositionClassification" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"maxlength\":\"200\"}").Result))></Input>
-
-</div>
-
-<div class="col-md-3">
-    
-<Input Id="HR_ContractTimeType" @ref="Ref_HR_ContractTimeType" Label="مدت قرارداد"   Disabled=true  @bind-Value="_Entity.HR_ContractTimeType" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"maxlength\":\"200\"}").Result))></Input>
-
-</div>
-
-<div class="col-md-3">
-    
-<Input Id="FromNumber" @ref="Ref_FromNumber" Label="از تعداد قرارداد"   Disabled=true  @bind-Value="_Entity.FromNumber" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"maxlength\":\"50\"}").Result))></Input>
-
-</div>
-
-<div class="col-md-3">
-    
-<Input Id="ToNumber" @ref="Ref_ToNumber" Label="تا تعداد"   Disabled=true  @bind-Value="_Entity.ToNumber" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"maxlength\":\"50\"}").Result))></Input>
-
-</div>
-
-<div class="col-md-3">
-    
-<Input Id="HR_EmployeeContractType" @ref="Ref_HR_EmployeeContractType" Label="نوع قرارداد"   Disabled=true  @bind-Value="_Entity.HR_EmployeeContractType" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"maxlength\":\"150\"}").Result))></Input>
-
-</div>
-
-<div class="col-md-3">
-    
-<Input Id="ContractTimeCounter" @ref="Ref_ContractTimeCounter" Label="شمارنده مدت قرارداد"   Disabled=true  @bind-Value="_Entity.ContractTimeCounter" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"maxlength\":\"150\"}").Result))></Input>
-
-</div>
-
-<div class="col-md-3">
-    
-</div>
-
-<div class="col-md-3">
-    
 </div>
 
 </div>
 
 <div class="row ">
     
-<div class="col-md-3">
+<div class="col-md-4">
     
-<Input Id="Counter" @ref="Ref_Counter" Label="شمارنده جدید قرارداد"   Disabled=true  @bind-Value="_Entity.Counter" type="number"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+<Input Id="HR_ORG_PositionClassification" @ref="Ref_HR_ORG_PositionClassification" Label="طبقه بندی سمت"   Disabled=true  @bind-Value="_Entity.HR_ORG_PositionClassification" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"maxlength\":\"200\"}").Result))></Input>
 
 </div>
 
-<div class="col-md-3">
+<div class="col-md-4">
+    
+<Input Id="HR_EmployeeContractType" @ref="Ref_HR_EmployeeContractType" Label="نوع قرارداد"   Disabled=true  @bind-Value="_Entity.HR_EmployeeContractType" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"maxlength\":\"150\"}").Result))></Input>
+
+</div>
+
+<div class="col-md-4">
+    
+<Input Id="HR_ContractTimeType" @ref="Ref_HR_ContractTimeType" Label="نوع مدت قرارداد"   Disabled=true  @bind-Value="_Entity.HR_ContractTimeType" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"maxlength\":\"300\"}").Result))></Input>
+
+</div>
+
+</div>
+
+<div class="row ">
+    
+<div class="col-md-4">
+    
+<Input Id="FromNumber" @ref="Ref_FromNumber" Label="از تعداد (ماه)"   Disabled=true  @bind-Value="_Entity.FromNumber" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"maxlength\":\"50\"}").Result))></Input>
+
+</div>
+
+<div class="col-md-4">
+    
+<Input Id="ToNumber" @ref="Ref_ToNumber" Label="تا تعداد (ماه)"   Disabled=true  @bind-Value="_Entity.ToNumber" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"maxlength\":\"50\"}").Result))></Input>
+
+</div>
+
+<div class="col-md-4">
+    
+<Input Id="ContractTime" @ref="Ref_ContractTime" Label="مدت قرارداد"   Disabled=true  @bind-Value="_Entity.ContractTime" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"maxlength\":\"50\"}").Result))></Input>
+
+</div>
+
+</div>
+
+<div class="row ">
+    
+<div class="col-md-4">
+    
+<Input Id="ContractTimeCounter" @ref="Ref_ContractTimeCounter" Label="شمارنده مدت قرارداد"   Disabled=true  @bind-Value="_Entity.ContractTimeCounter" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"maxlength\":\"150\"}").Result))></Input>
+
+</div>
+
+<div class="col-md-4">
     
 </div>
 
-<div class="col-md-3">
-    
-</div>
-
-<div class="col-md-3">
+<div class="col-md-4">
     
 </div>
 
@@ -584,6 +670,10 @@
     
 <Input Id="StartDate_Fa" @ref="Ref_StartDate_Fa" Label="تاریخ شروع قرارداد"  CssClass=" PersianDatePicker"   @bind-Value="_Entity.StartDate_Fa" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"data-jdp\":\"  \",\"data-jdp-only-date\":\"   \"}").Result))></Input>
 
+</div>
+
+<div class="col-md-4">
+    
 <Input Id="EndDate_Fa" @ref="Ref_EndDate_Fa" Label="تاریخ پایان قرارداد"  CssClass=" PersianDatePicker" Disabled=true  @bind-Value="_Entity.EndDate_Fa" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"data-jdp\":\"  \",\"data-jdp-only-date\":\"   \"}").Result))></Input>
 
 </div>
@@ -594,10 +684,6 @@
 
 <Input Id="EndDate" @ref="Ref_EndDate" Label="تاریخ پایان قرارداد - میلادی"  CssClass="d-none" Disabled=true  @bind-Value="_Entity.EndDate" type="datetime-local"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
 
-</div>
-
-<div class="col-md-4">
-    
 </div>
 
 </div>
@@ -636,8 +722,8 @@
     {
         Console.WriteLine("#log OnInitializedAsync");
 
-        TableGet = await Utility.JSON.ToObject<Table>("{\"Name\":\"HR_CRS_ExtensionPersonnelContract\",\"GetNameAs\":\"HR_CRS_ExtensionPersonnelContract\",\"Column\":[{\"Name\":\"Code\",\"GetNameAs\":\"Code\"},{\"Name\":\"Counter\",\"GetNameAs\":\"Counter\"},{\"Name\":\"HR_CRS_ContractTimeId\",\"GetNameAs\":\"HR_CRS_ContractTimeId\"},{\"Name\":\"HR_CVR_PersonnelContractId\",\"GetNameAs\":\"HR_CVR_PersonnelContractId\"},{\"Name\":\"StartDate_Fa\",\"GetNameAs\":\"StartDate_Fa\"},{\"Name\":\"StartDate\",\"GetNameAs\":\"StartDate\"},{\"Name\":\"EndDate_Fa\",\"GetNameAs\":\"EndDate_Fa\"},{\"Name\":\"EndDate\",\"GetNameAs\":\"EndDate\"},{\"Name\":\"HR_ORG_PositionClassification\",\"GetNameAs\":\"HR_ORG_PositionClassification\"},{\"Name\":\"HR_ContractTimeType\",\"GetNameAs\":\"HR_ContractTimeType\"},{\"Name\":\"FromNumber\",\"GetNameAs\":\"FromNumber\"},{\"Name\":\"ToNumber\",\"GetNameAs\":\"ToNumber\"},{\"Name\":\"HR_EmployeeContractType\",\"GetNameAs\":\"HR_EmployeeContractType\"},{\"Name\":\"ContractTimeCounter\",\"GetNameAs\":\"ContractTimeCounter\"},{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"RequestID\",\"GetNameAs\":\"RequestID\"},{\"Name\":\"CreateUser\",\"GetNameAs\":\"CreateUser\"},{\"Name\":\"UpdateUser\",\"GetNameAs\":\"UpdateUser\"},{\"Name\":\"CreateDate\",\"GetNameAs\":\"CreateDate\"},{\"Name\":\"UpdateDate\",\"GetNameAs\":\"UpdateDate\"},{\"Name\":\"IsDelete\",\"GetNameAs\":\"IsDelete\"},{\"Name\":\"HR_EMP_EmployeesId\",\"GetNameAs\":\"HR_EMP_EmployeesId\"},{\"Name\":\"HR_StatusExtensionPersonnelContractId\",\"GetNameAs\":\"HR_StatusExtensionPersonnelContractId\"},{\"Name\":\"HR_CVR_EmploymentTypeId\",\"GetNameAs\":\"HR_CVR_EmploymentTypeId\"},{\"Name\":\"HR_CVR_TypeContractId\",\"GetNameAs\":\"HR_CVR_TypeContractId\"}],\"Relation\":[{\"Name\":\"HR_StatusExtensionPersonnelContract\",\"GetNameAs\":\"HR_StatusExtensionPersonnelContract\",\"ModeErtebat\":1,\"Column\":[{\"Name\":\"Code\",\"GetNameAs\":\"Code\"},{\"Name\":\"Title\",\"GetNameAs\":\"Title\"}],\"Relation\":[]},{\"Name\":\"HR_CVR_EmploymentType\",\"GetNameAs\":\"HR_CVR_EmploymentType\",\"ModeErtebat\":1,\"Column\":[{\"Name\":\"Code\",\"GetNameAs\":\"Code\"},{\"Name\":\"Title\",\"GetNameAs\":\"Title\"},{\"Name\":\"IsActive\",\"GetNameAs\":\"IsActive\"}],\"Relation\":[]},{\"Name\":\"AdministrativeApproverUser\",\"GetNameAs\":\"AdministrativeApproverUser\",\"ModeErtebat\":1,\"Column\":[{\"Name\":\"AccessFailedCount\",\"GetNameAs\":\"AccessFailedCount\"},{\"Name\":\"ConcurrencyStamp\",\"GetNameAs\":\"ConcurrencyStamp\"},{\"Name\":\"Discriminator\",\"GetNameAs\":\"Discriminator\"},{\"Name\":\"Email\",\"GetNameAs\":\"Email\"},{\"Name\":\"EmailConfirmed\",\"GetNameAs\":\"EmailConfirmed\"},{\"Name\":\"LockoutEnabled\",\"GetNameAs\":\"LockoutEnabled\"},{\"Name\":\"LockoutEnd\",\"GetNameAs\":\"LockoutEnd\"},{\"Name\":\"NormalizedEmail\",\"GetNameAs\":\"NormalizedEmail\"},{\"Name\":\"NormalizedUserName\",\"GetNameAs\":\"NormalizedUserName\"},{\"Name\":\"PasswordHash\",\"GetNameAs\":\"PasswordHash\"},{\"Name\":\"PhoneNumber\",\"GetNameAs\":\"PhoneNumber\"},{\"Name\":\"PhoneNumberConfirmed\",\"GetNameAs\":\"PhoneNumberConfirmed\"},{\"Name\":\"SecurityStamp\",\"GetNameAs\":\"SecurityStamp\"},{\"Name\":\"TwoFactorEnabled\",\"GetNameAs\":\"TwoFactorEnabled\"},{\"Name\":\"UserName\",\"GetNameAs\":\"UserName\"},{\"Name\":\"Address\",\"GetNameAs\":\"Address\"},{\"Name\":\"BirthDate\",\"GetNameAs\":\"BirthDate\"},{\"Name\":\"BirthDateString\",\"GetNameAs\":\"BirthDateString\"},{\"Name\":\"BirthPlace\",\"GetNameAs\":\"BirthPlace\"},{\"Name\":\"CodeMelli\",\"GetNameAs\":\"CodeMelli\"},{\"Name\":\"CompanyEmploymentDate\",\"GetNameAs\":\"CompanyEmploymentDate\"},{\"Name\":\"CompanyEmploymentDateString\",\"GetNameAs\":\"CompanyEmploymentDateString\"},{\"Name\":\"CompanyID\",\"GetNameAs\":\"CompanyID\"},{\"Name\":\"EMP_NO\",\"GetNameAs\":\"EMP_NO\"},{\"Name\":\"EmploymentStatus\",\"GetNameAs\":\"EmploymentStatus\"},{\"Name\":\"FAMILY\",\"GetNameAs\":\"FAMILY\"},{\"Name\":\"FatherName\",\"GetNameAs\":\"FatherName\"},{\"Name\":\"IndustrialComplexEmploymentDate\",\"GetNameAs\":\"IndustrialComplexEmploymentDate\"},{\"Name\":\"IndustrialComplexEmploymentDateString\",\"GetNameAs\":\"IndustrialComplexEmploymentDateString\"},{\"Name\":\"IsActive\",\"GetNameAs\":\"IsActive\"},{\"Name\":\"IsCut\",\"GetNameAs\":\"IsCut\"},{\"Name\":\"JobTitle\",\"GetNameAs\":\"JobTitle\"},{\"Name\":\"LastEducationalCertificate\",\"GetNameAs\":\"LastEducationalCertificate\"},{\"Name\":\"MaritalStatus\",\"GetNameAs\":\"MaritalStatus\"},{\"Name\":\"NAME\",\"GetNameAs\":\"NAME\"},{\"Name\":\"OrganizationalUnit\",\"GetNameAs\":\"OrganizationalUnit\"},{\"Name\":\"OstanID\",\"GetNameAs\":\"OstanID\"},{\"Name\":\"PERS_NO\",\"GetNameAs\":\"PERS_NO\"},{\"Name\":\"Part\",\"GetNameAs\":\"Part\"},{\"Name\":\"PlaceofIssue\",\"GetNameAs\":\"PlaceofIssue\"},{\"Name\":\"PostTitle\",\"GetNameAs\":\"PostTitle\"},{\"Name\":\"ResetPassword\",\"GetNameAs\":\"ResetPassword\"},{\"Name\":\"SEX\",\"GetNameAs\":\"SEX\"},{\"Name\":\"SYSUserName\",\"GetNameAs\":\"SYSUserName\"},{\"Name\":\"SectionID\",\"GetNameAs\":\"SectionID\"},{\"Name\":\"ShomareShenasname\",\"GetNameAs\":\"ShomareShenasname\"},{\"Name\":\"Signature\",\"GetNameAs\":\"Signature\"},{\"Name\":\"StudyField\",\"GetNameAs\":\"StudyField\"},{\"Name\":\"UserImage\",\"GetNameAs\":\"UserImage\"}],\"Relation\":[]},{\"Name\":\"ConfirmerContractRelevantMattersUser\",\"GetNameAs\":\"ConfirmerContractRelevantMattersUser\",\"ModeErtebat\":1,\"Column\":[{\"Name\":\"AccessFailedCount\",\"GetNameAs\":\"AccessFailedCount\"},{\"Name\":\"ConcurrencyStamp\",\"GetNameAs\":\"ConcurrencyStamp\"},{\"Name\":\"Discriminator\",\"GetNameAs\":\"Discriminator\"},{\"Name\":\"Email\",\"GetNameAs\":\"Email\"},{\"Name\":\"EmailConfirmed\",\"GetNameAs\":\"EmailConfirmed\"},{\"Name\":\"LockoutEnabled\",\"GetNameAs\":\"LockoutEnabled\"},{\"Name\":\"LockoutEnd\",\"GetNameAs\":\"LockoutEnd\"},{\"Name\":\"NormalizedEmail\",\"GetNameAs\":\"NormalizedEmail\"},{\"Name\":\"NormalizedUserName\",\"GetNameAs\":\"NormalizedUserName\"},{\"Name\":\"PasswordHash\",\"GetNameAs\":\"PasswordHash\"},{\"Name\":\"PhoneNumber\",\"GetNameAs\":\"PhoneNumber\"},{\"Name\":\"PhoneNumberConfirmed\",\"GetNameAs\":\"PhoneNumberConfirmed\"},{\"Name\":\"SecurityStamp\",\"GetNameAs\":\"SecurityStamp\"},{\"Name\":\"TwoFactorEnabled\",\"GetNameAs\":\"TwoFactorEnabled\"},{\"Name\":\"UserName\",\"GetNameAs\":\"UserName\"},{\"Name\":\"Address\",\"GetNameAs\":\"Address\"},{\"Name\":\"BirthDate\",\"GetNameAs\":\"BirthDate\"},{\"Name\":\"BirthDateString\",\"GetNameAs\":\"BirthDateString\"},{\"Name\":\"BirthPlace\",\"GetNameAs\":\"BirthPlace\"},{\"Name\":\"CodeMelli\",\"GetNameAs\":\"CodeMelli\"},{\"Name\":\"CompanyEmploymentDate\",\"GetNameAs\":\"CompanyEmploymentDate\"},{\"Name\":\"CompanyEmploymentDateString\",\"GetNameAs\":\"CompanyEmploymentDateString\"},{\"Name\":\"CompanyID\",\"GetNameAs\":\"CompanyID\"},{\"Name\":\"EMP_NO\",\"GetNameAs\":\"EMP_NO\"},{\"Name\":\"EmploymentStatus\",\"GetNameAs\":\"EmploymentStatus\"},{\"Name\":\"FAMILY\",\"GetNameAs\":\"FAMILY\"},{\"Name\":\"FatherName\",\"GetNameAs\":\"FatherName\"},{\"Name\":\"IndustrialComplexEmploymentDate\",\"GetNameAs\":\"IndustrialComplexEmploymentDate\"},{\"Name\":\"IndustrialComplexEmploymentDateString\",\"GetNameAs\":\"IndustrialComplexEmploymentDateString\"},{\"Name\":\"IsActive\",\"GetNameAs\":\"IsActive\"},{\"Name\":\"IsCut\",\"GetNameAs\":\"IsCut\"},{\"Name\":\"JobTitle\",\"GetNameAs\":\"JobTitle\"},{\"Name\":\"LastEducationalCertificate\",\"GetNameAs\":\"LastEducationalCertificate\"},{\"Name\":\"MaritalStatus\",\"GetNameAs\":\"MaritalStatus\"},{\"Name\":\"NAME\",\"GetNameAs\":\"NAME\"},{\"Name\":\"OrganizationalUnit\",\"GetNameAs\":\"OrganizationalUnit\"},{\"Name\":\"OstanID\",\"GetNameAs\":\"OstanID\"},{\"Name\":\"PERS_NO\",\"GetNameAs\":\"PERS_NO\"},{\"Name\":\"Part\",\"GetNameAs\":\"Part\"},{\"Name\":\"PlaceofIssue\",\"GetNameAs\":\"PlaceofIssue\"},{\"Name\":\"PostTitle\",\"GetNameAs\":\"PostTitle\"},{\"Name\":\"ResetPassword\",\"GetNameAs\":\"ResetPassword\"},{\"Name\":\"SEX\",\"GetNameAs\":\"SEX\"},{\"Name\":\"SYSUserName\",\"GetNameAs\":\"SYSUserName\"},{\"Name\":\"SectionID\",\"GetNameAs\":\"SectionID\"},{\"Name\":\"ShomareShenasname\",\"GetNameAs\":\"ShomareShenasname\"},{\"Name\":\"Signature\",\"GetNameAs\":\"Signature\"},{\"Name\":\"StudyField\",\"GetNameAs\":\"StudyField\"},{\"Name\":\"UserImage\",\"GetNameAs\":\"UserImage\"}],\"Relation\":[]},{\"Name\":\"ConfirmerFactoryManagerContractMonthUser\",\"GetNameAs\":\"ConfirmerFactoryManagerContractMonthUser\",\"ModeErtebat\":1,\"Column\":[{\"Name\":\"AccessFailedCount\",\"GetNameAs\":\"AccessFailedCount\"},{\"Name\":\"ConcurrencyStamp\",\"GetNameAs\":\"ConcurrencyStamp\"},{\"Name\":\"Discriminator\",\"GetNameAs\":\"Discriminator\"},{\"Name\":\"Email\",\"GetNameAs\":\"Email\"},{\"Name\":\"EmailConfirmed\",\"GetNameAs\":\"EmailConfirmed\"},{\"Name\":\"LockoutEnabled\",\"GetNameAs\":\"LockoutEnabled\"},{\"Name\":\"LockoutEnd\",\"GetNameAs\":\"LockoutEnd\"},{\"Name\":\"NormalizedEmail\",\"GetNameAs\":\"NormalizedEmail\"},{\"Name\":\"NormalizedUserName\",\"GetNameAs\":\"NormalizedUserName\"},{\"Name\":\"PasswordHash\",\"GetNameAs\":\"PasswordHash\"},{\"Name\":\"PhoneNumber\",\"GetNameAs\":\"PhoneNumber\"},{\"Name\":\"PhoneNumberConfirmed\",\"GetNameAs\":\"PhoneNumberConfirmed\"},{\"Name\":\"SecurityStamp\",\"GetNameAs\":\"SecurityStamp\"},{\"Name\":\"TwoFactorEnabled\",\"GetNameAs\":\"TwoFactorEnabled\"},{\"Name\":\"UserName\",\"GetNameAs\":\"UserName\"},{\"Name\":\"Address\",\"GetNameAs\":\"Address\"},{\"Name\":\"BirthDate\",\"GetNameAs\":\"BirthDate\"},{\"Name\":\"BirthDateString\",\"GetNameAs\":\"BirthDateString\"},{\"Name\":\"BirthPlace\",\"GetNameAs\":\"BirthPlace\"},{\"Name\":\"CodeMelli\",\"GetNameAs\":\"CodeMelli\"},{\"Name\":\"CompanyEmploymentDate\",\"GetNameAs\":\"CompanyEmploymentDate\"},{\"Name\":\"CompanyEmploymentDateString\",\"GetNameAs\":\"CompanyEmploymentDateString\"},{\"Name\":\"CompanyID\",\"GetNameAs\":\"CompanyID\"},{\"Name\":\"EMP_NO\",\"GetNameAs\":\"EMP_NO\"},{\"Name\":\"EmploymentStatus\",\"GetNameAs\":\"EmploymentStatus\"},{\"Name\":\"FAMILY\",\"GetNameAs\":\"FAMILY\"},{\"Name\":\"FatherName\",\"GetNameAs\":\"FatherName\"},{\"Name\":\"IndustrialComplexEmploymentDate\",\"GetNameAs\":\"IndustrialComplexEmploymentDate\"},{\"Name\":\"IndustrialComplexEmploymentDateString\",\"GetNameAs\":\"IndustrialComplexEmploymentDateString\"},{\"Name\":\"IsActive\",\"GetNameAs\":\"IsActive\"},{\"Name\":\"IsCut\",\"GetNameAs\":\"IsCut\"},{\"Name\":\"JobTitle\",\"GetNameAs\":\"JobTitle\"},{\"Name\":\"LastEducationalCertificate\",\"GetNameAs\":\"LastEducationalCertificate\"},{\"Name\":\"MaritalStatus\",\"GetNameAs\":\"MaritalStatus\"},{\"Name\":\"NAME\",\"GetNameAs\":\"NAME\"},{\"Name\":\"OrganizationalUnit\",\"GetNameAs\":\"OrganizationalUnit\"},{\"Name\":\"OstanID\",\"GetNameAs\":\"OstanID\"},{\"Name\":\"PERS_NO\",\"GetNameAs\":\"PERS_NO\"},{\"Name\":\"Part\",\"GetNameAs\":\"Part\"},{\"Name\":\"PlaceofIssue\",\"GetNameAs\":\"PlaceofIssue\"},{\"Name\":\"PostTitle\",\"GetNameAs\":\"PostTitle\"},{\"Name\":\"ResetPassword\",\"GetNameAs\":\"ResetPassword\"},{\"Name\":\"SEX\",\"GetNameAs\":\"SEX\"},{\"Name\":\"SYSUserName\",\"GetNameAs\":\"SYSUserName\"},{\"Name\":\"SectionID\",\"GetNameAs\":\"SectionID\"},{\"Name\":\"ShomareShenasname\",\"GetNameAs\":\"ShomareShenasname\"},{\"Name\":\"Signature\",\"GetNameAs\":\"Signature\"},{\"Name\":\"StudyField\",\"GetNameAs\":\"StudyField\"},{\"Name\":\"UserImage\",\"GetNameAs\":\"UserImage\"}],\"Relation\":[]},{\"Name\":\"HR_CVR_TypeContract\",\"GetNameAs\":\"HR_CVR_TypeContract\",\"ModeErtebat\":1,\"Column\":[{\"Name\":\"Title\",\"GetNameAs\":\"Title\"},{\"Name\":\"IsActive\",\"GetNameAs\":\"IsActive\"}],\"Relation\":[]},{\"Name\":\"RejectionUser\",\"GetNameAs\":\"RejectionUser\",\"ModeErtebat\":1,\"Column\":[{\"Name\":\"LastName\",\"GetNameAs\":\"LastName\"},{\"Name\":\"LastNameEn\",\"GetNameAs\":\"LastNameEn\"},{\"Name\":\"DeleteDateTime\",\"GetNameAs\":\"DeleteDateTime\"},{\"Name\":\"HR_EMP_StatusId\",\"GetNameAs\":\"HR_EMP_StatusId\"},{\"Name\":\"EmployeeLastPersonelNo\",\"GetNameAs\":\"EmployeeLastPersonelNo\"},{\"Name\":\"EmployeeNo\",\"GetNameAs\":\"EmployeeNo\"},{\"Name\":\"EmployeePersonelNo\",\"GetNameAs\":\"EmployeePersonelNo\"},{\"Name\":\"FirstName\",\"GetNameAs\":\"FirstName\"},{\"Name\":\"FirstNameEn\",\"GetNameAs\":\"FirstNameEn\"},{\"Name\":\"HR_Base_FactoryId\",\"GetNameAs\":\"HR_Base_FactoryId\"},{\"Name\":\"BaseInfo_ORG_CompaniesId\",\"GetNameAs\":\"BaseInfo_ORG_CompaniesId\"},{\"Name\":\"UserId\",\"GetNameAs\":\"UserId\"},{\"Name\":\"LastEmployeeNo\",\"GetNameAs\":\"LastEmployeeNo\"},{\"Name\":\"ProfilePicture\",\"GetNameAs\":\"ProfilePicture\"},{\"Name\":\"FullName\",\"GetNameAs\":\"FullName\"}],\"Relation\":[]},{\"Name\":\"HR_EMP_Employees\",\"GetNameAs\":\"HR_EMP_Employees\",\"ModeErtebat\":1,\"Column\":[{\"Name\":\"LastName\",\"GetNameAs\":\"LastName\"},{\"Name\":\"LastNameEn\",\"GetNameAs\":\"LastNameEn\"},{\"Name\":\"DeleteDateTime\",\"GetNameAs\":\"DeleteDateTime\"},{\"Name\":\"HR_EMP_StatusId\",\"GetNameAs\":\"HR_EMP_StatusId\"},{\"Name\":\"EmployeeLastPersonelNo\",\"GetNameAs\":\"EmployeeLastPersonelNo\"},{\"Name\":\"EmployeeNo\",\"GetNameAs\":\"EmployeeNo\"},{\"Name\":\"EmployeePersonelNo\",\"GetNameAs\":\"EmployeePersonelNo\"},{\"Name\":\"FirstName\",\"GetNameAs\":\"FirstName\"},{\"Name\":\"FirstNameEn\",\"GetNameAs\":\"FirstNameEn\"},{\"Name\":\"HR_Base_FactoryId\",\"GetNameAs\":\"HR_Base_FactoryId\"},{\"Name\":\"BaseInfo_ORG_CompaniesId\",\"GetNameAs\":\"BaseInfo_ORG_CompaniesId\"},{\"Name\":\"UserId\",\"GetNameAs\":\"UserId\"},{\"Name\":\"LastEmployeeNo\",\"GetNameAs\":\"LastEmployeeNo\"},{\"Name\":\"ProfilePicture\",\"GetNameAs\":\"ProfilePicture\"},{\"Name\":\"FullName\",\"GetNameAs\":\"FullName\"}],\"Relation\":[]},{\"Name\":\"HR_CRS_ContractTime\",\"GetNameAs\":\"HR_CRS_ContractTime\",\"ModeErtebat\":1,\"Column\":[{\"Name\":\"HR_ORG_PositionClassificationId\",\"GetNameAs\":\"HR_ORG_PositionClassificationId\"},{\"Name\":\"HR_ContractTimeTypeId\",\"GetNameAs\":\"HR_ContractTimeTypeId\"},{\"Name\":\"FromNumber\",\"GetNameAs\":\"FromNumber\"},{\"Name\":\"ToNumber\",\"GetNameAs\":\"ToNumber\"},{\"Name\":\"ContractTime\",\"GetNameAs\":\"ContractTime\"},{\"Name\":\"TypeContract\",\"GetNameAs\":\"TypeContract\"},{\"Name\":\"HR_EmployeeContractTypeId\",\"GetNameAs\":\"HR_EmployeeContractTypeId\"},{\"Name\":\"MonthToDays\",\"GetNameAs\":\"MonthToDays\"},{\"Name\":\"ContractTotalDays\",\"GetNameAs\":\"ContractTotalDays\"},{\"Name\":\"ContractTimeCounter\",\"GetNameAs\":\"ContractTimeCounter\"},{\"Name\":\"IsFixedTerm\",\"GetNameAs\":\"IsFixedTerm\"}],\"Relation\":[]},{\"Name\":\"HR_CVR_PersonnelContract\",\"GetNameAs\":\"HR_CVR_PersonnelContract\",\"ModeErtebat\":1,\"Column\":[{\"Name\":\"HR_EMP_EmployeesId\",\"GetNameAs\":\"HR_EMP_EmployeesId\"},{\"Name\":\"Counter\",\"GetNameAs\":\"Counter\"},{\"Name\":\"StartDate\",\"GetNameAs\":\"StartDate\"},{\"Name\":\"EndDate\",\"GetNameAs\":\"EndDate\"},{\"Name\":\"HoursPerMonth\",\"GetNameAs\":\"HoursPerMonth\"},{\"Name\":\"Description\",\"GetNameAs\":\"Description\"},{\"Name\":\"HR_StatusPersonnelContractId\",\"GetNameAs\":\"HR_StatusPersonnelContractId\"},{\"Name\":\"RegisterTime\",\"GetNameAs\":\"RegisterTime\"},{\"Name\":\"ActiveTime\",\"GetNameAs\":\"ActiveTime\"},{\"Name\":\"DeactivatorTime\",\"GetNameAs\":\"DeactivatorTime\"},{\"Name\":\"RegulatorUserId\",\"GetNameAs\":\"RegulatorUserId\"},{\"Name\":\"ActivatorUserId\",\"GetNameAs\":\"ActivatorUserId\"},{\"Name\":\"DeactivatorUserId\",\"GetNameAs\":\"DeactivatorUserId\"},{\"Name\":\"HR_RMS_RecruitmentHiringId\",\"GetNameAs\":\"HR_RMS_RecruitmentHiringId\"},{\"Name\":\"HR_CRS_ExtensionPersonnelContractId\",\"GetNameAs\":\"HR_CRS_ExtensionPersonnelContractId\"},{\"Name\":\"HR_CVR_EmploymentTypeId\",\"GetNameAs\":\"HR_CVR_EmploymentTypeId\"},{\"Name\":\"HR_CVR_TypeContractId\",\"GetNameAs\":\"HR_CVR_TypeContractId\"},{\"Name\":\"ContractNo\",\"GetNameAs\":\"ContractNo\"},{\"Name\":\"StartDate_Fa\",\"GetNameAs\":\"StartDate_Fa\"},{\"Name\":\"EndDate_Fa\",\"GetNameAs\":\"EndDate_Fa\"},{\"Name\":\"Days_Elapsed\",\"GetNameAs\":\"Days_Elapsed\"},{\"Name\":\"Days_Remaining\",\"GetNameAs\":\"Days_Remaining\"},{\"Name\":\"Total_Days\",\"GetNameAs\":\"Total_Days\"},{\"Name\":\"HR_CRS_ContractTimeId\",\"GetNameAs\":\"HR_CRS_ContractTimeId\"}],\"Relation\":[]}]}");
-        TablePost = await Utility.JSON.ToObject<Table>("{\"Name\":\"HR_CRS_ExtensionPersonnelContract\",\"GetNameAs\":\"HR_CRS_ExtensionPersonnelContract\",\"Column\":[{\"Name\":\"Code\",\"GetNameAs\":\"Code\"},{\"Name\":\"Counter\",\"GetNameAs\":\"Counter\"},{\"Name\":\"HR_CRS_ContractTimeId\",\"GetNameAs\":\"HR_CRS_ContractTimeId\"},{\"Name\":\"HR_CVR_PersonnelContractId\",\"GetNameAs\":\"HR_CVR_PersonnelContractId\"},{\"Name\":\"StartDate_Fa\",\"GetNameAs\":\"StartDate_Fa\"},{\"Name\":\"StartDate\",\"GetNameAs\":\"StartDate\"},{\"Name\":\"EndDate_Fa\",\"GetNameAs\":\"EndDate_Fa\"},{\"Name\":\"EndDate\",\"GetNameAs\":\"EndDate\"},{\"Name\":\"HR_ORG_PositionClassification\",\"GetNameAs\":\"HR_ORG_PositionClassification\"},{\"Name\":\"HR_ContractTimeType\",\"GetNameAs\":\"HR_ContractTimeType\"},{\"Name\":\"FromNumber\",\"GetNameAs\":\"FromNumber\"},{\"Name\":\"ToNumber\",\"GetNameAs\":\"ToNumber\"},{\"Name\":\"HR_EmployeeContractType\",\"GetNameAs\":\"HR_EmployeeContractType\"},{\"Name\":\"ContractTimeCounter\",\"GetNameAs\":\"ContractTimeCounter\"},{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"RequestID\",\"GetNameAs\":\"RequestID\"},{\"Name\":\"CreateUser\",\"GetNameAs\":\"CreateUser\"},{\"Name\":\"UpdateUser\",\"GetNameAs\":\"UpdateUser\"},{\"Name\":\"CreateDate\",\"GetNameAs\":\"CreateDate\"},{\"Name\":\"UpdateDate\",\"GetNameAs\":\"UpdateDate\"},{\"Name\":\"IsDelete\",\"GetNameAs\":\"IsDelete\"},{\"Name\":\"HR_EMP_EmployeesId\",\"GetNameAs\":\"HR_EMP_EmployeesId\"},{\"Name\":\"HR_StatusExtensionPersonnelContractId\",\"GetNameAs\":\"HR_StatusExtensionPersonnelContractId\"},{\"Name\":\"HR_CVR_EmploymentTypeId\",\"GetNameAs\":\"HR_CVR_EmploymentTypeId\"},{\"Name\":\"HR_CVR_TypeContractId\",\"GetNameAs\":\"HR_CVR_TypeContractId\"}],\"Relation\":[]}");
+        TableGet = await Utility.JSON.ToObject<Table>("{\"Name\":\"HR_CRS_ExtensionPersonnelContract\",\"GetNameAs\":\"HR_CRS_ExtensionPersonnelContract\",\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"RequestID\",\"GetNameAs\":\"RequestID\"},{\"Name\":\"CreateUser\",\"GetNameAs\":\"CreateUser\"},{\"Name\":\"UpdateUser\",\"GetNameAs\":\"UpdateUser\"},{\"Name\":\"CreateDate\",\"GetNameAs\":\"CreateDate\"},{\"Name\":\"UpdateDate\",\"GetNameAs\":\"UpdateDate\"},{\"Name\":\"IsDelete\",\"GetNameAs\":\"IsDelete\"},{\"Name\":\"HR_EMP_EmployeesId\",\"GetNameAs\":\"HR_EMP_EmployeesId\"},{\"Name\":\"HR_StatusExtensionPersonnelContractId\",\"GetNameAs\":\"HR_StatusExtensionPersonnelContractId\"},{\"Name\":\"HR_CVR_EmploymentTypeId\",\"GetNameAs\":\"HR_CVR_EmploymentTypeId\"},{\"Name\":\"HR_CVR_TypeContractId\",\"GetNameAs\":\"HR_CVR_TypeContractId\"},{\"Name\":\"Code\",\"GetNameAs\":\"Code\"},{\"Name\":\"HR_CRS_ContractTimeId\",\"GetNameAs\":\"HR_CRS_ContractTimeId\"},{\"Name\":\"HR_CVR_PersonnelContractId\",\"GetNameAs\":\"HR_CVR_PersonnelContractId\"},{\"Name\":\"StartDate_Fa\",\"GetNameAs\":\"StartDate_Fa\"},{\"Name\":\"StartDate\",\"GetNameAs\":\"StartDate\"},{\"Name\":\"EndDate_Fa\",\"GetNameAs\":\"EndDate_Fa\"},{\"Name\":\"EndDate\",\"GetNameAs\":\"EndDate\"},{\"Name\":\"HR_ORG_PositionClassification\",\"GetNameAs\":\"HR_ORG_PositionClassification\"},{\"Name\":\"HR_ContractTimeType\",\"GetNameAs\":\"HR_ContractTimeType\"},{\"Name\":\"FromNumber\",\"GetNameAs\":\"FromNumber\"},{\"Name\":\"ToNumber\",\"GetNameAs\":\"ToNumber\"},{\"Name\":\"HR_EmployeeContractType\",\"GetNameAs\":\"HR_EmployeeContractType\"},{\"Name\":\"ContractTimeCounter\",\"GetNameAs\":\"ContractTimeCounter\"},{\"Name\":\"ContractTime\",\"GetNameAs\":\"ContractTime\"}],\"Relation\":[{\"Name\":\"HR_StatusExtensionPersonnelContract\",\"GetNameAs\":\"HR_StatusExtensionPersonnelContract\",\"ModeErtebat\":1,\"Column\":[{\"Name\":\"Code\",\"GetNameAs\":\"Code\"},{\"Name\":\"Title\",\"GetNameAs\":\"Title\"}],\"Relation\":[]},{\"Name\":\"HR_CVR_EmploymentType\",\"GetNameAs\":\"HR_CVR_EmploymentType\",\"ModeErtebat\":1,\"Column\":[{\"Name\":\"Code\",\"GetNameAs\":\"Code\"},{\"Name\":\"Title\",\"GetNameAs\":\"Title\"},{\"Name\":\"IsActive\",\"GetNameAs\":\"IsActive\"}],\"Relation\":[]},{\"Name\":\"AdministrativeApproverUser\",\"GetNameAs\":\"AdministrativeApproverUser\",\"ModeErtebat\":1,\"Column\":[{\"Name\":\"AccessFailedCount\",\"GetNameAs\":\"AccessFailedCount\"},{\"Name\":\"ConcurrencyStamp\",\"GetNameAs\":\"ConcurrencyStamp\"},{\"Name\":\"Discriminator\",\"GetNameAs\":\"Discriminator\"},{\"Name\":\"Email\",\"GetNameAs\":\"Email\"},{\"Name\":\"EmailConfirmed\",\"GetNameAs\":\"EmailConfirmed\"},{\"Name\":\"LockoutEnabled\",\"GetNameAs\":\"LockoutEnabled\"},{\"Name\":\"LockoutEnd\",\"GetNameAs\":\"LockoutEnd\"},{\"Name\":\"NormalizedEmail\",\"GetNameAs\":\"NormalizedEmail\"},{\"Name\":\"NormalizedUserName\",\"GetNameAs\":\"NormalizedUserName\"},{\"Name\":\"PasswordHash\",\"GetNameAs\":\"PasswordHash\"},{\"Name\":\"PhoneNumber\",\"GetNameAs\":\"PhoneNumber\"},{\"Name\":\"PhoneNumberConfirmed\",\"GetNameAs\":\"PhoneNumberConfirmed\"},{\"Name\":\"SecurityStamp\",\"GetNameAs\":\"SecurityStamp\"},{\"Name\":\"TwoFactorEnabled\",\"GetNameAs\":\"TwoFactorEnabled\"},{\"Name\":\"UserName\",\"GetNameAs\":\"UserName\"},{\"Name\":\"Address\",\"GetNameAs\":\"Address\"},{\"Name\":\"BirthDate\",\"GetNameAs\":\"BirthDate\"},{\"Name\":\"BirthDateString\",\"GetNameAs\":\"BirthDateString\"},{\"Name\":\"BirthPlace\",\"GetNameAs\":\"BirthPlace\"},{\"Name\":\"CodeMelli\",\"GetNameAs\":\"CodeMelli\"},{\"Name\":\"CompanyEmploymentDate\",\"GetNameAs\":\"CompanyEmploymentDate\"},{\"Name\":\"CompanyEmploymentDateString\",\"GetNameAs\":\"CompanyEmploymentDateString\"},{\"Name\":\"CompanyID\",\"GetNameAs\":\"CompanyID\"},{\"Name\":\"EMP_NO\",\"GetNameAs\":\"EMP_NO\"},{\"Name\":\"EmploymentStatus\",\"GetNameAs\":\"EmploymentStatus\"},{\"Name\":\"FAMILY\",\"GetNameAs\":\"FAMILY\"},{\"Name\":\"FatherName\",\"GetNameAs\":\"FatherName\"},{\"Name\":\"IndustrialComplexEmploymentDate\",\"GetNameAs\":\"IndustrialComplexEmploymentDate\"},{\"Name\":\"IndustrialComplexEmploymentDateString\",\"GetNameAs\":\"IndustrialComplexEmploymentDateString\"},{\"Name\":\"IsActive\",\"GetNameAs\":\"IsActive\"},{\"Name\":\"IsCut\",\"GetNameAs\":\"IsCut\"},{\"Name\":\"JobTitle\",\"GetNameAs\":\"JobTitle\"},{\"Name\":\"LastEducationalCertificate\",\"GetNameAs\":\"LastEducationalCertificate\"},{\"Name\":\"MaritalStatus\",\"GetNameAs\":\"MaritalStatus\"},{\"Name\":\"NAME\",\"GetNameAs\":\"NAME\"},{\"Name\":\"OrganizationalUnit\",\"GetNameAs\":\"OrganizationalUnit\"},{\"Name\":\"OstanID\",\"GetNameAs\":\"OstanID\"},{\"Name\":\"PERS_NO\",\"GetNameAs\":\"PERS_NO\"},{\"Name\":\"Part\",\"GetNameAs\":\"Part\"},{\"Name\":\"PlaceofIssue\",\"GetNameAs\":\"PlaceofIssue\"},{\"Name\":\"PostTitle\",\"GetNameAs\":\"PostTitle\"},{\"Name\":\"ResetPassword\",\"GetNameAs\":\"ResetPassword\"},{\"Name\":\"SEX\",\"GetNameAs\":\"SEX\"},{\"Name\":\"SYSUserName\",\"GetNameAs\":\"SYSUserName\"},{\"Name\":\"SectionID\",\"GetNameAs\":\"SectionID\"},{\"Name\":\"ShomareShenasname\",\"GetNameAs\":\"ShomareShenasname\"},{\"Name\":\"Signature\",\"GetNameAs\":\"Signature\"},{\"Name\":\"StudyField\",\"GetNameAs\":\"StudyField\"},{\"Name\":\"UserImage\",\"GetNameAs\":\"UserImage\"}],\"Relation\":[]},{\"Name\":\"ConfirmerContractRelevantMattersUser\",\"GetNameAs\":\"ConfirmerContractRelevantMattersUser\",\"ModeErtebat\":1,\"Column\":[{\"Name\":\"AccessFailedCount\",\"GetNameAs\":\"AccessFailedCount\"},{\"Name\":\"ConcurrencyStamp\",\"GetNameAs\":\"ConcurrencyStamp\"},{\"Name\":\"Discriminator\",\"GetNameAs\":\"Discriminator\"},{\"Name\":\"Email\",\"GetNameAs\":\"Email\"},{\"Name\":\"EmailConfirmed\",\"GetNameAs\":\"EmailConfirmed\"},{\"Name\":\"LockoutEnabled\",\"GetNameAs\":\"LockoutEnabled\"},{\"Name\":\"LockoutEnd\",\"GetNameAs\":\"LockoutEnd\"},{\"Name\":\"NormalizedEmail\",\"GetNameAs\":\"NormalizedEmail\"},{\"Name\":\"NormalizedUserName\",\"GetNameAs\":\"NormalizedUserName\"},{\"Name\":\"PasswordHash\",\"GetNameAs\":\"PasswordHash\"},{\"Name\":\"PhoneNumber\",\"GetNameAs\":\"PhoneNumber\"},{\"Name\":\"PhoneNumberConfirmed\",\"GetNameAs\":\"PhoneNumberConfirmed\"},{\"Name\":\"SecurityStamp\",\"GetNameAs\":\"SecurityStamp\"},{\"Name\":\"TwoFactorEnabled\",\"GetNameAs\":\"TwoFactorEnabled\"},{\"Name\":\"UserName\",\"GetNameAs\":\"UserName\"},{\"Name\":\"Address\",\"GetNameAs\":\"Address\"},{\"Name\":\"BirthDate\",\"GetNameAs\":\"BirthDate\"},{\"Name\":\"BirthDateString\",\"GetNameAs\":\"BirthDateString\"},{\"Name\":\"BirthPlace\",\"GetNameAs\":\"BirthPlace\"},{\"Name\":\"CodeMelli\",\"GetNameAs\":\"CodeMelli\"},{\"Name\":\"CompanyEmploymentDate\",\"GetNameAs\":\"CompanyEmploymentDate\"},{\"Name\":\"CompanyEmploymentDateString\",\"GetNameAs\":\"CompanyEmploymentDateString\"},{\"Name\":\"CompanyID\",\"GetNameAs\":\"CompanyID\"},{\"Name\":\"EMP_NO\",\"GetNameAs\":\"EMP_NO\"},{\"Name\":\"EmploymentStatus\",\"GetNameAs\":\"EmploymentStatus\"},{\"Name\":\"FAMILY\",\"GetNameAs\":\"FAMILY\"},{\"Name\":\"FatherName\",\"GetNameAs\":\"FatherName\"},{\"Name\":\"IndustrialComplexEmploymentDate\",\"GetNameAs\":\"IndustrialComplexEmploymentDate\"},{\"Name\":\"IndustrialComplexEmploymentDateString\",\"GetNameAs\":\"IndustrialComplexEmploymentDateString\"},{\"Name\":\"IsActive\",\"GetNameAs\":\"IsActive\"},{\"Name\":\"IsCut\",\"GetNameAs\":\"IsCut\"},{\"Name\":\"JobTitle\",\"GetNameAs\":\"JobTitle\"},{\"Name\":\"LastEducationalCertificate\",\"GetNameAs\":\"LastEducationalCertificate\"},{\"Name\":\"MaritalStatus\",\"GetNameAs\":\"MaritalStatus\"},{\"Name\":\"NAME\",\"GetNameAs\":\"NAME\"},{\"Name\":\"OrganizationalUnit\",\"GetNameAs\":\"OrganizationalUnit\"},{\"Name\":\"OstanID\",\"GetNameAs\":\"OstanID\"},{\"Name\":\"PERS_NO\",\"GetNameAs\":\"PERS_NO\"},{\"Name\":\"Part\",\"GetNameAs\":\"Part\"},{\"Name\":\"PlaceofIssue\",\"GetNameAs\":\"PlaceofIssue\"},{\"Name\":\"PostTitle\",\"GetNameAs\":\"PostTitle\"},{\"Name\":\"ResetPassword\",\"GetNameAs\":\"ResetPassword\"},{\"Name\":\"SEX\",\"GetNameAs\":\"SEX\"},{\"Name\":\"SYSUserName\",\"GetNameAs\":\"SYSUserName\"},{\"Name\":\"SectionID\",\"GetNameAs\":\"SectionID\"},{\"Name\":\"ShomareShenasname\",\"GetNameAs\":\"ShomareShenasname\"},{\"Name\":\"Signature\",\"GetNameAs\":\"Signature\"},{\"Name\":\"StudyField\",\"GetNameAs\":\"StudyField\"},{\"Name\":\"UserImage\",\"GetNameAs\":\"UserImage\"}],\"Relation\":[]},{\"Name\":\"ConfirmerFactoryManagerContractMonthUser\",\"GetNameAs\":\"ConfirmerFactoryManagerContractMonthUser\",\"ModeErtebat\":1,\"Column\":[{\"Name\":\"AccessFailedCount\",\"GetNameAs\":\"AccessFailedCount\"},{\"Name\":\"ConcurrencyStamp\",\"GetNameAs\":\"ConcurrencyStamp\"},{\"Name\":\"Discriminator\",\"GetNameAs\":\"Discriminator\"},{\"Name\":\"Email\",\"GetNameAs\":\"Email\"},{\"Name\":\"EmailConfirmed\",\"GetNameAs\":\"EmailConfirmed\"},{\"Name\":\"LockoutEnabled\",\"GetNameAs\":\"LockoutEnabled\"},{\"Name\":\"LockoutEnd\",\"GetNameAs\":\"LockoutEnd\"},{\"Name\":\"NormalizedEmail\",\"GetNameAs\":\"NormalizedEmail\"},{\"Name\":\"NormalizedUserName\",\"GetNameAs\":\"NormalizedUserName\"},{\"Name\":\"PasswordHash\",\"GetNameAs\":\"PasswordHash\"},{\"Name\":\"PhoneNumber\",\"GetNameAs\":\"PhoneNumber\"},{\"Name\":\"PhoneNumberConfirmed\",\"GetNameAs\":\"PhoneNumberConfirmed\"},{\"Name\":\"SecurityStamp\",\"GetNameAs\":\"SecurityStamp\"},{\"Name\":\"TwoFactorEnabled\",\"GetNameAs\":\"TwoFactorEnabled\"},{\"Name\":\"UserName\",\"GetNameAs\":\"UserName\"},{\"Name\":\"Address\",\"GetNameAs\":\"Address\"},{\"Name\":\"BirthDate\",\"GetNameAs\":\"BirthDate\"},{\"Name\":\"BirthDateString\",\"GetNameAs\":\"BirthDateString\"},{\"Name\":\"BirthPlace\",\"GetNameAs\":\"BirthPlace\"},{\"Name\":\"CodeMelli\",\"GetNameAs\":\"CodeMelli\"},{\"Name\":\"CompanyEmploymentDate\",\"GetNameAs\":\"CompanyEmploymentDate\"},{\"Name\":\"CompanyEmploymentDateString\",\"GetNameAs\":\"CompanyEmploymentDateString\"},{\"Name\":\"CompanyID\",\"GetNameAs\":\"CompanyID\"},{\"Name\":\"EMP_NO\",\"GetNameAs\":\"EMP_NO\"},{\"Name\":\"EmploymentStatus\",\"GetNameAs\":\"EmploymentStatus\"},{\"Name\":\"FAMILY\",\"GetNameAs\":\"FAMILY\"},{\"Name\":\"FatherName\",\"GetNameAs\":\"FatherName\"},{\"Name\":\"IndustrialComplexEmploymentDate\",\"GetNameAs\":\"IndustrialComplexEmploymentDate\"},{\"Name\":\"IndustrialComplexEmploymentDateString\",\"GetNameAs\":\"IndustrialComplexEmploymentDateString\"},{\"Name\":\"IsActive\",\"GetNameAs\":\"IsActive\"},{\"Name\":\"IsCut\",\"GetNameAs\":\"IsCut\"},{\"Name\":\"JobTitle\",\"GetNameAs\":\"JobTitle\"},{\"Name\":\"LastEducationalCertificate\",\"GetNameAs\":\"LastEducationalCertificate\"},{\"Name\":\"MaritalStatus\",\"GetNameAs\":\"MaritalStatus\"},{\"Name\":\"NAME\",\"GetNameAs\":\"NAME\"},{\"Name\":\"OrganizationalUnit\",\"GetNameAs\":\"OrganizationalUnit\"},{\"Name\":\"OstanID\",\"GetNameAs\":\"OstanID\"},{\"Name\":\"PERS_NO\",\"GetNameAs\":\"PERS_NO\"},{\"Name\":\"Part\",\"GetNameAs\":\"Part\"},{\"Name\":\"PlaceofIssue\",\"GetNameAs\":\"PlaceofIssue\"},{\"Name\":\"PostTitle\",\"GetNameAs\":\"PostTitle\"},{\"Name\":\"ResetPassword\",\"GetNameAs\":\"ResetPassword\"},{\"Name\":\"SEX\",\"GetNameAs\":\"SEX\"},{\"Name\":\"SYSUserName\",\"GetNameAs\":\"SYSUserName\"},{\"Name\":\"SectionID\",\"GetNameAs\":\"SectionID\"},{\"Name\":\"ShomareShenasname\",\"GetNameAs\":\"ShomareShenasname\"},{\"Name\":\"Signature\",\"GetNameAs\":\"Signature\"},{\"Name\":\"StudyField\",\"GetNameAs\":\"StudyField\"},{\"Name\":\"UserImage\",\"GetNameAs\":\"UserImage\"}],\"Relation\":[]},{\"Name\":\"RejectionUser\",\"GetNameAs\":\"RejectionUser\",\"ModeErtebat\":1,\"Column\":[{\"Name\":\"LastName\",\"GetNameAs\":\"LastName\"},{\"Name\":\"LastNameEn\",\"GetNameAs\":\"LastNameEn\"},{\"Name\":\"DeleteDateTime\",\"GetNameAs\":\"DeleteDateTime\"},{\"Name\":\"HR_EMP_StatusId\",\"GetNameAs\":\"HR_EMP_StatusId\"},{\"Name\":\"EmployeeLastPersonelNo\",\"GetNameAs\":\"EmployeeLastPersonelNo\"},{\"Name\":\"EmployeeNo\",\"GetNameAs\":\"EmployeeNo\"},{\"Name\":\"EmployeePersonelNo\",\"GetNameAs\":\"EmployeePersonelNo\"},{\"Name\":\"FirstName\",\"GetNameAs\":\"FirstName\"},{\"Name\":\"FirstNameEn\",\"GetNameAs\":\"FirstNameEn\"},{\"Name\":\"HR_Base_FactoryId\",\"GetNameAs\":\"HR_Base_FactoryId\"},{\"Name\":\"BaseInfo_ORG_CompaniesId\",\"GetNameAs\":\"BaseInfo_ORG_CompaniesId\"},{\"Name\":\"UserId\",\"GetNameAs\":\"UserId\"},{\"Name\":\"LastEmployeeNo\",\"GetNameAs\":\"LastEmployeeNo\"},{\"Name\":\"ProfilePicture\",\"GetNameAs\":\"ProfilePicture\"},{\"Name\":\"FullName\",\"GetNameAs\":\"FullName\"}],\"Relation\":[]},{\"Name\":\"HR_EMP_Employees\",\"GetNameAs\":\"HR_EMP_Employees\",\"ModeErtebat\":1,\"Column\":[{\"Name\":\"LastName\",\"GetNameAs\":\"LastName\"},{\"Name\":\"LastNameEn\",\"GetNameAs\":\"LastNameEn\"},{\"Name\":\"DeleteDateTime\",\"GetNameAs\":\"DeleteDateTime\"},{\"Name\":\"HR_EMP_StatusId\",\"GetNameAs\":\"HR_EMP_StatusId\"},{\"Name\":\"EmployeeLastPersonelNo\",\"GetNameAs\":\"EmployeeLastPersonelNo\"},{\"Name\":\"EmployeeNo\",\"GetNameAs\":\"EmployeeNo\"},{\"Name\":\"EmployeePersonelNo\",\"GetNameAs\":\"EmployeePersonelNo\"},{\"Name\":\"FirstName\",\"GetNameAs\":\"FirstName\"},{\"Name\":\"FirstNameEn\",\"GetNameAs\":\"FirstNameEn\"},{\"Name\":\"HR_Base_FactoryId\",\"GetNameAs\":\"HR_Base_FactoryId\"},{\"Name\":\"BaseInfo_ORG_CompaniesId\",\"GetNameAs\":\"BaseInfo_ORG_CompaniesId\"},{\"Name\":\"UserId\",\"GetNameAs\":\"UserId\"},{\"Name\":\"LastEmployeeNo\",\"GetNameAs\":\"LastEmployeeNo\"},{\"Name\":\"ProfilePicture\",\"GetNameAs\":\"ProfilePicture\"},{\"Name\":\"FullName\",\"GetNameAs\":\"FullName\"}],\"Relation\":[]},{\"Name\":\"HR_CRS_ContractTime\",\"GetNameAs\":\"HR_CRS_ContractTime\",\"ModeErtebat\":1,\"Column\":[{\"Name\":\"HR_ORG_PositionClassificationId\",\"GetNameAs\":\"HR_ORG_PositionClassificationId\"},{\"Name\":\"HR_ContractTimeTypeId\",\"GetNameAs\":\"HR_ContractTimeTypeId\"},{\"Name\":\"FromNumber\",\"GetNameAs\":\"FromNumber\"},{\"Name\":\"ToNumber\",\"GetNameAs\":\"ToNumber\"},{\"Name\":\"ContractTime\",\"GetNameAs\":\"ContractTime\"},{\"Name\":\"TypeContract\",\"GetNameAs\":\"TypeContract\"},{\"Name\":\"HR_EmployeeContractTypeId\",\"GetNameAs\":\"HR_EmployeeContractTypeId\"},{\"Name\":\"MonthToDays\",\"GetNameAs\":\"MonthToDays\"},{\"Name\":\"ContractTotalDays\",\"GetNameAs\":\"ContractTotalDays\"},{\"Name\":\"ContractTimeCounter\",\"GetNameAs\":\"ContractTimeCounter\"},{\"Name\":\"IsFixedTerm\",\"GetNameAs\":\"IsFixedTerm\"}],\"Relation\":[]},{\"Name\":\"HR_CVR_PersonnelContract\",\"GetNameAs\":\"HR_CVR_PersonnelContract\",\"ModeErtebat\":1,\"Column\":[{\"Name\":\"HR_EMP_EmployeesId\",\"GetNameAs\":\"HR_EMP_EmployeesId\"},{\"Name\":\"Counter\",\"GetNameAs\":\"Counter\"},{\"Name\":\"StartDate\",\"GetNameAs\":\"StartDate\"},{\"Name\":\"EndDate\",\"GetNameAs\":\"EndDate\"},{\"Name\":\"HoursPerMonth\",\"GetNameAs\":\"HoursPerMonth\"},{\"Name\":\"Description\",\"GetNameAs\":\"Description\"},{\"Name\":\"HR_StatusPersonnelContractId\",\"GetNameAs\":\"HR_StatusPersonnelContractId\"},{\"Name\":\"RegisterTime\",\"GetNameAs\":\"RegisterTime\"},{\"Name\":\"ActiveTime\",\"GetNameAs\":\"ActiveTime\"},{\"Name\":\"DeactivatorTime\",\"GetNameAs\":\"DeactivatorTime\"},{\"Name\":\"RegulatorUserId\",\"GetNameAs\":\"RegulatorUserId\"},{\"Name\":\"ActivatorUserId\",\"GetNameAs\":\"ActivatorUserId\"},{\"Name\":\"DeactivatorUserId\",\"GetNameAs\":\"DeactivatorUserId\"},{\"Name\":\"HR_RMS_RecruitmentHiringId\",\"GetNameAs\":\"HR_RMS_RecruitmentHiringId\"},{\"Name\":\"HR_CRS_ExtensionPersonnelContractId\",\"GetNameAs\":\"HR_CRS_ExtensionPersonnelContractId\"},{\"Name\":\"HR_CVR_EmploymentTypeId\",\"GetNameAs\":\"HR_CVR_EmploymentTypeId\"},{\"Name\":\"HR_CVR_TypeContractId\",\"GetNameAs\":\"HR_CVR_TypeContractId\"},{\"Name\":\"ContractNo\",\"GetNameAs\":\"ContractNo\"},{\"Name\":\"StartDate_Fa\",\"GetNameAs\":\"StartDate_Fa\"},{\"Name\":\"EndDate_Fa\",\"GetNameAs\":\"EndDate_Fa\"},{\"Name\":\"Days_Elapsed\",\"GetNameAs\":\"Days_Elapsed\"},{\"Name\":\"Days_Remaining\",\"GetNameAs\":\"Days_Remaining\"},{\"Name\":\"Total_Days\",\"GetNameAs\":\"Total_Days\"},{\"Name\":\"HR_CRS_ContractTimeId\",\"GetNameAs\":\"HR_CRS_ContractTimeId\"}],\"Relation\":[]},{\"Name\":\"HR_CVR_TypeContract\",\"GetNameAs\":\"HR_CVR_TypeContract\",\"ModeErtebat\":1,\"Column\":[{\"Name\":\"Title\",\"GetNameAs\":\"Title\"},{\"Name\":\"IsActive\",\"GetNameAs\":\"IsActive\"}],\"Relation\":[]}]}");
+        TablePost = await Utility.JSON.ToObject<Table>("{\"Name\":\"HR_CRS_ExtensionPersonnelContract\",\"GetNameAs\":\"HR_CRS_ExtensionPersonnelContract\",\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"RequestID\",\"GetNameAs\":\"RequestID\"},{\"Name\":\"CreateUser\",\"GetNameAs\":\"CreateUser\"},{\"Name\":\"UpdateUser\",\"GetNameAs\":\"UpdateUser\"},{\"Name\":\"CreateDate\",\"GetNameAs\":\"CreateDate\"},{\"Name\":\"UpdateDate\",\"GetNameAs\":\"UpdateDate\"},{\"Name\":\"IsDelete\",\"GetNameAs\":\"IsDelete\"},{\"Name\":\"HR_EMP_EmployeesId\",\"GetNameAs\":\"HR_EMP_EmployeesId\"},{\"Name\":\"HR_StatusExtensionPersonnelContractId\",\"GetNameAs\":\"HR_StatusExtensionPersonnelContractId\"},{\"Name\":\"HR_CVR_EmploymentTypeId\",\"GetNameAs\":\"HR_CVR_EmploymentTypeId\"},{\"Name\":\"HR_CVR_TypeContractId\",\"GetNameAs\":\"HR_CVR_TypeContractId\"},{\"Name\":\"Code\",\"GetNameAs\":\"Code\"},{\"Name\":\"HR_CRS_ContractTimeId\",\"GetNameAs\":\"HR_CRS_ContractTimeId\"},{\"Name\":\"HR_CVR_PersonnelContractId\",\"GetNameAs\":\"HR_CVR_PersonnelContractId\"},{\"Name\":\"StartDate_Fa\",\"GetNameAs\":\"StartDate_Fa\"},{\"Name\":\"StartDate\",\"GetNameAs\":\"StartDate\"},{\"Name\":\"EndDate_Fa\",\"GetNameAs\":\"EndDate_Fa\"},{\"Name\":\"EndDate\",\"GetNameAs\":\"EndDate\"},{\"Name\":\"HR_ORG_PositionClassification\",\"GetNameAs\":\"HR_ORG_PositionClassification\"},{\"Name\":\"HR_ContractTimeType\",\"GetNameAs\":\"HR_ContractTimeType\"},{\"Name\":\"FromNumber\",\"GetNameAs\":\"FromNumber\"},{\"Name\":\"ToNumber\",\"GetNameAs\":\"ToNumber\"},{\"Name\":\"HR_EmployeeContractType\",\"GetNameAs\":\"HR_EmployeeContractType\"},{\"Name\":\"ContractTimeCounter\",\"GetNameAs\":\"ContractTimeCounter\"},{\"Name\":\"ContractTime\",\"GetNameAs\":\"ContractTime\"}],\"Relation\":[]}");
 
         config = CKEditorBundleOptions.DefaultConfig.WithHtmlEditing();
         config.Language = "fa";

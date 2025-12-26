@@ -11,11 +11,13 @@ using Microsoft.JSInterop;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Sitko.Blazor.CKEditor;
+using SP_ContractTime;
 using System;
 using System.Collections.Generic;
 using System.Net;
 using System.Threading.Tasks;
 using Utility;
+using static System.Net.WebRequestMethods;
 
 namespace Forms.Forms
 {
@@ -161,10 +163,232 @@ namespace Forms.Forms
 		{
 			await SP_CheckContractTime();
 		}
+		//public async Task SP_CheckContractTime()
+		//{
+		//	Console.WriteLine("### 🟡 شروع فراخوانی PersonnelContract ###");
+
+		//	if (_Entity == null)
+		//	{
+		//		Console.WriteLine("❌ _Entity null است");
+		//		return;
+		//	}
+
+		//	if (_Entity?.HR_EMP_EmployeesId == null)
+		//	{
+		//		await _MSG.ShowWarning("لطفاً ابتدا کارمند را انتخاب کنید.");
+		//		Console.WriteLine("❌ HR_EMP_EmployeesId null است");
+		//		return;
+		//	}
+
+		//	Console.WriteLine("❌ var before R ::");
+
+		//	var R = await BayaApi.PersonnelContract(
+		//		ShomaranApiMode.Polfilm,
+		//		new EmpId
+		//		{
+		//			EmployeesId = _Entity.HR_EMP_EmployeesId.Value
+		//		}
+		//	);
+
+		//	if (R?.Content == null)
+		//	{
+		//		await _MSG.ShowError("Content خروجی وب سرویس null است");
+		//		Console.WriteLine("❌ R.Content == null");
+		//		return;
+		//	}
+
+		//	if (R == null)
+		//	{
+		//		await _MSG.ShowError("خروجی وب سرویس null است");
+		//		Console.WriteLine("❌ خطا: R == null");
+		//		return;
+		//	}
+
+		//	var jsonResponse = R.Content.ToString();
+		//	Console.WriteLine("### 🟡 jsonResponse کامل ###");
+		//	Console.WriteLine(jsonResponse);
+
+		//	if (!jsonResponse.TrimStart().StartsWith("{"))
+		//	{
+		//		await _MSG.ShowError("خروجی وب سرویس JSON نیست:\n" + jsonResponse);
+		//		Console.WriteLine("❌ خطا: پاسخ JSON نیست");
+		//		return;
+		//	}
+
+		//	try
+		//	{
+		//		var root = JObject.Parse(jsonResponse);
+		//		var dataSetsToken = root["DataSets"];
+		//		if (dataSetsToken == null || !(dataSetsToken is JArray dataSets) || dataSets.Count < 4)
+		//		{
+		//			await _MSG.ShowError("ساختار پاسخ نامعتبر: DataSets کامل نیست");
+		//			Console.WriteLine("❌ خطا: DataSets کامل نیست");
+		//			return;
+		//		}
+
+		//		// --- 1. لیست A: CountOfAllContract ---
+		//		var aList = dataSets[0] as JArray;
+		//		if (aList == null || aList.Count == 0)
+		//		{
+		//			await _MSG.ShowError("لیست A خالی است");
+		//			Console.WriteLine("❌ لیست A خالی یا null است");
+		//			return;
+		//		}
+		//		var aModel = aList[0].ToObject<SP_ContractTime.AllContractModel>();
+		//		// تعداد قراردادها
+		//		var A = aModel.CountOfAllContract;
+
+		//		// پر کردن فیلد شمارنده از روی SP
+		//		_Entity.ContractTimeCounter = A.ToString();
+
+		//		Console.WriteLine($"✅ A = {A}");
+
+		//		// --- 2. لیست D: PositionClasificationId ---
+		//		var dList = dataSets[1] as JArray;
+		//		if (dList == null || dList.Count == 0)
+		//		{
+		//			await _MSG.ShowError("لیست D خالی است");
+		//			Console.WriteLine("❌ لیست D خالی یا null است");
+		//			return;
+		//		}
+
+		//		var dModel = dList[0].ToObject<SP_ContractTime.PositionClasificationModel>();
+		//		// شناسه طبقه بندی سمت را می دهد
+		//		var D = dModel.PositionClasificationId ?? "null";
+		//		Console.WriteLine($"✅ D = '{D}'");
+
+		//		// --- 3. لیست C: لیست بلند ContractTime ---
+		//		var cList = dataSets[2] as JArray;
+		//		if (cList == null)
+		//		{
+		//			await _MSG.ShowError("لیست C null است");
+		//			Console.WriteLine("❌ لیست C null است");
+		//			return;
+		//		}
+		//		// اطلاعات فیلتر شده برای جدول مدت قرارداد را می دهد
+		//		var ListC = new List<Entity.HR_CRS_ContractTime>();
+		//		try
+		//		{
+		//			ListC = cList.ToObject<List<Entity.HR_CRS_ContractTime>>();
+		//		}
+		//		catch (Exception ex)
+		//		{
+		//			Console.WriteLine("❌ خطا در تبدیل لیست C: " + ex.Message);
+		//			if (cList.Count > 0)
+		//				Console.WriteLine("اولین آیتم لیست C برای عیب‌یابی:");
+
+		//			Console.WriteLine(cList.FirstOrDefault()?.ToString());
+		//			await _MSG.ShowError("خطا در پردازش لیست C: " + ex.Message);
+		//			return;
+		//		}
+		//		Console.WriteLine($"✅ ListC با موفقیت بارگذاری شد. تعداد = {ListC.Count}");
+
+		//		// ✅ اینجا ListC به Dropdown داده می‌شود
+		//		if (Ref_HR_CRS_ContractTimeId != null)
+		//		{
+		//			Console.WriteLine("✅ Setting Dropdown with ListC via SetEntity");
+
+
+		//			// ساخت لیست قوانین
+		//			var rules = new List<QueryBuilderFilterRule>();
+
+		//			foreach (var item in ListC)
+		//			{
+		//				rules.Add(new QueryBuilderFilterRule
+		//				{
+		//					Id = "Id",
+		//					Field = "Id",
+		//					Type = "string",
+		//					Input = "text",
+		//					Operator = "equal",
+		//					Value = new string[] { item.Id.ToString() } // ⚠️ حتماً آرایه باشد
+		//				});
+		//			}
+
+		//			// ساخت فیلتر نهایی
+		//			var filter = new QueryBuilderFilterRule
+		//			{
+		//				Condition = "OR",
+		//				Rules = rules
+		//			};
+
+		//			await Task.Delay(100);
+
+		//			Console.WriteLine("#Log :: filter ::" + filter);
+
+		//			// LoadData رشته می‌خواهد
+		//			await Ref_HR_CRS_ContractTimeId.Search(filter);
+		//		}
+
+		//		// --- 4. لیست B: TheLastCounterOfCurrentContract ---
+		//		var bList = dataSets[3] as JArray;
+		//		if (bList == null || bList.Count == 0)
+		//		{
+		//			await _MSG.ShowError("لیست B خالی است");
+		//			Console.WriteLine("❌ لیست B خالی یا null است");
+		//			return;
+		//		}
+		//		var bModel = bList[0].ToObject<SP_ContractTime.CurrentContractModel>();
+
+		//		// آخرین شمارنده قرارداد فعلی
+		//		var B = bModel.TheLastCounterOfCurrentContract ?? "null";
+		//		Console.WriteLine($"✅ B = '{B}'");
+
+		//		// --- 5 StartDate_Fa Contract
+		//		//var Contract_StartDate_Fa = 
+
+
+		//		// --- نمایش دیالوگ ---
+		//		var options = new BlazorBootstrap.ConfirmDialogOptions
+		//		{
+		//			YesButtonText = "بازگشت به قرارداد",
+		//			YesButtonColor = ButtonColor.Info,
+		//			NoButtonText = "",
+		//		};
+
+		//		string htmlString = $@"
+		//		<div style='direction: rtl; text-align: right;'>
+
+		//		<table style='width:100%; border-collapse: collapse;'>
+
+		//			<tr>
+		//				<td style='padding:6px; font-weight:bold;'>تعداد کل قراردادها</td>
+		//				<td style='padding:6px;'>{A}</td>
+		//			</tr>
+
+		//			<tr>
+		//				<td style='padding:6px; font-weight:bold;'>طبقه‌بندی سمت</td>
+		//				<td style='padding:6px;'>{(string.IsNullOrWhiteSpace(D) ? "—" : D)}</td>
+		//			</tr>
+
+		//			<tr>
+		//				<td style='padding:6px; font-weight:bold;'>آخرین شمارنده قرارداد جاری</td>
+		//				<td style='padding:6px;'>{(string.IsNullOrWhiteSpace(B) ? "—" : B)}</td>
+		//			</tr>
+
+		//			<tr>
+		//				<td style='padding:6px; font-weight:bold;'>تعداد گزینه‌های مدت قرارداد</td>
+		//				<td style='padding:6px;'>{ListC.Count}</td>
+		//			</tr>
+
+		//		</table>
+
+		//		</div>";
+
+		//		await Confirm.ShowAsync("اطلاعات قرارداد پرسنل", htmlString, options);
+
+		//		Console.WriteLine("✅ ### اتمام عملیات با موفقیت ###");
+		//	}
+		//	catch (Exception ex)
+		//	{
+		//		Console.WriteLine("❌ خطا در پردازش کلی: " + ex.Message);
+		//		await _MSG.ShowError("خطا در پردازش SP: " + ex.Message);
+		//	}
+		//}
+
 		public async Task SP_CheckContractTime()
 		{
 			Console.WriteLine("### 🟡 شروع فراخوانی PersonnelContract ###");
-
 
 			if (_Entity == null)
 			{
@@ -216,25 +440,35 @@ namespace Forms.Forms
 
 			try
 			{
-				var root = JObject.Parse(jsonResponse);
-				var dataSetsToken = root["DataSets"];
-				if (dataSetsToken == null || !(dataSetsToken is JArray dataSets) || dataSets.Count < 4)
+
+				var response = Newtonsoft.Json.JsonConvert.DeserializeObject<Content>(R.Content.ToString());
+
+				if (response.DataSets == null || response.DataSets.Count == 0)
 				{
-					await _MSG.ShowError("ساختار پاسخ نامعتبر: DataSets کامل نیست");
-					Console.WriteLine("❌ خطا: DataSets کامل نیست");
+					await _MSG.ShowError("DataSets خالی است");
 					return;
 				}
 
+				var countItem = ((Newtonsoft.Json.Linq.JObject)response.DataSets[0][0]).ToObject<AllContractModel>();
+				var positionItem = ((Newtonsoft.Json.Linq.JObject)response.DataSets[1][0]).ToObject<PositionClasificationModel>();
+				var contracts = response.DataSets[2].Select(x => ((Newtonsoft.Json.Linq.JObject)x).ToObject<Entity.HR_CRS_ContractTime>()).ToList();
+				var lastCounter = ((Newtonsoft.Json.Linq.JObject)response.DataSets[3][0]).ToObject<CurrentContractModel>();
+
+
+
+				// ********************************************************************
+
 				// --- 1. لیست A: CountOfAllContract ---
-				var aList = dataSets[0] as JArray;
-				if (aList == null || aList.Count == 0)
+
+				if (countItem == null)
 				{
-					await _MSG.ShowError("لیست A خالی است");
-					Console.WriteLine("❌ لیست A خالی یا null است");
+					await _MSG.ShowError("لیست countItem خالی است");
+					Console.WriteLine("❌ لیست countItem خالی یا null است");
 					return;
 				}
-				var aModel = aList[0].ToObject<SP_ContractTime.AllContractModel>();
-				var A = aModel.CountOfAllContract;
+
+				// تعداد قراردادها
+				var A = countItem.CountOfAllContract;
 
 				// پر کردن فیلد شمارنده از روی SP
 				_Entity.ContractTimeCounter = A.ToString();
@@ -242,40 +476,29 @@ namespace Forms.Forms
 				Console.WriteLine($"✅ A = {A}");
 
 				// --- 2. لیست D: PositionClasificationId ---
-				var dList = dataSets[1] as JArray;
-				if (dList == null || dList.Count == 0)
+
+				if (positionItem == null)
 				{
 					await _MSG.ShowError("لیست D خالی است");
 					Console.WriteLine("❌ لیست D خالی یا null است");
 					return;
 				}
-				var dModel = dList[0].ToObject<SP_ContractTime.PositionClasificationModel>();
-				var D = dModel.PositionClasificationId ?? "null";
+
+				// شناسه طبقه بندی سمت را می دهد
+				var D = positionItem.PositionClasificationId ?? "null";
 				Console.WriteLine($"✅ D = '{D}'");
 
 				// --- 3. لیست C: لیست بلند ContractTime ---
-				var cList = dataSets[2] as JArray;
-				if (cList == null)
+
+				if (contracts == null)
 				{
 					await _MSG.ShowError("لیست C null است");
 					Console.WriteLine("❌ لیست C null است");
 					return;
 				}
-				var ListC = new List<Entity.HR_CRS_ContractTime>();
-				try
-				{
-					ListC = cList.ToObject<List<Entity.HR_CRS_ContractTime>>();
-				}
-				catch (Exception ex)
-				{
-					Console.WriteLine("❌ خطا در تبدیل لیست C: " + ex.Message);
-					if (cList.Count > 0)
-						Console.WriteLine("اولین آیتم لیست C برای عیب‌یابی:");
+				// اطلاعات فیلتر شده برای جدول مدت قرارداد را می دهد
+				var ListC = contracts;
 
-					Console.WriteLine(cList.FirstOrDefault()?.ToString());
-					await _MSG.ShowError("خطا در پردازش لیست C: " + ex.Message);
-					return;
-				}
 				Console.WriteLine($"✅ ListC با موفقیت بارگذاری شد. تعداد = {ListC.Count}");
 
 				// ✅ اینجا ListC به Dropdown داده می‌شود
@@ -316,16 +539,21 @@ namespace Forms.Forms
 				}
 
 				// --- 4. لیست B: TheLastCounterOfCurrentContract ---
-				var bList = dataSets[3] as JArray;
-				if (bList == null || bList.Count == 0)
+				if (lastCounter == null)
 				{
 					await _MSG.ShowError("لیست B خالی است");
 					Console.WriteLine("❌ لیست B خالی یا null است");
 					return;
 				}
-				var bModel = bList[0].ToObject<SP_ContractTime.CurrentContractModel>();
+				var bModel = lastCounter;
+
+				// آخرین شمارنده قرارداد فعلی
 				var B = bModel.TheLastCounterOfCurrentContract ?? "null";
 				Console.WriteLine($"✅ B = '{B}'");
+
+				// --- 5 StartDate_Fa Contract
+				//var Contract_StartDate_Fa = 
+
 
 				// --- نمایش دیالوگ ---
 				var options = new BlazorBootstrap.ConfirmDialogOptions
@@ -336,14 +564,36 @@ namespace Forms.Forms
 				};
 
 				string htmlString = $@"
-					<div style='direction: ltr; text-align: left; line-height: 1.8;'>
-						<div><strong>داده A:</strong> {A} </div>
-						<div><strong>داده D:</strong> {(string.IsNullOrEmpty(D) ? "ـ" : D)} </div>
-						<div><strong>داده B:</strong> {(string.IsNullOrEmpty(B) ? "ـ" : B)} </div>
-						<div><strong>تعداد داده‌های فهرست C:</strong> {ListC.Count}</div>
-					</div>";
+				<div style='direction: rtl; text-align: right;'>
 
-				await Confirm.ShowAsync("", htmlString, options);
+				<table style='width:100%; border-collapse: collapse;'>
+
+					<tr>
+						<td style='padding:6px; font-weight:bold;'>تعداد کل قراردادها</td>
+						<td style='padding:6px;'>{A}</td>
+					</tr>
+
+					<tr>
+						<td style='padding:6px; font-weight:bold;'>طبقه‌بندی سمت</td>
+						<td style='padding:6px;'>{(string.IsNullOrWhiteSpace(D) ? "—" : D)}</td>
+					</tr>
+
+					<tr>
+						<td style='padding:6px; font-weight:bold;'>آخرین شمارنده قرارداد جاری</td>
+						<td style='padding:6px;'>{(string.IsNullOrWhiteSpace(B) ? "—" : B)}</td>
+					</tr>
+
+					<tr>
+						<td style='padding:6px; font-weight:bold;'>تعداد گزینه‌های مدت قرارداد</td>
+						<td style='padding:6px;'>{ListC.Count}</td>
+					</tr>
+
+				</table>
+
+				</div>";
+
+				await Confirm.ShowAsync("اطلاعات قرارداد پرسنل", htmlString, options);
+
 				Console.WriteLine("✅ ### اتمام عملیات با موفقیت ###");
 			}
 			catch (Exception ex)
@@ -352,6 +602,8 @@ namespace Forms.Forms
 				await _MSG.ShowError("خطا در پردازش SP: " + ex.Message);
 			}
 		}
+
+
 		#endregion
 
 		#region SP_EndTimeOfContract
@@ -456,23 +708,27 @@ namespace Forms.Forms
 		public async Task HR_CRS_ContractTimeId_onitemselected(dynamic Selected)
 		{
 			Console.WriteLine("Log :: Grid_ContractTime Data ::");
-			//Ref_HR_CRS_ContractTimeId.Value =
-			// طبقه بندی سمت
 			var x = await Utility.JSON.ToJson(Selected);
 			Console.WriteLine("Log :: Grid_ContractTime Data ::" + x);
 
-			Ref_HR_ORG_PositionClassification.Value = Selected.HR_ORG_PositionClassification.Title;
+			// شناسه جدول مدت قرارداد
+			//Ref_HR_CRS_ContractTimeId.Value =
+			// طبقه بندی سمت
+			Ref_HR_ORG_PositionClassification.Value = Selected.PositionClassificationTitle;
 			// نوع مدت قرارداد
-			Ref_HR_ContractTimeType.Value = Selected.HR_ContractTimeType.Title;
+			Ref_HR_ContractTimeType.Value = Selected.ContractTimeTypeTitle;
+			// نوع قرارداد
+			Ref_HR_EmployeeContractType.Value = Selected.EmployeeContractTypeTitle;
+			// شمارنده از هر بخش مدت قرارداد
+			Ref_ContractTimeCounter.Value = Selected.ContractTimeCounter.ToString();
 			// از تعداد ماه
 			Ref_FromNumber.Value = Selected.FromNumber.Value.ToString();
 			// تا تعداد ماه
 			Ref_ToNumber.Value = Selected.ToNumber.Value.ToString();
-			// نوع قرارداد
-			Ref_HR_EmployeeContractType.Value = Selected.HR_EmployeeContractType.Title;
-			// شمارنده از هر بخش مدت قرارداد
-			Ref_ContractTimeCounter.Value = Selected.ContractTimeCounter.ToString();
+			// مدت قرارداد
+			Ref_ContractTime.Value = Selected.ContractTime;
 		}
+
 		#endregion FunctionEvents
 	}
 }
@@ -484,3 +740,4 @@ namespace Forms.Forms
 // PersonnelEndTimeOfContractRequest
 // RootContractTime
 // namespace SP_Contract
+

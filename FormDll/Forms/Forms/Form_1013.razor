@@ -212,6 +212,49 @@
 }
 
 /* ************************************************** */
+
+.dxbl-grid-table .html-visible {
+    display: none !important;
+}
+
+.dropdown-search .devdrop #Search {
+    display: none !important;
+}
+
+.thNormal .dxbl-grid-table .dxbl-grid-header .dxbl-grid-header-content {
+    font-weight: normal;
+}
+
+.titleHeadBarBlue {
+    background: #0088ff12;
+    padding: 0.5rem;
+    border-radius: 0.4rem;
+    font-weight: 900;
+}
+
+.ModalWidth {
+    max-width: 1700px !important;
+}
+
+.ContractTime .btn {
+    font-size: 0.8rem;
+    background-color: rgb(58, 60, 60);
+    color: #e0ebff;
+}
+
+.input-string input {
+    display: inline-block;
+    max-width: 140px !important;
+    background: none !important;
+    border: none;
+    text-align: start !important;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.input-string label {
+    font-size: 14px;
+}
 </style>
 
 <div class="@(ReadOnly?"FormReadOnly":"")">
@@ -345,11 +388,11 @@
 
     </CellDisplayTemplate>
 </DxGridDataColumn>
-<DxGridDataColumn Context="HR_CVR_TypeContractId_" Caption="نوع قرارداد جدید" >
+<DxGridDataColumn Context="HR_CVR_TypeContractId_" Caption="انواع قرارداد" >
     <CellDisplayTemplate>
        
 @{
-    Baya.Models.ViewEngine.View_Component HeaderHR_CVR_TypeContractId = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"primaryKey\":false,\"EntityID\":457,\"FieldId\":16661,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":1013,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":false,\"RelationParentName\":\"HR_CVR_TypeContract\",\"RelationParentModel\":\"HR_CVR_TypeContract\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/HR_CVR_TypeContract/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.Title}} </span>\",\"FieldsTemplate\":[{\"key\":\"Title\",\"value\":\"int\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"modal\":true,\"label\":\"نوع قرارداد جدید\",\"tableView\":true,\"key\":\"HR_CVR_TypeContractId\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"16661?EId=457&SubId=15\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
+    Baya.Models.ViewEngine.View_Component HeaderHR_CVR_TypeContractId = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"primaryKey\":false,\"EntityID\":457,\"FieldId\":16661,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":1013,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":false,\"RelationParentName\":\"HR_CVR_TypeContract\",\"RelationParentModel\":\"HR_CVR_TypeContract\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/HR_CVR_TypeContract/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.Title}} </span>\",\"FieldsTemplate\":[{\"key\":\"Title\",\"value\":\"int\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"searchField\":\"Title\",\"modal\":true,\"label\":\"انواع قرارداد\",\"tableView\":true,\"key\":\"HR_CVR_TypeContractId\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"16661?EId=457&SubId=15\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
     var RowHR_CVR_TypeContractId = ((Entity.HR_CRS_ExtensionPersonnelContract)HR_CVR_TypeContractId_.DataItem).HR_CVR_TypeContractId;
 }
 
@@ -397,8 +440,6 @@
 
     </CellDisplayTemplate>
 </DxGridDataColumn>
-<DxGridDataColumn DisplayFormat="0" Caption="شمارنده جدید قرارداد"  FieldName="Counter" />
-
 <DxGridDataColumn Context="HR_StatusExtensionPersonnelContractId_" Caption="وضعیت" >
     <CellDisplayTemplate>
        
@@ -475,15 +516,17 @@
 
 <DxGridDataColumn  Caption="طبقه بندی سمت"  FieldName="HR_ORG_PositionClassification" />
 
-<DxGridDataColumn  Caption="مدت قرارداد"  FieldName="HR_ContractTimeType" />
+<DxGridDataColumn  Caption="نوع مدت قرارداد"  FieldName="HR_ContractTimeType" />
 
-<DxGridDataColumn  Caption="از تعداد قرارداد"  FieldName="FromNumber" />
+<DxGridDataColumn  Caption="از تعداد (ماه)"  FieldName="FromNumber" />
 
-<DxGridDataColumn  Caption="تا تعداد"  FieldName="ToNumber" />
+<DxGridDataColumn  Caption="تا تعداد (ماه)"  FieldName="ToNumber" />
 
 <DxGridDataColumn  Caption="نوع قرارداد"  FieldName="HR_EmployeeContractType" />
 
 <DxGridDataColumn  Caption="شمارنده مدت قرارداد"  FieldName="ContractTimeCounter" />
+
+<DxGridDataColumn  Caption="مدت قرارداد"  FieldName="ContractTime" />
 
 
 </Columns>
@@ -766,7 +809,6 @@ MainModel.HR_CVR_TypeContractId = ((Entity.HR_CRS_ExtensionPersonnelContract)Edi
 MainModel.HR_CVR_TypeContract = ((Entity.HR_CRS_ExtensionPersonnelContract)EditModel).HR_CVR_TypeContract;
 MainModel.HR_CRS_ContractTimeId = ((Entity.HR_CRS_ExtensionPersonnelContract)EditModel).HR_CRS_ContractTimeId;
 MainModel.HR_CRS_ContractTime = ((Entity.HR_CRS_ExtensionPersonnelContract)EditModel).HR_CRS_ContractTime;
-MainModel.Counter = ((Entity.HR_CRS_ExtensionPersonnelContract)EditModel).Counter;
 MainModel.HR_StatusExtensionPersonnelContractId = ((Entity.HR_CRS_ExtensionPersonnelContract)EditModel).HR_StatusExtensionPersonnelContractId;
 MainModel.HR_StatusExtensionPersonnelContract = ((Entity.HR_CRS_ExtensionPersonnelContract)EditModel).HR_StatusExtensionPersonnelContract;
 MainModel.Id = ((Entity.HR_CRS_ExtensionPersonnelContract)EditModel).Id;
@@ -787,6 +829,7 @@ MainModel.FromNumber = ((Entity.HR_CRS_ExtensionPersonnelContract)EditModel).Fro
 MainModel.ToNumber = ((Entity.HR_CRS_ExtensionPersonnelContract)EditModel).ToNumber;
 MainModel.HR_EmployeeContractType = ((Entity.HR_CRS_ExtensionPersonnelContract)EditModel).HR_EmployeeContractType;
 MainModel.ContractTimeCounter = ((Entity.HR_CRS_ExtensionPersonnelContract)EditModel).ContractTimeCounter;
+MainModel.ContractTime = ((Entity.HR_CRS_ExtensionPersonnelContract)EditModel).ContractTime;
 
     }
     else
