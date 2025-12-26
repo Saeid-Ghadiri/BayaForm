@@ -32,185 +32,185 @@ using Baya.Models.ViewEngine;
 using SingleFileUpload;
 namespace Forms.Forms
 {
-	public class Form_1013_CUPeropeties : FormBase
-	{
+    public class Form_1013_CUPeropeties : FormBase
+    {
 
-		#region Peropeties
+        #region Peropeties
 
-		/// <summary>
-		/// اجرای کد JS
-		/// </summary>
-		[Inject]
-		public IJSRuntime JS { get; set; }
+        /// <summary>
+        /// اجرای کد JS
+        /// </summary>
+        [Inject]
+    public IJSRuntime JS { get; set; }
 
-		/// <summary>
-		/// ماژول جهت تغییر کدهای html
-		/// </summary>
-		//public IJSObjectReference JSO { get; set; }
-		/// <summary>
-		/// برای ذخیره کردن مقدار اولیه رکورد جهت بررسی تغییرات
-		/// </summary>
-		public string? JsonData { get; set; }
-
-
-		[Inject]
-		public AuthenticationStateProvider _authenticationStateProvider { get; set; }
-
-		[Inject]
-		public IToastService toastService { get; set; }
-
-		[Inject]
-		public ILanguageContainerService languageContainer { get; set; }
+    /// <summary>
+    /// ماژول جهت تغییر کدهای html
+    /// </summary>
+    //public IJSObjectReference JSO { get; set; }
+    /// <summary>
+    /// برای ذخیره کردن مقدار اولیه رکورد جهت بررسی تغییرات
+    /// </summary>
+    public string? JsonData { get; set; }
 
 
-		/// <summary>
-		/// ایونت لود کامل فرم
-		/// </summary>
-		[Parameter]
-		public EventCallback<Baya.Models.Utility.Result> OnFormloaded { get; set; }
+    [Inject]
+    public AuthenticationStateProvider _authenticationStateProvider { get; set; }
 
-		/// <summary>
-		/// ایونت سابمیت دیتا
-		/// </summary>
-		//[Parameter]
-		public EventCallback<Baya.Models.Utility.Result> OnFormSubmit { get; set; }
+    [Inject]
+    public IToastService toastService { get; set; }
+
+    [Inject]
+    public ILanguageContainerService languageContainer { get; set; }
 
 
-		/// <summary>
-		///  فیلتر داده
-		/// </summary>
-		[Parameter]
-		public QueryBuilderFilterRule? QueryFilter { get; set; }
+    /// <summary>
+    /// ایونت لود کامل فرم
+    /// </summary>
+    [Parameter]
+    public EventCallback<Baya.Models.Utility.Result> OnFormloaded { get; set; }
 
-		//[Parameter]
-		//public List<Baya.Models.Baya.Requests.Request_Parameters> RequestParameters { get; set; }
-
-		//[Parameter]
-		//public List<Baya.Models.Baya.Requests.Cartable_Parameter> CartablesParameters { get; set; }
-
-		/// <summary>
-		/// لیست پارامتر به صورت ابجکت
-		/// </summary>
-		[Parameter]
-		public dynamic _RequestParameters { get; set; }
-
-		/// <summary>
-		/// لیست پارامتر به صورت ابجکت
-		/// </summary>
-		[Parameter]
-		public dynamic _CartablesParameters { get; set; }
-
-		/// <summary>
-		///  شماره درخواست
-		/// </summary>
-		[Parameter]
-		public Guid? RequestID { get; set; }
-
-		/// <summary>
-		/// غیر فعال کردن کل فرم
-		/// </summary>
-		[Parameter]
-		public bool ReadOnly { get; set; } = false;
-
-		/// <summary>
-		/// دکمه سابمیت نشون داده بشه یا نه
-		/// </summary>
-		[Parameter]
-		public bool ShowSubmit { get; set; } = false;
-
-		/// <summary>
-		/// دکمه توی کارتابل ایدیش هست که کدوم زده شده
-		///آیدی فلش ها هستش
-		///ایدی دکمه ثبت موقت SaveAndClose 
-		/// </summary>
-		[Parameter]
-		public string BtnWorkFlowId { get; set; }
-
-		/// <summary>
-		/// کانفیگ CKEditor
-		/// </summary>
-		public CKEditorConfig config;
-
-		/// <summary>
-		/// دیالوگ نمایش کانفرم
-		/// </summary>
-		public ConfirmDialog Confirm = default!;
-
-		/// <summary>
-		/// لودینگ
-		/// </summary>
-		[Inject] public LoadingService _loadingService { get; set; }
-
-		/// <summary>
-		///  ورژنی که فرم باهاش ساخته شده
-		/// </summary>
-		public string? VersionForm { get; set; } = "5349";
-
-		/// <summary>
-		///  موجودیت
-		/// </summary>
-		public Entity.HR_CRS_ExtensionPersonnelContract? _Entity { get; set; } = new Entity.HR_CRS_ExtensionPersonnelContract();
-
-		/// <summary>
-		/// مشخصات کاربر
-		/// UserID
-		/// </summary>
-		public dynamic _User { get; set; }
-
-		public EditForm? _Form { get; set; }
-
-		public string? SumaryMessage { get; set; }
-
-		/// <summary>
-		/// ساختار تیبل برای دریافت داده
-		/// </summary>
-		public Table? TableGet { get; set; }
-		/// <summary>
-		/// ساختار تیبل برای دریافت داده
-		/// </summary>
-		public Table? TablePost { get; set; }
-		/// <summary>
-		/// فرم بصورت مستقل اجرا میش.د؟
-		/// </summary>
-		[Parameter]
-		public bool IndependentForm { get; set; } = true;
-
-		#endregion
-
-		#region FormProperty
-
-		public Dropdown Ref_HR_EMP_EmployeesId;
-		public Dropdown Ref_HR_CVR_PersonnelContractId;
-		public Input<string?> Ref_Code;
-		public Dropdown Ref_HR_CVR_TypeContractId;
-		public Dropdown Ref_HR_CVR_EmploymentTypeId;
-		public Dropdown Ref_HR_StatusExtensionPersonnelContractId;
-		public Dropdown Ref_HR_CRS_ContractTimeId;
-		public ElementReference Ref_submit;
-		public ElementReference Ref_submit1;
-		public Input<string?> Ref_HR_ORG_PositionClassification;
-		public Input<string?> Ref_HR_EmployeeContractType;
-		public Input<string?> Ref_HR_ContractTimeType;
-		public Input<string?> Ref_FromNumber;
-		public Input<string?> Ref_ToNumber;
-		public Input<string?> Ref_ContractTime;
-		public Input<string?> Ref_ContractTimeCounter;
-		public Input<string?> Ref_StartDate_Fa;
-		public Input<string?> Ref_EndDate_Fa;
-		public Input<DateTime?> Ref_StartDate;
-		public Input<DateTime?> Ref_EndDate;
-		public Input<Guid> Ref_Id;
-		public Input<Guid?> Ref_RequestID;
-		public Input<Guid?> Ref_CreateUser;
-		public Input<Guid?> Ref_UpdateUser;
-		public Input<DateTime?> Ref_CreateDate;
-		public Input<DateTime?> Ref_UpdateDate;
-		public Input<bool?> Ref_IsDelete;
+    /// <summary>
+    /// ایونت سابمیت دیتا
+    /// </summary>
+    //[Parameter]
+    public EventCallback<Baya.Models.Utility.Result> OnFormSubmit { get; set; }
 
 
-		#endregion
+    /// <summary>
+    ///  فیلتر داده
+    /// </summary>
+    [Parameter]
+    public QueryBuilderFilterRule? QueryFilter { get; set; }
+
+    //[Parameter]
+    //public List<Baya.Models.Baya.Requests.Request_Parameters> RequestParameters { get; set; }
+
+    //[Parameter]
+    //public List<Baya.Models.Baya.Requests.Cartable_Parameter> CartablesParameters { get; set; }
+
+    /// <summary>
+    /// لیست پارامتر به صورت ابجکت
+    /// </summary>
+    [Parameter]
+    public dynamic _RequestParameters { get; set; }
+
+    /// <summary>
+    /// لیست پارامتر به صورت ابجکت
+    /// </summary>
+    [Parameter]
+    public dynamic _CartablesParameters { get; set; }
+
+    /// <summary>
+    ///  شماره درخواست
+    /// </summary>
+    [Parameter]
+    public Guid? RequestID { get; set; }
+
+    /// <summary>
+    /// غیر فعال کردن کل فرم
+    /// </summary>
+    [Parameter]
+    public bool ReadOnly { get; set; } = false;
+
+    /// <summary>
+    /// دکمه سابمیت نشون داده بشه یا نه
+    /// </summary>
+    [Parameter]
+    public bool ShowSubmit { get; set; } = false;
+
+    /// <summary>
+    /// دکمه توی کارتابل ایدیش هست که کدوم زده شده
+    ///آیدی فلش ها هستش
+    ///ایدی دکمه ثبت موقت SaveAndClose 
+    /// </summary>
+    [Parameter]
+    public string BtnWorkFlowId { get; set; }
+
+    /// <summary>
+    /// کانفیگ CKEditor
+    /// </summary>
+    public CKEditorConfig config;
+
+    /// <summary>
+    /// دیالوگ نمایش کانفرم
+    /// </summary>
+    public ConfirmDialog Confirm = default!;
+
+    /// <summary>
+    /// لودینگ
+    /// </summary>
+    [Inject] public LoadingService _loadingService { get; set; }
+
+    /// <summary>
+    ///  ورژنی که فرم باهاش ساخته شده
+    /// </summary>
+    public string? VersionForm { get; set; } = "5365";
+
+    /// <summary>
+    ///  موجودیت
+    /// </summary>
+    public Entity.HR_CRS_ExtensionPersonnelContract? _Entity { get; set; } = new Entity.HR_CRS_ExtensionPersonnelContract();
+
+            /// <summary>
+            /// مشخصات کاربر
+            /// UserID
+            /// </summary>
+            public dynamic _User { get; set; }
+
+    public EditForm? _Form { get; set; }
+
+    public string? SumaryMessage { get; set; }
+
+    /// <summary>
+    /// ساختار تیبل برای دریافت داده
+    /// </summary>
+    public Table? TableGet { get; set; }
+    /// <summary>
+    /// ساختار تیبل برای دریافت داده
+    /// </summary>
+    public Table? TablePost { get; set; }
+        /// <summary>
+        /// فرم بصورت مستقل اجرا میش.د؟
+        /// </summary>
+        [Parameter]
+        public bool IndependentForm { get; set; } = true;
+
+    #endregion
+
+    #region FormProperty
+
+public Dropdown Ref_HR_EMP_EmployeesId;
+public Dropdown Ref_HR_CVR_PersonnelContractId;
+public Input<string?> Ref_Code;
+public Dropdown Ref_HR_CVR_TypeContractId;
+public Dropdown Ref_HR_CVR_EmploymentTypeId;
+public Dropdown Ref_HR_StatusExtensionPersonnelContractId;
+public Dropdown Ref_HR_CRS_ContractTimeId;
+public ElementReference Ref_submit;
+public ElementReference Ref_submit1;
+public Input<string?> Ref_HR_ORG_PositionClassification;
+public Input<string?> Ref_HR_EmployeeContractType;
+public Input<string?> Ref_HR_ContractTimeType;
+public Input<string?> Ref_FromNumber;
+public Input<string?> Ref_ToNumber;
+public Input<string?> Ref_ContractTime;
+public Input<string?> Ref_ContractTimeCounter;
+public Input<string?> Ref_StartDate_Fa;
+public Input<string?> Ref_EndDate_Fa;
+public Input<DateTime?> Ref_StartDate;
+public Input<DateTime?> Ref_EndDate;
+public Input<Guid> Ref_Id;
+public Input<Guid?> Ref_RequestID;
+public Input<Guid?> Ref_CreateUser;
+public Input<Guid?> Ref_UpdateUser;
+public Input<DateTime?> Ref_CreateDate;
+public Input<DateTime?> Ref_UpdateDate;
+public Input<bool?> Ref_IsDelete;
 
 
+    #endregion
 
-	}
+ 
+
+}
 }

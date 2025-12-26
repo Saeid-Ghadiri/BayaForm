@@ -17,6 +17,7 @@
 .detailArea form div:not(.devdrop) {
     margin-top: .1rem;
 }
+
 /* ************************************************** */
 .col-bg {
     background: #93b0ff0d;
@@ -159,6 +160,56 @@
 }
 
 /* ************************************************** */
+
+.dxbl-grid-table .html-visible {
+    display: none !important;
+}
+
+.dropdown-search .devdrop #Search {
+    display: none !important;
+}
+
+.thNormal .dxbl-grid-table .dxbl-grid-header .dxbl-grid-header-content {
+    font-weight: normal;
+}
+
+.titleHeadBarBlue {
+    background: #0088ff12;
+    padding: 0.5rem;
+    border-radius: 0.4rem;
+    font-weight: 900;
+}
+
+.ModalWidth {
+    max-width: 1700px !important;
+}
+
+.ContractTime .btn {
+    font-size: 0.8rem;
+    background-color: rgb(58, 60, 60);
+    color: #e0ebff;
+}
+
+.input-string input {
+    display: inline-block;
+    max-width: 140px !important;
+    background: none !important;
+    border: none;
+    text-align: start !important;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.input-string label {
+    font-size: 14px;
+}
+
+.contractdate input {
+    display: inline;
+    max-width: 200px !important;
+    border-color: #e7e7e7 !important;
+    margin-right: 5px !important;
+}
 </style>
 
 <Plugins.Tools.ConfirmDialog @ref="Confirm" />
@@ -197,8 +248,8 @@
     
 <div class="col-md-12">
     <div  class="pt-3">
-    <div class="card-header rounded p-2 fw-bold bg-warning-subtle " style="font-size:1.1em;">
-    بخش اطلاعات کارمند
+    <div class="titleHeadBarBlue mb-2" style="border-inline-start:4px solid #6166ff;">
+اطلاعات کارمند
 </div>
 </div>
 
@@ -257,14 +308,14 @@
 
 <div class="">
     <div  class="pt-3">
-    <div class="card-header rounded p-2 fw-bold bg-warning-subtle " style="font-size:1.1em;">
-  بخش اطلاعات تنظیم کننده
+    <div class="titleHeadBarBlue mb-2" style="border-inline-start:4px solid #329675;">
+  اطلاعات قراردادهای کارمند
 </div>
 </div>
 
 <div class="row ">
     
-<div class="col-md-4">
+<div class="col-md-3">
     
 <Input Id="ContractNo" @ref="Ref_ContractNo" Label="شماره قرارداد"     @bind-Value="_Entity.ContractNo" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"maxlength\":\"14\"}").Result))></Input>
  
@@ -385,7 +436,7 @@
 
 </div>
 
-<div class="col-md-8">
+<div class="col-md-9">
     
 <div class="row mx-1">
     
@@ -428,15 +479,15 @@
     }
 } 
 
-<Input Id="Counter" @ref="Ref_Counter" Label="شمارنده قرارداد"     @bind-Value="_Entity.Counter" type="number"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+<Input Id="Counter" @ref="Ref_Counter" Label="شمارنده قرارداد"  CssClass="input-string" Disabled=true  @bind-Value="_Entity.Counter" type="number" ActiveSeperator=false    Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
 
 </div>
 
 <div class="col-md-4">
     
-<Button Label="SP 1" Id="PersonnelContract" CssClass=" btn btn-info" onclick="@(e => PersonnelContract_onclick(e ))"   ></Button>
+<Button Label="بررسی جدول مدت قرارداد" Id="PersonnelContract" CssClass=" btn btn-info" onclick="@(e => PersonnelContract_onclick(e ))"   ></Button>
 
-<Button Label="SP 2" Id="PersonnelContract1" CssClass=" btn btn-info" onclick="@(e => PersonnelContract1_onclick(e ))"   ></Button>
+<Button Label="محاسبه تاریخ اتمام قرارداد" Id="PersonnelContract1" CssClass=" btn btn-info" onclick="@(e => PersonnelContract1_onclick(e ))"   ></Button>
 
 </div>
 
@@ -449,26 +500,46 @@
     
 <div class="row mx-1">
     
-<div class="col-md-3">
+<div class="col-md-4">
     
-<Input Id="StartDate_Fa" @ref="Ref_StartDate_Fa" Label="تاریخ شروع قرارداد"  CssClass=" PersianDatePicker"   @bind-Value="_Entity.StartDate_Fa" type="text"    oninput="@(e => StartDate_Fa_oninput(e ))"  Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"data-jdp\":\"  \",\"data-jdp-only-date\":\"   \"}").Result))></Input>
+<Input Id="StartDate_Fa" @ref="Ref_StartDate_Fa" Label="تاریخ شروع قرارداد"  CssClass=" PersianDatePicker contractdate"   @bind-Value="_Entity.StartDate_Fa" type="text"    oninput="@(e => StartDate_Fa_oninput(e ))"  Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"data-jdp\":\"  \",\"data-jdp-only-date\":\"   \"}").Result))></Input>
 
-<Input Id="EndDate_Fa" @ref="Ref_EndDate_Fa" Label="تاریخ پایان قرارداد"  CssClass=" PersianDatePicker"   @bind-Value="_Entity.EndDate_Fa" type="text"    oninput="@(e => EndDate_Fa_oninput(e ))"  Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"data-jdp\":\"  \",\"data-jdp-only-date\":\"   \"}").Result))></Input>
+</div>
 
+<div class="col-md-4">
+    
+<Input Id="EndDate_Fa" @ref="Ref_EndDate_Fa" Label="تاریخ پایان قرارداد"  CssClass=" PersianDatePicker input-string" Disabled=true  @bind-Value="_Entity.EndDate_Fa" type="text"    oninput="@(e => EndDate_Fa_oninput(e ))"  Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"data-jdp\":\"  \",\"data-jdp-only-date\":\"   \"}").Result))></Input>
+
+</div>
+
+<div class="col-md-4">
+    
 <Input Id="EndDate" @ref="Ref_EndDate" Label="تاریخ پایان قرارداد میلادی"  CssClass=" PersianDatePicker d-none" Disabled=true  @bind-Value="_Entity.EndDate" type="datetime-local"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"data-jdp\":\"  \",\"data-jdp-only-date\":\"   \"}").Result))></Input>
 
 <Input Id="StartDate" @ref="Ref_StartDate" Label="تاریخ شروع  قرارداد میلادی"  CssClass=" PersianDatePicker d-none" Disabled=true  @bind-Value="_Entity.StartDate" type="datetime-local"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"data-jdp\":\"  \",\"data-jdp-only-date\":\"   \"}").Result))></Input>
 
 </div>
 
-<div class="col-md-9">
+</div>
+
+<div class="row mx-1">
     
-<Input Id="Days_Elapsed" @ref="Ref_Days_Elapsed" Label="تعداد روزهای گذشته از شروع قرارداد"  CssClass="input-ymd" Disabled=true  @bind-Value="_Entity.Days_Elapsed" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"maxlength\":\"150\"}").Result))></Input>
+<div class="col-md-4">
+    
+<Input Id="Days_Elapsed" @ref="Ref_Days_Elapsed" Label="تعداد روزهای گذشته از شروع قرارداد"  CssClass="input-string" Disabled=true  @bind-Value="_Entity.Days_Elapsed" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"maxlength\":\"150\"}").Result))></Input>
 
-<Input Id="Days_Remaining" @ref="Ref_Days_Remaining" Label="تعداد روزهای باقی مانده تا پایان قرارداد"  CssClass="input-ymd" Disabled=true  @bind-Value="_Entity.Days_Remaining" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"maxlength\":\"150\"}").Result))></Input>
+<Input Id="Days_Remaining" @ref="Ref_Days_Remaining" Label="تعداد روزهای باقی مانده تا پایان قرارداد"  CssClass="input-string" Disabled=true  @bind-Value="_Entity.Days_Remaining" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"maxlength\":\"150\"}").Result))></Input>
 
-<Input Id="Total_Days" @ref="Ref_Total_Days" Label="تعداد کل روزهای قرارداد"  CssClass="input-ymd" Disabled=true  @bind-Value="_Entity.Total_Days" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"maxlength\":\"150\"}").Result))></Input>
+<Input Id="Total_Days" @ref="Ref_Total_Days" Label="تعداد کل روزهای قرارداد"  CssClass="input-string" Disabled=true  @bind-Value="_Entity.Total_Days" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"maxlength\":\"150\"}").Result))></Input>
 
+</div>
+
+<div class="col-md-4">
+    
+</div>
+
+<div class="col-md-4">
+    
 </div>
 
 </div>

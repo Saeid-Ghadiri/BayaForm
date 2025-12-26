@@ -144,7 +144,7 @@ namespace Forms.Forms
     /// <summary>
     ///  ورژنی که فرم باهاش ساخته شده
     /// </summary>
-    public string? VersionForm { get; set; } = "5349";
+    public string? VersionForm { get; set; } = "5365";
 
     /// <summary>
     ///  موجودیت
@@ -245,6 +245,11 @@ public Dropdown Ref_HR_CVR_RecruitmentRules_HR_CVR_JobGroupId;
 public Dropdown Ref_HR_CVR_RecruitmentRules_HR_CVR_JobSalaryRankId;
 public Dropdown Ref_HR_CVR_RecruitmentRules_HR_CVR_RightGuardianshipId;
 public Dropdown Ref_HR_CVR_RecruitmentRules_HR_CVR_SalaryHistoryId;
+public Input<bool?> Ref_HR_CVR_RecruitmentRules_IsChildAllowanceGrantedToEmployee;
+public Input<int?> Ref_HR_CVR_RecruitmentRules_EmployeeChildrenCount;
+public Input<string?> Ref_HR_CVR_RecruitmentRules_FirstChildAllowanceEstablishmentDate_Fa;
+public Input<bool?> Ref_HR_CVR_RecruitmentRules_IsMarriageAllowanceGrantedToEmployee;
+public Input<string?> Ref_HR_CVR_RecruitmentRules_FirstMarriageAllowanceEstablishmentDate_Fa;
 public Input<decimal?> Ref_HR_CVR_RecruitmentRules_JobSalaryRank;
 public Input<decimal?> Ref_HR_CVR_RecruitmentRules_JobSalaryRankNew;
 public Input<decimal?> Ref_HR_CVR_RecruitmentRules_RankSalary;
@@ -284,13 +289,11 @@ public Input<string?> Ref_HR_CVR_RecruitmentRules_SupervisionRightStartDate_Fa;
 public Input<DateTime?> Ref_HR_CVR_RecruitmentRules_SupervisionRightStartDate;
 public Input<string?> Ref_HR_CVR_RecruitmentRules_SupervisionRightCancellationDate_Fa;
 public Input<DateTime?> Ref_HR_CVR_RecruitmentRules_SupervisionRightCancellationDate;
-public Input<int?> Ref_HR_CVR_RecruitmentRules_DailySupervisionRightStartDate;
 public Input<bool?> Ref_HR_CVR_RecruitmentRules_HasPostRetentionRight;
 public Input<string?> Ref_HR_CVR_RecruitmentRules_PostRetentionStartDate_Fa;
 public Input<DateTime?> Ref_HR_CVR_RecruitmentRules_PostRetentionStartDate;
 public Input<string?> Ref_HR_CVR_RecruitmentRules_PostRetentionCancellationDate_Fa;
 public Input<DateTime?> Ref_HR_CVR_RecruitmentRules_PostRetentionCancellationDate;
-public Input<int?> Ref_HR_CVR_RecruitmentRules_DailyPostRetentionStartDate;
 public Input<Guid> Ref_HR_CVR_RecruitmentRules_Id;
 public Input<Guid?> Ref_HR_CVR_RecruitmentRules_RequestID;
 public Input<Guid?> Ref_HR_CVR_RecruitmentRules_CreateUser;
@@ -298,12 +301,7 @@ public Input<Guid?> Ref_HR_CVR_RecruitmentRules_UpdateUser;
 public Input<DateTime?> Ref_HR_CVR_RecruitmentRules_CreateDate;
 public Input<DateTime?> Ref_HR_CVR_RecruitmentRules_UpdateDate;
 public Input<bool?> Ref_HR_CVR_RecruitmentRules_IsDelete;
-public Input<int?> Ref_HR_CVR_RecruitmentRules_EmployeeChildrenCount;
-public Input<bool?> Ref_HR_CVR_RecruitmentRules_IsChildAllowanceGrantedToEmployee;
-public Input<string?> Ref_HR_CVR_RecruitmentRules_FirstChildAllowanceEstablishmentDate_Fa;
 public Input<DateTime?> Ref_HR_CVR_RecruitmentRules_FirstChildAllowanceEstablishmentDate;
-public Input<bool?> Ref_HR_CVR_RecruitmentRules_IsMarriageAllowanceGrantedToEmployee;
-public Input<string?> Ref_HR_CVR_RecruitmentRules_FirstMarriageAllowanceEstablishmentDate_Fa;
 public Input<DateTime?> Ref_HR_CVR_RecruitmentRules_FirstMarriageAllowanceEstablishmentDate;
 public DxGrid? Grid_HR_CVR_DescriptionRulings;
 
