@@ -23,6 +23,7 @@ using System;
 using System.Globalization;
 using System.Net;
 using Utility;
+using VerdictDataModel;
 
 namespace Forms.Forms
 {
@@ -963,55 +964,66 @@ namespace Forms.Forms
 
 			Console.WriteLine($"✅ Employee data loaded: {emp_data.FirstName} {emp_data.LastName}");
 
-			Ref_HR_CVR_RecruitmentRules_EmployeeNo.Value = emp_data.EmployeeNo;
-			Ref_HR_CVR_RecruitmentRules_EmployeeNo.SetDisabled(true);
-			Ref_HR_CVR_RecruitmentRules_FirstName.Value = emp_data.FirstName;
-			Ref_HR_CVR_RecruitmentRules_LastName.Value = emp_data.LastName;
-			Ref_HR_CVR_RecruitmentRules_FatherName.Value = emp_data.FatherName;
-			Ref_HR_CVR_RecruitmentRules_NationalCode.Value = emp_data.NationalCode;
-			Ref_HR_CVR_RecruitmentRules_IdCardNo.Value = emp_data.IdCardNo;
-			Ref_HR_CVR_RecruitmentRules_BirthDate_Fa.Value = emp_data.BirthDate_Fa;
-			Ref_HR_CVR_RecruitmentRules_BaseInfo_GenderId.Value = emp_data.BaseInfo_GenderTitle;
-			Ref_HR_CVR_RecruitmentRules_BaseInfo_MaritalStatusId.Value = emp_data.BaseInfo_MaritalStatusTitle;
-			Ref_HR_CVR_RecruitmentRules_EmployeeAgeText.Value = emp_data.EmployeeAgeText;
-			Ref_HR_CVR_RecruitmentRules_CityOfIssue.Value = emp_data.CityOfIssueTitle;
-			Ref_HR_CVR_RecruitmentRules_CityOfBirth.Value = emp_data.CityOfBirthTitle;
-			Ref_HR_CVR_RecruitmentRules_EmploymentDateInGroup_Fa.Value = emp_data.EmploymentDateInGroup_Fa;
-			Ref_HR_CVR_RecruitmentRules_EmploymentDate_Fa.Value = emp_data.EmploymentDate_Fa;
-			Ref_HR_CVR_RecruitmentRules_EmploymentStartDate_Fa.Value = emp_data.EmploymentStartDate_Fa;
+			var ListData = _Entity.HR_CVR_RecruitmentRules.ToList();
 
-			// شماره بیمه در بخش 
-			Ref_HR_CVR_RecruitmentRules_InsuranceNumber.Value = _Entity.InsuranceNumber;
+			foreach ( var EmpDataItem in ListData)
+			{
+				// کد کارمندی جدید
+				EmpDataItem.EmployeeNo = emp_data.EmployeeNo;
+				// کد پرسنلی جدید
+				EmpDataItem.EmployeePersonelNo = emp_data.EmployeePersonelNo;
+				// نام کارمند
+				EmpDataItem.FirstName = emp_data.FirstName;
+				// نام خانوادگی کارمند
+				EmpDataItem.LastName = emp_data.LastName;
+				// نام پدر کارمند
+				EmpDataItem.FatherName = emp_data.FatherName;
+				// کد ملی
+				EmpDataItem.NationalCode = emp_data.NationalCode;
+				// شماره شناسنامه
+				EmpDataItem.IdCardNo = emp_data.IdCardNo;
+				// جنسیت
+				EmpDataItem.BaseInfo_GenderId = emp_data.BaseInfo_GenderTitle;
+				// وضعیت تاهل
+				EmpDataItem.BaseInfo_MaritalStatusId = emp_data.BaseInfo_MaritalStatusTitle;
+				// شهر محل صدور شناسنامه
+				EmpDataItem.CityOfIssue = emp_data.CityOfIssueTitle;
+				// شهر تولد
+				EmpDataItem.CityOfBirth = emp_data.CityOfBirthTitle;
+				// تاریخ تولد شمسی
+				EmpDataItem.BirthDate_Fa = emp_data.BirthDate_Fa;
+				// نمایش سن کارمند به صورت متن
+				EmpDataItem.EmployeeAgeText = emp_data.EmployeeAgeText;
+				// تاریخ استخدام در گروه
+				EmpDataItem.EmploymentDateInGroup_Fa = emp_data.EmploymentDateInGroup_Fa;
+				// تاریخ استخدام در شرکت
+				EmpDataItem.EmploymentDate_Fa = emp_data.EmploymentDate_Fa;
+				// تاریخ آخرین تسویه حساب
+				EmpDataItem.EmploymentStartDate_Fa = emp_data.EmploymentStartDate_Fa;
+				// شماره بیمه
+				EmpDataItem.InsuranceNumber = emp_data.InsuranceNumber;
+				// نظام وظیفه
+				EmpDataItem.BaseInfo_MilitaryStatusId = emp_data.BaseInfo_MilitaryStatusTitle;
+				// حساب بانکی
+				EmpDataItem.BankAccountNumber = emp_data.BankAccountNumber;
+				// شماره شبا
+				EmpDataItem.IBAN = emp_data.IBAN;
 
-			//فیلد تحصیلات بلاتکلیف است  / در زیرسیستم جذب و استخدام است
-			//Ref_HR_CVR_RecruitmentRules_HR_Base_AcademicDegreesId = emp_data.HR_Base_AcademicDegreesTitle;
+				// شناسه قسمت سازمانی
+				//EmpDataItem.HR_ORG_SectionsId = string.IsNullOrEmpty(emp_data.HR_ORG_SectionsId) ? Guid.Empty : Guid.Parse(emp_data.HR_ORG_SectionsId);
+				// شناسه پست سازمانی
+				//EmpDataItem.HR_ORG_PostsId = string.IsNullOrEmpty(emp_data.HR_ORG_PostsId) ? Guid.Empty : Guid.Parse(emp_data.HR_ORG_PostsId);
+				// عنوان شغلی
+				//EmpDataItem.HR_CVR_JobId = string.IsNullOrEmpty(emp_data.HR_CVR_JobId) ? Guid.Empty : Guid.Parse(emp_data.HR_CVR_JobId);
+				// گروه شغلی
+				//EmpDataItem.HR_CVR_JobGroupId = string.IsNullOrEmpty(emp_data.HR_CVR_JobGroupId) ? Guid.Empty : Guid.Parse(emp_data.HR_CVR_JobGroupId);
 
-			// نظام وظیفه
-			Ref_HR_CVR_RecruitmentRules_BaseInfo_MilitaryStatusId.Value = emp_data.BaseInfo_MilitaryStatusTitle;
-			// حساب بانکی
-			Ref_HR_CVR_RecruitmentRules_BankAccountNumber.Value = emp_data.BankAccountNumber;
-			// شماره شبا
-			Ref_HR_CVR_RecruitmentRules_IBAN.Value = emp_data.IBAN;
-			// شماره بیمه
-			Ref_HR_CVR_RecruitmentRules_InsuranceNumber.Value = emp_data.InsuranceNumber;
-			// شناسه قسمت سازمانی
-			Ref_HR_CVR_RecruitmentRules_HR_ORG_SectionsId.Value = emp_data.HR_ORG_SectionsId;
-			// شناسه پست سازمانی
-			Ref_HR_CVR_RecruitmentRules_HR_ORG_PostsId.Value = emp_data.HR_ORG_PostsId;
-
-			// در SP نیست
-			// جدول مصوبات
-			//Ref_HR_CVR_RecruitmentRules_HR_CVR_ApprovalsMinistryLaborGroupId.Value = emp_data.HR_CVR_ApprovalsMinistryLaborGroupId;
-			// عنوان شغلی
-			Ref_HR_CVR_RecruitmentRules_HR_CVR_JobId.Value = emp_data.HR_CVR_JobId;
-
-			// گروه شغلی
-			Ref_HR_CVR_RecruitmentRules_HR_CVR_JobGroupId.Value = emp_data.HR_CVR_JobGroupId;
-
-			// تعداد فرزند کارمند
-			Ref_HR_CVR_RecruitmentRules_EmployeeChildrenCount.Value = emp_data.CountChilderen;
-			// تاریخ برقراری حق اولاد
-			Ref_HR_CVR_RecruitmentRules_FirstChildAllowanceEstablishmentDate_Fa.Value = emp_data.StartChildRightsGroupDate_Fa;
+				// **********
+				// تعداد فرزند کارمند
+				EmpDataItem.EmployeeChildrenCount = emp_data.CountChilderen;
+				// تاریخ برقراری حق اولاد
+				EmpDataItem.FirstChildAllowanceEstablishmentDate_Fa = emp_data.StartChildRightsGroupDate_Fa;
+			}
 
 			// بررسی وضعیت اینکه آیا حق تاهل تعلق می گیرد؟
 			SetMarriageAllowanceStatus();
