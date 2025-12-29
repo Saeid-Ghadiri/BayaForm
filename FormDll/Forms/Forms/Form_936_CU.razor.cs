@@ -808,10 +808,19 @@ namespace VerdictDataModel
 		public Guid? SubSectionId { get; set; }
 		public Guid? PostsId { get; set; }
 		public Guid? PositionsId { get; set; }
+		public string? HR_CVR_JobId { get; set; }
 		public string? HR_CVR_JobTitle { get; set; }
 		public string? Code { get; set; }
+
+		// شناسه گروه شغلی
+		public string? HR_CVR_JobGroupId { get; set; }
+		
+		// عنوان گروه شغلی
 		public string? JobGroupTitle { get; set; }
+
+		// رتبه
 		public decimal? Rank { get; set; }
+		
 		public decimal? RecruitmentAllowance { get; set; }
 		public decimal? SalaryHistory { get; set; }
 		public decimal? CoefficientDifficultAndHarmfulJobs { get; set; }
@@ -859,12 +868,18 @@ namespace VerdictDataModel
 
 		// عنوان قسمت های سازمانی در جدول پست های حکم
 		public string? HR_ORG_SectionsId { get; set; }
+		
+		// عنوان بخش
+		public string? SectionTitle { get; set; }
 
 		// نوع قسمت در جدول پست های حکم
 		public bool? SectionsType { get; set; }
 
 		// عنوان پست سازمانی در جدول پست های حکم
 		public string? HR_ORG_PostsId { get; set; }
+		
+		// عنوان پست
+		public string? PostTitle { get; set; }
 
 		// نوع پست
 		public bool? PostType { get; set; }

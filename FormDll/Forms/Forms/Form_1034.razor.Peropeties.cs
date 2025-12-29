@@ -184,8 +184,9 @@ public Input<string?> Ref_UserStarterCompanyName;
 public Input<string?> Ref_UserStarterUnitName;
 public Input<string?> Ref_UserStarterSectionName;
 public DxGrid? Grid_IDMS_RDC_Details;
-
-public Dropdown Ref_IDMS_RDC_Details_IDMS_ProductCategoriesId;
+		public Dropdown Ref_IDMS_RDC_AllData;
+		public Dropdown Ref_TrackingCode;
+		public Dropdown Ref_IDMS_RDC_Details_IDMS_ProductCategoriesId;
 public Dropdown Ref_IDMS_RDC_Details_IDMS_ProductsId;
 public Dropdown Ref_IDMS_RDC_Details_IDMS_CustomerId;
 public Dropdown Ref_IDMS_RDC_Details_IDMS_ResultingFromId;

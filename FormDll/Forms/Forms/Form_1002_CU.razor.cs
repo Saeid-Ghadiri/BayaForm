@@ -70,7 +70,6 @@ namespace Forms.Forms
 			return IsValid;
 		}
 
-
 		/// <summary>
 		/// تابع قبل اجرا شدن ارسال داده
 		/// </summary>
@@ -79,6 +78,15 @@ namespace Forms.Forms
 		{
 			// تبدیل تاریخ شمسی اجرای حکم به میلادی
 			PrepareExecutionDateForSubmit();
+
+			//// محاسبه مجدد جمع‌ها برای تمام ردیف‌های گرید
+			//if (_Entity.HR_CVR_RecruitmentRules != null)
+			//{
+			//	foreach (var item in _Entity.HR_CVR_RecruitmentRules)
+			//	{
+			//		CalculateTotalSalaryBenefits(item);
+			//	}
+			//}
 
 			return new Result() { Status = HttpStatusCode.OK };
 		}
@@ -113,11 +121,16 @@ namespace Forms.Forms
 			// فراخوانی - آخرین حکم و قرارداد
 			await LastEmpVerdictAndContract(_Entity.HR_EMP_EmployeesId.ToString());
 
-			// 
-			// if (_Entity.HR_EMP_EmployeesId.ToString() != null)
-			// {
-			// 	await SP_Verdict();
-			// }
+			//// محاسبه مجدد جمع‌ها بعد از بارگذاری داده
+			//if (_Entity.HR_CVR_RecruitmentRules != null)
+			//{
+			//	foreach (var item in _Entity.HR_CVR_RecruitmentRules)
+			//	{
+			//		CalculateTotalSalaryBenefits(item);
+			//	}
+			//}
+
+			StateHasChanged();
 		}
 
 		//private async Task 
@@ -178,6 +191,10 @@ namespace Forms.Forms
 
 			// صدا زدن SP اول
 			//await SP_Verdict();
+
+
+			var EveryPostVerdict1 = await EveryPostVerdict(Selected.Id.ToString());
+
 		}
 
 		/// <summary>
@@ -242,7 +259,6 @@ namespace Forms.Forms
 			// LoadData رشته می‌خواهد
 			await Ref_HR_CVR_VerdictRecruitingId.Search(filter_LastEmpVerdict);
 			#endregion
-
 
 			#region LastEmpContract
 			// ToDo: باید برای این فیلتر نسبت به ویو قرارداد و تمدید قرارداد آخرین رکورد را نمایش دهد
@@ -347,7 +363,9 @@ namespace Forms.Forms
 
 		#endregion MasterData
 
-		#region btn_SP_Verdict
+		#region SP_Verdict EmpId & Json
+
+		#region SP_Verdict EmpId
 		/// <summary>
 		/// دکمه استورد پروسیجر
 		/// </summary>
@@ -360,8 +378,7 @@ namespace Forms.Forms
 
 		public async Task SP_Verdict()
 		{
-			#region - 1 WITH EmpId
-			Console.WriteLine("### 🟡 شروع فراخوانی PersonnelContract ###");
+			Console.WriteLine("### 🟡 شروع فراخوانی حکم کارگزینی ###");
 
 			if (_Entity?.HR_EMP_EmployeesId == null)
 			{
@@ -370,6 +387,7 @@ namespace Forms.Forms
 				return;
 			}
 
+			// API حکم کارگزینی که در فرم 936 ایجاد شده است.
 			var R = await BayaApi.PersonnelVerdictInfos(
 				ShomaranApiMode.Polfilm,
 				new EmpId
@@ -378,6 +396,7 @@ namespace Forms.Forms
 				}
 			);
 
+			// بررسی نال بودن خروجی API
 			if (R == null)
 			{
 				await _MSG.ShowError("خروجی وب سرویس null است");
@@ -407,11 +426,11 @@ namespace Forms.Forms
 				}
 
 				var employee = response.DataSets[0][0];
-				//var A =
-				//	employee.RankSalaryNew;
 
 				EmpInfo = employee;
 
+
+				#region پر کردن فیلد های محاسبات حکم  در حالت جدید
 
 				// برای پر کردن فیلدهای گرید محاسبات حقوق حکم از این بخش استفاده می کنیم
 				if (_Entity?.HR_CVR_RecruitmentRules != null && EmpInfo?.RankSalaryNew != null)
@@ -442,10 +461,14 @@ namespace Forms.Forms
 						item.CoefficientDifficultAndHarmfulJobsNew = EmpInfo.CoefficientDifficultAndHarmfulJobsNew;
 						Console.WriteLine($":: Log Set CoefficientDifficultAndHarmfulJobsNew for item {item._Id} :: {item.CoefficientDifficultAndHarmfulJobsNew}");
 
-						// جمع کل مزد مبنا
+						// جمع کل مزد مبنا جدید
 						item.TotalDailyBaseWageNew = EmpInfo.TotalDailyBaseWageNew;
 						Console.WriteLine($":: Log Set TotalDailyBaseWageNew for item {item._Id} :: {item.TotalDailyBaseWageNew}");
-						Ref_HR_CVR_RecruitmentRules_TotalDailyBaseWageNew.SetDisabled(true);
+						//Ref_HR_CVR_RecruitmentRules_TotalDailyBaseWageNew.SetDisabled(true);
+
+						// جمع کل مزد مبنا
+						item.TotalDailyBaseWage = EmpInfo.TotalDailyBaseWage;
+						Console.WriteLine($":: Log Set TotalDailyBaseWage for item {item._Id} :: {item.TotalDailyBaseWage}");
 
 						// تفاوت تطبیق روزانه
 						item.DailyAdjustmentDifferenceNew = EmpInfo.DailyAdjustmentDifferenceNew;
@@ -458,27 +481,27 @@ namespace Forms.Forms
 						// کمک هزینه مسکن
 						item.MinistryLabourRightHousingNew = EmpInfo.MinistryLabourRightHousingNew;
 						Console.WriteLine($":: Log Set MinistryLabourRightHousingNew for item {item._Id} :: {item.MinistryLabourRightHousingNew}");
-						Ref_HR_CVR_RecruitmentRules_MinistryLabourRightHousingNew.SetDisabled(true);
+						//Ref_HR_CVR_RecruitmentRules_MinistryLabourRightHousingNew.SetDisabled(true);
 
 						// حق خوار و بار
 						item.MinistryLaborRightFoodNew = EmpInfo.MinistryLaborRightFoodNew;
 						Console.WriteLine($":: Log Set MinistryLaborRightFoodNew for item {item._Id} :: {item.MinistryLaborRightFoodNew}");
-						Ref_HR_CVR_RecruitmentRules_MinistryLaborRightFoodNew.SetDisabled(true);
+						//Ref_HR_CVR_RecruitmentRules_MinistryLaborRightFoodNew.SetDisabled(true);
 
 						// حق اولاد
 						item.ChildrensRightsMinistryLaborNew = EmpInfo.ChildrensRightsMinistryLaborNew;
 						Console.WriteLine($":: Log Set ChildrensRightsMinistryLaborNew for item {item._Id} :: {item.ChildrensRightsMinistryLaborNew}");
-						Ref_HR_CVR_RecruitmentRules_ChildrensRightsMinistryLaborNew.SetDisabled(true);
+						//Ref_HR_CVR_RecruitmentRules_ChildrensRightsMinistryLaborNew.SetDisabled(true);
 
 						// مزایای رفاهی انگیزه ای ماهانه
 						item.WelfareMotivationalBenefitsNew = EmpInfo.WelfareMotivationalBenefitsNew;
 						Console.WriteLine($":: Log Set WelfareMotivationalBenefitsNew for item {item._Id} :: {item.WelfareMotivationalBenefitsNew}");
-						Ref_HR_CVR_RecruitmentRules_WelfareMotivationalBenefitsNew.SetDisabled(true);
+						//Ref_HR_CVR_RecruitmentRules_WelfareMotivationalBenefitsNew.SetDisabled(true);
 
 						// حق تاهل
 						item.RightMarryMinistryLaborNew = EmpInfo.RightMarryMinistryLaborNew;
 						Console.WriteLine($":: Log Set RightMarryMinistryLaborNew for item {item._Id} :: {item.RightMarryMinistryLaborNew}");
-						Ref_HR_CVR_RecruitmentRules_RightMarryMinistryLaborNew.SetDisabled(true);
+						//Ref_HR_CVR_RecruitmentRules_RightMarryMinistryLaborNew.SetDisabled(true);
 
 						// سایر مزایا
 						item.OtherBenefitsNew = EmpInfo.OtherBenefitsNew;
@@ -487,9 +510,61 @@ namespace Forms.Forms
 						// جمع کل دستمزد مزایایی قانونی و جمع مزد مبنا
 						item.TotalMonthlySalaryBenefitsNew = EmpInfo.TotalMonthlySalaryBenefitsNew;
 						Console.WriteLine($":: Log Set TotalMonthlySalaryBenefitsNew for item {item._Id} :: {item.TotalMonthlySalaryBenefitsNew}");
-						Ref_HR_CVR_RecruitmentRules_TotalMonthlySalaryBenefitsNew.SetDisabled(true);
+						//Ref_HR_CVR_RecruitmentRules_TotalMonthlySalaryBenefitsNew.SetDisabled(true);
+
+
+						item.TotalMonthlySalaryBenefits = EmpInfo.TotalMonthlySalaryBenefits;
+						Console.WriteLine($":: Log Set TotalMonthlySalaryBenefits for item {item._Id} :: {item.TotalMonthlySalaryBenefits}");
+
+						// **********
+						// اطلاعات بخش قسمت های سازمانی
+						Entity.HR_ORG_Sections Sections = new();
+
+						Sections.Id = Guid.Parse(EmpInfo.SectionId.ToString());
+						Sections.Title = EmpInfo.SectionTitle;
+
+						Ref_HR_CVR_RecruitmentRules_HR_ORG_SectionsId.SetEntity(Sections);
+
+						Ref_HR_CVR_RecruitmentRules_HR_ORG_SectionsId.ItemSelected(Sections);
+
+						await Task.Delay(100);
+						Ref_HR_CVR_RecruitmentRules_HR_ORG_SectionsId.LoadData();
+						// **********
+
+						// **********
+						// اطلاعات بخش پست های سازمانی
+						Entity.HR_ORG_Posts Posts = new();
+
+						Posts.Id = Guid.Parse(EmpInfo.PostsId.ToString());
+						Posts.Title = EmpInfo.PostTitle;
+
+						Ref_HR_CVR_RecruitmentRules_HR_ORG_PostsId.SetEntity(Posts);
+
+						Ref_HR_CVR_RecruitmentRules_HR_ORG_PostsId.ItemSelected(Posts);
+
+						await Task.Delay(100);
+						Ref_HR_CVR_RecruitmentRules_HR_ORG_PostsId.LoadData();
+						// **********
+
+						// **********
+						//// اطلاعات بخش شغل های سازمانی
+						//Entity.HR_CVR_Job Jobs = new();
+
+						//Jobs.Id = Guid.Parse(EmpInfo.HR_CVR_JobId.ToString());
+						//Jobs.Title = EmpInfo.HR_CVR_JobTitle;
+
+						//Ref_HR_CVR_RecruitmentRules_HR_CVR_JobId.SetEntity(Jobs);
+
+						//Ref_HR_CVR_RecruitmentRules_HR_CVR_JobId.ItemSelected(Jobs);
+
+						//await Task.Delay(100);
+						//Ref_HR_CVR_RecruitmentRules_HR_CVR_JobId.LoadData();
+						// **********
+
 					}
 				}
+
+				#endregion
 
 				Console.WriteLine(":: Log EmpInfo :: " + await JSON.ToJson(EmpInfo));
 
@@ -523,7 +598,6 @@ namespace Forms.Forms
 					//new() { Title = "جمع کل مزد مبنا و مزایای قانونی", Value = rule?.TotalMonthlySalaryBenefitsNew },
 				};
 
-
 				var rows = string.Join("", previewList.Select(x => $@"
 				<tr>
 					<td style='padding:6px 10px;'>{x.Title}</td>
@@ -533,7 +607,7 @@ namespace Forms.Forms
 				</tr>
 				"));
 
-				decimal totalSum = rule?.TotalMonthlySalaryBenefitsNew ?? 0m;
+				decimal totalSum = rule?.TotalMonthlySalaryBenefitsNew ?? 0.0m;
 				//decimal totalSum1 = previewList.Sum(x => x.Value ?? 0m);
 
 				var totalRow = $@"
@@ -569,9 +643,16 @@ namespace Forms.Forms
 				Console.WriteLine("❌ خطا در پردازش کلی: " + ex.Message);
 				await _MSG.ShowError("خطا در پردازش SP: " + ex.Message);
 			}
-			#endregion - 1
-		}
 
+			// فرواخوانی داده های مرتبط  با شناسه کارمند
+			await GetEmpDataGridOnSP();
+
+			StateHasChanged();
+
+		}
+		#endregion
+
+		#region SP_Verdict Json
 		public async Task SP_Verdict_Json_onclick(MouseEventArgs Selected)
 		{
 			await SP_Verdict_Json();
@@ -579,7 +660,6 @@ namespace Forms.Forms
 
 		public async Task SP_Verdict_Json()
 		{
-			#region - 2 WITH JSON
 
 			var VerdictDTO = new VerdictDataModel.VerdictRequest()
 			{
@@ -587,53 +667,53 @@ namespace Forms.Forms
 				EmployeesId = Guid.Parse(employeeId),
 
 				// مزد شغل
-				JobSalaryRank = EmpInfo.JobSalaryRankNew,
+				JobSalaryRank = EmpInfo.JobSalaryRank,
 
 				// مزد رتبه
-				RankSalary = EmpInfo.RankSalaryNew,
+				RankSalary = EmpInfo.RankSalary,
 
 				// مزد سنوات
-				SalaryHistory = EmpInfo.SalaryHistoryNew,
+				SalaryHistory = EmpInfo.SalaryHistory,
 
 				// حق پست
-				RightGuardianship = EmpInfo.RightGuardianshipNew,
+				RightGuardianship = EmpInfo.RightGuardianship,
 
 				// مزایای مانداگاری در پست
-				CoefficientDurabilityPost = EmpInfo.CoefficientDurabilityPostNew,
+				CoefficientDurabilityPost = EmpInfo.CoefficientDurabilityPost,
 
 				// شرایط نامساعد محیط کار
-				CoefficientDifficultAndHarmfulJobs = EmpInfo.CoefficientDifficultAndHarmfulJobsNew,
+				CoefficientDifficultAndHarmfulJobs = EmpInfo.CoefficientDifficultAndHarmfulJobs,
 
 				// جمع کل مزد مبنا
-				TotalDailyBaseWage = EmpInfo.TotalDailyBaseWageNew,
+				TotalDailyBaseWage = EmpInfo.TotalDailyBaseWage,
 
 				// تفاوت تطبیق روزانه
-				DailyAdjustmentDifference = EmpInfo.DailyAdjustmentDifferenceNew,
+				DailyAdjustmentDifference = EmpInfo.DailyAdjustmentDifference,
 
 				// حق جذب
 				RecruitmentAllowance = EmpInfo.RecruitmentAllowanceNew,
 
 				// کمک هزینه مسکن
-				MinistryLabourRightHousing = EmpInfo.MinistryLabourRightHousingNew,
+				MinistryLabourRightHousing = EmpInfo.MinistryLabourRightHousing,
 
 				// حق خوار و بار
-				MinistryLaborRightFood = EmpInfo.MinistryLaborRightFoodNew,
+				MinistryLaborRightFood = EmpInfo.MinistryLaborRightFood,
 
 				// حق اولاد
-				ChildrensRightsMinistryLabor = EmpInfo.ChildrensRightsMinistryLaborNew,
+				ChildrensRightsMinistryLabor = EmpInfo.ChildrensRightsMinistryLabor,
 
 				// مزایای رفاهی انگیزه ای ماهانه
-				WelfareMotivationalBenefits = EmpInfo.WelfareMotivationalBenefitsNew,
+				WelfareMotivationalBenefits = EmpInfo.WelfareMotivationalBenefits,
 
 				// حق تاهل
-				RightMarryMinistryLabor = EmpInfo.RightMarryMinistryLaborNew,
+				RightMarryMinistryLabor = EmpInfo.RightMarryMinistryLabor,
 
 				// این فیلد به استورد باید اضافه گردد
 				// سایر مزایا
-				OtherBenefits = EmpInfo.OtherBenefitsNew,
+				OtherBenefits = EmpInfo.OtherBenefits,
 
 				// جمع کل دستمزد مزایایی قانونی و جمع مزد مبنا
-				TotalMonthlySalaryBenefits = EmpInfo.TotalMonthlySalaryBenefitsNew,
+				TotalMonthlySalaryBenefits = EmpInfo.TotalMonthlySalaryBenefits,
 
 				// ************************************************
 
@@ -763,12 +843,10 @@ namespace Forms.Forms
 				}
 
 				var employee2 = response2.DataSets[0][0];
-				var A2 =
-					employee2.RankSalaryNew;
 
 				EmpInfo = employee2;
 
-				Console.WriteLine(":: Log EmpInfo :: " + await JSON.ToJson(EmpInfo));
+				Console.WriteLine(":: Log EmpInfo Json :: " + await JSON.ToJson(EmpInfo));
 
 				// --- نمایش دیالوگ ---
 				var options = new BlazorBootstrap.ConfirmDialogOptions
@@ -810,6 +888,17 @@ namespace Forms.Forms
 				</tr>
 				"));
 
+				decimal totalSum = rule?.TotalMonthlySalaryBenefitsNew ?? 0.0m;
+				//decimal totalSum1 = previewList.Sum(x => x.Value ?? 0m);
+
+				var totalRow = $@"
+				<tr style='background:#fff3cd; font-weight:bold;'>
+					<td style='padding:8px'>جمع کل</td>
+					<td style='padding:8px; text-align:right; color:#b02a37'>
+						{totalSum.ToString("N0")}
+					</td>
+				</tr>";
+
 				string htmlString = $@"
 				<div style='direction: rtl; font-family: tahoma;'>
 					<table style='width:100%; border-collapse: collapse;' border='1'>
@@ -821,6 +910,7 @@ namespace Forms.Forms
 						</thead>
 						<tbody>
 							{rows}
+							{totalRow}
 						</tbody>
 					</table>
 				</div>";
@@ -836,232 +926,19 @@ namespace Forms.Forms
 				await _MSG.ShowError("خطا در پردازش SP: " + ex.Message);
 			}
 
-			#endregion - 2
+			
 		}
 		#endregion
 
-		#region Grid_HR_CVR_RecruitmentRules
-
-		public async Task<bool> GridHR_CVR_VerdictRecruitingId_711_editmodelsaving(object e)
-		{
-
-			return false;
-		}
-
-		#region WaitComponentLoaded
-		/// <summary>
-		/// منتظر می‌ماند تا کامپوننت لود شود و سپس SetDisabled را فراخوانی می‌کند
-		/// </summary>
-		/// <param name="componentRef">مرجع کامپوننت</param>
-		/// <param name="maxWaitTimeMs">حداکثر زمان انتظار به میلی‌ثانیه (پیش‌فرض: 5000)</param>
-		/// <returns></returns>
-		private async Task<bool> WaitComponentLoaded(dynamic componentRef, int maxWaitTimeMs = 5000)
-		{
-			if (componentRef != null)
-			{
-				return true;
-			}
-
-			// منتظر می‌مانیم تا کامپوننت لود شود
-			int waitedTime = 0;
-			int delayInterval = 50; // هر 50 میلی‌ثانیه چک می‌کنیم
-
-			while (componentRef == null && waitedTime < maxWaitTimeMs)
-			{
-				await Task.Delay(delayInterval);
-				waitedTime += delayInterval;
-				StateHasChanged(); // برای به‌روزرسانی UI
-			}
-
-			if (componentRef != null)
-			{
-				return true;
-			}
-			else
-			{
-				Console.WriteLine($"⚠️ Warning: Component was not loaded after waiting {maxWaitTimeMs}ms");
-				return false;
-			}
-		}
-		#endregion
-
-		public async Task GridHR_CVR_VerdictRecruitingId_711_afterrendermodal(Entity.HR_CVR_RecruitmentRules Item)
-		{
-			await Task.Yield();
-			StateHasChanged();
-
-			// برای اولین بار وقتی ردیفی در گرید وجود ندارد کلیه عدد های در تابع را 0.0 می کند
-			if (_Entity.HR_CVR_RecruitmentRules.Count == 0)
-			{
-				await SetZiroLastVerdictRule();
-			}
-
-			try
-			{
-				Console.WriteLine(":: Log Grid EmpInfo :: " + await JSON.ToJson(EmpInfo));
-
-				Console.WriteLine("EmpInfo is null? " + (EmpInfo == null));
-
-				// **********************************************************************************************************
-
-				// مزد شغل
-				Item.JobSalaryRankNew = EmpInfo.JobSalaryRankNew;
-				Console.WriteLine($":: Log Set JobSalaryRankNew for item {Item._Id} :: {Item.JobSalaryRankNew}");
-
-				// مزد رتبه
-				Item.RankSalaryNew = EmpInfo.RankSalaryNew;
-				Console.WriteLine($":: Log Set RankSalaryNew for item {Item._Id} :: {Item.JobSalaryRankNew}");
-
-				// مزد سنوات
-				Item.SalaryHistoryNew = EmpInfo.SalaryHistoryNew;
-				Console.WriteLine($":: Log Set SalaryHistoryNew for item {Item._Id} :: {Item.SalaryHistoryNew}");
-
-				// حق پست
-				Item.RightGuardianshipNew = EmpInfo.RightGuardianshipNew;
-				Console.WriteLine($":: Log Set RightGuardianshipNew for item {Item._Id} :: {Item.RightGuardianshipNew}");
-
-				// مزایای مانداگاری در پست
-				Item.CoefficientDurabilityPostNew = EmpInfo.CoefficientDurabilityPostNew;
-				Console.WriteLine($":: Log Set CoefficientDurabilityPostNew for item {Item._Id} :: {Item.CoefficientDurabilityPostNew}");
-
-				// شرایط نامساعد محیط کار
-				Item.CoefficientDifficultAndHarmfulJobsNew = EmpInfo.CoefficientDifficultAndHarmfulJobsNew;
-				Console.WriteLine($":: Log Set CoefficientDifficultAndHarmfulJobsNew for item {Item._Id} :: {Item.CoefficientDifficultAndHarmfulJobsNew}");
-
-				// جمع کل مزد مبنا
-				Item.TotalDailyBaseWageNew = EmpInfo.TotalDailyBaseWageNew;
-				Console.WriteLine($":: Log Set TotalDailyBaseWageNew for item {Item._Id} :: {Item.TotalDailyBaseWageNew}");
-				if (await WaitComponentLoaded(Ref_HR_CVR_RecruitmentRules_TotalDailyBaseWageNew))
-				{
-					Ref_HR_CVR_RecruitmentRules_TotalDailyBaseWageNew.SetDisabled(true);
-				}
-				// تفاوت تطبیق روزانه
-				Item.DailyAdjustmentDifferenceNew = EmpInfo.DailyAdjustmentDifferenceNew;
-				Console.WriteLine($":: Log Set DailyAdjustmentDifferenceNew for item {Item._Id} :: {Item.DailyAdjustmentDifferenceNew}");
-
-				// حق جذب
-				Item.RecruitmentAllowanceNew = EmpInfo.RecruitmentAllowanceNew;
-				Console.WriteLine($":: Log Set RecruitmentAllowanceNew for item {Item._Id} :: {Item.RecruitmentAllowanceNew}");
-
-				// کمک هزینه مسکن
-				Item.MinistryLabourRightHousingNew = EmpInfo.MinistryLabourRightHousingNew;
-				Console.WriteLine($":: Log Set MinistryLabourRightHousingNew for item {Item._Id} :: {Item.MinistryLabourRightHousingNew}");
-				if (await WaitComponentLoaded(Ref_HR_CVR_RecruitmentRules_MinistryLabourRightHousingNew))
-				{
-					Ref_HR_CVR_RecruitmentRules_MinistryLabourRightHousingNew.SetDisabled(true);
-				}
-
-				// حق خوار و بار
-				Item.MinistryLaborRightFoodNew = EmpInfo.MinistryLaborRightFoodNew;
-				Console.WriteLine($":: Log Set MinistryLaborRightFoodNew for item {Item._Id} :: {Item.MinistryLaborRightFoodNew}");
-				if (await WaitComponentLoaded(Ref_HR_CVR_RecruitmentRules_MinistryLaborRightFoodNew))
-				{
-					Ref_HR_CVR_RecruitmentRules_MinistryLaborRightFoodNew.SetDisabled(true);
-				}
-
-				// حق اولاد
-				Item.ChildrensRightsMinistryLaborNew = EmpInfo.ChildrensRightsMinistryLaborNew;
-				Console.WriteLine($":: Log Set ChildrensRightsMinistryLaborNew for item {Item._Id} :: {Item.ChildrensRightsMinistryLaborNew}");
-				if (await WaitComponentLoaded(Ref_HR_CVR_RecruitmentRules_ChildrensRightsMinistryLaborNew))
-				{
-					Ref_HR_CVR_RecruitmentRules_ChildrensRightsMinistryLaborNew.SetDisabled(true);
-				}
-
-				// مزایای رفاهی انگیزه ای ماهانه
-				Item.WelfareMotivationalBenefitsNew = EmpInfo.WelfareMotivationalBenefitsNew;
-				Console.WriteLine($":: Log Set WelfareMotivationalBenefitsNew for item {Item._Id} :: {Item.WelfareMotivationalBenefitsNew}");
-				if (await WaitComponentLoaded(Ref_HR_CVR_RecruitmentRules_WelfareMotivationalBenefitsNew))
-				{
-					Ref_HR_CVR_RecruitmentRules_WelfareMotivationalBenefitsNew.SetDisabled(true);
-				}
-
-				// حق تاهل
-				Item.RightMarryMinistryLaborNew = EmpInfo.RightMarryMinistryLaborNew;
-				Console.WriteLine($":: Log Set RightMarryMinistryLaborNew for item {Item._Id} :: {Item.RightMarryMinistryLaborNew}");
-				if (await WaitComponentLoaded(Ref_HR_CVR_RecruitmentRules_RightMarryMinistryLaborNew))
-				{
-					Ref_HR_CVR_RecruitmentRules_RightMarryMinistryLaborNew.SetDisabled(true);
-				}
-
-				// سایر مزایا
-				Item.OtherBenefitsNew = EmpInfo.OtherBenefitsNew;
-				Console.WriteLine($":: Log Set OtherBenefitsNew for item {Item._Id} :: {Item.OtherBenefitsNew}");
-
-				// جمع کل دستمزد مزایایی قانونی و جمع مزد مبنا
-				Item.TotalMonthlySalaryBenefitsNew = EmpInfo.TotalMonthlySalaryBenefitsNew;
-				Console.WriteLine($":: Log Set TotalMonthlySalaryBenefitsNew for item {Item._Id} :: {Item.TotalMonthlySalaryBenefitsNew}");
-				if (await WaitComponentLoaded(Ref_HR_CVR_RecruitmentRules_TotalMonthlySalaryBenefitsNew))
-				{
-					Ref_HR_CVR_RecruitmentRules_TotalMonthlySalaryBenefitsNew.SetDisabled(true);
-				}
-
-
-				// **********
-				// جمع کل مزد مبنا قبلی
-				if (await WaitComponentLoaded(Ref_HR_CVR_RecruitmentRules_TotalDailyBaseWage))
-				{
-					Ref_HR_CVR_RecruitmentRules_TotalDailyBaseWage.SetDisabled(true);
-				}
-				// جمع کل دستمزد مزایایی قانونی و جمع مزد مبنا قبلی
-				if (await WaitComponentLoaded(Ref_HR_CVR_RecruitmentRules_TotalMonthlySalaryBenefits))
-				{
-					Ref_HR_CVR_RecruitmentRules_TotalMonthlySalaryBenefits.SetDisabled(true);
-				}
-
-				// تکمیل فیلدهای گرید ::
-				await GetEmpDataGrid(Item);
-
-
-				// **********************************
-
-				// اگر HR_CVR_ApprovalsMinistryLaborGroupId پر باشد، مقادیر مربوطه را اعمال کن
-				if (Item.HR_CVR_ApprovalsMinistryLaborGroupId.HasValue)
-				{
-					await EMP_Data.EmployeeData.ApplyToLastRecruitmentRules(Item, _User.UserID.ToString());
-				}
-
-				StateHasChanged();
-			}
-			catch (Exception ex)
-			{
-				Console.WriteLine($"💥 Exception in Grid => AfterRender Error :: {ex}");
-			}
-
-		}
-
-
-		/// <summary>
-		/// پر کردن شناسه کارمند از بخش اصلی فرم در فیلد شناسه کارمند در گرید محاسبات حقوق و دستمزد
-		/// </summary>
-		/// <param name="Selected"></param>
-		/// <param name="Item"></param>
-		/// <returns></returns>
-		public async Task Grid_HR_EMP_EmployeesId_onitemselected(dynamic Selected, Entity.HR_CVR_RecruitmentRules Item)
-		{
-			var x = await Utility.JSON.ToJson(Selected);
-			Console.WriteLine("Log :: Grid_Selected Data ::" + x);
-
-			Item.HR_EMP_EmployeesId = Guid.Parse(employeeId);
-
-			Ref_HR_CVR_RecruitmentRules_HR_EMP_EmployeesId.SetEntity(Item);
-
-			//Console.WriteLine(await Utility.JSON.ToJson(SalaryCalculations));
-
-			Ref_HR_CVR_RecruitmentRules_HR_EMP_EmployeesId.ItemSelected(Item);
-
-
-			await Task.Delay(100);
-			Ref_HR_CVR_RecruitmentRules_HR_EMP_EmployeesId.LoadData();
-		}
-
+		#region GetEmpDataGridOnSP
 		/// <summary>
 		/// پر کردن فیلد های گرید محاسبات حکم از جدول مجاز و یا SP
 		/// </summary>
 		/// <param name="Item"></param>
 		/// <returns></returns>
-		private async Task GetEmpDataGrid(Entity.HR_CVR_RecruitmentRules Item)
+		private async Task GetEmpDataGridOnSP()
 		{
-			await Task.Yield();
+			//await Task.Yield();
 
 			#region EmployeeDataFetchWithSP
 
@@ -1121,23 +998,125 @@ namespace Forms.Forms
 			Ref_HR_CVR_RecruitmentRules_HR_ORG_SectionsId.Value = emp_data.HR_ORG_SectionsId;
 			// شناسه پست سازمانی
 			Ref_HR_CVR_RecruitmentRules_HR_ORG_PostsId.Value = emp_data.HR_ORG_PostsId;
+
 			// در SP نیست
 			// جدول مصوبات
 			//Ref_HR_CVR_RecruitmentRules_HR_CVR_ApprovalsMinistryLaborGroupId.Value = emp_data.HR_CVR_ApprovalsMinistryLaborGroupId;
 			// عنوان شغلی
-			Ref_HR_CVR_RecruitmentRules_HR_CVR_JobId.Value = emp_data.HR_CVR_JobTitle;
+			Ref_HR_CVR_RecruitmentRules_HR_CVR_JobId.Value = emp_data.HR_CVR_JobId;
+
 			// گروه شغلی
-			Ref_HR_CVR_RecruitmentRules_HR_CVR_JobGroupId.Value = emp_data.JobGroupTitle;
+			Ref_HR_CVR_RecruitmentRules_HR_CVR_JobGroupId.Value = emp_data.HR_CVR_JobGroupId;
 
 			// تعداد فرزند کارمند
 			Ref_HR_CVR_RecruitmentRules_EmployeeChildrenCount.Value = emp_data.CountChilderen;
 			// تاریخ برقراری حق اولاد
 			Ref_HR_CVR_RecruitmentRules_FirstChildAllowanceEstablishmentDate_Fa.Value = emp_data.StartChildRightsGroupDate_Fa;
 
+			// بررسی وضعیت اینکه آیا حق تاهل تعلق می گیرد؟
+			SetMarriageAllowanceStatus();
 
+			// بررسی وضعیت اینکه آیا حق اولاد تعلق می گیرد یا خیر؟
+			SetChildAllowanceStatus();
 			#endregion
+
 			StateHasChanged();
 		}
+		#endregion /GetEmpDataGridOnSP
+
+		#region ChildAllowanceLogic
+
+		/// <summary>
+		/// بر اساس تعداد فرزند کارمند، وضعیت "آیا حق اولاد به کارمند تعلق می‌گیرد؟" را تعیین می‌کند.
+		/// </summary>
+		private void SetChildAllowanceStatus()
+		{
+			if (_Entity?.HR_CVR_RecruitmentRules == null)
+			{
+				Console.WriteLine("⚠️ HR_CVR_RecruitmentRules is null.");
+				return;
+			}
+
+			Console.WriteLine($"✅ تعداد ردیف‌های گرید: {_Entity.HR_CVR_RecruitmentRules.Count()}");
+
+			foreach (var item in _Entity.HR_CVR_RecruitmentRules)
+			{
+				Console.WriteLine($"Log :: EmployeeChildrenCount: {item.EmployeeChildrenCount}, قبل از تغییر IsChildAllowanceGrantedToEmployee: {item.IsChildAllowanceGrantedToEmployee}");
+
+				// اگر تعداد فرزند بیشتر از 0 باشد، حق اولاد تعلق می‌گیرد
+				if (item.EmployeeChildrenCount > 0)
+				{
+					item.IsChildAllowanceGrantedToEmployee = true;
+					Console.WriteLine($"✅ IsChildAllowanceGrantedToEmployee برای ردیف {item._Id} به true تغییر یافت.");
+				}
+				else
+				{
+					item.IsChildAllowanceGrantedToEmployee = false;
+					Console.WriteLine($"✅ IsChildAllowanceGrantedToEmployee برای ردیف {item._Id} به false تغییر یافت.");
+				}
+
+				Console.WriteLine($"Log :: پس از تغییر IsChildAllowanceGrantedToEmployee: {item.IsChildAllowanceGrantedToEmployee}");
+			}
+
+			// نیازی به بروزرسانی Ref نیست، چون فیلد به‌صورت مستقیم از مدل مقدار می‌گیرد
+		}
+
+		#endregion
+
+		#region MarriageAllowanceLogic
+
+		/// <summary>
+		/// بر اساس مقدار فیلد "حق تاهل جدید"، مقدار فیلد "آیا به کارمند حق تاهل تعلق می‌گیرد؟" را تنظیم می‌کند.
+		/// اگر RightMarryMinistryLaborNew > 0 باشد، IsMarriageAllowanceGrantedToEmployee = true.
+		/// در غیر این‌صورت (0 یا null)، IsMarriageAllowanceGrantedToEmployee = false.
+		/// </summary>
+		private void SetMarriageAllowanceStatus()
+		{
+			Console.WriteLine("🔧 شروع محاسبه وضعیت حق تاهل بر اساس فیلد عددی ...");
+
+			if (_Entity?.HR_CVR_RecruitmentRules == null)
+			{
+				Console.WriteLine("⚠️ لیست HR_CVR_RecruitmentRules خالی است. خروج از تابع.");
+				return;
+			}
+
+			Console.WriteLine($"✅ تعداد ردیف‌های موجود در گرید: {_Entity.HR_CVR_RecruitmentRules.Count()}");
+
+			foreach (var item in _Entity.HR_CVR_RecruitmentRules)
+			{
+				// مقدار قبلی فیلد بولین را نگه می‌داریم
+				bool? oldValue = item.IsMarriageAllowanceGrantedToEmployee;
+
+				// خواندن مقدار فیلد عددی
+				decimal? rightMarryValue = item.RightMarryMinistryLaborNew;
+
+				Console.WriteLine($"Log :: در حال بررسی ردیف با شناسه {item._Id}");
+				Console.WriteLine($"Log :: مقدار فعلی RightMarryMinistryLaborNew: {rightMarryValue}");
+				Console.WriteLine($"Log :: مقدار فعلی IsMarriageAllowanceGrantedToEmployee: {oldValue}");
+
+				// تعیین وضعیت جدید بر اساس شرط
+				bool newValue;
+				if (rightMarryValue.HasValue && rightMarryValue > 0)
+				{
+					newValue = true;
+					Console.WriteLine($"✅ شرط برآورده شد: RightMarryMinistryLaborNew > 0. مقدار جدید: true");
+				}
+				else
+				{
+					newValue = false;
+					Console.WriteLine($"✅ شرط برآورده نشد: RightMarryMinistryLaborNew <= 0 یا null. مقدار جدید: false");
+				}
+
+				// ست کردن مقدار جدید در مدل
+				item.IsMarriageAllowanceGrantedToEmployee = newValue;
+
+				Console.WriteLine($"✅ مقدار IsMarriageAllowanceGrantedToEmployee به {newValue} تغییر یافت.");
+			}
+
+			Console.WriteLine("🔧 پایان محاسبه وضعیت حق تاهل برای تمام ردیف‌ها.");
+		}
+
+		#endregion
 
 		#region ApplyToLastRecruitmentRules
 		/// <summary>
@@ -1195,6 +1174,259 @@ namespace Forms.Forms
 
 		#endregion
 
+		#region Grid_HR_CVR_RecruitmentRules
+
+		public async Task<bool> GridHR_CVR_VerdictRecruitingId_711_editmodelsaving(object e)
+		{
+
+			return false;
+		}
+
+		#region WaitComponentLoaded
+		/// <summary>
+		/// منتظر می‌ماند تا کامپوننت لود شود و سپس SetDisabled را فراخوانی می‌کند
+		/// </summary>
+		/// <param name="componentRef">مرجع کامپوننت</param>
+		/// <param name="maxWaitTimeMs">حداکثر زمان انتظار به میلی‌ثانیه (پیش‌فرض: 5000)</param>
+		/// <returns></returns>
+		private async Task<bool> WaitComponentLoaded(dynamic componentRef, int maxWaitTimeMs = 5000)
+		{
+			if (componentRef != null)
+			{
+				return true;
+			}
+
+			// منتظر می‌مانیم تا کامپوننت لود شود
+			int waitedTime = 0;
+			int delayInterval = 50; // هر 50 میلی‌ثانیه چک می‌کنیم
+
+			while (componentRef == null && waitedTime < maxWaitTimeMs)
+			{
+				await Task.Delay(delayInterval);
+				waitedTime += delayInterval;
+				StateHasChanged(); // برای به‌روزرسانی UI
+			}
+
+			if (componentRef != null)
+			{
+				return true;
+			}
+			else
+			{
+				Console.WriteLine($"⚠️ Warning: Component was not loaded after waiting {maxWaitTimeMs}ms");
+				return false;
+			}
+		}
+		#endregion
+
+		public async Task GridHR_CVR_VerdictRecruitingId_711_afterrendermodal(Entity.HR_CVR_RecruitmentRules Item)
+		{
+			//await Task.Yield();
+			//StateHasChanged();
+
+			// برای اولین بار وقتی ردیفی در گرید وجود ندارد کلیه عدد های در تابع را 0.0 می کند
+			if (_Entity.HR_CVR_RecruitmentRules.Count == 0)
+			{
+				await SetZiroLastVerdictRule();
+			}
+
+			#region فرخوانی داده ها از SP_Verdict
+
+			// try
+			// {
+			// 	Console.WriteLine(":: Log Grid EmpInfo :: " + await JSON.ToJson(EmpInfo));
+
+			// 	Console.WriteLine("EmpInfo is null? " + (EmpInfo == null));
+
+			// 	// **********************************************************************************************************
+
+			// 	// مزد شغل
+			// 	Item.JobSalaryRankNew = EmpInfo.JobSalaryRankNew;
+			// 	Console.WriteLine($":: Log Set JobSalaryRankNew for item {Item._Id} :: {Item.JobSalaryRankNew}");
+
+			// 	// مزد رتبه
+			// 	Item.RankSalaryNew = EmpInfo.RankSalaryNew;
+			// 	Console.WriteLine($":: Log Set RankSalaryNew for item {Item._Id} :: {Item.JobSalaryRankNew}");
+
+			// 	// مزد سنوات
+			// 	Item.SalaryHistoryNew = EmpInfo.SalaryHistoryNew;
+			// 	Console.WriteLine($":: Log Set SalaryHistoryNew for item {Item._Id} :: {Item.SalaryHistoryNew}");
+
+			// 	// حق پست
+			// 	Item.RightGuardianshipNew = EmpInfo.RightGuardianshipNew;
+			// 	Console.WriteLine($":: Log Set RightGuardianshipNew for item {Item._Id} :: {Item.RightGuardianshipNew}");
+
+			// 	// مزایای مانداگاری در پست
+			// 	Item.CoefficientDurabilityPostNew = EmpInfo.CoefficientDurabilityPostNew;
+			// 	Console.WriteLine($":: Log Set CoefficientDurabilityPostNew for item {Item._Id} :: {Item.CoefficientDurabilityPostNew}");
+
+			// 	// شرایط نامساعد محیط کار
+			// 	Item.CoefficientDifficultAndHarmfulJobsNew = EmpInfo.CoefficientDifficultAndHarmfulJobsNew;
+			// 	Console.WriteLine($":: Log Set CoefficientDifficultAndHarmfulJobsNew for item {Item._Id} :: {Item.CoefficientDifficultAndHarmfulJobsNew}");
+
+			// 	// جمع کل مزد مبنا جدید
+			// 	Item.TotalDailyBaseWageNew = EmpInfo.TotalDailyBaseWageNew;
+			// 	Console.WriteLine($":: Log Set TotalDailyBaseWageNew for item {Item._Id} :: {Item.TotalDailyBaseWageNew}");
+			// 	//if (await WaitComponentLoaded(Ref_HR_CVR_RecruitmentRules_TotalDailyBaseWageNew))
+			// 	//{
+			// 	//	Ref_HR_CVR_RecruitmentRules_TotalDailyBaseWageNew.SetDisabled(true);
+			// 	//}
+
+			// 	// جمع کل مزد مبنا
+			// 	Item.TotalDailyBaseWage = EmpInfo.TotalDailyBaseWage;
+			// 	Console.WriteLine($":: Log Set TotalDailyBaseWage for item {Item._Id} :: {Item.TotalDailyBaseWage}");
+
+			// 	// تفاوت تطبیق روزانه
+			// 	Item.DailyAdjustmentDifferenceNew = EmpInfo.DailyAdjustmentDifferenceNew;
+			// 	Console.WriteLine($":: Log Set DailyAdjustmentDifferenceNew for item {Item._Id} :: {Item.DailyAdjustmentDifferenceNew}");
+
+			// 	// حق جذب
+			// 	Item.RecruitmentAllowanceNew = EmpInfo.RecruitmentAllowanceNew;
+			// 	Console.WriteLine($":: Log Set RecruitmentAllowanceNew for item {Item._Id} :: {Item.RecruitmentAllowanceNew}");
+
+			// 	// کمک هزینه مسکن
+			// 	Item.MinistryLabourRightHousingNew = EmpInfo.MinistryLabourRightHousingNew;
+			// 	Console.WriteLine($":: Log Set MinistryLabourRightHousingNew for item {Item._Id} :: {Item.MinistryLabourRightHousingNew}");
+			// 	//if (await WaitComponentLoaded(Ref_HR_CVR_RecruitmentRules_MinistryLabourRightHousingNew))
+			// 	//{
+			// 	//	Ref_HR_CVR_RecruitmentRules_MinistryLabourRightHousingNew.SetDisabled(true);
+			// 	//}
+
+			// 	// حق خوار و بار
+			// 	Item.MinistryLaborRightFoodNew = EmpInfo.MinistryLaborRightFoodNew;
+			// 	Console.WriteLine($":: Log Set MinistryLaborRightFoodNew for item {Item._Id} :: {Item.MinistryLaborRightFoodNew}");
+			// 	//if (await WaitComponentLoaded(Ref_HR_CVR_RecruitmentRules_MinistryLaborRightFoodNew))
+			// 	//{
+			// 	//	Ref_HR_CVR_RecruitmentRules_MinistryLaborRightFoodNew.SetDisabled(true);
+			// 	//}
+
+			// 	// حق اولاد
+			// 	Item.ChildrensRightsMinistryLaborNew = EmpInfo.ChildrensRightsMinistryLaborNew;
+			// 	Console.WriteLine($":: Log Set ChildrensRightsMinistryLaborNew for item {Item._Id} :: {Item.ChildrensRightsMinistryLaborNew}");
+			// 	//if (await WaitComponentLoaded(Ref_HR_CVR_RecruitmentRules_ChildrensRightsMinistryLaborNew))
+			// 	//{
+			// 	//	Ref_HR_CVR_RecruitmentRules_ChildrensRightsMinistryLaborNew.SetDisabled(true);
+			// 	//}
+
+			// 	// مزایای رفاهی انگیزه ای ماهانه
+			// 	Item.WelfareMotivationalBenefitsNew = EmpInfo.WelfareMotivationalBenefitsNew;
+			// 	Console.WriteLine($":: Log Set WelfareMotivationalBenefitsNew for item {Item._Id} :: {Item.WelfareMotivationalBenefitsNew}");
+			// 	//if (await WaitComponentLoaded(Ref_HR_CVR_RecruitmentRules_WelfareMotivationalBenefitsNew))
+			// 	//{
+			// 	//	Ref_HR_CVR_RecruitmentRules_WelfareMotivationalBenefitsNew.SetDisabled(true);
+			// 	//}
+
+			// 	// حق تاهل
+			// 	Item.RightMarryMinistryLaborNew = EmpInfo.RightMarryMinistryLaborNew;
+			// 	Console.WriteLine($":: Log Set RightMarryMinistryLaborNew for item {Item._Id} :: {Item.RightMarryMinistryLaborNew}");
+			// 	//if (await WaitComponentLoaded(Ref_HR_CVR_RecruitmentRules_RightMarryMinistryLaborNew))
+			// 	//{
+			// 	//	Ref_HR_CVR_RecruitmentRules_RightMarryMinistryLaborNew.SetDisabled(true);
+			// 	//}
+
+			// 	// سایر مزایا
+			// 	Item.OtherBenefitsNew = EmpInfo.OtherBenefitsNew;
+			// 	Console.WriteLine($":: Log Set OtherBenefitsNew for item {Item._Id} :: {Item.OtherBenefitsNew}");
+
+			// 	// جمع کل دستمزد مزایایی قانونی و جمع مزد مبنا جدید
+			// 	Item.TotalMonthlySalaryBenefitsNew = EmpInfo.TotalMonthlySalaryBenefitsNew;
+			// 	Console.WriteLine($":: Log Set TotalMonthlySalaryBenefitsNew for item {Item._Id} :: {Item.TotalMonthlySalaryBenefitsNew}");
+			// 	//if (await WaitComponentLoaded(Ref_HR_CVR_RecruitmentRules_TotalMonthlySalaryBenefitsNew))
+			// 	//{
+			// 	//	Ref_HR_CVR_RecruitmentRules_TotalMonthlySalaryBenefitsNew.SetDisabled(true);
+			// 	//}
+
+			// 	// جمع کل دستمزد مزایایی قانونی و جمع مزد مبنا
+			// 	Item.TotalMonthlySalaryBenefits = EmpInfo.TotalMonthlySalaryBenefits;
+			// 	Console.WriteLine($":: Log Set TotalMonthlySalaryBenefits for item {Item._Id} :: {Item.TotalMonthlySalaryBenefits}");
+
+
+			// 	// **********
+			// 	//// جمع کل مزد مبنا قبلی
+			// 	//if (await WaitComponentLoaded(Ref_HR_CVR_RecruitmentRules_TotalDailyBaseWage))
+			// 	//{
+			// 	//	Ref_HR_CVR_RecruitmentRules_TotalDailyBaseWage.SetDisabled(true);
+			// 	//}
+			// 	//// جمع کل دستمزد مزایایی قانونی و جمع مزد مبنا قبلی
+			// 	//if (await WaitComponentLoaded(Ref_HR_CVR_RecruitmentRules_TotalMonthlySalaryBenefits))
+			// 	//{
+			// 	//	Ref_HR_CVR_RecruitmentRules_TotalMonthlySalaryBenefits.SetDisabled(true);
+			// 	//}
+
+
+			// 	// **********
+			// 	Entity.HR_ORG_Posts Posts = new();
+			// 	//Posts.Id = EmpInfo.PostsId;
+			// 	Posts.Id = Guid.Parse(EmpInfo.PostsId.ToString());
+			// 	Posts.Title = EmpInfo.PostTitle;
+
+			// 	// Console.WriteLine("#Log 1");
+
+			// 	Ref_HR_CVR_RecruitmentRules_HR_ORG_PostsId.SetEntity(Posts);
+
+			// 	// Console.WriteLine(await Utility.JSON.ToJson(JobGroup));
+			// 	Ref_HR_CVR_RecruitmentRules_HR_ORG_PostsId.ItemSelected(Posts);
+
+			// 	// Console.WriteLine("#Log 2");
+
+			// 	await Task.Delay(100);
+			// 	Ref_HR_CVR_RecruitmentRules_HR_ORG_PostsId.LoadData();
+
+			// 	// **********
+
+
+
+			// 	// تکمیل فیلدهای گرید ::
+			// 	await GetEmpDataGrid(Item);
+
+			// 	// ✅ تنظیم خودکار حق اولاد بر اساس تعداد فرزند — بعد از SP
+			// 	SetChildAllowanceStatus();
+			// 	// **********************************
+
+			// 	// اگر HR_CVR_ApprovalsMinistryLaborGroupId پر باشد، مقادیر مربوطه را اعمال کن
+			// 	if (Item.HR_CVR_ApprovalsMinistryLaborGroupId.HasValue)
+			// 	{
+			// 		await EMP_Data.EmployeeData.ApplyToLastRecruitmentRules(Item, _User.UserID.ToString());
+			// 	}
+
+			// 	StateHasChanged();
+			// }
+			// catch (Exception ex)
+			// {
+			// 	Console.WriteLine($"💥 Exception in Grid => AfterRender Error :: {ex}");
+			// }
+			#endregion
+		}
+
+		#region VerdictGrid_HR_EMP_EmployeesId
+		/// <summary>
+		/// پر کردن شناسه کارمند از بخش اصلی فرم در فیلد شناسه کارمند در گرید محاسبات حقوق و دستمزد
+		/// </summary>
+		/// <param name="Selected"></param>
+		/// <param name="Item"></param>
+		/// <returns></returns>
+		public async Task Grid_HR_EMP_EmployeesId_onitemselected(dynamic Selected, Entity.HR_CVR_RecruitmentRules Item)
+		{
+			var x = await Utility.JSON.ToJson(Selected);
+			Console.WriteLine("Log :: Grid_Selected Data ::" + x);
+
+			Item.HR_EMP_EmployeesId = Guid.Parse(employeeId);
+
+			Ref_HR_CVR_RecruitmentRules_HR_EMP_EmployeesId.SetEntity(Item);
+
+			//Console.WriteLine(await Utility.JSON.ToJson(SalaryCalculations));
+
+			Ref_HR_CVR_RecruitmentRules_HR_EMP_EmployeesId.ItemSelected(Item);
+
+
+			await Task.Delay(100);
+			Ref_HR_CVR_RecruitmentRules_HR_EMP_EmployeesId.LoadData();
+		}
+
+		#endregion /VerdictGrid_HR_EMP_EmployeesId
+
+		#endregion
+
 		#region Grid_EveryPostVerdict
 
 		public async Task<bool> GridHR_CVR_VerdictRecruitingId_445_editmodelsaving(object e)
@@ -1202,12 +1434,16 @@ namespace Forms.Forms
 
 			return false;
 		}
+
 		public async Task GridHR_CVR_VerdictRecruitingId_445_afterrendermodal(Entity.HR_CVR_EveryPostVerdict Item)
 		{
 			// بررسی ردیف درخواست در گرید پست های حکم کارمند 
 			await CheckedRowGrid_EveryPostVerdict(Item);
 			// بررس دکمه های گرید پست های حکم
 			await ToggleDetails_Grid_EveryPostVerdict_AddButton();
+
+			// 
+
 		}
 
 		/// <summary>
@@ -1337,36 +1573,324 @@ namespace Forms.Forms
 			if (Item == null)
 				return;
 
-			decimal total = 0m;
+			Console.WriteLine($"Before calculation - Total: {Item.TotalDailyBaseWage}");
 
-			total += Item.JobSalaryRank ?? 0m;
-			total += Item.RankSalary ?? 0m;
-			total += Item.SalaryHistory ?? 0m;
-			total += Item.RightGuardianship ?? 0m;
-			total += Item.CoefficientDurabilityPost ?? 0m;
-			total += Item.CoefficientDifficultAndHarmfulJobs ?? 0m;
-			total += Item.TotalDailyBaseWage ?? 0m;
-			total += Item.DailyAdjustmentDifference ?? 0m;
-			total += Item.RecruitmentAllowance ?? 0m;
-			total += Item.MinistryLabourRightHousing ?? 0m;
-			total += Item.MinistryLaborRightFood ?? 0m;
-			total += Item.ChildrensRightsMinistryLabor ?? 0m;
-			total += Item.WelfareMotivationalBenefits ?? 0m;
-			total += Item.RightMarryMinistryLabor ?? 0m;
-			total += Item.OtherBenefits ?? 0m;
+			//Item.TotalDailyBaseWage = 0.0m;
+
+			decimal total = 0.0m;
+
+			total += Item.JobSalaryRank ?? 0.0m;
+			total += Item.RankSalary ?? 0.0m;
+			total += Item.SalaryHistory ?? 0.0m;
+			total += Item.RightGuardianship ?? 0.0m;
+			total += Item.CoefficientDurabilityPost ?? 0.0m;
+			total += Item.CoefficientDifficultAndHarmfulJobs ?? 0.0m;
+			total += Item.DailyAdjustmentDifference ?? 0.0m;
+			total += Item.RecruitmentAllowance ?? 0.0m;
+			total += Item.MinistryLabourRightHousing ?? 0.0m;
+			total += Item.MinistryLaborRightFood ?? 0.0m;
+			total += Item.ChildrensRightsMinistryLabor ?? 0.0m;
+			total += Item.WelfareMotivationalBenefits ?? 0.0m;
+			total += Item.RightMarryMinistryLabor ?? 0.0m;
+			total += Item.OtherBenefits ?? 0.0m;
 
 			Item.TotalDailyBaseWage = total;
-			//Item.TotalDailyBaseWage = Convert.ToInt32(total);
+
+			Console.WriteLine($"After calculation - Total: {Item.TotalDailyBaseWage}");
+		}
+
+		private decimal SafeParseToDecimal(object value)
+		{
+			if (value == null || string.IsNullOrWhiteSpace(value.ToString()))
+				return 0;
+
+			if (decimal.TryParse(value.ToString(), out decimal result))
+				return result;
+
+			return 0;
+		}
+
+		private void UpdateTotalDailyBaseWageUI(HR_CVR_RecruitmentRules item)
+		{
+			if (Ref_HR_CVR_RecruitmentRules_TotalDailyBaseWage != null)
+			{
+				Ref_HR_CVR_RecruitmentRules_TotalDailyBaseWage.Value = item.TotalDailyBaseWage;
+			}
 		}
 
 		#endregion
 
 		#region CalculateTotal
-		public async Task JobSalaryRank_oninput(ChangeEventArgs Selected, Entity.HR_CVR_RecruitmentRules Item)
-		{
-		}
+
 		public async Task JobSalaryRankNew_oninput(ChangeEventArgs Selected, Entity.HR_CVR_RecruitmentRules Item)
 		{
+
+		}
+		public async Task JobSalaryRank_oninput(ChangeEventArgs Selected, Entity.HR_CVR_RecruitmentRules Item)
+		{
+			//	Item.JobSalaryRank = SafeParseToDecimal(Selected.Value);
+			//	CalculateTotalSalaryBenefits(Item);
+			//	Console.WriteLine($"JobSalaryRank :: TOTAL NOW = {Item.TotalDailyBaseWage}");
+			//	StateHasChanged();
+		}
+
+		public async Task RankSalary_oninput(ChangeEventArgs Selected, Entity.HR_CVR_RecruitmentRules Item)
+		{
+			//Item.RankSalary = SafeParseToDecimal(Selected.Value);
+			//CalculateTotalSalaryBenefits(Item);
+			//Console.WriteLine($"RankSalary :: TOTAL NOW = {Item.TotalDailyBaseWage}");
+			//StateHasChanged();
+		}
+		public async Task SalaryHistory_oninput(ChangeEventArgs Selected, Entity.HR_CVR_RecruitmentRules Item)
+		{
+			//Item.SalaryHistory = SafeParseToDecimal(Selected.Value);
+			//CalculateTotalSalaryBenefits(Item);
+			//Console.WriteLine($"SalaryHistory :: TOTAL NOW = {Item.TotalDailyBaseWage}");
+			//StateHasChanged();
+		}
+		public async Task RightGuardianship_oninput(ChangeEventArgs Selected, Entity.HR_CVR_RecruitmentRules Item)
+		{
+			//Item.RightGuardianship = SafeParseToDecimal(Selected.Value);
+			//CalculateTotalSalaryBenefits(Item);
+			//Console.WriteLine($"RightGuardianship :: TOTAL NOW = {Item.TotalDailyBaseWage}");
+			//StateHasChanged();
+		}
+		public async Task CoefficientDurabilityPost_oninput(ChangeEventArgs Selected, Entity.HR_CVR_RecruitmentRules Item)
+		{
+			//Item.CoefficientDurabilityPost = SafeParseToDecimal(Selected.Value);
+			//CalculateTotalSalaryBenefits(Item);
+			//Console.WriteLine($"CoefficientDurabilityPost :: TOTAL NOW = {Item.TotalDailyBaseWage}");
+			//StateHasChanged();
+		}
+		public async Task CoefficientDifficultAndHarmfulJobs_oninput(ChangeEventArgs Selected, Entity.HR_CVR_RecruitmentRules Item)
+		{
+			//Item.CoefficientDifficultAndHarmfulJobs = SafeParseToDecimal(Selected.Value);
+			//CalculateTotalSalaryBenefits(Item);
+			//Console.WriteLine($"CoefficientDifficultAndHarmfulJobs :: TOTAL NOW = {Item.TotalDailyBaseWage}");
+			//StateHasChanged();
+		}
+
+		#endregion
+
+		#region EveryPostVerdict_0
+		public async Task<List<HR_CVR_VerdictRecruiting>> EveryPostVerdict(string employeeId)
+		{
+			var TablePost = new Baya.Models.ORM.Table
+			{
+				Name = "HR_CVR_VerdictRecruiting",
+				NameAs = "HR_CVR_VerdictRecruiting",
+
+				Column = new List<Coulmn>
+				{
+					new Coulmn { Name = "HR_Base_InsuranceTypesId", NameAs = "HR_Base_InsuranceTypesId" },
+					new Coulmn { Name = "HR_CVR_PersonnelContractId", NameAs = "HR_CVR_PersonnelContractId" },
+					new Coulmn { Name = "HR_CVR_TypesRulingsId", NameAs = "HR_CVR_TypesRulingsId" },
+					new Coulmn { Name = "InsuranceNumber", NameAs = "InsuranceNumber" },
+					new Coulmn { Name = "TypeBonusPayment", NameAs = "TypeBonusPayment" },
+					new Coulmn { Name = "GroupTitle", NameAs = "GroupTitle" },
+					new Coulmn { Name = "Rank", NameAs = "Rank" },
+					new Coulmn { Name = "ExecutionDateSentence", NameAs = "ExecutionDateSentence" },
+					new Coulmn { Name = "RegisterTime", NameAs = "RegisterTime" },
+					new Coulmn { Name = "ConfirmerTime", NameAs = "ConfirmerTime" },
+					new Coulmn { Name = "ApproverTime", NameAs = "ApproverTime" },
+					new Coulmn { Name = "NullifierTime", NameAs = "NullifierTime" },
+					new Coulmn { Name = "HR_StatusVerdictRecruitingId", NameAs = "HR_StatusVerdictRecruitingId" },
+					new Coulmn { Name = "HR_CVR_VerdictRecruitingId", NameAs = "HR_CVR_VerdictRecruitingId" },
+					new Coulmn { Name = "HR_CVR_JobId", NameAs = "HR_CVR_JobId" },
+					new Coulmn { Name = "HR_CVR_DescriptionRulingsId", NameAs = "HR_CVR_DescriptionRulingsId" },
+					new Coulmn { Name = "ExecutionDateSentence_Fa", NameAs = "ExecutionDateSentence_Fa" },
+					new Coulmn { Name = "HR_CVR_JobGroupId", NameAs = "HR_CVR_JobGroupId" },
+					new Coulmn { Name = "HR_EMP_EmployeesId", NameAs = "HR_EMP_EmployeesId" }
+				},
+				Relation = new List<Baya.Models.ORM.Table>
+				{
+					new Baya.Models.ORM.Table
+					{
+						Name = "HR_CVR_EveryPostVerdict",
+						NameAs = "HR_CVR_EveryPostVerdict",
+						ModeErtebat = ModeErtebat._1N,
+
+						Column = new List<Coulmn>
+						{
+						new Coulmn { Name = "Id", NameAs = "Id" },
+						new Coulmn { Name = "HR_CVR_VerdictRecruitingId", NameAs = "HR_CVR_VerdictRecruitingId" },
+						new Coulmn { Name = "PostType", NameAs = "PostType" },
+						new Coulmn { Name = "SectionsType", NameAs = "SectionsType" },
+						new Coulmn { Name = "HR_ORG_SectionsId", NameAs = "HR_ORG_SectionsId" },
+						new Coulmn { Name = "HR_ORG_PostsId", NameAs = "HR_ORG_PostsId" }
+						},
+					}
+				}
+			};
+
+			var NewQuery = new QueryBuilderFilterRule
+			{
+				Condition = "AND",
+				Rules = new List<QueryBuilderFilterRule>
+				{
+				    // فیلتر بر اساس کارمند
+				    new QueryBuilderFilterRule
+					{
+						Field = "HR_EMP_EmployeesId",
+						Operator = "equal",
+						Type = "string",
+						Value = new string[] { employeeId }
+					},
+				    // (اختیاری ولی توصیه‌شده) فقط احکام فعال
+				    new QueryBuilderFilterRule
+					{
+						Field = "HR_StatusVerdictRecruitingId",
+						Operator = "equal",
+						Type = "string",
+						Value = new[] { "0DA9356F-211D-F011-A502-005056A2B6BD" } // وضعیت "فعال"
+					}
+				}
+			};
+
+			// فراخوانی API
+			var Model = await ApiServer.External.Services.Data.GetList(
+				Entity: "HR_CVR_VerdictRecruiting",
+				limit: null,
+				skip: null,
+				include: TablePost,
+				Filter: NewQuery
+			);
+
+			if (Model?.Status == HttpStatusCode.OK && !string.IsNullOrEmpty(Model.Content?.ToString()))
+			{
+				try
+				{
+					var approvals = await JSON.ToObject<List<HR_CVR_VerdictRecruiting>>(Model.Content.ToString());
+					return approvals;
+				}
+				catch (Exception ex)
+				{
+					Console.WriteLine($"💥 خطا در فراخوانی داده ها: {ex.Message}");
+				}
+			}
+			else
+			{
+				Console.WriteLine($"❌ خطا در دریافت مصوبه با شناسه {Model?.Status}");
+			}
+
+			var TableGet = new Baya.Models.ORM.Table
+			{
+				Name = "HR_CVR_EveryPostVerdict",
+				NameAs = "HR_CVR_EveryPostVerdict",
+
+				Column = new List<Coulmn>
+				{
+					new Coulmn { Name = "Id", NameAs = "Id" },
+					new Coulmn { Name = "RequestID", NameAs = "RequestID" },
+					new Coulmn { Name = "CreateUser", NameAs = "CreateUser" },
+					new Coulmn { Name = "UpdateUser", NameAs = "UpdateUser" },
+					new Coulmn { Name = "CreateDate", NameAs = "CreateDate" },
+					new Coulmn { Name = "UpdateDate", NameAs = "UpdateDate" },
+					new Coulmn { Name = "IsDelete", NameAs = "IsDelete" },
+					new Coulmn { Name = "HR_CVR_VerdictRecruitingId", NameAs = "HR_CVR_VerdictRecruitingId" },
+					new Coulmn { Name = "PostType", NameAs = "PostType" },
+					new Coulmn { Name = "SectionsType", NameAs = "SectionsType" },
+					new Coulmn { Name = "HR_ORG_SectionsId", NameAs = "HR_ORG_SectionsId" },
+					new Coulmn { Name = "HR_ORG_PostsId", NameAs = "HR_ORG_PostsId" }
+				},
+
+				Relation = new List<Baya.Models.ORM.Table>
+				{
+				    // ================= HR_ORG_Posts =================
+				    new Baya.Models.ORM.Table
+					{
+						Name = "HR_ORG_Posts",
+						NameAs = "HR_ORG_Posts",
+						ModeErtebat = ModeErtebat._1N,
+
+						Column = new List<Coulmn>
+						{
+							new Coulmn { Name = "State", NameAs = "State" },
+							new Coulmn { Name = "Title", NameAs = "Title" },
+							new Coulmn { Name = "TitleEn", NameAs = "TitleEn" },
+							new Coulmn { Name = "DeleteDateTime", NameAs = "DeleteDateTime" },
+							new Coulmn { Name = "Code", NameAs = "Code" },
+							new Coulmn { Name = "Description", NameAs = "Description" },
+							new Coulmn { Name = "AteyehSaz_InsuranceId", NameAs = "AteyehSaz_InsuranceId" },
+							new Coulmn { Name = "HR_ORG_PositionsId", NameAs = "HR_ORG_PositionsId" },
+							new Coulmn { Name = "HR_Base_InsuranceJobsId", NameAs = "HR_Base_InsuranceJobsId" },
+							new Coulmn { Name = "PostCode", NameAs = "PostCode" }
+						},
+
+						Relation = new List<Baya.Models.ORM.Table>()
+					},
+
+				    // ================= HR_ORG_Sections =================
+				    new Baya.Models.ORM.Table
+					{
+						Name = "HR_ORG_Sections",
+						NameAs = "HR_ORG_Sections",
+						ModeErtebat = ModeErtebat._1N,
+
+						Column = new List<Coulmn>
+						{
+							new Coulmn { Name = "HR_EMP_EmployeesId", NameAs = "HR_EMP_EmployeesId" },
+							new Coulmn { Name = "Status", NameAs = "Status" },
+							new Coulmn { Name = "Title", NameAs = "Title" },
+							new Coulmn { Name = "TitleEn", NameAs = "TitleEn" },
+							new Coulmn { Name = "Description", NameAs = "Description" },
+							new Coulmn { Name = "Code", NameAs = "Code" },
+							new Coulmn { Name = "DeleteDateTime", NameAs = "DeleteDateTime" },
+							new Coulmn { Name = "HR_ORG_SitesId", NameAs = "HR_ORG_SitesId" },
+							new Coulmn { Name = "HR_ORG_SectionTypesId", NameAs = "HR_ORG_SectionTypesId" },
+							new Coulmn { Name = "HR_Base_TaxCategoryId", NameAs = "HR_Base_TaxCategoryId" },
+							new Coulmn { Name = "HR_ORG_SectionStatusId", NameAs = "HR_ORG_SectionStatusId" },
+							new Coulmn { Name = "ParentId", NameAs = "ParentId" },
+							new Coulmn { Name = "BaseInfo_ORG_SitesId", NameAs = "BaseInfo_ORG_SitesId" },
+							new Coulmn { Name = "BaseInfo_TaxCategoryId", NameAs = "BaseInfo_TaxCategoryId" },
+							new Coulmn { Name = "BaseInfo_ORG_CompaniesId", NameAs = "BaseInfo_ORG_CompaniesId" }
+						},
+
+						Relation = new List<Baya.Models.ORM.Table>()
+					},
+
+				    // ================= HR_CVR_VerdictRecruiting =================
+				    new Baya.Models.ORM.Table
+					{
+						Name = "HR_CVR_VerdictRecruiting",
+						NameAs = "HR_CVR_VerdictRecruiting",
+						ModeErtebat = ModeErtebat._N1,
+
+						Column = new List<Coulmn>
+						{
+							new Coulmn { Name = "HR_Base_InsuranceTypesId", NameAs = "HR_Base_InsuranceTypesId" },
+							new Coulmn { Name = "HR_CVR_PersonnelContractId", NameAs = "HR_CVR_PersonnelContractId" },
+							new Coulmn { Name = "HR_CVR_TypesRulingsId", NameAs = "HR_CVR_TypesRulingsId" },
+							new Coulmn { Name = "InsuranceNumber", NameAs = "InsuranceNumber" },
+							new Coulmn { Name = "TypeBonusPayment", NameAs = "TypeBonusPayment" },
+							new Coulmn { Name = "GroupTitle", NameAs = "GroupTitle" },
+							new Coulmn { Name = "Rank", NameAs = "Rank" },
+							new Coulmn { Name = "ExecutionDateSentence", NameAs = "ExecutionDateSentence" },
+							new Coulmn { Name = "RegisterTime", NameAs = "RegisterTime" },
+							new Coulmn { Name = "ConfirmerTime", NameAs = "ConfirmerTime" },
+							new Coulmn { Name = "ApproverTime", NameAs = "ApproverTime" },
+							new Coulmn { Name = "NullifierTime", NameAs = "NullifierTime" },
+							new Coulmn { Name = "HR_StatusVerdictRecruitingId", NameAs = "HR_StatusVerdictRecruitingId" },
+							new Coulmn { Name = "HR_CVR_VerdictRecruitingId", NameAs = "HR_CVR_VerdictRecruitingId" },
+							new Coulmn { Name = "RegisterUserId", NameAs = "RegisterUserId" },
+							new Coulmn { Name = "ConfirmerUserId", NameAs = "ConfirmerUserId" },
+							new Coulmn { Name = "ApproverUserId", NameAs = "ApproverUserId" },
+							new Coulmn { Name = "NullifierUserId", NameAs = "NullifierUserId" },
+							new Coulmn { Name = "HR_CVR_JobId", NameAs = "HR_CVR_JobId" },
+							new Coulmn { Name = "HR_CVR_DescriptionRulingsId", NameAs = "HR_CVR_DescriptionRulingsId" },
+							new Coulmn { Name = "Employee_NotMaped", NameAs = "Employee_NotMaped" },
+							new Coulmn { Name = "Code", NameAs = "Code" },
+							new Coulmn { Name = "ExecutionDateSentence_Fa", NameAs = "ExecutionDateSentence_Fa" },
+							new Coulmn { Name = "HR_CVR_JobGroupId", NameAs = "HR_CVR_JobGroupId" },
+							new Coulmn { Name = "HR_EMP_EmployeesId", NameAs = "HR_EMP_EmployeesId" }
+						},
+
+						Relation = new List<Baya.Models.ORM.Table>()
+					}
+				}
+			};
+
+			return null;
 		}
 		#endregion
 
@@ -1678,13 +2202,18 @@ namespace EMP_Data
 				}
 			};
 
+			Baya.Models.ORM.PagedResult Pager = new()
+			{
+				PageSize = 1000,
+				PageNumber = 1,
+			};
+
 			// فراخوانی API
-			var Model = await ApiServer.External.Services.Data.GetList(
-				Entity: "HR_CVR_ApprovalsMinistryLaborGroup",
-				limit: null,
-				skip: null,
-				include: TablePost,
-				Filter: NewQuery
+			var Model = await ApiServer.External.Services.Data.GetListPost(
+				Table: TablePost,
+				Filter: NewQuery,
+				Pagination: Pager,
+				Entity: "HR_CVR_ApprovalsMinistryLaborGroup"
 			);
 
 			if (Model?.Status == HttpStatusCode.OK && !string.IsNullOrEmpty(Model.Content?.ToString()))
@@ -1727,6 +2256,115 @@ namespace EMP_Data
 			{
 				Console.WriteLine($"❌ خطا در دریافت مصوبه با شناسه {approvalId}: {Model?.Status}");
 			}
+		}
+		#endregion
+
+		#region EveryPostVerdict
+		public static async Task<List<HR_CVR_VerdictRecruiting>> EveryPostVerdict(string employeeId, string userId)
+		{
+			var TablePost = new Baya.Models.ORM.Table
+			{
+				Name = "HR_CVR_VerdictRecruiting",
+				NameAs = "HR_CVR_VerdictRecruiting",
+
+				Column = new List<Coulmn>
+				{
+					new Coulmn { Name = "HR_Base_InsuranceTypesId", NameAs = "HR_Base_InsuranceTypesId" },
+					new Coulmn { Name = "HR_CVR_PersonnelContractId", NameAs = "HR_CVR_PersonnelContractId" },
+					new Coulmn { Name = "HR_CVR_TypesRulingsId", NameAs = "HR_CVR_TypesRulingsId" },
+					new Coulmn { Name = "InsuranceNumber", NameAs = "InsuranceNumber" },
+					new Coulmn { Name = "TypeBonusPayment", NameAs = "TypeBonusPayment" },
+					new Coulmn { Name = "GroupTitle", NameAs = "GroupTitle" },
+					new Coulmn { Name = "Rank", NameAs = "Rank" },
+					new Coulmn { Name = "ExecutionDateSentence", NameAs = "ExecutionDateSentence" },
+					new Coulmn { Name = "RegisterTime", NameAs = "RegisterTime" },
+					new Coulmn { Name = "ConfirmerTime", NameAs = "ConfirmerTime" },
+					new Coulmn { Name = "ApproverTime", NameAs = "ApproverTime" },
+					new Coulmn { Name = "NullifierTime", NameAs = "NullifierTime" },
+					new Coulmn { Name = "HR_StatusVerdictRecruitingId", NameAs = "HR_StatusVerdictRecruitingId" },
+					new Coulmn { Name = "HR_CVR_VerdictRecruitingId", NameAs = "HR_CVR_VerdictRecruitingId" },
+					new Coulmn { Name = "HR_CVR_JobId", NameAs = "HR_CVR_JobId" },
+					new Coulmn { Name = "HR_CVR_DescriptionRulingsId", NameAs = "HR_CVR_DescriptionRulingsId" },
+					new Coulmn { Name = "ExecutionDateSentence_Fa", NameAs = "ExecutionDateSentence_Fa" },
+					new Coulmn { Name = "HR_CVR_JobGroupId", NameAs = "HR_CVR_JobGroupId" },
+					new Coulmn { Name = "HR_EMP_EmployeesId", NameAs = "HR_EMP_EmployeesId" }
+				},
+				Relation = new List<Baya.Models.ORM.Table>
+				{
+					new Baya.Models.ORM.Table
+					{
+						Name = "HR_CVR_EveryPostVerdict",
+						NameAs = "HR_CVR_EveryPostVerdict",
+						ModeErtebat = ModeErtebat._1N,
+
+						Column = new List<Coulmn>
+						{
+						new Coulmn { Name = "Id", NameAs = "Id" },
+						new Coulmn { Name = "HR_CVR_VerdictRecruitingId", NameAs = "HR_CVR_VerdictRecruitingId" },
+						new Coulmn { Name = "PostType", NameAs = "PostType" },
+						new Coulmn { Name = "SectionsType", NameAs = "SectionsType" },
+						new Coulmn { Name = "HR_ORG_SectionsId", NameAs = "HR_ORG_SectionsId" },
+						new Coulmn { Name = "HR_ORG_PostsId", NameAs = "HR_ORG_PostsId" }
+						},
+					}
+				}
+			};
+
+			var NewQuery = new QueryBuilderFilterRule
+			{
+				Condition = "AND",
+				Rules = new List<QueryBuilderFilterRule>
+				{
+				    // فیلتر بر اساس کارمند
+				    new QueryBuilderFilterRule
+					{
+						Field = "HR_EMP_EmployeesId",
+						Operator = "equal",
+						Type = "string",
+						Value = new string[] { employeeId }
+					},
+				    // (اختیاری ولی توصیه‌شده) فقط احکام فعال
+				    new QueryBuilderFilterRule
+					{
+						Field = "HR_StatusVerdictRecruitingId",
+						Operator = "equal",
+						Type = "string",
+						Value = new[] { "0DA9356F-211D-F011-A502-005056A2B6BD" } // وضعیت "فعال"
+					}
+				}
+			};
+
+			Baya.Models.ORM.PagedResult Pager = new()
+			{
+				PageSize = 1000,
+				PageNumber = 1,
+			};
+
+			// فراخوانی API
+			var Model = await ApiServer.External.Services.Data.GetListPost(
+				Table: TablePost,
+				Filter: NewQuery,
+				Pagination: Pager,
+				Entity: "HR_CVR_VerdictRecruiting"
+			);
+
+			if (Model?.Status == HttpStatusCode.OK && !string.IsNullOrEmpty(Model.Content?.ToString()))
+			{
+				try
+				{
+					var approvals = await JSON.ToObject<List<HR_CVR_VerdictRecruiting>>(Model.Content.ToString());
+					return approvals;
+				}
+				catch (Exception ex)
+				{
+					Console.WriteLine($"💥 خطا در فراخوانی داده ها: {ex.Message}");
+				}
+			}
+			else
+			{
+				Console.WriteLine($"❌ خطا در دریافت مصوبه با شناسه {Model?.Status}");
+			}
+			return null;
 		}
 		#endregion
 	}

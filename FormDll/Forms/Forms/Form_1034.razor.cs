@@ -1,3 +1,5 @@
+using System;
+using System.Net;
 using Baya.Models.Utility;
 using BlazorBootstrap;
 using Blazored.Toast.Services;
@@ -5,18 +7,14 @@ using Castle.DynamicLinqQueryBuilder;
 using DateUtils;
 using DevExpress.Blazor;
 using Entity;
-using ExcelDataReader.Log;
 using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using System;
-using System.Net;
-using Utility;
 
 namespace Forms.Forms
 {
-	public class Form_1034Base : Form_1034Peropeties
+	public class Form_1034Base : Form_1034Peropeties//, IAsyncDisposable
 	{
 		/// <summary>
 		/// پیام‌ها
@@ -58,7 +56,7 @@ namespace Forms.Forms
 				//await Task.Delay(200);
 
 				await ToggleDetailsGridAddButton();
-				
+				await ToggleResultOfAnotherProcessFields(_Entity?.IsResultOfAnotherProcess == true);
 			}
 			else
 			{
@@ -112,13 +110,6 @@ namespace Forms.Forms
 			// تبدیل تاریخ‌های شمسی به میلادی
 			PrepareRequestedDueDatesForSubmit();
 
-
-			//
-			foreach (var item in _Entity.IDMS_RDC_Details)
-			{
-				Console.WriteLine("Log rdc desc::" + item.RDC_SUPERVISOR_Description);
-			}
-
 			return new Result { Status = HttpStatusCode.OK };
 		}
 
@@ -146,6 +137,7 @@ namespace Forms.Forms
 
 			// 
 			await ToggleDetailsGridAddButton();
+			await ToggleResultOfAnotherProcessFields(_Entity?.IsResultOfAnotherProcess == true);
 
 			// کمی صبر می‌کنیم تا مطمئن شویم همه داده‌ها در فرم کامل رندر شده‌اند
 			await Task.Delay(300);
@@ -267,33 +259,33 @@ namespace Forms.Forms
 				IsValid = false;
 				await _MSG.ShowError("لطفاً دسته‌بندی محصول را انتخاب کنید.");
 			}
-			// if (Item.IDMS_ProductsId == null)
-			// {
-			// 	IsValid = false;
-			// 	await _MSG.ShowError("لطفاً محصول را انتخاب کنید.");
-			// }
-			// if (Item.IDMS_CustomerId == null)
-			// {
-			// 	IsValid = false;
-			// 	await _MSG.ShowError("لطفاً مشتری را انتخاب کنید.");
-			// }
-			// if (Item.IDMS_ResultingFromId == null)
-			// {
-			// 	IsValid = false;
-			// 	await _MSG.ShowError("لطفاً گزینه «منتج از» را انتخاب کنید.");
-			// }
+			if (Item.IDMS_ProductsId == null)
+			{
+				IsValid = false;
+				await _MSG.ShowError("لطفاً محصول را انتخاب کنید.");
+			}
+			if (Item.IDMS_CustomerId == null)
+			{
+				IsValid = false;
+				await _MSG.ShowError("لطفاً مشتری را انتخاب کنید.");
+			}
+			if (Item.IDMS_ResultingFromId == null)
+			{
+				IsValid = false;
+				await _MSG.ShowError("لطفاً گزینه «منتج از» را انتخاب کنید.");
+			}
 
-			// // تاریخ پیشنهادی انجام کار (شمسی)
-			// if (string.IsNullOrWhiteSpace(Item.RequestedDueDate_Fa))
-			// {
-			// 	IsValid = false;
-			// 	await _MSG.ShowError("لطفاً تاریخ پیشنهادی انجام کار را وارد کنید.");
-			// }
-			// else if (!PersianDateUtils.TryParseDateString(Item.RequestedDueDate_Fa, out _))
-			// {
-			// 	IsValid = false;
-			// 	await _MSG.ShowError("لطفاً تاریخ پیشنهادی انجام کار را با فرمت صحیح شمسی (مثال: 1403/01/01) وارد کنید.");
-			// }
+			// تاریخ پیشنهادی انجام کار (شمسی)
+			if (string.IsNullOrWhiteSpace(Item.RequestedDueDate_Fa))
+			{
+				IsValid = false;
+				await _MSG.ShowError("لطفاً تاریخ پیشنهادی انجام کار را وارد کنید.");
+			}
+			else if (!PersianDateUtils.TryParseDateString(Item.RequestedDueDate_Fa, out _))
+			{
+				IsValid = false;
+				await _MSG.ShowError("لطفاً تاریخ پیشنهادی انجام کار را با فرمت صحیح شمسی (مثال: 1403/01/01) وارد کنید.");
+			}
 
 			return IsValid;
 		}
@@ -364,7 +356,105 @@ namespace Forms.Forms
 		}
 
 
-		
+		/// <summary>
+		/// تابع قبل اجرا شدن ورودی ثبت مدل جزئیات
+		/// بر اساس گزینه «آیا این فرایند منتج از فرایند دیگری است؟»، کنترل های مربوطه نمایش داده یا مخفی می شوند.
+		/// </summary>
+		/// <param name="selected"></param>
+		/// <returns></returns>
+		public async Task IsResultOfAnotherProcess_oninput(ChangeEventArgs selected)
+		{
+			Console.WriteLine("=== IsResultOfAnotherProcess_oninput شروع شد ===");
+
+			bool isChecked = false;
+			if (selected?.Value != null)
+			{
+				bool.TryParse(selected.Value.ToString(), out isChecked);
+			}
+
+			Console.WriteLine($"#Log: isChecked = {isChecked}");
+			Console.WriteLine($"#Log: selected?.Value = {selected?.Value}");
+
+			_Entity.IsResultOfAnotherProcess = isChecked;
+
+			// اگر کاربر checkbox را از true به false تغییر داد، باید داده‌های فیلدها را null کنیم
+			if (!isChecked)
+			{
+				Console.WriteLine("#Log: وارد بخش !isChecked شد - شروع Reset کردن dropdown ها");
+
+				//// null کردن مقدار IDMS_RDC_AllData در Entity
+				//_Entity.IDMS_RDC_AllData = null;
+
+				// Reset کردن dropdown ها
+				try
+				{
+					Console.WriteLine("#Log: بررسی Ref_TrackingCode...");
+					Console.WriteLine($"#Log: Ref_TrackingCode == null? {Ref_TrackingCode == null}");
+
+					//// برای TrackingCode که یک Dropdown معمولی است (DisplayFormat="DropDown")
+					//if (Ref_TrackingCode != null)
+					//{
+					//	// مستقیماً مقدار dropdown را reset می‌کنیم بدون فراخوانی OnItemSelected
+					//	Ref_TrackingCode.DropdownSelected = "انتخاب کنید";
+					//}
+
+					// برای IDMS_RDC_AllData که یک DataGrid است (DisplayFormat="DataGrid")
+					// فقط مقدار Entity را null می‌کنیم و StateHasChanged را فراخوانی می‌کنیم
+					// DataGrid خودش با تغییر مقدار Entity به‌روزرسانی می‌شود
+					// اگر نیاز به reset کامل DataGrid بود، می‌توان از Ref_IDMS_RDC_AllData.RefDataGrid استفاده کرد
+					// اما چون RefDataGrid private است، فقط مقدار Entity را null می‌کنیم
+
+					// کدهای قبلی ResetDropdown - کامنت شده برای استفاده احتمالی در آینده
+					if (Ref_TrackingCode != null)
+					{
+						Console.WriteLine("#Log: Ref_TrackingCode null نیست - فراخوانی ResetDropdown...");
+						await Ref_TrackingCode.ResetDropdown();
+						Console.WriteLine("#Log: Ref_TrackingCode.ResetDropdown() اجرا شد");
+					}
+					else
+					{
+						Console.WriteLine("#Log: ⚠️ Ref_TrackingCode null است - نمی‌توان ResetDropdown را فراخوانی کرد");
+					}
+
+					Console.WriteLine("#Log: بررسی Ref_IDMS_RDC_AllData...");
+					Console.WriteLine($"#Log: Ref_IDMS_RDC_AllData == null? {Ref_IDMS_RDC_AllData == null}");
+
+					if (Ref_IDMS_RDC_AllData != null)
+					{
+						Console.WriteLine("#Log: Ref_IDMS_RDC_AllData null نیست - فراخوانی ResetDropdown...");
+						await Ref_IDMS_RDC_AllData.ResetDropdown();
+						Console.WriteLine("#Log: Ref_IDMS_RDC_AllData.ResetDropdown() اجرا شد");
+					}
+					else
+					{
+						Console.WriteLine("#Log: ⚠️ Ref_IDMS_RDC_AllData null است - نمی‌توان ResetDropdown را فراخوانی کرد");
+					}
+				}
+				catch (Exception ex)
+				{
+					// در صورت بروز خطا، فقط مقدار Entity را null نگه می‌داریم
+					Console.WriteLine($"#Log: ❌ خطا در Reset کردن dropdown ها: {ex.Message}");
+					Console.WriteLine($"#Log: StackTrace: {ex.StackTrace}");
+				}
+
+				// به‌روزرسانی UI
+				Console.WriteLine("#Log: فراخوانی StateHasChanged...");
+				await InvokeAsync(StateHasChanged);
+				Console.WriteLine("#Log: StateHasChanged اجرا شد");
+			}
+			else
+			{
+				Console.WriteLine("#Log: isChecked = true - نیازی به Reset نیست");
+			}
+
+			// سپس visibility را تنظیم می‌کنیم (مخفی یا نمایش)
+			Console.WriteLine($"#Log: فراخوانی ToggleResultOfAnotherProcessFields با isChecked = {isChecked}...");
+			await ToggleResultOfAnotherProcessFields(isChecked);
+			Console.WriteLine("#Log: ToggleResultOfAnotherProcessFields اجرا شد");
+
+			Console.WriteLine("=== IsResultOfAnotherProcess_oninput پایان ===");
+		}
+
 		#endregion
 
 		#region Grid Events: IDMS_TestModel
@@ -398,6 +488,132 @@ namespace Forms.Forms
 		/// <returns></returns>
 		public async Task GridIDMS_RDC_MasterId_753_customizeeditmodel(GridCustomizeEditModelEventArgs e)
 		{
+			// if (e.IsNew)
+			// {
+			// 	var newTestModel = (Entity.IDMS_TestModel)e.EditModel;
+			// 	var activeDetail = _Entity.IDMS_RDC_Details?.FirstOrDefault(x => x.IsDelete != true);
+
+			// 	if (activeDetail == null)
+			// 	{
+			// 		await _MSG.ShowWarning("ابتدا یک ردیف در بخش «جزئیات سیستم تحقیق و توسعه» ثبت کنید.");
+			// 		await Grid_IDMS_TestModel?.CancelEditAsync();
+			// 		return;
+			// 	}
+
+			// 	newTestModel.IDMS_RDC_DetailsId = activeDetail.Id;
+			// 	newTestModel.IDMS_RDC_Details = activeDetail;
+
+			// 	// if (Ref_IDMS_TestModel_IDMS_RDC_DetailsId != null)
+			// 	// {
+			// 	// 	Ref_IDMS_TestModel_IDMS_RDC_DetailsId.SetEntity(activeDetail);
+			// 	// 	await Task.Delay(100);
+			// 	// 	await Ref_IDMS_TestModel_IDMS_RDC_DetailsId.LoadData();
+			// 	// }
+			// 	StateHasChanged();
+			// }
+		}
+
+		#endregion
+
+		#region Dropdown Events
+
+		/// <summary>
+		/// تابع قبل اجرا شدن ورودی ثبت مدل جزئیات
+		/// بر اساس کد پیگیری انتخاب شده، داده‌های جزئیات تازه‌سازی می‌شوند.
+		/// </summary>
+		/// <param name="Selected"></param>
+		/// <returns></returns>
+		// public async Task TrackingCode_onitemselected(dynamic Selected, Entity.IDMS_RDC_Master Item)
+		public async Task TrackingCode_onitemselected(dynamic Selected)
+		{
+			// اگر Selected null باشد (مثلاً وقتی ResetDropdown فراخوانی می‌شود)، از متد خارج می‌شویم
+			if (Selected == null)
+			{
+				Console.WriteLine("#Log: Selected is null - dropdown was reset");
+				return;
+			}
+
+			Console.WriteLine("#Log:0::");
+
+			var jsonSelected = await Utility.JSON.ToJson(Selected);
+			Console.WriteLine(jsonSelected);
+
+			string selectedTrackingCode = Selected.RequestTrakingCode;
+
+			Console.WriteLine("#Log:1::" + selectedTrackingCode);
+
+			if (string.IsNullOrWhiteSpace(selectedTrackingCode))
+			{
+				Console.WriteLine("#Log: Selected tracking code is empty");
+				return; // یا LoadData("") ارسال شود
+			}
+
+			// درست: مدل اصلی QueryBuilderFilter
+			QueryBuilderFilterRule filter = new QueryBuilderFilterRule()
+			{
+				Condition = "AND",
+				Rules = new List<QueryBuilderFilterRule>()
+				{
+					new QueryBuilderFilterRule()
+					{
+						Id = "RequestTrakingCode",
+						Field = "RequestTrakingCode",
+						Type = "string",
+						Input = "text",
+						Operator = "equal",
+						Value = new string[] { selectedTrackingCode }
+					}
+				}
+			};
+
+			await Task.Delay(100);
+
+			Console.WriteLine("#Log:3::" + filter);
+
+			// LoadData رشته می‌خواهد
+			await Ref_IDMS_RDC_AllData.Search(filter);
+
+			//StateHasChanged();
+		}
+
+		/// <summary>
+		/// Handler برای انتخاب آیتم در dropdown IDMS_RDC_AllData
+		/// </summary>
+		/// <param name="_Item">آیتم انتخاب شده</param>
+		public async Task ItemSelected_IDMS_RDC_MasterIDMS_RDC_AllData(object _Item)
+		{
+			// اگر _Item null باشد (مثلاً وقتی ResetDropdown فراخوانی می‌شود)، مقدار را null می‌کنیم
+			if (_Item == null)
+			{
+				_Entity.IDMS_RDC_AllData = null;
+				return;
+			}
+
+			try
+			{
+				var jsonResult = await Utility.JSON.ToJson(_Item);
+				if (jsonResult == null)
+				{
+					_Entity.IDMS_RDC_AllData = null;
+					return;
+				}
+
+				var Selected = await Utility.JSON.ToObject<dynamic>(jsonResult);
+
+				// اگر Selected null باشد یا MasterId وجود نداشته باشد، مقدار را null می‌کنیم
+				if (Selected == null)
+				{
+					_Entity.IDMS_RDC_AllData = null;
+					return;
+				}
+
+				_Entity.IDMS_RDC_AllData = Selected.MasterId;
+			}
+			catch
+			{
+				// در صورت بروز هرگونه خطا، مقدار را null می‌کنیم
+				_Entity.IDMS_RDC_AllData = null;
+			}
 		}
 
 		#endregion
@@ -487,6 +703,17 @@ namespace Forms.Forms
 			}
 		}
 
+		/// <summary>
+		/// نمایش یا مخفی‌سازی فیلدهای مرتبط با «منتج از فرایند دیگر بودن»
+		/// </summary>
+		/// <param name="showFields">اگر true باشد فیلدها نمایش داده می‌شوند</param>
+		private async Task ToggleResultOfAnotherProcessFields(bool showFields)
+		{
+			Ref_TrackingCode?.SetVisible(showFields);
+			Ref_IDMS_RDC_AllData?.SetVisible(showFields);
+			await InvokeAsync(StateHasChanged);
+		}
+
 		#endregion
 
 		#region Dialogs
@@ -527,9 +754,19 @@ namespace Forms.Forms
 		// برای گسترش آینده
 		#endregion
 
-		
-
 		#endregion FunctionEvents
 
+		#region Dispose
+
+		/// <summary>
+		/// آزادسازی منابع به صورت ناهمزمان
+		/// </summary>
+		//public async ValueTask DisposeAsync()
+		//{
+		//	DisposeProgressResources();
+		//	await Task.CompletedTask;
+		//}
+
+		#endregion
 	}
 }

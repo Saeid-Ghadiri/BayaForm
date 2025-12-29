@@ -189,6 +189,8 @@ public Dropdown Ref_IDMS_RDC_Details_IDMS_ProductCategoriesId;
 public Dropdown Ref_IDMS_RDC_Details_IDMS_ProductsId;
 public Dropdown Ref_IDMS_RDC_Details_IDMS_CustomerId;
 public Dropdown Ref_IDMS_RDC_Details_IDMS_ResultingFromId;
+public Dropdown Ref_IDMS_RDC_AllData;
+public Dropdown Ref_TrackingCode;
 public Input<string?> Ref_IDMS_RDC_Details_RequestedDueDate_Fa;
 public Input<string?> Ref_IDMS_RDC_Details_Description;
 public Input<string?> Ref_IDMS_RDC_Details_RDC_ActualCompletionDate_Fa;
