@@ -188,21 +188,7 @@
           
            </CellDisplayTemplate>
      </DxGridCommandColumn>
-    <DxGridDataColumn  Caption="Id" Visible=false FieldName="Id" />
-
-<DxGridDataColumn  Caption="RequestID" Visible=false FieldName="RequestID" />
-
-<DxGridDataColumn  Caption="CreateUser" Visible=false FieldName="CreateUser" />
-
-<DxGridDataColumn  Caption="UpdateUser" Visible=false FieldName="UpdateUser" />
-
-<DxGridDataColumn  Caption="CreateDate" Visible=false FieldName="CreateDate" />
-
-<DxGridDataColumn  Caption="UpdateDate" Visible=false FieldName="UpdateDate" />
-
-<DxGridDataColumn  Caption="IsDelete" Visible=false FieldName="IsDelete" />
-
-<DxGridDataColumn  Caption="عنوان سایت"  FieldName="Title" />
+    <DxGridDataColumn  Caption="عنوان سایت"  FieldName="Title" />
 
 <DxGridDataColumn  Caption="توضیحات"  FieldName="Description" />
 
@@ -220,6 +206,20 @@
 
     </CellDisplayTemplate>
 </DxGridDataColumn>
+<DxGridDataColumn  Caption="Id" Visible=false FieldName="Id" />
+
+<DxGridDataColumn  Caption="RequestID" Visible=false FieldName="RequestID" />
+
+<DxGridDataColumn  Caption="CreateUser" Visible=false FieldName="CreateUser" />
+
+<DxGridDataColumn  Caption="UpdateUser" Visible=false FieldName="UpdateUser" />
+
+<DxGridDataColumn  Caption="CreateDate" Visible=false FieldName="CreateDate" />
+
+<DxGridDataColumn  Caption="UpdateDate" Visible=false FieldName="UpdateDate" />
+
+<DxGridDataColumn  Caption="IsDelete" Visible=false FieldName="IsDelete" />
+
 
 </Columns>
 
@@ -492,6 +492,9 @@ public void SaveGrid_BaseInfo_ORG_Sites(object DataItem, object EditModel)
     var MainModel = (Entity.BaseInfo_ORG_Sites)DataItem;
     if (MainModel != null)
     {
+MainModel.Title = ((Entity.BaseInfo_ORG_Sites)EditModel).Title;
+MainModel.Description = ((Entity.BaseInfo_ORG_Sites)EditModel).Description;
+MainModel.IsActive = ((Entity.BaseInfo_ORG_Sites)EditModel).IsActive;
 MainModel.Id = ((Entity.BaseInfo_ORG_Sites)EditModel).Id;
 MainModel.RequestID = ((Entity.BaseInfo_ORG_Sites)EditModel).RequestID;
 MainModel.CreateUser = ((Entity.BaseInfo_ORG_Sites)EditModel).CreateUser;
@@ -499,9 +502,6 @@ MainModel.UpdateUser = ((Entity.BaseInfo_ORG_Sites)EditModel).UpdateUser;
 MainModel.CreateDate = ((Entity.BaseInfo_ORG_Sites)EditModel).CreateDate;
 MainModel.UpdateDate = ((Entity.BaseInfo_ORG_Sites)EditModel).UpdateDate;
 MainModel.IsDelete = ((Entity.BaseInfo_ORG_Sites)EditModel).IsDelete;
-MainModel.Title = ((Entity.BaseInfo_ORG_Sites)EditModel).Title;
-MainModel.Description = ((Entity.BaseInfo_ORG_Sites)EditModel).Description;
-MainModel.IsActive = ((Entity.BaseInfo_ORG_Sites)EditModel).IsActive;
 
     }
     else
@@ -830,9 +830,9 @@ public async void RowDubbleClickGrid_BaseInfo_ORG_Sites(GridRowClickEventArgs e)
             await InvokeAsync(StateHasChanged);
             await Task.Yield();
             QueryFilter = new QueryBuilderFilterRule();
-            if ("{}" != "null" || "{}" != "{}")
+            if ("{\"Condition\":\"OR\",\"Rules\":[{\"Field\":\"Title\",\"Id\":\"19288\",\"Input\":\"text\",\"Operator\":\"contains\",\"Type\":\"string\",\"Value\":[]}]}" != "null" || "{\"Condition\":\"OR\",\"Rules\":[{\"Field\":\"Title\",\"Id\":\"19288\",\"Input\":\"text\",\"Operator\":\"contains\",\"Type\":\"string\",\"Value\":[]}]}" != "{}")
             {
-                QueryFilter = await JSON.ToObject<QueryBuilderFilterRule>("{}");
+                QueryFilter = await JSON.ToObject<QueryBuilderFilterRule>("{\"Condition\":\"OR\",\"Rules\":[{\"Field\":\"Title\",\"Id\":\"19288\",\"Input\":\"text\",\"Operator\":\"contains\",\"Type\":\"string\",\"Value\":[]}]}");
 
             }
 

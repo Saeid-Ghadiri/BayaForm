@@ -222,9 +222,43 @@
           
            </CellDisplayTemplate>
      </DxGridCommandColumn>
-    <DxGridDataColumn  Caption="کد"  FieldName="Code" />
+    <DxGridDataColumn Context="BaseInfo_ORG_SitesId_" Caption="سایت" >
+    <CellDisplayTemplate>
+       
+@{
+    Baya.Models.ViewEngine.View_Component HeaderBaseInfo_ORG_SitesId = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"primaryKey\":false,\"EntityID\":665,\"FieldId\":19301,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":908,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":false,\"RelationParentName\":\"BaseInfo_ORG_Sites\",\"RelationParentModel\":\"BaseInfo_ORG_Sites\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/BaseInfo_ORG_Sites/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.Title}} </span>\",\"FieldsTemplate\":[{\"key\":\"Title\",\"value\":\"nvarchar(Max)\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"searchField\":\"Title\",\"disableLimit\":false,\"noRefreshOnScroll\":false,\"modal\":true,\"label\":\"سایت\",\"tableView\":true,\"key\":\"BaseInfo_ORG_SitesId\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"customClass\":\"Gcol-sm-8 Gcol-md-6 Gcol-lg-3\",\"FieldUrl\":\"19301?EId=665&SubId=30\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
+    var RowBaseInfo_ORG_SitesId = ((Entity.BaseInfo_ORG_Companies)BaseInfo_ORG_SitesId_.DataItem).BaseInfo_ORG_SitesId;
+}
 
+<Dropdown ExternalApi=false CssClass="Gcol-sm-8 Gcol-md-6 Gcol-lg-3" NotMapped=false TextGrid=true Value="@RowBaseInfo_ORG_SitesId"   FieldName="BaseInfo_ORG_SitesId" OnItemSelected="ItemSelected_BaseInfo_ORG_CompaniesBaseInfo_ORG_SitesId_Header" Component="HeaderBaseInfo_ORG_SitesId">
+</Dropdown>
+@code {
+    public async Task ItemSelected_BaseInfo_ORG_CompaniesBaseInfo_ORG_SitesId_Header(object _Item)
+    {
+      //  var Selected = Utility.JSON.ToObject<dynamic>(Utility.JSON.ToJson(_Item).Result).Result;
+  //   BaseInfo_ORG_SitesId
+
+  //  #CustomCode
+
+ //   
+
+  //  #OnItemSelected
+    }
+}
+
+    </CellDisplayTemplate>
+</DxGridDataColumn>
 <DxGridDataColumn Context="html_" Caption="HTML" >
+    <CellDisplayTemplate>
+      <div  class="Gcol-sm-8 Gcol-md-6 Gcol-lg-9">
+    
+</div>
+
+    </CellDisplayTemplate>
+</DxGridDataColumn>
+<DxGridDataColumn  Caption="کد"  FieldName="Code" />
+
+<DxGridDataColumn Context="html3_" Caption="HTML" >
     <CellDisplayTemplate>
       <div  class="Gcol-sm-8 Gcol-md-6 Gcol-lg-9">
     
@@ -235,6 +269,16 @@
 <DxGridDataColumn  Caption="عنوان شرکت"  FieldName="Title" />
 
 <DxGridDataColumn Context="html1_" Caption="HTML" >
+    <CellDisplayTemplate>
+      <div  class="Gcol-sm-8 Gcol-md-6 Gcol-lg-9">
+    
+</div>
+
+    </CellDisplayTemplate>
+</DxGridDataColumn>
+<DxGridDataColumn DisplayFormat="0" Caption="کد شرکت در سامانه قدیم"  FieldName="OldCompanyId" />
+
+<DxGridDataColumn Context="html2_" Caption="HTML" >
     <CellDisplayTemplate>
       <div  class="Gcol-sm-8 Gcol-md-6 Gcol-lg-9">
     
@@ -279,6 +323,54 @@
     }
     <DxFormLayout>
         <DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextBaseInfo_ORG_Companies">
+     
+ 
+@code {
+    Baya.Models.ViewEngine.View_Component Component_BaseInfo_ORG_CompaniesBaseInfo_ORG_SitesId = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"primaryKey\":false,\"EntityID\":665,\"FieldId\":19301,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":908,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":false,\"RelationParentName\":\"BaseInfo_ORG_Sites\",\"RelationParentModel\":\"BaseInfo_ORG_Sites\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/BaseInfo_ORG_Sites/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.Title}} </span>\",\"FieldsTemplate\":[{\"key\":\"Title\",\"value\":\"nvarchar(Max)\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"searchField\":\"Title\",\"disableLimit\":false,\"noRefreshOnScroll\":false,\"modal\":true,\"label\":\"سایت\",\"tableView\":true,\"key\":\"BaseInfo_ORG_SitesId\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"customClass\":\"Gcol-sm-8 Gcol-md-6 Gcol-lg-3\",\"FieldUrl\":\"19301?EId=665&SubId=30\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
+}
+
+    <Dropdown Id=BaseInfo_ORG_Companies_BaseInfo_ORG_SitesId  @ref="Ref_BaseInfo_ORG_Companies_BaseInfo_ORG_SitesId" Label="سایت" CssClass="Gcol-sm-8 Gcol-md-6 Gcol-lg-3"  DisplayFormat="DropDown" ExternalApi=false NotMapped=false TextGrid=false Text="" Value="@BaseInfo_ORG_Companies.BaseInfo_ORG_SitesId" FieldName="BaseInfo_ORG_SitesId" OnItemSelected="ItemSelected_BaseInfo_ORG_CompaniesBaseInfo_ORG_SitesId" Component="Component_BaseInfo_ORG_CompaniesBaseInfo_ORG_SitesId" _Entity="_Entity" _EntityRow=BaseInfo_ORG_Companies>
+</Dropdown>
+@code {
+    public async Task ItemSelected_BaseInfo_ORG_CompaniesBaseInfo_ORG_SitesId(object _Item)
+    {
+        var Selected = Utility.JSON.ToObject<dynamic>(Utility.JSON.ToJson(_Item).Result).Result;
+     var Item = BaseInfo_ORG_Companies;
+
+      //Todo
+ //برای اینکه آی دی تغییر کند اینجا نیز باید تغییر کند
+ //بهتر است از پرایمیری کی استفاده شود
+ if (_Item != null)
+ {
+     Console.WriteLine(" Item Is Not Null");
+    Item.BaseInfo_ORG_SitesId = Selected.Id;
+    
+ }
+ else
+ {
+     Console.WriteLine(" Item Is Null");
+      Item.BaseInfo_ORG_SitesId =EntityHelper.SetPropertyNull(Item.BaseInfo_ORG_SitesId);
+ }
+ Item.BaseInfo_ORG_Sites = await Utility.JSON.ToObject<Entity.BaseInfo_ORG_Sites>(await Utility.JSON.ToJson(_Item));
+    StateHasChanged();
+
+
+    
+
+    
+    }
+} 
+
+</DxFormLayoutItem>
+
+<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextBaseInfo_ORG_Companies">
+    <div  class="Gcol-sm-8 Gcol-md-6 Gcol-lg-9">
+    
+</div>
+
+</DxFormLayoutItem>
+
+<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextBaseInfo_ORG_Companies">
     
 <Input Id="BaseInfo_ORG_Companies_Code" @ref="Ref_BaseInfo_ORG_Companies_Code" Label="کد"  CssClass="Gcol-sm-8 Gcol-md-6 Gcol-lg-3"   @bind-Value="BaseInfo_ORG_Companies.Code" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"maxlength\":\"5\"}").Result))></Input>
 
@@ -294,6 +386,19 @@
 <DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextBaseInfo_ORG_Companies">
     
 <Input Id="BaseInfo_ORG_Companies_Title" @ref="Ref_BaseInfo_ORG_Companies_Title" Label="عنوان شرکت"  CssClass="Gcol-sm-8 Gcol-md-6 Gcol-lg-3"   @bind-Value="BaseInfo_ORG_Companies.Title" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"maxlength\":\"75\"}").Result))></Input>
+
+</DxFormLayoutItem>
+
+<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextBaseInfo_ORG_Companies">
+    <div  class="Gcol-sm-8 Gcol-md-6 Gcol-lg-9">
+    
+</div>
+
+</DxFormLayoutItem>
+
+<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextBaseInfo_ORG_Companies">
+    
+<Input Id="BaseInfo_ORG_Companies_OldCompanyId" @ref="Ref_BaseInfo_ORG_Companies_OldCompanyId" Label="کد شرکت در سامانه قدیم"  CssClass="Gcol-sm-8 Gcol-md-6 Gcol-lg-3"   @bind-Value="BaseInfo_ORG_Companies.OldCompanyId" type="number" ActiveSeperator=false    Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
 
 </DxFormLayoutItem>
 
@@ -637,8 +742,11 @@ public void SaveGrid_BaseInfo_ORG_Companies(object DataItem, object EditModel)
     var MainModel = (Entity.BaseInfo_ORG_Companies)DataItem;
     if (MainModel != null)
     {
+MainModel.BaseInfo_ORG_SitesId = ((Entity.BaseInfo_ORG_Companies)EditModel).BaseInfo_ORG_SitesId;
+MainModel.BaseInfo_ORG_Sites = ((Entity.BaseInfo_ORG_Companies)EditModel).BaseInfo_ORG_Sites;
 MainModel.Code = ((Entity.BaseInfo_ORG_Companies)EditModel).Code;
 MainModel.Title = ((Entity.BaseInfo_ORG_Companies)EditModel).Title;
+MainModel.OldCompanyId = ((Entity.BaseInfo_ORG_Companies)EditModel).OldCompanyId;
 MainModel.IsActive = ((Entity.BaseInfo_ORG_Companies)EditModel).IsActive;
 MainModel.Id = ((Entity.BaseInfo_ORG_Companies)EditModel).Id;
 MainModel.RequestID = ((Entity.BaseInfo_ORG_Companies)EditModel).RequestID;
@@ -795,8 +903,8 @@ public async void RowDubbleClickGrid_BaseInfo_ORG_Companies(GridRowClickEventArg
     {
         Console.WriteLine("#log OnInitializedAsync");
 
-        TableGet = await Utility.JSON.ToObject<Table>("{\"Name\":\"BaseInfo_ORG_Sites\",\"GetNameAs\":\"BaseInfo_ORG_Sites\",\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"RequestID\",\"GetNameAs\":\"RequestID\"},{\"Name\":\"CreateUser\",\"GetNameAs\":\"CreateUser\"},{\"Name\":\"UpdateUser\",\"GetNameAs\":\"UpdateUser\"},{\"Name\":\"CreateDate\",\"GetNameAs\":\"CreateDate\"},{\"Name\":\"UpdateDate\",\"GetNameAs\":\"UpdateDate\"},{\"Name\":\"IsDelete\",\"GetNameAs\":\"IsDelete\"},{\"Name\":\"Title\",\"GetNameAs\":\"Title\"},{\"Name\":\"Description\",\"GetNameAs\":\"Description\"},{\"Name\":\"IsActive\",\"GetNameAs\":\"IsActive\"}],\"Relation\":[{\"Name\":\"BaseInfo_ORG_Companies\",\"GetNameAs\":\"BaseInfo_ORG_Companies\",\"ModeErtebat\":2,\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"RequestID\",\"GetNameAs\":\"RequestID\"},{\"Name\":\"CreateUser\",\"GetNameAs\":\"CreateUser\"},{\"Name\":\"UpdateUser\",\"GetNameAs\":\"UpdateUser\"},{\"Name\":\"CreateDate\",\"GetNameAs\":\"CreateDate\"},{\"Name\":\"UpdateDate\",\"GetNameAs\":\"UpdateDate\"},{\"Name\":\"IsDelete\",\"GetNameAs\":\"IsDelete\"},{\"Name\":\"Code\",\"GetNameAs\":\"Code\"},{\"Name\":\"Title\",\"GetNameAs\":\"Title\"},{\"Name\":\"IsActive\",\"GetNameAs\":\"IsActive\"}],\"Relation\":[]}]}");
-        TablePost = await Utility.JSON.ToObject<Table>("{\"Name\":\"BaseInfo_ORG_Sites\",\"GetNameAs\":\"BaseInfo_ORG_Sites\",\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"RequestID\",\"GetNameAs\":\"RequestID\"},{\"Name\":\"CreateUser\",\"GetNameAs\":\"CreateUser\"},{\"Name\":\"UpdateUser\",\"GetNameAs\":\"UpdateUser\"},{\"Name\":\"CreateDate\",\"GetNameAs\":\"CreateDate\"},{\"Name\":\"UpdateDate\",\"GetNameAs\":\"UpdateDate\"},{\"Name\":\"IsDelete\",\"GetNameAs\":\"IsDelete\"},{\"Name\":\"Title\",\"GetNameAs\":\"Title\"},{\"Name\":\"Description\",\"GetNameAs\":\"Description\"},{\"Name\":\"IsActive\",\"GetNameAs\":\"IsActive\"}],\"Relation\":[{\"Name\":\"BaseInfo_ORG_Companies\",\"GetNameAs\":\"BaseInfo_ORG_Companies\",\"ModeErtebat\":2,\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"RequestID\",\"GetNameAs\":\"RequestID\"},{\"Name\":\"CreateUser\",\"GetNameAs\":\"CreateUser\"},{\"Name\":\"UpdateUser\",\"GetNameAs\":\"UpdateUser\"},{\"Name\":\"CreateDate\",\"GetNameAs\":\"CreateDate\"},{\"Name\":\"UpdateDate\",\"GetNameAs\":\"UpdateDate\"},{\"Name\":\"IsDelete\",\"GetNameAs\":\"IsDelete\"},{\"Name\":\"Code\",\"GetNameAs\":\"Code\"},{\"Name\":\"Title\",\"GetNameAs\":\"Title\"},{\"Name\":\"IsActive\",\"GetNameAs\":\"IsActive\"}],\"Relation\":[]}]}");
+        TableGet = await Utility.JSON.ToObject<Table>("{\"Name\":\"BaseInfo_ORG_Sites\",\"GetNameAs\":\"BaseInfo_ORG_Sites\",\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"RequestID\",\"GetNameAs\":\"RequestID\"},{\"Name\":\"CreateUser\",\"GetNameAs\":\"CreateUser\"},{\"Name\":\"UpdateUser\",\"GetNameAs\":\"UpdateUser\"},{\"Name\":\"CreateDate\",\"GetNameAs\":\"CreateDate\"},{\"Name\":\"UpdateDate\",\"GetNameAs\":\"UpdateDate\"},{\"Name\":\"IsDelete\",\"GetNameAs\":\"IsDelete\"},{\"Name\":\"Title\",\"GetNameAs\":\"Title\"},{\"Name\":\"Description\",\"GetNameAs\":\"Description\"},{\"Name\":\"IsActive\",\"GetNameAs\":\"IsActive\"}],\"Relation\":[{\"Name\":\"BaseInfo_ORG_Companies\",\"GetNameAs\":\"BaseInfo_ORG_Companies\",\"ModeErtebat\":2,\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"RequestID\",\"GetNameAs\":\"RequestID\"},{\"Name\":\"CreateUser\",\"GetNameAs\":\"CreateUser\"},{\"Name\":\"UpdateUser\",\"GetNameAs\":\"UpdateUser\"},{\"Name\":\"CreateDate\",\"GetNameAs\":\"CreateDate\"},{\"Name\":\"UpdateDate\",\"GetNameAs\":\"UpdateDate\"},{\"Name\":\"IsDelete\",\"GetNameAs\":\"IsDelete\"},{\"Name\":\"Code\",\"GetNameAs\":\"Code\"},{\"Name\":\"Title\",\"GetNameAs\":\"Title\"},{\"Name\":\"IsActive\",\"GetNameAs\":\"IsActive\"},{\"Name\":\"BaseInfo_ORG_SitesId\",\"GetNameAs\":\"BaseInfo_ORG_SitesId\"},{\"Name\":\"OldCompanyId\",\"GetNameAs\":\"OldCompanyId\"}],\"Relation\":[{\"Name\":\"BaseInfo_ORG_Sites\",\"GetNameAs\":\"BaseInfo_ORG_Sites\",\"ModeErtebat\":1,\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"Title\",\"GetNameAs\":\"Title\"},{\"Name\":\"Description\",\"GetNameAs\":\"Description\"},{\"Name\":\"IsActive\",\"GetNameAs\":\"IsActive\"}]}]}]}");
+        TablePost = await Utility.JSON.ToObject<Table>("{\"Name\":\"BaseInfo_ORG_Sites\",\"GetNameAs\":\"BaseInfo_ORG_Sites\",\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"RequestID\",\"GetNameAs\":\"RequestID\"},{\"Name\":\"CreateUser\",\"GetNameAs\":\"CreateUser\"},{\"Name\":\"UpdateUser\",\"GetNameAs\":\"UpdateUser\"},{\"Name\":\"CreateDate\",\"GetNameAs\":\"CreateDate\"},{\"Name\":\"UpdateDate\",\"GetNameAs\":\"UpdateDate\"},{\"Name\":\"IsDelete\",\"GetNameAs\":\"IsDelete\"},{\"Name\":\"Title\",\"GetNameAs\":\"Title\"},{\"Name\":\"Description\",\"GetNameAs\":\"Description\"},{\"Name\":\"IsActive\",\"GetNameAs\":\"IsActive\"}],\"Relation\":[{\"Name\":\"BaseInfo_ORG_Companies\",\"GetNameAs\":\"BaseInfo_ORG_Companies\",\"ModeErtebat\":2,\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"RequestID\",\"GetNameAs\":\"RequestID\"},{\"Name\":\"CreateUser\",\"GetNameAs\":\"CreateUser\"},{\"Name\":\"UpdateUser\",\"GetNameAs\":\"UpdateUser\"},{\"Name\":\"CreateDate\",\"GetNameAs\":\"CreateDate\"},{\"Name\":\"UpdateDate\",\"GetNameAs\":\"UpdateDate\"},{\"Name\":\"IsDelete\",\"GetNameAs\":\"IsDelete\"},{\"Name\":\"Code\",\"GetNameAs\":\"Code\"},{\"Name\":\"Title\",\"GetNameAs\":\"Title\"},{\"Name\":\"IsActive\",\"GetNameAs\":\"IsActive\"},{\"Name\":\"BaseInfo_ORG_SitesId\",\"GetNameAs\":\"BaseInfo_ORG_SitesId\"},{\"Name\":\"OldCompanyId\",\"GetNameAs\":\"OldCompanyId\"}],\"Relation\":[]}]}");
 
         config = CKEditorBundleOptions.DefaultConfig.WithHtmlEditing();
         config.Language = "fa";

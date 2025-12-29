@@ -19,9 +19,13 @@
     margin-top: .1rem;
 }
 
+.dxbl-modal-body label {
+    font-size: 14px;
+}
+
 /* ************************************************** */
 
-purple_bg {
+.purple_bg {
     background: #93b0ff0d;
     border: 1px dashed #6c5ffc45;
 }
@@ -161,10 +165,6 @@ purple_bg {
     font-weight: bold;
 }
 
-.input-string label {
-    font-size: 14px;
-}
-
 /* ************************************************** */
 .Col_bg1 {
     border: 1px dashed rgb(255, 208, 139);
@@ -196,14 +196,14 @@ purple_bg {
 
 /* هدر بخش گرید فرم */
 .form-section-header {
-    display: inline-flex;
-    align-items: center;
+
     background: #0088ff12;
     padding: 0.4rem 0.8rem;
     border-radius: 0.4rem;
     font-weight: bold;
     font-size: 0.95rem;
     margin-bottom: 0.25rem;
+
 }
 
 /*  آیکون هدر گرید فرم */
@@ -231,8 +231,9 @@ purple_bg {
     font-weight: 900;
 }
 
+/*تنظیم عرض مودال*/
 .ModalWidth {
-    max-width: 1700px !important;
+    max-width: fit-content !important;
 }
 
 .dxbl-col:has(.input-string) {
@@ -241,6 +242,20 @@ purple_bg {
 
 .form-check-input[type=checkbox] {
     margin-inline-start: 5px !important;
+}
+
+.itemOld {
+    color: var(--red) !important;
+    background: linear-gradient(90deg, #e826460f, transparent);
+}
+
+.itemNew {
+    color: #1a9a4a !important;
+    background: linear-gradient(270deg, #29b39c17, transparent);
+}
+
+.min300{
+    min-width: 300px;
 }
 </style>
 
@@ -1310,9 +1325,9 @@ public async void RowDubbleClickGrid_HR_CVR_VerdictRecruiting(GridRowClickEventA
             await InvokeAsync(StateHasChanged);
             await Task.Yield();
             QueryFilter = new QueryBuilderFilterRule();
-            if ("{\"Condition\":\"OR\",\"Rules\":[{\"Field\":\"HR_CVR_RecruitmentRules.NationalCode\",\"Id\":\"30878\",\"Input\":\"text\",\"Operator\":\"contains\",\"Type\":\"string\",\"Value\":[]},{\"Field\":\"HR_CVR_RecruitmentRules.EmployeeNo\",\"Id\":\"31370\",\"Input\":\"text\",\"Operator\":\"contains\",\"Type\":\"string\",\"Value\":[]}]}" != "null" || "{\"Condition\":\"OR\",\"Rules\":[{\"Field\":\"HR_CVR_RecruitmentRules.NationalCode\",\"Id\":\"30878\",\"Input\":\"text\",\"Operator\":\"contains\",\"Type\":\"string\",\"Value\":[]},{\"Field\":\"HR_CVR_RecruitmentRules.EmployeeNo\",\"Id\":\"31370\",\"Input\":\"text\",\"Operator\":\"contains\",\"Type\":\"string\",\"Value\":[]}]}" != "{}")
+            if ("{\"Condition\":\"OR\",\"Rules\":[{\"Field\":\"HR_CVR_RecruitmentRules.EmployeeNo\",\"Id\":\"31370\",\"Input\":\"text\",\"Operator\":\"contains\",\"Type\":\"string\",\"Value\":[]},{\"Field\":\"HR_CVR_RecruitmentRules.NationalCode\",\"Id\":\"30878\",\"Input\":\"text\",\"Operator\":\"contains\",\"Type\":\"string\",\"Value\":[]}]}" != "null" || "{\"Condition\":\"OR\",\"Rules\":[{\"Field\":\"HR_CVR_RecruitmentRules.EmployeeNo\",\"Id\":\"31370\",\"Input\":\"text\",\"Operator\":\"contains\",\"Type\":\"string\",\"Value\":[]},{\"Field\":\"HR_CVR_RecruitmentRules.NationalCode\",\"Id\":\"30878\",\"Input\":\"text\",\"Operator\":\"contains\",\"Type\":\"string\",\"Value\":[]}]}" != "{}")
             {
-                QueryFilter = await JSON.ToObject<QueryBuilderFilterRule>("{\"Condition\":\"OR\",\"Rules\":[{\"Field\":\"HR_CVR_RecruitmentRules.NationalCode\",\"Id\":\"30878\",\"Input\":\"text\",\"Operator\":\"contains\",\"Type\":\"string\",\"Value\":[]},{\"Field\":\"HR_CVR_RecruitmentRules.EmployeeNo\",\"Id\":\"31370\",\"Input\":\"text\",\"Operator\":\"contains\",\"Type\":\"string\",\"Value\":[]}]}");
+                QueryFilter = await JSON.ToObject<QueryBuilderFilterRule>("{\"Condition\":\"OR\",\"Rules\":[{\"Field\":\"HR_CVR_RecruitmentRules.EmployeeNo\",\"Id\":\"31370\",\"Input\":\"text\",\"Operator\":\"contains\",\"Type\":\"string\",\"Value\":[]},{\"Field\":\"HR_CVR_RecruitmentRules.NationalCode\",\"Id\":\"30878\",\"Input\":\"text\",\"Operator\":\"contains\",\"Type\":\"string\",\"Value\":[]}]}");
 
             }
 

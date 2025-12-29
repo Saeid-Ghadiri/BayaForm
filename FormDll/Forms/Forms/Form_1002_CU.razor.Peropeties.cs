@@ -144,7 +144,7 @@ namespace Forms.Forms
     /// <summary>
     ///  ورژنی که فرم باهاش ساخته شده
     /// </summary>
-    public string? VersionForm { get; set; } = "5365";
+    public string? VersionForm { get; set; } = "5405";
 
     /// <summary>
     ///  موجودیت
@@ -202,6 +202,7 @@ public Input<Guid?> Ref_HR_CVR_EveryPostVerdict_UpdateUser;
 public Input<DateTime?> Ref_HR_CVR_EveryPostVerdict_CreateDate;
 public Input<DateTime?> Ref_HR_CVR_EveryPostVerdict_UpdateDate;
 public Input<bool?> Ref_HR_CVR_EveryPostVerdict_IsDelete;
+public Dropdown Ref_HR_CVR_EveryPostVerdict_HR_CVR_VerdictRecruitingId;
 public Dropdown Ref_RegisterUserId;
 public Input<string?> Ref_RegisterTime;
 public Dropdown Ref_ConfirmerUserId;
@@ -218,6 +219,7 @@ public DxGrid? Grid_HR_CVR_RecruitmentRules;
 
 public Dropdown Ref_HR_CVR_RecruitmentRules_HR_EMP_EmployeesId;
 public Input<string?> Ref_HR_CVR_RecruitmentRules_EmployeeNo;
+public Input<string?> Ref_HR_CVR_RecruitmentRules_EmployeePersonelNo;
 public Input<string?> Ref_HR_CVR_RecruitmentRules_FirstName;
 public Input<string?> Ref_HR_CVR_RecruitmentRules_LastName;
 public Input<string?> Ref_HR_CVR_RecruitmentRules_FatherName;
@@ -245,8 +247,8 @@ public Dropdown Ref_HR_CVR_RecruitmentRules_HR_CVR_JobGroupId;
 public Dropdown Ref_HR_CVR_RecruitmentRules_HR_CVR_JobSalaryRankId;
 public Dropdown Ref_HR_CVR_RecruitmentRules_HR_CVR_RightGuardianshipId;
 public Dropdown Ref_HR_CVR_RecruitmentRules_HR_CVR_SalaryHistoryId;
-public Input<bool?> Ref_HR_CVR_RecruitmentRules_IsChildAllowanceGrantedToEmployee;
 public Input<int?> Ref_HR_CVR_RecruitmentRules_EmployeeChildrenCount;
+public Input<bool?> Ref_HR_CVR_RecruitmentRules_IsChildAllowanceGrantedToEmployee;
 public Input<string?> Ref_HR_CVR_RecruitmentRules_FirstChildAllowanceEstablishmentDate_Fa;
 public Input<bool?> Ref_HR_CVR_RecruitmentRules_IsMarriageAllowanceGrantedToEmployee;
 public Input<string?> Ref_HR_CVR_RecruitmentRules_FirstMarriageAllowanceEstablishmentDate_Fa;

@@ -264,6 +264,31 @@
 <div class="row justify-content-center">
 
 
+<Input2 id="StartDate_Fa" @ref="Ref_StartDate_Fa" Label="تاریخ شروع قرارداد"  CssClass="filterCol"       type="text"    Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"data-jdp\":\"  \",\"data-jdp-only-date\":\"   \"}").Result))></Input2>
+
+<Input2 id="EndDate_Fa" @ref="Ref_EndDate_Fa" Label="تاریخ پایان قرارداد:"  CssClass="filterCol"       type="text"    Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"data-jdp\":\"  \",\"data-jdp-only-date\":\"   \"}").Result))></Input2>
+ 
+ 
+@code {
+    Baya.Models.ViewEngine.View_Component Component_HR_CRS_ExtensionPersonnelContractHR_StatusExtensionPersonnelContractId = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"primaryKey\":false,\"EntityID\":457,\"FieldId\":16659,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":0,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":false,\"RelationParentName\":\"HR_StatusExtensionPersonnelContract\",\"RelationParentModel\":\"HR_StatusExtensionPersonnelContract\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/HR_StatusExtensionPersonnelContract/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":false,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.Title}} </span>\",\"FieldsTemplate\":[{\"key\":\"Title\",\"value\":\"int\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"searchField\":\"\",\"disabled\":false,\"modal\":true,\"label\":\"وضعیت\",\"tableView\":true,\"key\":\"HR_StatusExtensionPersonnelContractId\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"customClass\":\"filterCol\",\"FieldUrl\":\"16659?EId=457&SubId=15\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
+}
+
+    <Dropdown Id=HR_StatusExtensionPersonnelContractId  @ref="Ref_HR_StatusExtensionPersonnelContractId" Label="وضعیت" CssClass="filterCol"  DisplayFormat="DropDown" ExternalApi=false NotMapped=false TextGrid=false   FieldName="HR_StatusExtensionPersonnelContractId" OnItemSelected="ItemSelected_HR_CRS_ExtensionPersonnelContractHR_StatusExtensionPersonnelContractId" Component="Component_HR_CRS_ExtensionPersonnelContractHR_StatusExtensionPersonnelContractId"  >
+</Dropdown>
+@code {
+    public async Task ItemSelected_HR_CRS_ExtensionPersonnelContractHR_StatusExtensionPersonnelContractId(object _Item)
+    {
+        var Selected = Utility.JSON.ToObject<dynamic>(Utility.JSON.ToJson(_Item).Result).Result;
+     
+
+    
+
+    
+
+    
+    }
+} 
+
 
         <div class="col-xl-2 col-lg-2 col-md-auto mt-2 align-content-end">
             <button class="btn btn-sm btn-purple" @onclick=SearchFilter>
@@ -334,6 +359,9 @@
         //await ReplaceInFilter("SCM_ProductRequestDetails.ProductNameText", "ماوس", QueryFilter);
         //await ReplaceInFilter("52255", Ref_SCM_ProductRequestDetails_ProductName_NotMapped.Value, QueryFilter);
         
+await ReplaceInFilter("30911", Ref_StartDate_Fa.Value, QueryFilter);
+await ReplaceInFilter("30913", Ref_EndDate_Fa.Value, QueryFilter);
+await ReplaceInFilter("16659", Ref_HR_StatusExtensionPersonnelContractId.Value, QueryFilter);
 
  
         await ReplaceSystemParametrInFilter(QueryFilter);

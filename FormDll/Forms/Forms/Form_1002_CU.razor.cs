@@ -968,46 +968,32 @@ namespace Forms.Forms
 
 			foreach ( var EmpDataItem in ListData)
 			{
-				// کد کارمندی جدید
 				EmpDataItem.EmployeeNo = emp_data.EmployeeNo;
-				// کد پرسنلی جدید
-				EmpDataItem.EmployeePersonelNo = emp_data.EmployeePersonelNo;
-				// نام کارمند
 				EmpDataItem.FirstName = emp_data.FirstName;
-				// نام خانوادگی کارمند
 				EmpDataItem.LastName = emp_data.LastName;
-				// نام پدر کارمند
 				EmpDataItem.FatherName = emp_data.FatherName;
-				// کد ملی
 				EmpDataItem.NationalCode = emp_data.NationalCode;
-				// شماره شناسنامه
 				EmpDataItem.IdCardNo = emp_data.IdCardNo;
-				// جنسیت
-				EmpDataItem.BaseInfo_GenderId = emp_data.BaseInfo_GenderTitle;
-				// وضعیت تاهل
-				EmpDataItem.BaseInfo_MaritalStatusId = emp_data.BaseInfo_MaritalStatusTitle;
-				// شهر محل صدور شناسنامه
-				EmpDataItem.CityOfIssue = emp_data.CityOfIssueTitle;
-				// شهر تولد
-				EmpDataItem.CityOfBirth = emp_data.CityOfBirthTitle;
-				// تاریخ تولد شمسی
 				EmpDataItem.BirthDate_Fa = emp_data.BirthDate_Fa;
-				// نمایش سن کارمند به صورت متن
+				EmpDataItem.BaseInfo_GenderId = emp_data.BaseInfo_GenderTitle;
+				EmpDataItem.BaseInfo_MaritalStatusId = emp_data.BaseInfo_MaritalStatusTitle;
 				EmpDataItem.EmployeeAgeText = emp_data.EmployeeAgeText;
-				// تاریخ استخدام در گروه
+				EmpDataItem.CityOfIssue = emp_data.CityOfIssueTitle;
+				EmpDataItem.CityOfBirth = emp_data.CityOfBirthTitle;
 				EmpDataItem.EmploymentDateInGroup_Fa = emp_data.EmploymentDateInGroup_Fa;
-				// تاریخ استخدام در شرکت
 				EmpDataItem.EmploymentDate_Fa = emp_data.EmploymentDate_Fa;
-				// تاریخ آخرین تسویه حساب
 				EmpDataItem.EmploymentStartDate_Fa = emp_data.EmploymentStartDate_Fa;
+
 				// شماره بیمه
 				EmpDataItem.InsuranceNumber = emp_data.InsuranceNumber;
+
 				// نظام وظیفه
 				EmpDataItem.BaseInfo_MilitaryStatusId = emp_data.BaseInfo_MilitaryStatusTitle;
 				// حساب بانکی
 				EmpDataItem.BankAccountNumber = emp_data.BankAccountNumber;
 				// شماره شبا
 				EmpDataItem.IBAN = emp_data.IBAN;
+
 
 				// شناسه قسمت سازمانی
 				//EmpDataItem.HR_ORG_SectionsId = string.IsNullOrEmpty(emp_data.HR_ORG_SectionsId) ? Guid.Empty : Guid.Parse(emp_data.HR_ORG_SectionsId);

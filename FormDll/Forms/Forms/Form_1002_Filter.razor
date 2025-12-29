@@ -16,9 +16,13 @@
     margin-top: .1rem;
 }
 
+.dxbl-modal-body label {
+    font-size: 14px;
+}
+
 /* ************************************************** */
 
-purple_bg {
+.purple_bg {
     background: #93b0ff0d;
     border: 1px dashed #6c5ffc45;
 }
@@ -158,10 +162,6 @@ purple_bg {
     font-weight: bold;
 }
 
-.input-string label {
-    font-size: 14px;
-}
-
 /* ************************************************** */
 .Col_bg1 {
     border: 1px dashed rgb(255, 208, 139);
@@ -193,14 +193,14 @@ purple_bg {
 
 /* هدر بخش گرید فرم */
 .form-section-header {
-    display: inline-flex;
-    align-items: center;
+
     background: #0088ff12;
     padding: 0.4rem 0.8rem;
     border-radius: 0.4rem;
     font-weight: bold;
     font-size: 0.95rem;
     margin-bottom: 0.25rem;
+
 }
 
 /*  آیکون هدر گرید فرم */
@@ -228,8 +228,9 @@ purple_bg {
     font-weight: 900;
 }
 
+/*تنظیم عرض مودال*/
 .ModalWidth {
-    max-width: 1700px !important;
+    max-width: fit-content !important;
 }
 
 .dxbl-col:has(.input-string) {
@@ -239,14 +240,28 @@ purple_bg {
 .form-check-input[type=checkbox] {
     margin-inline-start: 5px !important;
 }
+
+.itemOld {
+    color: var(--red) !important;
+    background: linear-gradient(90deg, #e826460f, transparent);
+}
+
+.itemNew {
+    color: #1a9a4a !important;
+    background: linear-gradient(270deg, #29b39c17, transparent);
+}
+
+.min300{
+    min-width: 300px;
+}
 </style>
 <div class="filterbox @(ShowFilterBar ? "" : "d-none")">
 <div class="row justify-content-center">
 
 
-<Input2 id="NationalCode" @ref="Ref_NationalCode" Label="کد ملی"  CssClass="filterCol"       type="text"    Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"maxlength\":\"50\"}").Result))></Input2>
-
 <Input2 id="EmployeeNo" @ref="Ref_EmployeeNo" Label="کد کارمندی"  CssClass="filterCol"       type="text"    Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"maxlength\":\"20\"}").Result))></Input2>
+
+<Input2 id="NationalCode" @ref="Ref_NationalCode" Label="کد ملی"  CssClass="filterCol"       type="text"    Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"maxlength\":\"50\"}").Result))></Input2>
 
 
         <div class="col-xl-2 col-lg-2 col-md-auto mt-2 align-content-end">
@@ -318,8 +333,8 @@ purple_bg {
         //await ReplaceInFilter("SCM_ProductRequestDetails.ProductNameText", "ماوس", QueryFilter);
         //await ReplaceInFilter("52255", Ref_SCM_ProductRequestDetails_ProductName_NotMapped.Value, QueryFilter);
         
-await ReplaceInFilter("30878", Ref_NationalCode.Value, QueryFilter);
 await ReplaceInFilter("31370", Ref_EmployeeNo.Value, QueryFilter);
+await ReplaceInFilter("30878", Ref_NationalCode.Value, QueryFilter);
 
  
         await ReplaceSystemParametrInFilter(QueryFilter);

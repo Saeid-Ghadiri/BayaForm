@@ -397,7 +397,83 @@ h1 {
           
            </CellDisplayTemplate>
      </DxGridCommandColumn>
-    <DxGridDataColumn  Caption="Id" Visible=false FieldName="Id" />
+    <DxGridDataColumn Context="BaseInfo_ORG_CompaniesId_" Caption="شرکت" >
+    <CellDisplayTemplate>
+       
+@{
+    Baya.Models.ViewEngine.View_Component HeaderBaseInfo_ORG_CompaniesId = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"primaryKey\":false,\"EntityID\":383,\"FieldId\":19448,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":944,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":true,\"RelationParentModel\":\"BaseInfo_ORG_Companies\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/View_BaseInfo_ORG_Sites_Companies/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.SiteTitle}} {{item.BaseInfo_ORG_CompaniesTitle}} </span>\",\"FieldsTemplate\":[{\"key\":\"Title\",\"value\":\"nvarchar(Max)\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"searchField\":\"SiteTitle,BaseInfo_ORG_CompaniesTitle\",\"modal\":true,\"label\":\"شرکت\",\"tableView\":true,\"key\":\"BaseInfo_ORG_CompaniesId\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"19448?EId=383&SubId=15\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
+    var RowBaseInfo_ORG_CompaniesId = ((Entity.HR_EMP_Employees)BaseInfo_ORG_CompaniesId_.DataItem).BaseInfo_ORG_CompaniesId;
+}
+
+<Dropdown ExternalApi=true CssClass="" NotMapped=false TextGrid=true Value="@RowBaseInfo_ORG_CompaniesId"   FieldName="BaseInfo_ORG_CompaniesId" OnItemSelected="ItemSelected_HR_EMP_EmployeesBaseInfo_ORG_CompaniesId_Header" Component="HeaderBaseInfo_ORG_CompaniesId">
+</Dropdown>
+@code {
+    public async Task ItemSelected_HR_EMP_EmployeesBaseInfo_ORG_CompaniesId_Header(object _Item)
+    {
+      //  var Selected = Utility.JSON.ToObject<dynamic>(Utility.JSON.ToJson(_Item).Result).Result;
+  //   BaseInfo_ORG_CompaniesId
+
+  //  #CustomCode
+
+ //   
+
+  //  #OnItemSelected
+    }
+}
+
+    </CellDisplayTemplate>
+</DxGridDataColumn>
+<DxGridDataColumn  Caption="نام"  FieldName="FirstName" />
+
+<DxGridDataColumn  Caption="نام خانوادگی"  FieldName="LastName" />
+
+<DxGridDataColumn Context="HR_EMP_StatusId_" Caption="وضعیت کارمند" >
+    <CellDisplayTemplate>
+       
+@{
+    Baya.Models.ViewEngine.View_Component HeaderHR_EMP_StatusId = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"primaryKey\":false,\"EntityID\":383,\"FieldId\":15631,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":944,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":false,\"RelationParentName\":\"HR_EMP_Status\",\"RelationParentModel\":\"HR_EMP_Status\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/HR_EMP_Status/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.Title}} </span>\",\"FieldsTemplate\":[{\"key\":\"Title\",\"value\":\"nvarchar(Max)\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"modal\":true,\"label\":\"وضعیت کارمند\",\"tableView\":true,\"key\":\"HR_EMP_StatusId\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"15631?EId=383&SubId=15\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
+    var RowHR_EMP_StatusId = ((Entity.HR_EMP_Employees)HR_EMP_StatusId_.DataItem).HR_EMP_StatusId;
+}
+
+<Dropdown ExternalApi=false CssClass="" NotMapped=false TextGrid=true Value="@RowHR_EMP_StatusId"   FieldName="HR_EMP_StatusId" OnItemSelected="ItemSelected_HR_EMP_EmployeesHR_EMP_StatusId_Header" Component="HeaderHR_EMP_StatusId">
+</Dropdown>
+@code {
+    public async Task ItemSelected_HR_EMP_EmployeesHR_EMP_StatusId_Header(object _Item)
+    {
+      //  var Selected = Utility.JSON.ToObject<dynamic>(Utility.JSON.ToJson(_Item).Result).Result;
+  //   HR_EMP_StatusId
+
+  //  #CustomCode
+
+ //   
+
+  //  #OnItemSelected
+    }
+}
+
+    </CellDisplayTemplate>
+</DxGridDataColumn>
+<DxGridDataColumn  Caption="کد کارمند"  FieldName="EmployeeNo" />
+
+<DxGridDataColumn  Caption="کد قدیم پرسنلی"  FieldName="EmployeeLastPersonelNo" />
+
+<DxGridDataColumn  Caption="کد پرسنلی"  FieldName="EmployeePersonelNo" />
+
+<DxGridDataColumn  Caption="کد قدیم کارمندی"  FieldName="LastEmployeeNo" />
+
+<DxGridDataColumn Context="ProfilePicture_" Caption="عکس پرسنلی" >
+    <CellDisplayTemplate>
+      
+@{
+    var HR_EMP_Employees_ProfilePicture = (Entity.HR_EMP_Employees)ProfilePicture_.DataItem;
+}
+<SingleUploader Editable="false"  uploadedLink="@HR_EMP_Employees_ProfilePicture.ProfilePicture" uploadUrl="https://File.workcv.ir/fa/api/v1/File/Post" htmlTemplate="<img class='img-fluid PersonnalPictureList' src='##url##'/>
+<div><a href='##url##' class='btn btn-green'><span class='fal fa-download'></span></a></div>" FileChanged="@((url) => HR_EMP_Employees_ProfilePicture.ProfilePicture = url)" Caption="عکس پرسنلی" />
+
+
+    </CellDisplayTemplate>
+</DxGridDataColumn>
+<DxGridDataColumn  Caption="Id" Visible=false FieldName="Id" />
 
 <DxGridDataColumn  Caption="RequestID" Visible=false FieldName="RequestID" />
 
@@ -683,6 +759,16 @@ public void SaveGrid_HR_EMP_Employees(object DataItem, object EditModel)
     var MainModel = (Entity.HR_EMP_Employees)DataItem;
     if (MainModel != null)
     {
+MainModel.BaseInfo_ORG_CompaniesId = ((Entity.HR_EMP_Employees)EditModel).BaseInfo_ORG_CompaniesId;
+MainModel.FirstName = ((Entity.HR_EMP_Employees)EditModel).FirstName;
+MainModel.LastName = ((Entity.HR_EMP_Employees)EditModel).LastName;
+MainModel.HR_EMP_StatusId = ((Entity.HR_EMP_Employees)EditModel).HR_EMP_StatusId;
+MainModel.HR_EMP_Status = ((Entity.HR_EMP_Employees)EditModel).HR_EMP_Status;
+MainModel.EmployeeNo = ((Entity.HR_EMP_Employees)EditModel).EmployeeNo;
+MainModel.EmployeeLastPersonelNo = ((Entity.HR_EMP_Employees)EditModel).EmployeeLastPersonelNo;
+MainModel.EmployeePersonelNo = ((Entity.HR_EMP_Employees)EditModel).EmployeePersonelNo;
+MainModel.LastEmployeeNo = ((Entity.HR_EMP_Employees)EditModel).LastEmployeeNo;
+MainModel.ProfilePicture = ((Entity.HR_EMP_Employees)EditModel).ProfilePicture;
 MainModel.Id = ((Entity.HR_EMP_Employees)EditModel).Id;
 MainModel.RequestID = ((Entity.HR_EMP_Employees)EditModel).RequestID;
 MainModel.CreateUser = ((Entity.HR_EMP_Employees)EditModel).CreateUser;
@@ -1018,9 +1104,9 @@ public async void RowDubbleClickGrid_HR_EMP_Employees(GridRowClickEventArgs e)
             await InvokeAsync(StateHasChanged);
             await Task.Yield();
             QueryFilter = new QueryBuilderFilterRule();
-            if ("{\"Condition\":\"OR\",\"Rules\":[{\"Field\":\"EmployeeNo\",\"Id\":\"15633\",\"Input\":\"text\",\"Operator\":\"contains\",\"Type\":\"string\",\"Value\":[]},{\"Field\":\"FirstName\",\"Id\":\"15635\",\"Input\":\"text\",\"Operator\":\"contains\",\"Type\":\"string\",\"Value\":[]},{\"Field\":\"LastName\",\"Id\":\"15627\",\"Input\":\"text\",\"Operator\":\"contains\",\"Type\":\"string\",\"Value\":[]},{\"Field\":\"HR_EMP_EmployeeInfos.NationalCode\",\"Id\":\"15576\",\"Input\":\"text\",\"Operator\":\"contains\",\"Type\":\"string\",\"Value\":[]}]}" != "null" || "{\"Condition\":\"OR\",\"Rules\":[{\"Field\":\"EmployeeNo\",\"Id\":\"15633\",\"Input\":\"text\",\"Operator\":\"contains\",\"Type\":\"string\",\"Value\":[]},{\"Field\":\"FirstName\",\"Id\":\"15635\",\"Input\":\"text\",\"Operator\":\"contains\",\"Type\":\"string\",\"Value\":[]},{\"Field\":\"LastName\",\"Id\":\"15627\",\"Input\":\"text\",\"Operator\":\"contains\",\"Type\":\"string\",\"Value\":[]},{\"Field\":\"HR_EMP_EmployeeInfos.NationalCode\",\"Id\":\"15576\",\"Input\":\"text\",\"Operator\":\"contains\",\"Type\":\"string\",\"Value\":[]}]}" != "{}")
+            if ("{\"Condition\":\"AND\",\"Rules\":[{\"Condition\":\"AND\",\"Rules\":[{\"Field\":\"BaseInfo_ORG_CompaniesId\",\"Id\":\"19448\",\"Input\":\"text\",\"Operator\":\"equal\",\"Type\":\"string\",\"Value\":[\"@@CurentUserCompanyID@@\"]}]},{\"Condition\":\"OR\",\"Rules\":[{\"Field\":\"EmployeeNo\",\"Id\":\"15633\",\"Input\":\"text\",\"Operator\":\"not_contains\",\"Type\":\"string\",\"Value\":[]},{\"Field\":\"FirstName\",\"Id\":\"15635\",\"Input\":\"text\",\"Operator\":\"not_contains\",\"Type\":\"string\",\"Value\":[]},{\"Field\":\"LastName\",\"Id\":\"15627\",\"Input\":\"text\",\"Operator\":\"not_contains\",\"Type\":\"string\",\"Value\":[]},{\"Field\":\"HR_EMP_EmployeeInfos.NationalCode\",\"Id\":\"15576\",\"Input\":\"text\",\"Operator\":\"not_contains\",\"Type\":\"string\",\"Value\":[]}]}]}" != "null" || "{\"Condition\":\"AND\",\"Rules\":[{\"Condition\":\"AND\",\"Rules\":[{\"Field\":\"BaseInfo_ORG_CompaniesId\",\"Id\":\"19448\",\"Input\":\"text\",\"Operator\":\"equal\",\"Type\":\"string\",\"Value\":[\"@@CurentUserCompanyID@@\"]}]},{\"Condition\":\"OR\",\"Rules\":[{\"Field\":\"EmployeeNo\",\"Id\":\"15633\",\"Input\":\"text\",\"Operator\":\"not_contains\",\"Type\":\"string\",\"Value\":[]},{\"Field\":\"FirstName\",\"Id\":\"15635\",\"Input\":\"text\",\"Operator\":\"not_contains\",\"Type\":\"string\",\"Value\":[]},{\"Field\":\"LastName\",\"Id\":\"15627\",\"Input\":\"text\",\"Operator\":\"not_contains\",\"Type\":\"string\",\"Value\":[]},{\"Field\":\"HR_EMP_EmployeeInfos.NationalCode\",\"Id\":\"15576\",\"Input\":\"text\",\"Operator\":\"not_contains\",\"Type\":\"string\",\"Value\":[]}]}]}" != "{}")
             {
-                QueryFilter = await JSON.ToObject<QueryBuilderFilterRule>("{\"Condition\":\"OR\",\"Rules\":[{\"Field\":\"EmployeeNo\",\"Id\":\"15633\",\"Input\":\"text\",\"Operator\":\"contains\",\"Type\":\"string\",\"Value\":[]},{\"Field\":\"FirstName\",\"Id\":\"15635\",\"Input\":\"text\",\"Operator\":\"contains\",\"Type\":\"string\",\"Value\":[]},{\"Field\":\"LastName\",\"Id\":\"15627\",\"Input\":\"text\",\"Operator\":\"contains\",\"Type\":\"string\",\"Value\":[]},{\"Field\":\"HR_EMP_EmployeeInfos.NationalCode\",\"Id\":\"15576\",\"Input\":\"text\",\"Operator\":\"contains\",\"Type\":\"string\",\"Value\":[]}]}");
+                QueryFilter = await JSON.ToObject<QueryBuilderFilterRule>("{\"Condition\":\"AND\",\"Rules\":[{\"Condition\":\"AND\",\"Rules\":[{\"Field\":\"BaseInfo_ORG_CompaniesId\",\"Id\":\"19448\",\"Input\":\"text\",\"Operator\":\"equal\",\"Type\":\"string\",\"Value\":[\"@@CurentUserCompanyID@@\"]}]},{\"Condition\":\"OR\",\"Rules\":[{\"Field\":\"EmployeeNo\",\"Id\":\"15633\",\"Input\":\"text\",\"Operator\":\"not_contains\",\"Type\":\"string\",\"Value\":[]},{\"Field\":\"FirstName\",\"Id\":\"15635\",\"Input\":\"text\",\"Operator\":\"not_contains\",\"Type\":\"string\",\"Value\":[]},{\"Field\":\"LastName\",\"Id\":\"15627\",\"Input\":\"text\",\"Operator\":\"not_contains\",\"Type\":\"string\",\"Value\":[]},{\"Field\":\"HR_EMP_EmployeeInfos.NationalCode\",\"Id\":\"15576\",\"Input\":\"text\",\"Operator\":\"not_contains\",\"Type\":\"string\",\"Value\":[]}]}]}");
 
             }
 
