@@ -519,32 +519,38 @@ namespace Forms.Forms
 
 						// **********
 						// اطلاعات بخش قسمت های سازمانی
-						Entity.HR_ORG_Sections Sections = new();
+						//Entity.HR_ORG_Sections Sections = new();
 
-						Sections.Id = Guid.Parse(EmpInfo.SectionId.ToString());
-						Sections.Title = EmpInfo.SectionTitle;
+						//Sections.Id = Guid.Parse(EmpInfo.SectionId.ToString());
+						//Sections.Title = EmpInfo.SectionTitle;
 
-						Ref_HR_CVR_RecruitmentRules_HR_ORG_SectionsId.SetEntity(Sections);
+						//Ref_HR_CVR_RecruitmentRules_HR_ORG_SectionsId.SetEntity(Sections);
 
-						Ref_HR_CVR_RecruitmentRules_HR_ORG_SectionsId.ItemSelected(Sections);
+						//Ref_HR_CVR_RecruitmentRules_HR_ORG_SectionsId.ItemSelected(Sections);
 
-						await Task.Delay(100);
-						Ref_HR_CVR_RecruitmentRules_HR_ORG_SectionsId.LoadData();
+						//await Task.Delay(100);
+						//Ref_HR_CVR_RecruitmentRules_HR_ORG_SectionsId.LoadData();
+
+						//
+						//item.HR_ORG_SectionsId = Guid.Parse(EmpInfo.HR_ORG_SectionsId.ToString());
 						// **********
 
 						// **********
 						// اطلاعات بخش پست های سازمانی
-						Entity.HR_ORG_Posts Posts = new();
+						//item.HR_ORG_PostsId = Guid.Parse(EmpInfo.PostsId.ToString());
 
-						Posts.Id = Guid.Parse(EmpInfo.PostsId.ToString());
-						Posts.Title = EmpInfo.PostTitle;
 
-						Ref_HR_CVR_RecruitmentRules_HR_ORG_PostsId.SetEntity(Posts);
+						// Entity.HR_ORG_Posts Posts = new();
 
-						Ref_HR_CVR_RecruitmentRules_HR_ORG_PostsId.ItemSelected(Posts);
+						// Posts.Id = Guid.Parse(EmpInfo.PostsId.ToString());
+						// Posts.Title = EmpInfo.PostTitle;
 
-						await Task.Delay(100);
-						Ref_HR_CVR_RecruitmentRules_HR_ORG_PostsId.LoadData();
+						// Ref_HR_CVR_RecruitmentRules_HR_ORG_PostsId.SetEntity(Posts);
+
+						// Ref_HR_CVR_RecruitmentRules_HR_ORG_PostsId.ItemSelected(Posts);
+
+						// await Task.Delay(100);
+						// Ref_HR_CVR_RecruitmentRules_HR_ORG_PostsId.LoadData();
 						// **********
 
 						// **********
@@ -620,7 +626,7 @@ namespace Forms.Forms
 				</tr>";
 
 				string htmlString = $@"
-				<div style='direction: rtl; font-family: tahoma;'>
+				<div style='direction: rtl;'>
 					<table style='width:100%; border-collapse: collapse;' border='1'>
 						<thead style='background:#f5f5f5'>
 							<tr>
@@ -901,7 +907,7 @@ namespace Forms.Forms
 				</tr>";
 
 				string htmlString = $@"
-				<div style='direction: rtl; font-family: tahoma;'>
+				<div style='direction: rtl;'>
 					<table style='width:100%; border-collapse: collapse;' border='1'>
 						<thead style='background:#f5f5f5'>
 							<tr>
@@ -927,7 +933,7 @@ namespace Forms.Forms
 				await _MSG.ShowError("خطا در پردازش SP: " + ex.Message);
 			}
 
-			
+
 		}
 		#endregion
 
@@ -966,34 +972,48 @@ namespace Forms.Forms
 
 			var ListData = _Entity.HR_CVR_RecruitmentRules.ToList();
 
-			foreach ( var EmpDataItem in ListData)
+			foreach (var EmpDataItem in ListData)
 			{
+				// کد کارمندی جدید
 				EmpDataItem.EmployeeNo = emp_data.EmployeeNo;
+				// کد پرسنلی جدید
+				EmpDataItem.EmployeePersonelNo = emp_data.EmployeePersonelNo;
+				// نام کارمند
 				EmpDataItem.FirstName = emp_data.FirstName;
+				// نام خانوادگی کارمند
 				EmpDataItem.LastName = emp_data.LastName;
+				// نام پدر کارمند
 				EmpDataItem.FatherName = emp_data.FatherName;
+				// کد ملی
 				EmpDataItem.NationalCode = emp_data.NationalCode;
+				// شماره شناسنامه
 				EmpDataItem.IdCardNo = emp_data.IdCardNo;
-				EmpDataItem.BirthDate_Fa = emp_data.BirthDate_Fa;
+				// جنسیت
 				EmpDataItem.BaseInfo_GenderId = emp_data.BaseInfo_GenderTitle;
+				// وضعیت تاهل
 				EmpDataItem.BaseInfo_MaritalStatusId = emp_data.BaseInfo_MaritalStatusTitle;
-				EmpDataItem.EmployeeAgeText = emp_data.EmployeeAgeText;
+				// شهر محل صدور شناسنامه
 				EmpDataItem.CityOfIssue = emp_data.CityOfIssueTitle;
+				// شهر تولد
 				EmpDataItem.CityOfBirth = emp_data.CityOfBirthTitle;
+				// تاریخ تولد شمسی
+				EmpDataItem.BirthDate_Fa = emp_data.BirthDate_Fa;
+				// نمایش سن کارمند به صورت متن
+				EmpDataItem.EmployeeAgeText = emp_data.EmployeeAgeText;
+				// تاریخ استخدام در گروه
 				EmpDataItem.EmploymentDateInGroup_Fa = emp_data.EmploymentDateInGroup_Fa;
+				// تاریخ استخدام در شرکت
 				EmpDataItem.EmploymentDate_Fa = emp_data.EmploymentDate_Fa;
+				// تاریخ آخرین تسویه حساب
 				EmpDataItem.EmploymentStartDate_Fa = emp_data.EmploymentStartDate_Fa;
-
 				// شماره بیمه
 				EmpDataItem.InsuranceNumber = emp_data.InsuranceNumber;
-
 				// نظام وظیفه
 				EmpDataItem.BaseInfo_MilitaryStatusId = emp_data.BaseInfo_MilitaryStatusTitle;
 				// حساب بانکی
 				EmpDataItem.BankAccountNumber = emp_data.BankAccountNumber;
 				// شماره شبا
 				EmpDataItem.IBAN = emp_data.IBAN;
-
 
 				// شناسه قسمت سازمانی
 				//EmpDataItem.HR_ORG_SectionsId = string.IsNullOrEmpty(emp_data.HR_ORG_SectionsId) ? Guid.Empty : Guid.Parse(emp_data.HR_ORG_SectionsId);
@@ -1009,6 +1029,13 @@ namespace Forms.Forms
 				EmpDataItem.EmployeeChildrenCount = emp_data.CountChilderen;
 				// تاریخ برقراری حق اولاد
 				EmpDataItem.FirstChildAllowanceEstablishmentDate_Fa = emp_data.StartChildRightsGroupDate_Fa;
+
+				// اگر HR_CVR_ApprovalsMinistryLaborGroupId پر باشد، مقادیر مربوطه را اعمال کن
+				if (EmpDataItem.HR_CVR_ApprovalsMinistryLaborGroupId.HasValue)
+				{
+					await EMP_Data.EmployeeData.ApplyToLastRecruitmentRules(EmpDataItem, _User.UserID.ToString());
+					Console.WriteLine("#log:: ApplyToLastRecruitmentRules ::");
+				}
 			}
 
 			// بررسی وضعیت اینکه آیا حق تاهل تعلق می گیرد؟
@@ -1016,6 +1043,8 @@ namespace Forms.Forms
 
 			// بررسی وضعیت اینکه آیا حق اولاد تعلق می گیرد یا خیر؟
 			SetChildAllowanceStatus();
+
+			
 			#endregion
 
 			StateHasChanged();
