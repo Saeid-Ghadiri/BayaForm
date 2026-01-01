@@ -134,10 +134,10 @@
  
  
 @code {
-    Baya.Models.ViewEngine.View_Component Component_HR_Base_BankAccountHR_EMP_EmployeesId = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"primaryKey\":false,\"EntityID\":357,\"FieldId\":15252,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":0,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":false,\"RelationParentName\":\"HR_EMP_Employees\",\"RelationParentModel\":\"HR_EMP_Employees\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/HR_EMP_Employees/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"inputFormat\":\"DropDown\",\"bind\":false,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.EmployeeNo}} {{item.FirstName}} {{item.LastName}} </span>\",\"FieldsTemplate\":[{\"key\":\"EmployeeNo\",\"value\":\"nvarchar(Max)\"},{\"key\":\"FirstName\",\"value\":\"nvarchar(Max)\"},{\"key\":\"LastName\",\"value\":\"nvarchar(Max)\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"searchField\":\"EmployeeNo,FirstName,LastName\",\"disabled\":false,\"modal\":true,\"label\":\"کارمند\",\"tableView\":true,\"key\":\"HR_EMP_EmployeesId\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"customClass\":\"filterCol\",\"FieldUrl\":\"15252?EId=357&SubId=15\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
+    Baya.Models.ViewEngine.View_Component Component_HR_Base_BankAccountHR_EMP_EmployeesId = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"primaryKey\":false,\"EntityID\":357,\"FieldId\":15252,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":0,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":true,\"RelationParentName\":\"HR_EMP_Employees\",\"RelationParentModel\":\"HR_EMP_Employees\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/View_HR_EMP_Employees/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"inputFormat\":\"DropDown\",\"bind\":false,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.BaseInfo_ORG_CompaniesTitle}} {{item.EmployeeNo}} {{item.FirstName}} {{item.LastName}} </span>\",\"FieldsTemplate\":[{\"key\":\"BaseInfo_ORG_CompaniesTitle\",\"value\":\"nvarchar(Max)\"},{\"key\":\"EmployeeNo\",\"value\":\"nvarchar(Max)\"},{\"key\":\"FirstName\",\"value\":\"nvarchar(Max)\"},{\"key\":\"LastName\",\"value\":\"nvarchar(Max)\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"searchField\":\"BaseInfo_ORG_CompaniesTitle,EmployeeNo,FirstName,LastName\",\"disabled\":false,\"modal\":true,\"label\":\"اطلاعات کارمند\",\"tableView\":true,\"key\":\"HR_EMP_EmployeesId\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"customClass\":\"filterCol\",\"FieldUrl\":\"15252?EId=357&SubId=15\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
 }
 
-    <Dropdown Id=HR_EMP_EmployeesId  @ref="Ref_HR_EMP_EmployeesId" Label="کارمند" CssClass="filterCol"  DisplayFormat="DropDown" ExternalApi=false NotMapped=false TextGrid=false   FieldName="HR_EMP_EmployeesId" OnItemSelected="ItemSelected_HR_Base_BankAccountHR_EMP_EmployeesId" Component="Component_HR_Base_BankAccountHR_EMP_EmployeesId"  >
+    <Dropdown Id=HR_EMP_EmployeesId  @ref="Ref_HR_EMP_EmployeesId" Label="اطلاعات کارمند" CssClass="filterCol"  DisplayFormat="DropDown" ExternalApi=true NotMapped=false TextGrid=false   FieldName="HR_EMP_EmployeesId" OnItemSelected="ItemSelected_HR_Base_BankAccountHR_EMP_EmployeesId" Component="Component_HR_Base_BankAccountHR_EMP_EmployeesId"  >
 </Dropdown>
 @code {
     public async Task ItemSelected_HR_Base_BankAccountHR_EMP_EmployeesId(object _Item)
@@ -152,6 +152,31 @@
     
     }
 } 
+ 
+ 
+@code {
+    Baya.Models.ViewEngine.View_Component Component_HR_Base_BankAccountBaseInfo_BankId = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"primaryKey\":false,\"EntityID\":357,\"FieldId\":29973,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":0,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":false,\"RelationParentName\":\"BaseInfo_Bank\",\"RelationParentModel\":\"BaseInfo_Banks\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/BaseInfo_Banks/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":false,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.Title}} </span>\",\"FieldsTemplate\":[{\"key\":\"Title\",\"value\":\"nvarchar(Max)\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"searchField\":\"Title\",\"disabled\":false,\"modal\":true,\"label\":\"بانک\",\"tableView\":true,\"key\":\"BaseInfo_BankId\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"customClass\":\"filterCol\",\"FieldUrl\":\"29973?EId=357&SubId=15\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
+}
+
+    <Dropdown Id=BaseInfo_BankId  @ref="Ref_BaseInfo_BankId" Label="بانک" CssClass="filterCol"  DisplayFormat="DropDown" ExternalApi=false NotMapped=false TextGrid=false   FieldName="BaseInfo_BankId" OnItemSelected="ItemSelected_HR_Base_BankAccountBaseInfo_BankId" Component="Component_HR_Base_BankAccountBaseInfo_BankId"  >
+</Dropdown>
+@code {
+    public async Task ItemSelected_HR_Base_BankAccountBaseInfo_BankId(object _Item)
+    {
+        var Selected = Utility.JSON.ToObject<dynamic>(Utility.JSON.ToJson(_Item).Result).Result;
+     
+
+    
+
+    
+
+    
+    }
+} 
+
+<Input2 id="BankAccountNumber" @ref="Ref_BankAccountNumber" Label="شماره حساب بانکی"  CssClass="filterCol"       type="text"    Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"maxlength\":\"20\"}").Result))></Input2>
+
+<Input2 id="CartNo" @ref="Ref_CartNo" Label="شماره کارت بانکی"  CssClass="filterCol"       type="text"    Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"maxlength\":\"20\"}").Result))></Input2>
 
 
         <div class="col-xl-2 col-lg-2 col-md-auto mt-2 align-content-end">
@@ -224,6 +249,9 @@
         //await ReplaceInFilter("52255", Ref_SCM_ProductRequestDetails_ProductName_NotMapped.Value, QueryFilter);
         
 await ReplaceInFilter("15252", Ref_HR_EMP_EmployeesId.Value, QueryFilter);
+await ReplaceInFilter("29973", Ref_BaseInfo_BankId.Value, QueryFilter);
+await ReplaceInFilter("29969", Ref_BankAccountNumber.Value, QueryFilter);
+await ReplaceInFilter("15249", Ref_CartNo.Value, QueryFilter);
 
  
         await ReplaceSystemParametrInFilter(QueryFilter);

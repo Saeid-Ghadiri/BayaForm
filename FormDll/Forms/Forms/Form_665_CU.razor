@@ -165,10 +165,10 @@
      
  
 @code {
-    Baya.Models.ViewEngine.View_Component Component_HR_EMP_EmployeeDetailsHR_EMP_EmployeesId = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"EntityName\":\"جزئیات کارمند\",\"primaryKey\":false,\"EntityID\":380,\"FieldId\":15522,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":665,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":false,\"RelationParentName\":\"HR_EMP_Employees\",\"RelationParentModel\":\"HR_EMP_Employees\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/HR_EMP_Employees/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.EmployeeNo}} {{item.FirstName}} {{item.LastName}} </span>\",\"FieldsTemplate\":[{\"key\":\"FirstName\",\"value\":\"nvarchar(Max)\"},{\"key\":\"LastName\",\"value\":\"nvarchar(Max)\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"searchField\":\"EmployeeNo,FirstName,LastName\",\"disabled\":false,\"modal\":true,\"label\":\"کد کارمندی\",\"tableView\":true,\"key\":\"HR_EMP_EmployeesId\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"15522?EId=380&SubId=15\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
+    Baya.Models.ViewEngine.View_Component Component_HR_EMP_EmployeeDetailsHR_EMP_EmployeesId = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"EntityName\":\"جزئیات کارمند\",\"primaryKey\":false,\"EntityID\":380,\"FieldId\":15522,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":665,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":true,\"RelationParentName\":\"HR_EMP_Employees\",\"RelationParentModel\":\"HR_EMP_Employees\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/View_HR_EMP_Employees/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.BaseInfo_ORG_CompaniesTitle}} {{item.EmployeeNo}} {{item.FirstName}} {{item.LastName}} </span>\",\"FieldsTemplate\":[{\"key\":\"FirstName\",\"value\":\"nvarchar(Max)\"},{\"key\":\"LastName\",\"value\":\"nvarchar(Max)\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"searchField\":\"EmployeeNo,FirstName,LastName\",\"disabled\":false,\"modal\":true,\"label\":\"اطلاعات کارمند\",\"tableView\":true,\"key\":\"HR_EMP_EmployeesId\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"15522?EId=380&SubId=15\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
 }
 
-    <Dropdown Id=HR_EMP_EmployeesId  @ref="Ref_HR_EMP_EmployeesId" Label="کد کارمندی" CssClass=""  DisplayFormat="DropDown" ExternalApi=false NotMapped=false TextGrid=false Text="" Value="@_Entity.HR_EMP_EmployeesId" FieldName="HR_EMP_EmployeesId" OnItemSelected="ItemSelected_HR_EMP_EmployeeDetailsHR_EMP_EmployeesId" Component="Component_HR_EMP_EmployeeDetailsHR_EMP_EmployeesId" _Entity="_Entity" >
+    <Dropdown Id=HR_EMP_EmployeesId  @ref="Ref_HR_EMP_EmployeesId" Label="اطلاعات کارمند" CssClass=""  DisplayFormat="DropDown" ExternalApi=true NotMapped=false TextGrid=false  Value="@_Entity.HR_EMP_EmployeesId" FieldName="HR_EMP_EmployeesId" OnItemSelected="ItemSelected_HR_EMP_EmployeeDetailsHR_EMP_EmployeesId" Component="Component_HR_EMP_EmployeeDetailsHR_EMP_EmployeesId" _Entity="_Entity" >
 </Dropdown>
 @code {
     public async Task ItemSelected_HR_EMP_EmployeeDetailsHR_EMP_EmployeesId(object _Item)
@@ -176,22 +176,7 @@
         var Selected = Utility.JSON.ToObject<dynamic>(Utility.JSON.ToJson(_Item).Result).Result;
      var Item = _Entity;
 
-      //Todo
- //برای اینکه آی دی تغییر کند اینجا نیز باید تغییر کند
- //بهتر است از پرایمیری کی استفاده شود
- if (_Item != null)
- {
-     Console.WriteLine(" Item Is Not Null");
     Item.HR_EMP_EmployeesId = Selected.Id;
-    
- }
- else
- {
-     Console.WriteLine(" Item Is Null");
-      Item.HR_EMP_EmployeesId =EntityHelper.SetPropertyNull(Item.HR_EMP_EmployeesId);
- }
- Item.HR_EMP_Employees = await Utility.JSON.ToObject<Entity.HR_EMP_Employees>(await Utility.JSON.ToJson(_Item));
-    StateHasChanged();
 
 
     

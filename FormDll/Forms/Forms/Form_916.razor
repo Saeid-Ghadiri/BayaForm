@@ -853,9 +853,9 @@ public async void RowDubbleClickGrid_BaseInfo_Cities(GridRowClickEventArgs e)
             await InvokeAsync(StateHasChanged);
             await Task.Yield();
             QueryFilter = new QueryBuilderFilterRule();
-            if ("{}" != "null" || "{}" != "{}")
+            if ("{\"Condition\":\"AND\",\"Rules\":[{\"Field\":\"Title\",\"Id\":\"19376\",\"Input\":\"text\",\"Operator\":\"contains\",\"Type\":\"string\",\"Value\":[]}]}" != "null" || "{\"Condition\":\"AND\",\"Rules\":[{\"Field\":\"Title\",\"Id\":\"19376\",\"Input\":\"text\",\"Operator\":\"contains\",\"Type\":\"string\",\"Value\":[]}]}" != "{}")
             {
-                QueryFilter = await JSON.ToObject<QueryBuilderFilterRule>("{}");
+                QueryFilter = await JSON.ToObject<QueryBuilderFilterRule>("{\"Condition\":\"AND\",\"Rules\":[{\"Field\":\"Title\",\"Id\":\"19376\",\"Input\":\"text\",\"Operator\":\"contains\",\"Type\":\"string\",\"Value\":[]}]}");
 
             }
 

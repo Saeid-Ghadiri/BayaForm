@@ -128,6 +128,8 @@
 <div class="row justify-content-center">
 
 
+<Input2 id="Title" @ref="Ref_Title" Label="عنوان استان"  CssClass="filterCol"       type="text"    Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"maxlength\":\"75\"}").Result))></Input2>
+
 
         <div class="col-xl-2 col-lg-2 col-md-auto mt-2 align-content-end">
             <button class="btn btn-sm btn-purple" @onclick=SearchFilter>
@@ -198,6 +200,7 @@
         //await ReplaceInFilter("SCM_ProductRequestDetails.ProductNameText", "ماوس", QueryFilter);
         //await ReplaceInFilter("52255", Ref_SCM_ProductRequestDetails_ProductName_NotMapped.Value, QueryFilter);
         
+await ReplaceInFilter("19365", Ref_Title.Value, QueryFilter);
 
  
         await ReplaceSystemParametrInFilter(QueryFilter);

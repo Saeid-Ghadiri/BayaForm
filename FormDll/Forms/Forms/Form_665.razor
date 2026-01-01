@@ -201,43 +201,15 @@
           
            </CellDisplayTemplate>
      </DxGridCommandColumn>
-    <DxGridDataColumn  Caption="Id" Visible=false FieldName="Id" />
-
-<DxGridDataColumn  Caption="RequestID" Visible=false FieldName="RequestID" />
-
-<DxGridDataColumn  Caption="CreateUser" Visible=false FieldName="CreateUser" />
-
-<DxGridDataColumn  Caption="UpdateUser" Visible=false FieldName="UpdateUser" />
-
-<DxGridDataColumn  Caption="CreateDate" Visible=false FieldName="CreateDate" />
-
-<DxGridDataColumn  Caption="UpdateDate" Visible=false FieldName="UpdateDate" />
-
-<DxGridDataColumn  Caption="IsDelete" Visible=false FieldName="IsDelete" />
-
-<DxGridDataColumn  Caption="موبایل سازمانی1"  FieldName="OrgMobile1" />
-
-<DxGridDataColumn  Caption="موبایل سازمانی2"  FieldName="OrgMobile2" />
-
-<DxGridDataColumn  Caption="تلفن سازمانی1"  FieldName="OrgTel1" />
-
-<DxGridDataColumn  Caption="تلفن سازمانی2"  FieldName="OrgTel2" />
-
-<DxGridDataColumn  Caption="تلفن سازمانی3"  FieldName="OrgTel3" />
-
-<DxGridDataColumn  Caption="تلفن سازمانی4"  FieldName="OrgTel4" />
-
-<DxGridDataColumn  Caption="تلفن سازمانی5"  FieldName="OrgTel5" />
-
-<DxGridDataColumn Context="HR_EMP_EmployeesId_" Caption="کد کارمندی" >
+    <DxGridDataColumn Context="HR_EMP_EmployeesId_" Caption="اطلاعات کارمند" >
     <CellDisplayTemplate>
        
 @{
-    Baya.Models.ViewEngine.View_Component HeaderHR_EMP_EmployeesId = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"primaryKey\":false,\"EntityID\":380,\"FieldId\":15522,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":665,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":false,\"RelationParentName\":\"HR_EMP_Employees\",\"RelationParentModel\":\"HR_EMP_Employees\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/HR_EMP_Employees/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.EmployeeNo}} {{item.FirstName}} {{item.LastName}} </span>\",\"FieldsTemplate\":[{\"key\":\"FirstName\",\"value\":\"nvarchar(Max)\"},{\"key\":\"LastName\",\"value\":\"nvarchar(Max)\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"searchField\":\"EmployeeNo,FirstName,LastName\",\"modal\":true,\"label\":\"کد کارمندی\",\"tableView\":true,\"key\":\"HR_EMP_EmployeesId\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"15522?EId=380&SubId=15\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
+    Baya.Models.ViewEngine.View_Component HeaderHR_EMP_EmployeesId = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"primaryKey\":false,\"EntityID\":380,\"FieldId\":15522,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":665,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":true,\"RelationParentName\":\"HR_EMP_Employees\",\"RelationParentModel\":\"HR_EMP_Employees\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/View_HR_EMP_Employees/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.BaseInfo_ORG_CompaniesTitle}} {{item.EmployeeNo}} {{item.FirstName}} {{item.LastName}} </span>\",\"FieldsTemplate\":[{\"key\":\"FirstName\",\"value\":\"nvarchar(Max)\"},{\"key\":\"LastName\",\"value\":\"nvarchar(Max)\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"searchField\":\"EmployeeNo,FirstName,LastName\",\"modal\":true,\"label\":\"اطلاعات کارمند\",\"tableView\":true,\"key\":\"HR_EMP_EmployeesId\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"15522?EId=380&SubId=15\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
     var RowHR_EMP_EmployeesId = ((Entity.HR_EMP_EmployeeDetails)HR_EMP_EmployeesId_.DataItem).HR_EMP_EmployeesId;
 }
 
-<Dropdown ExternalApi=false CssClass="" NotMapped=false TextGrid=true Value="@RowHR_EMP_EmployeesId"   FieldName="HR_EMP_EmployeesId" OnItemSelected="ItemSelected_HR_EMP_EmployeeDetailsHR_EMP_EmployeesId_Header" Component="HeaderHR_EMP_EmployeesId">
+<Dropdown ExternalApi=true CssClass="" NotMapped=false TextGrid=true Value="@RowHR_EMP_EmployeesId"   FieldName="HR_EMP_EmployeesId" OnItemSelected="ItemSelected_HR_EMP_EmployeeDetailsHR_EMP_EmployeesId_Header" Component="HeaderHR_EMP_EmployeesId">
 </Dropdown>
 @code {
     public async Task ItemSelected_HR_EMP_EmployeeDetailsHR_EMP_EmployeesId_Header(object _Item)
@@ -255,6 +227,34 @@
 
     </CellDisplayTemplate>
 </DxGridDataColumn>
+<DxGridDataColumn  Caption="تلفن سازمانی1"  FieldName="OrgTel1" />
+
+<DxGridDataColumn  Caption="تلفن سازمانی2"  FieldName="OrgTel2" />
+
+<DxGridDataColumn  Caption="تلفن سازمانی3"  FieldName="OrgTel3" />
+
+<DxGridDataColumn  Caption="تلفن سازمانی4"  FieldName="OrgTel4" />
+
+<DxGridDataColumn  Caption="تلفن سازمانی5"  FieldName="OrgTel5" />
+
+<DxGridDataColumn  Caption="موبایل سازمانی1"  FieldName="OrgMobile1" />
+
+<DxGridDataColumn  Caption="موبایل سازمانی2"  FieldName="OrgMobile2" />
+
+<DxGridDataColumn  Caption="Id" Visible=false FieldName="Id" />
+
+<DxGridDataColumn  Caption="RequestID" Visible=false FieldName="RequestID" />
+
+<DxGridDataColumn  Caption="CreateUser" Visible=false FieldName="CreateUser" />
+
+<DxGridDataColumn  Caption="UpdateUser" Visible=false FieldName="UpdateUser" />
+
+<DxGridDataColumn  Caption="CreateDate" Visible=false FieldName="CreateDate" />
+
+<DxGridDataColumn  Caption="UpdateDate" Visible=false FieldName="UpdateDate" />
+
+<DxGridDataColumn  Caption="IsDelete" Visible=false FieldName="IsDelete" />
+
 
 </Columns>
 
@@ -527,6 +527,14 @@ public void SaveGrid_HR_EMP_EmployeeDetails(object DataItem, object EditModel)
     var MainModel = (Entity.HR_EMP_EmployeeDetails)DataItem;
     if (MainModel != null)
     {
+MainModel.HR_EMP_EmployeesId = ((Entity.HR_EMP_EmployeeDetails)EditModel).HR_EMP_EmployeesId;
+MainModel.OrgTel1 = ((Entity.HR_EMP_EmployeeDetails)EditModel).OrgTel1;
+MainModel.OrgTel2 = ((Entity.HR_EMP_EmployeeDetails)EditModel).OrgTel2;
+MainModel.OrgTel3 = ((Entity.HR_EMP_EmployeeDetails)EditModel).OrgTel3;
+MainModel.OrgTel4 = ((Entity.HR_EMP_EmployeeDetails)EditModel).OrgTel4;
+MainModel.OrgTel5 = ((Entity.HR_EMP_EmployeeDetails)EditModel).OrgTel5;
+MainModel.OrgMobile1 = ((Entity.HR_EMP_EmployeeDetails)EditModel).OrgMobile1;
+MainModel.OrgMobile2 = ((Entity.HR_EMP_EmployeeDetails)EditModel).OrgMobile2;
 MainModel.Id = ((Entity.HR_EMP_EmployeeDetails)EditModel).Id;
 MainModel.RequestID = ((Entity.HR_EMP_EmployeeDetails)EditModel).RequestID;
 MainModel.CreateUser = ((Entity.HR_EMP_EmployeeDetails)EditModel).CreateUser;
@@ -534,15 +542,6 @@ MainModel.UpdateUser = ((Entity.HR_EMP_EmployeeDetails)EditModel).UpdateUser;
 MainModel.CreateDate = ((Entity.HR_EMP_EmployeeDetails)EditModel).CreateDate;
 MainModel.UpdateDate = ((Entity.HR_EMP_EmployeeDetails)EditModel).UpdateDate;
 MainModel.IsDelete = ((Entity.HR_EMP_EmployeeDetails)EditModel).IsDelete;
-MainModel.OrgMobile1 = ((Entity.HR_EMP_EmployeeDetails)EditModel).OrgMobile1;
-MainModel.OrgMobile2 = ((Entity.HR_EMP_EmployeeDetails)EditModel).OrgMobile2;
-MainModel.OrgTel1 = ((Entity.HR_EMP_EmployeeDetails)EditModel).OrgTel1;
-MainModel.OrgTel2 = ((Entity.HR_EMP_EmployeeDetails)EditModel).OrgTel2;
-MainModel.OrgTel3 = ((Entity.HR_EMP_EmployeeDetails)EditModel).OrgTel3;
-MainModel.OrgTel4 = ((Entity.HR_EMP_EmployeeDetails)EditModel).OrgTel4;
-MainModel.OrgTel5 = ((Entity.HR_EMP_EmployeeDetails)EditModel).OrgTel5;
-MainModel.HR_EMP_EmployeesId = ((Entity.HR_EMP_EmployeeDetails)EditModel).HR_EMP_EmployeesId;
-MainModel.HR_EMP_Employees = ((Entity.HR_EMP_EmployeeDetails)EditModel).HR_EMP_Employees;
 
     }
     else
@@ -871,9 +870,9 @@ public async void RowDubbleClickGrid_HR_EMP_EmployeeDetails(GridRowClickEventArg
             await InvokeAsync(StateHasChanged);
             await Task.Yield();
             QueryFilter = new QueryBuilderFilterRule();
-            if ("{}" != "null" || "{}" != "{}")
+            if ("{\"Condition\":\"OR\",\"Rules\":[{\"Field\":\"HR_EMP_EmployeesId\",\"Id\":\"15522\",\"Input\":\"text\",\"Operator\":\"contains\",\"Type\":\"string\",\"Value\":[]},{\"Field\":\"OrgTel1\",\"Id\":\"15516\",\"Input\":\"text\",\"Operator\":\"contains\",\"Type\":\"string\",\"Value\":[]},{\"Field\":\"OrgTel2\",\"Id\":\"15517\",\"Input\":\"text\",\"Operator\":\"contains\",\"Type\":\"string\",\"Value\":[]},{\"Field\":\"OrgMobile1\",\"Id\":\"15514\",\"Input\":\"text\",\"Operator\":\"contains\",\"Type\":\"string\",\"Value\":[]}]}" != "null" || "{\"Condition\":\"OR\",\"Rules\":[{\"Field\":\"HR_EMP_EmployeesId\",\"Id\":\"15522\",\"Input\":\"text\",\"Operator\":\"contains\",\"Type\":\"string\",\"Value\":[]},{\"Field\":\"OrgTel1\",\"Id\":\"15516\",\"Input\":\"text\",\"Operator\":\"contains\",\"Type\":\"string\",\"Value\":[]},{\"Field\":\"OrgTel2\",\"Id\":\"15517\",\"Input\":\"text\",\"Operator\":\"contains\",\"Type\":\"string\",\"Value\":[]},{\"Field\":\"OrgMobile1\",\"Id\":\"15514\",\"Input\":\"text\",\"Operator\":\"contains\",\"Type\":\"string\",\"Value\":[]}]}" != "{}")
             {
-                QueryFilter = await JSON.ToObject<QueryBuilderFilterRule>("{}");
+                QueryFilter = await JSON.ToObject<QueryBuilderFilterRule>("{\"Condition\":\"OR\",\"Rules\":[{\"Field\":\"HR_EMP_EmployeesId\",\"Id\":\"15522\",\"Input\":\"text\",\"Operator\":\"contains\",\"Type\":\"string\",\"Value\":[]},{\"Field\":\"OrgTel1\",\"Id\":\"15516\",\"Input\":\"text\",\"Operator\":\"contains\",\"Type\":\"string\",\"Value\":[]},{\"Field\":\"OrgTel2\",\"Id\":\"15517\",\"Input\":\"text\",\"Operator\":\"contains\",\"Type\":\"string\",\"Value\":[]},{\"Field\":\"OrgMobile1\",\"Id\":\"15514\",\"Input\":\"text\",\"Operator\":\"contains\",\"Type\":\"string\",\"Value\":[]}]}");
 
             }
 

@@ -144,7 +144,7 @@ namespace Forms.Forms
     /// <summary>
     ///  ورژنی که فرم باهاش ساخته شده
     /// </summary>
-    public string? VersionForm { get; set; } = "5405";
+    public string? VersionForm { get; set; } = "5439";
 
     /// <summary>
     ///  موجودیت
@@ -181,16 +181,16 @@ namespace Forms.Forms
 
 public Dropdown Ref_HR_EMP_EmployeesId;
 public Input<string?> Ref_FirstName;
-public Dropdown Ref_HR_Base_AcademicDegreesId;
 public Input<string?> Ref_BirthDate;
-public Input<string?> Ref_BirthDate_Fa;
 public Input<string?> Ref_LastName;
-public Input<string?> Ref_IdCardNo;
-public Input<bool?> Ref_IsFamily;
 public Input<string?> Ref_FatherName;
-public Dropdown Ref_BaseInfo_GenderId;
 public Input<string?> Ref_NationalCode;
+public Dropdown Ref_HR_Base_AcademicDegreesId;
+public Input<string?> Ref_IdCardNo;
+public Dropdown Ref_BaseInfo_GenderId;
 public Dropdown Ref_BaseInfo_CitiesId;
+public Input<string?> Ref_BirthDate_Fa;
+public Input<bool?> Ref_IsFamily;
 public Dropdown Ref_HR_FamilyRelationshipId;
 public Dropdown Ref_HR_Base_DependentId;
 public Dropdown Ref_BaseInfo_MaritalStatusId;
