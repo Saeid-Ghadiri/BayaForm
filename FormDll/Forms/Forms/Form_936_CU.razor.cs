@@ -868,6 +868,7 @@ namespace VerdictDataModel
 
 		// عنوان قسمت های سازمانی در جدول پست های حکم
 		public string? HR_ORG_SectionsId { get; set; }
+		//public string? SectionId { get; set; }
 		
 		// عنوان بخش
 		public string? SectionTitle { get; set; }
@@ -1003,5 +1004,17 @@ namespace VerdictDataModel
 		public decimal? OtherBenefitsNew { get; set; }
 		public decimal? TotalMonthlySalaryBenefitsNew { get; set; }
 
+		// **********
+		// درصد ثابت افزایش مزد مبنا سالانه وزارت کار
+		public int? IncreasePercentGroup {  get; set; }
+		// درصد ثابت افزایش مزد مبنا وزارت کار
+		public string? HR_CVR_AnnualBaseWageIncreaseRatesId { get; set; }
+
+		// ضریب ريالی تعیین شده سالانه شورای عالی وزارت کار
+		public int? FixedNumberValueGroup {  get; set; }
+		// شناسه - ضریب ريالی تعیین شده سالانه شورای عالی وزارت کار
+		public string? HR_CVR_LaborCouncilFixedValuesId { get; set; }
+		
+		// **********
 	}
 }

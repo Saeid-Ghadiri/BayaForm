@@ -519,53 +519,37 @@ namespace Forms.Forms
 
 						// **********
 						// اطلاعات بخش قسمت های سازمانی
-						//Entity.HR_ORG_Sections Sections = new();
-
-						//Sections.Id = Guid.Parse(EmpInfo.SectionId.ToString());
-						//Sections.Title = EmpInfo.SectionTitle;
-
-						//Ref_HR_CVR_RecruitmentRules_HR_ORG_SectionsId.SetEntity(Sections);
-
-						//Ref_HR_CVR_RecruitmentRules_HR_ORG_SectionsId.ItemSelected(Sections);
-
-						//await Task.Delay(100);
-						//Ref_HR_CVR_RecruitmentRules_HR_ORG_SectionsId.LoadData();
-
-						//
-						//item.HR_ORG_SectionsId = Guid.Parse(EmpInfo.HR_ORG_SectionsId.ToString());
+						item.HR_ORG_SectionsId = Guid.Parse(EmpInfo.SectionId.ToString());
+						Console.WriteLine($":: HR_ORG_SectionsId for item {item._Id} :: {item.HR_ORG_SectionsId}");
 						// **********
 
 						// **********
 						// اطلاعات بخش پست های سازمانی
-						//item.HR_ORG_PostsId = Guid.Parse(EmpInfo.PostsId.ToString());
-
-
-						// Entity.HR_ORG_Posts Posts = new();
-
-						// Posts.Id = Guid.Parse(EmpInfo.PostsId.ToString());
-						// Posts.Title = EmpInfo.PostTitle;
-
-						// Ref_HR_CVR_RecruitmentRules_HR_ORG_PostsId.SetEntity(Posts);
-
-						// Ref_HR_CVR_RecruitmentRules_HR_ORG_PostsId.ItemSelected(Posts);
-
-						// await Task.Delay(100);
-						// Ref_HR_CVR_RecruitmentRules_HR_ORG_PostsId.LoadData();
+						item.HR_ORG_PostsId = Guid.Parse(EmpInfo.PostsId.ToString());
+						Console.WriteLine($":: HR_ORG_PostsId for item {item._Id} :: {item.HR_ORG_PostsId}");
 						// **********
 
 						// **********
-						//// اطلاعات بخش شغل های سازمانی
-						//Entity.HR_CVR_Job Jobs = new();
+						// عنوان شغلی
+						item.HR_CVR_JobId = Guid.Parse(EmpInfo.HR_CVR_JobId.ToString());
+						Console.WriteLine($":: HR_CVR_JobId for item {item._Id} :: {item.HR_CVR_JobId}");
+						// **********
 
-						//Jobs.Id = Guid.Parse(EmpInfo.HR_CVR_JobId.ToString());
-						//Jobs.Title = EmpInfo.HR_CVR_JobTitle;
+						// **********
+						// گروه شغلی
+						item.HR_CVR_JobGroupId = Guid.Parse(EmpInfo.HR_CVR_JobGroupId.ToString());
+						Console.WriteLine($":: HR_CVR_JobGroupId for item {item._Id} :: {item.HR_CVR_JobGroupId}");
+						// **********
 
-						//Ref_HR_CVR_RecruitmentRules_HR_CVR_JobId.SetEntity(Jobs);
+						// **********
+						// ضریب ريالی - عدد ثابت تعیین شده وزارت کار
+						//item.HR_CVR_LaborCouncilFixedValuesId = Guid.Parse(EmpInfo.HR_CVR_LaborCouncilFixedValuesId.ToString());
+						//Console.WriteLine($":: HR_CVR_LaborCouncilFixedValuesId for item {item._Id} :: {item.HR_CVR_LaborCouncilFixedValuesId}");
+						// **********
 
-						//Ref_HR_CVR_RecruitmentRules_HR_CVR_JobId.ItemSelected(Jobs);
-
-						//await Task.Delay(100);
-						//Ref_HR_CVR_RecruitmentRules_HR_CVR_JobId.LoadData();
+						// **********
+						//item.HR_CVR_AnnualBaseWageIncreaseRatesId = Guid.Parse(EmpInfo.HR_CVR_AnnualBaseWageIncreaseRatesId.ToString());
+						//Console.WriteLine($":: HR_CVR_AnnualBaseWageIncreaseRatesId for item {item._Id} :: {item.HR_CVR_AnnualBaseWageIncreaseRatesId}");
 						// **********
 
 					}
@@ -1044,7 +1028,7 @@ namespace Forms.Forms
 			// بررسی وضعیت اینکه آیا حق اولاد تعلق می گیرد یا خیر؟
 			SetChildAllowanceStatus();
 
-			
+
 			#endregion
 
 			StateHasChanged();
