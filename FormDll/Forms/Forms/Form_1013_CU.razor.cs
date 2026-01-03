@@ -11,7 +11,7 @@ using Microsoft.JSInterop;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Sitko.Blazor.CKEditor;
-using SP_ContractTime;
+using ContractTimeModel;
 using System;
 using System.Collections.Generic;
 using System.Net;
@@ -407,7 +407,7 @@ namespace Forms.Forms
 
 			var R = await BayaApi.PersonnelContract(
 				ShomaranApiMode.Polfilm,
-				new EmpId
+				new EmployeeModel.EmpId
 				{
 					EmployeesId = _Entity.HR_EMP_EmployeesId.Value
 				}
@@ -441,7 +441,7 @@ namespace Forms.Forms
 			try
 			{
 
-				var response = Newtonsoft.Json.JsonConvert.DeserializeObject<Content>(R.Content.ToString());
+				var response = Newtonsoft.Json.JsonConvert.DeserializeObject<StoredProcedureModel.Content>(R.Content.ToString());
 
 				if (response.DataSets == null || response.DataSets.Count == 0)
 				{
@@ -733,8 +733,8 @@ namespace Forms.Forms
 	}
 }
 
-// اطلاعات زیر در فرم 936 فرم قرارداد - قرار دارد
-// namespace SP_ContractTime
+// اطلاعات زیر در فرم 735 قرار دارد
+// namespace ContractTimeModel
 // namespace ApiServer.External.Services
 // PersonnelContractRequest
 // PersonnelEndTimeOfContractRequest

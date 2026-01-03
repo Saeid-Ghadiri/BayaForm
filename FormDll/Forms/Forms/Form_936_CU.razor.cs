@@ -64,7 +64,6 @@ namespace Forms.Forms
 			return IsValid;
 		}
 
-
 		/// <summary>
 		/// تابع قبل اجرا شدن ارسال داده
 		/// </summary>
@@ -107,7 +106,6 @@ namespace Forms.Forms
 
 			// Console.WriteLine("#Log => AfterGetData End::");
 		}
-
 
 		#region FunctionEvents
 
@@ -262,7 +260,7 @@ namespace Forms.Forms
 
 			var R = await BayaApi.PersonnelContract(
 				ShomaranApiMode.Polfilm,
-				new EmpId
+				new EmployeeModel.EmpId
 				{
 					EmployeesId = _Entity.HR_EMP_EmployeesId.Value
 				}
@@ -305,7 +303,7 @@ namespace Forms.Forms
 					Console.WriteLine("❌ لیست A خالی یا null است");
 					return;
 				}
-				var aModel = aList[0].ToObject<SP_ContractTime.AllContractModel>();
+				var aModel = aList[0].ToObject<ContractTimeModel.AllContractModel>();
 				var A = aModel.CountOfAllContract;
 				Console.WriteLine($"✅ A = {A}");
 
@@ -317,7 +315,7 @@ namespace Forms.Forms
 					Console.WriteLine("❌ لیست D خالی یا null است");
 					return;
 				}
-				var dModel = dList[0].ToObject<SP_ContractTime.PositionClasificationModel>();
+				var dModel = dList[0].ToObject<ContractTimeModel.PositionClasificationModel>();
 				var D = dModel.PositionClasificationId ?? "null";
 				Console.WriteLine($"✅ D = '{D}'");
 
@@ -366,7 +364,7 @@ namespace Forms.Forms
 					Console.WriteLine("❌ لیست B خالی یا null است");
 					return;
 				}
-				var bModel = bList[0].ToObject<SP_ContractTime.CurrentContractModel>();
+				var bModel = bList[0].ToObject<ContractTimeModel.CurrentContractModel>();
 				var B = bModel.TheLastCounterOfCurrentContract ?? "null";
 				Console.WriteLine($"✅ B = '{B}'");
 
@@ -425,7 +423,7 @@ namespace Forms.Forms
 			try
 			{
 				var R = await BayaApi.GetEndTimeOfContract(ShomaranApiMode.Polfilm,
-					new PersonnelEndTimeOfContractRequest
+					new ContractTimeModel.PersonnelEndTimeOfContractRequest
 					{
 						EmployeesId = _Entity.HR_EMP_EmployeesId.Value,
 						startDate = _Entity.StartDate_Fa.Replace("/", ""),
@@ -458,7 +456,7 @@ namespace Forms.Forms
 
 					// ******************
 
-					var result = JsonConvert.DeserializeObject<RootContractTime>(R.Content.ToString());
+					var result = JsonConvert.DeserializeObject<ContractTimeModel.RootContractTime>(R.Content.ToString());
 
 					// دسترسی به داده:
 					var firstItem = result.DataSets[0][0];
@@ -489,532 +487,8 @@ namespace Forms.Forms
 		}
 
 
-		#endregion بررسی SP های جدول مدت قرارداد و قرارداد
+		#endregion
 
 		#endregion FunctionEvents
-	}
-}
-
-
-namespace SP_Contract {
-	public partial class spContract
-	{
-		public static async Task<List<Entity.HR_CRS_ContractTime>> GetContractListC(Guid HR_EMP_EmployeesId)
-		{
-			var R = await BayaApi.PersonnelContract(
-				ShomaranApiMode.Polfilm,
-				new EmpId
-				{
-					EmployeesId = HR_EMP_EmployeesId
-				}
-			);
-
-			if (R == null)
-			{
-				Console.WriteLine("❌ خطا: R == null");
-				return null;
-			}
-
-			var jsonResponse = R.Content.ToString();
-			try
-			{
-				var root = JObject.Parse(jsonResponse);
-				var dataSetsToken = root["DataSets"];
-				if (dataSetsToken == null || !(dataSetsToken is JArray dataSets) || dataSets.Count < 4)
-				{
-					Console.WriteLine("❌ خطا: DataSets کامل نیست");
-					return null;
-				}
-
-				// --- 1. لیست A: CountOfAllContract ---
-				var aList = dataSets[0] as JArray;
-				if (aList == null || aList.Count == 0)
-				{
-					Console.WriteLine("❌ لیست A خالی یا null است");
-					return null;
-				}
-				
-				// --- 3. لیست C: لیست بلند ContractTime ---
-				var cList = dataSets[2] as JArray;
-				if (cList == null)
-				{
-					Console.WriteLine("❌ لیست C null است");
-					return null;
-				}
-				var ListC = new List<Entity.HR_CRS_ContractTime>();
-				try
-				{
-					ListC = cList.ToObject<List<Entity.HR_CRS_ContractTime>>();
-					return ListC;
-				}
-				catch (Exception ex)
-				{
-					return null;
-				}
-
-
-			}
-			catch (Exception ex)
-			{
-				return null;
-
-			}
-		}
-	}
-
-}
-
-namespace SP_ContractTime
-{
-	public class AllContractModel
-	{
-		public int CountOfAllContract { get; set; }
-	}
-
-	public class CurrentContractModel
-	{
-		public string TheLastCounterOfCurrentContract { get; set; }
-	}
-
-	public class PositionClasificationModel
-	{
-		public string PositionClasificationId { get; set; }
-	}
-}
-
-namespace ApiServer.External.Services
-{
-	public partial class BayaApi
-	{
-
-		public static async Task<Result> PersonnelContract(ShomaranApiMode ApiMode, EmpId input)
-		{
-			var DataJson = await JSON.ToJson(input);
-
-			string shomaranApi = "";
-			switch (ApiMode)
-			{
-				case ShomaranApiMode.Polfilm:
-					shomaranApi = "https://shomaran.workcv.ir:2010/{0}/api/v1/";
-					break;
-				case ShomaranApiMode.Petco:
-					shomaranApi = "https://shomaranpetcoorm.workcv.ir/{0}/api/v1/";
-					break;
-				case ShomaranApiMode.Pelat:
-					shomaranApi = "https://shomaranatlascellorm.workcv.ir/{0}/api/v1";
-					break;
-				default:
-					break;
-			}
-
-			var _content = new StringContent(DataJson, Encoding.UTF8, "application/json");
-
-			Result apiresult = await Send.PostAsync(_content, "BayaApi/PersonnelContract", shomaranApi, ApplicationType.None);
-
-			return apiresult;
-		}
-
-		public static async Task<Result> GetEndTimeOfContract(ShomaranApiMode ApiMode, PersonnelEndTimeOfContractRequest input)
-		{
-			var DataJson = await JSON.ToJson(input);
-
-			string shomaranApi = "";
-			switch (ApiMode)
-			{
-				case ShomaranApiMode.Polfilm:
-					shomaranApi = "https://shomaran.workcv.ir:2010/{0}/api/v1/";
-					break;
-				case ShomaranApiMode.Petco:
-					shomaranApi = "https://shomaranpetcoorm.workcv.ir/{0}/api/v1/";
-					break;
-				case ShomaranApiMode.Pelat:
-					shomaranApi = "https://shomaranatlascellorm.workcv.ir/{0}/api/v1";
-					break;
-				default:
-					break;
-			}
-
-			var _content = new StringContent(DataJson, Encoding.UTF8, "application/json");
-
-			Result apiresult = await Send.PostAsync(_content, "BayaApi/GetEndTimeOfContract", shomaranApi, ApplicationType.None);
-
-			return apiresult;
-		}
-
-		public static async Task<Result> GetAllContract(ShomaranApiMode ApiMode, EmpId input)
-		{
-			var DataJson = await JSON.ToJson(input);
-
-			string shomaranApi = "";
-			switch (ApiMode)
-			{
-				case ShomaranApiMode.Polfilm:
-					shomaranApi = "https://shomaran.workcv.ir:2010/{0}/api/v1/";
-					break;
-				case ShomaranApiMode.Petco:
-					shomaranApi = "https://shomaranpetcoorm.workcv.ir/{0}/api/v1/";
-					break;
-				case ShomaranApiMode.Pelat:
-					shomaranApi = "https://shomaranatlascellorm.workcv.ir/{0}/api/v1";
-					break;
-				default:
-					break;
-			}
-
-			var _content = new StringContent(DataJson, Encoding.UTF8, "application/json");
-
-			Result apiresult = await Send.PostAsync(_content, "BayaApi/GetAllContract", shomaranApi, ApplicationType.None);
-
-			return apiresult;
-		}
-
-		// ***********************************************
-
-		public static async Task<Result> PersonnelVerdictInfos(ShomaranApiMode ApiMode, EmpId input)
-		{
-			var DataJson = await JSON.ToJson(input);
-
-			string shomaranApi = "";
-			switch (ApiMode)
-			{
-				case ShomaranApiMode.Polfilm:
-					shomaranApi = "https://shomaran.workcv.ir:2010/{0}/api/v1/";
-					break;
-				case ShomaranApiMode.Petco:
-					shomaranApi = "https://shomaranpetcoorm.workcv.ir/{0}/api/v1/";
-					break;
-				case ShomaranApiMode.Pelat:
-					shomaranApi = "https://shomaranatlascellorm.workcv.ir/{0}/api/v1";
-					break;
-				default:
-					break;
-			}
-
-			var _content = new StringContent(DataJson, Encoding.UTF8, "application/json");
-
-			Result apiresult = await Send.PostAsync(_content, "BayaApi/PersonnelVerdictInfos", shomaranApi, ApplicationType.None);
-
-			return apiresult;
-		}
-		public static async Task<Result> ExecuteSp(ShomaranApiMode ApiMode, StoredProcedureRequestDto input)
-		{
-			var DataJson = await JSON.ToJson(input);
-
-			string shomaranApi = "";
-			switch (ApiMode)
-			{
-				case ShomaranApiMode.Polfilm:
-					shomaranApi = "https://shomaran.workcv.ir:2010/{0}/api/v1/";
-					break;
-				case ShomaranApiMode.Petco:
-					shomaranApi = "https://shomaranpetcoorm.workcv.ir/{0}/api/v1/";
-					break;
-				case ShomaranApiMode.Pelat:
-					shomaranApi = "https://shomaranatlascellorm.workcv.ir/{0}/api/v1";
-					break;
-				default:
-					break;
-			}
-
-			var _content = new StringContent(DataJson, Encoding.UTF8, "application/json");
-
-			Result apiresult = await Send.PostAsync(_content, "BayaApi/ExecuteSp", shomaranApi, ApplicationType.None);
-
-			return apiresult;
-		}
-	}
-}
-
-
-public class EmpId
-{
-	public Guid EmployeesId { get; set; }
-}
-
-public class PersonnelEndTimeOfContractRequest
-{
-	public Guid EmployeesId { get; set; }
-	public string startDate { get; set; }
-	public string contractTime { get; set; }
-}
-
-public class RootContractTime
-{
-	public List<List<ContractTimeData>> DataSets { get; set; }
-}
-
-public class ContractTimeData
-{
-	public string Shamsi { get; set; }
-	public DateTime Miladi { get; set; }
-}
-
-
-public class StoredProcedureRequestDto
-{
-	public string StoredProcedureName { get; set; } = string.Empty;
-	public string JsonInput { get; set; } = string.Empty;
-}
-
-
-public class Content
-{
-	public List<List<object>> DataSets { get; set; }
-}
-
-public class ContractRootResponse
-{
-	public int Status { get; set; }
-	public Content Content { get; set; }
-}
-
-namespace VerdictDataModel
-{
-	public class RootResponse
-	{
-		public List<List<EmployeeInfo>> DataSets { get; set; }
-	}
-
-	public class EmployeeInfo
-	{
-		public Guid Id { get; set; }
-		public string? EmployeeNo { get; set; }
-		public string? EmployeePersonelNo { get; set; }
-		public string? FirstName { get; set; }
-		public string? LastName { get; set; }
-		public string? FatherName { get; set; }
-		public string? IdCardNo { get; set; }
-		public string? NationalCode { get; set; }
-		public string? CityOfIssueTitle { get; set; }
-		public string? CityOfBirthTitle { get; set; }
-		public string? BirthDate_Fa { get; set; }
-		public string? BaseInfo_MaritalStatusTitle { get; set; }
-
-		public Guid? BaseInfo_MaritalStatusId { get; set; }
-		public Guid? BaseInfo_GenderId { get; set; }
-
-		public string? BaseInfo_GenderTitle { get; set; }
-		public string? EmployeeAgeText { get; set; }
-		public int? EmployeeAge { get; set; }
-		public string? EducationTitle { get; set; }
-		public string? BaseInfo_MilitaryStatusTitle { get; set; }
-		public string? EmploymentDate_Fa { get; set; }
-		public string? EmploymentDateInGroup_Fa { get; set; }
-		public string? EmploymentStartDate_Fa { get; set; }
-		public string? BankAccountNumber { get; set; }
-		public string? IBAN { get; set; }
-		public string? InsuranceNumber { get; set; }
-		public Guid? SectionId { get; set; }
-		public Guid? SubSectionId { get; set; }
-		public Guid? PostsId { get; set; }
-		public Guid? PositionsId { get; set; }
-		public string? HR_CVR_JobId { get; set; }
-		public string? HR_CVR_JobTitle { get; set; }
-		public string? Code { get; set; }
-
-		// شناسه گروه شغلی
-		public string? HR_CVR_JobGroupId { get; set; }
-		
-		// عنوان گروه شغلی
-		public string? JobGroupTitle { get; set; }
-
-		// رتبه
-		public decimal? Rank { get; set; }
-		
-		public decimal? RecruitmentAllowance { get; set; }
-		public decimal? SalaryHistory { get; set; }
-		public decimal? CoefficientDifficultAndHarmfulJobs { get; set; }
-		public decimal? TotalDailyBaseWage { get; set; }
-		public decimal? DailyAdjustmentDifference { get; set; }
-		public decimal? MinistryLabourRightHousing { get; set; }
-		public decimal? MinistryLaborRightFood { get; set; }
-		public decimal? RightMarryMinistryLabor { get; set; }
-		public decimal? ChildrensRightsMinistryLabor { get; set; }
-		public decimal? WelfareMotivationalBenefits { get; set; }
-		public decimal? OtherBenefits { get; set; }
-		public decimal? TotalMonthlySalaryBenefits { get; set; }
-		public decimal? RankSalary { get; set; }
-		public decimal? JobSalaryRank { get; set; }
-		public decimal? RankSalaryNew { get; set; }
-		public decimal? SalaryHistoryNew { get; set; }
-		public decimal? RightGuardianship { get; set; }
-		public decimal? RightGuardianshipNew { get; set; }
-		public decimal? CoefficientDurabilityPost { get; set; }
-		public decimal? CoefficientDurabilityPostNew { get; set; }
-		public decimal? CoefficientDifficultAndHarmfulJobsNew { get; set; }
-		public decimal? TotalDailyBaseWageNew { get; set; }
-		public decimal? RightMarryMinistryLaborNew { get; set; }
-		public decimal? RecruitmentAllowanceNew { get; set; }
-		public decimal? MinistryLabourRightHousingNew { get; set; }
-		public decimal? MinistryLaborRightFoodNew { get; set; }
-		public decimal? ChildrensRightsMinistryLaborNew { get; set; }
-		public decimal? WelfareMotivationalBenefitsNew { get; set; }
-		public decimal? TotalMonthlySalaryBenefitsNew { get; set; }
-		public decimal? JobSalaryRankNew { get; set; }
-		public decimal? DailyAdjustmentDifferenceNew { get; set; }
-		public decimal? OtherBenefitsNew { get; set; }
-
-		// نوع حکم کارمند
-		public string? HR_CVR_TypesRulingsId { get; set; }
-
-		// نوع بیمه
-		public string? HR_Base_InsuranceTypesId { get; set; }
-
-		// نوع پرداخت آکورد
-		public string? TypeBonusPayment { get; set; }
-
-		// وضعیت حکم
-		public string? HR_StatusVerdictRecruitingId { get; set; }
-
-		// عنوان قسمت های سازمانی در جدول پست های حکم
-		public string? HR_ORG_SectionsId { get; set; }
-		//public string? SectionId { get; set; }
-		
-		// عنوان بخش
-		public string? SectionTitle { get; set; }
-
-		// نوع قسمت در جدول پست های حکم
-		public bool? SectionsType { get; set; }
-
-		// عنوان پست سازمانی در جدول پست های حکم
-		public string? HR_ORG_PostsId { get; set; }
-		
-		// عنوان پست
-		public string? PostTitle { get; set; }
-
-		// نوع پست
-		public bool? PostType { get; set; }
-
-		//  تاریخ اجرای حکم
-		public string? ExecutionDateSentence_Fa { get; set; } // شمسی
-		public DateOnly? ExecutionDateSentence { get; set; } // میلادی
-
-		// تعداد فرزند
-		public int? CountChilderen { get; set; }
-		// تاریخ برقراری حق اولاد
-		public string? StartChildRightsGroupDate_Fa { get; set; } // شمسی
-	}
-
-	public class VerdictRequest
-	{
-		// بخش اصلی 
-		// شناسه کارمند
-		public Guid EmployeesId { get; set; }
-
-		// نوع حکم
-		public string? HR_CVR_TypesRulingsId { get; set; }
-
-		// نوع پرداخت آکورد
-		public string? TypeBonusPayment { get; set; }
-
-		// وضعیت حکم
-		public string? HR_StatusVerdictRecruitingId { get; set; }
-
-		// **************************************************
-		// بخش محاسبات حقوق حکم
-
-		// مزد شغل گروه
-		public decimal? JobSalaryRank { get; set; }
-
-		// مزد رتبه
-		public decimal? RankSalary { get; set; }
-
-		// مزد سنوات
-		public decimal? SalaryHistory { get; set; }
-
-		// حق سرپرستی (پست)
-		public decimal? RightGuardianship { get; set; }
-
-		// مزایای ماندگاری پست
-		public decimal? CoefficientDurabilityPost { get; set; }
-
-		// شرایط نامساعد محیط کار
-		public decimal? CoefficientDifficultAndHarmfulJobs { get; set; }
-
-		// جمع مزد مبنای روزانه
-		public decimal? TotalDailyBaseWage { get; set; }
-
-		// **************************************************
-
-		// تفاوت تطبیق روزانه
-		public decimal? DailyAdjustmentDifference { get; set; }
-
-		// حق جذب
-		public decimal? RecruitmentAllowance { get; set; }
-
-		// کمک هزینه مسکن
-		public decimal? MinistryLabourRightHousing { get; set; }
-
-		// حق خوار و بار
-		public decimal? MinistryLaborRightFood { get; set; }
-
-		// حق اولاد
-		public decimal? ChildrensRightsMinistryLabor { get; set; }
-
-		// مزایای رفاهی و انگیزه‌ای
-		public decimal? WelfareMotivationalBenefits { get; set; }
-
-		// حق تاهل
-		public decimal? RightMarryMinistryLabor { get; set; }
-
-		// سایر مزایا
-		public decimal? OtherBenefits { get; set; }
-
-		// جمع کل دستمزد و مزایا
-		public decimal? TotalMonthlySalaryBenefits { get; set; }
-
-
-		// **************************************************
-		// بخش پست های هر حکم
-		// قسمت‌های سازمانی
-		public string? HR_ORG_SectionsId { get; set; }
-
-		// نوع قسمت
-		public bool? SectionsType { get; set; }
-
-		// پست‌های سازمانی
-		public string? HR_ORG_PostsId { get; set; }
-
-		// نوع پست
-		public bool? PostType { get; set; }
-
-		// تاریخ اجرای حکم
-		public string? ExecutionDateSentence_Fa { get; set; } //  شمسی
-		public DateOnly? ExecutionDateSentence { get; set; } // میلادی
-
-		// نوع بیمه کارمند
-		public string? HR_Base_InsuranceTypesId { get; set; } //  شمسی
-
-		// ********************************************************
-
-		public decimal? JobSalaryRankNew { get; set; }
-		public decimal? RankSalaryNew { get; set; }
-		public decimal? SalaryHistoryNew { get; set; }
-		public decimal? RightGuardianshipNew { get; set; }
-		public decimal? CoefficientDurabilityPostNew { get; set; }
-		public decimal? CoefficientDifficultAndHarmfulJobsNew { get; set; }
-		public decimal? TotalDailyBaseWageNew { get; set; }
-		public decimal? DailyAdjustmentDifferenceNew { get; set; }
-		public decimal? RecruitmentAllowanceNew { get; set; }
-		public decimal? MinistryLabourRightHousingNew { get; set; }
-		public decimal? MinistryLaborRightFoodNew { get; set; }
-		public decimal? ChildrensRightsMinistryLaborNew { get; set; }
-		public decimal? WelfareMotivationalBenefitsNew { get; set; }
-		public decimal? RightMarryMinistryLaborNew { get; set; }
-		public decimal? OtherBenefitsNew { get; set; }
-		public decimal? TotalMonthlySalaryBenefitsNew { get; set; }
-
-		// **********
-		// درصد ثابت افزایش مزد مبنا سالانه وزارت کار
-		public int? IncreasePercentGroup {  get; set; }
-		// درصد ثابت افزایش مزد مبنا وزارت کار
-		public string? HR_CVR_AnnualBaseWageIncreaseRatesId { get; set; }
-
-		// ضریب ريالی تعیین شده سالانه شورای عالی وزارت کار
-		public int? FixedNumberValueGroup {  get; set; }
-		// شناسه - ضریب ريالی تعیین شده سالانه شورای عالی وزارت کار
-		public string? HR_CVR_LaborCouncilFixedValuesId { get; set; }
-		
-		// **********
 	}
 }

@@ -18,7 +18,7 @@ using Microsoft.AspNetCore.Components.Web;
 using Microsoft.JSInterop;
 using Newtonsoft.Json.Linq;
 using Sitko.Blazor.CKEditor;
-using SP_ContractTime;
+using ContractTimeModel;
 using System;
 using System.Globalization;
 using System.Net;
@@ -134,14 +134,9 @@ namespace Forms.Forms
 			StateHasChanged();
 		}
 
-		//private async Task 
-
 		#region FunctionEvents
 
 		string employeeId = "";
-
-		VerdictDataModel.EmployeeInfo EmpInfo = new();
-		VerdictDataModel.EmployeeInfo emp_data = new();
 
 		#region Validation
 		public async Task<bool> CheckFieldValidation(Entity.HR_CVR_VerdictRecruiting Item)
@@ -366,6 +361,14 @@ namespace Forms.Forms
 
 		#region SP_Verdict EmpId & Json
 
+		VerdictDataModel.EmployeeInfo EmpInfo = new();
+
+		public class SalaryPreviewItem
+		{
+			public string Title { get; set; }
+			public decimal? Value { get; set; }
+		}
+
 		#region SP_Verdict EmpId
 		/// <summary>
 		/// دکمه استورد پروسیجر
@@ -391,7 +394,7 @@ namespace Forms.Forms
 			// API حکم کارگزینی که در فرم 936 ایجاد شده است.
 			var R = await BayaApi.PersonnelVerdictInfos(
 				ShomaranApiMode.Polfilm,
-				new EmpId
+				new EmployeeModel.EmpId
 				{
 					EmployeesId = _Entity.HR_EMP_EmployeesId.Value
 				}
@@ -797,7 +800,7 @@ namespace Forms.Forms
 
 			var R2 = await BayaApi.ExecuteSp(
 				ShomaranApiMode.Polfilm,
-				new StoredProcedureRequestDto
+				new StoredProcedureModel.StoredProcedureRequestDto
 				{
 					// [USP_VerdictInfos2](@JsonInput nvarchar(max))
 					StoredProcedureName = "USP_VerdictInfos2",
@@ -931,88 +934,83 @@ namespace Forms.Forms
 		{
 			//await Task.Yield();
 
-			#region EmployeeDataFetchWithSP
-
 			string detailEmployeeId = employeeId;
 
 			Console.WriteLine($"🔍 Fetching employee data for ID: {detailEmployeeId}");
 
-			VerdictDataModel.EmployeeInfo emp_data = new();
-			emp_data = EmpInfo;
-
 			// *************************************
 
-			var x = await Utility.JSON.ToJson(emp_data);
+			var x = await Utility.JSON.ToJson(EmpInfo);
 			Console.WriteLine("Log :: data_emp Data ::" + x);
 
 
-			if (emp_data == null)
+			if (EmpInfo == null)
 			{
 				Console.WriteLine($"❌ Employee data NOT FOUND for ID: {detailEmployeeId}");
 				return;
 			}
 
-			Console.WriteLine($"✅ Employee data loaded: {emp_data.FirstName} {emp_data.LastName}");
+			Console.WriteLine($"✅ Employee data loaded: {EmpInfo.FirstName} {EmpInfo.LastName}");
 
 			var ListData = _Entity.HR_CVR_RecruitmentRules.ToList();
 
 			foreach (var EmpDataItem in ListData)
 			{
 				// کد کارمندی جدید
-				EmpDataItem.EmployeeNo = emp_data.EmployeeNo;
+				EmpDataItem.EmployeeNo = EmpInfo.EmployeeNo;
 				// کد پرسنلی جدید
-				EmpDataItem.EmployeePersonelNo = emp_data.EmployeePersonelNo;
+				EmpDataItem.EmployeePersonelNo = EmpInfo.EmployeePersonelNo;
 				// نام کارمند
-				EmpDataItem.FirstName = emp_data.FirstName;
+				EmpDataItem.FirstName = EmpInfo.FirstName;
 				// نام خانوادگی کارمند
-				EmpDataItem.LastName = emp_data.LastName;
+				EmpDataItem.LastName = EmpInfo.LastName;
 				// نام پدر کارمند
-				EmpDataItem.FatherName = emp_data.FatherName;
+				EmpDataItem.FatherName = EmpInfo.FatherName;
 				// کد ملی
-				EmpDataItem.NationalCode = emp_data.NationalCode;
+				EmpDataItem.NationalCode = EmpInfo.NationalCode;
 				// شماره شناسنامه
-				EmpDataItem.IdCardNo = emp_data.IdCardNo;
+				EmpDataItem.IdCardNo = EmpInfo.IdCardNo;
 				// جنسیت
-				EmpDataItem.BaseInfo_GenderId = emp_data.BaseInfo_GenderTitle;
+				EmpDataItem.BaseInfo_GenderId = EmpInfo.BaseInfo_GenderTitle;
 				// وضعیت تاهل
-				EmpDataItem.BaseInfo_MaritalStatusId = emp_data.BaseInfo_MaritalStatusTitle;
+				EmpDataItem.BaseInfo_MaritalStatusId = EmpInfo.BaseInfo_MaritalStatusTitle;
 				// شهر محل صدور شناسنامه
-				EmpDataItem.CityOfIssue = emp_data.CityOfIssueTitle;
+				EmpDataItem.CityOfIssue = EmpInfo.CityOfIssueTitle;
 				// شهر تولد
-				EmpDataItem.CityOfBirth = emp_data.CityOfBirthTitle;
+				EmpDataItem.CityOfBirth = EmpInfo.CityOfBirthTitle;
 				// تاریخ تولد شمسی
-				EmpDataItem.BirthDate_Fa = emp_data.BirthDate_Fa;
+				EmpDataItem.BirthDate_Fa = EmpInfo.BirthDate_Fa;
 				// نمایش سن کارمند به صورت متن
-				EmpDataItem.EmployeeAgeText = emp_data.EmployeeAgeText;
+				EmpDataItem.EmployeeAgeText = EmpInfo.EmployeeAgeText;
 				// تاریخ استخدام در گروه
-				EmpDataItem.EmploymentDateInGroup_Fa = emp_data.EmploymentDateInGroup_Fa;
+				EmpDataItem.EmploymentDateInGroup_Fa = EmpInfo.EmploymentDateInGroup_Fa;
 				// تاریخ استخدام در شرکت
-				EmpDataItem.EmploymentDate_Fa = emp_data.EmploymentDate_Fa;
+				EmpDataItem.EmploymentDate_Fa = EmpInfo.EmploymentDate_Fa;
 				// تاریخ آخرین تسویه حساب
-				EmpDataItem.EmploymentStartDate_Fa = emp_data.EmploymentStartDate_Fa;
+				EmpDataItem.EmploymentStartDate_Fa = EmpInfo.EmploymentStartDate_Fa;
 				// شماره بیمه
-				EmpDataItem.InsuranceNumber = emp_data.InsuranceNumber;
+				EmpDataItem.InsuranceNumber = EmpInfo.InsuranceNumber;
 				// نظام وظیفه
-				EmpDataItem.BaseInfo_MilitaryStatusId = emp_data.BaseInfo_MilitaryStatusTitle;
+				EmpDataItem.BaseInfo_MilitaryStatusId = EmpInfo.BaseInfo_MilitaryStatusTitle;
 				// حساب بانکی
-				EmpDataItem.BankAccountNumber = emp_data.BankAccountNumber;
+				EmpDataItem.BankAccountNumber = EmpInfo.BankAccountNumber;
 				// شماره شبا
-				EmpDataItem.IBAN = emp_data.IBAN;
+				EmpDataItem.IBAN = EmpInfo.IBAN;
 
 				// شناسه قسمت سازمانی
-				//EmpDataItem.HR_ORG_SectionsId = string.IsNullOrEmpty(emp_data.HR_ORG_SectionsId) ? Guid.Empty : Guid.Parse(emp_data.HR_ORG_SectionsId);
+				//EmpDataItem.HR_ORG_SectionsId = string.IsNullOrEmpty(EmpInfo.HR_ORG_SectionsId) ? Guid.Empty : Guid.Parse(EmpInfo.HR_ORG_SectionsId);
 				// شناسه پست سازمانی
-				//EmpDataItem.HR_ORG_PostsId = string.IsNullOrEmpty(emp_data.HR_ORG_PostsId) ? Guid.Empty : Guid.Parse(emp_data.HR_ORG_PostsId);
+				//EmpDataItem.HR_ORG_PostsId = string.IsNullOrEmpty(EmpInfo.HR_ORG_PostsId) ? Guid.Empty : Guid.Parse(EmpInfo.HR_ORG_PostsId);
 				// عنوان شغلی
-				//EmpDataItem.HR_CVR_JobId = string.IsNullOrEmpty(emp_data.HR_CVR_JobId) ? Guid.Empty : Guid.Parse(emp_data.HR_CVR_JobId);
+				//EmpDataItem.HR_CVR_JobId = string.IsNullOrEmpty(EmpInfo.HR_CVR_JobId) ? Guid.Empty : Guid.Parse(EmpInfo.HR_CVR_JobId);
 				// گروه شغلی
-				//EmpDataItem.HR_CVR_JobGroupId = string.IsNullOrEmpty(emp_data.HR_CVR_JobGroupId) ? Guid.Empty : Guid.Parse(emp_data.HR_CVR_JobGroupId);
+				//EmpDataItem.HR_CVR_JobGroupId = string.IsNullOrEmpty(EmpInfo.HR_CVR_JobGroupId) ? Guid.Empty : Guid.Parse(EmpInfo.HR_CVR_JobGroupId);
 
 				// **********
 				// تعداد فرزند کارمند
-				EmpDataItem.EmployeeChildrenCount = emp_data.CountChilderen;
+				EmpDataItem.EmployeeChildrenCount = EmpInfo.CountChilderen;
 				// تاریخ برقراری حق اولاد
-				EmpDataItem.FirstChildAllowanceEstablishmentDate_Fa = emp_data.StartChildRightsGroupDate_Fa;
+				EmpDataItem.FirstChildAllowanceEstablishmentDate_Fa = EmpInfo.StartChildRightsGroupDate_Fa;
 
 				// اگر HR_CVR_ApprovalsMinistryLaborGroupId پر باشد، مقادیر مربوطه را اعمال کن
 				if (EmpDataItem.HR_CVR_ApprovalsMinistryLaborGroupId.HasValue)
@@ -1027,9 +1025,6 @@ namespace Forms.Forms
 
 			// بررسی وضعیت اینکه آیا حق اولاد تعلق می گیرد یا خیر؟
 			SetChildAllowanceStatus();
-
-
-			#endregion
 
 			StateHasChanged();
 		}
@@ -1909,475 +1904,3 @@ namespace Forms.Forms
 
 	}
 }
-
-
-// **************************************************
-
-
-public class SalaryPreviewItem
-{
-	public string Title { get; set; }
-	public decimal? Value { get; set; }
-}
-
-#region EMP_Data
-namespace EMP_Data
-{
-	public static class EmployeeData
-	{
-		#region EmployeeMasterDetail
-		/// <summary>
-		/// HR_EMP_Employees_EmployeeInfos
-		/// این یک ویو دیتابیسی از جداول کارمند و جزئیات اطلاعات کارمند است
-		/// </summary>
-		/// <param name="id"></param>
-		/// <param name="_UserId"></param>
-		/// <returns></returns>
-		public static async Task<Entity.HR_EMP_Employees_EmployeeInfos> EmployeeMasterDetail(string id, string _UserId)
-		{
-			if (string.IsNullOrEmpty(id))
-			{
-				Console.WriteLine("❌ Employee ID is null or empty in EmployeeMasterDetail1");
-				return null;
-			}
-
-			var TablePost = new Baya.Models.ORM.Table
-			{
-				Name = "HR_EMP_Employees_EmployeeInfos",
-				Column = new List<Coulmn>
-				{
-					new Coulmn { Name = "Id", NameAs = "Id" }, // شناسه رکورد (GUID)
-					//new Coulmn { Name = "HR_EMP_EmployeesId", NameAs = "HR_EMP_EmployeesId" }, // شناسه اطلاعات کارمند (مرتبط با جدول اصلی HR_EMP_Employees)
-					new Coulmn { Name = "EmployeeNo", NameAs = "EmployeeNo" }, // کد کارمندی
-					new Coulmn { Name = "LastEmployeeNO", NameAs = "LastEmployeeNO" }, // آخرین کد کارمندی
-					new Coulmn { Name = "EmployeePersonelNo", NameAs = "EmployeePersonelNo" }, // شماره پرسنلی کارمند
-					new Coulmn { Name = "EmployeeLastPersonelNo", NameAs = "EmployeeLastPersonelNo" }, // آخرین شماره پرسنلی کارمند
-					new Coulmn { Name = "FirstName", NameAs = "FirstName" }, // نام
-					new Coulmn { Name = "LastName", NameAs = "LastName" }, // نام خانوادگی
-					new Coulmn { Name = "FatherName", NameAs = "FatherName" }, // نام پدر
-					new Coulmn { Name = "NationalCode", NameAs = "NationalCode" }, // کد ملی
-					new Coulmn { Name = "IdCardNo", NameAs = "IdCardNo" }, // شماره شناسنامه
-					//new Coulmn { Name = "BirthDate_Fa", NameAs = "BirthDate_Fa" }, // تاریخ تولد (شمسی به صورت رشته)
-					//new Coulmn { Name = "BirthDate", NameAs = "BirthDate" }, // تاریخ تولد (میلادی)
-					//new Coulmn { Name = "BirthDateDD", NameAs = "BirthDateDD" }, // روز تاریخ تولد
-					//new Coulmn { Name = "BirthDateMM", NameAs = "BirthDateMM" }, // ماه تاریخ تولد
-					//new Coulmn { Name = "BirthDateYYYY", NameAs = "BirthDateYYYY" }, // سال تاریخ تولد
-					//new Coulmn { Name = "CityOfBirth", NameAs = "CityOfBirth" }, // شناسه شهر محل تولد
-					//new Coulmn { Name = "CityOfBirthTitle", NameAs = "CityOfBirthTitle" }, // نام شهر محل تولد
-					//new Coulmn { Name = "CityOfIssue", NameAs = "CityOfIssue" }, // شناسه شهر محل صدور
-					//new Coulmn { Name = "CityIssueTitle", NameAs = "CityIssueTitle" }, // نام شهر محل صدور
-					//new Coulmn { Name = "Address", NameAs = "Address" }, // نشانی
-					//new Coulmn { Name = "Mobile", NameAs = "Mobile" }, // تلفن همراه
-					//new Coulmn { Name = "Phone", NameAs = "Phone" }, // شماره تلفن ثابت
-					//new Coulmn { Name = "EmploymentDate_Fa", NameAs = "EmploymentDate_Fa" }, // تاریخ استخدام (شمسی)
-					//new Coulmn { Name = "EmploymentStartDate_Fa", NameAs = "EmploymentStartDate_Fa" }, // تاریخ آخرین تسویه حساب (شمسی)
-					//new Coulmn { Name = "EmploymentDateInGroup_Fa", NameAs = "EmploymentDateInGroup_Fa" }, // تاریخ استخدام در گروه (شمسی)
-					//new Coulmn { Name = "EmploymentDate", NameAs = "EmploymentDate" }, // تاریخ استخدام (میلادی)
-					//new Coulmn { Name = "EmploymentStartDate", NameAs = "EmploymentStartDate" }, // تاریخ آخرین تسویه حساب (میلادی)
-					//new Coulmn { Name = "EmploymentDateInGroup", NameAs = "EmploymentDateInGroup" }, // تاریخ استخدام در گروه (میلادی)
-					//new Coulmn { Name = "EmployeeAge", NameAs = "EmployeeAge" }, // سن کارمند (به روز)
-					//new Coulmn { Name = "EmployeeAgeText", NameAs = "EmployeeAgeText" }, // سن کارمند (به صورت متن، مثلاً "13593سال")
-					//new Coulmn { Name = "EmployeeWorkExperienceText", NameAs = "EmployeeWorkExperienceText" }, // سابقه کار کارمند (به روز)
-					//new Coulmn { Name = "BaseInfo_MaritalStatusId", NameAs = "BaseInfo_MaritalStatusId" }, // شناسه وضعیت تاهل
-					//new Coulmn { Name = "BaseInfo_MaritalStatusTitle", NameAs = "BaseInfo_MaritalStatusTitle" }, // عنوان وضعیت تاهل
-					//new Coulmn { Name = "BaseInfo_GenderId", NameAs = "BaseInfo_GenderId" }, // شناسه جنسیت
-					//new Coulmn { Name = "BaseInfo_GenderTitle", NameAs = "BaseInfo_GenderTitle" }, // عنوان جنسیت
-					//new Coulmn { Name = "BaseInfo_MilitaryStatusId", NameAs = "BaseInfo_MilitaryStatusId" }, // شناسه وضعیت نظام وظیفه
-					//new Coulmn { Name = "BaseInfo_MilitaryStatusTitle", NameAs = "BaseInfo_MilitaryStatusTitle" }, // عنوان وضعیت نظام وظیفه
-					//new Coulmn { Name = "BaseInfo_CitiesAreasId", NameAs = "BaseInfo_CitiesAreasId" }, // شناسه منطقه شهری
-					//new Coulmn { Name = "BaseInfo_CitiesAreasTitle", NameAs = "BaseInfo_CitiesAreasTitle" }, // عنوان منطقه شهری
-					//new Coulmn { Name = "BaseInfo_ORG_CompaniesId", NameAs = "BaseInfo_ORG_CompaniesId" }, // شناسه شرکت
-					//new Coulmn { Name = "BaseInfo_ORG_CompaniesTitle", NameAs = "BaseInfo_ORG_CompaniesTitle" }, // نام شرکت
-					//new Coulmn { Name = "HR_EMP_StatusId", NameAs = "HR_EMP_StatusId" }, // شناسه وضعیت کارمند
-					//new Coulmn { Name = "HR_EMP_StatusTitle", NameAs = "HR_EMP_StatusTitle" }, // عنوان وضعیت کارمند
-					//new Coulmn { Name = "HR_Base_TransportServiceId", NameAs = "HR_Base_TransportServiceId" }, // شناسه خدمات حمل و نقل
-					//new Coulmn { Name = "HR_Base_TransportServiceTitle", NameAs = "HR_Base_TransportServiceTitle" }, // عنوان خدمات حمل و نقل
-					//new Coulmn { Name = "HasTransportService", NameAs = "HasTransportService" }, // سرویس ایاب ذهاب دارد؟
-					//new Coulmn { Name = "SupplementaryInsurance", NameAs = "SupplementaryInsurance" }, // بیمه تکمیلی
-					//new Coulmn { Name = "lifeInsurance", NameAs = "lifeInsurance" }, // بیمه عمر
-					//new Coulmn { Name = "AccidentInsurance", NameAs = "AccidentInsurance" }, // بیمه حوادث
-					//new Coulmn { Name = "Arzagh", NameAs = "Arzagh" }, // ارزاق دارد؟
-					//new Coulmn { Name = "HasDisabledChild", NameAs = "HasDisabledChild" }, // فرزند معلول دارد؟
-					//new Coulmn { Name = "MartyrsFamily", NameAs = "MartyrsFamily" }, // خانواده شهدا
-					//new Coulmn { Name = "MartyrsChild", NameAs = "MartyrsChild" }, // فرزند شهید
-					//new Coulmn { Name = "JebheMotanaveb_Days", NameAs = "JebheMotanaveb_Days" }, // مدت جبهه متناوب (روز)
-					//new Coulmn { Name = "JebheMotavali_Days", NameAs = "JebheMotavali_Days" }, // مدت جبهه متوالی (روز)
-					//new Coulmn { Name = "Captivity_Days", NameAs = "Captivity_Days" }, // مدت اسارت (روز)
-					//new Coulmn { Name = "Relatives_Captivity_Days", NameAs = "Relatives_Captivity_Days" }, // مدت اسارت فرد مرتبط (روز)
-					//new Coulmn { Name = "Relatives_Jebhe_Days", NameAs = "Relatives_Jebhe_Days" }, // مدت جبهه فرد مرتبط (روز)
-					//new Coulmn { Name = "Relatives_VeteranPercentage", NameAs = "Relatives_VeteranPercentage" }, // درصد جانبازی فرد مرتبط
-					//new Coulmn { Name = "VeteranPercentage", NameAs = "VeteranPercentage" }, // درصد جانبازی کارمند
-					//new Coulmn { Name = "SanavatEnteghali_Day", NameAs = "SanavatEnteghali_Day" }, // سنوات انتقالی (روز)
-					//new Coulmn { Name = "IsActive", NameAs = "IsActive" }, // فعال
-					//new Coulmn { Name = "FullName", NameAs = "FullName" }, // نام کامل
-					////new Coulmn { Name = "UserId", NameAs = "UserId" }, // شناسه کاربر سیستمی
-					//// فیلدهای ContactEmployee
-					//new Coulmn { Name = "ContactEmployee_FullName", NameAs = "ContactEmployee_FullName" }, // نام و نام خانوادگی فرد مرتبط
-					//new Coulmn { Name = "ContactEmployee_Address", NameAs = "ContactEmployee_Address" }, // نشانی فرد مرتبط
-					//new Coulmn { Name = "ContactEmployee_Tel", NameAs = "ContactEmployee_Tel" }, // شماره تلفن ضروری فرد مرتبط
-					//// فیلدهای نسبت به سایر جداول
-					//new Coulmn { Name = "HR_Base_ContactEmployeeRelativeId", NameAs = "HR_Base_ContactEmployeeRelativeId" }, // شناسه نسبت فرد با کارمند
-					//new Coulmn { Name = "HR_Base_ContactEmployeeRelativeTitle", NameAs = "HR_Base_ContactEmployeeRelativeTitle" }, // عنوان نسبت فرد با کارمند
-					//// فیلدهای سیستمی
-					////new Coulmn { Name = "CreateDate", NameAs = "CreateDate" }, // تاریخ ایجاد رکورد
-					////new Coulmn { Name = "UpdateDate", NameAs = "UpdateDate" }, // تاریخ آخرین ویرایش رکورد
-					////new Coulmn { Name = "CreateUser", NameAs = "CreateUser" }, // شناسه کاربر ایجادکننده
-					////new Coulmn { Name = "UpdateUser", NameAs = "UpdateUser" }, // شناسه کاربر ویرایش‌کننده
-					////new Coulmn { Name = "IsDelete", NameAs = "IsDelete" }, // حذف منطقی
-					////new Coulmn { Name = "RequestID", NameAs = "RequestID" }, // شناسه درخواست
-				}
-			};
-
-			var NewQuery = new QueryBuilderFilterRule { Condition = "AND" };
-			NewQuery.Rules = new List<QueryBuilderFilterRule>
-			{
-				new QueryBuilderFilterRule
-				{
-					Id = "Id", // شناسه اصلی کارمند
-					Field = "Id",
-					Input = "text",
-					Operator = "equal",
-					Type = "string",
-					Value = new string[] { id }
-				}
-			};
-
-			var Model = await ApiServer.External.Services.Data.Get(TablePost, NewQuery, "HR_EMP_Employees_EmployeeInfos", _UserId);
-
-			if (Model?.Status != HttpStatusCode.OK)
-			{
-				Console.WriteLine($"❌ API error {Model?.Status} for employee ID: {id}");
-				return null;
-			}
-
-			if (string.IsNullOrEmpty(Model.Content?.ToString()))
-			{
-				Console.WriteLine($"❌ API returned empty content for ID: {id}");
-				return null;
-			}
-
-			try
-			{
-				var vw_emp_data = await JSON.ToObject<Entity.HR_EMP_Employees_EmployeeInfos>(Model.Content.ToString());
-				return vw_emp_data;
-			}
-			catch (Exception ex)
-			{
-				Console.WriteLine($"💥 JSON Deserialize error for ID {id}: {ex.Message}");
-				return null;
-			}
-		}
-		#endregion
-
-		#region LastVerdictEmp
-		/// <summary>
-		/// جدول و نمایش آخرین حکم کارمند
-		/// </summary>
-		/// <param name="employeeId"></param>
-		/// <param name="_UserId"></param>
-		/// <returns></returns>
-		public static async Task<Entity.View_HR_CVR_VerdictRecruiting> LastVerdictEmp(string employeeId, string _UserId)
-		{
-			if (string.IsNullOrEmpty(employeeId))
-			{
-				Console.WriteLine("❌ Employee ID is null or empty in LastVerdictEmp");
-				return null;
-			}
-
-			// دریافت آخرین حکم فعال کارمند
-			var TablePost = new Baya.Models.ORM.Table
-			{
-				Name = "View_HR_CVR_VerdictRecruiting",
-				Column = new List<Coulmn>
-				{
-					new Coulmn { Name = "Id", NameAs = "Id" },
-					new Coulmn { Name = "ExecutionDateSentence", NameAs = "ExecutionDateSentence" }, // برای مرتب‌سازی
-					new Coulmn { Name = "ExecutionDateSentence_Fa", NameAs = "ExecutionDateSentence_Fa" },
-					new Coulmn { Name = "HR_EMP_EmployeesId", NameAs = "HR_EMP_EmployeesId" },
-					new Coulmn { Name = "HR_StatusVerdictRecruitingId", NameAs = "HR_StatusVerdictRecruitingId" }
-				}
-			};
-
-			var NewQuery = new QueryBuilderFilterRule { Condition = "AND" };
-			NewQuery.Rules = new List<QueryBuilderFilterRule>
-			{
-				new QueryBuilderFilterRule
-				{
-					//Id = "HR_EMP_EmployeesId", 
-					Field = "HR_EMP_EmployeesId",// شناسه اصلی کارمند
-					Input = "text",
-					Operator = "equal",
-					Type = "string",
-					Value = new string[] { employeeId }
-				},
-				new QueryBuilderFilterRule
-				{
-					Field = "HR_StatusVerdictRecruitingId",
-					Operator = "equal",
-					Type = "string",
-					Value = new[] { "0DA9356F-211D-F011-A502-005056A2B6BD" } // وضعیت "فعال"
-				}
-			};
-
-			//var Model = await ApiServer.External.Services.Data.GetList(TablePost, NewQuery, "View_HR_CVR_VerdictRecruiting", _UserId);
-			var Model = await ApiServer.External.Services.Data.GetList(
-				Entity: "View_HR_CVR_VerdictRecruiting",
-				limit: null,
-				skip: null,
-				include: TablePost,
-				Filter: NewQuery
-			);
-
-			if (Model?.Status != HttpStatusCode.OK || string.IsNullOrEmpty(Model.Content?.ToString()))
-			{
-				Console.WriteLine($"❌ No active verdict found for employee ID: {employeeId}");
-				return null;
-			}
-
-
-			if (string.IsNullOrEmpty(Model.Content?.ToString()))
-			{
-				Console.WriteLine($"❌ API returned empty content for ID: {employeeId}");
-				return null;
-			}
-
-			try
-			{
-				// ⚠️ تجزیه به LIST چون چندین حکم ممکن است وجود داشته باشد
-				var verdicts = await JSON.ToObject<List<Entity.View_HR_CVR_VerdictRecruiting>>(Model.Content.ToString());
-
-				// مرتب‌سازی بر اساس تاریخ اجرای حکم (نزولی) و انتخاب اولین مورد = آخرین حکم
-				var latest = verdicts
-					.Where(v => v.ExecutionDateSentence.HasValue)
-					.OrderByDescending(v => v.ExecutionDateSentence.Value)
-					.FirstOrDefault();
-
-				if (latest == null)
-				{
-					Console.WriteLine($"⚠️ No verdict with valid date found for employee ID: {employeeId}");
-				}
-
-				return latest;
-			}
-			catch (Exception ex)
-			{
-				Console.WriteLine($"💥 Deserialize error in LastVerdictEmp for employee ID {employeeId}: {ex.Message}");
-				return null;
-			}
-		}
-		#endregion
-
-		#region ApplyToLastRecruitmentRules
-		/// <summary>
-		/// پر کردن فیلدهای مربوطه در HR_CVR_RecruitmentRules با مقادیر مصوبات جاری
-		/// بر اساس HR_CVR_ApprovalsMinistryLaborGroupId
-		/// </summary>
-		public static async Task ApplyToLastRecruitmentRules(HR_CVR_RecruitmentRules item, string userId)
-		{
-			if (item == null || item.HR_CVR_ApprovalsMinistryLaborGroupId == null)
-			{
-				Console.WriteLine("⚠️ HR_CVR_ApprovalsMinistryLaborGroupId خالی است یا آیتم نامعتبر است.");
-				return;
-			}
-
-			var approvalId = item.HR_CVR_ApprovalsMinistryLaborGroupId.Value;
-
-			// ساخت Table برای دریافت فقط فیلدهای مورد نیاز
-			var TablePost = new Baya.Models.ORM.Table
-			{
-				Name = "HR_CVR_ApprovalsMinistryLaborGroup",
-				Column = new List<Coulmn>
-				{
-					new Coulmn { Name = "Id", NameAs = "Id" },
-					new Coulmn { Name = "MinistryLabourRightHousing", NameAs = "MinistryLabourRightHousing" },
-					new Coulmn { Name = "MinistryLaborRightFood", NameAs = "MinistryLaborRightFood" },
-					new Coulmn { Name = "BenKargariMinistryLabor", NameAs = "BenKargariMinistryLabor" },
-					new Coulmn { Name = "RightMarryMinistryLabor", NameAs = "RightMarryMinistryLabor" },
-					new Coulmn { Name = "ChildrensRightsMinistryLabor", NameAs = "ChildrensRightsMinistryLabor" }
-				}
-			};
-
-			// فیلتر: فقط رکوردی که Id برابر با HR_CVR_ApprovalsMinistryLaborGroupId باشد
-			var NewQuery = new QueryBuilderFilterRule
-			{
-				Condition = "AND",
-				Rules = new List<QueryBuilderFilterRule>
-				{
-					new QueryBuilderFilterRule
-					{
-						Field = "Id",
-						Operator = "equal",
-						Type = "string",
-						Value = new[] { approvalId.ToString() }
-					}
-				}
-			};
-
-			Baya.Models.ORM.PagedResult Pager = new()
-			{
-				PageSize = 1000,
-				PageNumber = 1,
-			};
-
-			// فراخوانی API
-			var Model = await ApiServer.External.Services.Data.GetListPost(
-				Table: TablePost,
-				Filter: NewQuery,
-				Pagination: Pager,
-				Entity: "HR_CVR_ApprovalsMinistryLaborGroup"
-			);
-
-			if (Model?.Status == HttpStatusCode.OK && !string.IsNullOrEmpty(Model.Content?.ToString()))
-			{
-				try
-				{
-					var approvals = await JSON.ToObject<List<HR_CVR_ApprovalsMinistryLaborGroup>>(Model.Content.ToString());
-					var approval = approvals?.FirstOrDefault();
-
-					if (approval != null)
-					{
-						// 1. کمک هزینه مسکن
-						item.MinistryLabourRightHousing = approval.MinistryLabourRightHousing;
-
-						// 2. حق خوار و بار
-						item.MinistryLaborRightFood = approval.MinistryLaborRightFood;
-
-						// 3. مزایای رفاهی و انگیزه‌ای = بن کارگری
-						item.WelfareMotivationalBenefits = approval.BenKargariMinistryLabor;
-
-						// 4. حق تاهل
-						item.RightMarryMinistryLabor = approval.RightMarryMinistryLabor;
-
-						// [اختیاری] حق اولاد
-						// item.ChildrensRightsMinistryLabor = approval.ChildrensRightsMinistryLabor;
-
-						Console.WriteLine($"✅ مقادیر مصوبات با شناسه {approvalId} به آیتم اعمال شد.");
-					}
-					else
-					{
-						Console.WriteLine($"❌ هیچ مصوبه‌ای با شناسه {approvalId} یافت نشد.");
-					}
-				}
-				catch (Exception ex)
-				{
-					Console.WriteLine($"💥 خطا در اعمال مصوبات: {ex.Message}");
-				}
-			}
-			else
-			{
-				Console.WriteLine($"❌ خطا در دریافت مصوبه با شناسه {approvalId}: {Model?.Status}");
-			}
-		}
-		#endregion
-
-		#region EveryPostVerdict
-		public static async Task<List<HR_CVR_VerdictRecruiting>> EveryPostVerdict(string employeeId, string userId)
-		{
-			var TablePost = new Baya.Models.ORM.Table
-			{
-				Name = "HR_CVR_VerdictRecruiting",
-				NameAs = "HR_CVR_VerdictRecruiting",
-
-				Column = new List<Coulmn>
-				{
-					new Coulmn { Name = "HR_Base_InsuranceTypesId", NameAs = "HR_Base_InsuranceTypesId" },
-					new Coulmn { Name = "HR_CVR_PersonnelContractId", NameAs = "HR_CVR_PersonnelContractId" },
-					new Coulmn { Name = "HR_CVR_TypesRulingsId", NameAs = "HR_CVR_TypesRulingsId" },
-					new Coulmn { Name = "InsuranceNumber", NameAs = "InsuranceNumber" },
-					new Coulmn { Name = "TypeBonusPayment", NameAs = "TypeBonusPayment" },
-					new Coulmn { Name = "GroupTitle", NameAs = "GroupTitle" },
-					new Coulmn { Name = "Rank", NameAs = "Rank" },
-					new Coulmn { Name = "ExecutionDateSentence", NameAs = "ExecutionDateSentence" },
-					new Coulmn { Name = "RegisterTime", NameAs = "RegisterTime" },
-					new Coulmn { Name = "ConfirmerTime", NameAs = "ConfirmerTime" },
-					new Coulmn { Name = "ApproverTime", NameAs = "ApproverTime" },
-					new Coulmn { Name = "NullifierTime", NameAs = "NullifierTime" },
-					new Coulmn { Name = "HR_StatusVerdictRecruitingId", NameAs = "HR_StatusVerdictRecruitingId" },
-					new Coulmn { Name = "HR_CVR_VerdictRecruitingId", NameAs = "HR_CVR_VerdictRecruitingId" },
-					new Coulmn { Name = "HR_CVR_JobId", NameAs = "HR_CVR_JobId" },
-					new Coulmn { Name = "HR_CVR_DescriptionRulingsId", NameAs = "HR_CVR_DescriptionRulingsId" },
-					new Coulmn { Name = "ExecutionDateSentence_Fa", NameAs = "ExecutionDateSentence_Fa" },
-					new Coulmn { Name = "HR_CVR_JobGroupId", NameAs = "HR_CVR_JobGroupId" },
-					new Coulmn { Name = "HR_EMP_EmployeesId", NameAs = "HR_EMP_EmployeesId" }
-				},
-				Relation = new List<Baya.Models.ORM.Table>
-				{
-					new Baya.Models.ORM.Table
-					{
-						Name = "HR_CVR_EveryPostVerdict",
-						NameAs = "HR_CVR_EveryPostVerdict",
-						ModeErtebat = ModeErtebat._1N,
-
-						Column = new List<Coulmn>
-						{
-						new Coulmn { Name = "Id", NameAs = "Id" },
-						new Coulmn { Name = "HR_CVR_VerdictRecruitingId", NameAs = "HR_CVR_VerdictRecruitingId" },
-						new Coulmn { Name = "PostType", NameAs = "PostType" },
-						new Coulmn { Name = "SectionsType", NameAs = "SectionsType" },
-						new Coulmn { Name = "HR_ORG_SectionsId", NameAs = "HR_ORG_SectionsId" },
-						new Coulmn { Name = "HR_ORG_PostsId", NameAs = "HR_ORG_PostsId" }
-						},
-					}
-				}
-			};
-
-			var NewQuery = new QueryBuilderFilterRule
-			{
-				Condition = "AND",
-				Rules = new List<QueryBuilderFilterRule>
-				{
-				    // فیلتر بر اساس کارمند
-				    new QueryBuilderFilterRule
-					{
-						Field = "HR_EMP_EmployeesId",
-						Operator = "equal",
-						Type = "string",
-						Value = new string[] { employeeId }
-					},
-				    // (اختیاری ولی توصیه‌شده) فقط احکام فعال
-				    new QueryBuilderFilterRule
-					{
-						Field = "HR_StatusVerdictRecruitingId",
-						Operator = "equal",
-						Type = "string",
-						Value = new[] { "0DA9356F-211D-F011-A502-005056A2B6BD" } // وضعیت "فعال"
-					}
-				}
-			};
-
-			Baya.Models.ORM.PagedResult Pager = new()
-			{
-				PageSize = 1000,
-				PageNumber = 1,
-			};
-
-			// فراخوانی API
-			var Model = await ApiServer.External.Services.Data.GetListPost(
-				Table: TablePost,
-				Filter: NewQuery,
-				Pagination: Pager,
-				Entity: "HR_CVR_VerdictRecruiting"
-			);
-
-			if (Model?.Status == HttpStatusCode.OK && !string.IsNullOrEmpty(Model.Content?.ToString()))
-			{
-				try
-				{
-					var approvals = await JSON.ToObject<List<HR_CVR_VerdictRecruiting>>(Model.Content.ToString());
-					return approvals;
-				}
-				catch (Exception ex)
-				{
-					Console.WriteLine($"💥 خطا در فراخوانی داده ها: {ex.Message}");
-				}
-			}
-			else
-			{
-				Console.WriteLine($"❌ خطا در دریافت مصوبه با شناسه {Model?.Status}");
-			}
-			return null;
-		}
-		#endregion
-	}
-}
-#endregion EMP_Data

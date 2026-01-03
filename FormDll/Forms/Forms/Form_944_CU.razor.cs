@@ -1,21 +1,25 @@
-using System;
-using Microsoft.AspNetCore.Components;
+using Baya.Models.ORM;
 using Baya.Models.Utility;
-using System.Net;
-using Microsoft.JSInterop;
-using DevExpress.Blazor;
-using Microsoft.AspNetCore.Components.Web;
-using Sitko.Blazor.CKEditor;
-using System.Collections.ObjectModel;
 using Baya.Models.Utility.Entity;
 using Baya.Models.Utility.Menu;
+using BlazorBootstrap;
 using Blazored.Toast.Services;
-using Newtonsoft.Json.Linq;
-using Utility;
-using Baya.Models.ORM;
+using Castle.DynamicLinqQueryBuilder;
 using DateUtils;
-using System.Linq.Dynamic.Core;
+using DevExpress.Blazor;
+using DocumentFormat.OpenXml.Wordprocessing;
+using Entity;
+using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Web;
+using Microsoft.JSInterop;
+using Newtonsoft.Json.Linq;
+using Sitko.Blazor.CKEditor;
+using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Linq.Dynamic.Core;
+using System.Net;
+using Utility;
 
 namespace Forms.Forms
 {
@@ -55,7 +59,13 @@ namespace Forms.Forms
 		public override async Task<bool> FormValidator()
 		{
 			bool IsValid = true;
+
+			// بررسی فیلدهایی که باید تکمیل گردد
 			IsValid = await CheckFieldValidation(_Entity);
+
+			// بررسی خالی نبودن گرید جزئیات اطلاعات کارمند
+			IsValid &= await ValidateEmployeeInfosGridAsync();
+			
 			return IsValid;
 		}
 
@@ -79,6 +89,17 @@ namespace Forms.Forms
 			// بررسی تاریخ های استخدام و استخدام در گروه
 			PrepareEmploymentDatesForSubmit();
 
+			// ✅ بررسی تکراری بودن کارمند (منطق استخراج‌شده)
+			var duplicateCheckResult = await CheckForDuplicateEmployeeAsync();
+			
+			Console.WriteLine("#Log :: Emp_DuplicateCheckResult :: " + duplicateCheckResult.LogMessage);
+
+			if (duplicateCheckResult.IsDuplicate)
+			{
+				await _MSG.ShowError("این کارمند قبلاً در سیستم ثبت شده است.");
+				Console.WriteLine(duplicateCheckResult.LogMessage);
+				return new Result { Status = HttpStatusCode.Conflict };
+			}
 
 			var IsCancelled = !await ValidateEmployeeDetails(_Entity.HR_EMP_EmployeeInfos);
 			if (IsCancelled)
@@ -181,6 +202,10 @@ namespace Forms.Forms
 		/// <returns></returns>
 		public async Task GridHR_EMP_EmployeesId_382_afterrendermodal(Entity.HR_EMP_EmployeeInfos Item)
 		{
+			// Log Emp Data
+			var x = await Utility.JSON.ToJson(Item);
+			Console.WriteLine("Log :: EmployeeInfos Data ::" + x);
+
 			// سینک کردن داده های بخش اصلی در بخش جزئیات اطلاعات
 			SyncDataMasterToDetails();
 
@@ -272,46 +297,104 @@ namespace Forms.Forms
 		}
 		#endregion /اعتبارسنجی موجودیت های فرم
 
-		#region بررسی تاریخ ها
+		#region بررسی خالی نبودن داده های ردیف جزویات اطلاعات کارمند
 		/// <summary>
-		/// آماده‌سازی تاریخ‌های تولد برای ارسال — تبدیل شمسی → میلادی + استخراج سال/ماه/روز
+		/// اعتبارسنجی وجود حداقل یک ردیف فعال در گرید جزئیات کارمند.
+		/// اگر ردیفی وجود نداشت، پیام هدایت‌گر نمایش داده می‌شود.
 		/// </summary>
-		private void PrepareBirthDatesForSubmit()
+		private async Task<bool> ValidateEmployeeInfosGridAsync()
 		{
-			foreach (var item in _Entity.HR_EMP_EmployeeInfos)
-			{
-				if (!string.IsNullOrWhiteSpace(item.BirthDate_Fa))
-				{
-					if (PersianDateUtils.TryParseDateString(item.BirthDate_Fa, out var parts))
-					{
-						// تبدیل به میلادی
-						item.BirthDate = PersianDateUtils.ToGregorian(item.BirthDate_Fa);
+			var activeRows = _Entity.HR_EMP_EmployeeInfos?
+				.Where(p => p.IsDelete != true)
+				.ToList() ?? new List<HR_EMP_EmployeeInfos>();
 
-						// استخراج سال/ماه/روز شمسی
-						item.BirthDateYYYY = (short)parts.year;
-						item.BirthDateMM = (byte)parts.month;
-						item.BirthDateDD = (byte)parts.day;
-					}
-					else
-					{
-						// اگر تاریخ نامعتبر بود — می‌توانید خطا نشان دهید یا null بگذارید
-						item.BirthDate = null;
-						item.BirthDateYYYY = null;
-						item.BirthDateMM = null;
-						item.BirthDateDD = null;
-					}
-				}
-				else
+			if (activeRows.Count == 0)
+			{
+				var options = new ConfirmDialogOptions
 				{
-					// اگر تاریخ خالی بود — فیلدها پاک شوند
-					item.BirthDate = null;
-					item.BirthDateYYYY = null;
-					item.BirthDateMM = null;
-					item.BirthDateDD = null;
+					YesButtonText = "باز کردن فرم جزئیات",
+					YesButtonColor = ButtonColor.Primary,
+					NoButtonText = "", // بدون دکمه "خیر"
+					Dismissable = false, // کاربر نتواند با کلیک بیرون ببندد
+					IsVerticallyCentered = true
+				};
+
+				string message = @"
+				<div class='text-center mb-3'>
+					<img src='https://file.workcv.ir/fa/api/v1/File/Get?FileID=6e5b6fb8-a5b2-490c-f83f-08dbea5b8061' 
+						 alt='لوگو پل فیلم' width='80' class='mb-2' />
+				</div>
+				<div class='text-right fs-6' dir='rtl'>
+					<p class='mb-2'>
+						<i class='fas fa-info-circle text-primary me-2'></i>
+						<strong>راهنمایی</strong>
+					</p>
+					<p class='mb-0'>
+						شما اطلاعات اصلی کارمند (<span class='fw-bold'>نام، نام خانوادگی، کد کارمند</span>) را وارد کرده‌اید،
+						اما هنوز <strong>هیچ ردیفی در جدول «جزئیات اطلاعات کارمند»</strong> ثبت نشده است.
+					</p>
+					<p class='mt-2 mb-0 text-success'>
+						<i class='fas fa-chevron-left me-1'></i>
+						لطفاً روی دکمه <strong>«جدید»</strong> در بخش جزئیات کارمند کلیک کنید تا اطلاعات کامل‌تر را وارد نمایید.
+					</p>
+				</div>";
+
+				var confirmed = await Confirm.ShowAsync("تکمیل اطلاعات کارمند", message, options);
+
+				if (confirmed)
+				{
+					await OpenEmployeeInfoModalWithPrefill();
 				}
+
+				return false;
 			}
+
+			return true;
 		}
-		#endregion CheckedDateTime
+
+		/// <summary>
+		/// باز کردن مودال جزئیات کارمند با کلیک خودکار روی دکمه «جدید»،
+		/// پس از اطمینان از render شدن DOM.
+		/// </summary>
+		private async Task OpenEmployeeInfoModalWithPrefill()
+		{
+			// اطمینان از به‌روزرسانی UI قبل از دسترسی به DOM
+			await InvokeAsync(StateHasChanged);
+
+			// اجرای کد JavaScript با استراتژی retry
+			await JS.InvokeVoidAsync("eval", """
+				(() => {
+					console.log('[Form_944] 🔍 Starting auto-click attempt for "New" button...');
+
+					const buttonId   = 'HR_EMP_EmployeeInfos_GridHR_EMP_EmployeesId_382ButtonNew';
+					const intervalMs = 100;   // هر 100ms بررسی شود
+					const maxAttempts = 20;   // حداکثر 2 ثانیه تلاش
+
+					let attempts = 0;
+
+					const timer = setInterval(() => {
+						const btn = document.getElementById(buttonId);
+
+						// دکمه باید وجود داشته، مخفی و غیرفعال نباشد
+						if (btn && !btn.classList.contains('d-none') && !btn.disabled) {
+							btn.click();
+							console.log('[Form_944] ✅ Successfully auto-clicked "New" button.');
+							clearInterval(timer);
+							return;
+						}
+
+						attempts++;
+						if (attempts >= maxAttempts) {
+							console.warn(
+								`[Form_944] ⛔ Auto-click failed: button #${buttonId} not ready after ${maxAttempts * intervalMs}ms`
+							);
+							clearInterval(timer);
+						}
+					}, intervalMs);
+				})();
+			""");
+		}
+		#endregion
 
 		#region بررسی تعداد ردیف‌های
 		/// <summary>
@@ -367,31 +450,46 @@ namespace Forms.Forms
 		}
 		#endregion حذف دکمه های گرید جزئیات اطلاعات کارمند
 
-		#region پر کردن فیلد سابقه کار
-
+		#region بررسی تاریخ ها
 		/// <summary>
-		/// پر کردن فیلد EmployeeWorkExperienceText بر اساس EmployeeWorkExperience
-		/// EmployeeWorkExperience => سابقه کار کارمند به روز
+		/// آماده‌سازی تاریخ‌های تولد برای ارسال — تبدیل شمسی → میلادی + استخراج سال/ماه/روز
 		/// </summary>
-		private void PrepareWorkExperienceText()
+		private void PrepareBirthDatesForSubmit()
 		{
-			foreach (var info in _Entity.HR_EMP_EmployeeInfos)
+			foreach (var item in _Entity.HR_EMP_EmployeeInfos)
 			{
-				if (info.EmployeeWorkExperience.HasValue && info.EmployeeWorkExperience > 0)
+				if (!string.IsNullOrWhiteSpace(item.BirthDate_Fa))
 				{
-					info.EmployeeWorkExperienceText = PersianDateUtils.ConvertDaysToPersianReadable(
-						info.EmployeeWorkExperience.Value
-					);
+					if (PersianDateUtils.TryParseDateString(item.BirthDate_Fa, out var parts))
+					{
+						// تبدیل به میلادی
+						item.BirthDate = PersianDateUtils.ToGregorian(item.BirthDate_Fa);
+
+						// استخراج سال/ماه/روز شمسی
+						item.BirthDateYYYY = (short)parts.year;
+						item.BirthDateMM = (byte)parts.month;
+						item.BirthDateDD = (byte)parts.day;
+					}
+					else
+					{
+						// اگر تاریخ نامعتبر بود — می‌توانید خطا نشان دهید یا null بگذارید
+						item.BirthDate = null;
+						item.BirthDateYYYY = null;
+						item.BirthDateMM = null;
+						item.BirthDateDD = null;
+					}
 				}
 				else
 				{
-					info.EmployeeWorkExperienceText = string.Empty;
+					// اگر تاریخ خالی بود — فیلدها پاک شوند
+					item.BirthDate = null;
+					item.BirthDateYYYY = null;
+					item.BirthDateMM = null;
+					item.BirthDateDD = null;
 				}
 			}
 		}
-		#endregion پر کردن فیلد سابقه کار
 
-		#region تاریخ استخدام
 		/// <summary>
 		/// آماده‌سازی تاریخ‌های استخدام برای ارسال: تبدیل شمسی → میلادی + محاسبه روزهای گذشته
 		/// </summary>
@@ -440,11 +538,36 @@ namespace Forms.Forms
 				}
 			}
 		}
-		#endregion تاریخ استخدام
+		#endregion
+
+		#region پر کردن فیلد سابقه کار
+
+		/// <summary>
+		/// پر کردن فیلد EmployeeWorkExperienceText بر اساس EmployeeWorkExperience
+		/// EmployeeWorkExperience => سابقه کار کارمند به روز
+		/// </summary>
+		private void PrepareWorkExperienceText()
+		{
+			foreach (var info in _Entity.HR_EMP_EmployeeInfos)
+			{
+				if (info.EmployeeWorkExperience.HasValue && info.EmployeeWorkExperience > 0)
+				{
+					info.EmployeeWorkExperienceText = PersianDateUtils.ConvertDaysToPersianReadable(
+						info.EmployeeWorkExperience.Value
+					);
+				}
+				else
+				{
+					info.EmployeeWorkExperienceText = string.Empty;
+				}
+			}
+		}
+		#endregion پر کردن فیلد سابقه کار
 
 		#region سینک کردن داده های بخش اصلی در بخش جزئیات اطلاعات
 		private void SyncDataMasterToDetails()
 		{
+			// ست کردن نام و نام خانوادگی از جدول اصلی به جدول جزئیات برای جلوگیری از تکرار
 			if (_Entity.HR_EMP_EmployeeInfos?.Any() == true)
 			{
 				var detail = _Entity.HR_EMP_EmployeeInfos.First();
@@ -515,10 +638,124 @@ namespace Forms.Forms
 		}
 		#endregion محاسبه سن کارمند
 
-		#region
-		#endregion
+		#region بررسی تکراری نبودن اطلاعات کارمند برای ثبت مجدد
 
-		#region
+		/// <summary>
+		/// بررسی می‌کند که آیا کارمند جاری قبلاً در سیستم ثبت شده است یا خیر.
+		/// اولویت اصلی: کد ملی. در غیر این صورت: ترکیب فیلدهای دیگر.
+		/// </summary>
+		/// <returns>یک شیء حاوی وضعیت تکراری بودن و پیام لاگ</returns>
+		private async Task<(bool IsDuplicate, string LogMessage)> CheckForDuplicateEmployeeAsync()
+		{
+			var details = _Entity.HR_EMP_EmployeeInfos.FirstOrDefault();
+			if (details == null)
+			{
+				return (false, "[DUPLICATE CHECK] No employee details found.");
+			}
+
+			bool isDuplicate = false;
+			string firstName = _Entity.FirstName ?? "";
+			string lastName = _Entity.LastName ?? "";
+			string fatherName = details.FatherName ?? "";
+			string nationalCode = details.NationalCode ?? "";
+			string idCardNo = details.IdCardNo ?? "";
+
+			if (!string.IsNullOrWhiteSpace(nationalCode))
+			{
+				isDuplicate = await IsEmployeeDuplicateByNationalCodeAsync(nationalCode);
+			}
+			else
+			{
+				isDuplicate = await IsEmployeeDuplicateByCompositeFieldsAsync(
+					firstName, lastName, fatherName, idCardNo);
+			}
+
+			string logMessage = $"[DUPLICATE PREVENTED] Employee: {firstName} {lastName}, " +
+								$"NC: {nationalCode}, FC: {fatherName}, IDCard: {idCardNo}";
+
+			return (isDuplicate, logMessage);
+		}
+
+		private async Task<bool> IsEmployeeDuplicateByNationalCodeAsync(string nationalCode)
+		{
+			var filter = new QueryBuilderFilterRule
+			{
+				Condition = "AND",
+				Rules = new List<QueryBuilderFilterRule>
+				{
+					new QueryBuilderFilterRule
+					{
+						Field = "HR_EMP_EmployeeInfos.NationalCode",
+						Operator = "equal",
+						Value = new[] { nationalCode }
+					}
+				}
+			};
+
+			return await CheckDuplicateExists(filter);
+		}
+
+		private async Task<bool> IsEmployeeDuplicateByCompositeFieldsAsync(
+			string firstName,
+			string lastName,
+			string fatherName,
+			string idCardNo)
+		{
+			var filter = new QueryBuilderFilterRule
+			{
+				Condition = "AND",
+				Rules = new List<QueryBuilderFilterRule>()
+			};
+
+			if (!string.IsNullOrWhiteSpace(firstName))
+				filter.Rules.Add(new QueryBuilderFilterRule { Field = "FirstName", Operator = "equal", Value = new[] { firstName } });
+			if (!string.IsNullOrWhiteSpace(lastName))
+				filter.Rules.Add(new QueryBuilderFilterRule { Field = "LastName", Operator = "equal", Value = new[] { lastName } });
+			if (!string.IsNullOrWhiteSpace(fatherName))
+				filter.Rules.Add(new QueryBuilderFilterRule { Field = "HR_EMP_EmployeeInfos.FatherName", Operator = "equal", Value = new[] { fatherName } });
+			if (!string.IsNullOrWhiteSpace(idCardNo))
+				filter.Rules.Add(new QueryBuilderFilterRule { Field = "HR_EMP_EmployeeInfos.IdCardNo", Operator = "equal", Value = new[] { idCardNo } });
+
+			// اگر هیچ فیلدی پر نبود، نمی‌توان تکرار را تشخیص داد
+			if (filter.Rules.Count == 0)
+				return false;
+
+			return await CheckDuplicateExists(filter);
+		}
+
+		private async Task<bool> CheckDuplicateExists(QueryBuilderFilterRule filter)
+		{
+			var table = new Baya.Models.ORM.Table
+			{
+				Name = "HR_EMP_Employees",
+				Column = new List<Coulmn> { new Coulmn { Name = "Id" } },
+				Relation = new List<Baya.Models.ORM.Table>
+				{
+					new Baya.Models.ORM.Table
+					{
+						Name = "HR_EMP_EmployeeInfos",
+						ModeErtebat = ModeErtebat._N1,
+						Column = new List<Coulmn>
+						{
+							new Coulmn { Name = "NationalCode" },
+							new Coulmn { Name = "FatherName" },
+							new Coulmn { Name = "IdCardNo" }
+						}
+					}
+				}
+			};
+
+			var pager = new Baya.Models.ORM.PagedResult { PageSize = 1, PageNumber = 1 };
+			var result = await ApiServer.External.Services.Data.GetListPost(table, filter, pager, "HR_EMP_Employees");
+
+			if (result?.Status == HttpStatusCode.OK && result.Content != null)
+			{
+				var paged = await JSON.ToObject<Baya.Models.ORM.PagedResult>(result.Content.ToString());
+				return paged?.Items != null && paged.Items.Any();
+			}
+
+			return false;
+		}
 		#endregion
 
 		#region Export CSV
@@ -534,7 +771,7 @@ namespace Forms.Forms
 
 		private async Task<List<Entity.HR_EMP_Employees>> ListEmploeesGenerator()
 		{
-			Table table = new Table()
+			Baya.Models.ORM.Table table = new Baya.Models.ORM.Table()
 			{
 				Name = "HR_EMP_Employees",
 				Column = new List<Coulmn>()
@@ -546,9 +783,9 @@ namespace Forms.Forms
 					new Coulmn() { Name = "EmployeeLastPersonelNo" },
 					new Coulmn() { Name = "EmployeePersonelNo" },
 				},
-				Relation = new List<Table>()
+				Relation = new List<Baya.Models.ORM.Table>()
 				{
-					new Table()
+					new Baya.Models.ORM.Table()
 					{
 						Name = "HR_EMP_EmployeeInfos",
 						Column = new List<Coulmn>()
@@ -650,6 +887,9 @@ namespace Forms.Forms
 				Convert.ToBase64String(content));
 		}
 		#endregion /Export
+
+		#region 
+		#endregion
 
 		#endregion FunctionEvents
 	}
