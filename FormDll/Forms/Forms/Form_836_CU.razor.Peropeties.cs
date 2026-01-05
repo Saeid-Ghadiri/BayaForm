@@ -144,7 +144,7 @@ namespace Forms.Forms
     /// <summary>
     ///  ورژنی که فرم باهاش ساخته شده
     /// </summary>
-    public string? VersionForm { get; set; } = "5439";
+    public string? VersionForm { get; set; } = "5460";
 
     /// <summary>
     ///  موجودیت
@@ -195,13 +195,14 @@ public Dropdown Ref_HR_FamilyRelationshipId;
 public Dropdown Ref_HR_Base_DependentId;
 public Dropdown Ref_BaseInfo_MaritalStatusId;
 public Input<string?> Ref_MarriageDate_Fa;
+public Input<string?> Ref_DivorceDate_Fa;
+public Input<string?> Ref_SpouseDeathDate_Fa;
 public Input<bool?> Ref_SupplementaryInsurance;
 public Input<DateTime?> Ref_MarriageDate;
 public Input<DateTime?> Ref_SupplementaryInsuranceStartDate;
 public Input<DateTime?> Ref_SupplementaryInsuranceEndDate;
 public Input<string?> Ref_SupplementaryInsuranceStartDate_Fa;
 public Input<string?> Ref_SupplementaryInsuranceEndDate_Fa;
-public Input<Guid> Ref_Id;
 public Input<bool?> Ref_IsCurrentlyStudying;
 public Input<string?> Ref_EducationStartDate_Fa;
 public Input<string?> Ref_EducationEndDate_Fa;
@@ -209,12 +210,15 @@ public Input<DateTime?> Ref_EducationStartDate;
 public Input<DateTime?> Ref_EducationEndDate;
 public SingleUploader Ref_StudyCertificateFile;
 public Input<string?> Ref_Description;
+public Input<Guid> Ref_Id;
 public Input<Guid?> Ref_RequestID;
 public Input<Guid?> Ref_CreateUser;
 public Input<Guid?> Ref_UpdateUser;
 public Input<bool?> Ref_IsDelete;
 public Input<DateTime?> Ref_CreateDate;
 public Input<DateTime?> Ref_UpdateDate;
+public Input<DateTime?> Ref_DivorceDate;
+public Input<DateTime?> Ref_SpouseDeathDate;
 
 
     #endregion

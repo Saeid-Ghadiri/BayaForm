@@ -144,7 +144,7 @@ namespace Forms.Forms
     /// <summary>
     ///  ورژنی که فرم باهاش ساخته شده
     /// </summary>
-    public string? VersionForm { get; set; } = "5439";
+    public string? VersionForm { get; set; } = "5460";
 
     /// <summary>
     ///  موجودیت
@@ -182,11 +182,11 @@ namespace Forms.Forms
 public Dropdown Ref_BaseInfo_ORG_CompaniesId;
 public Input<string?> Ref_FirstName;
 public Input<string?> Ref_LastName;
-public Dropdown Ref_HR_EMP_StatusId;
 public Input<string?> Ref_EmployeeNo;
 public Input<string?> Ref_LastEmployeeNo;
 public Input<string?> Ref_EmployeePersonelNo;
 public Input<string?> Ref_EmployeeLastPersonelNo;
+public Dropdown Ref_HR_EMP_StatusId;
 public ElementReference Ref_ExportToXLSEpmloees;
 public ElementReference Ref_ExportToCSVEpmloees;
 public SingleUploader Ref_ProfilePicture;
@@ -215,6 +215,7 @@ public Input<string?> Ref_HR_EMP_EmployeeInfos_EmployeeWorkExperienceText;
 public Dropdown Ref_HR_EMP_EmployeeInfos_BaseInfo_GenderId;
 public Dropdown Ref_HR_EMP_EmployeeInfos_BaseInfo_BloodGroupId;
 public Dropdown Ref_HR_EMP_EmployeeInfos_BaseInfo_ReligionId;
+public Dropdown Ref_HR_EMP_EmployeeInfos_BaseInfo_DenominationsId;
 public Input<bool?> Ref_HR_EMP_EmployeeInfos_HasDisabledChild;
 public Input<bool?> Ref_HR_EMP_EmployeeInfos_MoafMaliat;
 public Input<bool?> Ref_HR_EMP_EmployeeInfos_MoafiatMaliatMode88;

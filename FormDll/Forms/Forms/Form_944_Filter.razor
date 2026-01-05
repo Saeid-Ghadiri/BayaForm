@@ -141,25 +141,28 @@ h1 {
 }
 
 /* ************************************************** */
-/* هدر بخش گرید فرم */
+
+/* استایل هدرهای بخش‌بندی شده */
 .form-section-header {
-  display: inline-flex;
+  display: flex !important;
   align-items: center;
-  gap: 0.5rem;
-  background: linear-gradient(90deg, rgba(255, 255, 255, 0.15), rgba(108, 95, 252, 0.453));
-  color: #000000;
-  padding: 0.4rem 0.8rem;
-  border-radius: 0.5rem;
-  font-weight: 600;
+  gap: 0.5rem !important;
+  background-color: #0071ff36 !important;
+  color: #001a47 !important;
+  padding: 0.4rem 0.8rem !important;
+  border-radius: 0.4rem !important;
+  font-weight: 750 !important;
   font-size: 0.95rem;
-  margin-bottom: 0.75rem;
+  margin: 0 0 0 0 !important;
+  max-width: 100% !important;
 }
 
-/*  آیکون هدر گرید فرم */
 .form-section-header i {
   font-size: 1.1rem;
-  color: #5b5b5b;
+  color: #001a47;
 }
+
+
 
 /* ************************************************** */
 
@@ -251,7 +254,7 @@ h1 {
   max-width: 250px !important;
   background: none !important;
   border: none;
-  color: #00237c;
+  color: #1a1a1c;
   font-size: 18px;
   text-align: start;
   font-weight: 700;
@@ -267,53 +270,56 @@ h1 {
 /* ************************************************** */
 
 .dxbl-grid-table .html-visible {
-    display: none !important;
+  display: none !important;
 }
 
 .dropdown-search .devdrop #Search {
-    display: none !important;
+  display: none !important;
 }
 
 .thNormal .dxbl-grid-table .dxbl-grid-header .dxbl-grid-header-content {
-    font-weight: normal;
+  font-weight: normal;
 }
 
 .titleHeadBarBlue {
-    background: #0088ff12;
-    padding: 0.5rem;
-    border-radius: 0.4rem;
-    font-weight: 900;
+  background: #0088ff12;
+  padding: 0.5rem;
+  border-radius: 0.4rem;
+  font-weight: 900;
 }
 
 .ModalWidth {
-    max-width: 1700px !important;
+  /* max-width: 1700px !important; */
+    max-width: 100% !important;
+    width: 95% !important;
+    min-width: 800px !important;
 }
 
 .ContractTime .btn {
-    font-size: 0.8rem;
-    background-color: rgb(58, 60, 60);
-    color: #e0ebff;
+  font-size: 0.8rem;
+  background-color: rgb(58, 60, 60);
+  color: #e0ebff;
 }
 
 .input-string input {
-    display: inline-block;
-    max-width: 140px !important;
-    background: none !important;
-    border: none;
-    text-align: start !important;
-    font-size: 16px;
-    font-weight: bold;
+  display: inline-block;
+  max-width: 140px !important;
+  background: none !important;
+  border: none;
+  text-align: start !important;
+  font-size: 16px;
+  font-weight: bold;
 }
 
 .input-string label {
-    font-size: 14px;
+  font-size: 14px;
 }
 
 .contractdate input {
-    display: inline;
-    max-width: 200px !important;
-    border-color: #e7e7e7 !important;
-    margin-right: 5px !important;
+  display: inline;
+  max-width: 200px !important;
+  border-color: #e7e7e7 !important;
+  margin-right: 5px !important;
 }
 </style>
 <div class="filterbox @(ShowFilterBar ? "" : "d-none")">
@@ -327,6 +333,27 @@ h1 {
 <Input2 id="FirstName" @ref="Ref_FirstName" Label="نام"  CssClass="filterCol"       type="text"    Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"maxlength\":\"150\"}").Result))></Input2>
 
 <Input2 id="FullName" @ref="Ref_FullName" Label="نام و نام خانوادگی"  CssClass="filterCol"       type="text"    Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"maxlength\":\"300\"}").Result))></Input2>
+ 
+ 
+@code {
+    Baya.Models.ViewEngine.View_Component Component_HR_EMP_EmployeesHR_EMP_StatusId = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"primaryKey\":false,\"EntityID\":383,\"FieldId\":15631,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":0,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":false,\"RelationParentName\":\"HR_EMP_Status\",\"RelationParentModel\":\"HR_EMP_Status\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/HR_EMP_Status/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":false,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.Title}} </span>\",\"FieldsTemplate\":[{\"key\":\"Title\",\"value\":\"nvarchar(Max)\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"searchField\":\"\",\"disabled\":false,\"modal\":true,\"label\":\"وضعیت کارمند\",\"tableView\":true,\"key\":\"HR_EMP_StatusId\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"customClass\":\"filterCol\",\"FieldUrl\":\"15631?EId=383&SubId=15\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
+}
+
+    <Dropdown Id=HR_EMP_StatusId  @ref="Ref_HR_EMP_StatusId" Label="وضعیت کارمند" CssClass="filterCol"  DisplayFormat="DropDown" ExternalApi=false NotMapped=false TextGrid=false   FieldName="HR_EMP_StatusId" OnItemSelected="ItemSelected_HR_EMP_EmployeesHR_EMP_StatusId" Component="Component_HR_EMP_EmployeesHR_EMP_StatusId"  >
+</Dropdown>
+@code {
+    public async Task ItemSelected_HR_EMP_EmployeesHR_EMP_StatusId(object _Item)
+    {
+        var Selected = Utility.JSON.ToObject<dynamic>(Utility.JSON.ToJson(_Item).Result).Result;
+     
+
+    
+
+    
+
+    
+    }
+} 
 
 
         <div class="col-xl-2 col-lg-2 col-md-auto mt-2 align-content-end">
@@ -402,6 +429,7 @@ await ReplaceInFilter("15633", Ref_EmployeeNo.Value, QueryFilter);
 await ReplaceInFilter("15576", Ref_NationalCode.Value, QueryFilter);
 await ReplaceInFilter("15635", Ref_FirstName.Value, QueryFilter);
 await ReplaceInFilter("30401", Ref_FullName.Value, QueryFilter);
+await ReplaceInFilter("15631", Ref_HR_EMP_StatusId.Value, QueryFilter);
 
  
         await ReplaceSystemParametrInFilter(QueryFilter);
