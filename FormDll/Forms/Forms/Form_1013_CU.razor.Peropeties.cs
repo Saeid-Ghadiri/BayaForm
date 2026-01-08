@@ -144,7 +144,7 @@ namespace Forms.Forms
     /// <summary>
     ///  ورژنی که فرم باهاش ساخته شده
     /// </summary>
-    public string? VersionForm { get; set; } = "5460";
+    public string? VersionForm { get; set; } = "5481";
 
     /// <summary>
     ///  موجودیت
@@ -189,10 +189,10 @@ public Dropdown Ref_HR_CRS_ContractTimeId;
 public ElementReference Ref_submit;
 public ElementReference Ref_submit1;
 public Input<string?> Ref_HR_ORG_PositionClassification;
-public Input<string?> Ref_HR_EmployeeContractType;
-public Input<string?> Ref_HR_ContractTimeType;
 public Input<string?> Ref_FromNumber;
+public Input<string?> Ref_HR_EmployeeContractType;
 public Input<string?> Ref_ToNumber;
+public Input<string?> Ref_HR_ContractTimeType;
 public Input<string?> Ref_ContractTime;
 public Input<string?> Ref_ContractTimeCounter;
 public Input<string?> Ref_StartDate_Fa;

@@ -80,7 +80,7 @@ namespace Forms.Forms
         /// <summary>
         ///  ورژنی که فرم باهاش ساخته شده
         /// </summary>
-        public string? VersionForm { get; set; } = "5460";
+        public string? VersionForm { get; set; } = "5481";
 
 
         /// <summary>
@@ -113,7 +113,6 @@ namespace Forms.Forms
 
 
 public Input2 Ref_EmployeeNo;
-public Input2 Ref_NationalCode;
 public Input2 Ref_FirstName;
 public Input2 Ref_FullName;
 public Dropdown Ref_HR_EMP_StatusId;

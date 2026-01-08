@@ -319,12 +319,6 @@
 
 <DxGridDataColumn  Caption="شبا بانکی"  FieldName="IBAN" />
 
-<DxGridDataColumn  Caption="نام و نام خانوادگی صاحب حساب به جز پرسنل"  FieldName="OwnerFullName" />
-
-<DxGridDataColumn  Caption="تاریخ افتتاح"  FieldName="OpeningDate" />
-
-<DxGridDataColumn  Caption="تاریخ اختتام"  FieldName="ClosingDate" />
-
 <DxGridDataColumn Context="IsActive_" Caption="فعال است؟" >
     <CellDisplayTemplate>
        
@@ -635,9 +629,6 @@ MainModel.BaseInfo_BankBranches = ((Entity.HR_Base_BankAccount)EditModel).BaseIn
 MainModel.BankAccountNumber = ((Entity.HR_Base_BankAccount)EditModel).BankAccountNumber;
 MainModel.CartNo = ((Entity.HR_Base_BankAccount)EditModel).CartNo;
 MainModel.IBAN = ((Entity.HR_Base_BankAccount)EditModel).IBAN;
-MainModel.OwnerFullName = ((Entity.HR_Base_BankAccount)EditModel).OwnerFullName;
-MainModel.OpeningDate = ((Entity.HR_Base_BankAccount)EditModel).OpeningDate;
-MainModel.ClosingDate = ((Entity.HR_Base_BankAccount)EditModel).ClosingDate;
 MainModel.IsActive = ((Entity.HR_Base_BankAccount)EditModel).IsActive;
 MainModel.Id = ((Entity.HR_Base_BankAccount)EditModel).Id;
 MainModel.RequestID = ((Entity.HR_Base_BankAccount)EditModel).RequestID;
@@ -974,9 +965,9 @@ public async void RowDubbleClickGrid_HR_Base_BankAccount(GridRowClickEventArgs e
             await InvokeAsync(StateHasChanged);
             await Task.Yield();
             QueryFilter = new QueryBuilderFilterRule();
-            if ("{\"Condition\":\"OR\",\"Rules\":[{\"Field\":\"HR_EMP_EmployeesId\",\"Id\":\"15252\",\"Input\":\"text\",\"Operator\":\"contains\",\"Type\":\"string\",\"Value\":[]},{\"Field\":\"BaseInfo_BankId\",\"Id\":\"29973\",\"Input\":\"text\",\"Operator\":\"equal\",\"Type\":\"string\",\"Value\":[]},{\"Field\":\"BankAccountNumber\",\"Id\":\"29969\",\"Input\":\"text\",\"Operator\":\"equal\",\"Type\":\"string\",\"Value\":[]},{\"Field\":\"CartNo\",\"Id\":\"15249\",\"Input\":\"text\",\"Operator\":\"equal\",\"Type\":\"string\",\"Value\":[]}]}" != "null" || "{\"Condition\":\"OR\",\"Rules\":[{\"Field\":\"HR_EMP_EmployeesId\",\"Id\":\"15252\",\"Input\":\"text\",\"Operator\":\"contains\",\"Type\":\"string\",\"Value\":[]},{\"Field\":\"BaseInfo_BankId\",\"Id\":\"29973\",\"Input\":\"text\",\"Operator\":\"equal\",\"Type\":\"string\",\"Value\":[]},{\"Field\":\"BankAccountNumber\",\"Id\":\"29969\",\"Input\":\"text\",\"Operator\":\"equal\",\"Type\":\"string\",\"Value\":[]},{\"Field\":\"CartNo\",\"Id\":\"15249\",\"Input\":\"text\",\"Operator\":\"equal\",\"Type\":\"string\",\"Value\":[]}]}" != "{}")
+            if ("{\"Condition\":\"OR\",\"Rules\":[{\"Field\":\"BaseInfo_BankId\",\"Id\":\"29973\",\"Input\":\"text\",\"Operator\":\"equal\",\"Type\":\"string\",\"Value\":[]},{\"Field\":\"BankAccountNumber\",\"Id\":\"29969\",\"Input\":\"text\",\"Operator\":\"equal\",\"Type\":\"string\",\"Value\":[]},{\"Field\":\"CartNo\",\"Id\":\"15249\",\"Input\":\"text\",\"Operator\":\"equal\",\"Type\":\"string\",\"Value\":[]}]}" != "null" || "{\"Condition\":\"OR\",\"Rules\":[{\"Field\":\"BaseInfo_BankId\",\"Id\":\"29973\",\"Input\":\"text\",\"Operator\":\"equal\",\"Type\":\"string\",\"Value\":[]},{\"Field\":\"BankAccountNumber\",\"Id\":\"29969\",\"Input\":\"text\",\"Operator\":\"equal\",\"Type\":\"string\",\"Value\":[]},{\"Field\":\"CartNo\",\"Id\":\"15249\",\"Input\":\"text\",\"Operator\":\"equal\",\"Type\":\"string\",\"Value\":[]}]}" != "{}")
             {
-                QueryFilter = await JSON.ToObject<QueryBuilderFilterRule>("{\"Condition\":\"OR\",\"Rules\":[{\"Field\":\"HR_EMP_EmployeesId\",\"Id\":\"15252\",\"Input\":\"text\",\"Operator\":\"contains\",\"Type\":\"string\",\"Value\":[]},{\"Field\":\"BaseInfo_BankId\",\"Id\":\"29973\",\"Input\":\"text\",\"Operator\":\"equal\",\"Type\":\"string\",\"Value\":[]},{\"Field\":\"BankAccountNumber\",\"Id\":\"29969\",\"Input\":\"text\",\"Operator\":\"equal\",\"Type\":\"string\",\"Value\":[]},{\"Field\":\"CartNo\",\"Id\":\"15249\",\"Input\":\"text\",\"Operator\":\"equal\",\"Type\":\"string\",\"Value\":[]}]}");
+                QueryFilter = await JSON.ToObject<QueryBuilderFilterRule>("{\"Condition\":\"OR\",\"Rules\":[{\"Field\":\"BaseInfo_BankId\",\"Id\":\"29973\",\"Input\":\"text\",\"Operator\":\"equal\",\"Type\":\"string\",\"Value\":[]},{\"Field\":\"BankAccountNumber\",\"Id\":\"29969\",\"Input\":\"text\",\"Operator\":\"equal\",\"Type\":\"string\",\"Value\":[]},{\"Field\":\"CartNo\",\"Id\":\"15249\",\"Input\":\"text\",\"Operator\":\"equal\",\"Type\":\"string\",\"Value\":[]}]}");
 
             }
 

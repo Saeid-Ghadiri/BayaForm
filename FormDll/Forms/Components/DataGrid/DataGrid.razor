@@ -3,6 +3,7 @@
 @using Domain.Utility
 @using Microsoft.JSInterop
 @using Castle.DynamicLinqQueryBuilder
+@using Newtonsoft.Json.Linq
 @* @inherits DataGridBase *@
 
 @namespace DataGridPage
@@ -89,8 +90,16 @@
     [Parameter]
     public object _EntityRow { get; set; }
 
+    /// <summary>
+    /// مقدار دریافتی از دراپ دان
+    /// </summary>
+    [Parameter]
+    public object? DropdownValue { get; set; }
 
-    //IEnumerable<Entity.Priority> Data { get; set; }
+    /// <summary>
+    /// آیتم پیدا شده بر اساس DropdownValue
+    /// </summary>
+    public object? FoundItem { get; set; }
 
     //[DefaultValue(null)]
     [Parameter]
@@ -195,8 +204,6 @@
 
     public async Task LoadData()
     {
-
-
         ListColumn = new List<View_values>();
         if (Component.data is not null && !string.IsNullOrEmpty(Component.data.url))
         {//اگه لود با URL هست
@@ -275,13 +282,6 @@
                         //جایگزینی مقدار داخل ادرس
                         Url = Url.Replace("{{row." + KeyName + "}}", Value);
                     }
-
-
-
-
-
-
-
                 }
             }
 
@@ -350,11 +350,79 @@
 
             PageSize = Component.data.values.Count;
             Data = Component.data.values;
+
+            // جستجوی آیتم بر اساس DropdownValue
+            await FindItemByDropdownValue();
         }
 
         StateHasChanged();
     }
 
+/// <summary>
+/// پیدا کردن آیتم در Data بر اساس DropdownValue و component.valueProperty
+/// </summary>
+private async Task FindItemByDropdownValue()
+{
+    FoundItem = null;
+
+    // بررسی اینکه DropdownValue و valueProperty موجود باشند
+    if (DropdownValue == null || Component == null || string.IsNullOrEmpty(Component.valueProperty))
+    {
+        return;
+    }
+
+    // بررسی اینکه Data موجود باشد
+    if (Data == null)
+    {
+        return;
+    }
+
+    try
+    {
+        // تبدیل Data به لیست
+        var dataList = Data as List<object>;
+        if (dataList.Count == 0)
+        {
+            return;
+        }
+
+        // تبدیل DropdownValue به string برای مقایسه
+        string dropdownValueStr = DropdownValue?.ToString() ?? "";
+
+        // جستجو در لیست Data
+        foreach (var item in dataList)
+        {
+            if (item == null)
+                continue;
+
+            // تبدیل آیتم به JObject برای دسترسی به property
+            var json = Newtonsoft.Json.JsonConvert.SerializeObject(item);
+            JObject data = JObject.Parse(json);
+
+            // دریافت مقدار فیلد valueProperty
+            var fieldValue = data[Component.valueProperty];
+            if (fieldValue != null)
+            {
+                string fieldValueStr = fieldValue.ToString();
+
+                // مقایسه با DropdownValue
+                if (fieldValueStr == dropdownValueStr)
+                {
+                    FoundItem = item;
+                    break;
+                }
+            }
+        }
+        if (FoundItem != null)
+        {
+            DxGrid.SelectDataItem(FoundItem);
+        }
+    }
+    catch (Exception ex)
+    {
+        Console.WriteLine("#Log FindItemByDropdownValue Error: " + ex.Message);
+    }
+}
 
     /// <summary>
     /// تابع سرچ با کوئری بیلدر
@@ -383,8 +451,6 @@
     async Task _SelectedDataItem(object Selected)
     {
         SelectedDataItem = Selected;
-
-
         await OnItemSelected.InvokeAsync(Selected);
     }
 

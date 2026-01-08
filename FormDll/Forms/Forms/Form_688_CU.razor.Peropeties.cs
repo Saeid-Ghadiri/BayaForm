@@ -144,7 +144,7 @@ namespace Forms.Forms
     /// <summary>
     ///  ورژنی که فرم باهاش ساخته شده
     /// </summary>
-    public string? VersionForm { get; set; } = "5460";
+    public string? VersionForm { get; set; } = "5481";
 
     /// <summary>
     ///  موجودیت
@@ -186,9 +186,6 @@ public Dropdown Ref_BaseInfo_BankBranchesId;
 public Input<string?> Ref_BankAccountNumber;
 public Input<string?> Ref_CartNo;
 public Input<string?> Ref_IBAN;
-public Input<string?> Ref_OwnerFullName;
-public Input<string?> Ref_OpeningDate;
-public Input<string?> Ref_ClosingDate;
 public Input<bool?> Ref_IsActive;
 public Input<Guid> Ref_Id;
 public Input<Guid?> Ref_RequestID;

@@ -23,7 +23,6 @@
     </label>
 }
 
-    
     <input id=@(Id + "Input") type="hidden" value="@Value"/>
     @if (DisplayFormat is null || DisplayFormat == "DropDown")
     {
@@ -36,19 +35,13 @@
         </button>
         <label hidden="@((!TextGrid))">@DropdownSelected</label>
         <div id=@(Id + "DivDataGrid") class="dropdown-menu p-2">
-            <DataGrid Id="@Id"   @ref=RefDataGrid OnItemSelected="ItemSelected" Component="Component" _Entity=__Entity _EntityRow=_EntityRow></DataGrid>
-
+            <DataGrid Id="@Id"   @ref=RefDataGrid OnItemSelected="ItemSelected" Component="Component" _Entity=__Entity _EntityRow=_EntityRow DropdownValue="@Value"></DataGrid>
         </div>
     }
     else
     {
-        
-        <DataGrid   @ref=RefDataGrid OnItemSelected="ItemSelected" Component="Component" _Entity=__Entity _EntityRow=_EntityRow></DataGrid>
-
-    
+        <DataGrid   @ref=RefDataGrid OnItemSelected="ItemSelected" Component="Component" _Entity=__Entity _EntityRow=_EntityRow DropdownValue="@Value"></DataGrid>
     }
-    
-
 </div>
 
 
@@ -163,7 +156,7 @@
 
     protected override async Task OnInitializedAsync()
     {
-     //Console.WriteLine(Label + " " + Value?.ToString());
+     Console.WriteLine(Label + " " + Value?.ToString());
         DropdownSelected = "انتخاب کنید";
         //ست نمودن اولیه مقدار داخل دراپ دان
         if (!NotMapped)
@@ -348,7 +341,7 @@
                      var firstItem = data.First;
                      for (int i = 0; i < list.Count; i++)
                      {
-                         //Console.WriteLine(list[i]);
+                         Console.WriteLine(list[i]);
                          item_ = list[i].Key;
                          if (i == 0)
                          {
@@ -365,7 +358,7 @@
                      // Process as an object if needed
                      for (int i = 0; i < list.Count; i++)
                      {
-                         //Console.WriteLine(list[i]);
+                         Console.WriteLine(list[i]);
                          item_ = list[i].Key;
                          if (i == 0)
                          {
@@ -591,7 +584,7 @@
             RefDataGrid.ResetGrid();
         }
 
-        //await OnItemSelected.InvokeAsync(null);
+        await OnItemSelected.InvokeAsync(null);
 
     }
 
