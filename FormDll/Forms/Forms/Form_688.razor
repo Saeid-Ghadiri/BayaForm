@@ -347,6 +347,32 @@
 
 <DxGridDataColumn  Caption="IsDelete" Visible=false FieldName="IsDelete" />
 
+<DxGridDataColumn Context="HR_Base_BankAcountCategoryId_" Caption="دسته بندی حساب های بانکی کارمند" >
+    <CellDisplayTemplate>
+       
+@{
+    Baya.Models.ViewEngine.View_Component HeaderHR_Base_BankAcountCategoryId = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"primaryKey\":false,\"EntityID\":357,\"FieldId\":31464,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":688,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":false,\"RelationParentName\":\"HR_Base_BankAcountCategory\",\"RelationParentModel\":\"HR_Base_BankAcountCategory\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/HR_Base_BankAcountCategory/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.Title}} </span>\",\"FieldsTemplate\":[{\"key\":\"Title\",\"value\":\"nvarchar(Max)\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"searchField\":\"Title\",\"modal\":true,\"label\":\"دسته بندی حساب های بانکی کارمند\",\"tableView\":true,\"key\":\"HR_Base_BankAcountCategoryId\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"31464?EId=357&SubId=15\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
+    var RowHR_Base_BankAcountCategoryId = ((Entity.HR_Base_BankAccount)HR_Base_BankAcountCategoryId_.DataItem).HR_Base_BankAcountCategoryId;
+}
+
+<Dropdown ExternalApi=false CssClass="" NotMapped=false TextGrid=true Value="@RowHR_Base_BankAcountCategoryId"   FieldName="HR_Base_BankAcountCategoryId" OnItemSelected="ItemSelected_HR_Base_BankAccountHR_Base_BankAcountCategoryId_Header" Component="HeaderHR_Base_BankAcountCategoryId">
+</Dropdown>
+@code {
+    public async Task ItemSelected_HR_Base_BankAccountHR_Base_BankAcountCategoryId_Header(object _Item)
+    {
+      //  var Selected = Utility.JSON.ToObject<dynamic>(Utility.JSON.ToJson(_Item).Result).Result;
+  //   HR_Base_BankAcountCategoryId
+
+  //  #CustomCode
+
+ //   
+
+  //  #OnItemSelected
+    }
+}
+
+    </CellDisplayTemplate>
+</DxGridDataColumn>
 
 </Columns>
 
@@ -637,6 +663,8 @@ MainModel.UpdateUser = ((Entity.HR_Base_BankAccount)EditModel).UpdateUser;
 MainModel.CreateDate = ((Entity.HR_Base_BankAccount)EditModel).CreateDate;
 MainModel.UpdateDate = ((Entity.HR_Base_BankAccount)EditModel).UpdateDate;
 MainModel.IsDelete = ((Entity.HR_Base_BankAccount)EditModel).IsDelete;
+MainModel.HR_Base_BankAcountCategoryId = ((Entity.HR_Base_BankAccount)EditModel).HR_Base_BankAcountCategoryId;
+MainModel.HR_Base_BankAcountCategory = ((Entity.HR_Base_BankAccount)EditModel).HR_Base_BankAcountCategory;
 
     }
     else

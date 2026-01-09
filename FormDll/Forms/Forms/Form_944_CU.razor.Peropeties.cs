@@ -144,7 +144,7 @@ namespace Forms.Forms
     /// <summary>
     ///  ورژنی که فرم باهاش ساخته شده
     /// </summary>
-    public string? VersionForm { get; set; } = "5481";
+    public string? VersionForm { get; set; } = "5485";
 
     /// <summary>
     ///  موجودیت
@@ -182,6 +182,7 @@ namespace Forms.Forms
 public Dropdown Ref_BaseInfo_ORG_CompaniesId;
 public Input<string?> Ref_FirstName;
 public Input<string?> Ref_LastName;
+public Input<string?> Ref_NationalCode;
 public Input<string?> Ref_EmployeeNo;
 public Input<string?> Ref_LastEmployeeNo;
 public Input<string?> Ref_EmployeePersonelNo;
@@ -192,8 +193,14 @@ public ElementReference Ref_ExportToCSVEpmloees;
 public SingleUploader Ref_ProfilePicture;
 public DxGrid? Grid_HR_EMP_EmployeeInfos;
 
+public Input<string?> Ref_HR_EMP_EmployeeInfos_BaseInfo_ORG_CompaniesId;
 public Input<string?> Ref_HR_EMP_EmployeeInfos_FirstName;
 public Input<string?> Ref_HR_EMP_EmployeeInfos_LastName;
+public Input<string?> Ref_HR_EMP_EmployeeInfos_EmployeeNo;
+public Input<string?> Ref_HR_EMP_EmployeeInfos_LastEmployeeNo;
+public Input<string?> Ref_HR_EMP_EmployeeInfos_EmployeePersonelNo;
+public Input<string?> Ref_HR_EMP_EmployeeInfos_EmployeeLastPersonelNo;
+public Input<string?> Ref_HR_EMP_EmployeeInfos_HR_EMP_StatusId;
 public Input<string?> Ref_HR_EMP_EmployeeInfos_FatherName;
 public Input<string?> Ref_HR_EMP_EmployeeInfos_NationalCode;
 public Input<string?> Ref_HR_EMP_EmployeeInfos_IdCardNo;
@@ -274,6 +281,7 @@ public Input<Guid?> Ref_UpdateUser;
 public Input<DateTime?> Ref_CreateDate;
 public Input<bool?> Ref_IsDelete;
 public Input<DateTime?> Ref_UpdateDate;
+public Input<string?> Ref_FullName;
 
 
     #endregion

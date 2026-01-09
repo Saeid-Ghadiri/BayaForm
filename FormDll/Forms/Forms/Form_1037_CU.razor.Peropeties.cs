@@ -144,7 +144,7 @@ namespace Forms.Forms
     /// <summary>
     ///  ورژنی که فرم باهاش ساخته شده
     /// </summary>
-    public string? VersionForm { get; set; } = "5481";
+    public string? VersionForm { get; set; } = "5485";
 
     /// <summary>
     ///  موجودیت
@@ -183,12 +183,12 @@ public ElementReference Ref_submit1;
 public ElementReference Ref_submit;
 public ElementReference Ref_submit2;
 public Dropdown Ref_BaseInfo_ORG_CompaniesId;
+public Dropdown Ref_HR_EMP_StatusId;
 public Input<string?> Ref_FirstName;
-public Input<string?> Ref_LastName;
-public Input<string?> Ref_EmployeeLastPersonelNo;
 public Input<string?> Ref_EmployeeNo;
 public Input<string?> Ref_EmployeePersonelNo;
-public Dropdown Ref_HR_EMP_StatusId;
+public Input<string?> Ref_LastName;
+public Input<string?> Ref_EmployeeLastPersonelNo;
 public Input<string?> Ref_LastEmployeeNo;
 public SingleUploader Ref_ProfilePicture;
 public DxGrid? Grid_HR_EMP_EmployeeInfos;
@@ -269,23 +269,6 @@ public Input<string?> Ref_HR_EMP_EmployeeInfos_DateEmployeeWorkExperience_Fa;
 public Input<double?> Ref_HR_EMP_EmployeeInfos_DailyEmploymentDate;
 public Input<double?> Ref_HR_EMP_EmployeeInfos_DailyEmploymentDateInGroup;
 public Dropdown Ref_HR_EMP_EmployeeInfos_BaseInfo_DenominationsId;
-public DxGrid? Grid_HR_Base_BankAccount;
-
-public Dropdown Ref_HR_Base_BankAccount_HR_EMP_EmployeesId;
-public Dropdown Ref_HR_Base_BankAccount_BaseInfo_BankId;
-public Dropdown Ref_HR_Base_BankAccount_BaseInfo_BankBranchesId;
-public Input<string?> Ref_HR_Base_BankAccount_BankAccountNumber;
-public Input<string?> Ref_HR_Base_BankAccount_IBAN;
-public Input<string?> Ref_HR_Base_BankAccount_CartNo;
-public Input<string?> Ref_HR_Base_BankAccount_OwnerFullName;
-public Input<Guid> Ref_HR_Base_BankAccount_Id;
-public Input<Guid?> Ref_HR_Base_BankAccount_RequestID;
-public Input<Guid?> Ref_HR_Base_BankAccount_CreateUser;
-public Input<Guid?> Ref_HR_Base_BankAccount_UpdateUser;
-public Input<DateTime?> Ref_HR_Base_BankAccount_CreateDate;
-public Input<DateTime?> Ref_HR_Base_BankAccount_UpdateDate;
-public Input<bool?> Ref_HR_Base_BankAccount_IsDelete;
-public Dropdown Ref_HR_Base_BankAccount_BaseInfo_BankAccountTypeId;
 public DxGrid? Grid_HR_EMP_EmployeeFamileis;
 
 public Dropdown Ref_HR_EMP_EmployeeFamileis_HR_EMP_EmployeesId;
@@ -328,6 +311,23 @@ public Input<DateTime?> Ref_HR_EMP_EmployeeFamileis_DivorceDate;
 public Input<string?> Ref_HR_EMP_EmployeeFamileis_DivorceDate_Fa;
 public Input<DateTime?> Ref_HR_EMP_EmployeeFamileis_SpouseDeathDate;
 public Input<string?> Ref_HR_EMP_EmployeeFamileis_SpouseDeathDate_Fa;
+public DxGrid? Grid_HR_Base_BankAccount;
+
+public Dropdown Ref_HR_Base_BankAccount_HR_EMP_EmployeesId;
+public Dropdown Ref_HR_Base_BankAccount_BaseInfo_BankId;
+public Dropdown Ref_HR_Base_BankAccount_BaseInfo_BankBranchesId;
+public Input<string?> Ref_HR_Base_BankAccount_BankAccountNumber;
+public Input<string?> Ref_HR_Base_BankAccount_IBAN;
+public Input<string?> Ref_HR_Base_BankAccount_CartNo;
+public Input<string?> Ref_HR_Base_BankAccount_OwnerFullName;
+public Input<Guid> Ref_HR_Base_BankAccount_Id;
+public Input<Guid?> Ref_HR_Base_BankAccount_RequestID;
+public Input<Guid?> Ref_HR_Base_BankAccount_CreateUser;
+public Input<Guid?> Ref_HR_Base_BankAccount_UpdateUser;
+public Input<DateTime?> Ref_HR_Base_BankAccount_CreateDate;
+public Input<DateTime?> Ref_HR_Base_BankAccount_UpdateDate;
+public Input<bool?> Ref_HR_Base_BankAccount_IsDelete;
+public Dropdown Ref_HR_Base_BankAccount_BaseInfo_BankAccountTypeId;
 public DxGrid? Grid_HR_EMP_Documents;
 
 public Input<Guid> Ref_HR_EMP_Documents_Id;

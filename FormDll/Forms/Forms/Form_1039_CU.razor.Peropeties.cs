@@ -144,7 +144,7 @@ namespace Forms.Forms
     /// <summary>
     ///  ورژنی که فرم باهاش ساخته شده
     /// </summary>
-    public string? VersionForm { get; set; } = "5481";
+    public string? VersionForm { get; set; } = "5485";
 
     /// <summary>
     ///  موجودیت
@@ -180,6 +180,8 @@ namespace Forms.Forms
     #region FormProperty
 
 public Input<string?> Ref_Title;
+public Dropdown Ref_BaseInfo_ORG_CompaniesId;
+public Dropdown Ref_Notifications_CategoryId;
 public Input<string?> Ref_Summary;
 public FileUploadPage.Uploader<Entity.Notifications_Notifications_Gallery> Ref_Notifications_Notifications_Gallery;
 public CKEditor Ref_Description;
@@ -190,8 +192,6 @@ public Input<Guid?> Ref_UpdateUser;
 public Input<DateTime?> Ref_CreateDate;
 public Input<DateTime?> Ref_UpdateDate;
 public Input<bool?> Ref_IsDelete;
-public Dropdown Ref_BaseInfo_ORG_CompaniesId;
-public Dropdown Ref_Notifications_CategoryId;
 
 
     #endregion
