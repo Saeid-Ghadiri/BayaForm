@@ -189,6 +189,28 @@ namespace Forms.Forms
 
 		#endregion
 
+		#region Grid EmployeeInfos
+
+		public async Task<bool> GridHR_EMP_EmployeesId_383_editmodelsaving(object e)
+		{
+			//// بررسی داده اطلاعات حساب بانکی کارمند
+			//await CheckGridDataAndToggleButton();
+
+			return false;
+		}
+
+		public async Task GridHR_EMP_EmployeesId_383_afterrendermodal(Entity.HR_EMP_EmployeeInfos Item)
+		{
+			#region EmployeeInfos
+			//// حذف دکمه های ذخیره، قبلی، بعدی در گرید جزئیات اطلاعات کارمند
+			//await JS.InvokeVoidAsync("ModalAddClass", "#HR_EMP_EmployeeInfos_GridHR_EMP_EmployeesId_382ButtonSave", "d-none");
+			//await JS.InvokeVoidAsync("ModalAddClass", "#HR_EMP_EmployeeInfos_GridHR_EMP_EmployeesId_382ButtonBefore", "d-none");
+			//await JS.InvokeVoidAsync("ModalAddClass", "#HR_EMP_EmployeeInfos_GridHR_EMP_EmployeesId_382ButtonNext", "d-none");
+			#endregion
+		}
+
+		#endregion
+
 		#region Grid BankAccount
 
 		// ایونت Edit Model Saving: ویرایش و بررسی اطلاعات حساب بانکی در جدول کارمند در حال مودال
@@ -266,26 +288,14 @@ namespace Forms.Forms
 
 		#endregion
 
-		#region Grid EmployeeInfos
-
-		public async Task<bool> GridHR_EMP_EmployeesId_383_editmodelsaving(object e)
+		#region Grid EmployeeFamilies
+		public async Task<bool> GridHR_EMP_EmployeesId_381_editmodelsaving(object e)
 		{
-			//// بررسی داده اطلاعات حساب بانکی کارمند
-			//await CheckGridDataAndToggleButton();
-
 			return false;
 		}
-
-		public async Task GridHR_EMP_EmployeesId_383_afterrendermodal(Entity.HR_EMP_EmployeeInfos Item)
+		public async Task GridHR_EMP_EmployeesId_381_afterrendermodal(Entity.HR_EMP_EmployeeFamileis Item)
 		{
-			#region EmployeeInfos
-			//// حذف دکمه های ذخیره، قبلی، بعدی در گرید جزئیات اطلاعات کارمند
-			//await JS.InvokeVoidAsync("ModalAddClass", "#HR_EMP_EmployeeInfos_GridHR_EMP_EmployeesId_382ButtonSave", "d-none");
-			//await JS.InvokeVoidAsync("ModalAddClass", "#HR_EMP_EmployeeInfos_GridHR_EMP_EmployeesId_382ButtonBefore", "d-none");
-			//await JS.InvokeVoidAsync("ModalAddClass", "#HR_EMP_EmployeeInfos_GridHR_EMP_EmployeesId_382ButtonNext", "d-none");
-			#endregion
 		}
-
 		#endregion
 
 		#region btn data

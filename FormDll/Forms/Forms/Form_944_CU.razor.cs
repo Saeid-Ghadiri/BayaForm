@@ -573,6 +573,13 @@ namespace Forms.Forms
 				var detail = _Entity.HR_EMP_EmployeeInfos.First();
 				detail.FirstName = _Entity.FirstName;
 				detail.LastName = _Entity.LastName;
+				detail.EmployeeNo = _Entity.EmployeeNo;
+				detail.LastEmployeeNo = _Entity.LastEmployeeNo;
+				detail.EmployeePersonelNo = _Entity.EmployeePersonelNo;
+				detail.EmployeeLastPersonelNo = _Entity.EmployeeLastPersonelNo;
+				detail.NationalCode = _Entity.NationalCode;
+				detail.HR_EMP_StatusId = _Entity.HR_EMP_StatusId.ToString();
+				detail.BaseInfo_ORG_CompaniesId = _Entity.BaseInfo_ORG_CompaniesId.ToString();
 			}
 		}
 		#endregion سینک کردن داده های بخش اصلی در بخش جزئیات اطلاعات

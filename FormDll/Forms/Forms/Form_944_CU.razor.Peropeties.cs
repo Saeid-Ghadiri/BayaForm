@@ -144,7 +144,7 @@ namespace Forms.Forms
     /// <summary>
     ///  ورژنی که فرم باهاش ساخته شده
     /// </summary>
-    public string? VersionForm { get; set; } = "5485";
+    public string? VersionForm { get; set; } = "5491";
 
     /// <summary>
     ///  موجودیت
@@ -193,6 +193,7 @@ public ElementReference Ref_ExportToCSVEpmloees;
 public SingleUploader Ref_ProfilePicture;
 public DxGrid? Grid_HR_EMP_EmployeeInfos;
 
+public Input<string?> Ref_HR_EMP_EmployeeInfos_BaseInfo_ORG_Companies;
 public Input<string?> Ref_HR_EMP_EmployeeInfos_BaseInfo_ORG_CompaniesId;
 public Input<string?> Ref_HR_EMP_EmployeeInfos_FirstName;
 public Input<string?> Ref_HR_EMP_EmployeeInfos_LastName;
@@ -200,6 +201,7 @@ public Input<string?> Ref_HR_EMP_EmployeeInfos_EmployeeNo;
 public Input<string?> Ref_HR_EMP_EmployeeInfos_LastEmployeeNo;
 public Input<string?> Ref_HR_EMP_EmployeeInfos_EmployeePersonelNo;
 public Input<string?> Ref_HR_EMP_EmployeeInfos_EmployeeLastPersonelNo;
+public Input<string?> Ref_HR_EMP_EmployeeInfos_HR_EMP_Status;
 public Input<string?> Ref_HR_EMP_EmployeeInfos_HR_EMP_StatusId;
 public Input<string?> Ref_HR_EMP_EmployeeInfos_FatherName;
 public Input<string?> Ref_HR_EMP_EmployeeInfos_NationalCode;

@@ -205,7 +205,7 @@
     <CellDisplayTemplate>
        
 @{
-    Baya.Models.ViewEngine.View_Component HeaderHR_EMP_EmployeesId = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"primaryKey\":false,\"EntityID\":380,\"FieldId\":15522,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":665,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":true,\"RelationParentName\":\"HR_EMP_Employees\",\"RelationParentModel\":\"HR_EMP_Employees\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/View_HR_EMP_Employees/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.BaseInfo_ORG_CompaniesTitle}} {{item.EmployeeNo}} {{item.FirstName}} {{item.LastName}} </span>\",\"FieldsTemplate\":[{\"key\":\"FirstName\",\"value\":\"nvarchar(Max)\"},{\"key\":\"LastName\",\"value\":\"nvarchar(Max)\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"searchField\":\"EmployeeNo,FirstName,LastName\",\"modal\":true,\"label\":\"اطلاعات کارمند\",\"tableView\":true,\"key\":\"HR_EMP_EmployeesId\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"15522?EId=380&SubId=15\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
+    Baya.Models.ViewEngine.View_Component HeaderHR_EMP_EmployeesId = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"primaryKey\":false,\"EntityID\":380,\"FieldId\":15522,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":665,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":true,\"RelationParentName\":\"HR_EMP_Employees\",\"RelationParentModel\":\"HR_EMP_Employees\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/View_HR_EMP_Employees/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.BaseInfo_ORG_CompaniesTitle}} {{item.EmployeeNo}} {{item.FirstName}} {{item.LastName}} </span>\",\"FieldsTemplate\":[{\"key\":\"FirstName\",\"value\":\"nvarchar(Max)\"},{\"key\":\"LastName\",\"value\":\"nvarchar(Max)\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"searchField\":\"EmployeeNo,FirstName,LastName\",\"disabled\":false,\"modal\":true,\"label\":\"اطلاعات کارمند\",\"tableView\":true,\"key\":\"HR_EMP_EmployeesId\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"15522?EId=380&SubId=15\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
     var RowHR_EMP_EmployeesId = ((Entity.HR_EMP_EmployeeDetails)HR_EMP_EmployeesId_.DataItem).HR_EMP_EmployeesId;
 }
 
@@ -254,6 +254,10 @@
 <DxGridDataColumn  Caption="UpdateDate" Visible=false FieldName="UpdateDate" />
 
 <DxGridDataColumn  Caption="IsDelete" Visible=false FieldName="IsDelete" />
+
+<DxGridDataColumn  Caption="ایمیل مکاتبات داخل سازمان (اصلی)"  FieldName="InsideEmail" />
+
+<DxGridDataColumn  Caption="ایمیل مکاتبات خارج از سازمان (اصلی)"  FieldName="OutsideEmail" />
 
 
 </Columns>
@@ -542,6 +546,8 @@ MainModel.UpdateUser = ((Entity.HR_EMP_EmployeeDetails)EditModel).UpdateUser;
 MainModel.CreateDate = ((Entity.HR_EMP_EmployeeDetails)EditModel).CreateDate;
 MainModel.UpdateDate = ((Entity.HR_EMP_EmployeeDetails)EditModel).UpdateDate;
 MainModel.IsDelete = ((Entity.HR_EMP_EmployeeDetails)EditModel).IsDelete;
+MainModel.InsideEmail = ((Entity.HR_EMP_EmployeeDetails)EditModel).InsideEmail;
+MainModel.OutsideEmail = ((Entity.HR_EMP_EmployeeDetails)EditModel).OutsideEmail;
 
     }
     else

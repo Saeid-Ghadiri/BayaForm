@@ -114,33 +114,11 @@
 
 <DxGridDataColumn  Caption="متن اطلاعیه"  FieldName="Description" />
 
-<DxGridDataColumn Context="Notifications_Notifications_Gallery_" Caption="گالری تصاویر" >
-    <CellDisplayTemplate>
-      
-@{
-    var Notifications_Notifications_Notifications_Notifications_Gallery = (Entity.Notifications_Notifications)Notifications_Notifications_Gallery_.DataItem;
-}
-@foreach (var item_Notifications_Notifications in Notifications_Notifications_Notifications_Notifications_Gallery.Notifications_Notifications_Gallery.Where(p=>!p.IsDelete.HasValue || !p.IsDelete.Value))
-{
-
-    <div class="bg-lightblue rounded p-1 d-inline-block m-1">
-        <span>@item_Notifications_Notifications.originalName</span>
-        <hr class="hrdash mt-1 mb-0">
-        <div class="btn-group align-items-center">
-            <button type="button" class="btn btn-sm text-yellow p-0" onclick="ShowImageNewTab('@item_Notifications_Notifications.url')">@languageContainer.Keys["DXGrid:View"]</button>
-            <a href="@item_Notifications_Notifications.url" class="btn btn-sm text-green p-0">@languageContainer.Keys["DXGrid:Download"]</a>
-        </div>
-    </div>
-}
-
-
-    </CellDisplayTemplate>
-</DxGridDataColumn>
 <DxGridDataColumn Context="BaseInfo_ORG_CompaniesId_" Caption="شرکت" >
     <CellDisplayTemplate>
        
 @{
-    Baya.Models.ViewEngine.View_Component HeaderBaseInfo_ORG_CompaniesId = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"primaryKey\":false,\"EntityID\":784,\"FieldId\":31444,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":1039,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":false,\"RelationParentName\":\"BaseInfo_ORG_Companies\",\"RelationParentModel\":\"BaseInfo_ORG_Companies\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/BaseInfo_ORG_Companies/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.Title}} </span>\",\"FieldsTemplate\":[{\"key\":\"Id\",\"value\":\"uniqueidentifier\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"searchField\":\"\",\"disabled\":false,\"modal\":true,\"label\":\"شرکت\",\"tableView\":true,\"key\":\"BaseInfo_ORG_CompaniesId\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"31444?EId=784&SubId=34\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
+    Baya.Models.ViewEngine.View_Component HeaderBaseInfo_ORG_CompaniesId = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"primaryKey\":false,\"EntityID\":784,\"FieldId\":31444,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":1039,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":false,\"RelationParentName\":\"BaseInfo_ORG_Companies\",\"RelationParentModel\":\"BaseInfo_ORG_Companies\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/BaseInfo_ORG_Companies/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.Title}} </span>\",\"FieldsTemplate\":[{\"key\":\"Title\",\"value\":\"nvarchar(Max)\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"modal\":true,\"label\":\"شرکت\",\"tableView\":true,\"key\":\"BaseInfo_ORG_CompaniesId\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"31444?EId=784&SubId=34\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
     var RowBaseInfo_ORG_CompaniesId = ((Entity.Notifications_Notifications)BaseInfo_ORG_CompaniesId_.DataItem).BaseInfo_ORG_CompaniesId;
 }
 
@@ -166,7 +144,7 @@
     <CellDisplayTemplate>
        
 @{
-    Baya.Models.ViewEngine.View_Component HeaderNotifications_CategoryId = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"primaryKey\":false,\"EntityID\":784,\"FieldId\":31445,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":1039,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":false,\"RelationParentName\":\"Notifications_Category\",\"RelationParentModel\":\"Notifications_Category\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/Notifications_Category/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.Title}} </span>\",\"FieldsTemplate\":[{\"key\":\"Id\",\"value\":\"uniqueidentifier\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"searchField\":\"\",\"disabled\":false,\"modal\":true,\"label\":\"دسته بندی\",\"tableView\":true,\"key\":\"Notifications_CategoryId\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"31445?EId=784&SubId=34\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
+    Baya.Models.ViewEngine.View_Component HeaderNotifications_CategoryId = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"primaryKey\":false,\"EntityID\":784,\"FieldId\":31445,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":1039,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":false,\"RelationParentName\":\"Notifications_Category\",\"RelationParentModel\":\"Notifications_Category\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/Notifications_Category/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.Title}} </span>\",\"FieldsTemplate\":[{\"key\":\"Title\",\"value\":\"nvarchar(Max)\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"modal\":true,\"label\":\"دسته بندی\",\"tableView\":true,\"key\":\"Notifications_CategoryId\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"31445?EId=784&SubId=34\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
     var RowNotifications_CategoryId = ((Entity.Notifications_Notifications)Notifications_CategoryId_.DataItem).Notifications_CategoryId;
 }
 
@@ -185,6 +163,28 @@
   //  #OnItemSelected
     }
 }
+
+    </CellDisplayTemplate>
+</DxGridDataColumn>
+<DxGridDataColumn Context="Notifications_Notifications_Gallery_" Caption="گالری تصاویر" >
+    <CellDisplayTemplate>
+      
+@{
+    var Notifications_Notifications_Notifications_Notifications_Gallery = (Entity.Notifications_Notifications)Notifications_Notifications_Gallery_.DataItem;
+}
+@foreach (var item_Notifications_Notifications in Notifications_Notifications_Notifications_Notifications_Gallery.Notifications_Notifications_Gallery.Where(p=>!p.IsDelete.HasValue || !p.IsDelete.Value))
+{
+
+    <div class="bg-lightblue rounded p-1 d-inline-block m-1">
+        <span>@item_Notifications_Notifications.originalName</span>
+        <hr class="hrdash mt-1 mb-0">
+        <div class="btn-group align-items-center">
+            <button type="button" class="btn btn-sm text-yellow p-0" onclick="ShowImageNewTab('@item_Notifications_Notifications.url')">@languageContainer.Keys["DXGrid:View"]</button>
+            <a href="@item_Notifications_Notifications.url" class="btn btn-sm text-green p-0">@languageContainer.Keys["DXGrid:Download"]</a>
+        </div>
+    </div>
+}
+
 
     </CellDisplayTemplate>
 </DxGridDataColumn>

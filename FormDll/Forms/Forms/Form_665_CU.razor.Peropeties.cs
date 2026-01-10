@@ -144,7 +144,7 @@ namespace Forms.Forms
     /// <summary>
     ///  ورژنی که فرم باهاش ساخته شده
     /// </summary>
-    public string? VersionForm { get; set; } = "5485";
+    public string? VersionForm { get; set; } = "5491";
 
     /// <summary>
     ///  موجودیت
@@ -187,6 +187,8 @@ public Input<string?> Ref_OrgTel4;
 public Input<string?> Ref_OrgTel5;
 public Input<string?> Ref_OrgMobile1;
 public Input<string?> Ref_OrgMobile2;
+public Input<string?> Ref_InsideEmail;
+public Input<string?> Ref_OutsideEmail;
 public Input<Guid> Ref_Id;
 public Input<Guid?> Ref_RequestID;
 public Input<Guid?> Ref_CreateUser;

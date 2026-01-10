@@ -300,7 +300,7 @@
     <CellDisplayTemplate>
        
 @{
-    Baya.Models.ViewEngine.View_Component HeaderHR_EMP_StatusId = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"primaryKey\":false,\"EntityID\":383,\"FieldId\":15631,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":1037,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":false,\"RelationParentName\":\"HR_EMP_Status\",\"RelationParentModel\":\"HR_EMP_Status\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/HR_EMP_Status/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.Title}} </span>\",\"FieldsTemplate\":[{\"key\":\"Title\",\"value\":\"nvarchar(Max)\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"disabled\":true,\"modal\":true,\"label\":\"وضعیت کارمند\",\"tableView\":true,\"key\":\"HR_EMP_StatusId\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"15631?EId=383&SubId=15\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
+    Baya.Models.ViewEngine.View_Component HeaderHR_EMP_StatusId = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"primaryKey\":false,\"EntityID\":383,\"FieldId\":15631,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":1037,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":false,\"RelationParentName\":\"HR_EMP_Status\",\"RelationParentModel\":\"HR_EMP_Status\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/HR_EMP_Status/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.Title}} </span>\",\"FieldsTemplate\":[{\"key\":\"Title\",\"value\":\"nvarchar(Max)\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"searchField\":\"\",\"disabled\":true,\"modal\":true,\"label\":\"وضعیت کارمند\",\"tableView\":true,\"key\":\"HR_EMP_StatusId\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"15631?EId=383&SubId=15\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
     var RowHR_EMP_StatusId = ((Entity.HR_EMP_Employees)HR_EMP_StatusId_.DataItem).HR_EMP_StatusId;
 }
 
@@ -347,6 +347,8 @@
 <DxGridDataColumn  Caption="UpdateDate" Visible=false FieldName="UpdateDate" />
 
 <DxGridDataColumn  Caption="IsDelete" Visible=false FieldName="IsDelete" />
+
+<DxGridDataColumn  Caption="کد ملی"  FieldName="NationalCode" />
 
 
 </Columns>
@@ -637,6 +639,7 @@ MainModel.UpdateUser = ((Entity.HR_EMP_Employees)EditModel).UpdateUser;
 MainModel.CreateDate = ((Entity.HR_EMP_Employees)EditModel).CreateDate;
 MainModel.UpdateDate = ((Entity.HR_EMP_Employees)EditModel).UpdateDate;
 MainModel.IsDelete = ((Entity.HR_EMP_Employees)EditModel).IsDelete;
+MainModel.NationalCode = ((Entity.HR_EMP_Employees)EditModel).NationalCode;
 
     }
     else
