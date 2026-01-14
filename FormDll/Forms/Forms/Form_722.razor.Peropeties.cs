@@ -144,7 +144,7 @@ namespace Forms.Forms
     /// <summary>
     ///  ورژنی که فرم باهاش ساخته شده
     /// </summary>
-    public string? VersionForm { get; set; } = "5491";
+    public string? VersionForm { get; set; } = "5510";
 
     /// <summary>
     ///  موجودیت
@@ -180,11 +180,6 @@ namespace Forms.Forms
     #region FormProperty
 
 public Input<Guid> Ref_Id;
-public Input<Guid?> Ref_RequestID;
-public Input<Guid?> Ref_CreateUser;
-public Input<Guid?> Ref_UpdateUser;
-public Input<DateTime?> Ref_CreateDate;
-public Input<DateTime?> Ref_UpdateDate;
 public Input<bool?> Ref_IsDelete;
 
 

@@ -293,9 +293,9 @@ h1 {
 
 .ModalWidth {
   /* max-width: 1700px !important; */
-    max-width: 100% !important;
-    width: 95% !important;
-    min-width: 800px !important;
+  max-width: 100% !important;
+  width: 95% !important;
+  min-width: 800px !important;
 }
 
 .ContractTime .btn {
@@ -433,6 +433,16 @@ h1 {
 
 <DxGridDataColumn  Caption="نام خانوادگی"  FieldName="LastName" />
 
+<DxGridDataColumn  Caption="کد ملی"  FieldName="NationalCode" />
+
+<DxGridDataColumn  Caption="کد کارمند"  FieldName="EmployeeNo" />
+
+<DxGridDataColumn  Caption="کد قدیم پرسنلی"  FieldName="EmployeeLastPersonelNo" />
+
+<DxGridDataColumn  Caption="کد پرسنلی"  FieldName="EmployeePersonelNo" />
+
+<DxGridDataColumn  Caption="کد قدیم کارمندی"  FieldName="LastEmployeeNo" />
+
 <DxGridDataColumn Context="HR_EMP_StatusId_" Caption="وضعیت کارمند" >
     <CellDisplayTemplate>
        
@@ -459,14 +469,6 @@ h1 {
 
     </CellDisplayTemplate>
 </DxGridDataColumn>
-<DxGridDataColumn  Caption="کد کارمند"  FieldName="EmployeeNo" />
-
-<DxGridDataColumn  Caption="کد قدیم پرسنلی"  FieldName="EmployeeLastPersonelNo" />
-
-<DxGridDataColumn  Caption="کد پرسنلی"  FieldName="EmployeePersonelNo" />
-
-<DxGridDataColumn  Caption="کد قدیم کارمندی"  FieldName="LastEmployeeNo" />
-
 <DxGridDataColumn Context="ProfilePicture_" Caption="عکس پرسنلی" >
     <CellDisplayTemplate>
       
@@ -494,8 +496,6 @@ h1 {
 <DxGridDataColumn  Caption="IsDelete" Visible=false FieldName="IsDelete" />
 
 <DxGridDataColumn  Caption="نام و نام خانوادگی" Visible=false FieldName="FullName" />
-
-<DxGridDataColumn  Caption="کد ملی"  FieldName="NationalCode" />
 
 
 </Columns>
@@ -772,12 +772,13 @@ public void SaveGrid_HR_EMP_Employees(object DataItem, object EditModel)
 MainModel.BaseInfo_ORG_CompaniesId = ((Entity.HR_EMP_Employees)EditModel).BaseInfo_ORG_CompaniesId;
 MainModel.FirstName = ((Entity.HR_EMP_Employees)EditModel).FirstName;
 MainModel.LastName = ((Entity.HR_EMP_Employees)EditModel).LastName;
-MainModel.HR_EMP_StatusId = ((Entity.HR_EMP_Employees)EditModel).HR_EMP_StatusId;
-MainModel.HR_EMP_Status = ((Entity.HR_EMP_Employees)EditModel).HR_EMP_Status;
+MainModel.NationalCode = ((Entity.HR_EMP_Employees)EditModel).NationalCode;
 MainModel.EmployeeNo = ((Entity.HR_EMP_Employees)EditModel).EmployeeNo;
 MainModel.EmployeeLastPersonelNo = ((Entity.HR_EMP_Employees)EditModel).EmployeeLastPersonelNo;
 MainModel.EmployeePersonelNo = ((Entity.HR_EMP_Employees)EditModel).EmployeePersonelNo;
 MainModel.LastEmployeeNo = ((Entity.HR_EMP_Employees)EditModel).LastEmployeeNo;
+MainModel.HR_EMP_StatusId = ((Entity.HR_EMP_Employees)EditModel).HR_EMP_StatusId;
+MainModel.HR_EMP_Status = ((Entity.HR_EMP_Employees)EditModel).HR_EMP_Status;
 MainModel.ProfilePicture = ((Entity.HR_EMP_Employees)EditModel).ProfilePicture;
 MainModel.Id = ((Entity.HR_EMP_Employees)EditModel).Id;
 MainModel.RequestID = ((Entity.HR_EMP_Employees)EditModel).RequestID;
@@ -787,7 +788,6 @@ MainModel.CreateDate = ((Entity.HR_EMP_Employees)EditModel).CreateDate;
 MainModel.UpdateDate = ((Entity.HR_EMP_Employees)EditModel).UpdateDate;
 MainModel.IsDelete = ((Entity.HR_EMP_Employees)EditModel).IsDelete;
 MainModel.FullName = ((Entity.HR_EMP_Employees)EditModel).FullName;
-MainModel.NationalCode = ((Entity.HR_EMP_Employees)EditModel).NationalCode;
 
     }
     else

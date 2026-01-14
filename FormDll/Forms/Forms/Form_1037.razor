@@ -147,38 +147,111 @@
     text-align: center;
     font-weight: 900;
 }
+
 /* ************************************************** */
-.avatar-container {
+
+.avatar {
     display: inline-block;
-    width: 160px;
-    height: 160px;
-    border-radius: 50%;
-    overflow: hidden;
-    border: 3px solid #f0f0f0;
-    --zoom-level: 0.75;
-    /* مقدار پیش‌فرض: 75% */
+    max-width: 10em !important;
 }
-.avatar-container .user-avatar {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    object-position: center;
-    display: block;
-    transform: scale(calc(0.75 / var(--zoom-level, 0.5)));
+
+.avatar div * {
+    display: none;
 }
-/* مثال‌های آماده */
-.avatar-container.zoom-50 {
-    --zoom-level: 0.5;
+
+/* ************************************************** */
+.mainTable .dxbl-grid-table td * {
+    text-wrap: nowrap;
 }
-.avatar-container.zoom-60 {
-    --zoom-level: 0.6;
+
+.mainTable .dxbl-grid-table td {
+    text-wrap: nowrap;
 }
-.avatar-container.zoom-70 {
-    --zoom-level: 0.7;
+
+/* ************************************************** */
+.lrt-input input {
+    direction: ltr !important;
 }
-.avatar-container.zoom-75 {
-    --zoom-level: 0.75;
+
+/* ************************************************** */
+/* عکس پرسنلی */
+
+.PersonnalPicture {
+    padding: 8px;
+    background: #fff;
+    border-radius: 16px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+    transition: all 0.3s ease;
+    max-width: 200px !important;
+    max-height: 250px !important;
+    margin-inline-start: auto
 }
+
+.PersonnalPicture .PersonnalPictureList {
+    border-radius: 12px !important;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5) !important;
+    max-width: 145px !important;
+    max-height: 200px !important;
+}
+
+.PersonnalPictureList {
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    max-width: 65px;
+    max-height: 100px;
+}
+
+.PersonnalPictureList div * {
+    display: none;
+}
+
+.PersonnalPicture .PersonnalPictureList:hover {
+    transform: scale(1.05);
+    box-shadow: 0 6px 25px rgba(0, 0, 0, 0.3);
+    filter: brightness(1.08);
+}
+
+.profilebtn {
+    display: none;
+}
+
+.profilelink {
+    display: none;
+}
+
+/* ************************************************** */
+
+/* استایل هدرهای بخش‌بندی شده */
+.form-section-header {
+    display: flex !important;
+    align-items: center;
+    gap: 0.5rem !important;
+    background-color: #0071ff36 !important;
+    color: #001a47 !important;
+    padding: 0.4rem 0.8rem !important;
+    border-radius: 0.4rem !important;
+    font-weight: 750 !important;
+    font-size: 0.95rem;
+    margin: 0 0 0 0 !important;
+    max-width: 100% !important;
+}
+
+.form-section-header i {
+    font-size: 1.1rem;
+    color: #001a47;
+}
+
+/* ************************************************** */
+.pdfimg {
+    max-width: 70px;
+}
+
+/* ************************************************** */
+.hidden {
+    display: none;
+}
+
+/* ************************************************** */
 </style>
 
 <div class="@(ReadOnly?"FormReadOnly":"")">
@@ -215,7 +288,7 @@
         EditFormButtonsVisible="false"
         CustomizeEditModel="CustomizeEditGrid_HR_EMP_Employees"
         CustomizeElement="CustomizeRowsGrid_HR_EMP_Employees" 
-        Component="@((Utility.JSON.ToObject<View_Component>("{\"primaryKey\":false,\"EntityID\":383,\"FieldId\":0,\"ViewId\":1037,\"NotMapped\":false,\"Relation\":false,\"RelationExternal\":false,\"RelationChildModel\":\"HR_EMP_Employees\",\"GridMainModel\":\"HR_EMP_Employees\",\"widget\":{\"altInput\":false,\"allowInput\":false,\"clickOpens\":false,\"enableDate\":false,\"enableTime\":false,\"noCalendar\":false,\"useLocaleSettings\":false,\"hourIncrement\":0,\"minuteIncrement\":0,\"time_24hr\":false},\"data\":{},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"FieldsTemplate\":[],\"refreshOn\":\"data\",\"reorder\":false,\"addAnotherPosition\":\"bottom\",\"layoutFixed\":false,\"enableRowGroups\":false,\"initEmpty\":false,\"modal\":true,\"StartCustomDataGrid\":true,\"label\":\"کارمندان\",\"tableView\":false,\"key\":\"HR_EMP_Employees\",\"type\":\"datagrid\",\"input\":true,\"modalEdit\":false,\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result))"
+        Component="@((Utility.JSON.ToObject<View_Component>("{\"primaryKey\":false,\"EntityID\":383,\"FieldId\":0,\"ViewId\":1037,\"NotMapped\":false,\"Relation\":false,\"RelationExternal\":false,\"RelationChildModel\":\"HR_EMP_Employees\",\"GridMainModel\":\"HR_EMP_Employees\",\"widget\":{\"altInput\":false,\"allowInput\":false,\"clickOpens\":false,\"enableDate\":false,\"enableTime\":false,\"noCalendar\":false,\"useLocaleSettings\":false,\"hourIncrement\":0,\"minuteIncrement\":0,\"time_24hr\":false},\"data\":{},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"FieldsTemplate\":[],\"refreshOn\":\"data\",\"reorder\":false,\"addAnotherPosition\":\"bottom\",\"layoutFixed\":false,\"enableRowGroups\":false,\"initEmpty\":false,\"modal\":true,\"StartCustomDataGrid\":true,\"label\":\"کارمندان\",\"tableView\":false,\"key\":\"HR_EMP_Employees\",\"type\":\"datagrid\",\"input\":true,\"modalEdit\":false,\"decimalLimit\":0,\"searchEnabled\":true,\"keyModified\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result))"
          >
     <Columns>
     
@@ -288,6 +361,8 @@
 
 <DxGridDataColumn  Caption="نام"  FieldName="FirstName" />
 
+<DxGridDataColumn  Caption="کد ملی"  FieldName="NationalCode" />
+
 <DxGridDataColumn  Caption="کد کارمند"  FieldName="EmployeeNo" />
 
 <DxGridDataColumn  Caption="کد قدیم کارمندی"  FieldName="LastEmployeeNo" />
@@ -300,7 +375,7 @@
     <CellDisplayTemplate>
        
 @{
-    Baya.Models.ViewEngine.View_Component HeaderHR_EMP_StatusId = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"primaryKey\":false,\"EntityID\":383,\"FieldId\":15631,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":1037,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":false,\"RelationParentName\":\"HR_EMP_Status\",\"RelationParentModel\":\"HR_EMP_Status\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/HR_EMP_Status/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.Title}} </span>\",\"FieldsTemplate\":[{\"key\":\"Title\",\"value\":\"nvarchar(Max)\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"searchField\":\"\",\"disabled\":true,\"modal\":true,\"label\":\"وضعیت کارمند\",\"tableView\":true,\"key\":\"HR_EMP_StatusId\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"15631?EId=383&SubId=15\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
+    Baya.Models.ViewEngine.View_Component HeaderHR_EMP_StatusId = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"primaryKey\":false,\"EntityID\":383,\"FieldId\":15631,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":1037,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":false,\"RelationParentName\":\"HR_EMP_Status\",\"RelationParentModel\":\"HR_EMP_Status\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/HR_EMP_Status/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.Title}} </span>\",\"FieldsTemplate\":[{\"key\":\"Title\",\"value\":\"nvarchar(Max)\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"disabled\":true,\"modal\":true,\"label\":\"وضعیت کارمند\",\"tableView\":true,\"key\":\"HR_EMP_StatusId\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"15631?EId=383&SubId=15\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
     var RowHR_EMP_StatusId = ((Entity.HR_EMP_Employees)HR_EMP_StatusId_.DataItem).HR_EMP_StatusId;
 }
 
@@ -329,7 +404,7 @@
     var HR_EMP_Employees_ProfilePicture = (Entity.HR_EMP_Employees)ProfilePicture_.DataItem;
 }
 <SingleUploader Editable="false"  uploadedLink="@HR_EMP_Employees_ProfilePicture.ProfilePicture" uploadUrl="https://File.workcv.ir/fa/api/v1/File/Post" htmlTemplate="<img class='img-fluid PersonnalPictureList' src='##url##'/>
-<div><a href='##url##' class='btn btn-green'><span class='fal fa-download'></span></a></div>" FileChanged="@((url) => HR_EMP_Employees_ProfilePicture.ProfilePicture = url)" Caption="عکس پرسنلی" />
+<div><a class='btn btn-green profilelink' href='##url##' ><span class='fal fa-download profilebtn'></span></a></div>" FileChanged="@((url) => HR_EMP_Employees_ProfilePicture.ProfilePicture = url)" Caption="عکس پرسنلی" />
 
 
     </CellDisplayTemplate>
@@ -347,8 +422,6 @@
 <DxGridDataColumn  Caption="UpdateDate" Visible=false FieldName="UpdateDate" />
 
 <DxGridDataColumn  Caption="IsDelete" Visible=false FieldName="IsDelete" />
-
-<DxGridDataColumn  Caption="کد ملی"  FieldName="NationalCode" />
 
 
 </Columns>
@@ -625,6 +698,7 @@ public void SaveGrid_HR_EMP_Employees(object DataItem, object EditModel)
 MainModel.BaseInfo_ORG_CompaniesId = ((Entity.HR_EMP_Employees)EditModel).BaseInfo_ORG_CompaniesId;
 MainModel.LastName = ((Entity.HR_EMP_Employees)EditModel).LastName;
 MainModel.FirstName = ((Entity.HR_EMP_Employees)EditModel).FirstName;
+MainModel.NationalCode = ((Entity.HR_EMP_Employees)EditModel).NationalCode;
 MainModel.EmployeeNo = ((Entity.HR_EMP_Employees)EditModel).EmployeeNo;
 MainModel.LastEmployeeNo = ((Entity.HR_EMP_Employees)EditModel).LastEmployeeNo;
 MainModel.EmployeePersonelNo = ((Entity.HR_EMP_Employees)EditModel).EmployeePersonelNo;
@@ -639,7 +713,6 @@ MainModel.UpdateUser = ((Entity.HR_EMP_Employees)EditModel).UpdateUser;
 MainModel.CreateDate = ((Entity.HR_EMP_Employees)EditModel).CreateDate;
 MainModel.UpdateDate = ((Entity.HR_EMP_Employees)EditModel).UpdateDate;
 MainModel.IsDelete = ((Entity.HR_EMP_Employees)EditModel).IsDelete;
-MainModel.NationalCode = ((Entity.HR_EMP_Employees)EditModel).NationalCode;
 
     }
     else

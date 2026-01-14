@@ -188,6 +188,20 @@
 
     </CellDisplayTemplate>
 </DxGridDataColumn>
+<DxGridDataColumn Context="IsActive_" Caption="فعال است؟" >
+    <CellDisplayTemplate>
+       
+@{
+    var Notifications_Notifications_IsActive = ((Entity.Notifications_Notifications)IsActive_.DataItem).IsActive;
+}
+
+<p class="text-center " hidden="@(Notifications_Notifications_IsActive !=null ? !Notifications_Notifications_IsActive : true)">@languageContainer.Keys["DXGrid:Yes"]</p>
+
+<p class="text-center" hidden="@(Notifications_Notifications_IsActive !=null ? Notifications_Notifications_IsActive : true)">@languageContainer.Keys["DXGrid:No"]</p>
+ 
+
+    </CellDisplayTemplate>
+</DxGridDataColumn>
 
 </Columns>
 
@@ -474,6 +488,7 @@ MainModel.BaseInfo_ORG_CompaniesId = ((Entity.Notifications_Notifications)EditMo
 MainModel.BaseInfo_ORG_Companies = ((Entity.Notifications_Notifications)EditModel).BaseInfo_ORG_Companies;
 MainModel.Notifications_CategoryId = ((Entity.Notifications_Notifications)EditModel).Notifications_CategoryId;
 MainModel.Notifications_Category = ((Entity.Notifications_Notifications)EditModel).Notifications_Category;
+MainModel.IsActive = ((Entity.Notifications_Notifications)EditModel).IsActive;
 
     }
     else

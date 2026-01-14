@@ -311,7 +311,10 @@ namespace Forms.Forms
                 if (item.IsPostponedPurchase.HasValue && item.IsPostponedPurchase.Value && item.CurrentPurchaseQuantity.Value > 0
                     && item.IsMarkedForDeletion.HasValue && item.IsMarkedForDeletion.Value && item.MarkedForDeletionCount.Value > 0)
                 {
-                    if (item.CurrentPurchaseQuantity < item.ProductRequestingQTY)
+                    if(item.MarkedForDeletionCount.Value == item.ProductRequestingQTY){
+                        item.IsMarkedForDeletion = true;
+                    }
+                    else if (item.CurrentPurchaseQuantity < item.ProductRequestingQTY)
                     {
                         var firstQtt = item.ProductRequestingQTY.ToString();
                         item.ProductRequestingQTY = item.ProductRequestingQTY - item.MarkedForDeletionCount;
@@ -349,15 +352,22 @@ namespace Forms.Forms
                         
 
 
-                        newItems.Add(newDetail);
-                        newItems.Add(newDetail2);
+                        if(newDetail.ProductRequestingQTY >0){
+                            newItems.Add(newDetail);
+                        }
+                        if(newDetail2.ProductRequestingQTY >0){
+                            newItems.Add(newDetail2);
+                        }
 
                     }
                 }
                 else if (item.IsPostponedPurchase.HasValue && item.IsPostponedPurchase.Value && item.CurrentPurchaseQuantity.Value > 0
                     && item.IsMarkedForDeletion.HasValue && !item.IsMarkedForDeletion.Value)
                 {
-                    if (item.CurrentPurchaseQuantity < item.ProductRequestingQTY)
+                    if(item.MarkedForDeletionCount.Value == item.ProductRequestingQTY){
+                        item.IsMarkedForDeletion = true;
+                    }
+                    else if (item.CurrentPurchaseQuantity < item.ProductRequestingQTY)
                     {
                         var newDetail = System.Text.Json.JsonSerializer
                                 .Deserialize<Entity.SCMPETCO_ProductRequestDetails>(
@@ -377,33 +387,43 @@ namespace Forms.Forms
                         item.ProductRequestingQTY = item.CurrentPurchaseQuantity;
                         item.IsPostponedPurchase = false;
 
-                        newItems.Add(newDetail);
+                        if(newDetail.ProductRequestingQTY >0){
+                            newItems.Add(newDetail);
+                        }
 
                     }
                 }
                 else if (item.IsPostponedPurchase.HasValue && !item.IsPostponedPurchase.Value
                    && item.IsMarkedForDeletion.HasValue && item.IsMarkedForDeletion.Value && item.MarkedForDeletionCount.Value > 0)
                 {
-                    var newDetail = System.Text.Json.JsonSerializer
-                           .Deserialize<Entity.SCMPETCO_ProductRequestDetails>(
-                               System.Text.Json.JsonSerializer.Serialize(item)
-                           )!;
-                    //
-                    newDetail.Id = Guid.Empty;
-                    newDetail.ProductRequestingQTY = item.MarkedForDeletionCount;
-                    newDetail.IsMarkedForDeletion = true;
+                    if(item.MarkedForDeletionCount.Value == item.ProductRequestingQTY){
+                        item.IsMarkedForDeletion = true;
+                    }
+                    else
+                    {
+                        var newDetail = System.Text.Json.JsonSerializer
+                            .Deserialize<Entity.SCMPETCO_ProductRequestDetails>(
+                                System.Text.Json.JsonSerializer.Serialize(item)
+                            )!;
+                        //
+                        newDetail.Id = Guid.Empty;
+                        newDetail.ProductRequestingQTY = item.MarkedForDeletionCount;
+                        newDetail.IsMarkedForDeletion = true;
 
 
-                    // آیتم قبلی
-                    //توضیحات/
-                    item.SystemDescription = $"این درخواست به دلیل حذف تعدادی از تعداد درخواستی کاربر دو ردیف شده است. تعداد اصلی : {item.ProductRequestingQTY} و تعداد حذفی {item.MarkedForDeletionCount}";
-                    var newCount = item.ProductRequestingQTY - item.MarkedForDeletionCount;
+                        // آیتم قبلی
+                        //توضیحات/
+                        item.SystemDescription = $"این درخواست به دلیل حذف تعدادی از تعداد درخواستی کاربر دو ردیف شده است. تعداد اصلی : {item.ProductRequestingQTY} و تعداد حذفی {item.MarkedForDeletionCount}";
+                        var newCount = item.ProductRequestingQTY - item.MarkedForDeletionCount;
 
 
-                    item.ProductRequestingQTY = newCount;
-                    item.IsMarkedForDeletion = false;
-                    //
-                    newItems.Add(newDetail);
+                        item.ProductRequestingQTY = newCount;
+                        item.IsMarkedForDeletion = false;
+                        //
+                        if(newDetail.ProductRequestingQTY >0){
+                                newItems.Add(newDetail);
+                        }
+                    }
                 }
             }
 
