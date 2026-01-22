@@ -258,6 +258,27 @@
 <div class="filterbox @(ShowFilterBar ? "" : "d-none")">
 <div class="row">
 
+ 
+ 
+@code {
+    Baya.Models.ViewEngine.View_Component Component_HR_CVR_VerdictRecruitingHR_EMP_EmployeesId = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"primaryKey\":false,\"EntityID\":440,\"FieldId\":30515,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":0,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":true,\"RelationParentName\":\"HR_EMP_Employees\",\"RelationParentModel\":\"HR_EMP_Employees\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/HR_EMP_Employees_EmployeeInfos/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":false,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.EmployeeNo}} {{item.FirstName}} {{item.LastName}} {{item.BaseInfo_ORG_CompaniesTitle}} </span>\",\"FieldsTemplate\":[{\"key\":\"EmployeeNo\",\"value\":\"nvarchar(Max)\"},{\"key\":\"FirstName\",\"value\":\"nvarchar(Max)\"},{\"key\":\"LastName\",\"value\":\"nvarchar(Max)\"},{\"key\":\"BaseInfo_ORG_CompaniesTitle\",\"value\":\"nvarchar(Max)\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"searchField\":\"EmployeeNo,FirstName,LastName,BaseInfo_ORG_CompaniesTitle\",\"disabled\":false,\"modal\":true,\"label\":\"اطلاعات کارمند\",\"tableView\":true,\"key\":\"HR_EMP_EmployeesId\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"customClass\":\"filterCol\",\"FieldUrl\":\"30515?EId=440&SubId=15\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
+}
+
+    <Dropdown Id=HR_EMP_EmployeesId  @ref="Ref_HR_EMP_EmployeesId" Label="اطلاعات کارمند" CssClass="filterCol"  DisplayFormat="DropDown" ExternalApi=true NotMapped=false TextGrid=false   FieldName="HR_EMP_EmployeesId" OnItemSelected="ItemSelected_HR_CVR_VerdictRecruitingHR_EMP_EmployeesId" Component="Component_HR_CVR_VerdictRecruitingHR_EMP_EmployeesId"  >
+</Dropdown>
+@code {
+    public async Task ItemSelected_HR_CVR_VerdictRecruitingHR_EMP_EmployeesId(object _Item)
+    {
+        var Selected = Utility.JSON.ToObject<dynamic>(Utility.JSON.ToJson(_Item).Result).Result;
+     
+
+    
+
+    
+
+    
+    }
+} 
 
 <Input2 id="EmployeeNo" @ref="Ref_EmployeeNo" Label="کد کارمندی"  CssClass="filterCol"       type="text"    Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"maxlength\":\"20\"}").Result))></Input2>
 
@@ -333,6 +354,7 @@
         //await ReplaceInFilter("SCM_ProductRequestDetails.ProductNameText", "ماوس", QueryFilter);
         //await ReplaceInFilter("52255", Ref_SCM_ProductRequestDetails_ProductName_NotMapped.Value, QueryFilter);
         
+await ReplaceInFilter("30515", Ref_HR_EMP_EmployeesId.Value, QueryFilter);
 await ReplaceInFilter("31370", Ref_EmployeeNo.Value, QueryFilter);
 await ReplaceInFilter("30878", Ref_NationalCode.Value, QueryFilter);
 

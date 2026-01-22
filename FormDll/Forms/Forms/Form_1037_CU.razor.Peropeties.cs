@@ -144,7 +144,7 @@ namespace Forms.Forms
     /// <summary>
     ///  ورژنی که فرم باهاش ساخته شده
     /// </summary>
-    public string? VersionForm { get; set; } = "5510";
+    public string? VersionForm { get; set; } = "5550";
 
     /// <summary>
     ///  موجودیت
@@ -195,12 +195,20 @@ public SingleUploader Ref_ProfilePicture;
 public DxGrid? Grid_HR_EMP_EmployeeInfos;
 
 public Dropdown Ref_HR_EMP_EmployeeInfos_HR_EMP_EmployeesId;
+public Input<string?> Ref_HR_EMP_EmployeeInfos_BaseInfo_ORG_Companies;
 public Input<string?> Ref_HR_EMP_EmployeeInfos_FirstName;
 public Input<string?> Ref_HR_EMP_EmployeeInfos_LastName;
-public Input<string?> Ref_HR_EMP_EmployeeInfos_FatherName;
 public Input<string?> Ref_HR_EMP_EmployeeInfos_NationalCode;
+public Input<string?> Ref_HR_EMP_EmployeeInfos_EmployeeNo;
+public Input<string?> Ref_HR_EMP_EmployeeInfos_LastEmployeeNo;
+public Input<string?> Ref_HR_EMP_EmployeeInfos_EmployeePersonelNo;
+public Input<string?> Ref_HR_EMP_EmployeeInfos_EmployeeLastPersonelNo;
+public Input<string?> Ref_HR_EMP_EmployeeInfos_HR_EMP_Status;
+public Input<string?> Ref_HR_EMP_EmployeeInfos_FatherName;
 public Input<string?> Ref_HR_EMP_EmployeeInfos_IdCardNo;
-public Input<string?> Ref_HR_EMP_EmployeeInfos_IdCardSerialNo;
+public Input<string?> Ref_HR_EMP_EmployeeInfos_IdCardSerialNoSection1;
+public Input<string?> Ref_HR_EMP_EmployeeInfos_IdCardSerialNoSection2;
+public Input<string?> Ref_HR_EMP_EmployeeInfos_IdCardSerialNoSection3;
 public Dropdown Ref_HR_EMP_EmployeeInfos_BaseInfo_MaritalStatusId;
 public Dropdown Ref_HR_EMP_EmployeeInfos_CityOfIssue;
 public Dropdown Ref_HR_EMP_EmployeeInfos_CityOfBirth;
@@ -211,6 +219,8 @@ public Input<short?> Ref_HR_EMP_EmployeeInfos_BirthDateYYYY;
 public Input<DateTime?> Ref_HR_EMP_EmployeeInfos_BirthDate;
 public Input<int?> Ref_HR_EMP_EmployeeInfos_EmployeeAge;
 public Input<string?> Ref_HR_EMP_EmployeeInfos_EmployeeAgeText;
+public SingleUploader Ref_HR_EMP_EmployeeInfos_EmployeeWorkExperienceFile;
+public Input<string?> Ref_HR_EMP_EmployeeInfos_DateEmployeeWorkExperience_Fa;
 public Input<int?> Ref_HR_EMP_EmployeeInfos_EmployeeWorkExperience;
 public Input<string?> Ref_HR_EMP_EmployeeInfos_EmployeeWorkExperienceText;
 public Dropdown Ref_HR_EMP_EmployeeInfos_BaseInfo_GenderId;
@@ -232,7 +242,6 @@ public Input<string?> Ref_HR_EMP_EmployeeInfos_ContactEmployee_FullName;
 public Input<string?> Ref_HR_EMP_EmployeeInfos_ContactEmployee_Tel;
 public Dropdown Ref_HR_EMP_EmployeeInfos_HR_Base_ContactEmployeeRelativeId;
 public Input<string?> Ref_HR_EMP_EmployeeInfos_ContactEmployee_Address;
-public Input<bool?> Ref_HR_EMP_EmployeeInfos_IsActive;
 public Input<Guid> Ref_HR_EMP_EmployeeInfos_Id;
 public Input<Guid?> Ref_HR_EMP_EmployeeInfos_CreateUser;
 public Input<Guid?> Ref_HR_EMP_EmployeeInfos_RequestID;
@@ -240,12 +249,8 @@ public Input<Guid?> Ref_HR_EMP_EmployeeInfos_UpdateUser;
 public Input<DateTime?> Ref_HR_EMP_EmployeeInfos_CreateDate;
 public Input<DateTime?> Ref_HR_EMP_EmployeeInfos_UpdateDate;
 public Input<bool?> Ref_HR_EMP_EmployeeInfos_IsDelete;
-public Input<string?> Ref_HR_EMP_EmployeeInfos_EmployeeNo;
-public Input<string?> Ref_HR_EMP_EmployeeInfos_LastEmployeeNo;
-public Input<string?> Ref_HR_EMP_EmployeeInfos_EmployeePersonelNo;
-public Input<string?> Ref_HR_EMP_EmployeeInfos_EmployeeLastPersonelNo;
-public SingleUploader Ref_HR_EMP_EmployeeInfos_EmployeeWorkExperienceFile;
-public Input<string?> Ref_HR_EMP_EmployeeInfos_DateEmployeeWorkExperience_Fa;
+public Input<string?> Ref_HR_EMP_EmployeeInfos_BaseInfo_ORG_CompaniesId;
+public Input<string?> Ref_HR_EMP_EmployeeInfos_HR_EMP_StatusId;
 public DxGrid? Grid_HR_EMP_EmployeeFamileis;
 
 public Input<Guid> Ref_HR_EMP_EmployeeFamileis_Id;

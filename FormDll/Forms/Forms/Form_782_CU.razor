@@ -138,13 +138,13 @@
 /* ************************************************** */
 .input-ymd input {
     display: inline-block;
-    width: 80px;
+    max-width: 80px;
     background: none !important;
     border: none;
     color: #6c5ffc;
-    font-size: 24px;
+    font-size: 0px;
     text-align: center;
-    font-weight: 900;
+    font-weight: 700;
 }
 </style>
 
@@ -163,9 +163,7 @@
 <div class="@(ReadOnly?"FormReadOnly":"")">
     <EditForm @ref="_Form" Model="_Entity" OnSubmit="Submit">
         
-<div class="row ">
-    
-<div class="col-md-12">
+<div class="">
     <div  class="">
     <header class="form-header">
   <!-- عناصر تزئینی -->
@@ -182,13 +180,7 @@
 
 </div>
 
-<div class="col-md-12">
-    
-</div>
-
-</div>
-
-<div class="row col-bg">
+<div class="row col-bg pt-3">
     
 <div class="col-md-3">
     
@@ -218,16 +210,16 @@
 
 </div>
 
-<div class="row ">
+<div class="row pt-3">
     
 <div class="col-md-3">
      
  
 @code {
-    Baya.Models.ViewEngine.View_Component Component_HR_CVR_CeilingRightAttractionHR_ORG_SectionsId = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"EntityName\":\"سقف حق جذب\",\"primaryKey\":false,\"EntityID\":456,\"FieldId\":16638,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":782,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":false,\"RelationParentName\":\"HR_ORG_Sections\",\"RelationParentModel\":\"HR_ORG_Sections\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/HR_ORG_Sections/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.Title}} </span>\",\"FieldsTemplate\":[{\"key\":\"Title\",\"value\":\"int\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"modal\":true,\"label\":\"سریال قسمت\",\"tableView\":true,\"key\":\"HR_ORG_SectionsId\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"16638?EId=456&SubId=15\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
+    Baya.Models.ViewEngine.View_Component Component_HR_CVR_CeilingRightAttractionHR_ORG_SectionsId = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"EntityName\":\"سقف حق جذب\",\"primaryKey\":false,\"EntityID\":456,\"FieldId\":16638,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":782,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":true,\"RelationParentName\":\"HR_ORG_Sections\",\"RelationParentModel\":\"HR_ORG_Sections\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/View_HR_ORG_Sections/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.CompanieTitle}} {{item.HR_ORG_SectionTypesTitle}} {{item.HR_ORG_SectionsParentTitle}} {{item.Code}} {{item.Title}} </span>\",\"FieldsTemplate\":[{\"key\":\"Title\",\"value\":\"int\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"searchField\":\"ParentTitle,Code,Title\",\"modal\":true,\"label\":\"قسمت‌های سازمانی\",\"tableView\":true,\"key\":\"HR_ORG_SectionsId\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"16638?EId=456&SubId=15\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
 }
 
-    <Dropdown Id=HR_ORG_SectionsId  @ref="Ref_HR_ORG_SectionsId" Label="سریال قسمت" CssClass=""  DisplayFormat="DropDown" ExternalApi=false NotMapped=false TextGrid=false Text="" Value="@_Entity.HR_ORG_SectionsId" FieldName="HR_ORG_SectionsId" OnItemSelected="ItemSelected_HR_CVR_CeilingRightAttractionHR_ORG_SectionsId" Component="Component_HR_CVR_CeilingRightAttractionHR_ORG_SectionsId" _Entity="_Entity" >
+    <Dropdown Id=HR_ORG_SectionsId  @ref="Ref_HR_ORG_SectionsId" Label="قسمت‌های سازمانی" CssClass=""  DisplayFormat="DropDown" ExternalApi=true NotMapped=false TextGrid=false  Value="@_Entity.HR_ORG_SectionsId" FieldName="HR_ORG_SectionsId" OnItemSelected="ItemSelected_HR_CVR_CeilingRightAttractionHR_ORG_SectionsId" Component="Component_HR_CVR_CeilingRightAttractionHR_ORG_SectionsId" _Entity="_Entity" >
 </Dropdown>
 @code {
     public async Task ItemSelected_HR_CVR_CeilingRightAttractionHR_ORG_SectionsId(object _Item)
@@ -235,22 +227,7 @@
         var Selected = Utility.JSON.ToObject<dynamic>(Utility.JSON.ToJson(_Item).Result).Result;
      var Item = _Entity;
 
-      //Todo
- //برای اینکه آی دی تغییر کند اینجا نیز باید تغییر کند
- //بهتر است از پرایمیری کی استفاده شود
- if (_Item != null)
- {
-     Console.WriteLine(" Item Is Not Null");
     Item.HR_ORG_SectionsId = Selected.Id;
-    
- }
- else
- {
-     Console.WriteLine(" Item Is Null");
-      Item.HR_ORG_SectionsId =EntityHelper.SetPropertyNull(Item.HR_ORG_SectionsId);
- }
- Item.HR_ORG_Sections = await Utility.JSON.ToObject<Entity.HR_ORG_Sections>(await Utility.JSON.ToJson(_Item));
-    StateHasChanged();
 
 
     
@@ -261,10 +238,10 @@
  
  
 @code {
-    Baya.Models.ViewEngine.View_Component Component_HR_CVR_CeilingRightAttractionHR_CVR_JobGroupId = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"EntityName\":\"سقف حق جذب\",\"primaryKey\":false,\"EntityID\":456,\"FieldId\":16639,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":782,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":false,\"RelationParentName\":\"HR_CVR_JobGroup\",\"RelationParentModel\":\"HR_CVR_JobGroup\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/HR_CVR_JobGroup/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.Title}} </span>\",\"FieldsTemplate\":[{\"key\":\"Title\",\"value\":\"nvarchar(Max)\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"modal\":true,\"label\":\"گروه شغلی\",\"tableView\":true,\"key\":\"HR_CVR_JobGroupId\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"16639?EId=456&SubId=15\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
+    Baya.Models.ViewEngine.View_Component Component_HR_CVR_CeilingRightAttractionHR_CVR_JobGroupId = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"EntityName\":\"سقف حق جذب\",\"primaryKey\":false,\"EntityID\":456,\"FieldId\":16639,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":782,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":true,\"RelationParentName\":\"HR_CVR_JobGroup\",\"RelationParentModel\":\"HR_CVR_JobGroup\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/View_HR_CVR_JobGroup/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.HR_CVR_JobTitle}} {{item.Title}} </span>\",\"FieldsTemplate\":[{\"key\":\"Title\",\"value\":\"nvarchar(Max)\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"searchField\":\"HR_CVR_JobTitle,Title\",\"modal\":true,\"label\":\"گروه شغلی\",\"tableView\":true,\"key\":\"HR_CVR_JobGroupId\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"16639?EId=456&SubId=15\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
 }
 
-    <Dropdown Id=HR_CVR_JobGroupId  @ref="Ref_HR_CVR_JobGroupId" Label="گروه شغلی" CssClass=""  DisplayFormat="DropDown" ExternalApi=false NotMapped=false TextGrid=false Text="" Value="@_Entity.HR_CVR_JobGroupId" FieldName="HR_CVR_JobGroupId" OnItemSelected="ItemSelected_HR_CVR_CeilingRightAttractionHR_CVR_JobGroupId" Component="Component_HR_CVR_CeilingRightAttractionHR_CVR_JobGroupId" _Entity="_Entity" >
+    <Dropdown Id=HR_CVR_JobGroupId  @ref="Ref_HR_CVR_JobGroupId" Label="گروه شغلی" CssClass=""  DisplayFormat="DropDown" ExternalApi=true NotMapped=false TextGrid=false  Value="@_Entity.HR_CVR_JobGroupId" FieldName="HR_CVR_JobGroupId" OnItemSelected="ItemSelected_HR_CVR_CeilingRightAttractionHR_CVR_JobGroupId" Component="Component_HR_CVR_CeilingRightAttractionHR_CVR_JobGroupId" _Entity="_Entity" >
 </Dropdown>
 @code {
     public async Task ItemSelected_HR_CVR_CeilingRightAttractionHR_CVR_JobGroupId(object _Item)
@@ -272,22 +249,7 @@
         var Selected = Utility.JSON.ToObject<dynamic>(Utility.JSON.ToJson(_Item).Result).Result;
      var Item = _Entity;
 
-      //Todo
- //برای اینکه آی دی تغییر کند اینجا نیز باید تغییر کند
- //بهتر است از پرایمیری کی استفاده شود
- if (_Item != null)
- {
-     Console.WriteLine(" Item Is Not Null");
     Item.HR_CVR_JobGroupId = Selected.Id;
-    
- }
- else
- {
-     Console.WriteLine(" Item Is Null");
-      Item.HR_CVR_JobGroupId =EntityHelper.SetPropertyNull(Item.HR_CVR_JobGroupId);
- }
- Item.HR_CVR_JobGroup = await Utility.JSON.ToObject<Entity.HR_CVR_JobGroup>(await Utility.JSON.ToJson(_Item));
-    StateHasChanged();
 
 
     
@@ -344,8 +306,8 @@
     {
         Console.WriteLine("#log OnInitializedAsync");
 
-        TableGet = await Utility.JSON.ToObject<Table>("{\"Name\":\"HR_CVR_CeilingRightAttraction\",\"GetNameAs\":\"HR_CVR_CeilingRightAttraction\",\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"RequestID\",\"GetNameAs\":\"RequestID\"},{\"Name\":\"CreateUser\",\"GetNameAs\":\"CreateUser\"},{\"Name\":\"UpdateUser\",\"GetNameAs\":\"UpdateUser\"},{\"Name\":\"CreateDate\",\"GetNameAs\":\"CreateDate\"},{\"Name\":\"UpdateDate\",\"GetNameAs\":\"UpdateDate\"},{\"Name\":\"IsDelete\",\"GetNameAs\":\"IsDelete\"},{\"Name\":\"CalculationStartYear\",\"GetNameAs\":\"CalculationStartYear\"},{\"Name\":\"HR_ORG_SectionsId\",\"GetNameAs\":\"HR_ORG_SectionsId\"},{\"Name\":\"HR_CVR_JobGroupId\",\"GetNameAs\":\"HR_CVR_JobGroupId\"},{\"Name\":\"JobWagePercentage\",\"GetNameAs\":\"JobWagePercentage\"},{\"Name\":\"CalculationStartMonth\",\"GetNameAs\":\"CalculationStartMonth\"},{\"Name\":\"CalculationStartDay\",\"GetNameAs\":\"CalculationStartDay\"},{\"Name\":\"StartDate_Fa\",\"GetNameAs\":\"StartDate_Fa\"},{\"Name\":\"StartDate\",\"GetNameAs\":\"StartDate\"}],\"Relation\":[{\"Name\":\"HR_CVR_JobGroup\",\"GetNameAs\":\"HR_CVR_JobGroup\",\"ModeErtebat\":1,\"Column\":[{\"Name\":\"HR_CVR_JobId\",\"GetNameAs\":\"HR_CVR_JobId\"},{\"Name\":\"Title\",\"GetNameAs\":\"Title\"},{\"Name\":\"Lvl\",\"GetNameAs\":\"Lvl\"}],\"Relation\":[]},{\"Name\":\"HR_ORG_Sections\",\"GetNameAs\":\"HR_ORG_Sections\",\"ModeErtebat\":1,\"Column\":[{\"Name\":\"HR_EMP_EmployeesId\",\"GetNameAs\":\"HR_EMP_EmployeesId\"},{\"Name\":\"Status\",\"GetNameAs\":\"Status\"},{\"Name\":\"Title\",\"GetNameAs\":\"Title\"},{\"Name\":\"TitleEn\",\"GetNameAs\":\"TitleEn\"},{\"Name\":\"Description\",\"GetNameAs\":\"Description\"},{\"Name\":\"Code\",\"GetNameAs\":\"Code\"},{\"Name\":\"DeleteDateTime\",\"GetNameAs\":\"DeleteDateTime\"},{\"Name\":\"HR_ORG_SitesId\",\"GetNameAs\":\"HR_ORG_SitesId\"},{\"Name\":\"HR_ORG_SectionTypesId\",\"GetNameAs\":\"HR_ORG_SectionTypesId\"},{\"Name\":\"HR_Base_TaxCategoryId\",\"GetNameAs\":\"HR_Base_TaxCategoryId\"},{\"Name\":\"HR_ORG_SectionStatusId\",\"GetNameAs\":\"HR_ORG_SectionStatusId\"},{\"Name\":\"ParentId\",\"GetNameAs\":\"ParentId\"},{\"Name\":\"BaseInfo_ORG_SitesId\",\"GetNameAs\":\"BaseInfo_ORG_SitesId\"},{\"Name\":\"BaseInfo_TaxCategoryId\",\"GetNameAs\":\"BaseInfo_TaxCategoryId\"},{\"Name\":\"BaseInfo_ORG_CompaniesId\",\"GetNameAs\":\"BaseInfo_ORG_CompaniesId\"}],\"Relation\":[]}]}");
-        TablePost = await Utility.JSON.ToObject<Table>("{\"Name\":\"HR_CVR_CeilingRightAttraction\",\"GetNameAs\":\"HR_CVR_CeilingRightAttraction\",\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"RequestID\",\"GetNameAs\":\"RequestID\"},{\"Name\":\"CreateUser\",\"GetNameAs\":\"CreateUser\"},{\"Name\":\"UpdateUser\",\"GetNameAs\":\"UpdateUser\"},{\"Name\":\"CreateDate\",\"GetNameAs\":\"CreateDate\"},{\"Name\":\"UpdateDate\",\"GetNameAs\":\"UpdateDate\"},{\"Name\":\"IsDelete\",\"GetNameAs\":\"IsDelete\"},{\"Name\":\"CalculationStartYear\",\"GetNameAs\":\"CalculationStartYear\"},{\"Name\":\"HR_ORG_SectionsId\",\"GetNameAs\":\"HR_ORG_SectionsId\"},{\"Name\":\"HR_CVR_JobGroupId\",\"GetNameAs\":\"HR_CVR_JobGroupId\"},{\"Name\":\"JobWagePercentage\",\"GetNameAs\":\"JobWagePercentage\"},{\"Name\":\"CalculationStartMonth\",\"GetNameAs\":\"CalculationStartMonth\"},{\"Name\":\"CalculationStartDay\",\"GetNameAs\":\"CalculationStartDay\"},{\"Name\":\"StartDate_Fa\",\"GetNameAs\":\"StartDate_Fa\"},{\"Name\":\"StartDate\",\"GetNameAs\":\"StartDate\"}],\"Relation\":[]}");
+        TableGet = await Utility.JSON.ToObject<Table>("{\"Name\":\"HR_CVR_CeilingRightAttraction\",\"GetNameAs\":\"HR_CVR_CeilingRightAttraction\",\"Column\":[{\"Name\":\"StartDate_Fa\",\"GetNameAs\":\"StartDate_Fa\"},{\"Name\":\"StartDate\",\"GetNameAs\":\"StartDate\"},{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"RequestID\",\"GetNameAs\":\"RequestID\"},{\"Name\":\"CreateUser\",\"GetNameAs\":\"CreateUser\"},{\"Name\":\"UpdateUser\",\"GetNameAs\":\"UpdateUser\"},{\"Name\":\"CreateDate\",\"GetNameAs\":\"CreateDate\"},{\"Name\":\"UpdateDate\",\"GetNameAs\":\"UpdateDate\"},{\"Name\":\"IsDelete\",\"GetNameAs\":\"IsDelete\"},{\"Name\":\"CalculationStartYear\",\"GetNameAs\":\"CalculationStartYear\"},{\"Name\":\"HR_ORG_SectionsId\",\"GetNameAs\":\"HR_ORG_SectionsId\"},{\"Name\":\"HR_CVR_JobGroupId\",\"GetNameAs\":\"HR_CVR_JobGroupId\"},{\"Name\":\"JobWagePercentage\",\"GetNameAs\":\"JobWagePercentage\"},{\"Name\":\"CalculationStartMonth\",\"GetNameAs\":\"CalculationStartMonth\"},{\"Name\":\"CalculationStartDay\",\"GetNameAs\":\"CalculationStartDay\"}],\"Relation\":[{\"Name\":\"HR_ORG_Sections\",\"GetNameAs\":\"HR_ORG_Sections\",\"ModeErtebat\":1,\"Column\":[{\"Name\":\"HR_EMP_EmployeesId\",\"GetNameAs\":\"HR_EMP_EmployeesId\"},{\"Name\":\"Status\",\"GetNameAs\":\"Status\"},{\"Name\":\"Title\",\"GetNameAs\":\"Title\"},{\"Name\":\"TitleEn\",\"GetNameAs\":\"TitleEn\"},{\"Name\":\"Description\",\"GetNameAs\":\"Description\"},{\"Name\":\"Code\",\"GetNameAs\":\"Code\"},{\"Name\":\"DeleteDateTime\",\"GetNameAs\":\"DeleteDateTime\"},{\"Name\":\"HR_ORG_SitesId\",\"GetNameAs\":\"HR_ORG_SitesId\"},{\"Name\":\"HR_ORG_SectionTypesId\",\"GetNameAs\":\"HR_ORG_SectionTypesId\"},{\"Name\":\"HR_Base_TaxCategoryId\",\"GetNameAs\":\"HR_Base_TaxCategoryId\"},{\"Name\":\"HR_ORG_SectionStatusId\",\"GetNameAs\":\"HR_ORG_SectionStatusId\"},{\"Name\":\"ParentId\",\"GetNameAs\":\"ParentId\"},{\"Name\":\"BaseInfo_ORG_SitesId\",\"GetNameAs\":\"BaseInfo_ORG_SitesId\"},{\"Name\":\"BaseInfo_TaxCategoryId\",\"GetNameAs\":\"BaseInfo_TaxCategoryId\"},{\"Name\":\"BaseInfo_ORG_CompaniesId\",\"GetNameAs\":\"BaseInfo_ORG_CompaniesId\"}],\"Relation\":[]},{\"Name\":\"HR_CVR_JobGroup\",\"GetNameAs\":\"HR_CVR_JobGroup\",\"ModeErtebat\":1,\"Column\":[{\"Name\":\"HR_CVR_JobId\",\"GetNameAs\":\"HR_CVR_JobId\"},{\"Name\":\"Title\",\"GetNameAs\":\"Title\"},{\"Name\":\"Lvl\",\"GetNameAs\":\"Lvl\"}],\"Relation\":[]}]}");
+        TablePost = await Utility.JSON.ToObject<Table>("{\"Name\":\"HR_CVR_CeilingRightAttraction\",\"GetNameAs\":\"HR_CVR_CeilingRightAttraction\",\"Column\":[{\"Name\":\"StartDate_Fa\",\"GetNameAs\":\"StartDate_Fa\"},{\"Name\":\"StartDate\",\"GetNameAs\":\"StartDate\"},{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"RequestID\",\"GetNameAs\":\"RequestID\"},{\"Name\":\"CreateUser\",\"GetNameAs\":\"CreateUser\"},{\"Name\":\"UpdateUser\",\"GetNameAs\":\"UpdateUser\"},{\"Name\":\"CreateDate\",\"GetNameAs\":\"CreateDate\"},{\"Name\":\"UpdateDate\",\"GetNameAs\":\"UpdateDate\"},{\"Name\":\"IsDelete\",\"GetNameAs\":\"IsDelete\"},{\"Name\":\"CalculationStartYear\",\"GetNameAs\":\"CalculationStartYear\"},{\"Name\":\"HR_ORG_SectionsId\",\"GetNameAs\":\"HR_ORG_SectionsId\"},{\"Name\":\"HR_CVR_JobGroupId\",\"GetNameAs\":\"HR_CVR_JobGroupId\"},{\"Name\":\"JobWagePercentage\",\"GetNameAs\":\"JobWagePercentage\"},{\"Name\":\"CalculationStartMonth\",\"GetNameAs\":\"CalculationStartMonth\"},{\"Name\":\"CalculationStartDay\",\"GetNameAs\":\"CalculationStartDay\"}],\"Relation\":[]}");
 
         config = CKEditorBundleOptions.DefaultConfig.WithHtmlEditing();
         config.Language = "fa";

@@ -139,13 +139,13 @@
 /* ************************************************** */
 .input-ymd input {
     display: inline-block;
-    width: 80px;
+    max-width: 80px;
     background: none !important;
     border: none;
     color: #6c5ffc;
-    font-size: 24px;
+    font-size: 0px;
     text-align: center;
-    font-weight: 900;
+    font-weight: 700;
 }
 </style>
 
@@ -242,15 +242,15 @@
 
 <DxGridDataColumn  Caption="سال شروع محاسبه"  FieldName="CalculationStartYear" />
 
-<DxGridDataColumn Context="HR_ORG_SectionsId_" Caption="سریال قسمت" >
+<DxGridDataColumn Context="HR_ORG_SectionsId_" Caption="قسمت‌های سازمانی" >
     <CellDisplayTemplate>
        
 @{
-    Baya.Models.ViewEngine.View_Component HeaderHR_ORG_SectionsId = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"primaryKey\":false,\"EntityID\":456,\"FieldId\":16638,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":782,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":false,\"RelationParentName\":\"HR_ORG_Sections\",\"RelationParentModel\":\"HR_ORG_Sections\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/HR_ORG_Sections/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.Title}} </span>\",\"FieldsTemplate\":[{\"key\":\"Title\",\"value\":\"int\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"modal\":true,\"label\":\"سریال قسمت\",\"tableView\":true,\"key\":\"HR_ORG_SectionsId\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"16638?EId=456&SubId=15\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
+    Baya.Models.ViewEngine.View_Component HeaderHR_ORG_SectionsId = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"primaryKey\":false,\"EntityID\":456,\"FieldId\":16638,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":782,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":true,\"RelationParentName\":\"HR_ORG_Sections\",\"RelationParentModel\":\"HR_ORG_Sections\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/View_HR_ORG_Sections/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.CompanieTitle}} {{item.HR_ORG_SectionTypesTitle}} {{item.HR_ORG_SectionsParentTitle}} {{item.Code}} {{item.Title}} </span>\",\"FieldsTemplate\":[{\"key\":\"Title\",\"value\":\"int\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"searchField\":\"ParentTitle,Code,Title\",\"modal\":true,\"label\":\"قسمت‌های سازمانی\",\"tableView\":true,\"key\":\"HR_ORG_SectionsId\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"16638?EId=456&SubId=15\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
     var RowHR_ORG_SectionsId = ((Entity.HR_CVR_CeilingRightAttraction)HR_ORG_SectionsId_.DataItem).HR_ORG_SectionsId;
 }
 
-<Dropdown ExternalApi=false CssClass="" NotMapped=false TextGrid=true Value="@RowHR_ORG_SectionsId"   FieldName="HR_ORG_SectionsId" OnItemSelected="ItemSelected_HR_CVR_CeilingRightAttractionHR_ORG_SectionsId_Header" Component="HeaderHR_ORG_SectionsId">
+<Dropdown ExternalApi=true CssClass="" NotMapped=false TextGrid=true Value="@RowHR_ORG_SectionsId"   FieldName="HR_ORG_SectionsId" OnItemSelected="ItemSelected_HR_CVR_CeilingRightAttractionHR_ORG_SectionsId_Header" Component="HeaderHR_ORG_SectionsId">
 </Dropdown>
 @code {
     public async Task ItemSelected_HR_CVR_CeilingRightAttractionHR_ORG_SectionsId_Header(object _Item)
@@ -272,11 +272,11 @@
     <CellDisplayTemplate>
        
 @{
-    Baya.Models.ViewEngine.View_Component HeaderHR_CVR_JobGroupId = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"primaryKey\":false,\"EntityID\":456,\"FieldId\":16639,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":782,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":false,\"RelationParentName\":\"HR_CVR_JobGroup\",\"RelationParentModel\":\"HR_CVR_JobGroup\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/HR_CVR_JobGroup/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.Title}} </span>\",\"FieldsTemplate\":[{\"key\":\"Title\",\"value\":\"nvarchar(Max)\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"modal\":true,\"label\":\"گروه شغلی\",\"tableView\":true,\"key\":\"HR_CVR_JobGroupId\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"16639?EId=456&SubId=15\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
+    Baya.Models.ViewEngine.View_Component HeaderHR_CVR_JobGroupId = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"primaryKey\":false,\"EntityID\":456,\"FieldId\":16639,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":782,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":true,\"RelationParentName\":\"HR_CVR_JobGroup\",\"RelationParentModel\":\"HR_CVR_JobGroup\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/View_HR_CVR_JobGroup/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.HR_CVR_JobTitle}} {{item.Title}} </span>\",\"FieldsTemplate\":[{\"key\":\"Title\",\"value\":\"nvarchar(Max)\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"searchField\":\"HR_CVR_JobTitle,Title\",\"modal\":true,\"label\":\"گروه شغلی\",\"tableView\":true,\"key\":\"HR_CVR_JobGroupId\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"16639?EId=456&SubId=15\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
     var RowHR_CVR_JobGroupId = ((Entity.HR_CVR_CeilingRightAttraction)HR_CVR_JobGroupId_.DataItem).HR_CVR_JobGroupId;
 }
 
-<Dropdown ExternalApi=false CssClass="" NotMapped=false TextGrid=true Value="@RowHR_CVR_JobGroupId"   FieldName="HR_CVR_JobGroupId" OnItemSelected="ItemSelected_HR_CVR_CeilingRightAttractionHR_CVR_JobGroupId_Header" Component="HeaderHR_CVR_JobGroupId">
+<Dropdown ExternalApi=true CssClass="" NotMapped=false TextGrid=true Value="@RowHR_CVR_JobGroupId"   FieldName="HR_CVR_JobGroupId" OnItemSelected="ItemSelected_HR_CVR_CeilingRightAttractionHR_CVR_JobGroupId_Header" Component="HeaderHR_CVR_JobGroupId">
 </Dropdown>
 @code {
     public async Task ItemSelected_HR_CVR_CeilingRightAttractionHR_CVR_JobGroupId_Header(object _Item)
@@ -585,9 +585,7 @@ MainModel.UpdateDate = ((Entity.HR_CVR_CeilingRightAttraction)EditModel).UpdateD
 MainModel.IsDelete = ((Entity.HR_CVR_CeilingRightAttraction)EditModel).IsDelete;
 MainModel.CalculationStartYear = ((Entity.HR_CVR_CeilingRightAttraction)EditModel).CalculationStartYear;
 MainModel.HR_ORG_SectionsId = ((Entity.HR_CVR_CeilingRightAttraction)EditModel).HR_ORG_SectionsId;
-MainModel.HR_ORG_Sections = ((Entity.HR_CVR_CeilingRightAttraction)EditModel).HR_ORG_Sections;
 MainModel.HR_CVR_JobGroupId = ((Entity.HR_CVR_CeilingRightAttraction)EditModel).HR_CVR_JobGroupId;
-MainModel.HR_CVR_JobGroup = ((Entity.HR_CVR_CeilingRightAttraction)EditModel).HR_CVR_JobGroup;
 MainModel.JobWagePercentage = ((Entity.HR_CVR_CeilingRightAttraction)EditModel).JobWagePercentage;
 MainModel.CalculationStartMonth = ((Entity.HR_CVR_CeilingRightAttraction)EditModel).CalculationStartMonth;
 MainModel.CalculationStartDay = ((Entity.HR_CVR_CeilingRightAttraction)EditModel).CalculationStartDay;
@@ -921,9 +919,9 @@ public async void RowDubbleClickGrid_HR_CVR_CeilingRightAttraction(GridRowClickE
             await InvokeAsync(StateHasChanged);
             await Task.Yield();
             QueryFilter = new QueryBuilderFilterRule();
-            if ("{}" != "null" || "{}" != "{}")
+            if ("{\"Condition\":\"OR\",\"Rules\":[{\"Field\":\"StartDate_Fa\",\"Id\":\"29987\",\"Input\":\"text\",\"Operator\":\"not_equal\",\"Type\":\"date\",\"Value\":[]}]}" != "null" || "{\"Condition\":\"OR\",\"Rules\":[{\"Field\":\"StartDate_Fa\",\"Id\":\"29987\",\"Input\":\"text\",\"Operator\":\"not_equal\",\"Type\":\"date\",\"Value\":[]}]}" != "{}")
             {
-                QueryFilter = await JSON.ToObject<QueryBuilderFilterRule>("{}");
+                QueryFilter = await JSON.ToObject<QueryBuilderFilterRule>("{\"Condition\":\"OR\",\"Rules\":[{\"Field\":\"StartDate_Fa\",\"Id\":\"29987\",\"Input\":\"text\",\"Operator\":\"not_equal\",\"Type\":\"date\",\"Value\":[]}]}");
 
             }
 

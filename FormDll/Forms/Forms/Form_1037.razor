@@ -20,14 +20,24 @@
 }
 
 /* ************************************************** */
-.col-bg {
-    background: #93b0ff0d;
-    border: 1px dashed #6c5ffc45;
-    border-radius: 8px;
-    padding-top: 0.5rem;
-    padding-bottom: 0.5rem;
-    margin-right: 0;
-    margin-left: 0;
+.dxbl-grid-table .htmlvisible {
+    display: none !important;
+}
+
+.dxbl-grid-table .dxbl-grid-header .htmlvisible {
+    display: none !important;
+}
+
+.dxbl-grid-table th .htmlvisible {
+    display: none !important;
+}
+
+.dxbl-grid-table tr .htmlvisible {
+    display: none !important;
+}
+
+.dxbl-grid-table td .htmlvisible {
+    display: none !important;
 }
 
 /* ************************************************** */
@@ -148,15 +158,30 @@
     font-weight: 900;
 }
 
-/* ************************************************** */
-
-.avatar {
+.input-view input {
     display: inline-block;
-    max-width: 10em !important;
+    max-width: 130px !important;
+    background: none !important;
+    border: none;
+    color: #1a1a1c;
+    font-size: 16px;
+    text-align: start;
+    font-weight: 650;
 }
 
-.avatar div * {
-    display: none;
+.input-view button {
+    display: inline-block;
+    max-width: 130px !important;
+    background: none !important;
+    border: none;
+    color: #1a1a1c;
+    font-size: 16px;
+    text-align: start;
+    font-weight: 650;
+}
+
+.lrt-input input {
+    direction: ltr !important;
 }
 
 /* ************************************************** */
@@ -169,18 +194,13 @@
 }
 
 /* ************************************************** */
-.lrt-input input {
-    direction: ltr !important;
-}
-
-/* ************************************************** */
 /* عکس پرسنلی */
 
 .PersonnalPicture {
     padding: 8px;
     background: #fff;
     border-radius: 16px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+    /* box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05); */
     transition: all 0.3s ease;
     max-width: 200px !important;
     max-height: 250px !important;
@@ -190,19 +210,15 @@
 .PersonnalPicture .PersonnalPictureList {
     border-radius: 12px !important;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.5) !important;
-    max-width: 145px !important;
-    max-height: 200px !important;
+    max-width: 100px !important;
+    max-height: 120px !important;
 }
 
 .PersonnalPictureList {
     border-radius: 5px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     max-width: 65px;
-    max-height: 100px;
-}
-
-.PersonnalPictureList div * {
-    display: none;
+    max-height: 100 px;
 }
 
 .PersonnalPicture .PersonnalPictureList:hover {
@@ -211,12 +227,12 @@
     filter: brightness(1.08);
 }
 
-.profilebtn {
-    display: none;
+td .picprofilebtn {
+    display: none !important;
 }
 
-.profilelink {
-    display: none;
+.PersonnalPicture .btn-red {
+    display: none !important;
 }
 
 /* ************************************************** */
@@ -243,7 +259,7 @@
 
 /* ************************************************** */
 .pdfimg {
-    max-width: 70px;
+    max-width: 55px;
 }
 
 /* ************************************************** */
@@ -252,6 +268,23 @@
 }
 
 /* ************************************************** */
+.rowheader {
+    /* --bs-gutter-x: 1.5rem; */
+    --bs-gutter-y: 0;
+    display: flex;
+    /* flex-wrap: wrap; */
+    margin-top: calc(-1 * var(--bs-gutter-y));
+    margin-right: calc(-.5 * var(--bs-gutter-x));
+    margin-left: calc(-.5 * var(--bs-gutter-x));
+}
+
+/* ************************************************** */
+.ModalWidth {
+    /* max-width: 1700px !important; */
+    max-width: 100% !important;
+    width: 95% !important;
+    min-width: 800px !important;
+}
 </style>
 
 <div class="@(ReadOnly?"FormReadOnly":"")">
@@ -288,7 +321,7 @@
         EditFormButtonsVisible="false"
         CustomizeEditModel="CustomizeEditGrid_HR_EMP_Employees"
         CustomizeElement="CustomizeRowsGrid_HR_EMP_Employees" 
-        Component="@((Utility.JSON.ToObject<View_Component>("{\"primaryKey\":false,\"EntityID\":383,\"FieldId\":0,\"ViewId\":1037,\"NotMapped\":false,\"Relation\":false,\"RelationExternal\":false,\"RelationChildModel\":\"HR_EMP_Employees\",\"GridMainModel\":\"HR_EMP_Employees\",\"widget\":{\"altInput\":false,\"allowInput\":false,\"clickOpens\":false,\"enableDate\":false,\"enableTime\":false,\"noCalendar\":false,\"useLocaleSettings\":false,\"hourIncrement\":0,\"minuteIncrement\":0,\"time_24hr\":false},\"data\":{},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"FieldsTemplate\":[],\"refreshOn\":\"data\",\"reorder\":false,\"addAnotherPosition\":\"bottom\",\"layoutFixed\":false,\"enableRowGroups\":false,\"initEmpty\":false,\"modal\":true,\"StartCustomDataGrid\":true,\"label\":\"کارمندان\",\"tableView\":false,\"key\":\"HR_EMP_Employees\",\"type\":\"datagrid\",\"input\":true,\"modalEdit\":false,\"decimalLimit\":0,\"searchEnabled\":true,\"keyModified\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result))"
+        Component="@((Utility.JSON.ToObject<View_Component>("{\"primaryKey\":false,\"EntityID\":383,\"FieldId\":0,\"ViewId\":1037,\"NotMapped\":false,\"Relation\":false,\"RelationExternal\":false,\"RelationChildModel\":\"HR_EMP_Employees\",\"GridMainModel\":\"HR_EMP_Employees\",\"widget\":{\"altInput\":false,\"allowInput\":false,\"clickOpens\":false,\"enableDate\":false,\"enableTime\":false,\"noCalendar\":false,\"useLocaleSettings\":false,\"hourIncrement\":0,\"minuteIncrement\":0,\"time_24hr\":false},\"data\":{},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"FieldsTemplate\":[],\"refreshOn\":\"data\",\"reorder\":false,\"addAnotherPosition\":\"bottom\",\"layoutFixed\":false,\"enableRowGroups\":false,\"initEmpty\":false,\"modal\":true,\"StartCustomDataGrid\":true,\"label\":\"کارمندان\",\"tableView\":false,\"key\":\"HR_EMP_Employees\",\"type\":\"datagrid\",\"input\":true,\"modalEdit\":false,\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result))"
          >
     <Columns>
     
@@ -357,9 +390,9 @@
 
     </CellDisplayTemplate>
 </DxGridDataColumn>
-<DxGridDataColumn  Caption="نام خانوادگی"  FieldName="LastName" />
-
 <DxGridDataColumn  Caption="نام"  FieldName="FirstName" />
+
+<DxGridDataColumn  Caption="نام خانوادگی"  FieldName="LastName" />
 
 <DxGridDataColumn  Caption="کد ملی"  FieldName="NationalCode" />
 
@@ -404,7 +437,11 @@
     var HR_EMP_Employees_ProfilePicture = (Entity.HR_EMP_Employees)ProfilePicture_.DataItem;
 }
 <SingleUploader Editable="false"  uploadedLink="@HR_EMP_Employees_ProfilePicture.ProfilePicture" uploadUrl="https://File.workcv.ir/fa/api/v1/File/Post" htmlTemplate="<img class='img-fluid PersonnalPictureList' src='##url##'/>
-<div><a class='btn btn-green profilelink' href='##url##' ><span class='fal fa-download profilebtn'></span></a></div>" FileChanged="@((url) => HR_EMP_Employees_ProfilePicture.ProfilePicture = url)" Caption="عکس پرسنلی" />
+<div class='picprofilebtn'>
+    <a class='btn btn-green profilelink' href='##url##' >
+        <span class='fal fa-download profilebtn'></span>
+    </a>
+</div>" FileChanged="@((url) => HR_EMP_Employees_ProfilePicture.ProfilePicture = url)" Caption="عکس پرسنلی" />
 
 
     </CellDisplayTemplate>
@@ -696,8 +733,8 @@ public void SaveGrid_HR_EMP_Employees(object DataItem, object EditModel)
     if (MainModel != null)
     {
 MainModel.BaseInfo_ORG_CompaniesId = ((Entity.HR_EMP_Employees)EditModel).BaseInfo_ORG_CompaniesId;
-MainModel.LastName = ((Entity.HR_EMP_Employees)EditModel).LastName;
 MainModel.FirstName = ((Entity.HR_EMP_Employees)EditModel).FirstName;
+MainModel.LastName = ((Entity.HR_EMP_Employees)EditModel).LastName;
 MainModel.NationalCode = ((Entity.HR_EMP_Employees)EditModel).NationalCode;
 MainModel.EmployeeNo = ((Entity.HR_EMP_Employees)EditModel).EmployeeNo;
 MainModel.LastEmployeeNo = ((Entity.HR_EMP_Employees)EditModel).LastEmployeeNo;

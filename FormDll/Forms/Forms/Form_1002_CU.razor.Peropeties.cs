@@ -144,7 +144,7 @@ namespace Forms.Forms
     /// <summary>
     ///  ورژنی که فرم باهاش ساخته شده
     /// </summary>
-    public string? VersionForm { get; set; } = "5510";
+    public string? VersionForm { get; set; } = "5550";
 
     /// <summary>
     ///  موجودیت
@@ -239,14 +239,19 @@ public Input<string?> Ref_HR_CVR_RecruitmentRules_BaseInfo_MilitaryStatusId;
 public Input<string?> Ref_HR_CVR_RecruitmentRules_InsuranceNumber;
 public Input<string?> Ref_HR_CVR_RecruitmentRules_BankAccountNumber;
 public Input<string?> Ref_HR_CVR_RecruitmentRules_IBAN;
-public Dropdown Ref_HR_CVR_RecruitmentRules_HR_ORG_SectionsId;
-public Dropdown Ref_HR_CVR_RecruitmentRules_HR_ORG_PostsId;
-public Dropdown Ref_HR_CVR_RecruitmentRules_HR_CVR_ApprovalsMinistryLaborGroupId;
-public Dropdown Ref_HR_CVR_RecruitmentRules_HR_CVR_JobId;
-public Dropdown Ref_HR_CVR_RecruitmentRules_HR_CVR_JobGroupId;
+public Dropdown Ref_HR_CVR_RecruitmentRules_HR_CVR_CeilingRightAttractionId;
 public Dropdown Ref_HR_CVR_RecruitmentRules_HR_CVR_JobSalaryRankId;
-public Dropdown Ref_HR_CVR_RecruitmentRules_HR_CVR_RightGuardianshipId;
 public Dropdown Ref_HR_CVR_RecruitmentRules_HR_CVR_SalaryHistoryId;
+public Dropdown Ref_HR_CVR_RecruitmentRules_HR_CVR_ApprovalsMinistryLaborGroupId;
+public Dropdown Ref_HR_CVR_RecruitmentRules_HR_CVR_RightGuardianshipId;
+public Dropdown Ref_HR_CVR_RecruitmentRules_HR_ORG_SectionsId;
+public Dropdown Ref_HR_CVR_RecruitmentRules_HR_ORG_SectionsIdNew;
+public Dropdown Ref_HR_CVR_RecruitmentRules_HR_ORG_PostsId;
+public Dropdown Ref_HR_CVR_RecruitmentRules_HR_ORG_PostsIdNew;
+public Dropdown Ref_HR_CVR_RecruitmentRules_HR_CVR_JobId;
+public Dropdown Ref_HR_CVR_RecruitmentRules_HR_CVR_JobIdNew;
+public Dropdown Ref_HR_CVR_RecruitmentRules_HR_CVR_JobGroupId;
+public Dropdown Ref_HR_CVR_RecruitmentRules_HR_CVR_JobGroupIdNew;
 public Input<int?> Ref_HR_CVR_RecruitmentRules_EmployeeChildrenCount;
 public Input<bool?> Ref_HR_CVR_RecruitmentRules_IsChildAllowanceGrantedToEmployee;
 public Input<string?> Ref_HR_CVR_RecruitmentRules_FirstChildAllowanceEstablishmentDate_Fa;

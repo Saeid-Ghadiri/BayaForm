@@ -144,7 +144,7 @@ namespace Forms.Forms
     /// <summary>
     ///  ورژنی که فرم باهاش ساخته شده
     /// </summary>
-    public string? VersionForm { get; set; } = "5510";
+    public string? VersionForm { get; set; } = "5550";
 
     /// <summary>
     ///  موجودیت
@@ -180,23 +180,24 @@ namespace Forms.Forms
     #region FormProperty
 
 public Dropdown Ref_BaseInfo_ORG_CompaniesId;
-public Input<string?> Ref_FirstName;
-public Input<string?> Ref_LastName;
 public Input<string?> Ref_NationalCode;
-public Input<string?> Ref_EmployeeNo;
-public Input<string?> Ref_LastEmployeeNo;
 public Input<string?> Ref_EmployeePersonelNo;
+public Input<string?> Ref_FirstName;
+public Input<string?> Ref_EmployeeNo;
 public Input<string?> Ref_EmployeeLastPersonelNo;
+public Input<string?> Ref_LastName;
+public Input<string?> Ref_LastEmployeeNo;
 public Dropdown Ref_HR_EMP_StatusId;
+public SingleUploader Ref_ProfilePicture;
 public ElementReference Ref_ExportToXLSEpmloees;
 public ElementReference Ref_ExportToCSVEpmloees;
-public SingleUploader Ref_ProfilePicture;
 public DxGrid? Grid_HR_EMP_EmployeeInfos;
 
 public Input<string?> Ref_HR_EMP_EmployeeInfos_BaseInfo_ORG_Companies;
 public Input<string?> Ref_HR_EMP_EmployeeInfos_BaseInfo_ORG_CompaniesId;
 public Input<string?> Ref_HR_EMP_EmployeeInfos_FirstName;
 public Input<string?> Ref_HR_EMP_EmployeeInfos_LastName;
+public Input<string?> Ref_HR_EMP_EmployeeInfos_NationalCode;
 public Input<string?> Ref_HR_EMP_EmployeeInfos_EmployeeNo;
 public Input<string?> Ref_HR_EMP_EmployeeInfos_LastEmployeeNo;
 public Input<string?> Ref_HR_EMP_EmployeeInfos_EmployeePersonelNo;
@@ -204,9 +205,10 @@ public Input<string?> Ref_HR_EMP_EmployeeInfos_EmployeeLastPersonelNo;
 public Input<string?> Ref_HR_EMP_EmployeeInfos_HR_EMP_Status;
 public Input<string?> Ref_HR_EMP_EmployeeInfos_HR_EMP_StatusId;
 public Input<string?> Ref_HR_EMP_EmployeeInfos_FatherName;
-public Input<string?> Ref_HR_EMP_EmployeeInfos_NationalCode;
 public Input<string?> Ref_HR_EMP_EmployeeInfos_IdCardNo;
-public Input<string?> Ref_HR_EMP_EmployeeInfos_IdCardSerialNo;
+public Input<string?> Ref_HR_EMP_EmployeeInfos_IdCardSerialNoSection1;
+public Input<string?> Ref_HR_EMP_EmployeeInfos_IdCardSerialNoSection2;
+public Input<string?> Ref_HR_EMP_EmployeeInfos_IdCardSerialNoSection3;
 public Dropdown Ref_HR_EMP_EmployeeInfos_BaseInfo_MaritalStatusId;
 public Dropdown Ref_HR_EMP_EmployeeInfos_CityOfIssue;
 public Dropdown Ref_HR_EMP_EmployeeInfos_CityOfBirth;
@@ -238,9 +240,9 @@ public Input<bool?> Ref_HR_EMP_EmployeeInfos_MartyrsFamily;
 public Input<bool?> Ref_HR_EMP_EmployeeInfos_MartyrsChild;
 public Input<bool?> Ref_HR_EMP_EmployeeInfos_MazadTahsilJebhe6Mah;
 public Input<bool?> Ref_HR_EMP_EmployeeInfos_GordanAshoora;
+public Dropdown Ref_HR_EMP_EmployeeInfos_HR_Base_RelativeSelfSacerificId;
 public Input<string?> Ref_HR_EMP_EmployeeInfos_IsargarName;
 public Input<string?> Ref_HR_EMP_EmployeeInfos_IsargarFamily;
-public Dropdown Ref_HR_EMP_EmployeeInfos_HR_Base_RelativeSelfSacerificId;
 public Input<short?> Ref_HR_EMP_EmployeeInfos_JebheMotanaveb_Days;
 public Input<short?> Ref_HR_EMP_EmployeeInfos_JebheMotavali_Days;
 public Input<short?> Ref_HR_EMP_EmployeeInfos_Relatives_Captivity_Days;

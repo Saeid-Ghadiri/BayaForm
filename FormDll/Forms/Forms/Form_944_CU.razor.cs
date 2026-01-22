@@ -564,7 +564,7 @@ namespace Forms.Forms
 		}
 		#endregion پر کردن فیلد سابقه کار
 
-		#region سینک کردن داده های بخش اصلی در بخش جزئیات اطلاعات
+		#region پر کردن داده های بخش اصلی در بخش جزئیات اطلاعات
 		private void SyncDataMasterToDetails()
 		{
 			// ست کردن نام و نام خانوادگی از جدول اصلی به جدول جزئیات برای جلوگیری از تکرار
@@ -579,10 +579,12 @@ namespace Forms.Forms
 				detail.EmployeeLastPersonelNo = _Entity.EmployeeLastPersonelNo;
 				detail.NationalCode = _Entity.NationalCode;
 				detail.HR_EMP_StatusId = _Entity.HR_EMP_StatusId.ToString();
+				detail.HR_EMP_Status = _Entity.HR_EMP_Status.Title;
 				detail.BaseInfo_ORG_CompaniesId = _Entity.BaseInfo_ORG_CompaniesId.ToString();
+				detail.BaseInfo_ORG_Companies = _Entity.BaseInfo_ORG_Companies.Title;
 			}
 		}
-		#endregion سینک کردن داده های بخش اصلی در بخش جزئیات اطلاعات
+		#endregion
 
 		#region محاسبه سن کارمند
 		/// <summary>

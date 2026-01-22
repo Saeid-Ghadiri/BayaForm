@@ -112,6 +112,32 @@
 
 <DxGridDataColumn  Caption="عنوان محصول"  FieldName="ProductTitle" />
 
+<DxGridDataColumn Context="ParentId_" Caption="والد محصول" >
+    <CellDisplayTemplate>
+       
+@{
+    Baya.Models.ViewEngine.View_Component HeaderParentId = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"primaryKey\":false,\"EntityID\":749,\"FieldId\":31486,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":1007,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":false,\"RelationParentName\":\"Parent\",\"RelationParentModel\":\"IDMS_Products\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/IDMS_Products/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.ProductCode}} {{item.ProductTitle}} </span>\",\"FieldsTemplate\":[{\"key\":\"ProductCode\",\"value\":\"int\"},{\"key\":\"ProductTitle\",\"value\":\"nvarchar(Max)\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"searchField\":\"ProductCode,ProductTitle\",\"modal\":true,\"label\":\"والد محصول\",\"tableView\":true,\"key\":\"ParentId\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"31486?EId=749&SubId=31\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
+    var RowParentId = ((Entity.IDMS_Products)ParentId_.DataItem).ParentId;
+}
+
+<Dropdown ExternalApi=false CssClass="" NotMapped=false TextGrid=true Value="@RowParentId"   FieldName="ParentId" OnItemSelected="ItemSelected_IDMS_ProductsParentId_Header" Component="HeaderParentId">
+</Dropdown>
+@code {
+    public async Task ItemSelected_IDMS_ProductsParentId_Header(object _Item)
+    {
+      //  var Selected = Utility.JSON.ToObject<dynamic>(Utility.JSON.ToJson(_Item).Result).Result;
+  //   ParentId
+
+  //  #CustomCode
+
+ //   
+
+  //  #OnItemSelected
+    }
+}
+
+    </CellDisplayTemplate>
+</DxGridDataColumn>
 
 </Columns>
 
@@ -393,6 +419,8 @@ MainModel.UpdateDate = ((Entity.IDMS_Products)EditModel).UpdateDate;
 MainModel.IsDelete = ((Entity.IDMS_Products)EditModel).IsDelete;
 MainModel.ProductCode = ((Entity.IDMS_Products)EditModel).ProductCode;
 MainModel.ProductTitle = ((Entity.IDMS_Products)EditModel).ProductTitle;
+MainModel.ParentId = ((Entity.IDMS_Products)EditModel).ParentId;
+MainModel.Parent = ((Entity.IDMS_Products)EditModel).Parent;
 
     }
     else

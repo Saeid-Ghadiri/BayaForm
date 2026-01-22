@@ -130,6 +130,9 @@
 }
 
 /* ************************************************** */
+.lrt-input input {
+    direction: ltr !important;
+}
 </style>
 
 <div class="@(ReadOnly?"FormReadOnly":"")">
@@ -213,7 +216,7 @@
     <CellDisplayTemplate>
        
 @{
-    Baya.Models.ViewEngine.View_Component HeaderHR_EMP_EmployeesId = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"primaryKey\":false,\"EntityID\":357,\"FieldId\":15252,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":688,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":true,\"RelationParentName\":\"HR_EMP_Employees\",\"RelationParentModel\":\"HR_EMP_Employees\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/View_HR_EMP_Employees/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"inputFormat\":\"DropDown\",\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.BaseInfo_ORG_CompaniesTitle}} {{item.EmployeeNo}} {{item.FirstName}} {{item.LastName}} </span>\",\"FieldsTemplate\":[{\"key\":\"EmployeeNo\",\"value\":\"nvarchar(Max)\"},{\"key\":\"FirstName\",\"value\":\"nvarchar(Max)\"},{\"key\":\"LastName\",\"value\":\"nvarchar(Max)\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"searchField\":\"EmployeeNo,FirstName,LastName\",\"modal\":true,\"label\":\"اطلاعات کارمند\",\"tableView\":true,\"key\":\"HR_EMP_EmployeesId\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"15252?EId=357&SubId=15\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
+    Baya.Models.ViewEngine.View_Component HeaderHR_EMP_EmployeesId = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"primaryKey\":false,\"EntityID\":357,\"FieldId\":15252,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":688,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":true,\"RelationParentName\":\"HR_EMP_Employees\",\"RelationParentModel\":\"HR_EMP_Employees\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/View_HR_EMP_Employees/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"inputFormat\":\"DropDown\",\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.BaseInfo_ORG_CompaniesTitle}} {{item.EmployeeNo}} {{item.FirstName}} {{item.LastName}} </span>\",\"FieldsTemplate\":[{\"key\":\"EmployeeNo\",\"value\":\"nvarchar(Max)\"},{\"key\":\"FirstName\",\"value\":\"nvarchar(Max)\"},{\"key\":\"LastName\",\"value\":\"nvarchar(Max)\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"searchField\":\"EmployeeNo,FirstName,LastName\",\"disabled\":false,\"modal\":true,\"label\":\"اطلاعات کارمند\",\"tableView\":true,\"key\":\"HR_EMP_EmployeesId\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"15252?EId=357&SubId=15\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
     var RowHR_EMP_EmployeesId = ((Entity.HR_Base_BankAccount)HR_EMP_EmployeesId_.DataItem).HR_EMP_EmployeesId;
 }
 
@@ -235,11 +238,37 @@
 
     </CellDisplayTemplate>
 </DxGridDataColumn>
+<DxGridDataColumn Context="HR_Base_BankAcountCategoryId_" Caption="دسته بندی حساب های بانکی کارمند" >
+    <CellDisplayTemplate>
+       
+@{
+    Baya.Models.ViewEngine.View_Component HeaderHR_Base_BankAcountCategoryId = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"primaryKey\":false,\"EntityID\":357,\"FieldId\":31464,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":688,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":false,\"RelationParentName\":\"HR_Base_BankAcountCategory\",\"RelationParentModel\":\"HR_Base_BankAcountCategory\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/HR_Base_BankAcountCategory/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.Title}} </span>\",\"FieldsTemplate\":[{\"key\":\"Title\",\"value\":\"nvarchar(Max)\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"searchField\":\"Title\",\"disabled\":false,\"modal\":true,\"label\":\"دسته بندی حساب های بانکی کارمند\",\"tableView\":true,\"key\":\"HR_Base_BankAcountCategoryId\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"31464?EId=357&SubId=15\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
+    var RowHR_Base_BankAcountCategoryId = ((Entity.HR_Base_BankAccount)HR_Base_BankAcountCategoryId_.DataItem).HR_Base_BankAcountCategoryId;
+}
+
+<Dropdown ExternalApi=false CssClass="" NotMapped=false TextGrid=true Value="@RowHR_Base_BankAcountCategoryId"   FieldName="HR_Base_BankAcountCategoryId" OnItemSelected="ItemSelected_HR_Base_BankAccountHR_Base_BankAcountCategoryId_Header" Component="HeaderHR_Base_BankAcountCategoryId">
+</Dropdown>
+@code {
+    public async Task ItemSelected_HR_Base_BankAccountHR_Base_BankAcountCategoryId_Header(object _Item)
+    {
+      //  var Selected = Utility.JSON.ToObject<dynamic>(Utility.JSON.ToJson(_Item).Result).Result;
+  //   HR_Base_BankAcountCategoryId
+
+  //  #CustomCode
+
+ //   
+
+  //  #OnItemSelected
+    }
+}
+
+    </CellDisplayTemplate>
+</DxGridDataColumn>
 <DxGridDataColumn Context="BaseInfo_BankAccountTypeId_" Caption="نوع حساب بانکی" >
     <CellDisplayTemplate>
        
 @{
-    Baya.Models.ViewEngine.View_Component HeaderBaseInfo_BankAccountTypeId = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"primaryKey\":false,\"EntityID\":357,\"FieldId\":19486,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":688,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":false,\"RelationParentName\":\"BaseInfo_BankAccountType\",\"RelationParentModel\":\"BaseInfo_BankAccountType\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/BaseInfo_BankAccountType/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.Title}} </span>\",\"FieldsTemplate\":[{\"key\":\"Title\",\"value\":\"nvarchar(Max)\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"searchField\":\"Title\",\"modal\":true,\"label\":\"نوع حساب بانکی\",\"tableView\":true,\"key\":\"BaseInfo_BankAccountTypeId\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"19486?EId=357&SubId=15\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
+    Baya.Models.ViewEngine.View_Component HeaderBaseInfo_BankAccountTypeId = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"primaryKey\":false,\"EntityID\":357,\"FieldId\":19486,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":688,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":false,\"RelationParentName\":\"BaseInfo_BankAccountType\",\"RelationParentModel\":\"BaseInfo_BankAccountType\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/BaseInfo_BankAccountType/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.Title}} </span>\",\"FieldsTemplate\":[{\"key\":\"Title\",\"value\":\"nvarchar(Max)\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"searchField\":\"Title\",\"disabled\":false,\"modal\":true,\"label\":\"نوع حساب بانکی\",\"tableView\":true,\"key\":\"BaseInfo_BankAccountTypeId\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"19486?EId=357&SubId=15\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
     var RowBaseInfo_BankAccountTypeId = ((Entity.HR_Base_BankAccount)BaseInfo_BankAccountTypeId_.DataItem).BaseInfo_BankAccountTypeId;
 }
 
@@ -265,7 +294,7 @@
     <CellDisplayTemplate>
        
 @{
-    Baya.Models.ViewEngine.View_Component HeaderBaseInfo_BankId = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"primaryKey\":false,\"EntityID\":357,\"FieldId\":29973,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":688,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":false,\"RelationParentName\":\"BaseInfo_Bank\",\"RelationParentModel\":\"BaseInfo_Banks\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/BaseInfo_Banks/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.Title}} </span>\",\"FieldsTemplate\":[{\"key\":\"Title\",\"value\":\"nvarchar(Max)\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"searchField\":\"Title\",\"modal\":true,\"label\":\"بانک\",\"tableView\":true,\"key\":\"BaseInfo_BankId\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"29973?EId=357&SubId=15\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
+    Baya.Models.ViewEngine.View_Component HeaderBaseInfo_BankId = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"primaryKey\":false,\"EntityID\":357,\"FieldId\":29973,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":688,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":false,\"RelationParentName\":\"BaseInfo_Bank\",\"RelationParentModel\":\"BaseInfo_Banks\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/BaseInfo_Banks/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.Title}} </span>\",\"FieldsTemplate\":[{\"key\":\"Title\",\"value\":\"nvarchar(Max)\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"searchField\":\"Title\",\"disabled\":false,\"modal\":true,\"label\":\"بانک\",\"tableView\":true,\"key\":\"BaseInfo_BankId\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"29973?EId=357&SubId=15\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
     var RowBaseInfo_BankId = ((Entity.HR_Base_BankAccount)BaseInfo_BankId_.DataItem).BaseInfo_BankId;
 }
 
@@ -291,7 +320,7 @@
     <CellDisplayTemplate>
        
 @{
-    Baya.Models.ViewEngine.View_Component HeaderBaseInfo_BankBranchesId = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"primaryKey\":false,\"EntityID\":357,\"FieldId\":19449,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":688,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":false,\"RelationParentName\":\"BaseInfo_BankBranches\",\"RelationParentModel\":\"BaseInfo_BankBranches\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/BaseInfo_BankBranches/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.Title}} </span>\",\"FieldsTemplate\":[{\"key\":\"Title\",\"value\":\"nvarchar(Max)\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"searchField\":\"Title\",\"modal\":true,\"label\":\" شعبه بانک\",\"tableView\":true,\"key\":\"BaseInfo_BankBranchesId\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"19449?EId=357&SubId=15\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
+    Baya.Models.ViewEngine.View_Component HeaderBaseInfo_BankBranchesId = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"primaryKey\":false,\"EntityID\":357,\"FieldId\":19449,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":688,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":false,\"RelationParentName\":\"BaseInfo_BankBranches\",\"RelationParentModel\":\"BaseInfo_BankBranches\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/BaseInfo_BankBranches/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.Title}} </span>\",\"FieldsTemplate\":[{\"key\":\"Title\",\"value\":\"nvarchar(Max)\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"searchField\":\"Title\",\"disabled\":false,\"modal\":true,\"label\":\" شعبه بانک\",\"tableView\":true,\"key\":\"BaseInfo_BankBranchesId\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"19449?EId=357&SubId=15\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
     var RowBaseInfo_BankBranchesId = ((Entity.HR_Base_BankAccount)BaseInfo_BankBranchesId_.DataItem).BaseInfo_BankBranchesId;
 }
 
@@ -347,32 +376,6 @@
 
 <DxGridDataColumn  Caption="IsDelete" Visible=false FieldName="IsDelete" />
 
-<DxGridDataColumn Context="HR_Base_BankAcountCategoryId_" Caption="دسته بندی حساب های بانکی کارمند" >
-    <CellDisplayTemplate>
-       
-@{
-    Baya.Models.ViewEngine.View_Component HeaderHR_Base_BankAcountCategoryId = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"primaryKey\":false,\"EntityID\":357,\"FieldId\":31464,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":688,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":false,\"RelationParentName\":\"HR_Base_BankAcountCategory\",\"RelationParentModel\":\"HR_Base_BankAcountCategory\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/HR_Base_BankAcountCategory/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.Title}} </span>\",\"FieldsTemplate\":[{\"key\":\"Title\",\"value\":\"nvarchar(Max)\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"searchField\":\"Title\",\"modal\":true,\"label\":\"دسته بندی حساب های بانکی کارمند\",\"tableView\":true,\"key\":\"HR_Base_BankAcountCategoryId\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"31464?EId=357&SubId=15\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
-    var RowHR_Base_BankAcountCategoryId = ((Entity.HR_Base_BankAccount)HR_Base_BankAcountCategoryId_.DataItem).HR_Base_BankAcountCategoryId;
-}
-
-<Dropdown ExternalApi=false CssClass="" NotMapped=false TextGrid=true Value="@RowHR_Base_BankAcountCategoryId"   FieldName="HR_Base_BankAcountCategoryId" OnItemSelected="ItemSelected_HR_Base_BankAccountHR_Base_BankAcountCategoryId_Header" Component="HeaderHR_Base_BankAcountCategoryId">
-</Dropdown>
-@code {
-    public async Task ItemSelected_HR_Base_BankAccountHR_Base_BankAcountCategoryId_Header(object _Item)
-    {
-      //  var Selected = Utility.JSON.ToObject<dynamic>(Utility.JSON.ToJson(_Item).Result).Result;
-  //   HR_Base_BankAcountCategoryId
-
-  //  #CustomCode
-
- //   
-
-  //  #OnItemSelected
-    }
-}
-
-    </CellDisplayTemplate>
-</DxGridDataColumn>
 
 </Columns>
 
@@ -646,6 +649,8 @@ public void SaveGrid_HR_Base_BankAccount(object DataItem, object EditModel)
     if (MainModel != null)
     {
 MainModel.HR_EMP_EmployeesId = ((Entity.HR_Base_BankAccount)EditModel).HR_EMP_EmployeesId;
+MainModel.HR_Base_BankAcountCategoryId = ((Entity.HR_Base_BankAccount)EditModel).HR_Base_BankAcountCategoryId;
+MainModel.HR_Base_BankAcountCategory = ((Entity.HR_Base_BankAccount)EditModel).HR_Base_BankAcountCategory;
 MainModel.BaseInfo_BankAccountTypeId = ((Entity.HR_Base_BankAccount)EditModel).BaseInfo_BankAccountTypeId;
 MainModel.BaseInfo_BankAccountType = ((Entity.HR_Base_BankAccount)EditModel).BaseInfo_BankAccountType;
 MainModel.BaseInfo_BankId = ((Entity.HR_Base_BankAccount)EditModel).BaseInfo_BankId;
@@ -663,8 +668,6 @@ MainModel.UpdateUser = ((Entity.HR_Base_BankAccount)EditModel).UpdateUser;
 MainModel.CreateDate = ((Entity.HR_Base_BankAccount)EditModel).CreateDate;
 MainModel.UpdateDate = ((Entity.HR_Base_BankAccount)EditModel).UpdateDate;
 MainModel.IsDelete = ((Entity.HR_Base_BankAccount)EditModel).IsDelete;
-MainModel.HR_Base_BankAcountCategoryId = ((Entity.HR_Base_BankAccount)EditModel).HR_Base_BankAcountCategoryId;
-MainModel.HR_Base_BankAcountCategory = ((Entity.HR_Base_BankAccount)EditModel).HR_Base_BankAcountCategory;
 
     }
     else
@@ -993,9 +996,9 @@ public async void RowDubbleClickGrid_HR_Base_BankAccount(GridRowClickEventArgs e
             await InvokeAsync(StateHasChanged);
             await Task.Yield();
             QueryFilter = new QueryBuilderFilterRule();
-            if ("{\"Condition\":\"OR\",\"Rules\":[{\"Field\":\"BaseInfo_BankId\",\"Id\":\"29973\",\"Input\":\"text\",\"Operator\":\"equal\",\"Type\":\"string\",\"Value\":[]},{\"Field\":\"BankAccountNumber\",\"Id\":\"29969\",\"Input\":\"text\",\"Operator\":\"equal\",\"Type\":\"string\",\"Value\":[]},{\"Field\":\"CartNo\",\"Id\":\"15249\",\"Input\":\"text\",\"Operator\":\"equal\",\"Type\":\"string\",\"Value\":[]}]}" != "null" || "{\"Condition\":\"OR\",\"Rules\":[{\"Field\":\"BaseInfo_BankId\",\"Id\":\"29973\",\"Input\":\"text\",\"Operator\":\"equal\",\"Type\":\"string\",\"Value\":[]},{\"Field\":\"BankAccountNumber\",\"Id\":\"29969\",\"Input\":\"text\",\"Operator\":\"equal\",\"Type\":\"string\",\"Value\":[]},{\"Field\":\"CartNo\",\"Id\":\"15249\",\"Input\":\"text\",\"Operator\":\"equal\",\"Type\":\"string\",\"Value\":[]}]}" != "{}")
+            if ("{\"Condition\":\"OR\",\"Rules\":[{\"Field\":\"HR_EMP_EmployeesId\",\"Id\":\"15252\",\"Input\":\"text\",\"Operator\":\"contains\",\"Type\":\"string\",\"Value\":[]},{\"Field\":\"BaseInfo_BankId\",\"Id\":\"29973\",\"Input\":\"text\",\"Operator\":\"equal\",\"Type\":\"string\",\"Value\":[]},{\"Field\":\"BankAccountNumber\",\"Id\":\"29969\",\"Input\":\"text\",\"Operator\":\"equal\",\"Type\":\"string\",\"Value\":[]},{\"Field\":\"CartNo\",\"Id\":\"15249\",\"Input\":\"text\",\"Operator\":\"equal\",\"Type\":\"string\",\"Value\":[]}]}" != "null" || "{\"Condition\":\"OR\",\"Rules\":[{\"Field\":\"HR_EMP_EmployeesId\",\"Id\":\"15252\",\"Input\":\"text\",\"Operator\":\"contains\",\"Type\":\"string\",\"Value\":[]},{\"Field\":\"BaseInfo_BankId\",\"Id\":\"29973\",\"Input\":\"text\",\"Operator\":\"equal\",\"Type\":\"string\",\"Value\":[]},{\"Field\":\"BankAccountNumber\",\"Id\":\"29969\",\"Input\":\"text\",\"Operator\":\"equal\",\"Type\":\"string\",\"Value\":[]},{\"Field\":\"CartNo\",\"Id\":\"15249\",\"Input\":\"text\",\"Operator\":\"equal\",\"Type\":\"string\",\"Value\":[]}]}" != "{}")
             {
-                QueryFilter = await JSON.ToObject<QueryBuilderFilterRule>("{\"Condition\":\"OR\",\"Rules\":[{\"Field\":\"BaseInfo_BankId\",\"Id\":\"29973\",\"Input\":\"text\",\"Operator\":\"equal\",\"Type\":\"string\",\"Value\":[]},{\"Field\":\"BankAccountNumber\",\"Id\":\"29969\",\"Input\":\"text\",\"Operator\":\"equal\",\"Type\":\"string\",\"Value\":[]},{\"Field\":\"CartNo\",\"Id\":\"15249\",\"Input\":\"text\",\"Operator\":\"equal\",\"Type\":\"string\",\"Value\":[]}]}");
+                QueryFilter = await JSON.ToObject<QueryBuilderFilterRule>("{\"Condition\":\"OR\",\"Rules\":[{\"Field\":\"HR_EMP_EmployeesId\",\"Id\":\"15252\",\"Input\":\"text\",\"Operator\":\"contains\",\"Type\":\"string\",\"Value\":[]},{\"Field\":\"BaseInfo_BankId\",\"Id\":\"29973\",\"Input\":\"text\",\"Operator\":\"equal\",\"Type\":\"string\",\"Value\":[]},{\"Field\":\"BankAccountNumber\",\"Id\":\"29969\",\"Input\":\"text\",\"Operator\":\"equal\",\"Type\":\"string\",\"Value\":[]},{\"Field\":\"CartNo\",\"Id\":\"15249\",\"Input\":\"text\",\"Operator\":\"equal\",\"Type\":\"string\",\"Value\":[]}]}");
 
             }
 

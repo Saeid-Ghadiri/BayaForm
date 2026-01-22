@@ -136,18 +136,20 @@
 /* ************************************************** */
 .input-ymd input {
     display: inline-block;
-    width: 80px;
+    max-width: 80px;
     background: none !important;
     border: none;
     color: #6c5ffc;
-    font-size: 24px;
+    font-size: 0px;
     text-align: center;
-    font-weight: 900;
+    font-weight: 700;
 }
 </style>
 <div class="filterbox @(ShowFilterBar ? "" : "d-none")">
 <div class="row">
 
+
+<Input2 id="StartDate_Fa" @ref="Ref_StartDate_Fa" Label="تاریخ شروع محاسبه"  CssClass="filterCol"       type="text"    Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"data-jdp\":\"  \",\"data-jdp-only-date\":\"   \"}").Result))></Input2>
 
 
         <div class="col-xl-2 col-lg-2 col-md-auto mt-2 align-content-end">
@@ -219,6 +221,7 @@
         //await ReplaceInFilter("SCM_ProductRequestDetails.ProductNameText", "ماوس", QueryFilter);
         //await ReplaceInFilter("52255", Ref_SCM_ProductRequestDetails_ProductName_NotMapped.Value, QueryFilter);
         
+await ReplaceInFilter("29987", Ref_StartDate_Fa.Value, QueryFilter);
 
  
         await ReplaceSystemParametrInFilter(QueryFilter);

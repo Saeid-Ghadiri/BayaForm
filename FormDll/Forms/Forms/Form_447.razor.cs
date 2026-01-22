@@ -292,6 +292,15 @@ namespace Forms.Forms
 
         
        
+		public async Task  TMaster_Search_NotMapped_onitemselected(dynamic Selected   )
+        {
+            foreach(var item in _Entity.SCMPLATE_ProductRequestDetails)
+            {
+                await HavaleMasrafSetShomaran(Selected, item);
+            }
+            
+        }
+
 		#endregion FunctionEvents
     }
 }

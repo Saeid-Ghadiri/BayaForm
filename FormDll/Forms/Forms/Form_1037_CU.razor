@@ -19,14 +19,24 @@
 }
 
 /* ************************************************** */
-.col-bg {
-    background: #93b0ff0d;
-    border: 1px dashed #6c5ffc45;
-    border-radius: 8px;
-    padding-top: 0.5rem;
-    padding-bottom: 0.5rem;
-    margin-right: 0;
-    margin-left: 0;
+.dxbl-grid-table .htmlvisible {
+    display: none !important;
+}
+
+.dxbl-grid-table .dxbl-grid-header .htmlvisible {
+    display: none !important;
+}
+
+.dxbl-grid-table th .htmlvisible {
+    display: none !important;
+}
+
+.dxbl-grid-table tr .htmlvisible {
+    display: none !important;
+}
+
+.dxbl-grid-table td .htmlvisible {
+    display: none !important;
 }
 
 /* ************************************************** */
@@ -147,15 +157,30 @@
     font-weight: 900;
 }
 
-/* ************************************************** */
-
-.avatar {
+.input-view input {
     display: inline-block;
-    max-width: 10em !important;
+    max-width: 130px !important;
+    background: none !important;
+    border: none;
+    color: #1a1a1c;
+    font-size: 16px;
+    text-align: start;
+    font-weight: 650;
 }
 
-.avatar div * {
-    display: none;
+.input-view button {
+    display: inline-block;
+    max-width: 130px !important;
+    background: none !important;
+    border: none;
+    color: #1a1a1c;
+    font-size: 16px;
+    text-align: start;
+    font-weight: 650;
+}
+
+.lrt-input input {
+    direction: ltr !important;
 }
 
 /* ************************************************** */
@@ -168,18 +193,13 @@
 }
 
 /* ************************************************** */
-.lrt-input input {
-    direction: ltr !important;
-}
-
-/* ************************************************** */
 /* عکس پرسنلی */
 
 .PersonnalPicture {
     padding: 8px;
     background: #fff;
     border-radius: 16px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+    /* box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05); */
     transition: all 0.3s ease;
     max-width: 200px !important;
     max-height: 250px !important;
@@ -189,19 +209,15 @@
 .PersonnalPicture .PersonnalPictureList {
     border-radius: 12px !important;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.5) !important;
-    max-width: 145px !important;
-    max-height: 200px !important;
+    max-width: 100px !important;
+    max-height: 120px !important;
 }
 
 .PersonnalPictureList {
     border-radius: 5px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     max-width: 65px;
-    max-height: 100px;
-}
-
-.PersonnalPictureList div * {
-    display: none;
+    max-height: 100 px;
 }
 
 .PersonnalPicture .PersonnalPictureList:hover {
@@ -210,12 +226,12 @@
     filter: brightness(1.08);
 }
 
-.profilebtn {
-    display: none;
+td .picprofilebtn {
+    display: none !important;
 }
 
-.profilelink {
-    display: none;
+.PersonnalPicture .btn-red {
+    display: none !important;
 }
 
 /* ************************************************** */
@@ -242,7 +258,7 @@
 
 /* ************************************************** */
 .pdfimg {
-    max-width: 70px;
+    max-width: 55px;
 }
 
 /* ************************************************** */
@@ -251,6 +267,23 @@
 }
 
 /* ************************************************** */
+.rowheader {
+    /* --bs-gutter-x: 1.5rem; */
+    --bs-gutter-y: 0;
+    display: flex;
+    /* flex-wrap: wrap; */
+    margin-top: calc(-1 * var(--bs-gutter-y));
+    margin-right: calc(-.5 * var(--bs-gutter-x));
+    margin-left: calc(-.5 * var(--bs-gutter-x));
+}
+
+/* ************************************************** */
+.ModalWidth {
+    /* max-width: 1700px !important; */
+    max-width: 100% !important;
+    width: 95% !important;
+    min-width: 800px !important;
+}
 </style>
 
 <Plugins.Tools.ConfirmDialog @ref="Confirm" />
@@ -306,6 +339,8 @@
 </div>
 </div>
 
+<div class="input-view">
+    
 <div class="row ">
     
 <div class="col-md-2">
@@ -373,11 +408,7 @@
 
 </div>
 
-<div class="col-md-8">
-    
-<div class="row ">
-    
-<div class="col-md-3">
+<div class="col-md-2">
     
 <Input Id="FirstName" @ref="Ref_FirstName" Label="نام"   Disabled=true  @bind-Value="_Entity.FirstName" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"maxlength\":\"150\"}").Result))></Input>
 
@@ -387,7 +418,7 @@
 
 </div>
 
-<div class="col-md-3">
+<div class="col-md-2">
     
 <Input Id="LastName" @ref="Ref_LastName" Label="نام خانوادگی"   Disabled=true  @bind-Value="_Entity.LastName" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"maxlength\":\"150\"}").Result))></Input>
 
@@ -397,21 +428,19 @@
 
 </div>
 
-<div class="col-md-6">
+<div class="col-md-4">
     
-</div>
-
-</div>
-
 </div>
 
 <div class="col-md-2">
     
-<div class="text-end">
-    
-<div class="avatar">
+<div class="text-end PersonnalPicture">
     <SingleUploader Id=ProfilePicture   @ref="Ref_ProfilePicture" uploadedLink="@_Entity.ProfilePicture" uploadUrl="https://File.workcv.ir/fa/api/v1/File/Post" htmlTemplate="<img class='img-fluid PersonnalPictureList' src='##url##'/>
-<div><a class='btn btn-green profilelink' href='##url##' ><span class='fal fa-download profilebtn'></span></a></div>" FileChanged="@((url) => _Entity.ProfilePicture = url)" Caption="عکس پرسنلی" />
+<div class='picprofilebtn'>
+    <a class='btn btn-green profilelink' href='##url##' >
+        <span class='fal fa-download profilebtn'></span>
+    </a>
+</div>" FileChanged="@((url) => _Entity.ProfilePicture = url)" Caption="عکس پرسنلی" />
 </div>
 
 </div>
@@ -473,11 +502,11 @@
     <CellDisplayTemplate>
        
 @{
-    Baya.Models.ViewEngine.View_Component HeaderHR_EMP_EmployeesId = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"primaryKey\":false,\"EntityID\":382,\"FieldId\":15596,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":1037,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":false,\"RelationParentName\":\"HR_EMP_Employees\",\"RelationParentModel\":\"HR_EMP_Employees\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/HR_EMP_Employees/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.EmployeeNo}} {{item.FirstName}} {{item.LastName}} </span>\",\"FieldsTemplate\":[{\"key\":\"EmployeeNo\",\"value\":\"nvarchar(Max)\"},{\"key\":\"FirstName\",\"value\":\"nvarchar(Max)\"},{\"key\":\"LastName\",\"value\":\"nvarchar(Max)\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"searchField\":\"EmployeeNo,FirstName,LastName\",\"modal\":true,\"label\":\"شناسه اطلاعات کارمند\",\"tableView\":true,\"key\":\"HR_EMP_EmployeesId\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"15596?EId=382&SubId=15\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
+    Baya.Models.ViewEngine.View_Component HeaderHR_EMP_EmployeesId = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"primaryKey\":false,\"EntityID\":382,\"FieldId\":15596,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":1037,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":false,\"RelationParentName\":\"HR_EMP_Employees\",\"RelationParentModel\":\"HR_EMP_Employees\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/HR_EMP_Employees/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.EmployeeNo}} {{item.FirstName}} {{item.LastName}} </span>\",\"FieldsTemplate\":[{\"key\":\"EmployeeNo\",\"value\":\"nvarchar(Max)\"},{\"key\":\"FirstName\",\"value\":\"nvarchar(Max)\"},{\"key\":\"LastName\",\"value\":\"nvarchar(Max)\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"searchField\":\"EmployeeNo,FirstName,LastName\",\"disableLimit\":false,\"noRefreshOnScroll\":false,\"modal\":true,\"label\":\"شناسه اطلاعات کارمند\",\"tableView\":true,\"key\":\"HR_EMP_EmployeesId\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"customClass\":\"Gcol-sm-8 Gcol-md-6 Gcol-lg-6\",\"FieldUrl\":\"15596?EId=382&SubId=15\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
     var RowHR_EMP_EmployeesId = ((Entity.HR_EMP_EmployeeInfos)HR_EMP_EmployeesId_.DataItem).HR_EMP_EmployeesId;
 }
 
-<Dropdown ExternalApi=false CssClass="" NotMapped=false TextGrid=true Value="@RowHR_EMP_EmployeesId"   FieldName="HR_EMP_EmployeesId" OnItemSelected="ItemSelected_HR_EMP_EmployeeInfosHR_EMP_EmployeesId_Header" Component="HeaderHR_EMP_EmployeesId">
+<Dropdown ExternalApi=false CssClass="Gcol-sm-8 Gcol-md-6 Gcol-lg-6" NotMapped=false TextGrid=true Value="@RowHR_EMP_EmployeesId"   FieldName="HR_EMP_EmployeesId" OnItemSelected="ItemSelected_HR_EMP_EmployeeInfosHR_EMP_EmployeesId_Header" Component="HeaderHR_EMP_EmployeesId">
 </Dropdown>
 @code {
     public async Task ItemSelected_HR_EMP_EmployeeInfosHR_EMP_EmployeesId_Header(object _Item)
@@ -495,10 +524,10 @@
 
     </CellDisplayTemplate>
 </DxGridDataColumn>
-<DxGridDataColumn Context="html4_" Caption="HTML" >
+<DxGridDataColumn Context="html4_" Caption="-" >
     <CellDisplayTemplate>
-      <div  class="Gcol-sm-8 Gcol-md-6 Gcol-lg-6">
-    
+      <div  class="htmlvisible Gcol-sm-8 Gcol-md-6 Gcol-lg-6">
+    <div class="htmlvisible"></div>
 </div>
 
     </CellDisplayTemplate>
@@ -515,17 +544,49 @@
 
     </CellDisplayTemplate>
 </DxGridDataColumn>
+<DxGridDataColumn  Caption="شرکت"  FieldName="BaseInfo_ORG_Companies" />
+
 <DxGridDataColumn  Caption="نام"  FieldName="FirstName" />
 
 <DxGridDataColumn  Caption="نام خانوادگی"  FieldName="LastName" />
 
-<DxGridDataColumn  Caption="نام پدر"  FieldName="FatherName" />
-
 <DxGridDataColumn  Caption="کد ملی"  FieldName="NationalCode" />
+
+<DxGridDataColumn  Caption="کد کارمندی"  FieldName="EmployeeNo" />
+
+<DxGridDataColumn  Caption="کد قدیم کارمندی"  FieldName="LastEmployeeNo" />
+
+<DxGridDataColumn  Caption="کد پرسنلی"  FieldName="EmployeePersonelNo" />
+
+<DxGridDataColumn  Caption="کد قدیم پرسنلی"  FieldName="EmployeeLastPersonelNo" />
+
+<DxGridDataColumn  Caption="وضعیت کارمند"  FieldName="HR_EMP_Status" />
+
+<DxGridDataColumn Context="html2_" Caption="-" >
+    <CellDisplayTemplate>
+      <div  class="Gcol-sm-8 Gcol-md-6 Gcol-lg-9">
+    
+</div>
+
+    </CellDisplayTemplate>
+</DxGridDataColumn>
+<DxGridDataColumn Context="html5_" Caption="-" >
+    <CellDisplayTemplate>
+      <div  class="Gcol-sm-8 Gcol-md-6 Gcol-lg-12">
+    <hr class="hrdash bg-purple">
+</div>
+
+    </CellDisplayTemplate>
+</DxGridDataColumn>
+<DxGridDataColumn  Caption="نام پدر"  FieldName="FatherName" />
 
 <DxGridDataColumn  Caption="شماره شناسنامه"  FieldName="IdCardNo" />
 
-<DxGridDataColumn  Caption="سریال شناسنامه"  FieldName="IdCardSerialNo" />
+<DxGridDataColumn  Caption="سریال شناسنامه بخش 1"  FieldName="IdCardSerialNoSection1" />
+
+<DxGridDataColumn  Caption="سریال شناسنامه بخش 2"  FieldName="IdCardSerialNoSection2" />
+
+<DxGridDataColumn  Caption="سریال شناسنامه بخش 3"  FieldName="IdCardSerialNoSection3" />
 
 <DxGridDataColumn Context="BaseInfo_MaritalStatusId_" Caption="وضعیت تاهل" >
     <CellDisplayTemplate>
@@ -605,14 +666,6 @@
 
     </CellDisplayTemplate>
 </DxGridDataColumn>
-<DxGridDataColumn Context="html21_" Caption="-" >
-    <CellDisplayTemplate>
-      <div  class="Gcol-sm-8 Gcol-md-6 Gcol-lg-9">
-    
-</div>
-
-    </CellDisplayTemplate>
-</DxGridDataColumn>
 <DxGridDataColumn  Caption="تاریخ تولد"  FieldName="BirthDate_Fa" />
 
 <DxGridDataColumn DisplayFormat="0" Caption="روز تاریخ تولد" Visible=false FieldName="BirthDateDD" />
@@ -627,34 +680,56 @@
 
 <DxGridDataColumn  Caption="سن کارمند:"  FieldName="EmployeeAgeText" />
 
-<DxGridDataColumn Context="html26_" Caption="HTML" >
+<DxGridDataColumn Context="html26_" Caption="-" >
     <CellDisplayTemplate>
       <div  class="Gcol-sm-8 Gcol-md-6 Gcol-lg-6">
-    
+    <div class="htmlvisible"></div>
 </div>
 
     </CellDisplayTemplate>
 </DxGridDataColumn>
 <DxGridDataColumn Context="html17_" Caption="اطلاعات شخصی فرد" >
     <CellDisplayTemplate>
-      <div  class="Gcol-sm-8 Gcol-md-6 Gcol-lg-12">
-    <div class="form-section-header col-sm-8 col-md-6 col-lg-12">
-  <i class="bi bi-person-badge"></i>
-  اطلاعات ثبت شده سابقه کار کارمند در بیمه
-</div>
-
+      <div  class="htmlvisible  Gcol-sm-8 Gcol-md-6 Gcol-lg-12">
+    <div class="form-section-header rowheader">
+    <div class="col-6">
+      <i class="bi bi-person-badge"></i>
+      اطلاعات ثبت شده سابقه کار کارمند در بیمه
+    </div>
+    <div class="col-6 text-end">
+      <a class="btn btn-warning btn-sm d-inline" href="https://file.workcv.ir/fa-ir/api/v1/File/Get?FileID=9d42e517-edad-4d69-5aca-08ddf67735ff">
+        <i class="bi bi-cloud-download"></i>
+        فایل راهنما
+      </a>
+    </div>
+  </div>
 </div>
 
     </CellDisplayTemplate>
 </DxGridDataColumn>
-<DxGridDataColumn Context="html22_" Caption="HTML" >
+<DxGridDataColumn Context="EmployeeWorkExperienceFile_" Caption="فایل سابقه کار (بیمه)" >
+    <CellDisplayTemplate>
+      
+@{
+    var HR_EMP_EmployeeInfos_EmployeeWorkExperienceFile = (Entity.HR_EMP_EmployeeInfos)EmployeeWorkExperienceFile_.DataItem;
+}
+<SingleUploader Editable="false"  uploadedLink="@HR_EMP_EmployeeInfos_EmployeeWorkExperienceFile.EmployeeWorkExperienceFile" uploadUrl="https://File.workcv.ir/fa/api/v1/File/Post" htmlTemplate="<img class='img-fluid pdfimg' src='https://file.workcv.ir/fa-ir/api/v1/File/Get?FileID=5954c8f9-50b6-4236-0839-08de21afb86a'/>
+<div><a href='##url##' class='btn btn-green'><span class='fal fa-download'></span></a></div>
+" FileChanged="@((url) => HR_EMP_EmployeeInfos_EmployeeWorkExperienceFile.EmployeeWorkExperienceFile = url)" Caption="فایل سابقه کار (بیمه)" />
+
+
+    </CellDisplayTemplate>
+</DxGridDataColumn>
+<DxGridDataColumn Context="html22_" Caption="-" >
     <CellDisplayTemplate>
       <div  class="Gcol-sm-8 Gcol-md-6 Gcol-lg-6">
-    
+    <div class="htmlvisible"></div>
 </div>
 
     </CellDisplayTemplate>
 </DxGridDataColumn>
+<DxGridDataColumn  Caption="تاریخ ثبت سابقه کار"  FieldName="DateEmployeeWorkExperience_Fa" />
+
 <DxGridDataColumn DisplayFormat="0" Caption="سابقه کار کارمند (به روز)"  FieldName="EmployeeWorkExperience" />
 
 <DxGridDataColumn  Caption="سابقه کار کارمند:"  FieldName="EmployeeWorkExperienceText" />
@@ -792,7 +867,7 @@
 <DxGridDataColumn Context="html18_" Caption="-" >
     <CellDisplayTemplate>
       <div  class="">
-    
+    <div class="htmlvisible"></div>
 </div>
 
     </CellDisplayTemplate>
@@ -894,7 +969,7 @@
 <DxGridDataColumn Context="html3_" Caption="-" >
     <CellDisplayTemplate>
       <div  class="">
-    
+    <div class="htmlvisible"></div>
 </div>
 
     </CellDisplayTemplate>
@@ -957,14 +1032,6 @@
 
     </CellDisplayTemplate>
 </DxGridDataColumn>
-<DxGridDataColumn Context="html16_" Caption="-" >
-    <CellDisplayTemplate>
-      <div  class="">
-    
-</div>
-
-    </CellDisplayTemplate>
-</DxGridDataColumn>
 <DxGridDataColumn  Caption="تلفن همراه"  FieldName="Mobile" />
 
 <DxGridDataColumn  Caption="شماره تلفن ثابت"  FieldName="Phone" />
@@ -1000,7 +1067,7 @@
 <DxGridDataColumn Context="html9_" Caption="-" >
     <CellDisplayTemplate>
       <div  class="">
-    
+    <div class="htmlvisible"></div>
 </div>
 
     </CellDisplayTemplate>
@@ -1057,32 +1124,6 @@
 
     </CellDisplayTemplate>
 </DxGridDataColumn>
-<DxGridDataColumn Context="html12_" Caption="وضعیت فعلی کارمند" >
-    <CellDisplayTemplate>
-      <div  class="Gcol-sm-8 Gcol-md-6 Gcol-lg-12">
-    <div class="form-section-header col-sm-8 col-md-6 col-lg-12">
-  <i class="bi bi-person-badge"></i>
-  وضعیت فعلی کارمند
-</div>
-
-</div>
-
-    </CellDisplayTemplate>
-</DxGridDataColumn>
-<DxGridDataColumn Context="IsActive_" Caption="فعال" >
-    <CellDisplayTemplate>
-       
-@{
-    var HR_EMP_EmployeeInfos_IsActive = ((Entity.HR_EMP_EmployeeInfos)IsActive_.DataItem).IsActive;
-}
-
-<p class="text-center " hidden="@(HR_EMP_EmployeeInfos_IsActive !=null ? !HR_EMP_EmployeeInfos_IsActive : true)">@languageContainer.Keys["DXGrid:Yes"]</p>
-
-<p class="text-center" hidden="@(HR_EMP_EmployeeInfos_IsActive !=null ? HR_EMP_EmployeeInfos_IsActive : true)">@languageContainer.Keys["DXGrid:No"]</p>
- 
-
-    </CellDisplayTemplate>
-</DxGridDataColumn>
 <DxGridDataColumn  Caption="Id" Visible=false FieldName="Id" />
 
 <DxGridDataColumn  Caption="CreateUser" Visible=false FieldName="CreateUser" />
@@ -1097,28 +1138,9 @@
 
 <DxGridDataColumn  Caption="IsDelete" Visible=false FieldName="IsDelete" />
 
-<DxGridDataColumn  Caption="کد کارمندی"  FieldName="EmployeeNo" />
+<DxGridDataColumn  Caption="شناسه شرکت" Visible=false FieldName="BaseInfo_ORG_CompaniesId" />
 
-<DxGridDataColumn  Caption="کد قدیم کارمندی"  FieldName="LastEmployeeNo" />
-
-<DxGridDataColumn  Caption="کد پرسنلی"  FieldName="EmployeePersonelNo" />
-
-<DxGridDataColumn  Caption="کد قدیم پرسنلی"  FieldName="EmployeeLastPersonelNo" />
-
-<DxGridDataColumn Context="EmployeeWorkExperienceFile_" Caption="فایل سابقه کار (بیمه)" >
-    <CellDisplayTemplate>
-      
-@{
-    var HR_EMP_EmployeeInfos_EmployeeWorkExperienceFile = (Entity.HR_EMP_EmployeeInfos)EmployeeWorkExperienceFile_.DataItem;
-}
-<SingleUploader Editable="false"  uploadedLink="@HR_EMP_EmployeeInfos_EmployeeWorkExperienceFile.EmployeeWorkExperienceFile" uploadUrl="https://File.workcv.ir/fa/api/v1/File/Post" htmlTemplate="<img class='img-fluid pdfimg' src='https://file.workcv.ir/fa-ir/api/v1/File/Get?FileID=5954c8f9-50b6-4236-0839-08de21afb86a'/>
-<div><a href='##url##' class='btn btn-green'><span class='fal fa-download'></span></a></div>
-" FileChanged="@((url) => HR_EMP_EmployeeInfos_EmployeeWorkExperienceFile.EmployeeWorkExperienceFile = url)" Caption="فایل سابقه کار (بیمه)" />
-
-
-    </CellDisplayTemplate>
-</DxGridDataColumn>
-<DxGridDataColumn  Caption="تاریخ ثبت سابقه کار"  FieldName="DateEmployeeWorkExperience_Fa" />
+<DxGridDataColumn  Caption="شناسه وضعیت کارمند" Visible=false FieldName="HR_EMP_StatusId" />
 
 
 </Columns>
@@ -1132,10 +1154,10 @@
      
  
 @code {
-    Baya.Models.ViewEngine.View_Component Component_HR_EMP_EmployeeInfosHR_EMP_EmployeesId = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"primaryKey\":false,\"EntityID\":382,\"FieldId\":15596,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":1037,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":false,\"RelationParentName\":\"HR_EMP_Employees\",\"RelationParentModel\":\"HR_EMP_Employees\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/HR_EMP_Employees/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.EmployeeNo}} {{item.FirstName}} {{item.LastName}} </span>\",\"FieldsTemplate\":[{\"key\":\"EmployeeNo\",\"value\":\"nvarchar(Max)\"},{\"key\":\"FirstName\",\"value\":\"nvarchar(Max)\"},{\"key\":\"LastName\",\"value\":\"nvarchar(Max)\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"searchField\":\"EmployeeNo,FirstName,LastName\",\"modal\":true,\"label\":\"شناسه اطلاعات کارمند\",\"tableView\":true,\"key\":\"HR_EMP_EmployeesId\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"15596?EId=382&SubId=15\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
+    Baya.Models.ViewEngine.View_Component Component_HR_EMP_EmployeeInfosHR_EMP_EmployeesId = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"primaryKey\":false,\"EntityID\":382,\"FieldId\":15596,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":1037,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":false,\"RelationParentName\":\"HR_EMP_Employees\",\"RelationParentModel\":\"HR_EMP_Employees\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/HR_EMP_Employees/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.EmployeeNo}} {{item.FirstName}} {{item.LastName}} </span>\",\"FieldsTemplate\":[{\"key\":\"EmployeeNo\",\"value\":\"nvarchar(Max)\"},{\"key\":\"FirstName\",\"value\":\"nvarchar(Max)\"},{\"key\":\"LastName\",\"value\":\"nvarchar(Max)\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"searchField\":\"EmployeeNo,FirstName,LastName\",\"disableLimit\":false,\"noRefreshOnScroll\":false,\"modal\":true,\"label\":\"شناسه اطلاعات کارمند\",\"tableView\":true,\"key\":\"HR_EMP_EmployeesId\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"customClass\":\"Gcol-sm-8 Gcol-md-6 Gcol-lg-6\",\"FieldUrl\":\"15596?EId=382&SubId=15\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
 }
 
-    <Dropdown Id=HR_EMP_EmployeeInfos_HR_EMP_EmployeesId  @ref="Ref_HR_EMP_EmployeeInfos_HR_EMP_EmployeesId" Label="شناسه اطلاعات کارمند" CssClass=""  DisplayFormat="DropDown" ExternalApi=false NotMapped=false TextGrid=false Text="" Value="@HR_EMP_EmployeeInfos.HR_EMP_EmployeesId" FieldName="HR_EMP_EmployeesId" OnItemSelected="ItemSelected_HR_EMP_EmployeeInfosHR_EMP_EmployeesId" Component="Component_HR_EMP_EmployeeInfosHR_EMP_EmployeesId" _Entity="_Entity" _EntityRow=HR_EMP_EmployeeInfos>
+    <Dropdown Id=HR_EMP_EmployeeInfos_HR_EMP_EmployeesId  @ref="Ref_HR_EMP_EmployeeInfos_HR_EMP_EmployeesId" Label="شناسه اطلاعات کارمند" CssClass="Gcol-sm-8 Gcol-md-6 Gcol-lg-6"  DisplayFormat="DropDown" ExternalApi=false NotMapped=false TextGrid=false Text="" Value="@HR_EMP_EmployeeInfos.HR_EMP_EmployeesId" FieldName="HR_EMP_EmployeesId" OnItemSelected="ItemSelected_HR_EMP_EmployeeInfosHR_EMP_EmployeesId" Component="Component_HR_EMP_EmployeeInfosHR_EMP_EmployeesId" _Entity="_Entity" _EntityRow=HR_EMP_EmployeeInfos>
 </Dropdown>
 @code {
     public async Task ItemSelected_HR_EMP_EmployeeInfosHR_EMP_EmployeesId(object _Item)
@@ -1170,8 +1192,8 @@
 </DxFormLayoutItem>
 
 <DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextHR_EMP_EmployeeInfos">
-    <div  class="Gcol-sm-8 Gcol-md-6 Gcol-lg-6">
-    
+    <div  class="htmlvisible Gcol-sm-8 Gcol-md-6 Gcol-lg-6">
+    <div class="htmlvisible"></div>
 </div>
 
 </DxFormLayoutItem>
@@ -1189,6 +1211,12 @@
 
 <DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextHR_EMP_EmployeeInfos">
     
+<Input Id="HR_EMP_EmployeeInfos_BaseInfo_ORG_Companies" @ref="Ref_HR_EMP_EmployeeInfos_BaseInfo_ORG_Companies" Label="شرکت"  CssClass="Gcol-sm-8 Gcol-md-6 Gcol-lg-3" Disabled=true  @bind-Value="HR_EMP_EmployeeInfos.BaseInfo_ORG_Companies" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"maxlength\":\"100\"}").Result))></Input>
+
+</DxFormLayoutItem>
+
+<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextHR_EMP_EmployeeInfos">
+    
 <Input Id="HR_EMP_EmployeeInfos_FirstName" @ref="Ref_HR_EMP_EmployeeInfos_FirstName" Label="نام"  CssClass="Gcol-sm-8 Gcol-md-6 Gcol-lg-3" Disabled=true  @bind-Value="HR_EMP_EmployeeInfos.FirstName" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"maxlength\":\"150\"}").Result))></Input>
 
 </DxFormLayoutItem>
@@ -1201,13 +1229,57 @@
 
 <DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextHR_EMP_EmployeeInfos">
     
-<Input Id="HR_EMP_EmployeeInfos_FatherName" @ref="Ref_HR_EMP_EmployeeInfos_FatherName" Label="نام پدر"  CssClass="Gcol-sm-8 Gcol-md-6 Gcol-lg-3"   @bind-Value="HR_EMP_EmployeeInfos.FatherName" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"maxlength\":\"150\"}").Result))></Input>
+<Input Id="HR_EMP_EmployeeInfos_NationalCode" @ref="Ref_HR_EMP_EmployeeInfos_NationalCode" Label="کد ملی"  CssClass="Gcol-sm-8 Gcol-md-6 Gcol-lg-3" Disabled=true  @bind-Value="HR_EMP_EmployeeInfos.NationalCode" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"maxlength\":\"10\"}").Result))></Input>
 
 </DxFormLayoutItem>
 
 <DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextHR_EMP_EmployeeInfos">
     
-<Input Id="HR_EMP_EmployeeInfos_NationalCode" @ref="Ref_HR_EMP_EmployeeInfos_NationalCode" Label="کد ملی"  CssClass="Gcol-sm-8 Gcol-md-6 Gcol-lg-3"   @bind-Value="HR_EMP_EmployeeInfos.NationalCode" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"maxlength\":\"10\"}").Result))></Input>
+<Input Id="HR_EMP_EmployeeInfos_EmployeeNo" @ref="Ref_HR_EMP_EmployeeInfos_EmployeeNo" Label="کد کارمندی"  CssClass="Gcol-sm-8 Gcol-md-6 Gcol-lg-3" Disabled=true  @bind-Value="HR_EMP_EmployeeInfos.EmployeeNo" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"maxlength\":\"10\"}").Result))></Input>
+
+</DxFormLayoutItem>
+
+<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextHR_EMP_EmployeeInfos">
+    
+<Input Id="HR_EMP_EmployeeInfos_LastEmployeeNo" @ref="Ref_HR_EMP_EmployeeInfos_LastEmployeeNo" Label="کد قدیم کارمندی"  CssClass="Gcol-sm-8 Gcol-md-6 Gcol-lg-3" Disabled=true  @bind-Value="HR_EMP_EmployeeInfos.LastEmployeeNo" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"maxlength\":\"10\"}").Result))></Input>
+
+</DxFormLayoutItem>
+
+<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextHR_EMP_EmployeeInfos">
+    
+<Input Id="HR_EMP_EmployeeInfos_EmployeePersonelNo" @ref="Ref_HR_EMP_EmployeeInfos_EmployeePersonelNo" Label="کد پرسنلی"  CssClass="Gcol-sm-8 Gcol-md-6 Gcol-lg-3" Disabled=true  @bind-Value="HR_EMP_EmployeeInfos.EmployeePersonelNo" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"maxlength\":\"10\"}").Result))></Input>
+
+</DxFormLayoutItem>
+
+<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextHR_EMP_EmployeeInfos">
+    
+<Input Id="HR_EMP_EmployeeInfos_EmployeeLastPersonelNo" @ref="Ref_HR_EMP_EmployeeInfos_EmployeeLastPersonelNo" Label="کد قدیم پرسنلی"  CssClass="Gcol-sm-8 Gcol-md-6 Gcol-lg-3" Disabled=true  @bind-Value="HR_EMP_EmployeeInfos.EmployeeLastPersonelNo" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"maxlength\":\"10\"}").Result))></Input>
+
+</DxFormLayoutItem>
+
+<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextHR_EMP_EmployeeInfos">
+    
+<Input Id="HR_EMP_EmployeeInfos_HR_EMP_Status" @ref="Ref_HR_EMP_EmployeeInfos_HR_EMP_Status" Label="وضعیت کارمند"  CssClass="Gcol-sm-8 Gcol-md-6 Gcol-lg-3" Disabled=true  @bind-Value="HR_EMP_EmployeeInfos.HR_EMP_Status" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"maxlength\":\"100\"}").Result))></Input>
+
+</DxFormLayoutItem>
+
+<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextHR_EMP_EmployeeInfos">
+    <div  class="Gcol-sm-8 Gcol-md-6 Gcol-lg-9">
+    
+</div>
+
+</DxFormLayoutItem>
+
+<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextHR_EMP_EmployeeInfos">
+    <div  class="Gcol-sm-8 Gcol-md-6 Gcol-lg-12">
+    <hr class="hrdash bg-purple">
+</div>
+
+</DxFormLayoutItem>
+
+<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextHR_EMP_EmployeeInfos">
+    
+<Input Id="HR_EMP_EmployeeInfos_FatherName" @ref="Ref_HR_EMP_EmployeeInfos_FatherName" Label="نام پدر"  CssClass="Gcol-sm-8 Gcol-md-6 Gcol-lg-3"   @bind-Value="HR_EMP_EmployeeInfos.FatherName" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"maxlength\":\"150\"}").Result))></Input>
 
 </DxFormLayoutItem>
 
@@ -1219,7 +1291,19 @@
 
 <DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextHR_EMP_EmployeeInfos">
     
-<Input Id="HR_EMP_EmployeeInfos_IdCardSerialNo" @ref="Ref_HR_EMP_EmployeeInfos_IdCardSerialNo" Label="سریال شناسنامه"  CssClass="Gcol-sm-8 Gcol-md-6 Gcol-lg-3"   @bind-Value="HR_EMP_EmployeeInfos.IdCardSerialNo" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"maxlength\":\"20\"}").Result))></Input>
+<Input Id="HR_EMP_EmployeeInfos_IdCardSerialNoSection1" @ref="Ref_HR_EMP_EmployeeInfos_IdCardSerialNoSection1" Label="سریال شناسنامه بخش 1"  CssClass="Gcol-sm-8 Gcol-md-6 Gcol-lg-2"   @bind-Value="HR_EMP_EmployeeInfos.IdCardSerialNoSection1" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"maxlength\":\"5\"}").Result))></Input>
+
+</DxFormLayoutItem>
+
+<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextHR_EMP_EmployeeInfos">
+    
+<Input Id="HR_EMP_EmployeeInfos_IdCardSerialNoSection2" @ref="Ref_HR_EMP_EmployeeInfos_IdCardSerialNoSection2" Label="سریال شناسنامه بخش 2"  CssClass="Gcol-sm-8 Gcol-md-6 Gcol-lg-2"   @bind-Value="HR_EMP_EmployeeInfos.IdCardSerialNoSection2" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"maxlength\":\"5\"}").Result))></Input>
+
+</DxFormLayoutItem>
+
+<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextHR_EMP_EmployeeInfos">
+    
+<Input Id="HR_EMP_EmployeeInfos_IdCardSerialNoSection3" @ref="Ref_HR_EMP_EmployeeInfos_IdCardSerialNoSection3" Label="سریال شناسنامه بخش 3"  CssClass="Gcol-sm-8 Gcol-md-6 Gcol-lg-2"   @bind-Value="HR_EMP_EmployeeInfos.IdCardSerialNoSection3" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"maxlength\":\"10\"}").Result))></Input>
 
 </DxFormLayoutItem>
 
@@ -1347,13 +1431,6 @@
 </DxFormLayoutItem>
 
 <DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextHR_EMP_EmployeeInfos">
-    <div  class="Gcol-sm-8 Gcol-md-6 Gcol-lg-9">
-    
-</div>
-
-</DxFormLayoutItem>
-
-<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextHR_EMP_EmployeeInfos">
     
 <Input Id="HR_EMP_EmployeeInfos_BirthDate_Fa" @ref="Ref_HR_EMP_EmployeeInfos_BirthDate_Fa" Label="تاریخ تولد"  CssClass=" PersianDatePicker Gcol-sm-8 Gcol-md-6 Gcol-lg-3"   @bind-Value="HR_EMP_EmployeeInfos.BirthDate_Fa" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"data-jdp\":\"  \",\"data-jdp-only-date\":\"   \"}").Result))></Input>
 
@@ -1361,19 +1438,19 @@
 
 <DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextHR_EMP_EmployeeInfos">
     
-<Input Id="HR_EMP_EmployeeInfos_BirthDateDD" @ref="Ref_HR_EMP_EmployeeInfos_BirthDateDD" Label="روز تاریخ تولد"  CssClass="Gcol-sm-8 Gcol-md-6 Gcol-lg-3 input-ymd d-none"   @bind-Value="HR_EMP_EmployeeInfos.BirthDateDD" type="number" ActiveSeperator=false    Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"maxlength\":\"2\"}").Result))></Input>
+<Input Id="HR_EMP_EmployeeInfos_BirthDateDD" @ref="Ref_HR_EMP_EmployeeInfos_BirthDateDD" Label="روز تاریخ تولد"  CssClass="input-ymd d-none"   @bind-Value="HR_EMP_EmployeeInfos.BirthDateDD" type="number" ActiveSeperator=false    Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"maxlength\":\"2\"}").Result))></Input>
 
 </DxFormLayoutItem>
 
 <DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextHR_EMP_EmployeeInfos">
     
-<Input Id="HR_EMP_EmployeeInfos_BirthDateMM" @ref="Ref_HR_EMP_EmployeeInfos_BirthDateMM" Label="ماه تاریخ تولد"  CssClass="Gcol-sm-8 Gcol-md-6 Gcol-lg-3 input-ymd d-none"   @bind-Value="HR_EMP_EmployeeInfos.BirthDateMM" type="number" ActiveSeperator=false    Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"maxlength\":\"2\"}").Result))></Input>
+<Input Id="HR_EMP_EmployeeInfos_BirthDateMM" @ref="Ref_HR_EMP_EmployeeInfos_BirthDateMM" Label="ماه تاریخ تولد"  CssClass="input-ymd d-none"   @bind-Value="HR_EMP_EmployeeInfos.BirthDateMM" type="number" ActiveSeperator=false    Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"maxlength\":\"2\"}").Result))></Input>
 
 </DxFormLayoutItem>
 
 <DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextHR_EMP_EmployeeInfos">
     
-<Input Id="HR_EMP_EmployeeInfos_BirthDateYYYY" @ref="Ref_HR_EMP_EmployeeInfos_BirthDateYYYY" Label="سال تاریخ تولد"  CssClass="Gcol-sm-8 Gcol-md-6 Gcol-lg-3 input-ymd d-none"   @bind-Value="HR_EMP_EmployeeInfos.BirthDateYYYY" type="number" ActiveSeperator=false    Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"maxlength\":\"4\"}").Result))></Input>
+<Input Id="HR_EMP_EmployeeInfos_BirthDateYYYY" @ref="Ref_HR_EMP_EmployeeInfos_BirthDateYYYY" Label="سال تاریخ تولد"  CssClass="input-ymd d-none"   @bind-Value="HR_EMP_EmployeeInfos.BirthDateYYYY" type="number" ActiveSeperator=false    Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"maxlength\":\"4\"}").Result))></Input>
 
 </DxFormLayoutItem>
 
@@ -1397,26 +1474,45 @@
 
 <DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextHR_EMP_EmployeeInfos">
     <div  class="Gcol-sm-8 Gcol-md-6 Gcol-lg-6">
-    
+    <div class="htmlvisible"></div>
 </div>
 
 </DxFormLayoutItem>
 
 <DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextHR_EMP_EmployeeInfos">
-    <div  class="Gcol-sm-8 Gcol-md-6 Gcol-lg-12">
-    <div class="form-section-header col-sm-8 col-md-6 col-lg-12">
-  <i class="bi bi-person-badge"></i>
-  اطلاعات ثبت شده سابقه کار کارمند در بیمه
+    <div  class="htmlvisible  Gcol-sm-8 Gcol-md-6 Gcol-lg-12">
+    <div class="form-section-header rowheader">
+    <div class="col-6">
+      <i class="bi bi-person-badge"></i>
+      اطلاعات ثبت شده سابقه کار کارمند در بیمه
+    </div>
+    <div class="col-6 text-end">
+      <a class="btn btn-warning btn-sm d-inline" href="https://file.workcv.ir/fa-ir/api/v1/File/Get?FileID=9d42e517-edad-4d69-5aca-08ddf67735ff">
+        <i class="bi bi-cloud-download"></i>
+        فایل راهنما
+      </a>
+    </div>
+  </div>
 </div>
 
-</div>
+</DxFormLayoutItem>
 
+<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextHR_EMP_EmployeeInfos">
+    <SingleUploader Id=HR_EMP_EmployeeInfos_EmployeeWorkExperienceFile   @ref="Ref_HR_EMP_EmployeeInfos_EmployeeWorkExperienceFile" uploadedLink="@HR_EMP_EmployeeInfos.EmployeeWorkExperienceFile" uploadUrl="https://File.workcv.ir/fa/api/v1/File/Post" htmlTemplate="<img class='img-fluid pdfimg' src='https://file.workcv.ir/fa-ir/api/v1/File/Get?FileID=5954c8f9-50b6-4236-0839-08de21afb86a'/>
+<div><a href='##url##' class='btn btn-green'><span class='fal fa-download'></span></a></div>
+" FileChanged="@((url) => HR_EMP_EmployeeInfos.EmployeeWorkExperienceFile = url)" Caption="فایل سابقه کار (بیمه)" />
 </DxFormLayoutItem>
 
 <DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextHR_EMP_EmployeeInfos">
     <div  class="Gcol-sm-8 Gcol-md-6 Gcol-lg-6">
-    
+    <div class="htmlvisible"></div>
 </div>
+
+</DxFormLayoutItem>
+
+<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextHR_EMP_EmployeeInfos">
+    
+<Input Id="HR_EMP_EmployeeInfos_DateEmployeeWorkExperience_Fa" @ref="Ref_HR_EMP_EmployeeInfos_DateEmployeeWorkExperience_Fa" Label="تاریخ ثبت سابقه کار"  CssClass="PersianDatePicker Gcol-sm-8 Gcol-md-6 Gcol-lg-3  PersianDatePicker"   @bind-Value="HR_EMP_EmployeeInfos.DateEmployeeWorkExperience_Fa" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"data-jdp\":\"  \",\"data-jdp-only-date\":\"   \"}").Result))></Input>
 
 </DxFormLayoutItem>
 
@@ -1615,7 +1711,7 @@
 
 <DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextHR_EMP_EmployeeInfos">
     <div  class="">
-    
+    <div class="htmlvisible"></div>
 </div>
 
 </DxFormLayoutItem>
@@ -1698,7 +1794,7 @@
 
 <DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextHR_EMP_EmployeeInfos">
     <div  class="">
-    
+    <div class="htmlvisible"></div>
 </div>
 
 </DxFormLayoutItem>
@@ -1774,13 +1870,6 @@
 </DxFormLayoutItem>
 
 <DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextHR_EMP_EmployeeInfos">
-    <div  class="">
-    
-</div>
-
-</DxFormLayoutItem>
-
-<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextHR_EMP_EmployeeInfos">
     
 <Input Id="HR_EMP_EmployeeInfos_Mobile" @ref="Ref_HR_EMP_EmployeeInfos_Mobile" Label="تلفن همراه"  CssClass="Gcol-sm-8 Gcol-md-6 Gcol-lg-3"   @bind-Value="HR_EMP_EmployeeInfos.Mobile" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"maxlength\":\"11\"}").Result))></Input>
 
@@ -1826,7 +1915,7 @@
 
 <DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextHR_EMP_EmployeeInfos">
     <div  class="">
-    
+    <div class="htmlvisible"></div>
 </div>
 
 </DxFormLayoutItem>
@@ -1844,7 +1933,7 @@
 
 <DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextHR_EMP_EmployeeInfos">
     
-<Input Id="HR_EMP_EmployeeInfos_ContactEmployee_FullName" @ref="Ref_HR_EMP_EmployeeInfos_ContactEmployee_FullName" Label="نام و نام خانوادگی "  CssClass="Gcol-sm-8 Gcol-md-6 Gcol-lg-3" Disabled=true  @bind-Value="HR_EMP_EmployeeInfos.ContactEmployee_FullName" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"maxlength\":\"120\"}").Result))></Input>
+<Input Id="HR_EMP_EmployeeInfos_ContactEmployee_FullName" @ref="Ref_HR_EMP_EmployeeInfos_ContactEmployee_FullName" Label="نام و نام خانوادگی "  CssClass="Gcol-sm-8 Gcol-md-6 Gcol-lg-3"   @bind-Value="HR_EMP_EmployeeInfos.ContactEmployee_FullName" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"maxlength\":\"120\"}").Result))></Input>
 
 </DxFormLayoutItem>
 
@@ -1897,7 +1986,7 @@
 
 <DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextHR_EMP_EmployeeInfos">
     
-<Input Id="HR_EMP_EmployeeInfos_ContactEmployee_Address" @ref="Ref_HR_EMP_EmployeeInfos_ContactEmployee_Address" Label="نشانی فرد مرتبط"  CssClass="Gcol-sm-8 Gcol-md-6 Gcol-lg-12"   @bind-Value="HR_EMP_EmployeeInfos.ContactEmployee_Address" type="textarea"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"maxlength\":\"500\"}").Result))></Input>
+<Input Id="HR_EMP_EmployeeInfos_ContactEmployee_Address" @ref="Ref_HR_EMP_EmployeeInfos_ContactEmployee_Address" Label="نشانی فرد مرتبط"  CssClass="htmlvisible Gcol-sm-8 Gcol-md-6 Gcol-lg-12"   @bind-Value="HR_EMP_EmployeeInfos.ContactEmployee_Address" type="textarea"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"maxlength\":\"500\"}").Result))></Input>
 
 </DxFormLayoutItem>
 
@@ -1905,23 +1994,6 @@
     <div  class="">
     
 </div>
-
-</DxFormLayoutItem>
-
-<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextHR_EMP_EmployeeInfos">
-    <div  class="Gcol-sm-8 Gcol-md-6 Gcol-lg-12">
-    <div class="form-section-header col-sm-8 col-md-6 col-lg-12">
-  <i class="bi bi-person-badge"></i>
-  وضعیت فعلی کارمند
-</div>
-
-</div>
-
-</DxFormLayoutItem>
-
-<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextHR_EMP_EmployeeInfos">
-    
-<Input Id="HR_EMP_EmployeeInfos_IsActive" @ref="Ref_HR_EMP_EmployeeInfos_IsActive" Label="فعال"  CssClass="Gcol-sm-8 Gcol-md-6 Gcol-lg-3 "   @bind-Value="HR_EMP_EmployeeInfos.IsActive" type="checkbox"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
 
 </DxFormLayoutItem>
 
@@ -1969,37 +2041,13 @@
 
 <DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextHR_EMP_EmployeeInfos">
     
-<Input Id="HR_EMP_EmployeeInfos_EmployeeNo" @ref="Ref_HR_EMP_EmployeeInfos_EmployeeNo" Label="کد کارمندی"   Disabled=true  @bind-Value="HR_EMP_EmployeeInfos.EmployeeNo" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"maxlength\":\"10\"}").Result))></Input>
+<Input Id="HR_EMP_EmployeeInfos_BaseInfo_ORG_CompaniesId" @ref="Ref_HR_EMP_EmployeeInfos_BaseInfo_ORG_CompaniesId" Label="شناسه شرکت"  CssClass="d-none"   @bind-Value="HR_EMP_EmployeeInfos.BaseInfo_ORG_CompaniesId" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"maxlength\":\"150\"}").Result))></Input>
 
 </DxFormLayoutItem>
 
 <DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextHR_EMP_EmployeeInfos">
     
-<Input Id="HR_EMP_EmployeeInfos_LastEmployeeNo" @ref="Ref_HR_EMP_EmployeeInfos_LastEmployeeNo" Label="کد قدیم کارمندی"   Disabled=true  @bind-Value="HR_EMP_EmployeeInfos.LastEmployeeNo" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"maxlength\":\"10\"}").Result))></Input>
-
-</DxFormLayoutItem>
-
-<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextHR_EMP_EmployeeInfos">
-    
-<Input Id="HR_EMP_EmployeeInfos_EmployeePersonelNo" @ref="Ref_HR_EMP_EmployeeInfos_EmployeePersonelNo" Label="کد پرسنلی"   Disabled=true  @bind-Value="HR_EMP_EmployeeInfos.EmployeePersonelNo" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"maxlength\":\"10\"}").Result))></Input>
-
-</DxFormLayoutItem>
-
-<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextHR_EMP_EmployeeInfos">
-    
-<Input Id="HR_EMP_EmployeeInfos_EmployeeLastPersonelNo" @ref="Ref_HR_EMP_EmployeeInfos_EmployeeLastPersonelNo" Label="کد قدیم پرسنلی"   Disabled=true  @bind-Value="HR_EMP_EmployeeInfos.EmployeeLastPersonelNo" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"maxlength\":\"10\"}").Result))></Input>
-
-</DxFormLayoutItem>
-
-<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextHR_EMP_EmployeeInfos">
-    <SingleUploader Id=HR_EMP_EmployeeInfos_EmployeeWorkExperienceFile   @ref="Ref_HR_EMP_EmployeeInfos_EmployeeWorkExperienceFile" uploadedLink="@HR_EMP_EmployeeInfos.EmployeeWorkExperienceFile" uploadUrl="https://File.workcv.ir/fa/api/v1/File/Post" htmlTemplate="<img class='img-fluid pdfimg' src='https://file.workcv.ir/fa-ir/api/v1/File/Get?FileID=5954c8f9-50b6-4236-0839-08de21afb86a'/>
-<div><a href='##url##' class='btn btn-green'><span class='fal fa-download'></span></a></div>
-" FileChanged="@((url) => HR_EMP_EmployeeInfos.EmployeeWorkExperienceFile = url)" Caption="فایل سابقه کار (بیمه)" />
-</DxFormLayoutItem>
-
-<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextHR_EMP_EmployeeInfos">
-    
-<Input Id="HR_EMP_EmployeeInfos_DateEmployeeWorkExperience_Fa" @ref="Ref_HR_EMP_EmployeeInfos_DateEmployeeWorkExperience_Fa" Label="تاریخ ثبت سابقه کار"  CssClass=" PersianDatePicker"   @bind-Value="HR_EMP_EmployeeInfos.DateEmployeeWorkExperience_Fa" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"data-jdp\":\"  \",\"data-jdp-only-date\":\"   \"}").Result))></Input>
+<Input Id="HR_EMP_EmployeeInfos_HR_EMP_StatusId" @ref="Ref_HR_EMP_EmployeeInfos_HR_EMP_StatusId" Label="شناسه وضعیت کارمند"  CssClass="d-none"   @bind-Value="HR_EMP_EmployeeInfos.HR_EMP_StatusId" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"maxlength\":\"150\"}").Result))></Input>
 
 </DxFormLayoutItem>
 
@@ -2288,12 +2336,20 @@ public void SaveGrid_HR_EMP_EmployeeInfos(object DataItem, object EditModel)
     {
 MainModel.HR_EMP_EmployeesId = ((Entity.HR_EMP_EmployeeInfos)EditModel).HR_EMP_EmployeesId;
 MainModel.HR_EMP_Employees = ((Entity.HR_EMP_EmployeeInfos)EditModel).HR_EMP_Employees;
+MainModel.BaseInfo_ORG_Companies = ((Entity.HR_EMP_EmployeeInfos)EditModel).BaseInfo_ORG_Companies;
 MainModel.FirstName = ((Entity.HR_EMP_EmployeeInfos)EditModel).FirstName;
 MainModel.LastName = ((Entity.HR_EMP_EmployeeInfos)EditModel).LastName;
-MainModel.FatherName = ((Entity.HR_EMP_EmployeeInfos)EditModel).FatherName;
 MainModel.NationalCode = ((Entity.HR_EMP_EmployeeInfos)EditModel).NationalCode;
+MainModel.EmployeeNo = ((Entity.HR_EMP_EmployeeInfos)EditModel).EmployeeNo;
+MainModel.LastEmployeeNo = ((Entity.HR_EMP_EmployeeInfos)EditModel).LastEmployeeNo;
+MainModel.EmployeePersonelNo = ((Entity.HR_EMP_EmployeeInfos)EditModel).EmployeePersonelNo;
+MainModel.EmployeeLastPersonelNo = ((Entity.HR_EMP_EmployeeInfos)EditModel).EmployeeLastPersonelNo;
+MainModel.HR_EMP_Status = ((Entity.HR_EMP_EmployeeInfos)EditModel).HR_EMP_Status;
+MainModel.FatherName = ((Entity.HR_EMP_EmployeeInfos)EditModel).FatherName;
 MainModel.IdCardNo = ((Entity.HR_EMP_EmployeeInfos)EditModel).IdCardNo;
-MainModel.IdCardSerialNo = ((Entity.HR_EMP_EmployeeInfos)EditModel).IdCardSerialNo;
+MainModel.IdCardSerialNoSection1 = ((Entity.HR_EMP_EmployeeInfos)EditModel).IdCardSerialNoSection1;
+MainModel.IdCardSerialNoSection2 = ((Entity.HR_EMP_EmployeeInfos)EditModel).IdCardSerialNoSection2;
+MainModel.IdCardSerialNoSection3 = ((Entity.HR_EMP_EmployeeInfos)EditModel).IdCardSerialNoSection3;
 MainModel.BaseInfo_MaritalStatusId = ((Entity.HR_EMP_EmployeeInfos)EditModel).BaseInfo_MaritalStatusId;
 MainModel.BaseInfo_MaritalStatus = ((Entity.HR_EMP_EmployeeInfos)EditModel).BaseInfo_MaritalStatus;
 MainModel.CityOfIssue = ((Entity.HR_EMP_EmployeeInfos)EditModel).CityOfIssue;
@@ -2307,6 +2363,8 @@ MainModel.BirthDateYYYY = ((Entity.HR_EMP_EmployeeInfos)EditModel).BirthDateYYYY
 MainModel.BirthDate = ((Entity.HR_EMP_EmployeeInfos)EditModel).BirthDate;
 MainModel.EmployeeAge = ((Entity.HR_EMP_EmployeeInfos)EditModel).EmployeeAge;
 MainModel.EmployeeAgeText = ((Entity.HR_EMP_EmployeeInfos)EditModel).EmployeeAgeText;
+MainModel.EmployeeWorkExperienceFile = ((Entity.HR_EMP_EmployeeInfos)EditModel).EmployeeWorkExperienceFile;
+MainModel.DateEmployeeWorkExperience_Fa = ((Entity.HR_EMP_EmployeeInfos)EditModel).DateEmployeeWorkExperience_Fa;
 MainModel.EmployeeWorkExperience = ((Entity.HR_EMP_EmployeeInfos)EditModel).EmployeeWorkExperience;
 MainModel.EmployeeWorkExperienceText = ((Entity.HR_EMP_EmployeeInfos)EditModel).EmployeeWorkExperienceText;
 MainModel.BaseInfo_GenderId = ((Entity.HR_EMP_EmployeeInfos)EditModel).BaseInfo_GenderId;
@@ -2335,7 +2393,6 @@ MainModel.ContactEmployee_Tel = ((Entity.HR_EMP_EmployeeInfos)EditModel).Contact
 MainModel.HR_Base_ContactEmployeeRelativeId = ((Entity.HR_EMP_EmployeeInfos)EditModel).HR_Base_ContactEmployeeRelativeId;
 MainModel.HR_Base_ContactEmployeeRelative = ((Entity.HR_EMP_EmployeeInfos)EditModel).HR_Base_ContactEmployeeRelative;
 MainModel.ContactEmployee_Address = ((Entity.HR_EMP_EmployeeInfos)EditModel).ContactEmployee_Address;
-MainModel.IsActive = ((Entity.HR_EMP_EmployeeInfos)EditModel).IsActive;
 MainModel.Id = ((Entity.HR_EMP_EmployeeInfos)EditModel).Id;
 MainModel.CreateUser = ((Entity.HR_EMP_EmployeeInfos)EditModel).CreateUser;
 MainModel.RequestID = ((Entity.HR_EMP_EmployeeInfos)EditModel).RequestID;
@@ -2343,12 +2400,8 @@ MainModel.UpdateUser = ((Entity.HR_EMP_EmployeeInfos)EditModel).UpdateUser;
 MainModel.CreateDate = ((Entity.HR_EMP_EmployeeInfos)EditModel).CreateDate;
 MainModel.UpdateDate = ((Entity.HR_EMP_EmployeeInfos)EditModel).UpdateDate;
 MainModel.IsDelete = ((Entity.HR_EMP_EmployeeInfos)EditModel).IsDelete;
-MainModel.EmployeeNo = ((Entity.HR_EMP_EmployeeInfos)EditModel).EmployeeNo;
-MainModel.LastEmployeeNo = ((Entity.HR_EMP_EmployeeInfos)EditModel).LastEmployeeNo;
-MainModel.EmployeePersonelNo = ((Entity.HR_EMP_EmployeeInfos)EditModel).EmployeePersonelNo;
-MainModel.EmployeeLastPersonelNo = ((Entity.HR_EMP_EmployeeInfos)EditModel).EmployeeLastPersonelNo;
-MainModel.EmployeeWorkExperienceFile = ((Entity.HR_EMP_EmployeeInfos)EditModel).EmployeeWorkExperienceFile;
-MainModel.DateEmployeeWorkExperience_Fa = ((Entity.HR_EMP_EmployeeInfos)EditModel).DateEmployeeWorkExperience_Fa;
+MainModel.BaseInfo_ORG_CompaniesId = ((Entity.HR_EMP_EmployeeInfos)EditModel).BaseInfo_ORG_CompaniesId;
+MainModel.HR_EMP_StatusId = ((Entity.HR_EMP_EmployeeInfos)EditModel).HR_EMP_StatusId;
 
     }
     else
@@ -2559,10 +2612,10 @@ public async void RowDubbleClickGrid_HR_EMP_EmployeeInfos(GridRowClickEventArgs 
 
     </CellDisplayTemplate>
 </DxGridDataColumn>
-<DxGridDataColumn Context="html_" Caption="HTML" >
+<DxGridDataColumn Context="html_" Caption="-" >
     <CellDisplayTemplate>
       <div  class="Gcol-sm-8 Gcol-md-6 Gcol-lg-6">
-    
+    <div class="htmlvisible"></div>
 </div>
 
     </CellDisplayTemplate>
@@ -2683,7 +2736,7 @@ public async void RowDubbleClickGrid_HR_EMP_EmployeeInfos(GridRowClickEventArgs 
 
     </CellDisplayTemplate>
 </DxGridDataColumn>
-<DxGridDataColumn Context="html1_" Caption="HTML" >
+<DxGridDataColumn Context="html1_" Caption="-" >
     <CellDisplayTemplate>
       <div  class="Gcol-sm-8 Gcol-md-6 Gcol-lg-6">
     
@@ -2871,7 +2924,7 @@ public async void RowDubbleClickGrid_HR_EMP_EmployeeInfos(GridRowClickEventArgs 
 
 <DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextHR_EMP_EmployeeFamileis">
     <div  class="Gcol-sm-8 Gcol-md-6 Gcol-lg-6">
-    
+    <div class="htmlvisible"></div>
 </div>
 
 </DxFormLayoutItem>
@@ -3767,10 +3820,10 @@ public async void RowDubbleClickGrid_HR_EMP_EmployeeFamileis(GridRowClickEventAr
 
     </CellDisplayTemplate>
 </DxGridDataColumn>
-<DxGridDataColumn Context="html_" Caption="HTML" >
+<DxGridDataColumn Context="html_" Caption="-" >
     <CellDisplayTemplate>
       <div  class="Gcol-sm-8 Gcol-md-6 Gcol-lg-6">
-    
+    <div class="htmlvisible"></div>
 </div>
 
     </CellDisplayTemplate>
@@ -3779,11 +3832,11 @@ public async void RowDubbleClickGrid_HR_EMP_EmployeeFamileis(GridRowClickEventAr
     <CellDisplayTemplate>
        
 @{
-    Baya.Models.ViewEngine.View_Component HeaderHR_Base_BankAcountCategoryId = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"primaryKey\":false,\"EntityID\":357,\"FieldId\":31464,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":1037,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":false,\"RelationParentName\":\"HR_Base_BankAcountCategory\",\"RelationParentModel\":\"HR_Base_BankAcountCategory\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/HR_Base_BankAcountCategory/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.Title}} </span>\",\"FieldsTemplate\":[{\"key\":\"Title\",\"value\":\"nvarchar(Max)\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"searchField\":\"Title\",\"disableLimit\":false,\"noRefreshOnScroll\":false,\"modal\":true,\"label\":\"دسته بندی حساب های بانکی کارمند\",\"tableView\":true,\"key\":\"HR_Base_BankAcountCategoryId\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"customClass\":\"Gcol-sm-8 Gcol-md-6 Gcol-lg-3\",\"FieldUrl\":\"31464?EId=357&SubId=15\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
+    Baya.Models.ViewEngine.View_Component HeaderHR_Base_BankAcountCategoryId = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"primaryKey\":false,\"EntityID\":357,\"FieldId\":31464,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":1037,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":false,\"RelationParentName\":\"HR_Base_BankAcountCategory\",\"RelationParentModel\":\"HR_Base_BankAcountCategory\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/HR_Base_BankAcountCategory/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.Title}} </span>\",\"FieldsTemplate\":[{\"key\":\"Title\",\"value\":\"nvarchar(Max)\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"searchField\":\"Title\",\"disableLimit\":false,\"noRefreshOnScroll\":false,\"modal\":true,\"label\":\"دسته بندی حساب های بانکی کارمند\",\"tableView\":true,\"key\":\"HR_Base_BankAcountCategoryId\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"customClass\":\"Gcol-sm-8 Gcol-md-6 Gcol-lg-4\",\"FieldUrl\":\"31464?EId=357&SubId=15\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
     var RowHR_Base_BankAcountCategoryId = ((Entity.HR_Base_BankAccount)HR_Base_BankAcountCategoryId_.DataItem).HR_Base_BankAcountCategoryId;
 }
 
-<Dropdown ExternalApi=false CssClass="Gcol-sm-8 Gcol-md-6 Gcol-lg-3" NotMapped=false TextGrid=true Value="@RowHR_Base_BankAcountCategoryId"   FieldName="HR_Base_BankAcountCategoryId" OnItemSelected="ItemSelected_HR_Base_BankAccountHR_Base_BankAcountCategoryId_Header" Component="HeaderHR_Base_BankAcountCategoryId">
+<Dropdown ExternalApi=false CssClass="Gcol-sm-8 Gcol-md-6 Gcol-lg-4" NotMapped=false TextGrid=true Value="@RowHR_Base_BankAcountCategoryId"   FieldName="HR_Base_BankAcountCategoryId" OnItemSelected="ItemSelected_HR_Base_BankAccountHR_Base_BankAcountCategoryId_Header" Component="HeaderHR_Base_BankAcountCategoryId">
 </Dropdown>
 @code {
     public async Task ItemSelected_HR_Base_BankAccountHR_Base_BankAcountCategoryId_Header(object _Item)
@@ -3801,9 +3854,9 @@ public async void RowDubbleClickGrid_HR_EMP_EmployeeFamileis(GridRowClickEventAr
 
     </CellDisplayTemplate>
 </DxGridDataColumn>
-<DxGridDataColumn Context="html1_" Caption="HTML" >
+<DxGridDataColumn Context="html1_" Caption="-" >
     <CellDisplayTemplate>
-      <div  class="Gcol-sm-8 Gcol-md-6 Gcol-lg-9">
+      <div  class="Gcol-sm-8 Gcol-md-6 Gcol-lg-8">
     
 </div>
 
@@ -3959,7 +4012,7 @@ public async void RowDubbleClickGrid_HR_EMP_EmployeeFamileis(GridRowClickEventAr
 
 <DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextHR_Base_BankAccount">
     <div  class="Gcol-sm-8 Gcol-md-6 Gcol-lg-6">
-    
+    <div class="htmlvisible"></div>
 </div>
 
 </DxFormLayoutItem>
@@ -3968,10 +4021,10 @@ public async void RowDubbleClickGrid_HR_EMP_EmployeeFamileis(GridRowClickEventAr
      
  
 @code {
-    Baya.Models.ViewEngine.View_Component Component_HR_Base_BankAccountHR_Base_BankAcountCategoryId = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"primaryKey\":false,\"EntityID\":357,\"FieldId\":31464,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":1037,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":false,\"RelationParentName\":\"HR_Base_BankAcountCategory\",\"RelationParentModel\":\"HR_Base_BankAcountCategory\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/HR_Base_BankAcountCategory/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.Title}} </span>\",\"FieldsTemplate\":[{\"key\":\"Title\",\"value\":\"nvarchar(Max)\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"searchField\":\"Title\",\"disableLimit\":false,\"noRefreshOnScroll\":false,\"modal\":true,\"label\":\"دسته بندی حساب های بانکی کارمند\",\"tableView\":true,\"key\":\"HR_Base_BankAcountCategoryId\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"customClass\":\"Gcol-sm-8 Gcol-md-6 Gcol-lg-3\",\"FieldUrl\":\"31464?EId=357&SubId=15\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
+    Baya.Models.ViewEngine.View_Component Component_HR_Base_BankAccountHR_Base_BankAcountCategoryId = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"primaryKey\":false,\"EntityID\":357,\"FieldId\":31464,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":1037,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":false,\"RelationParentName\":\"HR_Base_BankAcountCategory\",\"RelationParentModel\":\"HR_Base_BankAcountCategory\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/HR_Base_BankAcountCategory/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.Title}} </span>\",\"FieldsTemplate\":[{\"key\":\"Title\",\"value\":\"nvarchar(Max)\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"searchField\":\"Title\",\"disableLimit\":false,\"noRefreshOnScroll\":false,\"modal\":true,\"label\":\"دسته بندی حساب های بانکی کارمند\",\"tableView\":true,\"key\":\"HR_Base_BankAcountCategoryId\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"customClass\":\"Gcol-sm-8 Gcol-md-6 Gcol-lg-4\",\"FieldUrl\":\"31464?EId=357&SubId=15\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
 }
 
-    <Dropdown Id=HR_Base_BankAccount_HR_Base_BankAcountCategoryId  @ref="Ref_HR_Base_BankAccount_HR_Base_BankAcountCategoryId" Label="دسته بندی حساب های بانکی کارمند" CssClass="Gcol-sm-8 Gcol-md-6 Gcol-lg-3"  DisplayFormat="DropDown" ExternalApi=false NotMapped=false TextGrid=false Text="" Value="@HR_Base_BankAccount.HR_Base_BankAcountCategoryId" FieldName="HR_Base_BankAcountCategoryId" OnItemSelected="ItemSelected_HR_Base_BankAccountHR_Base_BankAcountCategoryId" Component="Component_HR_Base_BankAccountHR_Base_BankAcountCategoryId" _Entity="_Entity" _EntityRow=HR_Base_BankAccount>
+    <Dropdown Id=HR_Base_BankAccount_HR_Base_BankAcountCategoryId  @ref="Ref_HR_Base_BankAccount_HR_Base_BankAcountCategoryId" Label="دسته بندی حساب های بانکی کارمند" CssClass="Gcol-sm-8 Gcol-md-6 Gcol-lg-4"  DisplayFormat="DropDown" ExternalApi=false NotMapped=false TextGrid=false Text="" Value="@HR_Base_BankAccount.HR_Base_BankAcountCategoryId" FieldName="HR_Base_BankAcountCategoryId" OnItemSelected="ItemSelected_HR_Base_BankAccountHR_Base_BankAcountCategoryId" Component="Component_HR_Base_BankAccountHR_Base_BankAcountCategoryId" _Entity="_Entity" _EntityRow=HR_Base_BankAccount>
 </Dropdown>
 @code {
     public async Task ItemSelected_HR_Base_BankAccountHR_Base_BankAcountCategoryId(object _Item)
@@ -4006,7 +4059,7 @@ public async void RowDubbleClickGrid_HR_EMP_EmployeeFamileis(GridRowClickEventAr
 </DxFormLayoutItem>
 
 <DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextHR_Base_BankAccount">
-    <div  class="Gcol-sm-8 Gcol-md-6 Gcol-lg-9">
+    <div  class="Gcol-sm-8 Gcol-md-6 Gcol-lg-8">
     
 </div>
 
@@ -4709,7 +4762,7 @@ public async void RowDubbleClickGrid_HR_Base_BankAccount(GridRowClickEventArgs e
 
     </CellDisplayTemplate>
 </DxGridDataColumn>
-<DxGridDataColumn Context="html_" Caption="HTML" >
+<DxGridDataColumn Context="html_" Caption="-" >
     <CellDisplayTemplate>
       <div  class="Gcol-sm-8 Gcol-md-6 Gcol-lg-6">
     
@@ -4892,13 +4945,13 @@ public async void RowDubbleClickGrid_HR_Base_BankAccount(GridRowClickEventArgs e
 
 <DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextHR_EMP_Documents">
     
-<Input Id="HR_EMP_Documents_Description" @ref="Ref_HR_EMP_Documents_Description" Label="توضیحات"     @bind-Value="HR_EMP_Documents.Description" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+<Input Id="HR_EMP_Documents_Description" @ref="Ref_HR_EMP_Documents_Description" Label="توضیحات"  CssClass="Gcol-sm-8 Gcol-md-6 Gcol-lg-12"   @bind-Value="HR_EMP_Documents.Description" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
 
 </DxFormLayoutItem>
 
 <DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextHR_EMP_Documents">
     
-<Input Id="HR_EMP_Documents_IsActive" @ref="Ref_HR_EMP_Documents_IsActive" Label="فعال است؟"     @bind-Value="HR_EMP_Documents.IsActive" type="checkbox"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+<Input Id="HR_EMP_Documents_IsActive" @ref="Ref_HR_EMP_Documents_IsActive" Label="فعال است؟"  CssClass="Gcol-sm-8 Gcol-md-6 Gcol-lg-3"   @bind-Value="HR_EMP_Documents.IsActive" type="checkbox"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
 
 </DxFormLayoutItem>
 
@@ -5478,25 +5531,25 @@ public async void RowDubbleClickGrid_HR_EMP_Documents(GridRowClickEventArgs e)
 
 <DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextHR_EMP_EmployeeDetails">
     
-<Input Id="HR_EMP_EmployeeDetails_OrgTel2" @ref="Ref_HR_EMP_EmployeeDetails_OrgTel2" Label="تلفن سازمانی2"  CssClass="Gcol-sm-8 Gcol-md-6 Gcol-lg-3"   @bind-Value="HR_EMP_EmployeeDetails.OrgTel2" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"maxlength\":\"10\",\"minlength\":\"1\"}").Result))></Input>
+<Input Id="HR_EMP_EmployeeDetails_OrgTel2" @ref="Ref_HR_EMP_EmployeeDetails_OrgTel2" Label="تلفن سازمانی2"  CssClass="lrt-input Gcol-sm-8 Gcol-md-6 Gcol-lg-3"   @bind-Value="HR_EMP_EmployeeDetails.OrgTel2" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"maxlength\":\"10\",\"minlength\":\"1\"}").Result))></Input>
 
 </DxFormLayoutItem>
 
 <DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextHR_EMP_EmployeeDetails">
     
-<Input Id="HR_EMP_EmployeeDetails_OrgTel3" @ref="Ref_HR_EMP_EmployeeDetails_OrgTel3" Label="تلفن سازمانی3"  CssClass="Gcol-sm-8 Gcol-md-6 Gcol-lg-3"   @bind-Value="HR_EMP_EmployeeDetails.OrgTel3" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"maxlength\":\"10\",\"minlength\":\"1\"}").Result))></Input>
+<Input Id="HR_EMP_EmployeeDetails_OrgTel3" @ref="Ref_HR_EMP_EmployeeDetails_OrgTel3" Label="تلفن سازمانی3"  CssClass="lrt-input Gcol-sm-8 Gcol-md-6 Gcol-lg-3"   @bind-Value="HR_EMP_EmployeeDetails.OrgTel3" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"maxlength\":\"10\",\"minlength\":\"1\"}").Result))></Input>
 
 </DxFormLayoutItem>
 
 <DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextHR_EMP_EmployeeDetails">
     
-<Input Id="HR_EMP_EmployeeDetails_OrgTel4" @ref="Ref_HR_EMP_EmployeeDetails_OrgTel4" Label="تلفن سازمانی4"  CssClass="Gcol-sm-8 Gcol-md-6 Gcol-lg-3"   @bind-Value="HR_EMP_EmployeeDetails.OrgTel4" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"maxlength\":\"10\",\"minlength\":\"1\"}").Result))></Input>
+<Input Id="HR_EMP_EmployeeDetails_OrgTel4" @ref="Ref_HR_EMP_EmployeeDetails_OrgTel4" Label="تلفن سازمانی4"  CssClass="lrt-input Gcol-sm-8 Gcol-md-6 Gcol-lg-3"   @bind-Value="HR_EMP_EmployeeDetails.OrgTel4" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"maxlength\":\"10\",\"minlength\":\"1\"}").Result))></Input>
 
 </DxFormLayoutItem>
 
 <DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextHR_EMP_EmployeeDetails">
     
-<Input Id="HR_EMP_EmployeeDetails_OrgTel5" @ref="Ref_HR_EMP_EmployeeDetails_OrgTel5" Label="تلفن سازمانی5"  CssClass="Gcol-sm-8 Gcol-md-6 Gcol-lg-3"   @bind-Value="HR_EMP_EmployeeDetails.OrgTel5" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"maxlength\":\"10\",\"minlength\":\"1\"}").Result))></Input>
+<Input Id="HR_EMP_EmployeeDetails_OrgTel5" @ref="Ref_HR_EMP_EmployeeDetails_OrgTel5" Label="تلفن سازمانی5"  CssClass="lrt-input Gcol-sm-8 Gcol-md-6 Gcol-lg-3"   @bind-Value="HR_EMP_EmployeeDetails.OrgTel5" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"maxlength\":\"10\",\"minlength\":\"1\"}").Result))></Input>
 
 </DxFormLayoutItem>
 
@@ -5509,13 +5562,13 @@ public async void RowDubbleClickGrid_HR_EMP_Documents(GridRowClickEventArgs e)
 
 <DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextHR_EMP_EmployeeDetails">
     
-<Input Id="HR_EMP_EmployeeDetails_OrgMobile1" @ref="Ref_HR_EMP_EmployeeDetails_OrgMobile1" Label="موبایل سازمانی1"  CssClass="Gcol-sm-8 Gcol-md-6 Gcol-lg-4"   @bind-Value="HR_EMP_EmployeeDetails.OrgMobile1" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"maxlength\":\"10\",\"minlength\":\"1\"}").Result))></Input>
+<Input Id="HR_EMP_EmployeeDetails_OrgMobile1" @ref="Ref_HR_EMP_EmployeeDetails_OrgMobile1" Label="موبایل سازمانی1"  CssClass="lrt-input Gcol-sm-8 Gcol-md-6 Gcol-lg-4"   @bind-Value="HR_EMP_EmployeeDetails.OrgMobile1" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"maxlength\":\"10\",\"minlength\":\"1\"}").Result))></Input>
 
 </DxFormLayoutItem>
 
 <DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextHR_EMP_EmployeeDetails">
     
-<Input Id="HR_EMP_EmployeeDetails_OrgMobile2" @ref="Ref_HR_EMP_EmployeeDetails_OrgMobile2" Label="موبایل سازمانی2"  CssClass="Gcol-sm-8 Gcol-md-6 Gcol-lg-4"   @bind-Value="HR_EMP_EmployeeDetails.OrgMobile2" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"maxlength\":\"10\",\"minlength\":\"1\"}").Result))></Input>
+<Input Id="HR_EMP_EmployeeDetails_OrgMobile2" @ref="Ref_HR_EMP_EmployeeDetails_OrgMobile2" Label="موبایل سازمانی2"  CssClass="lrt-input Gcol-sm-8 Gcol-md-6 Gcol-lg-4"   @bind-Value="HR_EMP_EmployeeDetails.OrgMobile2" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"maxlength\":\"10\",\"minlength\":\"1\"}").Result))></Input>
 
 </DxFormLayoutItem>
 
@@ -6027,8 +6080,8 @@ public async void RowDubbleClickGrid_HR_EMP_EmployeeDetails(GridRowClickEventArg
     {
         Console.WriteLine("#log OnInitializedAsync");
 
-        TableGet = await Utility.JSON.ToObject<Table>("{\"Name\":\"HR_EMP_Employees\",\"GetNameAs\":\"HR_EMP_Employees\",\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"RequestID\",\"GetNameAs\":\"RequestID\"},{\"Name\":\"CreateUser\",\"GetNameAs\":\"CreateUser\"},{\"Name\":\"UpdateUser\",\"GetNameAs\":\"UpdateUser\"},{\"Name\":\"CreateDate\",\"GetNameAs\":\"CreateDate\"},{\"Name\":\"UpdateDate\",\"GetNameAs\":\"UpdateDate\"},{\"Name\":\"IsDelete\",\"GetNameAs\":\"IsDelete\"},{\"Name\":\"LastName\",\"GetNameAs\":\"LastName\"},{\"Name\":\"HR_EMP_StatusId\",\"GetNameAs\":\"HR_EMP_StatusId\"},{\"Name\":\"EmployeeLastPersonelNo\",\"GetNameAs\":\"EmployeeLastPersonelNo\"},{\"Name\":\"EmployeeNo\",\"GetNameAs\":\"EmployeeNo\"},{\"Name\":\"EmployeePersonelNo\",\"GetNameAs\":\"EmployeePersonelNo\"},{\"Name\":\"FirstName\",\"GetNameAs\":\"FirstName\"},{\"Name\":\"BaseInfo_ORG_CompaniesId\",\"GetNameAs\":\"BaseInfo_ORG_CompaniesId\"},{\"Name\":\"LastEmployeeNo\",\"GetNameAs\":\"LastEmployeeNo\"},{\"Name\":\"ProfilePicture\",\"GetNameAs\":\"ProfilePicture\"},{\"Name\":\"NationalCode\",\"GetNameAs\":\"NationalCode\"}],\"Relation\":[{\"Name\":\"HR_EMP_Status\",\"GetNameAs\":\"HR_EMP_Status\",\"ModeErtebat\":1,\"Column\":[{\"Name\":\"Title\",\"GetNameAs\":\"Title\"},{\"Name\":\"DeleteDateTime\",\"GetNameAs\":\"DeleteDateTime\"},{\"Name\":\"IsActive\",\"GetNameAs\":\"IsActive\"}],\"Relation\":[]},{\"Name\":\"BaseInfo_ORG_Companies\",\"GetNameAs\":\"BaseInfo_ORG_Companies\",\"ModeErtebat\":1,\"Column\":[{\"Name\":\"Code\",\"GetNameAs\":\"Code\"},{\"Name\":\"Title\",\"GetNameAs\":\"Title\"},{\"Name\":\"IsActive\",\"GetNameAs\":\"IsActive\"},{\"Name\":\"BaseInfo_ORG_SitesId\",\"GetNameAs\":\"BaseInfo_ORG_SitesId\"},{\"Name\":\"OldCompanyId\",\"GetNameAs\":\"OldCompanyId\"}],\"Relation\":[]},{\"Name\":\"HR_EMP_EmployeeInfos\",\"GetNameAs\":\"HR_EMP_EmployeeInfos\",\"ModeErtebat\":2,\"Column\":[{\"Name\":\"HR_Base_TransportServiceId\",\"GetNameAs\":\"HR_Base_TransportServiceId\"},{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"RequestID\",\"GetNameAs\":\"RequestID\"},{\"Name\":\"CreateUser\",\"GetNameAs\":\"CreateUser\"},{\"Name\":\"UpdateUser\",\"GetNameAs\":\"UpdateUser\"},{\"Name\":\"CreateDate\",\"GetNameAs\":\"CreateDate\"},{\"Name\":\"UpdateDate\",\"GetNameAs\":\"UpdateDate\"},{\"Name\":\"IsDelete\",\"GetNameAs\":\"IsDelete\"},{\"Name\":\"LastName\",\"GetNameAs\":\"LastName\"},{\"Name\":\"IdCardNo\",\"GetNameAs\":\"IdCardNo\"},{\"Name\":\"IdCardSerialNo\",\"GetNameAs\":\"IdCardSerialNo\"},{\"Name\":\"Mobile\",\"GetNameAs\":\"Mobile\"},{\"Name\":\"NationalCode\",\"GetNameAs\":\"NationalCode\"},{\"Name\":\"Phone\",\"GetNameAs\":\"Phone\"},{\"Name\":\"BirthDateDD\",\"GetNameAs\":\"BirthDateDD\"},{\"Name\":\"BirthDateMM\",\"GetNameAs\":\"BirthDateMM\"},{\"Name\":\"BirthDateYYYY\",\"GetNameAs\":\"BirthDateYYYY\"},{\"Name\":\"Address\",\"GetNameAs\":\"Address\"},{\"Name\":\"Arzagh\",\"GetNameAs\":\"Arzagh\"},{\"Name\":\"HR_EMP_EmployeesId\",\"GetNameAs\":\"HR_EMP_EmployeesId\"},{\"Name\":\"IsActive\",\"GetNameAs\":\"IsActive\"},{\"Name\":\"HasOrganizationalAutomobile\",\"GetNameAs\":\"HasOrganizationalAutomobile\"},{\"Name\":\"HasTransportService\",\"GetNameAs\":\"HasTransportService\"},{\"Name\":\"FirstName\",\"GetNameAs\":\"FirstName\"},{\"Name\":\"FatherName\",\"GetNameAs\":\"FatherName\"},{\"Name\":\"HasCashCharge\",\"GetNameAs\":\"HasCashCharge\"},{\"Name\":\"HasDisabledChild\",\"GetNameAs\":\"HasDisabledChild\"},{\"Name\":\"ContactEmployee_Address\",\"GetNameAs\":\"ContactEmployee_Address\"},{\"Name\":\"ContactEmployee_FullName\",\"GetNameAs\":\"ContactEmployee_FullName\"},{\"Name\":\"ContactEmployee_Tel\",\"GetNameAs\":\"ContactEmployee_Tel\"},{\"Name\":\"HR_Base_ContactEmployeeRelativeId\",\"GetNameAs\":\"HR_Base_ContactEmployeeRelativeId\"},{\"Name\":\"BaseInfo_MaritalStatusId\",\"GetNameAs\":\"BaseInfo_MaritalStatusId\"},{\"Name\":\"CityOfBirth\",\"GetNameAs\":\"CityOfBirth\"},{\"Name\":\"CityOfIssue\",\"GetNameAs\":\"CityOfIssue\"},{\"Name\":\"BaseInfo_BloodGroupId\",\"GetNameAs\":\"BaseInfo_BloodGroupId\"},{\"Name\":\"BaseInfo_ReligionId\",\"GetNameAs\":\"BaseInfo_ReligionId\"},{\"Name\":\"BaseInfo_MilitaryStatusId\",\"GetNameAs\":\"BaseInfo_MilitaryStatusId\"},{\"Name\":\"BaseInfo_CitiesAreasId\",\"GetNameAs\":\"BaseInfo_CitiesAreasId\"},{\"Name\":\"BaseInfo_GenderId\",\"GetNameAs\":\"BaseInfo_GenderId\"},{\"Name\":\"BirthDate\",\"GetNameAs\":\"BirthDate\"},{\"Name\":\"BirthDate_Fa\",\"GetNameAs\":\"BirthDate_Fa\"},{\"Name\":\"EmployeeAge\",\"GetNameAs\":\"EmployeeAge\"},{\"Name\":\"EmployeeAgeText\",\"GetNameAs\":\"EmployeeAgeText\"},{\"Name\":\"EmployeeWorkExperience\",\"GetNameAs\":\"EmployeeWorkExperience\"},{\"Name\":\"EmployeeWorkExperienceText\",\"GetNameAs\":\"EmployeeWorkExperienceText\"},{\"Name\":\"EmployeeWorkExperienceFile\",\"GetNameAs\":\"EmployeeWorkExperienceFile\"},{\"Name\":\"DateEmployeeWorkExperience_Fa\",\"GetNameAs\":\"DateEmployeeWorkExperience_Fa\"},{\"Name\":\"BaseInfo_DenominationsId\",\"GetNameAs\":\"BaseInfo_DenominationsId\"},{\"Name\":\"EmployeeNo\",\"GetNameAs\":\"EmployeeNo\"},{\"Name\":\"LastEmployeeNo\",\"GetNameAs\":\"LastEmployeeNo\"},{\"Name\":\"EmployeePersonelNo\",\"GetNameAs\":\"EmployeePersonelNo\"},{\"Name\":\"EmployeeLastPersonelNo\",\"GetNameAs\":\"EmployeeLastPersonelNo\"}],\"Relation\":[{\"Name\":\"HR_Base_TransportService\",\"GetNameAs\":\"HR_Base_TransportService\",\"ModeErtebat\":1,\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"DeleteDateTime\",\"GetNameAs\":\"DeleteDateTime\"},{\"Name\":\"HR_Base_TransportServiceTypeId\",\"GetNameAs\":\"HR_Base_TransportServiceTypeId\"},{\"Name\":\"Title\",\"GetNameAs\":\"Title\"},{\"Name\":\"Code\",\"GetNameAs\":\"Code\"}]},{\"Name\":\"HR_EMP_Employees\",\"GetNameAs\":\"HR_EMP_Employees\",\"ModeErtebat\":1,\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"LastName\",\"GetNameAs\":\"LastName\"},{\"Name\":\"LastNameEn\",\"GetNameAs\":\"LastNameEn\"},{\"Name\":\"DeleteDateTime\",\"GetNameAs\":\"DeleteDateTime\"},{\"Name\":\"HR_EMP_StatusId\",\"GetNameAs\":\"HR_EMP_StatusId\"},{\"Name\":\"EmployeeLastPersonelNo\",\"GetNameAs\":\"EmployeeLastPersonelNo\"},{\"Name\":\"EmployeeNo\",\"GetNameAs\":\"EmployeeNo\"},{\"Name\":\"EmployeePersonelNo\",\"GetNameAs\":\"EmployeePersonelNo\"},{\"Name\":\"FirstName\",\"GetNameAs\":\"FirstName\"},{\"Name\":\"FirstNameEn\",\"GetNameAs\":\"FirstNameEn\"},{\"Name\":\"HR_Base_FactoryId\",\"GetNameAs\":\"HR_Base_FactoryId\"},{\"Name\":\"BaseInfo_ORG_CompaniesId\",\"GetNameAs\":\"BaseInfo_ORG_CompaniesId\"},{\"Name\":\"UserId\",\"GetNameAs\":\"UserId\"},{\"Name\":\"LastEmployeeNo\",\"GetNameAs\":\"LastEmployeeNo\"},{\"Name\":\"ProfilePicture\",\"GetNameAs\":\"ProfilePicture\"},{\"Name\":\"FullName\",\"GetNameAs\":\"FullName\"},{\"Name\":\"NationalCode\",\"GetNameAs\":\"NationalCode\"}]},{\"Name\":\"HR_Base_ContactEmployeeRelative\",\"GetNameAs\":\"HR_Base_ContactEmployeeRelative\",\"ModeErtebat\":1,\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"Code\",\"GetNameAs\":\"Code\"},{\"Name\":\"Title\",\"GetNameAs\":\"Title\"}]},{\"Name\":\"BaseInfo_MaritalStatus\",\"GetNameAs\":\"BaseInfo_MaritalStatus\",\"ModeErtebat\":1,\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"Code\",\"GetNameAs\":\"Code\"},{\"Name\":\"Title\",\"GetNameAs\":\"Title\"}]},{\"Name\":\"CityOfBirthNavigation\",\"GetNameAs\":\"CityOfBirthNavigation\",\"ModeErtebat\":1,\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"Title\",\"GetNameAs\":\"Title\"},{\"Name\":\"BaseInfo_ProvincesId\",\"GetNameAs\":\"BaseInfo_ProvincesId\"},{\"Name\":\"ParentId\",\"GetNameAs\":\"ParentId\"}]},{\"Name\":\"CityOfIssueNavigation\",\"GetNameAs\":\"CityOfIssueNavigation\",\"ModeErtebat\":1,\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"Title\",\"GetNameAs\":\"Title\"},{\"Name\":\"BaseInfo_ProvincesId\",\"GetNameAs\":\"BaseInfo_ProvincesId\"},{\"Name\":\"ParentId\",\"GetNameAs\":\"ParentId\"}]},{\"Name\":\"BaseInfo_BloodGroup\",\"GetNameAs\":\"BaseInfo_BloodGroup\",\"ModeErtebat\":1,\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"Code\",\"GetNameAs\":\"Code\"},{\"Name\":\"Title\",\"GetNameAs\":\"Title\"}]},{\"Name\":\"BaseInfo_Religion\",\"GetNameAs\":\"BaseInfo_Religion\",\"ModeErtebat\":1,\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"Title\",\"GetNameAs\":\"Title\"},{\"Name\":\"IsActive\",\"GetNameAs\":\"IsActive\"}]},{\"Name\":\"BaseInfo_MilitaryStatus\",\"GetNameAs\":\"BaseInfo_MilitaryStatus\",\"ModeErtebat\":1,\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"Code\",\"GetNameAs\":\"Code\"},{\"Name\":\"Title\",\"GetNameAs\":\"Title\"},{\"Name\":\"IsActive\",\"GetNameAs\":\"IsActive\"}]},{\"Name\":\"BaseInfo_Gender\",\"GetNameAs\":\"BaseInfo_Gender\",\"ModeErtebat\":1,\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"Title\",\"GetNameAs\":\"Title\"},{\"Name\":\"Code\",\"GetNameAs\":\"Code\"}]},{\"Name\":\"BaseInfo_Denominations\",\"GetNameAs\":\"BaseInfo_Denominations\",\"ModeErtebat\":1,\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"BaseInfo_ReligionId\",\"GetNameAs\":\"BaseInfo_ReligionId\"},{\"Name\":\"Title\",\"GetNameAs\":\"Title\"}]}]},{\"Name\":\"HR_EMP_EmployeeDetails\",\"GetNameAs\":\"HR_EMP_EmployeeDetails\",\"ModeErtebat\":2,\"Column\":[{\"Name\":\"OrgTel1\",\"GetNameAs\":\"OrgTel1\"},{\"Name\":\"OrgTel2\",\"GetNameAs\":\"OrgTel2\"},{\"Name\":\"OrgMobile1\",\"GetNameAs\":\"OrgMobile1\"},{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"RequestID\",\"GetNameAs\":\"RequestID\"},{\"Name\":\"CreateUser\",\"GetNameAs\":\"CreateUser\"},{\"Name\":\"UpdateUser\",\"GetNameAs\":\"UpdateUser\"},{\"Name\":\"CreateDate\",\"GetNameAs\":\"CreateDate\"},{\"Name\":\"UpdateDate\",\"GetNameAs\":\"UpdateDate\"},{\"Name\":\"IsDelete\",\"GetNameAs\":\"IsDelete\"},{\"Name\":\"OrgMobile2\",\"GetNameAs\":\"OrgMobile2\"},{\"Name\":\"OrgTel3\",\"GetNameAs\":\"OrgTel3\"},{\"Name\":\"OrgTel4\",\"GetNameAs\":\"OrgTel4\"},{\"Name\":\"OrgTel5\",\"GetNameAs\":\"OrgTel5\"},{\"Name\":\"InsideEmail\",\"GetNameAs\":\"InsideEmail\"},{\"Name\":\"OutsideEmail\",\"GetNameAs\":\"OutsideEmail\"}],\"Relation\":[]},{\"Name\":\"HR_EMP_EmployeeFamileis\",\"GetNameAs\":\"HR_EMP_EmployeeFamileis\",\"ModeErtebat\":2,\"Column\":[{\"Name\":\"HR_Base_AcademicDegreesId\",\"GetNameAs\":\"HR_Base_AcademicDegreesId\"},{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"RequestID\",\"GetNameAs\":\"RequestID\"},{\"Name\":\"CreateUser\",\"GetNameAs\":\"CreateUser\"},{\"Name\":\"UpdateUser\",\"GetNameAs\":\"UpdateUser\"},{\"Name\":\"CreateDate\",\"GetNameAs\":\"CreateDate\"},{\"Name\":\"UpdateDate\",\"GetNameAs\":\"UpdateDate\"},{\"Name\":\"IsDelete\",\"GetNameAs\":\"IsDelete\"},{\"Name\":\"MarriageDate\",\"GetNameAs\":\"MarriageDate\"},{\"Name\":\"IdCardNo\",\"GetNameAs\":\"IdCardNo\"},{\"Name\":\"LastName\",\"GetNameAs\":\"LastName\"},{\"Name\":\"NationalCode\",\"GetNameAs\":\"NationalCode\"},{\"Name\":\"BirthDate\",\"GetNameAs\":\"BirthDate\"},{\"Name\":\"Description\",\"GetNameAs\":\"Description\"},{\"Name\":\"HR_EMP_EmployeesId\",\"GetNameAs\":\"HR_EMP_EmployeesId\"},{\"Name\":\"FatherName\",\"GetNameAs\":\"FatherName\"},{\"Name\":\"FirstName\",\"GetNameAs\":\"FirstName\"},{\"Name\":\"HR_FamilyRelationshipId\",\"GetNameAs\":\"HR_FamilyRelationshipId\"},{\"Name\":\"BaseInfo_CitiesId\",\"GetNameAs\":\"BaseInfo_CitiesId\"},{\"Name\":\"BaseInfo_GenderId\",\"GetNameAs\":\"BaseInfo_GenderId\"},{\"Name\":\"BaseInfo_MaritalStatusId\",\"GetNameAs\":\"BaseInfo_MaritalStatusId\"},{\"Name\":\"HR_Base_DependentId\",\"GetNameAs\":\"HR_Base_DependentId\"},{\"Name\":\"BirthDate_Fa\",\"GetNameAs\":\"BirthDate_Fa\"},{\"Name\":\"MarriageDate_Fa\",\"GetNameAs\":\"MarriageDate_Fa\"},{\"Name\":\"IsCurrentlyStudying\",\"GetNameAs\":\"IsCurrentlyStudying\"},{\"Name\":\"EducationStartDate_Fa\",\"GetNameAs\":\"EducationStartDate_Fa\"},{\"Name\":\"EducationStartDate\",\"GetNameAs\":\"EducationStartDate\"},{\"Name\":\"EducationEndDate_Fa\",\"GetNameAs\":\"EducationEndDate_Fa\"},{\"Name\":\"EducationEndDate\",\"GetNameAs\":\"EducationEndDate\"},{\"Name\":\"StudyCertificateFile\",\"GetNameAs\":\"StudyCertificateFile\"},{\"Name\":\"DivorceDate\",\"GetNameAs\":\"DivorceDate\"},{\"Name\":\"DivorceDate_Fa\",\"GetNameAs\":\"DivorceDate_Fa\"},{\"Name\":\"SpouseDeathDate\",\"GetNameAs\":\"SpouseDeathDate\"},{\"Name\":\"SpouseDeathDate_Fa\",\"GetNameAs\":\"SpouseDeathDate_Fa\"}],\"Relation\":[{\"Name\":\"HR_Base_AcademicDegrees\",\"GetNameAs\":\"HR_Base_AcademicDegrees\",\"ModeErtebat\":1,\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"Lvl\",\"GetNameAs\":\"Lvl\"},{\"Name\":\"Title\",\"GetNameAs\":\"Title\"},{\"Name\":\"Code\",\"GetNameAs\":\"Code\"},{\"Name\":\"IsActive\",\"GetNameAs\":\"IsActive\"}]},{\"Name\":\"HR_EMP_Employees\",\"GetNameAs\":\"HR_EMP_Employees\",\"ModeErtebat\":1,\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"LastName\",\"GetNameAs\":\"LastName\"},{\"Name\":\"LastNameEn\",\"GetNameAs\":\"LastNameEn\"},{\"Name\":\"DeleteDateTime\",\"GetNameAs\":\"DeleteDateTime\"},{\"Name\":\"HR_EMP_StatusId\",\"GetNameAs\":\"HR_EMP_StatusId\"},{\"Name\":\"EmployeeLastPersonelNo\",\"GetNameAs\":\"EmployeeLastPersonelNo\"},{\"Name\":\"EmployeeNo\",\"GetNameAs\":\"EmployeeNo\"},{\"Name\":\"EmployeePersonelNo\",\"GetNameAs\":\"EmployeePersonelNo\"},{\"Name\":\"FirstName\",\"GetNameAs\":\"FirstName\"},{\"Name\":\"FirstNameEn\",\"GetNameAs\":\"FirstNameEn\"},{\"Name\":\"HR_Base_FactoryId\",\"GetNameAs\":\"HR_Base_FactoryId\"},{\"Name\":\"BaseInfo_ORG_CompaniesId\",\"GetNameAs\":\"BaseInfo_ORG_CompaniesId\"},{\"Name\":\"UserId\",\"GetNameAs\":\"UserId\"},{\"Name\":\"LastEmployeeNo\",\"GetNameAs\":\"LastEmployeeNo\"},{\"Name\":\"ProfilePicture\",\"GetNameAs\":\"ProfilePicture\"},{\"Name\":\"FullName\",\"GetNameAs\":\"FullName\"},{\"Name\":\"NationalCode\",\"GetNameAs\":\"NationalCode\"}]},{\"Name\":\"HR_FamilyRelationship\",\"GetNameAs\":\"HR_FamilyRelationship\",\"ModeErtebat\":1,\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"Code\",\"GetNameAs\":\"Code\"},{\"Name\":\"Title\",\"GetNameAs\":\"Title\"}]},{\"Name\":\"BaseInfo_Cities\",\"GetNameAs\":\"BaseInfo_Cities\",\"ModeErtebat\":1,\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"Title\",\"GetNameAs\":\"Title\"},{\"Name\":\"BaseInfo_ProvincesId\",\"GetNameAs\":\"BaseInfo_ProvincesId\"},{\"Name\":\"ParentId\",\"GetNameAs\":\"ParentId\"}]},{\"Name\":\"BaseInfo_Gender\",\"GetNameAs\":\"BaseInfo_Gender\",\"ModeErtebat\":1,\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"Title\",\"GetNameAs\":\"Title\"},{\"Name\":\"Code\",\"GetNameAs\":\"Code\"}]},{\"Name\":\"BaseInfo_MaritalStatus\",\"GetNameAs\":\"BaseInfo_MaritalStatus\",\"ModeErtebat\":1,\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"Code\",\"GetNameAs\":\"Code\"},{\"Name\":\"Title\",\"GetNameAs\":\"Title\"}]},{\"Name\":\"HR_Base_Dependent\",\"GetNameAs\":\"HR_Base_Dependent\",\"ModeErtebat\":1,\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"Code\",\"GetNameAs\":\"Code\"},{\"Name\":\"Title\",\"GetNameAs\":\"Title\"}]}]},{\"Name\":\"HR_Base_BankAccount\",\"GetNameAs\":\"HR_Base_BankAccount\",\"ModeErtebat\":2,\"Column\":[{\"Name\":\"BaseInfo_BankId\",\"GetNameAs\":\"BaseInfo_BankId\"},{\"Name\":\"BankAccountNumber\",\"GetNameAs\":\"BankAccountNumber\"},{\"Name\":\"CartNo\",\"GetNameAs\":\"CartNo\"},{\"Name\":\"HR_EMP_EmployeesId\",\"GetNameAs\":\"HR_EMP_EmployeesId\"},{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"RequestID\",\"GetNameAs\":\"RequestID\"},{\"Name\":\"CreateUser\",\"GetNameAs\":\"CreateUser\"},{\"Name\":\"UpdateUser\",\"GetNameAs\":\"UpdateUser\"},{\"Name\":\"CreateDate\",\"GetNameAs\":\"CreateDate\"},{\"Name\":\"UpdateDate\",\"GetNameAs\":\"UpdateDate\"},{\"Name\":\"IsDelete\",\"GetNameAs\":\"IsDelete\"},{\"Name\":\"IBAN\",\"GetNameAs\":\"IBAN\"},{\"Name\":\"BaseInfo_BankBranchesId\",\"GetNameAs\":\"BaseInfo_BankBranchesId\"},{\"Name\":\"BaseInfo_BankAccountTypeId\",\"GetNameAs\":\"BaseInfo_BankAccountTypeId\"},{\"Name\":\"HR_Base_BankAcountCategoryId\",\"GetNameAs\":\"HR_Base_BankAcountCategoryId\"}],\"Relation\":[{\"Name\":\"BaseInfo_Bank\",\"GetNameAs\":\"BaseInfo_Bank\",\"ModeErtebat\":1,\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"Title\",\"GetNameAs\":\"Title\"},{\"Name\":\"CNAPSE_Code\",\"GetNameAs\":\"CNAPSE_Code\"},{\"Name\":\"IsActive\",\"GetNameAs\":\"IsActive\"},{\"Name\":\"ExtCode\",\"GetNameAs\":\"ExtCode\"},{\"Name\":\"BaseInfo_BankType\",\"GetNameAs\":\"BaseInfo_BankType\"}]},{\"Name\":\"HR_EMP_Employees\",\"GetNameAs\":\"HR_EMP_Employees\",\"ModeErtebat\":1,\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"LastName\",\"GetNameAs\":\"LastName\"},{\"Name\":\"LastNameEn\",\"GetNameAs\":\"LastNameEn\"},{\"Name\":\"DeleteDateTime\",\"GetNameAs\":\"DeleteDateTime\"},{\"Name\":\"HR_EMP_StatusId\",\"GetNameAs\":\"HR_EMP_StatusId\"},{\"Name\":\"EmployeeLastPersonelNo\",\"GetNameAs\":\"EmployeeLastPersonelNo\"},{\"Name\":\"EmployeeNo\",\"GetNameAs\":\"EmployeeNo\"},{\"Name\":\"EmployeePersonelNo\",\"GetNameAs\":\"EmployeePersonelNo\"},{\"Name\":\"FirstName\",\"GetNameAs\":\"FirstName\"},{\"Name\":\"FirstNameEn\",\"GetNameAs\":\"FirstNameEn\"},{\"Name\":\"HR_Base_FactoryId\",\"GetNameAs\":\"HR_Base_FactoryId\"},{\"Name\":\"BaseInfo_ORG_CompaniesId\",\"GetNameAs\":\"BaseInfo_ORG_CompaniesId\"},{\"Name\":\"UserId\",\"GetNameAs\":\"UserId\"},{\"Name\":\"LastEmployeeNo\",\"GetNameAs\":\"LastEmployeeNo\"},{\"Name\":\"ProfilePicture\",\"GetNameAs\":\"ProfilePicture\"},{\"Name\":\"FullName\",\"GetNameAs\":\"FullName\"},{\"Name\":\"NationalCode\",\"GetNameAs\":\"NationalCode\"}]},{\"Name\":\"BaseInfo_BankBranches\",\"GetNameAs\":\"BaseInfo_BankBranches\",\"ModeErtebat\":1,\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"Title\",\"GetNameAs\":\"Title\"},{\"Name\":\"Address\",\"GetNameAs\":\"Address\"},{\"Name\":\"Code\",\"GetNameAs\":\"Code\"},{\"Name\":\"IsActive\",\"GetNameAs\":\"IsActive\"},{\"Name\":\"BaseInfo_CitiesId\",\"GetNameAs\":\"BaseInfo_CitiesId\"},{\"Name\":\"BaseInfo_BanksId\",\"GetNameAs\":\"BaseInfo_BanksId\"},{\"Name\":\"BaseInfo_CitiesAreasId\",\"GetNameAs\":\"BaseInfo_CitiesAreasId\"}]},{\"Name\":\"BaseInfo_BankAccountType\",\"GetNameAs\":\"BaseInfo_BankAccountType\",\"ModeErtebat\":1,\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"Title\",\"GetNameAs\":\"Title\"}]},{\"Name\":\"HR_Base_BankAcountCategory\",\"GetNameAs\":\"HR_Base_BankAcountCategory\",\"ModeErtebat\":1,\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"Code\",\"GetNameAs\":\"Code\"},{\"Name\":\"Title\",\"GetNameAs\":\"Title\"}]}]},{\"Name\":\"HR_EMP_Documents\",\"GetNameAs\":\"HR_EMP_Documents\",\"ModeErtebat\":2,\"Column\":[{\"Name\":\"HR_Base_DocumentTypesId\",\"GetNameAs\":\"HR_Base_DocumentTypesId\"},{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"RequestID\",\"GetNameAs\":\"RequestID\"},{\"Name\":\"CreateUser\",\"GetNameAs\":\"CreateUser\"},{\"Name\":\"UpdateUser\",\"GetNameAs\":\"UpdateUser\"},{\"Name\":\"CreateDate\",\"GetNameAs\":\"CreateDate\"},{\"Name\":\"UpdateDate\",\"GetNameAs\":\"UpdateDate\"},{\"Name\":\"IsDelete\",\"GetNameAs\":\"IsDelete\"},{\"Name\":\"Title\",\"GetNameAs\":\"Title\"},{\"Name\":\"HR_EMP_EmployeesId\",\"GetNameAs\":\"HR_EMP_EmployeesId\"},{\"Name\":\"IsActive\",\"GetNameAs\":\"IsActive\"},{\"Name\":\"Description\",\"GetNameAs\":\"Description\"}],\"Relation\":[{\"Name\":\"HR_Base_DocumentTypes\",\"GetNameAs\":\"HR_Base_DocumentTypes\",\"ModeErtebat\":1,\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"Title\",\"GetNameAs\":\"Title\"},{\"Name\":\"DeleteDateTime\",\"GetNameAs\":\"DeleteDateTime\"},{\"Name\":\"IsActive\",\"GetNameAs\":\"IsActive\"}]},{\"Name\":\"HR_EMP_Employees\",\"GetNameAs\":\"HR_EMP_Employees\",\"ModeErtebat\":1,\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"LastName\",\"GetNameAs\":\"LastName\"},{\"Name\":\"LastNameEn\",\"GetNameAs\":\"LastNameEn\"},{\"Name\":\"DeleteDateTime\",\"GetNameAs\":\"DeleteDateTime\"},{\"Name\":\"HR_EMP_StatusId\",\"GetNameAs\":\"HR_EMP_StatusId\"},{\"Name\":\"EmployeeLastPersonelNo\",\"GetNameAs\":\"EmployeeLastPersonelNo\"},{\"Name\":\"EmployeeNo\",\"GetNameAs\":\"EmployeeNo\"},{\"Name\":\"EmployeePersonelNo\",\"GetNameAs\":\"EmployeePersonelNo\"},{\"Name\":\"FirstName\",\"GetNameAs\":\"FirstName\"},{\"Name\":\"FirstNameEn\",\"GetNameAs\":\"FirstNameEn\"},{\"Name\":\"HR_Base_FactoryId\",\"GetNameAs\":\"HR_Base_FactoryId\"},{\"Name\":\"BaseInfo_ORG_CompaniesId\",\"GetNameAs\":\"BaseInfo_ORG_CompaniesId\"},{\"Name\":\"UserId\",\"GetNameAs\":\"UserId\"},{\"Name\":\"LastEmployeeNo\",\"GetNameAs\":\"LastEmployeeNo\"},{\"Name\":\"ProfilePicture\",\"GetNameAs\":\"ProfilePicture\"},{\"Name\":\"FullName\",\"GetNameAs\":\"FullName\"},{\"Name\":\"NationalCode\",\"GetNameAs\":\"NationalCode\"}]},{\"Name\":\"HR_EMP_Documents_AttachmentFile\",\"GetNameAs\":\"HR_EMP_Documents_AttachmentFile\",\"ModeErtebat\":2,\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"HR_EMP_DocumentsId\",\"GetNameAs\":\"HR_EMP_DocumentsId\"},{\"Name\":\"storage\",\"GetNameAs\":\"storage\"},{\"Name\":\"name\",\"GetNameAs\":\"name\"},{\"Name\":\"url\",\"GetNameAs\":\"url\"},{\"Name\":\"size\",\"GetNameAs\":\"size\"},{\"Name\":\"type\",\"GetNameAs\":\"type\"},{\"Name\":\"originalName\",\"GetNameAs\":\"originalName\"},{\"Name\":\"hash\",\"GetNameAs\":\"hash\"},{\"Name\":\"RequestID\",\"GetNameAs\":\"RequestID\"},{\"Name\":\"CreateUser\",\"GetNameAs\":\"CreateUser\"},{\"Name\":\"UpdateUser\",\"GetNameAs\":\"UpdateUser\"},{\"Name\":\"CreateDate\",\"GetNameAs\":\"CreateDate\"},{\"Name\":\"UpdateDate\",\"GetNameAs\":\"UpdateDate\"},{\"Name\":\"IsDelete\",\"GetNameAs\":\"IsDelete\"}]}]}]}");
-        TablePost = await Utility.JSON.ToObject<Table>("{\"Name\":\"HR_EMP_Employees\",\"GetNameAs\":\"HR_EMP_Employees\",\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"RequestID\",\"GetNameAs\":\"RequestID\"},{\"Name\":\"CreateUser\",\"GetNameAs\":\"CreateUser\"},{\"Name\":\"UpdateUser\",\"GetNameAs\":\"UpdateUser\"},{\"Name\":\"CreateDate\",\"GetNameAs\":\"CreateDate\"},{\"Name\":\"UpdateDate\",\"GetNameAs\":\"UpdateDate\"},{\"Name\":\"IsDelete\",\"GetNameAs\":\"IsDelete\"},{\"Name\":\"LastName\",\"GetNameAs\":\"LastName\"},{\"Name\":\"HR_EMP_StatusId\",\"GetNameAs\":\"HR_EMP_StatusId\"},{\"Name\":\"EmployeeLastPersonelNo\",\"GetNameAs\":\"EmployeeLastPersonelNo\"},{\"Name\":\"EmployeeNo\",\"GetNameAs\":\"EmployeeNo\"},{\"Name\":\"EmployeePersonelNo\",\"GetNameAs\":\"EmployeePersonelNo\"},{\"Name\":\"FirstName\",\"GetNameAs\":\"FirstName\"},{\"Name\":\"BaseInfo_ORG_CompaniesId\",\"GetNameAs\":\"BaseInfo_ORG_CompaniesId\"},{\"Name\":\"LastEmployeeNo\",\"GetNameAs\":\"LastEmployeeNo\"},{\"Name\":\"ProfilePicture\",\"GetNameAs\":\"ProfilePicture\"},{\"Name\":\"NationalCode\",\"GetNameAs\":\"NationalCode\"}],\"Relation\":[{\"Name\":\"HR_EMP_EmployeeInfos\",\"GetNameAs\":\"HR_EMP_EmployeeInfos\",\"ModeErtebat\":2,\"Column\":[{\"Name\":\"HR_Base_TransportServiceId\",\"GetNameAs\":\"HR_Base_TransportServiceId\"},{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"RequestID\",\"GetNameAs\":\"RequestID\"},{\"Name\":\"CreateUser\",\"GetNameAs\":\"CreateUser\"},{\"Name\":\"UpdateUser\",\"GetNameAs\":\"UpdateUser\"},{\"Name\":\"CreateDate\",\"GetNameAs\":\"CreateDate\"},{\"Name\":\"UpdateDate\",\"GetNameAs\":\"UpdateDate\"},{\"Name\":\"IsDelete\",\"GetNameAs\":\"IsDelete\"},{\"Name\":\"LastName\",\"GetNameAs\":\"LastName\"},{\"Name\":\"IdCardNo\",\"GetNameAs\":\"IdCardNo\"},{\"Name\":\"IdCardSerialNo\",\"GetNameAs\":\"IdCardSerialNo\"},{\"Name\":\"Mobile\",\"GetNameAs\":\"Mobile\"},{\"Name\":\"NationalCode\",\"GetNameAs\":\"NationalCode\"},{\"Name\":\"Phone\",\"GetNameAs\":\"Phone\"},{\"Name\":\"BirthDateDD\",\"GetNameAs\":\"BirthDateDD\"},{\"Name\":\"BirthDateMM\",\"GetNameAs\":\"BirthDateMM\"},{\"Name\":\"BirthDateYYYY\",\"GetNameAs\":\"BirthDateYYYY\"},{\"Name\":\"Address\",\"GetNameAs\":\"Address\"},{\"Name\":\"Arzagh\",\"GetNameAs\":\"Arzagh\"},{\"Name\":\"HR_EMP_EmployeesId\",\"GetNameAs\":\"HR_EMP_EmployeesId\"},{\"Name\":\"IsActive\",\"GetNameAs\":\"IsActive\"},{\"Name\":\"HasOrganizationalAutomobile\",\"GetNameAs\":\"HasOrganizationalAutomobile\"},{\"Name\":\"HasTransportService\",\"GetNameAs\":\"HasTransportService\"},{\"Name\":\"FirstName\",\"GetNameAs\":\"FirstName\"},{\"Name\":\"FatherName\",\"GetNameAs\":\"FatherName\"},{\"Name\":\"HasCashCharge\",\"GetNameAs\":\"HasCashCharge\"},{\"Name\":\"HasDisabledChild\",\"GetNameAs\":\"HasDisabledChild\"},{\"Name\":\"ContactEmployee_Address\",\"GetNameAs\":\"ContactEmployee_Address\"},{\"Name\":\"ContactEmployee_FullName\",\"GetNameAs\":\"ContactEmployee_FullName\"},{\"Name\":\"ContactEmployee_Tel\",\"GetNameAs\":\"ContactEmployee_Tel\"},{\"Name\":\"HR_Base_ContactEmployeeRelativeId\",\"GetNameAs\":\"HR_Base_ContactEmployeeRelativeId\"},{\"Name\":\"BaseInfo_MaritalStatusId\",\"GetNameAs\":\"BaseInfo_MaritalStatusId\"},{\"Name\":\"CityOfBirth\",\"GetNameAs\":\"CityOfBirth\"},{\"Name\":\"CityOfIssue\",\"GetNameAs\":\"CityOfIssue\"},{\"Name\":\"BaseInfo_BloodGroupId\",\"GetNameAs\":\"BaseInfo_BloodGroupId\"},{\"Name\":\"BaseInfo_ReligionId\",\"GetNameAs\":\"BaseInfo_ReligionId\"},{\"Name\":\"BaseInfo_MilitaryStatusId\",\"GetNameAs\":\"BaseInfo_MilitaryStatusId\"},{\"Name\":\"BaseInfo_CitiesAreasId\",\"GetNameAs\":\"BaseInfo_CitiesAreasId\"},{\"Name\":\"BaseInfo_GenderId\",\"GetNameAs\":\"BaseInfo_GenderId\"},{\"Name\":\"BirthDate\",\"GetNameAs\":\"BirthDate\"},{\"Name\":\"BirthDate_Fa\",\"GetNameAs\":\"BirthDate_Fa\"},{\"Name\":\"EmployeeAge\",\"GetNameAs\":\"EmployeeAge\"},{\"Name\":\"EmployeeAgeText\",\"GetNameAs\":\"EmployeeAgeText\"},{\"Name\":\"EmployeeWorkExperience\",\"GetNameAs\":\"EmployeeWorkExperience\"},{\"Name\":\"EmployeeWorkExperienceText\",\"GetNameAs\":\"EmployeeWorkExperienceText\"},{\"Name\":\"EmployeeWorkExperienceFile\",\"GetNameAs\":\"EmployeeWorkExperienceFile\"},{\"Name\":\"DateEmployeeWorkExperience_Fa\",\"GetNameAs\":\"DateEmployeeWorkExperience_Fa\"},{\"Name\":\"BaseInfo_DenominationsId\",\"GetNameAs\":\"BaseInfo_DenominationsId\"},{\"Name\":\"EmployeeNo\",\"GetNameAs\":\"EmployeeNo\"},{\"Name\":\"LastEmployeeNo\",\"GetNameAs\":\"LastEmployeeNo\"},{\"Name\":\"EmployeePersonelNo\",\"GetNameAs\":\"EmployeePersonelNo\"},{\"Name\":\"EmployeeLastPersonelNo\",\"GetNameAs\":\"EmployeeLastPersonelNo\"}],\"Relation\":[]},{\"Name\":\"HR_EMP_EmployeeDetails\",\"GetNameAs\":\"HR_EMP_EmployeeDetails\",\"ModeErtebat\":2,\"Column\":[{\"Name\":\"OrgTel1\",\"GetNameAs\":\"OrgTel1\"},{\"Name\":\"OrgTel2\",\"GetNameAs\":\"OrgTel2\"},{\"Name\":\"OrgMobile1\",\"GetNameAs\":\"OrgMobile1\"},{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"RequestID\",\"GetNameAs\":\"RequestID\"},{\"Name\":\"CreateUser\",\"GetNameAs\":\"CreateUser\"},{\"Name\":\"UpdateUser\",\"GetNameAs\":\"UpdateUser\"},{\"Name\":\"CreateDate\",\"GetNameAs\":\"CreateDate\"},{\"Name\":\"UpdateDate\",\"GetNameAs\":\"UpdateDate\"},{\"Name\":\"IsDelete\",\"GetNameAs\":\"IsDelete\"},{\"Name\":\"OrgMobile2\",\"GetNameAs\":\"OrgMobile2\"},{\"Name\":\"OrgTel3\",\"GetNameAs\":\"OrgTel3\"},{\"Name\":\"OrgTel4\",\"GetNameAs\":\"OrgTel4\"},{\"Name\":\"OrgTel5\",\"GetNameAs\":\"OrgTel5\"},{\"Name\":\"InsideEmail\",\"GetNameAs\":\"InsideEmail\"},{\"Name\":\"OutsideEmail\",\"GetNameAs\":\"OutsideEmail\"}],\"Relation\":[]},{\"Name\":\"HR_EMP_EmployeeFamileis\",\"GetNameAs\":\"HR_EMP_EmployeeFamileis\",\"ModeErtebat\":2,\"Column\":[{\"Name\":\"HR_Base_AcademicDegreesId\",\"GetNameAs\":\"HR_Base_AcademicDegreesId\"},{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"RequestID\",\"GetNameAs\":\"RequestID\"},{\"Name\":\"CreateUser\",\"GetNameAs\":\"CreateUser\"},{\"Name\":\"UpdateUser\",\"GetNameAs\":\"UpdateUser\"},{\"Name\":\"CreateDate\",\"GetNameAs\":\"CreateDate\"},{\"Name\":\"UpdateDate\",\"GetNameAs\":\"UpdateDate\"},{\"Name\":\"IsDelete\",\"GetNameAs\":\"IsDelete\"},{\"Name\":\"MarriageDate\",\"GetNameAs\":\"MarriageDate\"},{\"Name\":\"IdCardNo\",\"GetNameAs\":\"IdCardNo\"},{\"Name\":\"LastName\",\"GetNameAs\":\"LastName\"},{\"Name\":\"NationalCode\",\"GetNameAs\":\"NationalCode\"},{\"Name\":\"BirthDate\",\"GetNameAs\":\"BirthDate\"},{\"Name\":\"Description\",\"GetNameAs\":\"Description\"},{\"Name\":\"HR_EMP_EmployeesId\",\"GetNameAs\":\"HR_EMP_EmployeesId\"},{\"Name\":\"FatherName\",\"GetNameAs\":\"FatherName\"},{\"Name\":\"FirstName\",\"GetNameAs\":\"FirstName\"},{\"Name\":\"HR_FamilyRelationshipId\",\"GetNameAs\":\"HR_FamilyRelationshipId\"},{\"Name\":\"BaseInfo_CitiesId\",\"GetNameAs\":\"BaseInfo_CitiesId\"},{\"Name\":\"BaseInfo_GenderId\",\"GetNameAs\":\"BaseInfo_GenderId\"},{\"Name\":\"BaseInfo_MaritalStatusId\",\"GetNameAs\":\"BaseInfo_MaritalStatusId\"},{\"Name\":\"HR_Base_DependentId\",\"GetNameAs\":\"HR_Base_DependentId\"},{\"Name\":\"BirthDate_Fa\",\"GetNameAs\":\"BirthDate_Fa\"},{\"Name\":\"MarriageDate_Fa\",\"GetNameAs\":\"MarriageDate_Fa\"},{\"Name\":\"IsCurrentlyStudying\",\"GetNameAs\":\"IsCurrentlyStudying\"},{\"Name\":\"EducationStartDate_Fa\",\"GetNameAs\":\"EducationStartDate_Fa\"},{\"Name\":\"EducationStartDate\",\"GetNameAs\":\"EducationStartDate\"},{\"Name\":\"EducationEndDate_Fa\",\"GetNameAs\":\"EducationEndDate_Fa\"},{\"Name\":\"EducationEndDate\",\"GetNameAs\":\"EducationEndDate\"},{\"Name\":\"StudyCertificateFile\",\"GetNameAs\":\"StudyCertificateFile\"},{\"Name\":\"DivorceDate\",\"GetNameAs\":\"DivorceDate\"},{\"Name\":\"DivorceDate_Fa\",\"GetNameAs\":\"DivorceDate_Fa\"},{\"Name\":\"SpouseDeathDate\",\"GetNameAs\":\"SpouseDeathDate\"},{\"Name\":\"SpouseDeathDate_Fa\",\"GetNameAs\":\"SpouseDeathDate_Fa\"}],\"Relation\":[]},{\"Name\":\"HR_Base_BankAccount\",\"GetNameAs\":\"HR_Base_BankAccount\",\"ModeErtebat\":2,\"Column\":[{\"Name\":\"BaseInfo_BankId\",\"GetNameAs\":\"BaseInfo_BankId\"},{\"Name\":\"BankAccountNumber\",\"GetNameAs\":\"BankAccountNumber\"},{\"Name\":\"CartNo\",\"GetNameAs\":\"CartNo\"},{\"Name\":\"HR_EMP_EmployeesId\",\"GetNameAs\":\"HR_EMP_EmployeesId\"},{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"RequestID\",\"GetNameAs\":\"RequestID\"},{\"Name\":\"CreateUser\",\"GetNameAs\":\"CreateUser\"},{\"Name\":\"UpdateUser\",\"GetNameAs\":\"UpdateUser\"},{\"Name\":\"CreateDate\",\"GetNameAs\":\"CreateDate\"},{\"Name\":\"UpdateDate\",\"GetNameAs\":\"UpdateDate\"},{\"Name\":\"IsDelete\",\"GetNameAs\":\"IsDelete\"},{\"Name\":\"IBAN\",\"GetNameAs\":\"IBAN\"},{\"Name\":\"BaseInfo_BankBranchesId\",\"GetNameAs\":\"BaseInfo_BankBranchesId\"},{\"Name\":\"BaseInfo_BankAccountTypeId\",\"GetNameAs\":\"BaseInfo_BankAccountTypeId\"},{\"Name\":\"HR_Base_BankAcountCategoryId\",\"GetNameAs\":\"HR_Base_BankAcountCategoryId\"}],\"Relation\":[]},{\"Name\":\"HR_EMP_Documents\",\"GetNameAs\":\"HR_EMP_Documents\",\"ModeErtebat\":2,\"Column\":[{\"Name\":\"HR_Base_DocumentTypesId\",\"GetNameAs\":\"HR_Base_DocumentTypesId\"},{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"RequestID\",\"GetNameAs\":\"RequestID\"},{\"Name\":\"CreateUser\",\"GetNameAs\":\"CreateUser\"},{\"Name\":\"UpdateUser\",\"GetNameAs\":\"UpdateUser\"},{\"Name\":\"CreateDate\",\"GetNameAs\":\"CreateDate\"},{\"Name\":\"UpdateDate\",\"GetNameAs\":\"UpdateDate\"},{\"Name\":\"IsDelete\",\"GetNameAs\":\"IsDelete\"},{\"Name\":\"Title\",\"GetNameAs\":\"Title\"},{\"Name\":\"HR_EMP_EmployeesId\",\"GetNameAs\":\"HR_EMP_EmployeesId\"},{\"Name\":\"IsActive\",\"GetNameAs\":\"IsActive\"},{\"Name\":\"Description\",\"GetNameAs\":\"Description\"}],\"Relation\":[{\"Name\":\"HR_EMP_Documents_AttachmentFile\",\"GetNameAs\":\"HR_EMP_Documents_AttachmentFile\",\"ModeErtebat\":2,\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"HR_EMP_DocumentsId\",\"GetNameAs\":\"HR_EMP_DocumentsId\"},{\"Name\":\"storage\",\"GetNameAs\":\"storage\"},{\"Name\":\"name\",\"GetNameAs\":\"name\"},{\"Name\":\"url\",\"GetNameAs\":\"url\"},{\"Name\":\"size\",\"GetNameAs\":\"size\"},{\"Name\":\"type\",\"GetNameAs\":\"type\"},{\"Name\":\"originalName\",\"GetNameAs\":\"originalName\"},{\"Name\":\"hash\",\"GetNameAs\":\"hash\"},{\"Name\":\"RequestID\",\"GetNameAs\":\"RequestID\"},{\"Name\":\"CreateUser\",\"GetNameAs\":\"CreateUser\"},{\"Name\":\"UpdateUser\",\"GetNameAs\":\"UpdateUser\"},{\"Name\":\"CreateDate\",\"GetNameAs\":\"CreateDate\"},{\"Name\":\"UpdateDate\",\"GetNameAs\":\"UpdateDate\"},{\"Name\":\"IsDelete\",\"GetNameAs\":\"IsDelete\"}]}]}]}");
+        TableGet = await Utility.JSON.ToObject<Table>("{\"Name\":\"HR_EMP_Employees\",\"GetNameAs\":\"HR_EMP_Employees\",\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"RequestID\",\"GetNameAs\":\"RequestID\"},{\"Name\":\"CreateUser\",\"GetNameAs\":\"CreateUser\"},{\"Name\":\"UpdateUser\",\"GetNameAs\":\"UpdateUser\"},{\"Name\":\"CreateDate\",\"GetNameAs\":\"CreateDate\"},{\"Name\":\"UpdateDate\",\"GetNameAs\":\"UpdateDate\"},{\"Name\":\"IsDelete\",\"GetNameAs\":\"IsDelete\"},{\"Name\":\"LastName\",\"GetNameAs\":\"LastName\"},{\"Name\":\"HR_EMP_StatusId\",\"GetNameAs\":\"HR_EMP_StatusId\"},{\"Name\":\"EmployeeLastPersonelNo\",\"GetNameAs\":\"EmployeeLastPersonelNo\"},{\"Name\":\"EmployeeNo\",\"GetNameAs\":\"EmployeeNo\"},{\"Name\":\"EmployeePersonelNo\",\"GetNameAs\":\"EmployeePersonelNo\"},{\"Name\":\"FirstName\",\"GetNameAs\":\"FirstName\"},{\"Name\":\"BaseInfo_ORG_CompaniesId\",\"GetNameAs\":\"BaseInfo_ORG_CompaniesId\"},{\"Name\":\"LastEmployeeNo\",\"GetNameAs\":\"LastEmployeeNo\"},{\"Name\":\"ProfilePicture\",\"GetNameAs\":\"ProfilePicture\"},{\"Name\":\"NationalCode\",\"GetNameAs\":\"NationalCode\"}],\"Relation\":[{\"Name\":\"HR_EMP_Status\",\"GetNameAs\":\"HR_EMP_Status\",\"ModeErtebat\":1,\"Column\":[{\"Name\":\"Title\",\"GetNameAs\":\"Title\"},{\"Name\":\"DeleteDateTime\",\"GetNameAs\":\"DeleteDateTime\"},{\"Name\":\"IsActive\",\"GetNameAs\":\"IsActive\"}],\"Relation\":[]},{\"Name\":\"BaseInfo_ORG_Companies\",\"GetNameAs\":\"BaseInfo_ORG_Companies\",\"ModeErtebat\":1,\"Column\":[{\"Name\":\"Code\",\"GetNameAs\":\"Code\"},{\"Name\":\"Title\",\"GetNameAs\":\"Title\"},{\"Name\":\"IsActive\",\"GetNameAs\":\"IsActive\"},{\"Name\":\"BaseInfo_ORG_SitesId\",\"GetNameAs\":\"BaseInfo_ORG_SitesId\"},{\"Name\":\"OldCompanyId\",\"GetNameAs\":\"OldCompanyId\"}],\"Relation\":[]},{\"Name\":\"HR_EMP_EmployeeInfos\",\"GetNameAs\":\"HR_EMP_EmployeeInfos\",\"ModeErtebat\":2,\"Column\":[{\"Name\":\"HR_Base_TransportServiceId\",\"GetNameAs\":\"HR_Base_TransportServiceId\"},{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"RequestID\",\"GetNameAs\":\"RequestID\"},{\"Name\":\"CreateUser\",\"GetNameAs\":\"CreateUser\"},{\"Name\":\"UpdateUser\",\"GetNameAs\":\"UpdateUser\"},{\"Name\":\"CreateDate\",\"GetNameAs\":\"CreateDate\"},{\"Name\":\"UpdateDate\",\"GetNameAs\":\"UpdateDate\"},{\"Name\":\"IsDelete\",\"GetNameAs\":\"IsDelete\"},{\"Name\":\"LastName\",\"GetNameAs\":\"LastName\"},{\"Name\":\"IdCardNo\",\"GetNameAs\":\"IdCardNo\"},{\"Name\":\"Mobile\",\"GetNameAs\":\"Mobile\"},{\"Name\":\"NationalCode\",\"GetNameAs\":\"NationalCode\"},{\"Name\":\"Phone\",\"GetNameAs\":\"Phone\"},{\"Name\":\"BirthDateDD\",\"GetNameAs\":\"BirthDateDD\"},{\"Name\":\"BirthDateMM\",\"GetNameAs\":\"BirthDateMM\"},{\"Name\":\"BirthDateYYYY\",\"GetNameAs\":\"BirthDateYYYY\"},{\"Name\":\"Address\",\"GetNameAs\":\"Address\"},{\"Name\":\"Arzagh\",\"GetNameAs\":\"Arzagh\"},{\"Name\":\"HR_EMP_EmployeesId\",\"GetNameAs\":\"HR_EMP_EmployeesId\"},{\"Name\":\"HasOrganizationalAutomobile\",\"GetNameAs\":\"HasOrganizationalAutomobile\"},{\"Name\":\"HasTransportService\",\"GetNameAs\":\"HasTransportService\"},{\"Name\":\"FirstName\",\"GetNameAs\":\"FirstName\"},{\"Name\":\"FatherName\",\"GetNameAs\":\"FatherName\"},{\"Name\":\"HasCashCharge\",\"GetNameAs\":\"HasCashCharge\"},{\"Name\":\"HasDisabledChild\",\"GetNameAs\":\"HasDisabledChild\"},{\"Name\":\"ContactEmployee_Address\",\"GetNameAs\":\"ContactEmployee_Address\"},{\"Name\":\"ContactEmployee_FullName\",\"GetNameAs\":\"ContactEmployee_FullName\"},{\"Name\":\"ContactEmployee_Tel\",\"GetNameAs\":\"ContactEmployee_Tel\"},{\"Name\":\"HR_Base_ContactEmployeeRelativeId\",\"GetNameAs\":\"HR_Base_ContactEmployeeRelativeId\"},{\"Name\":\"BaseInfo_MaritalStatusId\",\"GetNameAs\":\"BaseInfo_MaritalStatusId\"},{\"Name\":\"CityOfBirth\",\"GetNameAs\":\"CityOfBirth\"},{\"Name\":\"CityOfIssue\",\"GetNameAs\":\"CityOfIssue\"},{\"Name\":\"BaseInfo_BloodGroupId\",\"GetNameAs\":\"BaseInfo_BloodGroupId\"},{\"Name\":\"BaseInfo_ReligionId\",\"GetNameAs\":\"BaseInfo_ReligionId\"},{\"Name\":\"BaseInfo_MilitaryStatusId\",\"GetNameAs\":\"BaseInfo_MilitaryStatusId\"},{\"Name\":\"BaseInfo_CitiesAreasId\",\"GetNameAs\":\"BaseInfo_CitiesAreasId\"},{\"Name\":\"BaseInfo_GenderId\",\"GetNameAs\":\"BaseInfo_GenderId\"},{\"Name\":\"BirthDate\",\"GetNameAs\":\"BirthDate\"},{\"Name\":\"BirthDate_Fa\",\"GetNameAs\":\"BirthDate_Fa\"},{\"Name\":\"EmployeeAge\",\"GetNameAs\":\"EmployeeAge\"},{\"Name\":\"EmployeeAgeText\",\"GetNameAs\":\"EmployeeAgeText\"},{\"Name\":\"EmployeeWorkExperience\",\"GetNameAs\":\"EmployeeWorkExperience\"},{\"Name\":\"EmployeeWorkExperienceText\",\"GetNameAs\":\"EmployeeWorkExperienceText\"},{\"Name\":\"EmployeeWorkExperienceFile\",\"GetNameAs\":\"EmployeeWorkExperienceFile\"},{\"Name\":\"DateEmployeeWorkExperience_Fa\",\"GetNameAs\":\"DateEmployeeWorkExperience_Fa\"},{\"Name\":\"BaseInfo_DenominationsId\",\"GetNameAs\":\"BaseInfo_DenominationsId\"},{\"Name\":\"EmployeeNo\",\"GetNameAs\":\"EmployeeNo\"},{\"Name\":\"LastEmployeeNo\",\"GetNameAs\":\"LastEmployeeNo\"},{\"Name\":\"EmployeePersonelNo\",\"GetNameAs\":\"EmployeePersonelNo\"},{\"Name\":\"EmployeeLastPersonelNo\",\"GetNameAs\":\"EmployeeLastPersonelNo\"},{\"Name\":\"BaseInfo_ORG_CompaniesId\",\"GetNameAs\":\"BaseInfo_ORG_CompaniesId\"},{\"Name\":\"HR_EMP_StatusId\",\"GetNameAs\":\"HR_EMP_StatusId\"},{\"Name\":\"BaseInfo_ORG_Companies\",\"GetNameAs\":\"BaseInfo_ORG_Companies\"},{\"Name\":\"HR_EMP_Status\",\"GetNameAs\":\"HR_EMP_Status\"},{\"Name\":\"IdCardSerialNoSection1\",\"GetNameAs\":\"IdCardSerialNoSection1\"},{\"Name\":\"IdCardSerialNoSection2\",\"GetNameAs\":\"IdCardSerialNoSection2\"},{\"Name\":\"IdCardSerialNoSection3\",\"GetNameAs\":\"IdCardSerialNoSection3\"}],\"Relation\":[{\"Name\":\"HR_Base_TransportService\",\"GetNameAs\":\"HR_Base_TransportService\",\"ModeErtebat\":1,\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"DeleteDateTime\",\"GetNameAs\":\"DeleteDateTime\"},{\"Name\":\"HR_Base_TransportServiceTypeId\",\"GetNameAs\":\"HR_Base_TransportServiceTypeId\"},{\"Name\":\"Title\",\"GetNameAs\":\"Title\"},{\"Name\":\"Code\",\"GetNameAs\":\"Code\"}]},{\"Name\":\"HR_EMP_Employees\",\"GetNameAs\":\"HR_EMP_Employees\",\"ModeErtebat\":1,\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"LastName\",\"GetNameAs\":\"LastName\"},{\"Name\":\"LastNameEn\",\"GetNameAs\":\"LastNameEn\"},{\"Name\":\"DeleteDateTime\",\"GetNameAs\":\"DeleteDateTime\"},{\"Name\":\"HR_EMP_StatusId\",\"GetNameAs\":\"HR_EMP_StatusId\"},{\"Name\":\"EmployeeLastPersonelNo\",\"GetNameAs\":\"EmployeeLastPersonelNo\"},{\"Name\":\"EmployeeNo\",\"GetNameAs\":\"EmployeeNo\"},{\"Name\":\"EmployeePersonelNo\",\"GetNameAs\":\"EmployeePersonelNo\"},{\"Name\":\"FirstName\",\"GetNameAs\":\"FirstName\"},{\"Name\":\"FirstNameEn\",\"GetNameAs\":\"FirstNameEn\"},{\"Name\":\"HR_Base_FactoryId\",\"GetNameAs\":\"HR_Base_FactoryId\"},{\"Name\":\"BaseInfo_ORG_CompaniesId\",\"GetNameAs\":\"BaseInfo_ORG_CompaniesId\"},{\"Name\":\"UserId\",\"GetNameAs\":\"UserId\"},{\"Name\":\"LastEmployeeNo\",\"GetNameAs\":\"LastEmployeeNo\"},{\"Name\":\"ProfilePicture\",\"GetNameAs\":\"ProfilePicture\"},{\"Name\":\"FullName\",\"GetNameAs\":\"FullName\"},{\"Name\":\"NationalCode\",\"GetNameAs\":\"NationalCode\"}]},{\"Name\":\"HR_Base_ContactEmployeeRelative\",\"GetNameAs\":\"HR_Base_ContactEmployeeRelative\",\"ModeErtebat\":1,\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"Code\",\"GetNameAs\":\"Code\"},{\"Name\":\"Title\",\"GetNameAs\":\"Title\"}]},{\"Name\":\"BaseInfo_MaritalStatus\",\"GetNameAs\":\"BaseInfo_MaritalStatus\",\"ModeErtebat\":1,\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"Code\",\"GetNameAs\":\"Code\"},{\"Name\":\"Title\",\"GetNameAs\":\"Title\"}]},{\"Name\":\"CityOfBirthNavigation\",\"GetNameAs\":\"CityOfBirthNavigation\",\"ModeErtebat\":1,\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"Title\",\"GetNameAs\":\"Title\"},{\"Name\":\"BaseInfo_ProvincesId\",\"GetNameAs\":\"BaseInfo_ProvincesId\"},{\"Name\":\"ParentId\",\"GetNameAs\":\"ParentId\"}]},{\"Name\":\"CityOfIssueNavigation\",\"GetNameAs\":\"CityOfIssueNavigation\",\"ModeErtebat\":1,\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"Title\",\"GetNameAs\":\"Title\"},{\"Name\":\"BaseInfo_ProvincesId\",\"GetNameAs\":\"BaseInfo_ProvincesId\"},{\"Name\":\"ParentId\",\"GetNameAs\":\"ParentId\"}]},{\"Name\":\"BaseInfo_BloodGroup\",\"GetNameAs\":\"BaseInfo_BloodGroup\",\"ModeErtebat\":1,\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"Code\",\"GetNameAs\":\"Code\"},{\"Name\":\"Title\",\"GetNameAs\":\"Title\"}]},{\"Name\":\"BaseInfo_Religion\",\"GetNameAs\":\"BaseInfo_Religion\",\"ModeErtebat\":1,\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"Title\",\"GetNameAs\":\"Title\"},{\"Name\":\"IsActive\",\"GetNameAs\":\"IsActive\"}]},{\"Name\":\"BaseInfo_MilitaryStatus\",\"GetNameAs\":\"BaseInfo_MilitaryStatus\",\"ModeErtebat\":1,\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"Code\",\"GetNameAs\":\"Code\"},{\"Name\":\"Title\",\"GetNameAs\":\"Title\"},{\"Name\":\"IsActive\",\"GetNameAs\":\"IsActive\"}]},{\"Name\":\"BaseInfo_Gender\",\"GetNameAs\":\"BaseInfo_Gender\",\"ModeErtebat\":1,\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"Title\",\"GetNameAs\":\"Title\"},{\"Name\":\"Code\",\"GetNameAs\":\"Code\"}]},{\"Name\":\"BaseInfo_Denominations\",\"GetNameAs\":\"BaseInfo_Denominations\",\"ModeErtebat\":1,\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"BaseInfo_ReligionId\",\"GetNameAs\":\"BaseInfo_ReligionId\"},{\"Name\":\"Title\",\"GetNameAs\":\"Title\"}]}]},{\"Name\":\"HR_EMP_EmployeeDetails\",\"GetNameAs\":\"HR_EMP_EmployeeDetails\",\"ModeErtebat\":2,\"Column\":[{\"Name\":\"OrgTel1\",\"GetNameAs\":\"OrgTel1\"},{\"Name\":\"OrgTel2\",\"GetNameAs\":\"OrgTel2\"},{\"Name\":\"OrgMobile1\",\"GetNameAs\":\"OrgMobile1\"},{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"RequestID\",\"GetNameAs\":\"RequestID\"},{\"Name\":\"CreateUser\",\"GetNameAs\":\"CreateUser\"},{\"Name\":\"UpdateUser\",\"GetNameAs\":\"UpdateUser\"},{\"Name\":\"CreateDate\",\"GetNameAs\":\"CreateDate\"},{\"Name\":\"UpdateDate\",\"GetNameAs\":\"UpdateDate\"},{\"Name\":\"IsDelete\",\"GetNameAs\":\"IsDelete\"},{\"Name\":\"OrgMobile2\",\"GetNameAs\":\"OrgMobile2\"},{\"Name\":\"OrgTel3\",\"GetNameAs\":\"OrgTel3\"},{\"Name\":\"OrgTel4\",\"GetNameAs\":\"OrgTel4\"},{\"Name\":\"OrgTel5\",\"GetNameAs\":\"OrgTel5\"},{\"Name\":\"InsideEmail\",\"GetNameAs\":\"InsideEmail\"},{\"Name\":\"OutsideEmail\",\"GetNameAs\":\"OutsideEmail\"}],\"Relation\":[]},{\"Name\":\"HR_EMP_EmployeeFamileis\",\"GetNameAs\":\"HR_EMP_EmployeeFamileis\",\"ModeErtebat\":2,\"Column\":[{\"Name\":\"HR_Base_AcademicDegreesId\",\"GetNameAs\":\"HR_Base_AcademicDegreesId\"},{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"RequestID\",\"GetNameAs\":\"RequestID\"},{\"Name\":\"CreateUser\",\"GetNameAs\":\"CreateUser\"},{\"Name\":\"UpdateUser\",\"GetNameAs\":\"UpdateUser\"},{\"Name\":\"CreateDate\",\"GetNameAs\":\"CreateDate\"},{\"Name\":\"UpdateDate\",\"GetNameAs\":\"UpdateDate\"},{\"Name\":\"IsDelete\",\"GetNameAs\":\"IsDelete\"},{\"Name\":\"MarriageDate\",\"GetNameAs\":\"MarriageDate\"},{\"Name\":\"IdCardNo\",\"GetNameAs\":\"IdCardNo\"},{\"Name\":\"LastName\",\"GetNameAs\":\"LastName\"},{\"Name\":\"NationalCode\",\"GetNameAs\":\"NationalCode\"},{\"Name\":\"BirthDate\",\"GetNameAs\":\"BirthDate\"},{\"Name\":\"Description\",\"GetNameAs\":\"Description\"},{\"Name\":\"HR_EMP_EmployeesId\",\"GetNameAs\":\"HR_EMP_EmployeesId\"},{\"Name\":\"FatherName\",\"GetNameAs\":\"FatherName\"},{\"Name\":\"FirstName\",\"GetNameAs\":\"FirstName\"},{\"Name\":\"HR_FamilyRelationshipId\",\"GetNameAs\":\"HR_FamilyRelationshipId\"},{\"Name\":\"BaseInfo_CitiesId\",\"GetNameAs\":\"BaseInfo_CitiesId\"},{\"Name\":\"BaseInfo_GenderId\",\"GetNameAs\":\"BaseInfo_GenderId\"},{\"Name\":\"BaseInfo_MaritalStatusId\",\"GetNameAs\":\"BaseInfo_MaritalStatusId\"},{\"Name\":\"HR_Base_DependentId\",\"GetNameAs\":\"HR_Base_DependentId\"},{\"Name\":\"BirthDate_Fa\",\"GetNameAs\":\"BirthDate_Fa\"},{\"Name\":\"MarriageDate_Fa\",\"GetNameAs\":\"MarriageDate_Fa\"},{\"Name\":\"IsCurrentlyStudying\",\"GetNameAs\":\"IsCurrentlyStudying\"},{\"Name\":\"EducationStartDate_Fa\",\"GetNameAs\":\"EducationStartDate_Fa\"},{\"Name\":\"EducationStartDate\",\"GetNameAs\":\"EducationStartDate\"},{\"Name\":\"EducationEndDate_Fa\",\"GetNameAs\":\"EducationEndDate_Fa\"},{\"Name\":\"EducationEndDate\",\"GetNameAs\":\"EducationEndDate\"},{\"Name\":\"StudyCertificateFile\",\"GetNameAs\":\"StudyCertificateFile\"},{\"Name\":\"DivorceDate\",\"GetNameAs\":\"DivorceDate\"},{\"Name\":\"DivorceDate_Fa\",\"GetNameAs\":\"DivorceDate_Fa\"},{\"Name\":\"SpouseDeathDate\",\"GetNameAs\":\"SpouseDeathDate\"},{\"Name\":\"SpouseDeathDate_Fa\",\"GetNameAs\":\"SpouseDeathDate_Fa\"}],\"Relation\":[{\"Name\":\"HR_Base_AcademicDegrees\",\"GetNameAs\":\"HR_Base_AcademicDegrees\",\"ModeErtebat\":1,\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"Lvl\",\"GetNameAs\":\"Lvl\"},{\"Name\":\"Title\",\"GetNameAs\":\"Title\"},{\"Name\":\"Code\",\"GetNameAs\":\"Code\"},{\"Name\":\"IsActive\",\"GetNameAs\":\"IsActive\"}]},{\"Name\":\"HR_EMP_Employees\",\"GetNameAs\":\"HR_EMP_Employees\",\"ModeErtebat\":1,\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"LastName\",\"GetNameAs\":\"LastName\"},{\"Name\":\"LastNameEn\",\"GetNameAs\":\"LastNameEn\"},{\"Name\":\"DeleteDateTime\",\"GetNameAs\":\"DeleteDateTime\"},{\"Name\":\"HR_EMP_StatusId\",\"GetNameAs\":\"HR_EMP_StatusId\"},{\"Name\":\"EmployeeLastPersonelNo\",\"GetNameAs\":\"EmployeeLastPersonelNo\"},{\"Name\":\"EmployeeNo\",\"GetNameAs\":\"EmployeeNo\"},{\"Name\":\"EmployeePersonelNo\",\"GetNameAs\":\"EmployeePersonelNo\"},{\"Name\":\"FirstName\",\"GetNameAs\":\"FirstName\"},{\"Name\":\"FirstNameEn\",\"GetNameAs\":\"FirstNameEn\"},{\"Name\":\"HR_Base_FactoryId\",\"GetNameAs\":\"HR_Base_FactoryId\"},{\"Name\":\"BaseInfo_ORG_CompaniesId\",\"GetNameAs\":\"BaseInfo_ORG_CompaniesId\"},{\"Name\":\"UserId\",\"GetNameAs\":\"UserId\"},{\"Name\":\"LastEmployeeNo\",\"GetNameAs\":\"LastEmployeeNo\"},{\"Name\":\"ProfilePicture\",\"GetNameAs\":\"ProfilePicture\"},{\"Name\":\"FullName\",\"GetNameAs\":\"FullName\"},{\"Name\":\"NationalCode\",\"GetNameAs\":\"NationalCode\"}]},{\"Name\":\"HR_FamilyRelationship\",\"GetNameAs\":\"HR_FamilyRelationship\",\"ModeErtebat\":1,\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"Code\",\"GetNameAs\":\"Code\"},{\"Name\":\"Title\",\"GetNameAs\":\"Title\"}]},{\"Name\":\"BaseInfo_Cities\",\"GetNameAs\":\"BaseInfo_Cities\",\"ModeErtebat\":1,\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"Title\",\"GetNameAs\":\"Title\"},{\"Name\":\"BaseInfo_ProvincesId\",\"GetNameAs\":\"BaseInfo_ProvincesId\"},{\"Name\":\"ParentId\",\"GetNameAs\":\"ParentId\"}]},{\"Name\":\"BaseInfo_Gender\",\"GetNameAs\":\"BaseInfo_Gender\",\"ModeErtebat\":1,\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"Title\",\"GetNameAs\":\"Title\"},{\"Name\":\"Code\",\"GetNameAs\":\"Code\"}]},{\"Name\":\"BaseInfo_MaritalStatus\",\"GetNameAs\":\"BaseInfo_MaritalStatus\",\"ModeErtebat\":1,\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"Code\",\"GetNameAs\":\"Code\"},{\"Name\":\"Title\",\"GetNameAs\":\"Title\"}]},{\"Name\":\"HR_Base_Dependent\",\"GetNameAs\":\"HR_Base_Dependent\",\"ModeErtebat\":1,\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"Code\",\"GetNameAs\":\"Code\"},{\"Name\":\"Title\",\"GetNameAs\":\"Title\"}]}]},{\"Name\":\"HR_Base_BankAccount\",\"GetNameAs\":\"HR_Base_BankAccount\",\"ModeErtebat\":2,\"Column\":[{\"Name\":\"HR_EMP_EmployeesId\",\"GetNameAs\":\"HR_EMP_EmployeesId\"},{\"Name\":\"BaseInfo_BankId\",\"GetNameAs\":\"BaseInfo_BankId\"},{\"Name\":\"BankAccountNumber\",\"GetNameAs\":\"BankAccountNumber\"},{\"Name\":\"CartNo\",\"GetNameAs\":\"CartNo\"},{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"RequestID\",\"GetNameAs\":\"RequestID\"},{\"Name\":\"CreateUser\",\"GetNameAs\":\"CreateUser\"},{\"Name\":\"UpdateUser\",\"GetNameAs\":\"UpdateUser\"},{\"Name\":\"CreateDate\",\"GetNameAs\":\"CreateDate\"},{\"Name\":\"UpdateDate\",\"GetNameAs\":\"UpdateDate\"},{\"Name\":\"IsDelete\",\"GetNameAs\":\"IsDelete\"},{\"Name\":\"IBAN\",\"GetNameAs\":\"IBAN\"},{\"Name\":\"BaseInfo_BankBranchesId\",\"GetNameAs\":\"BaseInfo_BankBranchesId\"},{\"Name\":\"BaseInfo_BankAccountTypeId\",\"GetNameAs\":\"BaseInfo_BankAccountTypeId\"},{\"Name\":\"HR_Base_BankAcountCategoryId\",\"GetNameAs\":\"HR_Base_BankAcountCategoryId\"}],\"Relation\":[{\"Name\":\"HR_EMP_Employees\",\"GetNameAs\":\"HR_EMP_Employees\",\"ModeErtebat\":1,\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"LastName\",\"GetNameAs\":\"LastName\"},{\"Name\":\"LastNameEn\",\"GetNameAs\":\"LastNameEn\"},{\"Name\":\"DeleteDateTime\",\"GetNameAs\":\"DeleteDateTime\"},{\"Name\":\"HR_EMP_StatusId\",\"GetNameAs\":\"HR_EMP_StatusId\"},{\"Name\":\"EmployeeLastPersonelNo\",\"GetNameAs\":\"EmployeeLastPersonelNo\"},{\"Name\":\"EmployeeNo\",\"GetNameAs\":\"EmployeeNo\"},{\"Name\":\"EmployeePersonelNo\",\"GetNameAs\":\"EmployeePersonelNo\"},{\"Name\":\"FirstName\",\"GetNameAs\":\"FirstName\"},{\"Name\":\"FirstNameEn\",\"GetNameAs\":\"FirstNameEn\"},{\"Name\":\"HR_Base_FactoryId\",\"GetNameAs\":\"HR_Base_FactoryId\"},{\"Name\":\"BaseInfo_ORG_CompaniesId\",\"GetNameAs\":\"BaseInfo_ORG_CompaniesId\"},{\"Name\":\"UserId\",\"GetNameAs\":\"UserId\"},{\"Name\":\"LastEmployeeNo\",\"GetNameAs\":\"LastEmployeeNo\"},{\"Name\":\"ProfilePicture\",\"GetNameAs\":\"ProfilePicture\"},{\"Name\":\"FullName\",\"GetNameAs\":\"FullName\"},{\"Name\":\"NationalCode\",\"GetNameAs\":\"NationalCode\"}]},{\"Name\":\"BaseInfo_Bank\",\"GetNameAs\":\"BaseInfo_Bank\",\"ModeErtebat\":1,\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"Title\",\"GetNameAs\":\"Title\"},{\"Name\":\"CNAPSE_Code\",\"GetNameAs\":\"CNAPSE_Code\"},{\"Name\":\"IsActive\",\"GetNameAs\":\"IsActive\"},{\"Name\":\"ExtCode\",\"GetNameAs\":\"ExtCode\"},{\"Name\":\"BaseInfo_BankType\",\"GetNameAs\":\"BaseInfo_BankType\"}]},{\"Name\":\"BaseInfo_BankBranches\",\"GetNameAs\":\"BaseInfo_BankBranches\",\"ModeErtebat\":1,\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"Title\",\"GetNameAs\":\"Title\"},{\"Name\":\"Address\",\"GetNameAs\":\"Address\"},{\"Name\":\"Code\",\"GetNameAs\":\"Code\"},{\"Name\":\"IsActive\",\"GetNameAs\":\"IsActive\"},{\"Name\":\"BaseInfo_CitiesId\",\"GetNameAs\":\"BaseInfo_CitiesId\"},{\"Name\":\"BaseInfo_BanksId\",\"GetNameAs\":\"BaseInfo_BanksId\"},{\"Name\":\"BaseInfo_CitiesAreasId\",\"GetNameAs\":\"BaseInfo_CitiesAreasId\"}]},{\"Name\":\"BaseInfo_BankAccountType\",\"GetNameAs\":\"BaseInfo_BankAccountType\",\"ModeErtebat\":1,\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"Title\",\"GetNameAs\":\"Title\"}]},{\"Name\":\"HR_Base_BankAcountCategory\",\"GetNameAs\":\"HR_Base_BankAcountCategory\",\"ModeErtebat\":1,\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"Code\",\"GetNameAs\":\"Code\"},{\"Name\":\"Title\",\"GetNameAs\":\"Title\"}]}]},{\"Name\":\"HR_EMP_Documents\",\"GetNameAs\":\"HR_EMP_Documents\",\"ModeErtebat\":2,\"Column\":[{\"Name\":\"HR_Base_DocumentTypesId\",\"GetNameAs\":\"HR_Base_DocumentTypesId\"},{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"RequestID\",\"GetNameAs\":\"RequestID\"},{\"Name\":\"CreateUser\",\"GetNameAs\":\"CreateUser\"},{\"Name\":\"UpdateUser\",\"GetNameAs\":\"UpdateUser\"},{\"Name\":\"CreateDate\",\"GetNameAs\":\"CreateDate\"},{\"Name\":\"UpdateDate\",\"GetNameAs\":\"UpdateDate\"},{\"Name\":\"IsDelete\",\"GetNameAs\":\"IsDelete\"},{\"Name\":\"Title\",\"GetNameAs\":\"Title\"},{\"Name\":\"HR_EMP_EmployeesId\",\"GetNameAs\":\"HR_EMP_EmployeesId\"},{\"Name\":\"IsActive\",\"GetNameAs\":\"IsActive\"},{\"Name\":\"Description\",\"GetNameAs\":\"Description\"}],\"Relation\":[{\"Name\":\"HR_Base_DocumentTypes\",\"GetNameAs\":\"HR_Base_DocumentTypes\",\"ModeErtebat\":1,\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"Title\",\"GetNameAs\":\"Title\"},{\"Name\":\"DeleteDateTime\",\"GetNameAs\":\"DeleteDateTime\"},{\"Name\":\"IsActive\",\"GetNameAs\":\"IsActive\"}]},{\"Name\":\"HR_EMP_Employees\",\"GetNameAs\":\"HR_EMP_Employees\",\"ModeErtebat\":1,\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"LastName\",\"GetNameAs\":\"LastName\"},{\"Name\":\"LastNameEn\",\"GetNameAs\":\"LastNameEn\"},{\"Name\":\"DeleteDateTime\",\"GetNameAs\":\"DeleteDateTime\"},{\"Name\":\"HR_EMP_StatusId\",\"GetNameAs\":\"HR_EMP_StatusId\"},{\"Name\":\"EmployeeLastPersonelNo\",\"GetNameAs\":\"EmployeeLastPersonelNo\"},{\"Name\":\"EmployeeNo\",\"GetNameAs\":\"EmployeeNo\"},{\"Name\":\"EmployeePersonelNo\",\"GetNameAs\":\"EmployeePersonelNo\"},{\"Name\":\"FirstName\",\"GetNameAs\":\"FirstName\"},{\"Name\":\"FirstNameEn\",\"GetNameAs\":\"FirstNameEn\"},{\"Name\":\"HR_Base_FactoryId\",\"GetNameAs\":\"HR_Base_FactoryId\"},{\"Name\":\"BaseInfo_ORG_CompaniesId\",\"GetNameAs\":\"BaseInfo_ORG_CompaniesId\"},{\"Name\":\"UserId\",\"GetNameAs\":\"UserId\"},{\"Name\":\"LastEmployeeNo\",\"GetNameAs\":\"LastEmployeeNo\"},{\"Name\":\"ProfilePicture\",\"GetNameAs\":\"ProfilePicture\"},{\"Name\":\"FullName\",\"GetNameAs\":\"FullName\"},{\"Name\":\"NationalCode\",\"GetNameAs\":\"NationalCode\"}]},{\"Name\":\"HR_EMP_Documents_AttachmentFile\",\"GetNameAs\":\"HR_EMP_Documents_AttachmentFile\",\"ModeErtebat\":2,\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"HR_EMP_DocumentsId\",\"GetNameAs\":\"HR_EMP_DocumentsId\"},{\"Name\":\"storage\",\"GetNameAs\":\"storage\"},{\"Name\":\"name\",\"GetNameAs\":\"name\"},{\"Name\":\"url\",\"GetNameAs\":\"url\"},{\"Name\":\"size\",\"GetNameAs\":\"size\"},{\"Name\":\"type\",\"GetNameAs\":\"type\"},{\"Name\":\"originalName\",\"GetNameAs\":\"originalName\"},{\"Name\":\"hash\",\"GetNameAs\":\"hash\"},{\"Name\":\"RequestID\",\"GetNameAs\":\"RequestID\"},{\"Name\":\"CreateUser\",\"GetNameAs\":\"CreateUser\"},{\"Name\":\"UpdateUser\",\"GetNameAs\":\"UpdateUser\"},{\"Name\":\"CreateDate\",\"GetNameAs\":\"CreateDate\"},{\"Name\":\"UpdateDate\",\"GetNameAs\":\"UpdateDate\"},{\"Name\":\"IsDelete\",\"GetNameAs\":\"IsDelete\"}]}]}]}");
+        TablePost = await Utility.JSON.ToObject<Table>("{\"Name\":\"HR_EMP_Employees\",\"GetNameAs\":\"HR_EMP_Employees\",\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"RequestID\",\"GetNameAs\":\"RequestID\"},{\"Name\":\"CreateUser\",\"GetNameAs\":\"CreateUser\"},{\"Name\":\"UpdateUser\",\"GetNameAs\":\"UpdateUser\"},{\"Name\":\"CreateDate\",\"GetNameAs\":\"CreateDate\"},{\"Name\":\"UpdateDate\",\"GetNameAs\":\"UpdateDate\"},{\"Name\":\"IsDelete\",\"GetNameAs\":\"IsDelete\"},{\"Name\":\"LastName\",\"GetNameAs\":\"LastName\"},{\"Name\":\"HR_EMP_StatusId\",\"GetNameAs\":\"HR_EMP_StatusId\"},{\"Name\":\"EmployeeLastPersonelNo\",\"GetNameAs\":\"EmployeeLastPersonelNo\"},{\"Name\":\"EmployeeNo\",\"GetNameAs\":\"EmployeeNo\"},{\"Name\":\"EmployeePersonelNo\",\"GetNameAs\":\"EmployeePersonelNo\"},{\"Name\":\"FirstName\",\"GetNameAs\":\"FirstName\"},{\"Name\":\"BaseInfo_ORG_CompaniesId\",\"GetNameAs\":\"BaseInfo_ORG_CompaniesId\"},{\"Name\":\"LastEmployeeNo\",\"GetNameAs\":\"LastEmployeeNo\"},{\"Name\":\"ProfilePicture\",\"GetNameAs\":\"ProfilePicture\"},{\"Name\":\"NationalCode\",\"GetNameAs\":\"NationalCode\"}],\"Relation\":[{\"Name\":\"HR_EMP_EmployeeInfos\",\"GetNameAs\":\"HR_EMP_EmployeeInfos\",\"ModeErtebat\":2,\"Column\":[{\"Name\":\"HR_Base_TransportServiceId\",\"GetNameAs\":\"HR_Base_TransportServiceId\"},{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"RequestID\",\"GetNameAs\":\"RequestID\"},{\"Name\":\"CreateUser\",\"GetNameAs\":\"CreateUser\"},{\"Name\":\"UpdateUser\",\"GetNameAs\":\"UpdateUser\"},{\"Name\":\"CreateDate\",\"GetNameAs\":\"CreateDate\"},{\"Name\":\"UpdateDate\",\"GetNameAs\":\"UpdateDate\"},{\"Name\":\"IsDelete\",\"GetNameAs\":\"IsDelete\"},{\"Name\":\"LastName\",\"GetNameAs\":\"LastName\"},{\"Name\":\"IdCardNo\",\"GetNameAs\":\"IdCardNo\"},{\"Name\":\"Mobile\",\"GetNameAs\":\"Mobile\"},{\"Name\":\"NationalCode\",\"GetNameAs\":\"NationalCode\"},{\"Name\":\"Phone\",\"GetNameAs\":\"Phone\"},{\"Name\":\"BirthDateDD\",\"GetNameAs\":\"BirthDateDD\"},{\"Name\":\"BirthDateMM\",\"GetNameAs\":\"BirthDateMM\"},{\"Name\":\"BirthDateYYYY\",\"GetNameAs\":\"BirthDateYYYY\"},{\"Name\":\"Address\",\"GetNameAs\":\"Address\"},{\"Name\":\"Arzagh\",\"GetNameAs\":\"Arzagh\"},{\"Name\":\"HR_EMP_EmployeesId\",\"GetNameAs\":\"HR_EMP_EmployeesId\"},{\"Name\":\"HasOrganizationalAutomobile\",\"GetNameAs\":\"HasOrganizationalAutomobile\"},{\"Name\":\"HasTransportService\",\"GetNameAs\":\"HasTransportService\"},{\"Name\":\"FirstName\",\"GetNameAs\":\"FirstName\"},{\"Name\":\"FatherName\",\"GetNameAs\":\"FatherName\"},{\"Name\":\"HasCashCharge\",\"GetNameAs\":\"HasCashCharge\"},{\"Name\":\"HasDisabledChild\",\"GetNameAs\":\"HasDisabledChild\"},{\"Name\":\"ContactEmployee_Address\",\"GetNameAs\":\"ContactEmployee_Address\"},{\"Name\":\"ContactEmployee_FullName\",\"GetNameAs\":\"ContactEmployee_FullName\"},{\"Name\":\"ContactEmployee_Tel\",\"GetNameAs\":\"ContactEmployee_Tel\"},{\"Name\":\"HR_Base_ContactEmployeeRelativeId\",\"GetNameAs\":\"HR_Base_ContactEmployeeRelativeId\"},{\"Name\":\"BaseInfo_MaritalStatusId\",\"GetNameAs\":\"BaseInfo_MaritalStatusId\"},{\"Name\":\"CityOfBirth\",\"GetNameAs\":\"CityOfBirth\"},{\"Name\":\"CityOfIssue\",\"GetNameAs\":\"CityOfIssue\"},{\"Name\":\"BaseInfo_BloodGroupId\",\"GetNameAs\":\"BaseInfo_BloodGroupId\"},{\"Name\":\"BaseInfo_ReligionId\",\"GetNameAs\":\"BaseInfo_ReligionId\"},{\"Name\":\"BaseInfo_MilitaryStatusId\",\"GetNameAs\":\"BaseInfo_MilitaryStatusId\"},{\"Name\":\"BaseInfo_CitiesAreasId\",\"GetNameAs\":\"BaseInfo_CitiesAreasId\"},{\"Name\":\"BaseInfo_GenderId\",\"GetNameAs\":\"BaseInfo_GenderId\"},{\"Name\":\"BirthDate\",\"GetNameAs\":\"BirthDate\"},{\"Name\":\"BirthDate_Fa\",\"GetNameAs\":\"BirthDate_Fa\"},{\"Name\":\"EmployeeAge\",\"GetNameAs\":\"EmployeeAge\"},{\"Name\":\"EmployeeAgeText\",\"GetNameAs\":\"EmployeeAgeText\"},{\"Name\":\"EmployeeWorkExperience\",\"GetNameAs\":\"EmployeeWorkExperience\"},{\"Name\":\"EmployeeWorkExperienceText\",\"GetNameAs\":\"EmployeeWorkExperienceText\"},{\"Name\":\"EmployeeWorkExperienceFile\",\"GetNameAs\":\"EmployeeWorkExperienceFile\"},{\"Name\":\"DateEmployeeWorkExperience_Fa\",\"GetNameAs\":\"DateEmployeeWorkExperience_Fa\"},{\"Name\":\"BaseInfo_DenominationsId\",\"GetNameAs\":\"BaseInfo_DenominationsId\"},{\"Name\":\"EmployeeNo\",\"GetNameAs\":\"EmployeeNo\"},{\"Name\":\"LastEmployeeNo\",\"GetNameAs\":\"LastEmployeeNo\"},{\"Name\":\"EmployeePersonelNo\",\"GetNameAs\":\"EmployeePersonelNo\"},{\"Name\":\"EmployeeLastPersonelNo\",\"GetNameAs\":\"EmployeeLastPersonelNo\"},{\"Name\":\"BaseInfo_ORG_CompaniesId\",\"GetNameAs\":\"BaseInfo_ORG_CompaniesId\"},{\"Name\":\"HR_EMP_StatusId\",\"GetNameAs\":\"HR_EMP_StatusId\"},{\"Name\":\"BaseInfo_ORG_Companies\",\"GetNameAs\":\"BaseInfo_ORG_Companies\"},{\"Name\":\"HR_EMP_Status\",\"GetNameAs\":\"HR_EMP_Status\"},{\"Name\":\"IdCardSerialNoSection1\",\"GetNameAs\":\"IdCardSerialNoSection1\"},{\"Name\":\"IdCardSerialNoSection2\",\"GetNameAs\":\"IdCardSerialNoSection2\"},{\"Name\":\"IdCardSerialNoSection3\",\"GetNameAs\":\"IdCardSerialNoSection3\"}],\"Relation\":[]},{\"Name\":\"HR_EMP_EmployeeDetails\",\"GetNameAs\":\"HR_EMP_EmployeeDetails\",\"ModeErtebat\":2,\"Column\":[{\"Name\":\"OrgTel1\",\"GetNameAs\":\"OrgTel1\"},{\"Name\":\"OrgTel2\",\"GetNameAs\":\"OrgTel2\"},{\"Name\":\"OrgMobile1\",\"GetNameAs\":\"OrgMobile1\"},{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"RequestID\",\"GetNameAs\":\"RequestID\"},{\"Name\":\"CreateUser\",\"GetNameAs\":\"CreateUser\"},{\"Name\":\"UpdateUser\",\"GetNameAs\":\"UpdateUser\"},{\"Name\":\"CreateDate\",\"GetNameAs\":\"CreateDate\"},{\"Name\":\"UpdateDate\",\"GetNameAs\":\"UpdateDate\"},{\"Name\":\"IsDelete\",\"GetNameAs\":\"IsDelete\"},{\"Name\":\"OrgMobile2\",\"GetNameAs\":\"OrgMobile2\"},{\"Name\":\"OrgTel3\",\"GetNameAs\":\"OrgTel3\"},{\"Name\":\"OrgTel4\",\"GetNameAs\":\"OrgTel4\"},{\"Name\":\"OrgTel5\",\"GetNameAs\":\"OrgTel5\"},{\"Name\":\"InsideEmail\",\"GetNameAs\":\"InsideEmail\"},{\"Name\":\"OutsideEmail\",\"GetNameAs\":\"OutsideEmail\"}],\"Relation\":[]},{\"Name\":\"HR_EMP_EmployeeFamileis\",\"GetNameAs\":\"HR_EMP_EmployeeFamileis\",\"ModeErtebat\":2,\"Column\":[{\"Name\":\"HR_Base_AcademicDegreesId\",\"GetNameAs\":\"HR_Base_AcademicDegreesId\"},{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"RequestID\",\"GetNameAs\":\"RequestID\"},{\"Name\":\"CreateUser\",\"GetNameAs\":\"CreateUser\"},{\"Name\":\"UpdateUser\",\"GetNameAs\":\"UpdateUser\"},{\"Name\":\"CreateDate\",\"GetNameAs\":\"CreateDate\"},{\"Name\":\"UpdateDate\",\"GetNameAs\":\"UpdateDate\"},{\"Name\":\"IsDelete\",\"GetNameAs\":\"IsDelete\"},{\"Name\":\"MarriageDate\",\"GetNameAs\":\"MarriageDate\"},{\"Name\":\"IdCardNo\",\"GetNameAs\":\"IdCardNo\"},{\"Name\":\"LastName\",\"GetNameAs\":\"LastName\"},{\"Name\":\"NationalCode\",\"GetNameAs\":\"NationalCode\"},{\"Name\":\"BirthDate\",\"GetNameAs\":\"BirthDate\"},{\"Name\":\"Description\",\"GetNameAs\":\"Description\"},{\"Name\":\"HR_EMP_EmployeesId\",\"GetNameAs\":\"HR_EMP_EmployeesId\"},{\"Name\":\"FatherName\",\"GetNameAs\":\"FatherName\"},{\"Name\":\"FirstName\",\"GetNameAs\":\"FirstName\"},{\"Name\":\"HR_FamilyRelationshipId\",\"GetNameAs\":\"HR_FamilyRelationshipId\"},{\"Name\":\"BaseInfo_CitiesId\",\"GetNameAs\":\"BaseInfo_CitiesId\"},{\"Name\":\"BaseInfo_GenderId\",\"GetNameAs\":\"BaseInfo_GenderId\"},{\"Name\":\"BaseInfo_MaritalStatusId\",\"GetNameAs\":\"BaseInfo_MaritalStatusId\"},{\"Name\":\"HR_Base_DependentId\",\"GetNameAs\":\"HR_Base_DependentId\"},{\"Name\":\"BirthDate_Fa\",\"GetNameAs\":\"BirthDate_Fa\"},{\"Name\":\"MarriageDate_Fa\",\"GetNameAs\":\"MarriageDate_Fa\"},{\"Name\":\"IsCurrentlyStudying\",\"GetNameAs\":\"IsCurrentlyStudying\"},{\"Name\":\"EducationStartDate_Fa\",\"GetNameAs\":\"EducationStartDate_Fa\"},{\"Name\":\"EducationStartDate\",\"GetNameAs\":\"EducationStartDate\"},{\"Name\":\"EducationEndDate_Fa\",\"GetNameAs\":\"EducationEndDate_Fa\"},{\"Name\":\"EducationEndDate\",\"GetNameAs\":\"EducationEndDate\"},{\"Name\":\"StudyCertificateFile\",\"GetNameAs\":\"StudyCertificateFile\"},{\"Name\":\"DivorceDate\",\"GetNameAs\":\"DivorceDate\"},{\"Name\":\"DivorceDate_Fa\",\"GetNameAs\":\"DivorceDate_Fa\"},{\"Name\":\"SpouseDeathDate\",\"GetNameAs\":\"SpouseDeathDate\"},{\"Name\":\"SpouseDeathDate_Fa\",\"GetNameAs\":\"SpouseDeathDate_Fa\"}],\"Relation\":[]},{\"Name\":\"HR_Base_BankAccount\",\"GetNameAs\":\"HR_Base_BankAccount\",\"ModeErtebat\":2,\"Column\":[{\"Name\":\"HR_EMP_EmployeesId\",\"GetNameAs\":\"HR_EMP_EmployeesId\"},{\"Name\":\"BaseInfo_BankId\",\"GetNameAs\":\"BaseInfo_BankId\"},{\"Name\":\"BankAccountNumber\",\"GetNameAs\":\"BankAccountNumber\"},{\"Name\":\"CartNo\",\"GetNameAs\":\"CartNo\"},{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"RequestID\",\"GetNameAs\":\"RequestID\"},{\"Name\":\"CreateUser\",\"GetNameAs\":\"CreateUser\"},{\"Name\":\"UpdateUser\",\"GetNameAs\":\"UpdateUser\"},{\"Name\":\"CreateDate\",\"GetNameAs\":\"CreateDate\"},{\"Name\":\"UpdateDate\",\"GetNameAs\":\"UpdateDate\"},{\"Name\":\"IsDelete\",\"GetNameAs\":\"IsDelete\"},{\"Name\":\"IBAN\",\"GetNameAs\":\"IBAN\"},{\"Name\":\"BaseInfo_BankBranchesId\",\"GetNameAs\":\"BaseInfo_BankBranchesId\"},{\"Name\":\"BaseInfo_BankAccountTypeId\",\"GetNameAs\":\"BaseInfo_BankAccountTypeId\"},{\"Name\":\"HR_Base_BankAcountCategoryId\",\"GetNameAs\":\"HR_Base_BankAcountCategoryId\"}],\"Relation\":[]},{\"Name\":\"HR_EMP_Documents\",\"GetNameAs\":\"HR_EMP_Documents\",\"ModeErtebat\":2,\"Column\":[{\"Name\":\"HR_Base_DocumentTypesId\",\"GetNameAs\":\"HR_Base_DocumentTypesId\"},{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"RequestID\",\"GetNameAs\":\"RequestID\"},{\"Name\":\"CreateUser\",\"GetNameAs\":\"CreateUser\"},{\"Name\":\"UpdateUser\",\"GetNameAs\":\"UpdateUser\"},{\"Name\":\"CreateDate\",\"GetNameAs\":\"CreateDate\"},{\"Name\":\"UpdateDate\",\"GetNameAs\":\"UpdateDate\"},{\"Name\":\"IsDelete\",\"GetNameAs\":\"IsDelete\"},{\"Name\":\"Title\",\"GetNameAs\":\"Title\"},{\"Name\":\"HR_EMP_EmployeesId\",\"GetNameAs\":\"HR_EMP_EmployeesId\"},{\"Name\":\"IsActive\",\"GetNameAs\":\"IsActive\"},{\"Name\":\"Description\",\"GetNameAs\":\"Description\"}],\"Relation\":[{\"Name\":\"HR_EMP_Documents_AttachmentFile\",\"GetNameAs\":\"HR_EMP_Documents_AttachmentFile\",\"ModeErtebat\":2,\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"HR_EMP_DocumentsId\",\"GetNameAs\":\"HR_EMP_DocumentsId\"},{\"Name\":\"storage\",\"GetNameAs\":\"storage\"},{\"Name\":\"name\",\"GetNameAs\":\"name\"},{\"Name\":\"url\",\"GetNameAs\":\"url\"},{\"Name\":\"size\",\"GetNameAs\":\"size\"},{\"Name\":\"type\",\"GetNameAs\":\"type\"},{\"Name\":\"originalName\",\"GetNameAs\":\"originalName\"},{\"Name\":\"hash\",\"GetNameAs\":\"hash\"},{\"Name\":\"RequestID\",\"GetNameAs\":\"RequestID\"},{\"Name\":\"CreateUser\",\"GetNameAs\":\"CreateUser\"},{\"Name\":\"UpdateUser\",\"GetNameAs\":\"UpdateUser\"},{\"Name\":\"CreateDate\",\"GetNameAs\":\"CreateDate\"},{\"Name\":\"UpdateDate\",\"GetNameAs\":\"UpdateDate\"},{\"Name\":\"IsDelete\",\"GetNameAs\":\"IsDelete\"}]}]}]}");
 
         config = CKEditorBundleOptions.DefaultConfig.WithHtmlEditing();
         config.Language = "fa";

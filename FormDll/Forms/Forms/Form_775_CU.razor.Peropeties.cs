@@ -144,7 +144,7 @@ namespace Forms.Forms
     /// <summary>
     ///  ورژنی که فرم باهاش ساخته شده
     /// </summary>
-    public string? VersionForm { get; set; } = "5510";
+    public string? VersionForm { get; set; } = "5550";
 
     /// <summary>
     ///  موجودیت
@@ -185,10 +185,10 @@ public Input<string?> Ref_CalculationStartYear;
 public Input<string?> Ref_CalculationStartMonth;
 public Input<string?> Ref_CalculationStartDay;
 public Dropdown Ref_HR_CVR_JobGroupId;
-public Input<int?> Ref_AmountWagesMinistLabor;
-public Input<int?> Ref_AmountWagesGroupJob;
-public Input<int?> Ref_AmountWagesMinistryLabor;
-public Input<int?> Ref_GroupRankSalaryAmount;
+public Input<decimal?> Ref_AmountWagesMinistLabor;
+public Input<decimal?> Ref_AmountWagesGroupJob;
+public Input<decimal?> Ref_AmountWagesMinistryLabor;
+public Input<decimal?> Ref_GroupRankSalaryAmount;
 public Input<Guid> Ref_Id;
 public Input<Guid?> Ref_RequestID;
 public Input<Guid?> Ref_CreateUser;

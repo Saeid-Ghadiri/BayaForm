@@ -149,6 +149,8 @@ namespace Forms.Forms
 		/// <returns></returns>
 		public override async Task<Result> BeforSubmit()
 		{
+			//SetBankToSepahIfNeeded();
+
 			var isShebaValid = ValidateIR();
 			var isCartValid = IsValidCardNumber();
 			if (!isShebaValid)
@@ -189,7 +191,7 @@ namespace Forms.Forms
 		/// <returns></returns>
 		public override async Task AfterGetData()
 		{
-
+			//SetBankToSepahIfNeeded();
 		}
 
 
@@ -258,39 +260,64 @@ namespace Forms.Forms
 		}
 
 
-		#region
-		// دسته بندی حساب بانکی 
-		// HR_Base_BankAcountCategoryId
-		// شناسه عنوان دسته بندی حساب بانکی از نوع حقوق و دستمزد: E8B28475-6FEC-F011-A50E-005056A2B6BD
-		// BaseInfo_BankId:
-		// بانک = سپه
-		// شناسه بانک سپه: E8B28475-6FEC-F011-A50E-005056A2B6BD
-		// Id: 6A2FEC9D-9E93-F011-A50E-005056A2B6BD
-
-
-		//public async Task HR_Base_BankAcountCategoryId_onitemselected(Entity.HR_Base_BankAcountCategory Selected)
+		#region متد دسته بندی حساب بانکی
 		public async Task HR_Base_BankAcountCategoryId_onitemselected(dynamic Selected)
 		{
+			Console.WriteLine("#Log :: BankAcountCategoryId_onitemselected :: ");
 
-			// HR_Base_BankAcountCategoryId => دسته بندی حساب بانکی 
-			// BaseInfo_BankId => بانک
+			// شناسه ثابت دسته‌بندی "حقوق و دستمزد"
+			var BankAccCatId = "E8B28475-6FEC-F011-A50E-005056A2B6BD";
 
-			Entity.BaseInfo_Banks Bank = new();
-			Bank.Id = Selected.Id;
-			Bank.Title = Selected.Title;
+			// شناسه ثابت بانک "سپه"
+			var SepahBankId = "6A2FEC9D-9E93-F011-A50E-005056A2B6BD";
+			var SepahBankTitle = "سپه";
 
-			Console.WriteLine("#Log 1");
+			// دریافت مقدار فعلی دسته‌بندی حساب
+			var BankAcountCategoryId = _Entity.HR_Base_BankAcountCategoryId?.ToString();
 
-			Ref_BaseInfo_BankId.SetEntity(Bank);
+			if (BankAcountCategoryId == BankAccCatId.ToLower())
+			{
+				Console.WriteLine("#Log :: BankAccCatId :: " + BankAccCatId.ToLower());
+				Console.WriteLine("#Log :: BankAcountCategoryId :: " + BankAcountCategoryId);
 
-			Console.WriteLine(await Utility.JSON.ToJson(Bank));
-			Ref_BaseInfo_BankId.ItemSelected(Bank);
+				// ۱. ست کردن مقدار در مدل (دیتابیس)
+				Guid sepahId = Guid.Parse(SepahBankId);
+				string sepahTitle = SepahBankTitle;
 
-			Console.WriteLine("#Log 2");
+				Console.WriteLine("#Log :: sepahId :: " + sepahId);
 
-			await Task.Delay(100);
-			Ref_BaseInfo_BankId.LoadData();
+				// ۲. ست کردن آبجکت کامل بانک در مدل (برای جلوگیری از خطاهای احتمالی در گرید یا فرم)
+				// اگر پراپرتی BaseInfo_Bank در موجودیت شما وجود دارد، بهتر است آن را هم مقداردهی کنید
+				 _Entity.BaseInfo_Bank = new Entity.BaseInfo_Banks { Id = sepahId, Title = sepahTitle };
+
+				// ۳. همگام‌سازی با رابط کاربری (UI)
+				// این بخش بسیار مهم است. ما باید به کامپوننت بگوییم که مقدارش تغییر کرده است.
+				// فرض بر این است که Ref_BaseInfo_BankId یک Reference به کامپوننت انتخاب بانک است.
+
+				if (Ref_BaseInfo_BankId != null)
+				{
+					// اگر متد SetEntity در کامپوننت شما وجود دارد، از آن استفاده کنید
+					// این متد معمولاً مقدار را در کامپوننت ست کرده و UI را رفرش می‌کند
+					Ref_BaseInfo_BankId.SetEntity(_Entity.BaseInfo_Bank);
+					Console.WriteLine("#Log :: Ref_BaseInfo_BankId :: ");
+
+					// یا اگر متد خاصی برای ست کردن مقدار (Value) دارید:
+					//Ref_BaseInfo_BankId.Value = sepahGuid;
+
+
+					Ref_BaseInfo_BankId.ItemSelected(_Entity.BaseInfo_Bank);
+
+					await Task.Delay(100);
+					Ref_BaseInfo_BankId.LoadData();
+				}
+
+				// ۴. اطلاع به Blazor برای رندر مجدد صفحه
+				StateHasChanged();
+
+				Console.WriteLine("Log:: Bank set to Sepah successfully.");
+			}
 		}
+
 		#endregion
 
 		#endregion FunctionEvents

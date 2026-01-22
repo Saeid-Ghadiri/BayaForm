@@ -212,7 +212,7 @@ h1 {
   padding: 8px;
   background: #fff;
   border-radius: 16px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+  /* box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05); */
   transition: all 0.3s ease;
   max-width: 200px !important;
   max-height: 250px !important;
@@ -237,6 +237,10 @@ h1 {
   transform: scale(1.05);
   box-shadow: 0 6px 25px rgba(0, 0, 0, 0.3);
   filter: brightness(1.08);
+}
+
+td .picprofilebtn {
+  display: none;
 }
 
 /* ************************************************** */
@@ -476,7 +480,11 @@ h1 {
     var HR_EMP_Employees_ProfilePicture = (Entity.HR_EMP_Employees)ProfilePicture_.DataItem;
 }
 <SingleUploader Editable="false"  uploadedLink="@HR_EMP_Employees_ProfilePicture.ProfilePicture" uploadUrl="https://File.workcv.ir/fa/api/v1/File/Post" htmlTemplate="<img class='img-fluid PersonnalPictureList' src='##url##'/>
-<div><a href='##url##' class='btn btn-green'><span class='fal fa-download'></span></a></div>" FileChanged="@((url) => HR_EMP_Employees_ProfilePicture.ProfilePicture = url)" Caption="عکس پرسنلی" />
+<div class='picprofilebtn'>
+    <a class='btn btn-green profilelink' href='##url##' >
+        <span class='fal fa-download profilebtn'></span>
+    </a>
+</div>" FileChanged="@((url) => HR_EMP_Employees_ProfilePicture.ProfilePicture = url)" Caption="عکس پرسنلی" />
 
 
     </CellDisplayTemplate>
