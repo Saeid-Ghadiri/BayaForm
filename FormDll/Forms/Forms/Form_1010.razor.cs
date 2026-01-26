@@ -770,14 +770,14 @@ namespace Forms.Forms
 				return;
 			}
 
-			//Console.WriteLine("#Log ::0::");
+			Console.WriteLine("#Log ::0::");
 
-			//var jsonSelected = await Utility.JSON.ToJson(Selected);
-			//Console.WriteLine(jsonSelected);
+			var jsonSelected = await Utility.JSON.ToJson(Selected);
+			Console.WriteLine(jsonSelected);
 
 			string selectedProductTypes = Selected.Id.ToString();
 
-			//Console.WriteLine("#Log ::1::" + selectedProductTypes);
+			Console.WriteLine("#Log ::1::" + selectedProductTypes);
 
 			if (string.IsNullOrWhiteSpace(selectedProductTypes))
 			{

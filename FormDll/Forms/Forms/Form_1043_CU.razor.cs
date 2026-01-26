@@ -97,6 +97,10 @@ namespace Forms.Forms
     public async Task  submit_onclick(MouseEventArgs Selected   )
         {
 
+            Console.WriteLine("Log ::  CodeMelli ::" + _Entity.CodeMelli.ToString());
+            Console.WriteLine("Log ::  Year ::" + _Entity.Month);
+            Console.WriteLine("Log ::  Month ::" + _Entity.Year);
+
             var ApiResult = await ApiServer.Internal.Finantial.Salary.Get(Convert.ToInt32(_Entity.Year), Convert.ToInt32(_Entity.Month), _Entity.CodeMelli.ToString(), ApplicationType.InfoBig, await (_authenticationStateProvider as CustomAuthProvider).GetToken());
 
 
