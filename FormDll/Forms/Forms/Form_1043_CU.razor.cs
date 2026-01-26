@@ -1,6 +1,7 @@
 using System;
 using Microsoft.AspNetCore.Components;
 using Baya.Models.Utility;
+using Baya.Extentions.Blazor;
 using System.Net;
 using Microsoft.JSInterop;
 using DevExpress.Blazor;
@@ -93,7 +94,18 @@ namespace Forms.Forms
 
     #region FunctionEvents
 
-    #endregion FunctionEvents
+    public async Task  submit_onclick(MouseEventArgs Selected   )
+        {
+
+            var ApiResult = await ApiServer.Internal.Finantial.Salary.Get(Convert.ToInt32(_Entity.Year), Convert.ToInt32(_Entity.Month), _Entity.CodeMelli.ToString(), ApplicationType.InfoBig, await (_authenticationStateProvider as CustomAuthProvider).GetToken());
+
+
+            var x = await Utility.JSON.ToJson(ApiResult);
+			Console.WriteLine("Log ::  Data ::" + x);
+            
+        }
+
+		#endregion FunctionEvents
 
 }
 }

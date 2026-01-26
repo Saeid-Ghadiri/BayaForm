@@ -31,6 +31,68 @@
 <div class="@(ReadOnly?"FormReadOnly":"")">
     <EditForm @ref="_Form" Model="_Entity" OnSubmit="Submit">
         
+<div class="row ">
+    
+<div class="col-md-3">
+    
+<Input Id="Emp_No" @ref="Ref_Emp_No" Label="شماره کارت"     @bind-Value="_Entity.Emp_No" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+<Input Id="CodeMelli" @ref="Ref_CodeMelli" Label="کد ملی"     @bind-Value="_Entity.CodeMelli" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+<Input Id="Year" @ref="Ref_Year" Label="سال"     @bind-Value="_Entity.Year" type="number"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+<Input Id="Month" @ref="Ref_Month" Label="ماه"     @bind-Value="_Entity.Month" type="number"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+<Button Label="Submit" Id="submit" CssClass=" btn btn-info" onclick="@(e => submit_onclick(e ))"   ></Button>
+
+</div>
+
+<div class="col-md-3">
+    
+<Input Id="Emp_Name" @ref="Ref_Emp_Name" Label="نام"     @bind-Value="_Entity.Emp_Name" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+<Input Id="Emp_Family" @ref="Ref_Emp_Family" Label="نام خانوادگی"     @bind-Value="_Entity.Emp_Family" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+<Input Id="WorkName" @ref="Ref_WorkName" Label="محل کار"     @bind-Value="_Entity.WorkName" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+<Input Id="Sum_v_day" @ref="Ref_Sum_v_day" Label="جمع روز"     @bind-Value="_Entity.Sum_v_day" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+<Input Id="Sum_v_hour" @ref="Ref_Sum_v_hour" Label="جمع ساعت"     @bind-Value="_Entity.Sum_v_hour" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+</div>
+
+<div class="col-md-3">
+    
+<Input Id="Centname" @ref="Ref_Centname" Label="واحد"     @bind-Value="_Entity.Centname" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+<Input Id="JobName" @ref="Ref_JobName" Label="عنوان شغلی"     @bind-Value="_Entity.JobName" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+<Input Id="Mazaya" @ref="Ref_Mazaya" Label="مزایا"     @bind-Value="_Entity.Mazaya" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+<Input Id="Kosorat" @ref="Ref_Kosorat" Label="کسورات"     @bind-Value="_Entity.Kosorat" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+<Input Id="Company" @ref="Ref_Company" Label="شرکت"     @bind-Value="_Entity.Company" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+</div>
+
+<div class="col-md-3">
+    
+<Input Id="Kosoorpname" @ref="Ref_Kosoorpname" Label="کسورات"     @bind-Value="_Entity.Kosoorpname" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+<Input Id="Kosoorprice" @ref="Ref_Kosoorprice" Label="مبلغ کسورات"     @bind-Value="_Entity.Kosoorprice" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+<Input Id="Kosoorphour" @ref="Ref_Kosoorphour" Label="ساعت"     @bind-Value="_Entity.Kosoorphour" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+<Input Id="Mazayapname" @ref="Ref_Mazayapname" Label="مزایا"     @bind-Value="_Entity.Mazayapname" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+<Input Id="Mazayaprice" @ref="Ref_Mazayaprice" Label="مبلغ مزایا"     @bind-Value="_Entity.Mazayaprice" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+<Input Id="Mazayaphour" @ref="Ref_Mazayaphour" Label="ساعت"     @bind-Value="_Entity.Mazayaphour" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+</div>
+
+</div>
+
 <Input Id="Id" @ref="Ref_Id"   CssClass="d-none"   @bind-Value="_Entity.Id" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
 
 <Input Id="RequestID" @ref="Ref_RequestID"      @bind-Value="_Entity.RequestID" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
@@ -44,10 +106,6 @@
 <Input Id="UpdateDate" @ref="Ref_UpdateDate"   CssClass="d-none"   @bind-Value="_Entity.UpdateDate" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
 
 <Input Id="IsDelete" @ref="Ref_IsDelete"   CssClass="d-none"   @bind-Value="_Entity.IsDelete" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
-
-<Input Id="Emp_No" @ref="Ref_Emp_No" Label="شماره کارت"     @bind-Value="_Entity.Emp_No" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
-
-<Input Id="CodeMelli" @ref="Ref_CodeMelli" Label="کد ملی"     @bind-Value="_Entity.CodeMelli" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
 
     </EditForm>
 </div>
@@ -65,8 +123,8 @@
     {
         Console.WriteLine("#log OnInitializedAsync");
 
-        TableGet = await Utility.JSON.ToObject<Table>("{\"Name\":\"HR_Salary\",\"GetNameAs\":\"HR_Salary\",\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"RequestID\",\"GetNameAs\":\"RequestID\"},{\"Name\":\"CreateUser\",\"GetNameAs\":\"CreateUser\"},{\"Name\":\"UpdateUser\",\"GetNameAs\":\"UpdateUser\"},{\"Name\":\"CreateDate\",\"GetNameAs\":\"CreateDate\"},{\"Name\":\"UpdateDate\",\"GetNameAs\":\"UpdateDate\"},{\"Name\":\"IsDelete\",\"GetNameAs\":\"IsDelete\"},{\"Name\":\"Emp_No\",\"GetNameAs\":\"Emp_No\"},{\"Name\":\"CodeMelli\",\"GetNameAs\":\"CodeMelli\"}],\"Relation\":[]}");
-        TablePost = await Utility.JSON.ToObject<Table>("{\"Name\":\"HR_Salary\",\"GetNameAs\":\"HR_Salary\",\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"RequestID\",\"GetNameAs\":\"RequestID\"},{\"Name\":\"CreateUser\",\"GetNameAs\":\"CreateUser\"},{\"Name\":\"UpdateUser\",\"GetNameAs\":\"UpdateUser\"},{\"Name\":\"CreateDate\",\"GetNameAs\":\"CreateDate\"},{\"Name\":\"UpdateDate\",\"GetNameAs\":\"UpdateDate\"},{\"Name\":\"IsDelete\",\"GetNameAs\":\"IsDelete\"},{\"Name\":\"Emp_No\",\"GetNameAs\":\"Emp_No\"},{\"Name\":\"CodeMelli\",\"GetNameAs\":\"CodeMelli\"}],\"Relation\":[]}");
+        TableGet = await Utility.JSON.ToObject<Table>("{\"Name\":\"HR_Salary\",\"GetNameAs\":\"HR_Salary\",\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"RequestID\",\"GetNameAs\":\"RequestID\"},{\"Name\":\"CreateUser\",\"GetNameAs\":\"CreateUser\"},{\"Name\":\"UpdateUser\",\"GetNameAs\":\"UpdateUser\"},{\"Name\":\"CreateDate\",\"GetNameAs\":\"CreateDate\"},{\"Name\":\"UpdateDate\",\"GetNameAs\":\"UpdateDate\"},{\"Name\":\"IsDelete\",\"GetNameAs\":\"IsDelete\"},{\"Name\":\"Emp_No\",\"GetNameAs\":\"Emp_No\"},{\"Name\":\"CodeMelli\",\"GetNameAs\":\"CodeMelli\"},{\"Name\":\"Year\",\"GetNameAs\":\"Year\"},{\"Name\":\"Month\",\"GetNameAs\":\"Month\"},{\"Name\":\"Emp_Name\",\"GetNameAs\":\"Emp_Name\"},{\"Name\":\"Emp_Family\",\"GetNameAs\":\"Emp_Family\"},{\"Name\":\"WorkName\",\"GetNameAs\":\"WorkName\"},{\"Name\":\"Sum_v_day\",\"GetNameAs\":\"Sum_v_day\"},{\"Name\":\"Sum_v_hour\",\"GetNameAs\":\"Sum_v_hour\"},{\"Name\":\"Centname\",\"GetNameAs\":\"Centname\"},{\"Name\":\"JobName\",\"GetNameAs\":\"JobName\"},{\"Name\":\"Mazaya\",\"GetNameAs\":\"Mazaya\"},{\"Name\":\"Kosorat\",\"GetNameAs\":\"Kosorat\"},{\"Name\":\"Company\",\"GetNameAs\":\"Company\"},{\"Name\":\"Kosoorpname\",\"GetNameAs\":\"Kosoorpname\"},{\"Name\":\"Kosoorprice\",\"GetNameAs\":\"Kosoorprice\"},{\"Name\":\"Kosoorphour\",\"GetNameAs\":\"Kosoorphour\"},{\"Name\":\"Mazayapname\",\"GetNameAs\":\"Mazayapname\"},{\"Name\":\"Mazayaprice\",\"GetNameAs\":\"Mazayaprice\"},{\"Name\":\"Mazayaphour\",\"GetNameAs\":\"Mazayaphour\"}],\"Relation\":[]}");
+        TablePost = await Utility.JSON.ToObject<Table>("{\"Name\":\"HR_Salary\",\"GetNameAs\":\"HR_Salary\",\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"RequestID\",\"GetNameAs\":\"RequestID\"},{\"Name\":\"CreateUser\",\"GetNameAs\":\"CreateUser\"},{\"Name\":\"UpdateUser\",\"GetNameAs\":\"UpdateUser\"},{\"Name\":\"CreateDate\",\"GetNameAs\":\"CreateDate\"},{\"Name\":\"UpdateDate\",\"GetNameAs\":\"UpdateDate\"},{\"Name\":\"IsDelete\",\"GetNameAs\":\"IsDelete\"},{\"Name\":\"Emp_No\",\"GetNameAs\":\"Emp_No\"},{\"Name\":\"CodeMelli\",\"GetNameAs\":\"CodeMelli\"},{\"Name\":\"Year\",\"GetNameAs\":\"Year\"},{\"Name\":\"Month\",\"GetNameAs\":\"Month\"},{\"Name\":\"Emp_Name\",\"GetNameAs\":\"Emp_Name\"},{\"Name\":\"Emp_Family\",\"GetNameAs\":\"Emp_Family\"},{\"Name\":\"WorkName\",\"GetNameAs\":\"WorkName\"},{\"Name\":\"Sum_v_day\",\"GetNameAs\":\"Sum_v_day\"},{\"Name\":\"Sum_v_hour\",\"GetNameAs\":\"Sum_v_hour\"},{\"Name\":\"Centname\",\"GetNameAs\":\"Centname\"},{\"Name\":\"JobName\",\"GetNameAs\":\"JobName\"},{\"Name\":\"Mazaya\",\"GetNameAs\":\"Mazaya\"},{\"Name\":\"Kosorat\",\"GetNameAs\":\"Kosorat\"},{\"Name\":\"Company\",\"GetNameAs\":\"Company\"},{\"Name\":\"Kosoorpname\",\"GetNameAs\":\"Kosoorpname\"},{\"Name\":\"Kosoorprice\",\"GetNameAs\":\"Kosoorprice\"},{\"Name\":\"Kosoorphour\",\"GetNameAs\":\"Kosoorphour\"},{\"Name\":\"Mazayapname\",\"GetNameAs\":\"Mazayapname\"},{\"Name\":\"Mazayaprice\",\"GetNameAs\":\"Mazayaprice\"},{\"Name\":\"Mazayaphour\",\"GetNameAs\":\"Mazayaphour\"}],\"Relation\":[]}");
 
         config = CKEditorBundleOptions.DefaultConfig.WithHtmlEditing();
         config.Language = "fa";
@@ -135,7 +193,6 @@
             //ست کردن دیفالت های فرم
             if (true)
                 {//
-_Entity.CodeMelli = _RequestParameters.UserStarterCodeMelli;
 
 
                     //نمونه ست کردن پارامتر روش اول

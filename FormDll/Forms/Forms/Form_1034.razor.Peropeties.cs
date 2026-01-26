@@ -144,7 +144,7 @@ namespace Forms.Forms
     /// <summary>
     ///  ورژنی که فرم باهاش ساخته شده
     /// </summary>
-    public string? VersionForm { get; set; } = "5550";
+    public string? VersionForm { get; set; } = "5571";
 
     /// <summary>
     ///  موجودیت
@@ -189,6 +189,7 @@ public Dropdown Ref_IDMS_RDC_AllData;
 public DxGrid? Grid_IDMS_RDC_Details;
 
 public Dropdown Ref_IDMS_RDC_Details_IDMS_ProductCategoriesId;
+public Dropdown Ref_IDMS_RDC_Details_IDMS_ProductTypesId;
 public Dropdown Ref_IDMS_RDC_Details_IDMS_ProductsId;
 public Dropdown Ref_IDMS_RDC_Details_IDMS_CustomerId;
 public Dropdown Ref_IDMS_RDC_Details_IDMS_ResultingFromId;

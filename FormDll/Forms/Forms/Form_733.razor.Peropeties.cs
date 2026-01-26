@@ -144,7 +144,7 @@ namespace Forms.Forms
     /// <summary>
     ///  ورژنی که فرم باهاش ساخته شده
     /// </summary>
-    public string? VersionForm { get; set; } = "5550";
+    public string? VersionForm { get; set; } = "5571";
 
     /// <summary>
     ///  موجودیت
@@ -183,6 +183,7 @@ public Input<string?> Ref_UserStarterFullName;
 public Input<string?> Ref_UserStarterCompanyName;
 public Input<string?> Ref_UserStarterUnitName;
 public Input<string?> Ref_UserStarterSectionName;
+public Dropdown Ref_KHMaster_Search_NotMapped;
 public DxGrid? Grid_SCMPLATE_ProductRequestDetails;
 
 public Input<string?> Ref_SCMPLATE_ProductRequestDetails_SH_DESC;
@@ -217,6 +218,7 @@ public Input<Guid?> Ref_SCMPLATE_ProductRequestDetails_UpdateUser;
 public Input<DateTime?> Ref_SCMPLATE_ProductRequestDetails_CreateDate;
 public Input<DateTime?> Ref_SCMPLATE_ProductRequestDetails_UpdateDate;
 public Input<bool?> Ref_SCMPLATE_ProductRequestDetails_IsDelete;
+public Input<string?> Ref_SCMPLATE_ProductRequestDetails_DescriptionWarehouseKeeper;
 public Input<Guid> Ref_Id;
 public Input<Guid?> Ref_RequestID;
 public Input<Guid?> Ref_CreateUser;

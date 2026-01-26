@@ -139,13 +139,13 @@
 /* ************************************************** */
 .input-ymd input {
     display: inline-block;
-    max-width: 80px;
+    max-width: 120px;
     background: none !important;
     border: none;
     color: #6c5ffc;
-    font-size: 0px;
+    font-size: 18px;
     text-align: center;
-    font-weight: 700;
+    font-weight: 750;
 }
 </style>
 
@@ -226,21 +226,7 @@
           
            </CellDisplayTemplate>
      </DxGridCommandColumn>
-    <DxGridDataColumn  Caption="Id" Visible=false FieldName="Id" />
-
-<DxGridDataColumn  Caption="RequestID" Visible=false FieldName="RequestID" />
-
-<DxGridDataColumn  Caption="CreateUser" Visible=false FieldName="CreateUser" />
-
-<DxGridDataColumn  Caption="UpdateUser" Visible=false FieldName="UpdateUser" />
-
-<DxGridDataColumn  Caption="CreateDate" Visible=false FieldName="CreateDate" />
-
-<DxGridDataColumn  Caption="UpdateDate" Visible=false FieldName="UpdateDate" />
-
-<DxGridDataColumn  Caption="IsDelete" Visible=false FieldName="IsDelete" />
-
-<DxGridDataColumn  Caption="سال شروع محاسبه"  FieldName="CalculationStartYear" />
+    <DxGridDataColumn  Caption="تاریخ شروع محاسبه"  FieldName="StartDate_Fa" />
 
 <DxGridDataColumn Context="HR_ORG_SectionsId_" Caption="قسمت‌های سازمانی" >
     <CellDisplayTemplate>
@@ -296,13 +282,27 @@
 </DxGridDataColumn>
 <DxGridDataColumn DisplayFormat="0" Caption="درصد مزد شغل"  FieldName="JobWagePercentage" />
 
+<DxGridDataColumn  Caption="سال شروع محاسبه"  FieldName="CalculationStartYear" />
+
 <DxGridDataColumn  Caption="ماه شروع محاسبه"  FieldName="CalculationStartMonth" />
 
 <DxGridDataColumn  Caption="روز شروع محاسبه"  FieldName="CalculationStartDay" />
 
-<DxGridDataColumn  Caption="تاریخ شروع محاسبه"  FieldName="StartDate_Fa" />
-
 <DxGridDataColumn  Caption="تاریخ شروع محاسبه میلادی" Visible=false FieldName="StartDate" />
+
+<DxGridDataColumn  Caption="Id" Visible=false FieldName="Id" />
+
+<DxGridDataColumn  Caption="RequestID" Visible=false FieldName="RequestID" />
+
+<DxGridDataColumn  Caption="CreateUser" Visible=false FieldName="CreateUser" />
+
+<DxGridDataColumn  Caption="UpdateUser" Visible=false FieldName="UpdateUser" />
+
+<DxGridDataColumn  Caption="CreateDate" Visible=false FieldName="CreateDate" />
+
+<DxGridDataColumn  Caption="UpdateDate" Visible=false FieldName="UpdateDate" />
+
+<DxGridDataColumn  Caption="IsDelete" Visible=false FieldName="IsDelete" />
 
 
 </Columns>
@@ -576,6 +576,14 @@ public void SaveGrid_HR_CVR_CeilingRightAttraction(object DataItem, object EditM
     var MainModel = (Entity.HR_CVR_CeilingRightAttraction)DataItem;
     if (MainModel != null)
     {
+MainModel.StartDate_Fa = ((Entity.HR_CVR_CeilingRightAttraction)EditModel).StartDate_Fa;
+MainModel.HR_ORG_SectionsId = ((Entity.HR_CVR_CeilingRightAttraction)EditModel).HR_ORG_SectionsId;
+MainModel.HR_CVR_JobGroupId = ((Entity.HR_CVR_CeilingRightAttraction)EditModel).HR_CVR_JobGroupId;
+MainModel.JobWagePercentage = ((Entity.HR_CVR_CeilingRightAttraction)EditModel).JobWagePercentage;
+MainModel.CalculationStartYear = ((Entity.HR_CVR_CeilingRightAttraction)EditModel).CalculationStartYear;
+MainModel.CalculationStartMonth = ((Entity.HR_CVR_CeilingRightAttraction)EditModel).CalculationStartMonth;
+MainModel.CalculationStartDay = ((Entity.HR_CVR_CeilingRightAttraction)EditModel).CalculationStartDay;
+MainModel.StartDate = ((Entity.HR_CVR_CeilingRightAttraction)EditModel).StartDate;
 MainModel.Id = ((Entity.HR_CVR_CeilingRightAttraction)EditModel).Id;
 MainModel.RequestID = ((Entity.HR_CVR_CeilingRightAttraction)EditModel).RequestID;
 MainModel.CreateUser = ((Entity.HR_CVR_CeilingRightAttraction)EditModel).CreateUser;
@@ -583,14 +591,6 @@ MainModel.UpdateUser = ((Entity.HR_CVR_CeilingRightAttraction)EditModel).UpdateU
 MainModel.CreateDate = ((Entity.HR_CVR_CeilingRightAttraction)EditModel).CreateDate;
 MainModel.UpdateDate = ((Entity.HR_CVR_CeilingRightAttraction)EditModel).UpdateDate;
 MainModel.IsDelete = ((Entity.HR_CVR_CeilingRightAttraction)EditModel).IsDelete;
-MainModel.CalculationStartYear = ((Entity.HR_CVR_CeilingRightAttraction)EditModel).CalculationStartYear;
-MainModel.HR_ORG_SectionsId = ((Entity.HR_CVR_CeilingRightAttraction)EditModel).HR_ORG_SectionsId;
-MainModel.HR_CVR_JobGroupId = ((Entity.HR_CVR_CeilingRightAttraction)EditModel).HR_CVR_JobGroupId;
-MainModel.JobWagePercentage = ((Entity.HR_CVR_CeilingRightAttraction)EditModel).JobWagePercentage;
-MainModel.CalculationStartMonth = ((Entity.HR_CVR_CeilingRightAttraction)EditModel).CalculationStartMonth;
-MainModel.CalculationStartDay = ((Entity.HR_CVR_CeilingRightAttraction)EditModel).CalculationStartDay;
-MainModel.StartDate_Fa = ((Entity.HR_CVR_CeilingRightAttraction)EditModel).StartDate_Fa;
-MainModel.StartDate = ((Entity.HR_CVR_CeilingRightAttraction)EditModel).StartDate;
 
     }
     else

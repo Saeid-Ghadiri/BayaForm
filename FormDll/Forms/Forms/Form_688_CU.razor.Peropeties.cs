@@ -144,7 +144,7 @@ namespace Forms.Forms
     /// <summary>
     ///  ورژنی که فرم باهاش ساخته شده
     /// </summary>
-    public string? VersionForm { get; set; } = "5550";
+    public string? VersionForm { get; set; } = "5571";
 
     /// <summary>
     ///  موجودیت
@@ -180,6 +180,7 @@ namespace Forms.Forms
     #region FormProperty
 
 public Dropdown Ref_HR_EMP_EmployeesId;
+public Dropdown Ref_HR_EMP_EmployeeFamileisId;
 public Dropdown Ref_HR_Base_BankAcountCategoryId;
 public Dropdown Ref_BaseInfo_BankAccountTypeId;
 public Dropdown Ref_BaseInfo_BankId;

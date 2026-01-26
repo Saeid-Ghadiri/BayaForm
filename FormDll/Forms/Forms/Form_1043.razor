@@ -112,6 +112,42 @@
 
 <DxGridDataColumn  Caption="کد ملی"  FieldName="CodeMelli" />
 
+<DxGridDataColumn DisplayFormat="0" Caption="سال"  FieldName="Year" />
+
+<DxGridDataColumn DisplayFormat="0" Caption="ماه"  FieldName="Month" />
+
+<DxGridDataColumn  Caption="نام"  FieldName="Emp_Name" />
+
+<DxGridDataColumn  Caption="نام خانوادگی"  FieldName="Emp_Family" />
+
+<DxGridDataColumn  Caption="محل کار"  FieldName="WorkName" />
+
+<DxGridDataColumn  Caption="جمع روز"  FieldName="Sum_v_day" />
+
+<DxGridDataColumn  Caption="جمع ساعت"  FieldName="Sum_v_hour" />
+
+<DxGridDataColumn  Caption="واحد"  FieldName="Centname" />
+
+<DxGridDataColumn  Caption="عنوان شغلی"  FieldName="JobName" />
+
+<DxGridDataColumn  Caption="مزایا"  FieldName="Mazaya" />
+
+<DxGridDataColumn  Caption="کسورات"  FieldName="Kosorat" />
+
+<DxGridDataColumn  Caption="شرکت"  FieldName="Company" />
+
+<DxGridDataColumn  Caption="کسورات"  FieldName="Kosoorpname" />
+
+<DxGridDataColumn  Caption="مبلغ کسورات"  FieldName="Kosoorprice" />
+
+<DxGridDataColumn  Caption="ساعت"  FieldName="Kosoorphour" />
+
+<DxGridDataColumn  Caption="مزایا"  FieldName="Mazayapname" />
+
+<DxGridDataColumn  Caption="مبلغ مزایا"  FieldName="Mazayaprice" />
+
+<DxGridDataColumn  Caption="ساعت"  FieldName="Mazayaphour" />
+
 
 </Columns>
 
@@ -393,6 +429,24 @@ MainModel.UpdateDate = ((Entity.HR_Salary)EditModel).UpdateDate;
 MainModel.IsDelete = ((Entity.HR_Salary)EditModel).IsDelete;
 MainModel.Emp_No = ((Entity.HR_Salary)EditModel).Emp_No;
 MainModel.CodeMelli = ((Entity.HR_Salary)EditModel).CodeMelli;
+MainModel.Year = ((Entity.HR_Salary)EditModel).Year;
+MainModel.Month = ((Entity.HR_Salary)EditModel).Month;
+MainModel.Emp_Name = ((Entity.HR_Salary)EditModel).Emp_Name;
+MainModel.Emp_Family = ((Entity.HR_Salary)EditModel).Emp_Family;
+MainModel.WorkName = ((Entity.HR_Salary)EditModel).WorkName;
+MainModel.Sum_v_day = ((Entity.HR_Salary)EditModel).Sum_v_day;
+MainModel.Sum_v_hour = ((Entity.HR_Salary)EditModel).Sum_v_hour;
+MainModel.Centname = ((Entity.HR_Salary)EditModel).Centname;
+MainModel.JobName = ((Entity.HR_Salary)EditModel).JobName;
+MainModel.Mazaya = ((Entity.HR_Salary)EditModel).Mazaya;
+MainModel.Kosorat = ((Entity.HR_Salary)EditModel).Kosorat;
+MainModel.Company = ((Entity.HR_Salary)EditModel).Company;
+MainModel.Kosoorpname = ((Entity.HR_Salary)EditModel).Kosoorpname;
+MainModel.Kosoorprice = ((Entity.HR_Salary)EditModel).Kosoorprice;
+MainModel.Kosoorphour = ((Entity.HR_Salary)EditModel).Kosoorphour;
+MainModel.Mazayapname = ((Entity.HR_Salary)EditModel).Mazayapname;
+MainModel.Mazayaprice = ((Entity.HR_Salary)EditModel).Mazayaprice;
+MainModel.Mazayaphour = ((Entity.HR_Salary)EditModel).Mazayaphour;
 
     }
     else
@@ -490,8 +544,7 @@ async void CustomizeEditGrid_HR_Salary(GridCustomizeEditModelEventArgs e)
 
     var newRow = (Entity.HR_Salary)e.EditModel;
 
-      newRow.CodeMelli = _RequestParameters.UserStarterCodeMelli;
-
+     
 
     }
 

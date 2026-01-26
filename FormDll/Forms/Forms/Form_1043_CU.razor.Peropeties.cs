@@ -144,7 +144,7 @@ namespace Forms.Forms
     /// <summary>
     ///  ورژنی که فرم باهاش ساخته شده
     /// </summary>
-    public string? VersionForm { get; set; } = "5550";
+    public string? VersionForm { get; set; } = "5571";
 
     /// <summary>
     ///  موجودیت
@@ -179,6 +179,27 @@ namespace Forms.Forms
 
     #region FormProperty
 
+public Input<string?> Ref_Emp_No;
+public Input<string?> Ref_CodeMelli;
+public Input<int?> Ref_Year;
+public Input<int?> Ref_Month;
+public ElementReference Ref_submit;
+public Input<string?> Ref_Emp_Name;
+public Input<string?> Ref_Emp_Family;
+public Input<string?> Ref_WorkName;
+public Input<string?> Ref_Sum_v_day;
+public Input<string?> Ref_Sum_v_hour;
+public Input<string?> Ref_Centname;
+public Input<string?> Ref_JobName;
+public Input<string?> Ref_Mazaya;
+public Input<string?> Ref_Kosorat;
+public Input<string?> Ref_Company;
+public Input<string?> Ref_Kosoorpname;
+public Input<string?> Ref_Kosoorprice;
+public Input<string?> Ref_Kosoorphour;
+public Input<string?> Ref_Mazayapname;
+public Input<string?> Ref_Mazayaprice;
+public Input<string?> Ref_Mazayaphour;
 public Input<Guid> Ref_Id;
 public Input<Guid?> Ref_RequestID;
 public Input<Guid?> Ref_CreateUser;
@@ -186,8 +207,6 @@ public Input<Guid?> Ref_UpdateUser;
 public Input<DateTime?> Ref_CreateDate;
 public Input<DateTime?> Ref_UpdateDate;
 public Input<bool?> Ref_IsDelete;
-public Input<string?> Ref_Emp_No;
-public Input<string?> Ref_CodeMelli;
 
 
     #endregion

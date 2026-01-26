@@ -279,11 +279,22 @@ td .picprofilebtn {
 }
 
 /* ************************************************** */
-.ModalWidth {
+/*اندازه مودال صفحه ویرایش رکورد*/
+.modalSize .ModalWidth {
     /* max-width: 1700px !important; */
     max-width: 100% !important;
     width: 95% !important;
     min-width: 800px !important;
+}
+
+.ModalWidth:has(.modalSize) {
+    max-width: 100% !important;
+    width: 95% !important;
+    min-width: 800px !important;
+}
+
+.EmployeeWorkExperienceFile .btn-red {
+    text-align: start;
 }
 </style>
 
@@ -321,18 +332,13 @@ td .picprofilebtn {
         EditFormButtonsVisible="false"
         CustomizeEditModel="CustomizeEditGrid_HR_EMP_Employees"
         CustomizeElement="CustomizeRowsGrid_HR_EMP_Employees" 
-        Component="@((Utility.JSON.ToObject<View_Component>("{\"primaryKey\":false,\"EntityID\":383,\"FieldId\":0,\"ViewId\":1037,\"NotMapped\":false,\"Relation\":false,\"RelationExternal\":false,\"RelationChildModel\":\"HR_EMP_Employees\",\"GridMainModel\":\"HR_EMP_Employees\",\"widget\":{\"altInput\":false,\"allowInput\":false,\"clickOpens\":false,\"enableDate\":false,\"enableTime\":false,\"noCalendar\":false,\"useLocaleSettings\":false,\"hourIncrement\":0,\"minuteIncrement\":0,\"time_24hr\":false},\"data\":{},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"FieldsTemplate\":[],\"refreshOn\":\"data\",\"reorder\":false,\"addAnotherPosition\":\"bottom\",\"layoutFixed\":false,\"enableRowGroups\":false,\"initEmpty\":false,\"modal\":true,\"StartCustomDataGrid\":true,\"label\":\"کارمندان\",\"tableView\":false,\"key\":\"HR_EMP_Employees\",\"type\":\"datagrid\",\"input\":true,\"modalEdit\":false,\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result))"
+        Component="@((Utility.JSON.ToObject<View_Component>("{\"primaryKey\":false,\"EntityID\":383,\"FieldId\":0,\"ViewId\":1037,\"NotMapped\":false,\"Relation\":false,\"RelationExternal\":false,\"RelationChildModel\":\"HR_EMP_Employees\",\"GridMainModel\":\"HR_EMP_Employees\",\"widget\":{\"altInput\":false,\"allowInput\":false,\"clickOpens\":false,\"enableDate\":false,\"enableTime\":false,\"noCalendar\":false,\"useLocaleSettings\":false,\"hourIncrement\":0,\"minuteIncrement\":0,\"time_24hr\":false},\"data\":{},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"FieldsTemplate\":[],\"refreshOn\":\"data\",\"reorder\":false,\"addAnotherPosition\":\"bottom\",\"layoutFixed\":false,\"enableRowGroups\":false,\"initEmpty\":false,\"modal\":true,\"StartCustomDataGrid\":true,\"label\":\"کارمندان\",\"tableView\":false,\"key\":\"HR_EMP_Employees\",\"type\":\"datagrid\",\"input\":true,\"modalEdit\":false,\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":false,\"AccessEdit\":true,\"AccessNew\":false}").Result))"
          >
     <Columns>
     
 <DxGridCommandColumn Width="70px">
     <HeaderTemplate Context="HeaderContext">
        
-<a id=HR_EMP_Employees_HR_EMP_EmployeesButtonNew class="btn btn-sm btn-green btnGridAddData" @onclick="@(() => StartEditNewRowAsync_Grid_HR_EMP_Employees())" style="text-decoration: none;" href="javascript:void(0);">
-    <span class="fal fa-plus-circle btnicon"></span>
-    <span>@languageContainer.Keys["DXGrid:New"]</span>
-</a>
-
     </HeaderTemplate>
     <CellDisplayTemplate Context="CellContext">
        
@@ -341,10 +347,6 @@ td .picprofilebtn {
 </a>
 
        
-<a class="btn btn-sm btn-red-light btnDeleteGridData" @onclick="@(() => OnDeleteButtonClickGrid_HR_EMP_Employees(CellContext))" style="text-decoration: none;" href="javascript:void(0);">
-    <span class="fal fa-times-circle btnicon"></span>
-</a>
-
     </CellDisplayTemplate>
 </DxGridCommandColumn>
 

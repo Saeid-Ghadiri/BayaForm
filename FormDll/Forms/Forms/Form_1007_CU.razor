@@ -46,13 +46,13 @@
      
  
 @code {
-    Baya.Models.ViewEngine.View_Component Component_IDMS_ProductsParentId = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"EntityName\":\"محصولات\",\"primaryKey\":false,\"EntityID\":749,\"FieldId\":31486,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":1007,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":false,\"RelationParentName\":\"Parent\",\"RelationParentModel\":\"IDMS_Products\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/IDMS_Products/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.ProductCode}} {{item.ProductTitle}} </span>\",\"FieldsTemplate\":[{\"key\":\"ProductCode\",\"value\":\"int\"},{\"key\":\"ProductTitle\",\"value\":\"nvarchar(Max)\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"searchField\":\"ProductCode,ProductTitle\",\"disabled\":false,\"modal\":true,\"label\":\"والد محصول\",\"tableView\":true,\"key\":\"ParentId\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"31486?EId=749&SubId=31\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
+    Baya.Models.ViewEngine.View_Component Component_IDMS_ProductsIDMS_ProductTypesId = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"EntityName\":\"محصولات\",\"primaryKey\":false,\"EntityID\":749,\"FieldId\":31526,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":1007,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":false,\"RelationParentName\":\"IDMS_ProductTypes\",\"RelationParentModel\":\"IDMS_ProductTypes\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/IDMS_ProductTypes/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.Title}} </span>\",\"FieldsTemplate\":[{\"key\":\"Title\",\"value\":\"nvarchar(Max)\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"searchField\":\"Title\",\"disabled\":false,\"modal\":true,\"label\":\"نوع محصول\",\"tableView\":true,\"key\":\"IDMS_ProductTypesId\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"31526?EId=749&SubId=31\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
 }
 
-    <Dropdown Id=ParentId  @ref="Ref_ParentId" Label="والد محصول" CssClass=""  DisplayFormat="DropDown" ExternalApi=false NotMapped=false TextGrid=false Text="" Value="@_Entity.ParentId" FieldName="ParentId" OnItemSelected="ItemSelected_IDMS_ProductsParentId" Component="Component_IDMS_ProductsParentId" _Entity="_Entity" >
+    <Dropdown Id=IDMS_ProductTypesId  @ref="Ref_IDMS_ProductTypesId" Label="نوع محصول" CssClass=""  DisplayFormat="DropDown" ExternalApi=false NotMapped=false TextGrid=false Text="" Value="@_Entity.IDMS_ProductTypesId" FieldName="IDMS_ProductTypesId" OnItemSelected="ItemSelected_IDMS_ProductsIDMS_ProductTypesId" Component="Component_IDMS_ProductsIDMS_ProductTypesId" _Entity="_Entity" >
 </Dropdown>
 @code {
-    public async Task ItemSelected_IDMS_ProductsParentId(object _Item)
+    public async Task ItemSelected_IDMS_ProductsIDMS_ProductTypesId(object _Item)
     {
         var Selected = Utility.JSON.ToObject<dynamic>(Utility.JSON.ToJson(_Item).Result).Result;
      var Item = _Entity;
@@ -63,15 +63,15 @@
  if (_Item != null)
  {
      Console.WriteLine(" Item Is Not Null");
-    Item.ParentId = Selected.Id;
+    Item.IDMS_ProductTypesId = Selected.Id;
     
  }
  else
  {
      Console.WriteLine(" Item Is Null");
-      Item.ParentId =EntityHelper.SetPropertyNull(Item.ParentId);
+      Item.IDMS_ProductTypesId =EntityHelper.SetPropertyNull(Item.IDMS_ProductTypesId);
  }
- Item.Parent = await Utility.JSON.ToObject<Entity.IDMS_Products>(await Utility.JSON.ToJson(_Item));
+ Item.IDMS_ProductTypes = await Utility.JSON.ToObject<Entity.IDMS_ProductTypes>(await Utility.JSON.ToJson(_Item));
     StateHasChanged();
 
 
@@ -131,8 +131,8 @@
     {
         Console.WriteLine("#log OnInitializedAsync");
 
-        TableGet = await Utility.JSON.ToObject<Table>("{\"Name\":\"IDMS_Products\",\"GetNameAs\":\"IDMS_Products\",\"Column\":[{\"Name\":\"ParentId\",\"GetNameAs\":\"ParentId\"},{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"RequestID\",\"GetNameAs\":\"RequestID\"},{\"Name\":\"CreateUser\",\"GetNameAs\":\"CreateUser\"},{\"Name\":\"UpdateUser\",\"GetNameAs\":\"UpdateUser\"},{\"Name\":\"CreateDate\",\"GetNameAs\":\"CreateDate\"},{\"Name\":\"UpdateDate\",\"GetNameAs\":\"UpdateDate\"},{\"Name\":\"IsDelete\",\"GetNameAs\":\"IsDelete\"},{\"Name\":\"ProductCode\",\"GetNameAs\":\"ProductCode\"},{\"Name\":\"ProductTitle\",\"GetNameAs\":\"ProductTitle\"}],\"Relation\":[{\"Name\":\"Parent\",\"GetNameAs\":\"Parent\",\"ModeErtebat\":1,\"Column\":[{\"Name\":\"ProductCode\",\"GetNameAs\":\"ProductCode\"},{\"Name\":\"ProductTitle\",\"GetNameAs\":\"ProductTitle\"},{\"Name\":\"ParentId\",\"GetNameAs\":\"ParentId\"}],\"Relation\":[]}]}");
-        TablePost = await Utility.JSON.ToObject<Table>("{\"Name\":\"IDMS_Products\",\"GetNameAs\":\"IDMS_Products\",\"Column\":[{\"Name\":\"ParentId\",\"GetNameAs\":\"ParentId\"},{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"RequestID\",\"GetNameAs\":\"RequestID\"},{\"Name\":\"CreateUser\",\"GetNameAs\":\"CreateUser\"},{\"Name\":\"UpdateUser\",\"GetNameAs\":\"UpdateUser\"},{\"Name\":\"CreateDate\",\"GetNameAs\":\"CreateDate\"},{\"Name\":\"UpdateDate\",\"GetNameAs\":\"UpdateDate\"},{\"Name\":\"IsDelete\",\"GetNameAs\":\"IsDelete\"},{\"Name\":\"ProductCode\",\"GetNameAs\":\"ProductCode\"},{\"Name\":\"ProductTitle\",\"GetNameAs\":\"ProductTitle\"}],\"Relation\":[]}");
+        TableGet = await Utility.JSON.ToObject<Table>("{\"Name\":\"IDMS_Products\",\"GetNameAs\":\"IDMS_Products\",\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"RequestID\",\"GetNameAs\":\"RequestID\"},{\"Name\":\"CreateUser\",\"GetNameAs\":\"CreateUser\"},{\"Name\":\"UpdateUser\",\"GetNameAs\":\"UpdateUser\"},{\"Name\":\"CreateDate\",\"GetNameAs\":\"CreateDate\"},{\"Name\":\"UpdateDate\",\"GetNameAs\":\"UpdateDate\"},{\"Name\":\"IsDelete\",\"GetNameAs\":\"IsDelete\"},{\"Name\":\"ProductCode\",\"GetNameAs\":\"ProductCode\"},{\"Name\":\"ProductTitle\",\"GetNameAs\":\"ProductTitle\"},{\"Name\":\"IDMS_ProductTypesId\",\"GetNameAs\":\"IDMS_ProductTypesId\"}],\"Relation\":[{\"Name\":\"Parent\",\"GetNameAs\":\"Parent\",\"ModeErtebat\":1,\"Column\":[{\"Name\":\"ProductCode\",\"GetNameAs\":\"ProductCode\"},{\"Name\":\"ProductTitle\",\"GetNameAs\":\"ProductTitle\"},{\"Name\":\"ParentId\",\"GetNameAs\":\"ParentId\"},{\"Name\":\"IDMS_ProductTypesId\",\"GetNameAs\":\"IDMS_ProductTypesId\"}],\"Relation\":[]},{\"Name\":\"IDMS_ProductTypes\",\"GetNameAs\":\"IDMS_ProductTypes\",\"ModeErtebat\":1,\"Column\":[{\"Name\":\"Code\",\"GetNameAs\":\"Code\"},{\"Name\":\"Title\",\"GetNameAs\":\"Title\"}],\"Relation\":[]}]}");
+        TablePost = await Utility.JSON.ToObject<Table>("{\"Name\":\"IDMS_Products\",\"GetNameAs\":\"IDMS_Products\",\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"RequestID\",\"GetNameAs\":\"RequestID\"},{\"Name\":\"CreateUser\",\"GetNameAs\":\"CreateUser\"},{\"Name\":\"UpdateUser\",\"GetNameAs\":\"UpdateUser\"},{\"Name\":\"CreateDate\",\"GetNameAs\":\"CreateDate\"},{\"Name\":\"UpdateDate\",\"GetNameAs\":\"UpdateDate\"},{\"Name\":\"IsDelete\",\"GetNameAs\":\"IsDelete\"},{\"Name\":\"ProductCode\",\"GetNameAs\":\"ProductCode\"},{\"Name\":\"ProductTitle\",\"GetNameAs\":\"ProductTitle\"},{\"Name\":\"IDMS_ProductTypesId\",\"GetNameAs\":\"IDMS_ProductTypesId\"}],\"Relation\":[]}");
 
         config = CKEditorBundleOptions.DefaultConfig.WithHtmlEditing();
         config.Language = "fa";

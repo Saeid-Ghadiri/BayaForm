@@ -325,6 +325,15 @@ namespace Forms.Forms
             await KharidSetShomaran(Selected, Item);
         }
 
+		public async Task  KHMaster_Search_NotMapped_onitemselected(dynamic Selected   )
+        {
+            foreach(var item in _Entity.SCMPLATE_ProductRequestDetails)
+            {
+                await KharidSetShomaran(Selected, item);
+            }
+            
+        }
+
 		#endregion FunctionEvents
 
 }

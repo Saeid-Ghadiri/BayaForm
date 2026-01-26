@@ -259,21 +259,26 @@ namespace Forms.Forms
 				IsValid = false;
 				await _MSG.ShowError("لطفاً دسته‌بندی محصول را انتخاب کنید.");
 			}
+			if (Item.IDMS_ProductTypes == null)
+			{
+				IsValid = false;
+				await _MSG.ShowError("لطفاً نوع محصول را انتخاب کنید.");
+			}
 			if (Item.IDMS_ProductsId == null)
 			{
 				IsValid = false;
 				await _MSG.ShowError("لطفاً محصول را انتخاب کنید.");
 			}
-			if (Item.IDMS_CustomerId == null)
-			{
-				IsValid = false;
-				await _MSG.ShowError("لطفاً مشتری را انتخاب کنید.");
-			}
-			if (Item.IDMS_ResultingFromId == null)
-			{
-				IsValid = false;
-				await _MSG.ShowError("لطفاً گزینه «منتج از» را انتخاب کنید.");
-			}
+			// if (Item.IDMS_CustomerId == null)
+			// {
+			// 	IsValid = false;
+			// 	await _MSG.ShowError("لطفاً مشتری را انتخاب کنید.");
+			// }
+			// if (Item.IDMS_ResultingFromId == null)
+			// {
+			// 	IsValid = false;
+			// 	await _MSG.ShowError("لطفاً گزینه «منتج از» را انتخاب کنید.");
+			// }
 
 			// تاریخ پیشنهادی انجام کار (شمسی)
 			if (string.IsNullOrWhiteSpace(Item.RequestedDueDate_Fa))
@@ -753,6 +758,16 @@ namespace Forms.Forms
 		#region Utility and Helpers
 		// برای گسترش آینده
 		#endregion
+
+
+		#region IDMS_ProductTypes
+		public async Task  IDMS_ProductTypesId_onitemselected(Entity.IDMS_ProductTypes Selected ,Entity.IDMS_RDC_Details Item  )
+        {
+			
+        }
+		#endregion
+
+		
 
 		#endregion FunctionEvents
 
