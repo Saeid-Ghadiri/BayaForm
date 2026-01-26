@@ -759,15 +759,42 @@ namespace Forms.Forms
 		// برای گسترش آینده
 		#endregion
 
-
 		#region IDMS_ProductTypes
-		public async Task  IDMS_ProductTypesId_onitemselected(Entity.IDMS_ProductTypes Selected ,Entity.IDMS_RDC_Details Item  )
-        {
-			
-        }
-		#endregion
+		//public async Task  IDMS_ProductTypesId_onitemselected(Entity.IDMS_ProductTypes Selected ,Entity.IDMS_RDC_Details Item  )
+		public async Task IDMS_ProductTypesId_onitemselected(dynamic Selected, Entity.IDMS_RDC_Details Item)
+		{
+			// اگر Selected null باشد (مثلاً وقتی ResetDropdown فراخوانی می‌شود)، از متد خارج می‌شویم
+			if (Selected == null)
+			{
+				Console.WriteLine("#Log: Selected is null - dropdown was reset");
+				return;
+			}
 
-		
+			//Console.WriteLine("#Log ::0::");
+
+			//var jsonSelected = await Utility.JSON.ToJson(Selected);
+			//Console.WriteLine(jsonSelected);
+
+			string selectedProductTypes = Selected.Id.ToString();
+
+			//Console.WriteLine("#Log ::1::" + selectedProductTypes);
+
+			if (string.IsNullOrWhiteSpace(selectedProductTypes))
+			{
+				Console.WriteLine("#Log: Selected ProductTypes is empty");
+				return; // یا LoadData("") ارسال شود
+			}
+
+			Ref_IDMS_RDC_Details_IDMS_ProductsId.SetEntity(selectedProductTypes);
+			
+			await Task.Delay(100);
+
+			// LoadData رشته می‌خواهد
+			await Ref_IDMS_RDC_Details_IDMS_ProductsId.LoadData();
+
+			StateHasChanged();
+		}
+		#endregion
 
 		#endregion FunctionEvents
 
