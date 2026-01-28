@@ -144,7 +144,7 @@ namespace Forms.Forms
     /// <summary>
     ///  ورژنی که فرم باهاش ساخته شده
     /// </summary>
-    public string? VersionForm { get; set; } = "5581";
+    public string? VersionForm { get; set; } = "5584";
 
     /// <summary>
     ///  موجودیت
@@ -290,6 +290,7 @@ public Input<string?> Ref_HR_EMP_EmployeeFamileis_BirthDate;
 public DxGrid? Grid_HR_Base_BankAccount;
 
 public Dropdown Ref_HR_Base_BankAccount_HR_EMP_EmployeesId;
+public Dropdown Ref_HR_Base_BankAccount_HR_EMP_EmployeeFamileisId;
 public Dropdown Ref_HR_Base_BankAccount_HR_Base_BankAcountCategoryId;
 public Dropdown Ref_HR_Base_BankAccount_BaseInfo_BankAccountTypeId;
 public Dropdown Ref_HR_Base_BankAccount_BaseInfo_BankId;

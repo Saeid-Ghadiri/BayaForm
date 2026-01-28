@@ -1,13 +1,17 @@
-using System;
-using Microsoft.AspNetCore.Components;
+using Baya.Models.ORM;
 using Baya.Models.Utility;
-using System.Net;
-using Microsoft.JSInterop;
+using Castle.DynamicLinqQueryBuilder;
 using DevExpress.Blazor;
-using Microsoft.AspNetCore.Components.Web;
-using Sitko.Blazor.CKEditor;
-using System.Text.RegularExpressions;
+using DocumentFormat.OpenXml.Office2010.Excel;
+using DocumentFormat.OpenXml.Spreadsheet;
 using Entity;
+using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Web;
+using Microsoft.JSInterop;
+using Sitko.Blazor.CKEditor;
+using System;
+using System.Net;
+using System.Text.RegularExpressions;
 
 namespace Forms.Forms
 {
@@ -192,6 +196,10 @@ namespace Forms.Forms
 		public override async Task AfterGetData()
 		{
 			//SetBankToSepahIfNeeded();
+
+			Console.WriteLine("### AfterGetData CALLED");
+			// بررسی نوع دارنده حساب بانکی
+			await AccHolderType();
 		}
 
 
@@ -319,6 +327,295 @@ namespace Forms.Forms
 		}
 
 		#endregion
+
+		#region HR_Base_AccountHolderType Selected
+		///public async Task  HR_Base_AccountHolderTypeId_onitemselected(Entity.HR_Base_AccountHolderType Selected   )
+		public async Task  HR_Base_AccountHolderTypeId_onitemselected(dynamic Selected)
+        {
+			Console.WriteLine("### HR_Base_AccountHolderTypeId_onitemselected TRIGGERED");
+
+			// بررسی null بودن Selected
+			if (Selected == null)
+			{
+				Console.WriteLine("### Selected is NULL");
+				return;
+			}
+
+			await AccHolderType();
+		}
+		#endregion
+
+		#region HR_EMP_EmployeesId Selected
+		/// <summary>
+		/// وقتی کارمند انتخاب می‌شود، فقط همسر همان کارمند را در دراپ‌دان خانواده لود می‌کند.
+		/// فیلتر بر اساس:
+		/// 1- HR_EMP_EmployeesId (کارمند)
+		/// 2- HR_FamilyRelationshipId = همسر
+		/// وقتی کارمند انتخاب شد، بر اساس نوع صاحب حساب (AccHolderType)
+		/// داده‌های مناسب را در دراپ‌دان‌ها لود می‌کند.
+		/// </summary>
+		/// <param name="Selected">آیتم انتخاب شده در دراپ‌دان کارمند</param>
+		public async Task HR_EMP_EmployeesId_onitemselected(dynamic Selected)
+		{
+			Console.WriteLine("======================================");
+			Console.WriteLine("### HR_EMP_EmployeesId_onitemselected CALLED");
+
+			if (Selected == null)
+			{
+				Console.WriteLine("#Log: Selected is null - dropdown reset");
+				return;
+			}
+
+			var jsonSelected = await Utility.JSON.ToJson(Selected);
+			Console.WriteLine("#Log: Selected JSON = " + jsonSelected);
+
+			string employeeId = Selected.Id?.ToString();
+			Console.WriteLine("#Log: EmployeeId = " + employeeId);
+
+			if (string.IsNullOrWhiteSpace(employeeId))
+			{
+				Console.WriteLine("#Log: EmployeeId is empty");
+				return;
+			}
+
+			// =====================
+			// بررسی نوع صاحب حساب - نرمال‌سازی به حروف بزرگ ✅
+			// =====================
+			string accType = _Entity.HR_Base_AccountHolderTypeId?.ToString()?.ToUpper();
+			Console.WriteLine("#Log: AccHolderType (normalized) = " + accType);
+
+			// فقط اگر صاحب حساب مشخص باشد ادامه می‌دهیم
+			if (string.IsNullOrWhiteSpace(accType))
+			{
+				Console.WriteLine("#Log: AccHolderType not set, exit");
+				return;
+			}
+
+			// تعریف ثابت‌ها با حروف بزرگ
+			const string EmpHusband = "117F1A3A-3BFB-F011-A50E-005056A2B6BD"; // کارمند
+			const string EmpWife = "4C395B47-3BFB-F011-A50E-005056A2B6BD";     // همسر
+
+			// =====================
+			// نوع کارمند
+			// =====================
+			if (accType == EmpHusband)
+			{
+				Console.WriteLine("#Log: AccHolderType = Employee -> only set Employee dropdown");
+				Ref_HR_EMP_EmployeesId?.SetVisible(true);
+				Ref_HR_EMP_EmployeeFamileisId?.SetVisible(false);
+				await InvokeAsync(StateHasChanged);
+				return;
+			}
+
+			// =====================
+			// نوع همسر
+			// =====================
+			if (accType == EmpWife)
+			{
+				Console.WriteLine("#Log: AccHolderType = Spouse -> load Spouse data");
+
+				// دراپ‌دان‌ها نمایش داده می‌شوند 
+				Ref_HR_EMP_EmployeesId?.SetVisible(true);
+				Ref_HR_EMP_EmployeeFamileisId?.SetVisible(true);
+				await InvokeAsync(StateHasChanged);
+
+				// شناسه رابطه "همسر"
+				string WifeRelationId = "F6710783-B11E-F011-A502-005056A2B6BD";
+
+				// Table مجازی (با Relation)
+				var TablePost = new Baya.Models.ORM.Table
+				{
+					Name = "HR_EMP_EmployeeFamileis",
+					NameAs = "HR_EMP_EmployeeFamileis",
+					Column = new List<Coulmn>
+					{
+						new Coulmn { Name = "Id", NameAs = "Id" },
+						new Coulmn { Name = "HR_EMP_EmployeesId", NameAs = "HR_EMP_EmployeesId" },
+						new Coulmn { Name = "HR_FamilyRelationshipId", NameAs = "HR_FamilyRelationshipId" },
+						new Coulmn { Name = "FullName", NameAs = "FullName" }
+					},
+					Relation = new List<Baya.Models.ORM.Table>
+					{
+						new Baya.Models.ORM.Table
+						{
+							Name = "HR_FamilyRelationship",
+							NameAs = "HR_FamilyRelationship",
+							ModeErtebat = ModeErtebat._1N,
+							Column = new List<Coulmn>
+							{
+								new Coulmn { Name = "Id", NameAs = "Id" },
+								new Coulmn { Name = "Title", NameAs = "Title" }
+							}
+						}
+					}
+				};
+
+				// Query
+				var NewQuery = new QueryBuilderFilterRule
+				{
+					Condition = "AND",
+					Rules = new List<QueryBuilderFilterRule>
+					{
+						new QueryBuilderFilterRule
+						{
+							Field = "HR_EMP_EmployeesId",
+							Operator = "equal",
+							Type = "string",
+							Value = new[] { employeeId }
+						},
+						new QueryBuilderFilterRule
+						{
+							Field = "HR_FamilyRelationshipId",
+							Operator = "equal",
+							Type = "string",
+							Value = new[] { WifeRelationId }
+						}
+					}
+				};
+
+				Console.WriteLine("#Log: Filter = " + await Utility.JSON.ToJson(NewQuery));
+
+				Baya.Models.ORM.PagedResult Pager = new()
+				{
+					PageSize = 1000,
+					PageNumber = 1,
+				};
+
+				var Model = await ApiServer.External.Services.Data.GetListPost(
+					Table: TablePost,
+					Filter: NewQuery,
+					Pagination: Pager,
+					Entity: "HR_EMP_EmployeeFamileis"
+				);
+
+				if (Model?.Status == HttpStatusCode.OK && !string.IsNullOrEmpty(Model.Content?.ToString()))
+				{
+					try
+					{
+						Console.WriteLine("#Log: Spouse data received");
+						Ref_HR_EMP_EmployeeFamileisId?.LoadData(Model.Content.ToString());
+						await InvokeAsync(StateHasChanged);
+					}
+					catch (Exception ex)
+					{
+						Console.WriteLine($"💥 Error processing spouse data: {ex.Message}");
+					}
+				}
+				else
+				{
+					Console.WriteLine($"❌ Error loading spouse data, Status={Model?.Status}");
+					await _MSG.ShowWarning("هیچ همسری برای این کارمند پیدا نشد");
+				}
+
+				return;
+			}
+
+			// =====================
+			// سایر نوع‌ها
+			// =====================
+			Console.WriteLine($"#Log: AccHolderType not handled: {accType}");
+
+			Ref_HR_EMP_EmployeesId?.SetVisible(false);
+			Ref_HR_EMP_EmployeeFamileisId?.SetVisible(false);
+
+			await InvokeAsync(StateHasChanged);
+		}
+		#endregion
+
+		/// <summary>
+		/// این متد مسئول نمایش یا مخفی کردن فیلدهای مربوط به صاحب حساب است.
+		/// اگر showFields = false باشد، هر دو دراپ‌دان کارمند و همسر مخفی می‌شوند.
+		/// اگر showFields = true باشد، هر دو نمایش داده می‌شوند (در متد AccHolderType دقیق‌تر کنترل می‌شود).
+		/// </summary>
+		private async Task ToggleAccountHolderTypeFields(bool showFields)
+		{
+			Console.WriteLine("### ToggleAccountHolderTypeFields CALLED");
+			Console.WriteLine($"showFields = {showFields}");
+
+			Ref_HR_EMP_EmployeesId?.SetVisible(showFields);
+			Console.WriteLine($"Employees Visible = {showFields}");
+
+			Ref_HR_EMP_EmployeeFamileisId?.SetVisible(showFields);
+			Console.WriteLine($"EmployeeFamilies Visible = {showFields}");
+
+			await InvokeAsync(StateHasChanged);
+
+			Console.WriteLine("### ToggleAccountHolderTypeFields FINISHED");
+		}
+
+
+		// Id										Code    title
+		// 117F1A3A-3BFB-F011-A50E-005056A2B6BD		1		اطلاعات حساب بانکی کارمند
+		// 4C395B47-3BFB-F011-A50E-005056A2B6BD		2		اطلاعات حساب بانکی همسر
+
+
+		/// <summary>
+		/// این متد بر اساس مقدار انتخاب‌شده در دراپ‌دان HR_Base_AccountHolderTypeId
+		/// تعیین می‌کند کدام فیلدها نمایش داده شوند:
+		/// - در شروع: هر دو مخفی می‌شوند
+		/// - اگر نوع = کارمند → فقط دراپ‌دان کارمند نمایش داده می‌شود
+		/// - اگر نوع = همسر → دراپ‌دان کارمند و همسر هر دو نمایش داده می‌شوند
+		/// </summary>
+		private async Task AccHolderType()
+		{
+			Console.WriteLine("======================================");
+			Console.WriteLine("### AccHolderType CALLED");
+
+			// تعریف ثابت‌ها با حروف بزرگ (استاندارد GUID)
+			const string EmpHusband = "117F1A3A-3BFB-F011-A50E-005056A2B6BD"; // کارمند
+			const string EmpWife = "4C395B47-3BFB-F011-A50E-005056A2B6BD";     // همسر
+
+			// نرمال‌سازی مقدار انتخاب شده به حروف بزرگ برای مقایسه صحیح
+			var selectedTypeId = _Entity.HR_Base_AccountHolderTypeId?.ToString()?.ToUpper();
+
+			Console.WriteLine($"Selected HR_Base_AccountHolderTypeId (normalized) = {selectedTypeId}");
+
+			// پیش‌فرض: هر دو مخفی
+			Console.WriteLine("Setting default state: hide all fields");
+			await ToggleAccountHolderTypeFields(false);
+
+			if (string.IsNullOrWhiteSpace(selectedTypeId))
+			{
+				Console.WriteLine("SelectedTypeId is NULL or Empty → Only AccountHolderType dropdown is visible");
+				await InvokeAsync(StateHasChanged);
+				return;
+			}
+
+			if (selectedTypeId == EmpHusband)
+			{
+				Console.WriteLine("AccountHolderType = EMPLOYEE (کارمند)");
+				Console.WriteLine("→ Showing only Employees dropdown");
+
+				Ref_HR_EMP_EmployeesId?.SetVisible(true);
+				Ref_HR_EMP_EmployeeFamileisId?.SetVisible(false);
+			}
+			else if (selectedTypeId == EmpWife)
+			{
+				Console.WriteLine("AccountHolderType = WIFE (همسر)");
+				Console.WriteLine("→ Showing Employees + EmployeeFamilies dropdowns");
+
+				Ref_HR_EMP_EmployeesId?.SetVisible(true);
+				Ref_HR_EMP_EmployeeFamileisId?.SetVisible(true);
+
+				// اگر کارمند قبلاً انتخاب شده، همسرانش را لود کن
+				if (!string.IsNullOrWhiteSpace(_Entity.HR_EMP_EmployeesId?.ToString()))
+				{
+					Console.WriteLine("→ Employee already selected, loading spouses...");
+					await HR_EMP_EmployeesId_onitemselected(new { Id = _Entity.HR_EMP_EmployeesId });
+				}
+			}
+			else
+			{
+				Console.WriteLine($"AccountHolderType = UNKNOWN VALUE: {selectedTypeId}");
+				Console.WriteLine("→ All fields remain hidden");
+			}
+
+			await InvokeAsync(StateHasChanged);
+
+			Console.WriteLine("### AccHolderType FINISHED");
+			Console.WriteLine("======================================");
+		}
+
 
 		#endregion FunctionEvents
 
