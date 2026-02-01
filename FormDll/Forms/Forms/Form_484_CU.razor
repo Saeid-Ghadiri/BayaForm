@@ -60,6 +60,10 @@
 <Input Id="UpdateDate" @ref="Ref_UpdateDate"   CssClass="d-none"   @bind-Value="_Entity.UpdateDate" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
 
 <Input Id="IsDelete" @ref="Ref_IsDelete"   CssClass="d-none"   @bind-Value="_Entity.IsDelete" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+<label for="PPCAtlasBobbin_RawMaterial_GridPPCAtlasBobbin_RawMaterialGroupId_321">مواد اولیه
+   
+    
+</label>
 
 <DxGrid @ref="Grid_PPCAtlasBobbin_RawMaterial" Data="_Entity.PPCAtlasBobbin_RawMaterial" KeyFieldName="_Id" EditMode="GridEditMode.PopupEditForm"
         EditModelSaving="OnEditModelSavingPPCAtlasBobbin_RawMaterial"
@@ -69,7 +73,7 @@
         EditFormButtonsVisible="false"
         CustomizeEditModel="CustomizeEditGrid_PPCAtlasBobbin_RawMaterial"
         CustomizeElement="CustomizeRowsGrid_PPCAtlasBobbin_RawMaterial" 
-        Component="@((Utility.JSON.ToObject<View_Component>("{\"primaryKey\":false,\"EntityID\":321,\"FieldId\":321,\"NotNull\":false,\"ViewId\":0,\"NotMapped\":false,\"Relation\":false,\"RelationExternal\":false,\"RelationChildModel\":\"PPCAtlasBobbin_RawMaterial\",\"GridMainModel\":\"PPCAtlasBobbin_RawMaterial\",\"widget\":{\"altInput\":false,\"allowInput\":false,\"clickOpens\":false,\"enableDate\":false,\"enableTime\":false,\"noCalendar\":false,\"useLocaleSettings\":false,\"hourIncrement\":0,\"minuteIncrement\":0,\"time_24hr\":false},\"wysiwyg\":false,\"data\":{},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"FieldsTemplate\":[],\"refreshOn\":\"data\",\"reorder\":false,\"addAnotherPosition\":\"bottom\",\"layoutFixed\":false,\"enableRowGroups\":false,\"initEmpty\":false,\"disabled\":true,\"modal\":true,\"label\":\"مواد اولیه\",\"tableView\":true,\"key\":\"GridPPCAtlasBobbin_RawMaterialGroupId_321\",\"type\":\"datagrid\",\"input\":true,\"hideLabel\":true,\"modalEdit\":true,\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":false,\"AccessEdit\":true,\"AccessNew\":true}").Result))"
+        Component="@((Utility.JSON.ToObject<View_Component>("{\"primaryKey\":false,\"EntityID\":321,\"FieldId\":321,\"TypeCSharp\":\"\",\"NotNull\":false,\"ViewId\":0,\"NotMapped\":false,\"Relation\":false,\"RelationExternal\":false,\"RelationParentName\":\"\",\"RelationParentModel\":\"\",\"RelationChildModel\":\"PPCAtlasBobbin_RawMaterial\",\"GridMainModel\":\"PPCAtlasBobbin_RawMaterial\",\"widget\":{\"altInput\":false,\"allowInput\":false,\"clickOpens\":false,\"enableDate\":false,\"enableTime\":false,\"noCalendar\":false,\"useLocaleSettings\":false,\"hourIncrement\":0,\"minuteIncrement\":0,\"time_24hr\":false},\"wysiwyg\":false,\"data\":{},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"FieldsTemplate\":[],\"refreshOn\":\"data\",\"reorder\":false,\"addAnotherPosition\":\"bottom\",\"layoutFixed\":false,\"enableRowGroups\":false,\"initEmpty\":false,\"disabled\":true,\"modal\":true,\"label\":\"مواد اولیه\",\"tableView\":true,\"key\":\"GridPPCAtlasBobbin_RawMaterialGroupId_321\",\"type\":\"datagrid\",\"input\":true,\"placeholder\":\"GridPPCAtlasBobbin_RawMaterialGroupId_321\",\"modalEdit\":true,\"FieldUrl\":\"321?EId=321&SubId=26\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result))"
          >
     <Columns>
     
@@ -89,6 +93,10 @@
 </a>
 
        
+<a class="btn btn-sm btn-red-light btnDeleteGridData" @onclick="@(() => OnDeleteButtonClickGrid_PPCAtlasBobbin_RawMaterial(CellContext))" style="text-decoration: none;" href="javascript:void(0);">
+    <span class="fal fa-times-circle btnicon"></span>
+</a>
+
     </CellDisplayTemplate>
 </DxGridCommandColumn>
 
@@ -132,7 +140,7 @@
     <CellDisplayTemplate>
        
 @{
-    Baya.Models.ViewEngine.View_Component HeaderGlobal_UnitId = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"primaryKey\":false,\"EntityID\":321,\"FieldId\":14125,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":484,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":false,\"RelationParentName\":\"Global_Unit\",\"RelationParentModel\":\"Global_Unit\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/Global_Unit/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.Title}} </span>\",\"FieldsTemplate\":[{\"key\":\"Title\",\"value\":\"int\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"disabled\":false,\"modal\":true,\"label\":\"واحد شمارش\",\"tableView\":true,\"key\":\"Global_UnitId\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"14125?EId=321&SubId=26\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
+    Baya.Models.ViewEngine.View_Component HeaderGlobal_UnitId = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"primaryKey\":false,\"EntityID\":321,\"FieldId\":14125,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":484,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":false,\"RelationParentName\":\"Global_Unit\",\"RelationParentModel\":\"Global_Unit\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/Global_Unit/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.Title}} </span>\",\"FieldsTemplate\":[{\"key\":\"Title\",\"value\":\"int\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"searchField\":\"\",\"disabled\":false,\"modal\":true,\"label\":\"واحد شمارش\",\"tableView\":true,\"key\":\"Global_UnitId\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"14125?EId=321&SubId=26\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
     var RowGlobal_UnitId = ((Entity.PPCAtlasBobbin_RawMaterial)Global_UnitId_.DataItem).Global_UnitId;
 }
 
@@ -228,7 +236,7 @@
      
  
 @code {
-    Baya.Models.ViewEngine.View_Component Component_PPCAtlasBobbin_RawMaterialGlobal_UnitId = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"primaryKey\":false,\"EntityID\":321,\"FieldId\":14125,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":484,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":false,\"RelationParentName\":\"Global_Unit\",\"RelationParentModel\":\"Global_Unit\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/Global_Unit/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.Title}} </span>\",\"FieldsTemplate\":[{\"key\":\"Title\",\"value\":\"int\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"disabled\":false,\"modal\":true,\"label\":\"واحد شمارش\",\"tableView\":true,\"key\":\"Global_UnitId\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"14125?EId=321&SubId=26\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
+    Baya.Models.ViewEngine.View_Component Component_PPCAtlasBobbin_RawMaterialGlobal_UnitId = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"primaryKey\":false,\"EntityID\":321,\"FieldId\":14125,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":484,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":false,\"RelationParentName\":\"Global_Unit\",\"RelationParentModel\":\"Global_Unit\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/Global_Unit/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.Title}} </span>\",\"FieldsTemplate\":[{\"key\":\"Title\",\"value\":\"int\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"searchField\":\"\",\"disabled\":false,\"modal\":true,\"label\":\"واحد شمارش\",\"tableView\":true,\"key\":\"Global_UnitId\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"14125?EId=321&SubId=26\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
 }
 
     <Dropdown Id=PPCAtlasBobbin_RawMaterial_Global_UnitId  @ref="Ref_PPCAtlasBobbin_RawMaterial_Global_UnitId" Label="واحد شمارش" CssClass=""  DisplayFormat="DropDown" ExternalApi=false NotMapped=false TextGrid=false Text="" Value="@PPCAtlasBobbin_RawMaterial.Global_UnitId" FieldName="Global_UnitId" OnItemSelected="ItemSelected_PPCAtlasBobbin_RawMaterialGlobal_UnitId" Component="Component_PPCAtlasBobbin_RawMaterialGlobal_UnitId" _Entity="_Entity" _EntityRow=PPCAtlasBobbin_RawMaterial>

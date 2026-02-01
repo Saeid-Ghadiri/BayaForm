@@ -144,7 +144,7 @@ namespace Forms.Forms
     /// <summary>
     ///  ورژنی که فرم باهاش ساخته شده
     /// </summary>
-    public string? VersionForm { get; set; } = "5603";
+    public string? VersionForm { get; set; } = "5622";
 
     /// <summary>
     ///  موجودیت
@@ -183,6 +183,13 @@ public Input<string?> Ref_UserStarterFullName;
 public Input<string?> Ref_UserStarterCompanyName;
 public Input<string?> Ref_UserStarterUnitName;
 public Input<string?> Ref_UserStarterSectionName;
+public Input<Guid> Ref_Id;
+public Input<Guid?> Ref_RequestID;
+public Input<Guid?> Ref_CreateUser;
+public Input<Guid?> Ref_UpdateUser;
+public Input<DateTime?> Ref_CreateDate;
+public Input<DateTime?> Ref_UpdateDate;
+public Input<bool?> Ref_IsDelete;
 public DxGrid? Grid_SCMNFP_ProductRequestDetails;
 
 public Input<Guid> Ref_SCMNFP_ProductRequestDetails_Id;
@@ -203,6 +210,7 @@ public Input<string?> Ref_SCMNFP_ProductRequestDetails_DescriptionApplicant;
 public Input<string?> Ref_SCMNFP_ProductRequestDetails_DescriptionApproverFirst;
 public Dropdown Ref_SCMNFP_ProductRequestDetails_SCMNFP_CostCenterId;
 public Input<bool?> Ref_SCMNFP_ProductRequestDetails_ProductIsDelivery;
+public Input<bool?> Ref_SCMNFP_ProductRequestDetails_FutureActionIsEnable;
 public Input<double?> Ref_SCMNFP_ProductRequestDetails_DeficitSupplyNumber;
 public RadioBoolean Ref_SCMNFP_ProductRequestDetails_TypeofProductDelivery;
 public RadioBoolean Ref_SCMNFP_ProductRequestDetails_ProductType;
@@ -210,16 +218,8 @@ public Input<bool?> Ref_SCMNFP_ProductRequestDetails_ProductPartofTheProperty;
 public Input<bool?> Ref_SCMNFP_ProductRequestDetails_RequiredProuductOld;
 public Input<double?> Ref_SCMNFP_ProductRequestDetails_NumberofProductDelivery;
 public Input<string?> Ref_SCMNFP_ProductRequestDetails_DescriptionWarehouseKeeper;
-public Input<bool?> Ref_SCMNFP_ProductRequestDetails_FutureActionIsEnable;
 public Input<string?> Ref_SCMNFP_ProductRequestDetails_ProductIsDeliveryDateTime;
 public Input<double?> Ref_SCMNFP_ProductRequestDetails_RequesterProductDelivery;
-public Input<Guid> Ref_Id;
-public Input<Guid?> Ref_RequestID;
-public Input<Guid?> Ref_CreateUser;
-public Input<Guid?> Ref_UpdateUser;
-public Input<DateTime?> Ref_CreateDate;
-public Input<DateTime?> Ref_UpdateDate;
-public Input<bool?> Ref_IsDelete;
 
 
     #endregion

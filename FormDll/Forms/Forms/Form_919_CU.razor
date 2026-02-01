@@ -180,6 +180,18 @@
 </div>
 
 <Input Id="Id" @ref="Ref_Id"   CssClass="d-none"   @bind-Value="_Entity.Id" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+<Input Id="RequestID" @ref="Ref_RequestID"      @bind-Value="_Entity.RequestID" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+<Input Id="CreateUser" @ref="Ref_CreateUser"      @bind-Value="_Entity.CreateUser" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+<Input Id="UpdateUser" @ref="Ref_UpdateUser"      @bind-Value="_Entity.UpdateUser" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+<Input Id="CreateDate" @ref="Ref_CreateDate"   CssClass="d-none"   @bind-Value="_Entity.CreateDate" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+<Input Id="UpdateDate" @ref="Ref_UpdateDate"   CssClass="d-none"   @bind-Value="_Entity.UpdateDate" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+<Input Id="IsDelete" @ref="Ref_IsDelete"   CssClass="d-none"   @bind-Value="_Entity.IsDelete" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
 <label for="BaseInfo_Banks_GridBaseInfo_BankType_675">بانک‌ها
    
     
@@ -193,7 +205,7 @@
         EditFormButtonsVisible="false"
         CustomizeEditModel="CustomizeEditGrid_BaseInfo_Banks"
         CustomizeElement="CustomizeRowsGrid_BaseInfo_Banks" 
-        Component="@((Utility.JSON.ToObject<View_Component>("{\"primaryKey\":false,\"EntityID\":675,\"FieldId\":675,\"NotNull\":false,\"ViewId\":0,\"NotMapped\":false,\"Relation\":false,\"RelationExternal\":false,\"RelationChildModel\":\"BaseInfo_Banks\",\"GridMainModel\":\"BaseInfo_Banks\",\"widget\":{\"altInput\":false,\"allowInput\":false,\"clickOpens\":false,\"enableDate\":false,\"enableTime\":false,\"noCalendar\":false,\"useLocaleSettings\":false,\"hourIncrement\":0,\"minuteIncrement\":0,\"time_24hr\":false},\"wysiwyg\":false,\"data\":{},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"FieldsTemplate\":[],\"refreshOn\":\"data\",\"reorder\":false,\"addAnotherPosition\":\"bottom\",\"layoutFixed\":false,\"enableRowGroups\":false,\"initEmpty\":false,\"disabled\":true,\"modal\":true,\"label\":\"بانک‌ها\",\"tableView\":true,\"key\":\"GridBaseInfo_BankType_675\",\"type\":\"datagrid\",\"input\":true,\"placeholder\":\"GridBaseInfo_BankType_675\",\"modalEdit\":true,\"FieldUrl\":\"675?EId=675&SubId=30\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":false,\"AccessEdit\":true,\"AccessNew\":true}").Result))"
+        Component="@((Utility.JSON.ToObject<View_Component>("{\"primaryKey\":false,\"EntityID\":675,\"FieldId\":675,\"TypeCSharp\":\"\",\"NotNull\":false,\"ViewId\":0,\"NotMapped\":false,\"Relation\":false,\"RelationExternal\":false,\"RelationParentName\":\"\",\"RelationParentModel\":\"\",\"RelationChildModel\":\"BaseInfo_Banks\",\"GridMainModel\":\"BaseInfo_Banks\",\"widget\":{\"altInput\":false,\"allowInput\":false,\"clickOpens\":false,\"enableDate\":false,\"enableTime\":false,\"noCalendar\":false,\"useLocaleSettings\":false,\"hourIncrement\":0,\"minuteIncrement\":0,\"time_24hr\":false},\"wysiwyg\":false,\"data\":{},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"FieldsTemplate\":[],\"refreshOn\":\"data\",\"reorder\":false,\"addAnotherPosition\":\"bottom\",\"layoutFixed\":false,\"enableRowGroups\":false,\"initEmpty\":false,\"disabled\":true,\"modal\":true,\"label\":\"بانک‌ها\",\"tableView\":true,\"key\":\"GridBaseInfo_BankType_675\",\"type\":\"datagrid\",\"input\":true,\"placeholder\":\"GridBaseInfo_BankType_675\",\"modalEdit\":true,\"FieldUrl\":\"675?EId=675&SubId=30\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result))"
          >
     <Columns>
     
@@ -213,6 +225,10 @@
 </a>
 
        
+<a class="btn btn-sm btn-red-light btnDeleteGridData" @onclick="@(() => OnDeleteButtonClickGrid_BaseInfo_Banks(CellContext))" style="text-decoration: none;" href="javascript:void(0);">
+    <span class="fal fa-times-circle btnicon"></span>
+</a>
+
     </CellDisplayTemplate>
 </DxGridCommandColumn>
 
@@ -266,8 +282,32 @@
 </DxGridDataColumn>
 <DxGridDataColumn  Caption="کد بانک های خارجی	"  FieldName="ExtCode" />
 
-<DxGridDataColumn  Caption="نوع بانک"  FieldName="BaseInfo_BankType" />
+<DxGridDataColumn Context="BaseInfo_BankType_" Caption="نوع بانک" >
+    <CellDisplayTemplate>
+       
+@{
+    Baya.Models.ViewEngine.View_Component HeaderBaseInfo_BankType = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"primaryKey\":false,\"EntityID\":675,\"FieldId\":19426,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":919,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":false,\"RelationParentName\":\"BaseInfo_BankTypeNavigation\",\"RelationParentModel\":\"BaseInfo_BankType\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/BaseInfo_BankType/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.Title}} </span>\",\"FieldsTemplate\":[{\"key\":\"Title\",\"value\":\"nvarchar(Max)\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"searchField\":\"\",\"disabled\":false,\"modal\":true,\"label\":\"نوع بانک\",\"tableView\":true,\"key\":\"BaseInfo_BankType\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"19426?EId=675&SubId=30\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
+    var RowBaseInfo_BankType = ((Entity.BaseInfo_Banks)BaseInfo_BankType_.DataItem).BaseInfo_BankType;
+}
 
+<Dropdown ExternalApi=false CssClass="" NotMapped=false TextGrid=true Value="@RowBaseInfo_BankType"   FieldName="BaseInfo_BankType" OnItemSelected="ItemSelected_BaseInfo_BanksBaseInfo_BankType_Header" Component="HeaderBaseInfo_BankType">
+</Dropdown>
+@code {
+    public async Task ItemSelected_BaseInfo_BanksBaseInfo_BankType_Header(object _Item)
+    {
+      //  var Selected = Utility.JSON.ToObject<dynamic>(Utility.JSON.ToJson(_Item).Result).Result;
+  //   BaseInfo_BankType
+
+  //  #CustomCode
+
+ //   
+
+  //  #OnItemSelected
+    }
+}
+
+    </CellDisplayTemplate>
+</DxGridDataColumn>
 
 </Columns>
 
@@ -343,8 +383,43 @@
 </DxFormLayoutItem>
 
 <DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextBaseInfo_Banks">
+     
+ 
+@code {
+    Baya.Models.ViewEngine.View_Component Component_BaseInfo_BanksBaseInfo_BankType = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"primaryKey\":false,\"EntityID\":675,\"FieldId\":19426,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":919,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":false,\"RelationParentName\":\"BaseInfo_BankTypeNavigation\",\"RelationParentModel\":\"BaseInfo_BankType\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/BaseInfo_BankType/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.Title}} </span>\",\"FieldsTemplate\":[{\"key\":\"Title\",\"value\":\"nvarchar(Max)\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"searchField\":\"\",\"disabled\":false,\"modal\":true,\"label\":\"نوع بانک\",\"tableView\":true,\"key\":\"BaseInfo_BankType\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"19426?EId=675&SubId=30\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
+}
+
+    <Dropdown Id=BaseInfo_Banks_BaseInfo_BankType  @ref="Ref_BaseInfo_Banks_BaseInfo_BankType" Label="نوع بانک" CssClass=""  DisplayFormat="DropDown" ExternalApi=false NotMapped=false TextGrid=false Text="" Value="@BaseInfo_Banks.BaseInfo_BankType" FieldName="BaseInfo_BankType" OnItemSelected="ItemSelected_BaseInfo_BanksBaseInfo_BankType" Component="Component_BaseInfo_BanksBaseInfo_BankType" _Entity="_Entity" _EntityRow=BaseInfo_Banks>
+</Dropdown>
+@code {
+    public async Task ItemSelected_BaseInfo_BanksBaseInfo_BankType(object _Item)
+    {
+        var Selected = Utility.JSON.ToObject<dynamic>(Utility.JSON.ToJson(_Item).Result).Result;
+     var Item = BaseInfo_Banks;
+
+      //Todo
+ //برای اینکه آی دی تغییر کند اینجا نیز باید تغییر کند
+ //بهتر است از پرایمیری کی استفاده شود
+ if (_Item != null)
+ {
+     Console.WriteLine(" Item Is Not Null");
+    Item.BaseInfo_BankType = Selected.Id;
     
-<Input Id="BaseInfo_Banks_BaseInfo_BankType" @ref="Ref_BaseInfo_Banks_BaseInfo_BankType" Label="نوع بانک"     @bind-Value="BaseInfo_Banks.BaseInfo_BankType" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+ }
+ else
+ {
+     Console.WriteLine(" Item Is Null");
+      Item.BaseInfo_BankType =EntityHelper.SetPropertyNull(Item.BaseInfo_BankType);
+ }
+ Item.BaseInfo_BankTypeNavigation = await Utility.JSON.ToObject<Entity.BaseInfo_BankType>(await Utility.JSON.ToJson(_Item));
+    StateHasChanged();
+
+
+    
+
+    
+    }
+} 
 
 </DxFormLayoutItem>
 
@@ -645,6 +720,7 @@ MainModel.CNAPSE_Code = ((Entity.BaseInfo_Banks)EditModel).CNAPSE_Code;
 MainModel.IsActive = ((Entity.BaseInfo_Banks)EditModel).IsActive;
 MainModel.ExtCode = ((Entity.BaseInfo_Banks)EditModel).ExtCode;
 MainModel.BaseInfo_BankType = ((Entity.BaseInfo_Banks)EditModel).BaseInfo_BankType;
+MainModel.BaseInfo_BankTypeNavigation = ((Entity.BaseInfo_Banks)EditModel).BaseInfo_BankTypeNavigation;
 
     }
     else
@@ -758,18 +834,6 @@ public async void RowDubbleClickGrid_BaseInfo_Banks(GridRowClickEventArgs e)
 
 }
 }
-
-<Input Id="RequestID" @ref="Ref_RequestID"      @bind-Value="_Entity.RequestID" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
-
-<Input Id="CreateUser" @ref="Ref_CreateUser"      @bind-Value="_Entity.CreateUser" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
-
-<Input Id="UpdateUser" @ref="Ref_UpdateUser"      @bind-Value="_Entity.UpdateUser" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
-
-<Input Id="CreateDate" @ref="Ref_CreateDate"   CssClass="d-none"   @bind-Value="_Entity.CreateDate" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
-
-<Input Id="UpdateDate" @ref="Ref_UpdateDate"   CssClass="d-none"   @bind-Value="_Entity.UpdateDate" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
-
-<Input Id="IsDelete" @ref="Ref_IsDelete"   CssClass="d-none"   @bind-Value="_Entity.IsDelete" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
 
     </EditForm>
 </div>

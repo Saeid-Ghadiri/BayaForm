@@ -497,6 +497,7 @@ namespace Forms.Forms
 
             Ref_SCMPLATE_ProductRequestDetails_OldBuyCount.SetVisible(Visible);
             Ref_SCMPLATE_ProductRequestDetails_OldBuyDate.SetVisible(Visible);
+            Ref_SCMPLATE_ProductRequestDetails_OldBuyDuration.SetVisible(Visible);
         }
 
         public async Task KharidIsVisible(bool Visible, bool Value, Entity.SCMPLATE_ProductRequestDetails Item)
@@ -512,6 +513,7 @@ namespace Forms.Forms
 
             Ref_SCMPLATE_ProductRequestDetails_OldBuyCount.SetVisible(Visible);
             Ref_SCMPLATE_ProductRequestDetails_OldBuyDate.SetVisible(Visible);
+            Ref_SCMPLATE_ProductRequestDetails_OldBuyDuration.SetVisible(Visible);
         }
 
         public async Task TahvilKharidIsVisible(bool Visible, bool Value, Entity.SCMPLATE_ProductRequestDetails Item)
@@ -536,6 +538,7 @@ namespace Forms.Forms
 
             Ref_SCMPLATE_ProductRequestDetails_OldBuyCount.SetVisible(Visible);
             Ref_SCMPLATE_ProductRequestDetails_OldBuyDate.SetVisible(Visible);
+            Ref_SCMPLATE_ProductRequestDetails_OldBuyDuration.SetVisible(Visible);
         }
 
         public async Task AnbardarIsVisible(bool Visible)

@@ -144,7 +144,7 @@ namespace Forms.Forms
     /// <summary>
     ///  ورژنی که فرم باهاش ساخته شده
     /// </summary>
-    public string? VersionForm { get; set; } = "5603";
+    public string? VersionForm { get; set; } = "5622";
 
     /// <summary>
     ///  موجودیت
@@ -182,6 +182,7 @@ namespace Forms.Forms
 public ElementReference Ref_submit1;
 public ElementReference Ref_submit;
 public ElementReference Ref_submit2;
+public ElementReference Ref_btn_Help;
 public Dropdown Ref_BaseInfo_ORG_CompaniesId;
 public Input<string?> Ref_NationalCode;
 public Dropdown Ref_HR_EMP_StatusId;
@@ -289,6 +290,7 @@ public Input<DateTime?> Ref_HR_EMP_EmployeeFamileis_EducationEndDate;
 public Input<string?> Ref_HR_EMP_EmployeeFamileis_BirthDate;
 public DxGrid? Grid_HR_Base_BankAccount;
 
+public Dropdown Ref_HR_Base_BankAccount_HR_Base_AccountHolderTypeId;
 public Dropdown Ref_HR_Base_BankAccount_HR_EMP_EmployeesId;
 public Dropdown Ref_HR_Base_BankAccount_HR_EMP_EmployeeFamileisId;
 public Dropdown Ref_HR_Base_BankAccount_HR_Base_BankAcountCategoryId;
@@ -320,8 +322,30 @@ public Input<Guid?> Ref_HR_EMP_Documents_UpdateUser;
 public Input<DateTime?> Ref_HR_EMP_Documents_CreateDate;
 public Input<DateTime?> Ref_HR_EMP_Documents_UpdateDate;
 public Input<bool?> Ref_HR_EMP_Documents_IsDelete;
+public DxGrid? Grid_HR_EMP_AcademicDocuments;
+
+public Dropdown Ref_HR_EMP_AcademicDocuments_HR_EMP_EmployeesId;
+public Dropdown Ref_HR_EMP_AcademicDocuments_HR_Base_AcademicDegreesId;
+public Dropdown Ref_HR_EMP_AcademicDocuments_HR_Base_UniversityId;
+public Input<string?> Ref_HR_EMP_AcademicDocuments_DocumentSerialNo;
+public Input<string?> Ref_HR_EMP_AcademicDocuments_StartDate;
+public Input<string?> Ref_HR_EMP_AcademicDocuments_EndDate;
+public Input<decimal?> Ref_HR_EMP_AcademicDocuments_Score;
+public Input<DateTime?> Ref_HR_EMP_AcademicDocuments_ActivedDateTime;
+public Input<bool?> Ref_HR_EMP_AcademicDocuments_HasInquiring;
+public Input<string?> Ref_HR_EMP_AcademicDocuments_InquiringDate;
+public Dropdown Ref_HR_EMP_AcademicDocuments_HR_Base_SpecializationId;
+public Input<bool?> Ref_HR_EMP_AcademicDocuments_IsActive;
+public Input<Guid> Ref_HR_EMP_AcademicDocuments_Id;
+public Input<Guid?> Ref_HR_EMP_AcademicDocuments_RequestID;
+public Input<Guid?> Ref_HR_EMP_AcademicDocuments_CreateUser;
+public Input<Guid?> Ref_HR_EMP_AcademicDocuments_UpdateUser;
+public Input<DateTime?> Ref_HR_EMP_AcademicDocuments_CreateDate;
+public Input<DateTime?> Ref_HR_EMP_AcademicDocuments_UpdateDate;
+public Input<bool?> Ref_HR_EMP_AcademicDocuments_IsDelete;
 public DxGrid? Grid_HR_EMP_EmployeeDetails;
 
+public Dropdown Ref_HR_EMP_EmployeeDetails_HR_EMP_EmployeesId;
 public Input<string?> Ref_HR_EMP_EmployeeDetails_OrgTel1;
 public Input<string?> Ref_HR_EMP_EmployeeDetails_OrgTel2;
 public Input<string?> Ref_HR_EMP_EmployeeDetails_OrgTel3;

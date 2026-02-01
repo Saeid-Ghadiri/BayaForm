@@ -1858,6 +1858,17 @@ namespace Forms.Forms
 		#region
 		#endregion
 
+		public async Task <bool> GridHR_EMP_EmployeesId_378_editmodelsaving(object e   )
+        {
+
+            return false;
+        }
+public async Task  GridHR_EMP_EmployeesId_378_afterrendermodal(Entity.HR_EMP_AcademicDocuments Item   )
+        {
+
+            
+        }
+
 		#endregion FunctionEvents
 
 	}

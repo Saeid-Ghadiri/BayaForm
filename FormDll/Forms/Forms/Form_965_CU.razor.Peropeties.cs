@@ -144,7 +144,7 @@ namespace Forms.Forms
     /// <summary>
     ///  ورژنی که فرم باهاش ساخته شده
     /// </summary>
-    public string? VersionForm { get; set; } = "5603";
+    public string? VersionForm { get; set; } = "5622";
 
     /// <summary>
     ///  موجودیت
@@ -187,6 +187,49 @@ public Input<string?> Ref_EmployeeNo;
 public Input<string?> Ref_LastEmployeeNo;
 public Input<string?> Ref_EmployeePersonelNo;
 public Input<string?> Ref_EmployeeLastPersonelNo;
+public Input<Guid> Ref_Id;
+public Input<Guid?> Ref_RequestID;
+public Input<Guid?> Ref_CreateUser;
+public Input<Guid?> Ref_UpdateUser;
+public Input<DateTime?> Ref_CreateDate;
+public Input<bool?> Ref_IsDelete;
+public Input<DateTime?> Ref_UpdateDate;
+public DxGrid? Grid_HR_CVR_PersonnelContract;
+
+public Input<Guid> Ref_HR_CVR_PersonnelContract_Id;
+public Input<Guid?> Ref_HR_CVR_PersonnelContract_RequestID;
+public Input<Guid?> Ref_HR_CVR_PersonnelContract_CreateUser;
+public Input<Guid?> Ref_HR_CVR_PersonnelContract_UpdateUser;
+public Input<DateTime?> Ref_HR_CVR_PersonnelContract_CreateDate;
+public Input<DateTime?> Ref_HR_CVR_PersonnelContract_UpdateDate;
+public Input<bool?> Ref_HR_CVR_PersonnelContract_IsDelete;
+public Dropdown Ref_HR_CVR_PersonnelContract_HR_EMP_EmployeesId;
+public Input<short?> Ref_HR_CVR_PersonnelContract_Counter;
+public Input<short?> Ref_HR_CVR_PersonnelContract_HoursPerMonth;
+public Input<string?> Ref_HR_CVR_PersonnelContract_Description;
+public Dropdown Ref_HR_CVR_PersonnelContract_HR_StatusPersonnelContractId;
+public Dropdown Ref_HR_CVR_PersonnelContract_HR_RMS_RecruitmentHiringId;
+public Input<string?> Ref_HR_CVR_PersonnelContract_HR_CRS_ExtensionPersonnelContractId;
+public Dropdown Ref_HR_CVR_PersonnelContract_HR_CVR_EmploymentTypeId;
+public Dropdown Ref_HR_CVR_PersonnelContract_HR_CVR_TypeContractId;
+public Input<string?> Ref_HR_CVR_PersonnelContract_ContractNo;
+public Input<string?> Ref_HR_CVR_PersonnelContract_StartDate_Fa;
+public Input<string?> Ref_HR_CVR_PersonnelContract_EndDate_Fa;
+public DxGrid? Grid_HR_CVR_VerdictRecruiting;
+
+public Input<Guid> Ref_HR_CVR_VerdictRecruiting_Id;
+public Input<Guid?> Ref_HR_CVR_VerdictRecruiting_RequestID;
+public Input<Guid?> Ref_HR_CVR_VerdictRecruiting_CreateUser;
+public Input<Guid?> Ref_HR_CVR_VerdictRecruiting_UpdateUser;
+public Input<DateTime?> Ref_HR_CVR_VerdictRecruiting_CreateDate;
+public Input<DateTime?> Ref_HR_CVR_VerdictRecruiting_UpdateDate;
+public Input<bool?> Ref_HR_CVR_VerdictRecruiting_IsDelete;
+public Dropdown Ref_HR_CVR_VerdictRecruiting_HR_CVR_VerdictRecruitingId;
+public Dropdown Ref_HR_CVR_VerdictRecruiting_RegisterUserId;
+public Dropdown Ref_HR_CVR_VerdictRecruiting_ConfirmerUserId;
+public Dropdown Ref_HR_CVR_VerdictRecruiting_ApproverUserId;
+public Dropdown Ref_HR_CVR_VerdictRecruiting_NullifierUserId;
+public Dropdown Ref_HR_CVR_VerdictRecruiting_HR_CVR_JobId;
 public DxGrid? Grid_HR_EMP_EmployeeInfos;
 
 public Input<Guid> Ref_HR_EMP_EmployeeInfos_Id;
@@ -253,49 +296,6 @@ public Input<string?> Ref_HR_EMP_EmployeeInfos_BirthDate_Fa;
 public Input<string?> Ref_HR_EMP_EmployeeInfos_EmploymentDate_Fa;
 public Input<string?> Ref_HR_EMP_EmployeeInfos_EmploymentDateInGroup_Fa;
 public Input<string?> Ref_HR_EMP_EmployeeInfos_EmploymentStartDate_Fa;
-public DxGrid? Grid_HR_CVR_PersonnelContract;
-
-public Input<Guid> Ref_HR_CVR_PersonnelContract_Id;
-public Input<Guid?> Ref_HR_CVR_PersonnelContract_RequestID;
-public Input<Guid?> Ref_HR_CVR_PersonnelContract_CreateUser;
-public Input<Guid?> Ref_HR_CVR_PersonnelContract_UpdateUser;
-public Input<DateTime?> Ref_HR_CVR_PersonnelContract_CreateDate;
-public Input<DateTime?> Ref_HR_CVR_PersonnelContract_UpdateDate;
-public Input<bool?> Ref_HR_CVR_PersonnelContract_IsDelete;
-public Dropdown Ref_HR_CVR_PersonnelContract_HR_EMP_EmployeesId;
-public Input<short?> Ref_HR_CVR_PersonnelContract_Counter;
-public Input<short?> Ref_HR_CVR_PersonnelContract_HoursPerMonth;
-public Input<string?> Ref_HR_CVR_PersonnelContract_Description;
-public Dropdown Ref_HR_CVR_PersonnelContract_HR_StatusPersonnelContractId;
-public Dropdown Ref_HR_CVR_PersonnelContract_HR_RMS_RecruitmentHiringId;
-public Input<string?> Ref_HR_CVR_PersonnelContract_HR_CRS_ExtensionPersonnelContractId;
-public Dropdown Ref_HR_CVR_PersonnelContract_HR_CVR_EmploymentTypeId;
-public Dropdown Ref_HR_CVR_PersonnelContract_HR_CVR_TypeContractId;
-public Input<string?> Ref_HR_CVR_PersonnelContract_ContractNo;
-public Input<string?> Ref_HR_CVR_PersonnelContract_StartDate_Fa;
-public Input<string?> Ref_HR_CVR_PersonnelContract_EndDate_Fa;
-public DxGrid? Grid_HR_CVR_VerdictRecruiting;
-
-public Input<Guid> Ref_HR_CVR_VerdictRecruiting_Id;
-public Input<Guid?> Ref_HR_CVR_VerdictRecruiting_RequestID;
-public Input<Guid?> Ref_HR_CVR_VerdictRecruiting_CreateUser;
-public Input<Guid?> Ref_HR_CVR_VerdictRecruiting_UpdateUser;
-public Input<DateTime?> Ref_HR_CVR_VerdictRecruiting_CreateDate;
-public Input<DateTime?> Ref_HR_CVR_VerdictRecruiting_UpdateDate;
-public Input<bool?> Ref_HR_CVR_VerdictRecruiting_IsDelete;
-public Dropdown Ref_HR_CVR_VerdictRecruiting_HR_CVR_VerdictRecruitingId;
-public Dropdown Ref_HR_CVR_VerdictRecruiting_RegisterUserId;
-public Dropdown Ref_HR_CVR_VerdictRecruiting_ConfirmerUserId;
-public Dropdown Ref_HR_CVR_VerdictRecruiting_ApproverUserId;
-public Dropdown Ref_HR_CVR_VerdictRecruiting_NullifierUserId;
-public Dropdown Ref_HR_CVR_VerdictRecruiting_HR_CVR_JobId;
-public Input<Guid> Ref_Id;
-public Input<Guid?> Ref_RequestID;
-public Input<Guid?> Ref_CreateUser;
-public Input<Guid?> Ref_UpdateUser;
-public Input<DateTime?> Ref_CreateDate;
-public Input<bool?> Ref_IsDelete;
-public Input<DateTime?> Ref_UpdateDate;
 
 
     #endregion

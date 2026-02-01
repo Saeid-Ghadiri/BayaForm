@@ -144,7 +144,7 @@ namespace Forms.Forms
     /// <summary>
     ///  ورژنی که فرم باهاش ساخته شده
     /// </summary>
-    public string? VersionForm { get; set; } = "5603";
+    public string? VersionForm { get; set; } = "5622";
 
     /// <summary>
     ///  موجودیت
@@ -184,34 +184,6 @@ public Input<string?> Ref_UserStarterFullName;
 public Input<string?> Ref_UserStarterCompanyName;
 public Input<string?> Ref_UserStarterUnitName;
 public Input<string?> Ref_UserStarterSectionName;
-public DxGrid? Grid_SCMPLATE_ProductRequestDetails;
-
-public Input<string?> Ref_SCMPLATE_ProductRequestDetails_SH_DESC;
-public Input<string?> Ref_SCMPLATE_ProductRequestDetails_SH_PARTNO;
-public Input<string?> Ref_SCMPLATE_ProductRequestDetails_SH_UNIT;
-public Input<double?> Ref_SCMPLATE_ProductRequestDetails_SH_Amount;
-public Dropdown Ref_SCMPLATE_ProductRequestDetails_Global_SCMRequestTypeId;
-public Dropdown Ref_SCMPLATE_ProductRequestDetails_Global_PriorityId;
-public Input<string?> Ref_SCMPLATE_ProductRequestDetails_PlaceOfUse;
-public Input<double?> Ref_SCMPLATE_ProductRequestDetails_ProductRequestingQTY;
-public RadioBoolean Ref_SCMPLATE_ProductRequestDetails_IsEnableNeedNegotiated;
-public RadioBoolean Ref_SCMPLATE_ProductRequestDetails_HasInquiryApproved;
-public RadioBoolean Ref_SCMPLATE_ProductRequestDetails_HasInquiry;
-public FileUploadPage.Uploader<Entity.SCMPLATE_ProductRequestDetails_InquiryFile1> Ref_SCMPLATE_ProductRequestDetails_SCMPLATE_ProductRequestDetails_InquiryFile1;
-public FileUploadPage.Uploader<Entity.SCMPLATE_ProductRequestDetails_InquiryFile2> Ref_SCMPLATE_ProductRequestDetails_SCMPLATE_ProductRequestDetails_InquiryFile2;
-public FileUploadPage.Uploader<Entity.SCMPLATE_ProductRequestDetails_InquiryFile3> Ref_SCMPLATE_ProductRequestDetails_SCMPLATE_ProductRequestDetails_InquiryFile3;
-public RadioBoolean Ref_SCMPLATE_ProductRequestDetails_HasModification;
-public Input<string?> Ref_SCMPLATE_ProductRequestDetails_DescriptionInquiryApproved;
-public Input<bool?> Ref_SCMPLATE_ProductRequestDetails_Inquiry1Approved;
-public Input<bool?> Ref_SCMPLATE_ProductRequestDetails_Inquiry2Approved;
-public Input<bool?> Ref_SCMPLATE_ProductRequestDetails_Inquiry3Approved;
-public Input<Guid?> Ref_SCMPLATE_ProductRequestDetails_RequestID;
-public Input<Guid?> Ref_SCMPLATE_ProductRequestDetails_CreateUser;
-public Input<Guid?> Ref_SCMPLATE_ProductRequestDetails_UpdateUser;
-public Input<DateTime?> Ref_SCMPLATE_ProductRequestDetails_CreateDate;
-public Input<DateTime?> Ref_SCMPLATE_ProductRequestDetails_UpdateDate;
-public Input<bool?> Ref_SCMPLATE_ProductRequestDetails_IsDelete;
-public Input<Guid> Ref_SCMPLATE_ProductRequestDetails_Id;
 public Input<Guid> Ref_Id;
 public Input<Guid?> Ref_RequestID;
 public Input<Guid?> Ref_CreateUser;
@@ -219,6 +191,34 @@ public Input<Guid?> Ref_UpdateUser;
 public Input<DateTime?> Ref_CreateDate;
 public Input<DateTime?> Ref_UpdateDate;
 public Input<bool?> Ref_IsDelete;
+public DxGrid? Grid_SCMPLATE_ProductRequestDetails;
+
+public Input<Guid> Ref_SCMPLATE_ProductRequestDetails_Id;
+public Input<Guid?> Ref_SCMPLATE_ProductRequestDetails_RequestID;
+public Input<Guid?> Ref_SCMPLATE_ProductRequestDetails_CreateUser;
+public Input<Guid?> Ref_SCMPLATE_ProductRequestDetails_UpdateUser;
+public Input<DateTime?> Ref_SCMPLATE_ProductRequestDetails_CreateDate;
+public Input<DateTime?> Ref_SCMPLATE_ProductRequestDetails_UpdateDate;
+public Input<bool?> Ref_SCMPLATE_ProductRequestDetails_IsDelete;
+public Input<string?> Ref_SCMPLATE_ProductRequestDetails_SH_PARTNO;
+public Input<string?> Ref_SCMPLATE_ProductRequestDetails_SH_DESC;
+public Input<string?> Ref_SCMPLATE_ProductRequestDetails_SH_UNIT;
+public Input<double?> Ref_SCMPLATE_ProductRequestDetails_SH_Amount;
+public Dropdown Ref_SCMPLATE_ProductRequestDetails_Global_PriorityId;
+public Input<double?> Ref_SCMPLATE_ProductRequestDetails_ProductRequestingQTY;
+public Input<string?> Ref_SCMPLATE_ProductRequestDetails_PlaceOfUse;
+public Dropdown Ref_SCMPLATE_ProductRequestDetails_Global_SCMRequestTypeId;
+public RadioBoolean Ref_SCMPLATE_ProductRequestDetails_HasInquiry;
+public FileUploadPage.Uploader<Entity.SCMPLATE_ProductRequestDetails_InquiryFile1> Ref_SCMPLATE_ProductRequestDetails_SCMPLATE_ProductRequestDetails_InquiryFile1;
+public FileUploadPage.Uploader<Entity.SCMPLATE_ProductRequestDetails_InquiryFile2> Ref_SCMPLATE_ProductRequestDetails_SCMPLATE_ProductRequestDetails_InquiryFile2;
+public FileUploadPage.Uploader<Entity.SCMPLATE_ProductRequestDetails_InquiryFile3> Ref_SCMPLATE_ProductRequestDetails_SCMPLATE_ProductRequestDetails_InquiryFile3;
+public RadioBoolean Ref_SCMPLATE_ProductRequestDetails_HasInquiryApproved;
+public Input<bool?> Ref_SCMPLATE_ProductRequestDetails_Inquiry1Approved;
+public Input<bool?> Ref_SCMPLATE_ProductRequestDetails_Inquiry2Approved;
+public Input<bool?> Ref_SCMPLATE_ProductRequestDetails_Inquiry3Approved;
+public Input<string?> Ref_SCMPLATE_ProductRequestDetails_DescriptionInquiryApproved;
+public RadioBoolean Ref_SCMPLATE_ProductRequestDetails_HasModification;
+public RadioBoolean Ref_SCMPLATE_ProductRequestDetails_IsEnableNeedNegotiated;
 
 
     #endregion

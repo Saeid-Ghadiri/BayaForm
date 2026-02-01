@@ -144,7 +144,7 @@ namespace Forms.Forms
     /// <summary>
     ///  ورژنی که فرم باهاش ساخته شده
     /// </summary>
-    public string? VersionForm { get; set; } = "5603";
+    public string? VersionForm { get; set; } = "5622";
 
     /// <summary>
     ///  موجودیت
@@ -184,43 +184,6 @@ public Input<string?> Ref_UserCompanyName;
 public Input<string?> Ref_SystemUnitUser;
 public Input<string?> Ref_SystemSectionUser;
 public ElementReference Ref_submit;
-public DxGrid? Grid_SCM_ProductRequestDetails;
-
-public Input<string?> Ref_SCM_ProductRequestDetails_ProductNameText;
-public Input<string?> Ref_SCM_ProductRequestDetails_ProductCodeText;
-public Input<string?> Ref_SCM_ProductRequestDetails_ProductUnitText;
-public Dropdown Ref_SCM_ProductRequestDetails_SCM_PriorityId;
-public Input<double?> Ref_SCM_ProductRequestDetails_ProductRequestingQTY;
-public Input<double?> Ref_SCM_ProductRequestDetails_DeficitSupplyNumber;
-public Input<string?> Ref_SCM_ProductRequestDetails_PlaceOfUseProduct;
-public Input<string?> Ref_SCM_ProductRequestDetails_DescriptionWarehouseKeeper;
-public Input<string?> Ref_SCM_ProductRequestDetails_ProductRowDescription;
-public Dropdown Ref_SCM_ProductRequestDetails_SCM_ProcurementId;
-public Dropdown Ref_SCM_ProductRequestDetails_SCM_NumTransfersGoodsWarehouseId;
-public Input<double?> Ref_SCM_ProductRequestDetails_TheNumberDeliveredByLogistics;
-public Input<double?> Ref_SCM_ProductRequestDetails_TheNumberDeliveredByLogistics2;
-public Input<double?> Ref_SCM_ProductRequestDetails_TheNumberDeliveredByLogistics3;
-public RadioBoolean Ref_SCM_ProductRequestDetails_SurplusProductIsEnable;
-public Input<double?> Ref_SCM_ProductRequestDetails_NumberOfSurplusProduct;
-public Input<double?> Ref_SCM_ProductRequestDetails_NumberofProductDelivery;
-public Input<double?> Ref_SCM_ProductRequestDetails_NumberofProductDelivery2;
-public Input<double?> Ref_SCM_ProductRequestDetails_NumberofProductDelivery3;
-public Dropdown Ref_SCM_ProductRequestDetails_FB_Search_NotMapped;
-public Input<string?> Ref_SCM_ProductRequestDetails_KH_ORDERNO;
-public Input<string?> Ref_SCM_ProductRequestDetails_FB_WUSER;
-public Input<Guid?> Ref_SCM_ProductRequestDetails_FB_FACTNO_GUID;
-public Input<int?> Ref_SCM_ProductRequestDetails_FB_FactorNum;
-public Input<int?> Ref_SCM_ProductRequestDetails_FB_YEAR;
-public Dropdown Ref_SCM_ProductRequestDetails_SH_FactBuy_DTL;
-public Input<Guid> Ref_SCM_ProductRequestDetails_Id;
-public Input<Guid?> Ref_SCM_ProductRequestDetails_RequestID;
-public Input<Guid?> Ref_SCM_ProductRequestDetails_CreateUser;
-public Input<Guid?> Ref_SCM_ProductRequestDetails_UpdateUser;
-public Input<DateTime?> Ref_SCM_ProductRequestDetails_CreateDate;
-public Input<DateTime?> Ref_SCM_ProductRequestDetails_UpdateDate;
-public Input<bool?> Ref_SCM_ProductRequestDetails_IsDelete;
-public RadioBoolean Ref_SCM_ProductRequestDetails_FutureActionTrueFalse;
-public RadioBoolean Ref_SCM_ProductRequestDetails_ProductDelivery;
 public Input<Guid> Ref_Id;
 public Input<Guid?> Ref_RequestID;
 public Input<Guid?> Ref_CreateUser;
@@ -228,6 +191,43 @@ public Input<Guid?> Ref_UpdateUser;
 public Input<DateTime?> Ref_CreateDate;
 public Input<DateTime?> Ref_UpdateDate;
 public Input<bool?> Ref_IsDelete;
+public DxGrid? Grid_SCM_ProductRequestDetails;
+
+public Input<Guid> Ref_SCM_ProductRequestDetails_Id;
+public Input<Guid?> Ref_SCM_ProductRequestDetails_RequestID;
+public Input<Guid?> Ref_SCM_ProductRequestDetails_CreateUser;
+public Input<Guid?> Ref_SCM_ProductRequestDetails_UpdateUser;
+public Input<DateTime?> Ref_SCM_ProductRequestDetails_CreateDate;
+public Input<DateTime?> Ref_SCM_ProductRequestDetails_UpdateDate;
+public Input<bool?> Ref_SCM_ProductRequestDetails_IsDelete;
+public Input<string?> Ref_SCM_ProductRequestDetails_ProductCodeText;
+public Input<string?> Ref_SCM_ProductRequestDetails_ProductUnitText;
+public Input<double?> Ref_SCM_ProductRequestDetails_ProductRequestingQTY;
+public Dropdown Ref_SCM_ProductRequestDetails_SCM_PriorityId;
+public Input<string?> Ref_SCM_ProductRequestDetails_PlaceOfUseProduct;
+public Input<string?> Ref_SCM_ProductRequestDetails_ProductRowDescription;
+public Input<string?> Ref_SCM_ProductRequestDetails_ProductNameText;
+public RadioBoolean Ref_SCM_ProductRequestDetails_FutureActionTrueFalse;
+public Dropdown Ref_SCM_ProductRequestDetails_SCM_ProcurementId;
+public Input<double?> Ref_SCM_ProductRequestDetails_DeficitSupplyNumber;
+public Input<double?> Ref_SCM_ProductRequestDetails_NumberofProductDelivery;
+public Input<string?> Ref_SCM_ProductRequestDetails_DescriptionWarehouseKeeper;
+public RadioBoolean Ref_SCM_ProductRequestDetails_ProductDelivery;
+public Input<double?> Ref_SCM_ProductRequestDetails_TheNumberDeliveredByLogistics;
+public Input<double?> Ref_SCM_ProductRequestDetails_TheNumberDeliveredByLogistics2;
+public Input<double?> Ref_SCM_ProductRequestDetails_TheNumberDeliveredByLogistics3;
+public Input<double?> Ref_SCM_ProductRequestDetails_NumberofProductDelivery2;
+public Input<double?> Ref_SCM_ProductRequestDetails_NumberofProductDelivery3;
+public RadioBoolean Ref_SCM_ProductRequestDetails_SurplusProductIsEnable;
+public Input<double?> Ref_SCM_ProductRequestDetails_NumberOfSurplusProduct;
+public Dropdown Ref_SCM_ProductRequestDetails_SCM_NumTransfersGoodsWarehouseId;
+public Input<string?> Ref_SCM_ProductRequestDetails_KH_ORDERNO;
+public Input<string?> Ref_SCM_ProductRequestDetails_FB_WUSER;
+public Input<int?> Ref_SCM_ProductRequestDetails_FB_YEAR;
+public Input<Guid?> Ref_SCM_ProductRequestDetails_FB_FACTNO_GUID;
+public Input<int?> Ref_SCM_ProductRequestDetails_FB_FactorNum;
+public Dropdown Ref_SCM_ProductRequestDetails_FB_Search_NotMapped;
+public Dropdown Ref_SCM_ProductRequestDetails_SH_FactBuy_DTL;
 
 
     #endregion

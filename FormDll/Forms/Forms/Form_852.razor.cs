@@ -293,6 +293,8 @@ namespace Forms.Forms
             // //Console.WriteLine("#Log 3.1" + Ref_SCMPLATE_ProductRequestDetails_FB_Search_NotMapped.Value);
             await Task.Delay(1000);
 
+// این کد ها به درخواست آقای غدیری و آقای دودانگه کامنت شده است
+/*
             Ref_SCMPLATE_ProductRequestDetails_FB_Search_NotMapped.SetVisible(Visible);
 
             Ref_SCMPLATE_ProductRequestDetails_FB_ACCCODE.SetVisible(Visible);
@@ -554,6 +556,8 @@ namespace Forms.Forms
             Ref_SCMPLATE_ProductRequestDetails_FB_YEAR.SetDisabled(true);
             Ref_SCMPLATE_ProductRequestDetails_FB_FACTNO_GUID.SetDisabled(true);
             Ref_SCMPLATE_ProductRequestDetails_FB_FactorNum.SetDisabled(true);
+
+            */
         }
 
         public async Task ResidAnbarIsNull(Entity.SCMPLATE_ProductRequestDetails Item)

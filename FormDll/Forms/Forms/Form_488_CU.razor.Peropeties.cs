@@ -144,7 +144,7 @@ namespace Forms.Forms
     /// <summary>
     ///  ورژنی که فرم باهاش ساخته شده
     /// </summary>
-    public string? VersionForm { get; set; } = "5603";
+    public string? VersionForm { get; set; } = "5622";
 
     /// <summary>
     ///  موجودیت
@@ -301,7 +301,7 @@ public Input<int?> Ref_SCM_ProductRequestDetails_DeliveryCode;
 public Input<int?> Ref_SCM_ProductRequestDetails_GetDeliveryCode;
 public Input<string?> Ref_SCM_ProductRequestDetails_DateTimeDeliveryCode;
 public Dropdown Ref_SCM_ProductRequestDetails_Global_SCMRequestTypeId;
-public Input<Guid?> Ref_SCM_ProductRequestDetails_SCM_NumTransfersGoodsWarehouseId;
+public Dropdown Ref_SCM_ProductRequestDetails_SCM_NumTransfersGoodsWarehouseId;
 
 
     #endregion

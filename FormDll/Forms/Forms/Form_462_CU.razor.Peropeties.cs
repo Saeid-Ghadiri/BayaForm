@@ -144,7 +144,7 @@ namespace Forms.Forms
     /// <summary>
     ///  ورژنی که فرم باهاش ساخته شده
     /// </summary>
-    public string? VersionForm { get; set; } = "5603";
+    public string? VersionForm { get; set; } = "5622";
 
     /// <summary>
     ///  موجودیت
@@ -188,6 +188,9 @@ public Input<DateTime?> Ref_UpdateDate;
 public Input<bool?> Ref_IsDelete;
 public Input<string?> Ref_UserName;
 public Input<string?> Ref_OrderDate;
+public Input<int?> Ref_OrderNo;
+public Input<int?> Ref_OrderBodyCount;
+public Input<DateTime?> Ref_testdata;
 public DxGrid? Grid_test_OrderBody;
 
 public Input<Guid> Ref_test_OrderBody_Id;
@@ -197,18 +200,15 @@ public Input<Guid?> Ref_test_OrderBody_UpdateUser;
 public Input<DateTime?> Ref_test_OrderBody_CreateDate;
 public Input<DateTime?> Ref_test_OrderBody_UpdateDate;
 public Input<bool?> Ref_test_OrderBody_IsDelete;
-public Input<int?> Ref_test_OrderBody_Count;
-public Input<Guid?> Ref_test_OrderBody_test_OrderId;
+public Dropdown Ref_test_OrderBody_test_OrderId;
 public Dropdown Ref_test_OrderBody_test_ProductId;
 public Dropdown Ref_test_OrderBody_test_UnitId;
+public Input<int?> Ref_test_OrderBody_Count;
 public Input<string?> Ref_test_OrderBody_Description;
 public FileUploadPage.Uploader<Entity.test_OrderBody_ProductImage> Ref_test_OrderBody_test_OrderBody_ProductImage;
 public Dropdown Ref_test_OrderBody_ProduId;
 public Input<bool?> Ref_test_OrderBody_IsExist;
 public Dropdown Ref_test_OrderBody_Shomarankala;
-public Input<int?> Ref_OrderNo;
-public Input<int?> Ref_OrderBodyCount;
-public Input<DateTime?> Ref_testdata;
 
 
     #endregion

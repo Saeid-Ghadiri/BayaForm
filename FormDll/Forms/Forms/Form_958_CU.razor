@@ -339,6 +339,22 @@
 </div>
 
 </div>
+
+<Input Id="ApiResult" @ref="Ref_ApiResult" Label="ApiResult"     @bind-Value="_Entity.ApiResult" type="textarea"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+<Input Id="Id" @ref="Ref_Id"   CssClass="d-none"   @bind-Value="_Entity.Id" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+<Input Id="RequestID" @ref="Ref_RequestID"      @bind-Value="_Entity.RequestID" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+<Input Id="CreateUser" @ref="Ref_CreateUser"      @bind-Value="_Entity.CreateUser" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+<Input Id="UpdateUser" @ref="Ref_UpdateUser"      @bind-Value="_Entity.UpdateUser" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+<Input Id="CreateDate" @ref="Ref_CreateDate"   CssClass="d-none"   @bind-Value="_Entity.CreateDate" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+<Input Id="UpdateDate" @ref="Ref_UpdateDate"   CssClass="d-none"   @bind-Value="_Entity.UpdateDate" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+<Input Id="IsDelete" @ref="Ref_IsDelete"   CssClass="d-none"   @bind-Value="_Entity.IsDelete" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
 <label for="SH_PolFilm_ProductDeliveryDetail_GridSH_PolFilm_ProductDeliveryId_702">جزئیات حواله مصرف
    
     
@@ -352,7 +368,7 @@
         EditFormButtonsVisible="false"
         CustomizeEditModel="CustomizeEditGrid_SH_PolFilm_ProductDeliveryDetail"
         CustomizeElement="CustomizeRowsGrid_SH_PolFilm_ProductDeliveryDetail" 
-        Component="@((Utility.JSON.ToObject<View_Component>("{\"primaryKey\":false,\"EntityID\":702,\"FieldId\":702,\"NotNull\":false,\"ViewId\":0,\"NotMapped\":false,\"Relation\":false,\"RelationExternal\":false,\"RelationChildModel\":\"SH_PolFilm_ProductDeliveryDetail\",\"GridMainModel\":\"SH_PolFilm_ProductDeliveryDetail\",\"widget\":{\"altInput\":false,\"allowInput\":false,\"clickOpens\":false,\"enableDate\":false,\"enableTime\":false,\"noCalendar\":false,\"useLocaleSettings\":false,\"hourIncrement\":0,\"minuteIncrement\":0,\"time_24hr\":false},\"wysiwyg\":false,\"data\":{},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"FieldsTemplate\":[],\"refreshOn\":\"data\",\"reorder\":false,\"addAnotherPosition\":\"bottom\",\"layoutFixed\":false,\"enableRowGroups\":false,\"initEmpty\":false,\"disabled\":true,\"modal\":true,\"label\":\"جزئیات حواله مصرف\",\"tableView\":true,\"key\":\"GridSH_PolFilm_ProductDeliveryId_702\",\"type\":\"datagrid\",\"input\":true,\"placeholder\":\"GridSH_PolFilm_ProductDeliveryId_702\",\"modalEdit\":true,\"FieldUrl\":\"702?EId=702&SubId=29\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true,\"editmodelsaving\":\"GridSH_PolFilm_ProductDeliveryId_702_editmodelsaving\",\"afterrendermodal\":\"GridSH_PolFilm_ProductDeliveryId_702_afterrendermodal\"}").Result))"
+        Component="@((Utility.JSON.ToObject<View_Component>("{\"primaryKey\":false,\"EntityID\":702,\"FieldId\":702,\"TypeCSharp\":\"\",\"NotNull\":false,\"ViewId\":0,\"NotMapped\":false,\"Relation\":false,\"RelationExternal\":false,\"RelationParentName\":\"\",\"RelationParentModel\":\"\",\"RelationChildModel\":\"SH_PolFilm_ProductDeliveryDetail\",\"GridMainModel\":\"SH_PolFilm_ProductDeliveryDetail\",\"widget\":{\"altInput\":false,\"allowInput\":false,\"clickOpens\":false,\"enableDate\":false,\"enableTime\":false,\"noCalendar\":false,\"useLocaleSettings\":false,\"hourIncrement\":0,\"minuteIncrement\":0,\"time_24hr\":false},\"wysiwyg\":false,\"data\":{},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"FieldsTemplate\":[],\"refreshOn\":\"data\",\"reorder\":false,\"addAnotherPosition\":\"bottom\",\"layoutFixed\":false,\"enableRowGroups\":false,\"initEmpty\":false,\"disabled\":true,\"modal\":true,\"label\":\"جزئیات حواله مصرف\",\"tableView\":true,\"key\":\"GridSH_PolFilm_ProductDeliveryId_702\",\"type\":\"datagrid\",\"input\":true,\"placeholder\":\"GridSH_PolFilm_ProductDeliveryId_702\",\"modalEdit\":true,\"FieldUrl\":\"702?EId=702&SubId=29\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true,\"editmodelsaving\":\"GridSH_PolFilm_ProductDeliveryId_702_editmodelsaving\",\"afterrendermodal\":\"GridSH_PolFilm_ProductDeliveryId_702_afterrendermodal\"}").Result))"
          >
     <Columns>
     
@@ -395,15 +411,45 @@
           
            </CellDisplayTemplate>
      </DxGridCommandColumn>
-    <DxGridDataColumn Context="ProductSearch_" Caption="جستجو کالا" >
+    <DxGridDataColumn  Caption="Id" Visible=false FieldName="Id" />
+
+<DxGridDataColumn  Caption="RequestID" Visible=false FieldName="RequestID" />
+
+<DxGridDataColumn  Caption="CreateUser" Visible=false FieldName="CreateUser" />
+
+<DxGridDataColumn  Caption="UpdateUser" Visible=false FieldName="UpdateUser" />
+
+<DxGridDataColumn  Caption="CreateDate" Visible=false FieldName="CreateDate" />
+
+<DxGridDataColumn  Caption="UpdateDate" Visible=false FieldName="UpdateDate" />
+
+<DxGridDataColumn  Caption="IsDelete" Visible=false FieldName="IsDelete" />
+
+<DxGridDataColumn DisplayFormat="G" Caption="مقدار اول"  FieldName="AMOUNT" />
+
+<DxGridDataColumn  Caption="کد کالا"  FieldName="PARTCODE" />
+
+<DxGridDataColumn  Caption="ردیابی کالا"  FieldName="RADYABI" />
+
+<DxGridDataColumn  Caption="سفارش کالاها"  FieldName="SEFARESH" />
+
+<DxGridDataColumn DisplayFormat="0" Caption="ردیف" Visible=false FieldName="ROW_ID" />
+
+<DxGridDataColumn DisplayFormat="0" Caption="سال"  FieldName="Year" />
+
+<DxGridDataColumn  Caption="شماره فنی"  FieldName="shomarefani" />
+
+<DxGridDataColumn  Caption="نام کالا"  FieldName="ProductName" />
+
+<DxGridDataColumn Context="ProductSearch_" Caption="جستجو کالا" >
     <CellDisplayTemplate>
        
 @{
-    Baya.Models.ViewEngine.View_Component HeaderProductSearch = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"primaryKey\":false,\"EntityID\":702,\"FieldId\":30847,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":958,\"NotMapped\":true,\"Relation\":true,\"RelationExternal\":true,\"RelationParentName\":\"\",\"RelationParentModel\":\"\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://shomaran.workcv.ir:2010/fa-ir/api/v1/view_parts/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"partcode\",\"template\":\"<span>{{item.partcode}} {{item.partno}} {{item.desc}} {{item.unit}} </span>\",\"FieldsTemplate\":[{\"key\":\"partcode\",\"value\":\"nvarchar(Max)\"},{\"key\":\"desc\",\"value\":\"nvarchar(Max)\"},{\"key\":\"partno\",\"value\":\"nvarchar(Max)\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"searchField\":\"partcode,desc,partno\",\"disableLimit\":false,\"noRefreshOnScroll\":false,\"disabled\":false,\"modal\":true,\"label\":\"جستجو کالا\",\"tableView\":true,\"key\":\"ProductSearch\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"customClass\":\"Gcol-sm-8 Gcol-md-6 Gcol-lg-6\",\"FieldUrl\":\"30847?EId=702&SubId=29\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true,\"onitemselected\":\"ProductSearch_onitemselected\"}").Result;
+    Baya.Models.ViewEngine.View_Component HeaderProductSearch = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"primaryKey\":false,\"EntityID\":702,\"FieldId\":30847,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":958,\"NotMapped\":true,\"Relation\":true,\"RelationExternal\":true,\"RelationParentName\":\"\",\"RelationParentModel\":\"\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://shomaran.workcv.ir:2010/fa-ir/api/v1/view_parts/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"partcode\",\"template\":\"<span>{{item.partcode}} {{item.partno}} {{item.desc}} {{item.unit}} </span>\",\"FieldsTemplate\":[{\"key\":\"partcode\",\"value\":\"nvarchar(Max)\"},{\"key\":\"partno\",\"value\":\"nvarchar(Max)\"},{\"key\":\"desc\",\"value\":\"nvarchar(Max)\"},{\"key\":\"unit\",\"value\":\"nvarchar(Max)\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"searchField\":\"partcode,desc,partno,unit\",\"disabled\":false,\"modal\":true,\"label\":\"جستجو کالا\",\"tableView\":true,\"key\":\"ProductSearch\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"30847?EId=702&SubId=29\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true,\"onitemselected\":\"ProductSearch_onitemselected\"}").Result;
     var RowProductSearch = ((Entity.SH_PolFilm_ProductDeliveryDetail)ProductSearch_.DataItem).ProductSearch;
 }
 
-<Dropdown ExternalApi=true CssClass="Gcol-sm-8 Gcol-md-6 Gcol-lg-6" NotMapped=true TextGrid=true Value="@RowProductSearch"   FieldName="ProductSearch" OnItemSelected="ItemSelected_SH_PolFilm_ProductDeliveryDetailProductSearch_Header" Component="HeaderProductSearch">
+<Dropdown ExternalApi=true CssClass="" NotMapped=true TextGrid=true Value="@RowProductSearch"   FieldName="ProductSearch" OnItemSelected="ItemSelected_SH_PolFilm_ProductDeliveryDetailProductSearch_Header" Component="HeaderProductSearch">
 </Dropdown>
 @code {
     public async Task ItemSelected_SH_PolFilm_ProductDeliveryDetailProductSearch_Header(object _Item)
@@ -421,33 +467,15 @@
 
     </CellDisplayTemplate>
 </DxGridDataColumn>
-<DxGridDataColumn Context="html1_" Caption="HTML" >
-    <CellDisplayTemplate>
-      <div  class="Gcol-sm-8 Gcol-md-6 Gcol-lg-6">
-    
-</div>
-
-    </CellDisplayTemplate>
-</DxGridDataColumn>
-<DxGridDataColumn  Caption="کد کالا"  FieldName="PARTCODE" />
-
-<DxGridDataColumn  Caption="نام کالا"  FieldName="ProductName" />
-
-<DxGridDataColumn  Caption="شماره فنی"  FieldName="shomarefani" />
-
-<DxGridDataColumn DisplayFormat="G" Caption="مقدار اول"  FieldName="AMOUNT" />
-
-<DxGridDataColumn  Caption="واحد"  FieldName="Unit" />
-
 <DxGridDataColumn Context="CENTCODE3_" Caption="عامل هزینه" >
     <CellDisplayTemplate>
        
 @{
-    Baya.Models.ViewEngine.View_Component HeaderCENTCODE3 = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"primaryKey\":false,\"EntityID\":702,\"FieldId\":30848,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":958,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":true,\"RelationParentName\":\"\",\"RelationParentModel\":\"\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://shomaran.workcv.ir:2010/fa-ir/api/v1/view_pays/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"code\",\"template\":\"<span>{{item.acccode}} {{item.name}} {{item.code}} </span>\",\"FieldsTemplate\":[{\"key\":\"CENTCODE\",\"value\":\"nvarchar(Max)\"},{\"key\":\"name\",\"value\":\"nvarchar(Max)\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"searchField\":\"name,CENTCODE\",\"disableLimit\":false,\"noRefreshOnScroll\":false,\"disabled\":false,\"modal\":true,\"label\":\"عامل هزینه\",\"tableView\":true,\"key\":\"CENTCODE3\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"customClass\":\"Gcol-sm-8 Gcol-md-6 Gcol-lg-4\",\"FieldUrl\":\"30848?EId=702&SubId=29\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
+    Baya.Models.ViewEngine.View_Component HeaderCENTCODE3 = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"primaryKey\":false,\"EntityID\":702,\"FieldId\":30848,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":958,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":true,\"RelationParentName\":\"\",\"RelationParentModel\":\"\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://shomaran.workcv.ir:2010/fa-ir/api/v1/view_pays/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"code\",\"template\":\"<span>{{item.acccode}} {{item.name}} {{item.code}} </span>\",\"FieldsTemplate\":[{\"key\":\"acccode\",\"value\":\"nvarchar(Max)\"},{\"key\":\"name\",\"value\":\"nvarchar(Max)\"},{\"key\":\"code\",\"value\":\"nvarchar(Max)\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"searchField\":\"acccode,name,code\",\"disabled\":false,\"modal\":true,\"label\":\"عامل هزینه\",\"tableView\":true,\"key\":\"CENTCODE3\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"30848?EId=702&SubId=29\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
     var RowCENTCODE3 = ((Entity.SH_PolFilm_ProductDeliveryDetail)CENTCODE3_.DataItem).CENTCODE3;
 }
 
-<Dropdown ExternalApi=true CssClass="Gcol-sm-8 Gcol-md-6 Gcol-lg-4" NotMapped=false TextGrid=true Value="@RowCENTCODE3"   FieldName="CENTCODE3" OnItemSelected="ItemSelected_SH_PolFilm_ProductDeliveryDetailCENTCODE3_Header" Component="HeaderCENTCODE3">
+<Dropdown ExternalApi=true CssClass="" NotMapped=false TextGrid=true Value="@RowCENTCODE3"   FieldName="CENTCODE3" OnItemSelected="ItemSelected_SH_PolFilm_ProductDeliveryDetailCENTCODE3_Header" Component="HeaderCENTCODE3">
 </Dropdown>
 @code {
     public async Task ItemSelected_SH_PolFilm_ProductDeliveryDetailCENTCODE3_Header(object _Item)
@@ -465,35 +493,7 @@
 
     </CellDisplayTemplate>
 </DxGridDataColumn>
-<DxGridDataColumn Context="html_" Caption="HTML" >
-    <CellDisplayTemplate>
-      <div  class="Gcol-sm-8 Gcol-md-6 Gcol-lg-12">
-    <hr class="hrdash bg-black">
-</div>
-
-    </CellDisplayTemplate>
-</DxGridDataColumn>
-<DxGridDataColumn  Caption="ردیابی کالا"  FieldName="RADYABI" />
-
-<DxGridDataColumn  Caption="سفارش کالاها"  FieldName="SEFARESH" />
-
-<DxGridDataColumn  Caption="Id" Visible=false FieldName="Id" />
-
-<DxGridDataColumn  Caption="RequestID" Visible=false FieldName="RequestID" />
-
-<DxGridDataColumn  Caption="CreateUser" Visible=false FieldName="CreateUser" />
-
-<DxGridDataColumn  Caption="UpdateUser" Visible=false FieldName="UpdateUser" />
-
-<DxGridDataColumn  Caption="CreateDate" Visible=false FieldName="CreateDate" />
-
-<DxGridDataColumn  Caption="UpdateDate" Visible=false FieldName="UpdateDate" />
-
-<DxGridDataColumn  Caption="IsDelete" Visible=false FieldName="IsDelete" />
-
-<DxGridDataColumn DisplayFormat="0" Caption="ردیف" Visible=false FieldName="ROW_ID" />
-
-<DxGridDataColumn DisplayFormat="0" Caption="سال"  FieldName="Year" />
+<DxGridDataColumn  Caption="واحد"  FieldName="Unit" />
 
 
 </Columns>
@@ -504,113 +504,6 @@
     }
     <DxFormLayout>
         <DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextSH_PolFilm_ProductDeliveryDetail">
-     
- 
-@code {
-    Baya.Models.ViewEngine.View_Component Component_SH_PolFilm_ProductDeliveryDetailProductSearch = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"primaryKey\":false,\"EntityID\":702,\"FieldId\":30847,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":958,\"NotMapped\":true,\"Relation\":true,\"RelationExternal\":true,\"RelationParentName\":\"\",\"RelationParentModel\":\"\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://shomaran.workcv.ir:2010/fa-ir/api/v1/view_parts/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"partcode\",\"template\":\"<span>{{item.partcode}} {{item.partno}} {{item.desc}} {{item.unit}} </span>\",\"FieldsTemplate\":[{\"key\":\"partcode\",\"value\":\"nvarchar(Max)\"},{\"key\":\"desc\",\"value\":\"nvarchar(Max)\"},{\"key\":\"partno\",\"value\":\"nvarchar(Max)\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"searchField\":\"partcode,desc,partno\",\"disableLimit\":false,\"noRefreshOnScroll\":false,\"disabled\":false,\"modal\":true,\"label\":\"جستجو کالا\",\"tableView\":true,\"key\":\"ProductSearch\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"customClass\":\"Gcol-sm-8 Gcol-md-6 Gcol-lg-6\",\"FieldUrl\":\"30847?EId=702&SubId=29\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true,\"onitemselected\":\"ProductSearch_onitemselected\"}").Result;
-}
-
-    <Dropdown Id=SH_PolFilm_ProductDeliveryDetail_ProductSearch  @ref="Ref_SH_PolFilm_ProductDeliveryDetail_ProductSearch" Label="جستجو کالا" CssClass="Gcol-sm-8 Gcol-md-6 Gcol-lg-6"  DisplayFormat="DropDown" ExternalApi=true NotMapped=true TextGrid=false   FieldName="ProductSearch" OnItemSelected="ItemSelected_SH_PolFilm_ProductDeliveryDetailProductSearch" Component="Component_SH_PolFilm_ProductDeliveryDetailProductSearch" _Entity="_Entity" _EntityRow=SH_PolFilm_ProductDeliveryDetail>
-</Dropdown>
-@code {
-    public async Task ItemSelected_SH_PolFilm_ProductDeliveryDetailProductSearch(object _Item)
-    {
-        var Selected = Utility.JSON.ToObject<dynamic>(Utility.JSON.ToJson(_Item).Result).Result;
-     var Item = SH_PolFilm_ProductDeliveryDetail;
-
-    
-
-    
-
-    await ProductSearch_onitemselected( Selected , SH_PolFilm_ProductDeliveryDetail);
-    }
-} 
-
-</DxFormLayoutItem>
-
-<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextSH_PolFilm_ProductDeliveryDetail">
-    <div  class="Gcol-sm-8 Gcol-md-6 Gcol-lg-6">
-    
-</div>
-
-</DxFormLayoutItem>
-
-<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextSH_PolFilm_ProductDeliveryDetail">
-    
-<Input Id="SH_PolFilm_ProductDeliveryDetail_PARTCODE" @ref="Ref_SH_PolFilm_ProductDeliveryDetail_PARTCODE" Label="کد کالا"  CssClass="Gcol-sm-8 Gcol-md-6 Gcol-lg-4" Disabled=true  @bind-Value="SH_PolFilm_ProductDeliveryDetail.PARTCODE" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"maxlength\":\"150\"}").Result))></Input>
-
-</DxFormLayoutItem>
-
-<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextSH_PolFilm_ProductDeliveryDetail">
-    
-<Input Id="SH_PolFilm_ProductDeliveryDetail_ProductName" @ref="Ref_SH_PolFilm_ProductDeliveryDetail_ProductName" Label="نام کالا"  CssClass="Gcol-sm-8 Gcol-md-6 Gcol-lg-4" Disabled=true  @bind-Value="SH_PolFilm_ProductDeliveryDetail.ProductName" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"maxlength\":\"300\"}").Result))></Input>
-
-</DxFormLayoutItem>
-
-<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextSH_PolFilm_ProductDeliveryDetail">
-    
-<Input Id="SH_PolFilm_ProductDeliveryDetail_shomarefani" @ref="Ref_SH_PolFilm_ProductDeliveryDetail_shomarefani" Label="شماره فنی"  CssClass="Gcol-sm-8 Gcol-md-6 Gcol-lg-4" Disabled=true  @bind-Value="SH_PolFilm_ProductDeliveryDetail.shomarefani" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"maxlength\":\"150\"}").Result))></Input>
-
-</DxFormLayoutItem>
-
-<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextSH_PolFilm_ProductDeliveryDetail">
-    
-<Input Id="SH_PolFilm_ProductDeliveryDetail_AMOUNT" @ref="Ref_SH_PolFilm_ProductDeliveryDetail_AMOUNT" Label="مقدار اول"  CssClass="Gcol-sm-8 Gcol-md-6 Gcol-lg-4"   @bind-Value="SH_PolFilm_ProductDeliveryDetail.AMOUNT" type="number" ActiveSeperator=false    Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"step\":\"any\"}").Result))></Input>
-
-</DxFormLayoutItem>
-
-<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextSH_PolFilm_ProductDeliveryDetail">
-    
-<Input Id="SH_PolFilm_ProductDeliveryDetail_Unit" @ref="Ref_SH_PolFilm_ProductDeliveryDetail_Unit" Label="واحد"  CssClass="Gcol-sm-8 Gcol-md-6 Gcol-lg-4" Disabled=true  @bind-Value="SH_PolFilm_ProductDeliveryDetail.Unit" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
-
-</DxFormLayoutItem>
-
-<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextSH_PolFilm_ProductDeliveryDetail">
-     
- 
-@code {
-    Baya.Models.ViewEngine.View_Component Component_SH_PolFilm_ProductDeliveryDetailCENTCODE3 = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"primaryKey\":false,\"EntityID\":702,\"FieldId\":30848,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":958,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":true,\"RelationParentName\":\"\",\"RelationParentModel\":\"\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://shomaran.workcv.ir:2010/fa-ir/api/v1/view_pays/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"code\",\"template\":\"<span>{{item.acccode}} {{item.name}} {{item.code}} </span>\",\"FieldsTemplate\":[{\"key\":\"CENTCODE\",\"value\":\"nvarchar(Max)\"},{\"key\":\"name\",\"value\":\"nvarchar(Max)\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"searchField\":\"name,CENTCODE\",\"disableLimit\":false,\"noRefreshOnScroll\":false,\"disabled\":false,\"modal\":true,\"label\":\"عامل هزینه\",\"tableView\":true,\"key\":\"CENTCODE3\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"customClass\":\"Gcol-sm-8 Gcol-md-6 Gcol-lg-4\",\"FieldUrl\":\"30848?EId=702&SubId=29\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
-}
-
-    <Dropdown Id=SH_PolFilm_ProductDeliveryDetail_CENTCODE3  @ref="Ref_SH_PolFilm_ProductDeliveryDetail_CENTCODE3" Label="عامل هزینه" CssClass="Gcol-sm-8 Gcol-md-6 Gcol-lg-4"  DisplayFormat="DropDown" ExternalApi=true NotMapped=false TextGrid=false  Value="@SH_PolFilm_ProductDeliveryDetail.CENTCODE3" FieldName="CENTCODE3" OnItemSelected="ItemSelected_SH_PolFilm_ProductDeliveryDetailCENTCODE3" Component="Component_SH_PolFilm_ProductDeliveryDetailCENTCODE3" _Entity="_Entity" _EntityRow=SH_PolFilm_ProductDeliveryDetail>
-</Dropdown>
-@code {
-    public async Task ItemSelected_SH_PolFilm_ProductDeliveryDetailCENTCODE3(object _Item)
-    {
-        var Selected = Utility.JSON.ToObject<dynamic>(Utility.JSON.ToJson(_Item).Result).Result;
-     var Item = SH_PolFilm_ProductDeliveryDetail;
-
-    Item.CENTCODE3 = Selected.code;
-
-
-    
-
-    
-    }
-} 
-
-</DxFormLayoutItem>
-
-<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextSH_PolFilm_ProductDeliveryDetail">
-    <div  class="Gcol-sm-8 Gcol-md-6 Gcol-lg-12">
-    <hr class="hrdash bg-black">
-</div>
-
-</DxFormLayoutItem>
-
-<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextSH_PolFilm_ProductDeliveryDetail">
-    
-<Input Id="SH_PolFilm_ProductDeliveryDetail_RADYABI" @ref="Ref_SH_PolFilm_ProductDeliveryDetail_RADYABI" Label="ردیابی کالا"  CssClass="Gcol-sm-8 Gcol-md-6 Gcol-lg-6"   @bind-Value="SH_PolFilm_ProductDeliveryDetail.RADYABI" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"maxlength\":\"50\"}").Result))></Input>
-
-</DxFormLayoutItem>
-
-<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextSH_PolFilm_ProductDeliveryDetail">
-    
-<Input Id="SH_PolFilm_ProductDeliveryDetail_SEFARESH" @ref="Ref_SH_PolFilm_ProductDeliveryDetail_SEFARESH" Label="سفارش کالاها"  CssClass="Gcol-sm-8 Gcol-md-6 Gcol-lg-6"   @bind-Value="SH_PolFilm_ProductDeliveryDetail.SEFARESH" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"maxlength\":\"50\"}").Result))></Input>
-
-</DxFormLayoutItem>
-
-<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextSH_PolFilm_ProductDeliveryDetail">
     
 <Input Id="SH_PolFilm_ProductDeliveryDetail_Id" @ref="Ref_SH_PolFilm_ProductDeliveryDetail_Id"   CssClass="d-none"   @bind-Value="SH_PolFilm_ProductDeliveryDetail.Id" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
 
@@ -654,13 +547,106 @@
 
 <DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextSH_PolFilm_ProductDeliveryDetail">
     
-<Input Id="SH_PolFilm_ProductDeliveryDetail_ROW_ID" @ref="Ref_SH_PolFilm_ProductDeliveryDetail_ROW_ID" Label="ردیف"  CssClass="Gcol-sm-8 Gcol-md-6 Gcol-lg-2 d-none" Disabled=true  @bind-Value="SH_PolFilm_ProductDeliveryDetail.ROW_ID" type="number" ActiveSeperator=false    Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+<Input Id="SH_PolFilm_ProductDeliveryDetail_AMOUNT" @ref="Ref_SH_PolFilm_ProductDeliveryDetail_AMOUNT" Label="مقدار اول"     @bind-Value="SH_PolFilm_ProductDeliveryDetail.AMOUNT" type="number"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"step\":\"any\"}").Result))></Input>
 
 </DxFormLayoutItem>
 
 <DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextSH_PolFilm_ProductDeliveryDetail">
     
-<Input Id="SH_PolFilm_ProductDeliveryDetail_Year" @ref="Ref_SH_PolFilm_ProductDeliveryDetail_Year" Label="سال"  CssClass="Gcol-sm-8 Gcol-md-6 Gcol-lg-2 " Disabled=true  @bind-Value="SH_PolFilm_ProductDeliveryDetail.Year" type="number" ActiveSeperator=false    Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+<Input Id="SH_PolFilm_ProductDeliveryDetail_PARTCODE" @ref="Ref_SH_PolFilm_ProductDeliveryDetail_PARTCODE" Label="کد کالا"   Disabled=true  @bind-Value="SH_PolFilm_ProductDeliveryDetail.PARTCODE" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"maxlength\":\"150\"}").Result))></Input>
+
+</DxFormLayoutItem>
+
+<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextSH_PolFilm_ProductDeliveryDetail">
+    
+<Input Id="SH_PolFilm_ProductDeliveryDetail_RADYABI" @ref="Ref_SH_PolFilm_ProductDeliveryDetail_RADYABI" Label="ردیابی کالا"     @bind-Value="SH_PolFilm_ProductDeliveryDetail.RADYABI" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"maxlength\":\"50\"}").Result))></Input>
+
+</DxFormLayoutItem>
+
+<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextSH_PolFilm_ProductDeliveryDetail">
+    
+<Input Id="SH_PolFilm_ProductDeliveryDetail_SEFARESH" @ref="Ref_SH_PolFilm_ProductDeliveryDetail_SEFARESH" Label="سفارش کالاها"     @bind-Value="SH_PolFilm_ProductDeliveryDetail.SEFARESH" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"maxlength\":\"50\"}").Result))></Input>
+
+</DxFormLayoutItem>
+
+<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextSH_PolFilm_ProductDeliveryDetail">
+    
+<Input Id="SH_PolFilm_ProductDeliveryDetail_ROW_ID" @ref="Ref_SH_PolFilm_ProductDeliveryDetail_ROW_ID" Label="ردیف"  CssClass="d-none" Disabled=true  @bind-Value="SH_PolFilm_ProductDeliveryDetail.ROW_ID" type="number"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+</DxFormLayoutItem>
+
+<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextSH_PolFilm_ProductDeliveryDetail">
+    
+<Input Id="SH_PolFilm_ProductDeliveryDetail_Year" @ref="Ref_SH_PolFilm_ProductDeliveryDetail_Year" Label="سال"   Disabled=true  @bind-Value="SH_PolFilm_ProductDeliveryDetail.Year" type="number"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+</DxFormLayoutItem>
+
+<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextSH_PolFilm_ProductDeliveryDetail">
+    
+<Input Id="SH_PolFilm_ProductDeliveryDetail_shomarefani" @ref="Ref_SH_PolFilm_ProductDeliveryDetail_shomarefani" Label="شماره فنی"   Disabled=true  @bind-Value="SH_PolFilm_ProductDeliveryDetail.shomarefani" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"maxlength\":\"150\"}").Result))></Input>
+
+</DxFormLayoutItem>
+
+<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextSH_PolFilm_ProductDeliveryDetail">
+    
+<Input Id="SH_PolFilm_ProductDeliveryDetail_ProductName" @ref="Ref_SH_PolFilm_ProductDeliveryDetail_ProductName" Label="نام کالا"   Disabled=true  @bind-Value="SH_PolFilm_ProductDeliveryDetail.ProductName" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"maxlength\":\"300\"}").Result))></Input>
+
+</DxFormLayoutItem>
+
+<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextSH_PolFilm_ProductDeliveryDetail">
+     
+ 
+@code {
+    Baya.Models.ViewEngine.View_Component Component_SH_PolFilm_ProductDeliveryDetailProductSearch = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"primaryKey\":false,\"EntityID\":702,\"FieldId\":30847,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":958,\"NotMapped\":true,\"Relation\":true,\"RelationExternal\":true,\"RelationParentName\":\"\",\"RelationParentModel\":\"\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://shomaran.workcv.ir:2010/fa-ir/api/v1/view_parts/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"partcode\",\"template\":\"<span>{{item.partcode}} {{item.partno}} {{item.desc}} {{item.unit}} </span>\",\"FieldsTemplate\":[{\"key\":\"partcode\",\"value\":\"nvarchar(Max)\"},{\"key\":\"partno\",\"value\":\"nvarchar(Max)\"},{\"key\":\"desc\",\"value\":\"nvarchar(Max)\"},{\"key\":\"unit\",\"value\":\"nvarchar(Max)\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"searchField\":\"partcode,desc,partno,unit\",\"disabled\":false,\"modal\":true,\"label\":\"جستجو کالا\",\"tableView\":true,\"key\":\"ProductSearch\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"30847?EId=702&SubId=29\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true,\"onitemselected\":\"ProductSearch_onitemselected\"}").Result;
+}
+
+    <Dropdown Id=SH_PolFilm_ProductDeliveryDetail_ProductSearch  @ref="Ref_SH_PolFilm_ProductDeliveryDetail_ProductSearch" Label="جستجو کالا" CssClass=""  DisplayFormat="DropDown" ExternalApi=true NotMapped=true TextGrid=false   FieldName="ProductSearch" OnItemSelected="ItemSelected_SH_PolFilm_ProductDeliveryDetailProductSearch" Component="Component_SH_PolFilm_ProductDeliveryDetailProductSearch" _Entity="_Entity" _EntityRow=SH_PolFilm_ProductDeliveryDetail>
+</Dropdown>
+@code {
+    public async Task ItemSelected_SH_PolFilm_ProductDeliveryDetailProductSearch(object _Item)
+    {
+        var Selected = Utility.JSON.ToObject<dynamic>(Utility.JSON.ToJson(_Item).Result).Result;
+     var Item = SH_PolFilm_ProductDeliveryDetail;
+
+    
+
+    
+
+    await ProductSearch_onitemselected( Selected , SH_PolFilm_ProductDeliveryDetail);
+    }
+} 
+
+</DxFormLayoutItem>
+
+<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextSH_PolFilm_ProductDeliveryDetail">
+     
+ 
+@code {
+    Baya.Models.ViewEngine.View_Component Component_SH_PolFilm_ProductDeliveryDetailCENTCODE3 = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"primaryKey\":false,\"EntityID\":702,\"FieldId\":30848,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":958,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":true,\"RelationParentName\":\"\",\"RelationParentModel\":\"\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://shomaran.workcv.ir:2010/fa-ir/api/v1/view_pays/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"code\",\"template\":\"<span>{{item.acccode}} {{item.name}} {{item.code}} </span>\",\"FieldsTemplate\":[{\"key\":\"acccode\",\"value\":\"nvarchar(Max)\"},{\"key\":\"name\",\"value\":\"nvarchar(Max)\"},{\"key\":\"code\",\"value\":\"nvarchar(Max)\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"searchField\":\"acccode,name,code\",\"disabled\":false,\"modal\":true,\"label\":\"عامل هزینه\",\"tableView\":true,\"key\":\"CENTCODE3\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"30848?EId=702&SubId=29\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
+}
+
+    <Dropdown Id=SH_PolFilm_ProductDeliveryDetail_CENTCODE3  @ref="Ref_SH_PolFilm_ProductDeliveryDetail_CENTCODE3" Label="عامل هزینه" CssClass=""  DisplayFormat="DropDown" ExternalApi=true NotMapped=false TextGrid=false  Value="@SH_PolFilm_ProductDeliveryDetail.CENTCODE3" FieldName="CENTCODE3" OnItemSelected="ItemSelected_SH_PolFilm_ProductDeliveryDetailCENTCODE3" Component="Component_SH_PolFilm_ProductDeliveryDetailCENTCODE3" _Entity="_Entity" _EntityRow=SH_PolFilm_ProductDeliveryDetail>
+</Dropdown>
+@code {
+    public async Task ItemSelected_SH_PolFilm_ProductDeliveryDetailCENTCODE3(object _Item)
+    {
+        var Selected = Utility.JSON.ToObject<dynamic>(Utility.JSON.ToJson(_Item).Result).Result;
+     var Item = SH_PolFilm_ProductDeliveryDetail;
+
+    Item.CENTCODE3 = Selected.code;
+
+
+    
+
+    
+    }
+} 
+
+</DxFormLayoutItem>
+
+<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextSH_PolFilm_ProductDeliveryDetail">
+    
+<Input Id="SH_PolFilm_ProductDeliveryDetail_Unit" @ref="Ref_SH_PolFilm_ProductDeliveryDetail_Unit" Label="واحد"   Disabled=true  @bind-Value="SH_PolFilm_ProductDeliveryDetail.Unit" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
 
 </DxFormLayoutItem>
 
@@ -949,14 +935,6 @@ public void SaveGrid_SH_PolFilm_ProductDeliveryDetail(object DataItem, object Ed
     var MainModel = (Entity.SH_PolFilm_ProductDeliveryDetail)DataItem;
     if (MainModel != null)
     {
-MainModel.PARTCODE = ((Entity.SH_PolFilm_ProductDeliveryDetail)EditModel).PARTCODE;
-MainModel.ProductName = ((Entity.SH_PolFilm_ProductDeliveryDetail)EditModel).ProductName;
-MainModel.shomarefani = ((Entity.SH_PolFilm_ProductDeliveryDetail)EditModel).shomarefani;
-MainModel.AMOUNT = ((Entity.SH_PolFilm_ProductDeliveryDetail)EditModel).AMOUNT;
-MainModel.Unit = ((Entity.SH_PolFilm_ProductDeliveryDetail)EditModel).Unit;
-MainModel.CENTCODE3 = ((Entity.SH_PolFilm_ProductDeliveryDetail)EditModel).CENTCODE3;
-MainModel.RADYABI = ((Entity.SH_PolFilm_ProductDeliveryDetail)EditModel).RADYABI;
-MainModel.SEFARESH = ((Entity.SH_PolFilm_ProductDeliveryDetail)EditModel).SEFARESH;
 MainModel.Id = ((Entity.SH_PolFilm_ProductDeliveryDetail)EditModel).Id;
 MainModel.RequestID = ((Entity.SH_PolFilm_ProductDeliveryDetail)EditModel).RequestID;
 MainModel.CreateUser = ((Entity.SH_PolFilm_ProductDeliveryDetail)EditModel).CreateUser;
@@ -964,8 +942,16 @@ MainModel.UpdateUser = ((Entity.SH_PolFilm_ProductDeliveryDetail)EditModel).Upda
 MainModel.CreateDate = ((Entity.SH_PolFilm_ProductDeliveryDetail)EditModel).CreateDate;
 MainModel.UpdateDate = ((Entity.SH_PolFilm_ProductDeliveryDetail)EditModel).UpdateDate;
 MainModel.IsDelete = ((Entity.SH_PolFilm_ProductDeliveryDetail)EditModel).IsDelete;
+MainModel.AMOUNT = ((Entity.SH_PolFilm_ProductDeliveryDetail)EditModel).AMOUNT;
+MainModel.PARTCODE = ((Entity.SH_PolFilm_ProductDeliveryDetail)EditModel).PARTCODE;
+MainModel.RADYABI = ((Entity.SH_PolFilm_ProductDeliveryDetail)EditModel).RADYABI;
+MainModel.SEFARESH = ((Entity.SH_PolFilm_ProductDeliveryDetail)EditModel).SEFARESH;
 MainModel.ROW_ID = ((Entity.SH_PolFilm_ProductDeliveryDetail)EditModel).ROW_ID;
 MainModel.Year = ((Entity.SH_PolFilm_ProductDeliveryDetail)EditModel).Year;
+MainModel.shomarefani = ((Entity.SH_PolFilm_ProductDeliveryDetail)EditModel).shomarefani;
+MainModel.ProductName = ((Entity.SH_PolFilm_ProductDeliveryDetail)EditModel).ProductName;
+MainModel.CENTCODE3 = ((Entity.SH_PolFilm_ProductDeliveryDetail)EditModel).CENTCODE3;
+MainModel.Unit = ((Entity.SH_PolFilm_ProductDeliveryDetail)EditModel).Unit;
 
     }
     else
@@ -1080,22 +1066,6 @@ public async void RowDubbleClickGrid_SH_PolFilm_ProductDeliveryDetail(GridRowCli
 }
 }
 
-<Input Id="ApiResult" @ref="Ref_ApiResult" Label="ApiResult"     @bind-Value="_Entity.ApiResult" type="textarea"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
-
-<Input Id="Id" @ref="Ref_Id"   CssClass="d-none"   @bind-Value="_Entity.Id" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
-
-<Input Id="RequestID" @ref="Ref_RequestID"      @bind-Value="_Entity.RequestID" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
-
-<Input Id="CreateUser" @ref="Ref_CreateUser"      @bind-Value="_Entity.CreateUser" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
-
-<Input Id="UpdateUser" @ref="Ref_UpdateUser"      @bind-Value="_Entity.UpdateUser" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
-
-<Input Id="CreateDate" @ref="Ref_CreateDate"   CssClass="d-none"   @bind-Value="_Entity.CreateDate" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
-
-<Input Id="UpdateDate" @ref="Ref_UpdateDate"   CssClass="d-none"   @bind-Value="_Entity.UpdateDate" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
-
-<Input Id="IsDelete" @ref="Ref_IsDelete"   CssClass="d-none"   @bind-Value="_Entity.IsDelete" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
-
     </EditForm>
 </div>
 
@@ -1112,8 +1082,8 @@ public async void RowDubbleClickGrid_SH_PolFilm_ProductDeliveryDetail(GridRowCli
     {
         Console.WriteLine("#log OnInitializedAsync");
 
-        TableGet = await Utility.JSON.ToObject<Table>("{\"Name\":\"SH_PolFilm_ProductDelivery\",\"GetNameAs\":\"SH_PolFilm_ProductDelivery\",\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"RequestID\",\"GetNameAs\":\"RequestID\"},{\"Name\":\"CreateUser\",\"GetNameAs\":\"CreateUser\"},{\"Name\":\"UpdateUser\",\"GetNameAs\":\"UpdateUser\"},{\"Name\":\"CreateDate\",\"GetNameAs\":\"CreateDate\"},{\"Name\":\"UpdateDate\",\"GetNameAs\":\"UpdateDate\"},{\"Name\":\"IsDelete\",\"GetNameAs\":\"IsDelete\"},{\"Name\":\"CENTCODE\",\"GetNameAs\":\"CENTCODE\"},{\"Name\":\"CENTCODE2\",\"GetNameAs\":\"CENTCODE2\"},{\"Name\":\"CREATOR\",\"GetNameAs\":\"CREATOR\"},{\"Name\":\"FACTDATE\",\"GetNameAs\":\"FACTDATE\"},{\"Name\":\"FACTNO\",\"GetNameAs\":\"FACTNO\"},{\"Name\":\"H_KIND\",\"GetNameAs\":\"H_KIND\"},{\"Name\":\"INVCODE\",\"GetNameAs\":\"INVCODE\"},{\"Name\":\"TEMPNO\",\"GetNameAs\":\"TEMPNO\"},{\"Name\":\"NOTE\",\"GetNameAs\":\"NOTE\"},{\"Name\":\"Year\",\"GetNameAs\":\"Year\"},{\"Name\":\"Havale_List\",\"GetNameAs\":\"Havale_List\"},{\"Name\":\"ApiResult\",\"GetNameAs\":\"ApiResult\"}],\"Relation\":[{\"Name\":\"SH_PolFilm_ProductDeliveryDetail\",\"GetNameAs\":\"SH_PolFilm_ProductDeliveryDetail\",\"ModeErtebat\":2,\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"RequestID\",\"GetNameAs\":\"RequestID\"},{\"Name\":\"CreateUser\",\"GetNameAs\":\"CreateUser\"},{\"Name\":\"UpdateUser\",\"GetNameAs\":\"UpdateUser\"},{\"Name\":\"CreateDate\",\"GetNameAs\":\"CreateDate\"},{\"Name\":\"UpdateDate\",\"GetNameAs\":\"UpdateDate\"},{\"Name\":\"IsDelete\",\"GetNameAs\":\"IsDelete\"},{\"Name\":\"AMOUNT\",\"GetNameAs\":\"AMOUNT\"},{\"Name\":\"PARTCODE\",\"GetNameAs\":\"PARTCODE\"},{\"Name\":\"RADYABI\",\"GetNameAs\":\"RADYABI\"},{\"Name\":\"SEFARESH\",\"GetNameAs\":\"SEFARESH\"},{\"Name\":\"ROW_ID\",\"GetNameAs\":\"ROW_ID\"},{\"Name\":\"Year\",\"GetNameAs\":\"Year\"},{\"Name\":\"shomarefani\",\"GetNameAs\":\"shomarefani\"},{\"Name\":\"ProductName\",\"GetNameAs\":\"ProductName\"},{\"Name\":\"CENTCODE3\",\"GetNameAs\":\"CENTCODE3\"},{\"Name\":\"Unit\",\"GetNameAs\":\"Unit\"}],\"Relation\":[]}]}");
-        TablePost = await Utility.JSON.ToObject<Table>("{\"Name\":\"SH_PolFilm_ProductDelivery\",\"GetNameAs\":\"SH_PolFilm_ProductDelivery\",\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"RequestID\",\"GetNameAs\":\"RequestID\"},{\"Name\":\"CreateUser\",\"GetNameAs\":\"CreateUser\"},{\"Name\":\"UpdateUser\",\"GetNameAs\":\"UpdateUser\"},{\"Name\":\"CreateDate\",\"GetNameAs\":\"CreateDate\"},{\"Name\":\"UpdateDate\",\"GetNameAs\":\"UpdateDate\"},{\"Name\":\"IsDelete\",\"GetNameAs\":\"IsDelete\"},{\"Name\":\"CENTCODE\",\"GetNameAs\":\"CENTCODE\"},{\"Name\":\"CENTCODE2\",\"GetNameAs\":\"CENTCODE2\"},{\"Name\":\"CREATOR\",\"GetNameAs\":\"CREATOR\"},{\"Name\":\"FACTDATE\",\"GetNameAs\":\"FACTDATE\"},{\"Name\":\"FACTNO\",\"GetNameAs\":\"FACTNO\"},{\"Name\":\"H_KIND\",\"GetNameAs\":\"H_KIND\"},{\"Name\":\"INVCODE\",\"GetNameAs\":\"INVCODE\"},{\"Name\":\"TEMPNO\",\"GetNameAs\":\"TEMPNO\"},{\"Name\":\"NOTE\",\"GetNameAs\":\"NOTE\"},{\"Name\":\"Year\",\"GetNameAs\":\"Year\"},{\"Name\":\"Havale_List\",\"GetNameAs\":\"Havale_List\"},{\"Name\":\"ApiResult\",\"GetNameAs\":\"ApiResult\"}],\"Relation\":[{\"Name\":\"SH_PolFilm_ProductDeliveryDetail\",\"GetNameAs\":\"SH_PolFilm_ProductDeliveryDetail\",\"ModeErtebat\":2,\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"RequestID\",\"GetNameAs\":\"RequestID\"},{\"Name\":\"CreateUser\",\"GetNameAs\":\"CreateUser\"},{\"Name\":\"UpdateUser\",\"GetNameAs\":\"UpdateUser\"},{\"Name\":\"CreateDate\",\"GetNameAs\":\"CreateDate\"},{\"Name\":\"UpdateDate\",\"GetNameAs\":\"UpdateDate\"},{\"Name\":\"IsDelete\",\"GetNameAs\":\"IsDelete\"},{\"Name\":\"AMOUNT\",\"GetNameAs\":\"AMOUNT\"},{\"Name\":\"PARTCODE\",\"GetNameAs\":\"PARTCODE\"},{\"Name\":\"RADYABI\",\"GetNameAs\":\"RADYABI\"},{\"Name\":\"SEFARESH\",\"GetNameAs\":\"SEFARESH\"},{\"Name\":\"ROW_ID\",\"GetNameAs\":\"ROW_ID\"},{\"Name\":\"Year\",\"GetNameAs\":\"Year\"},{\"Name\":\"shomarefani\",\"GetNameAs\":\"shomarefani\"},{\"Name\":\"ProductName\",\"GetNameAs\":\"ProductName\"},{\"Name\":\"CENTCODE3\",\"GetNameAs\":\"CENTCODE3\"},{\"Name\":\"Unit\",\"GetNameAs\":\"Unit\"}],\"Relation\":[]}]}");
+        TableGet = await Utility.JSON.ToObject<Table>("{\"Name\":\"SH_PolFilm_ProductDelivery\",\"GetNameAs\":\"SH_PolFilm_ProductDelivery\",\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"RequestID\",\"GetNameAs\":\"RequestID\"},{\"Name\":\"CreateUser\",\"GetNameAs\":\"CreateUser\"},{\"Name\":\"UpdateUser\",\"GetNameAs\":\"UpdateUser\"},{\"Name\":\"CreateDate\",\"GetNameAs\":\"CreateDate\"},{\"Name\":\"UpdateDate\",\"GetNameAs\":\"UpdateDate\"},{\"Name\":\"IsDelete\",\"GetNameAs\":\"IsDelete\"},{\"Name\":\"CENTCODE\",\"GetNameAs\":\"CENTCODE\"},{\"Name\":\"CENTCODE2\",\"GetNameAs\":\"CENTCODE2\"},{\"Name\":\"CREATOR\",\"GetNameAs\":\"CREATOR\"},{\"Name\":\"FACTDATE\",\"GetNameAs\":\"FACTDATE\"},{\"Name\":\"FACTNO\",\"GetNameAs\":\"FACTNO\"},{\"Name\":\"H_KIND\",\"GetNameAs\":\"H_KIND\"},{\"Name\":\"INVCODE\",\"GetNameAs\":\"INVCODE\"},{\"Name\":\"TEMPNO\",\"GetNameAs\":\"TEMPNO\"},{\"Name\":\"NOTE\",\"GetNameAs\":\"NOTE\"},{\"Name\":\"Year\",\"GetNameAs\":\"Year\"},{\"Name\":\"ApiResult\",\"GetNameAs\":\"ApiResult\"},{\"Name\":\"Havale_List\",\"GetNameAs\":\"Havale_List\"}],\"Relation\":[{\"Name\":\"SH_PolFilm_ProductDeliveryDetail\",\"GetNameAs\":\"SH_PolFilm_ProductDeliveryDetail\",\"ModeErtebat\":2,\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"RequestID\",\"GetNameAs\":\"RequestID\"},{\"Name\":\"CreateUser\",\"GetNameAs\":\"CreateUser\"},{\"Name\":\"UpdateUser\",\"GetNameAs\":\"UpdateUser\"},{\"Name\":\"CreateDate\",\"GetNameAs\":\"CreateDate\"},{\"Name\":\"UpdateDate\",\"GetNameAs\":\"UpdateDate\"},{\"Name\":\"IsDelete\",\"GetNameAs\":\"IsDelete\"},{\"Name\":\"AMOUNT\",\"GetNameAs\":\"AMOUNT\"},{\"Name\":\"PARTCODE\",\"GetNameAs\":\"PARTCODE\"},{\"Name\":\"RADYABI\",\"GetNameAs\":\"RADYABI\"},{\"Name\":\"SEFARESH\",\"GetNameAs\":\"SEFARESH\"},{\"Name\":\"ROW_ID\",\"GetNameAs\":\"ROW_ID\"},{\"Name\":\"Year\",\"GetNameAs\":\"Year\"},{\"Name\":\"shomarefani\",\"GetNameAs\":\"shomarefani\"},{\"Name\":\"ProductName\",\"GetNameAs\":\"ProductName\"},{\"Name\":\"CENTCODE3\",\"GetNameAs\":\"CENTCODE3\"},{\"Name\":\"Unit\",\"GetNameAs\":\"Unit\"}],\"Relation\":[]}]}");
+        TablePost = await Utility.JSON.ToObject<Table>("{\"Name\":\"SH_PolFilm_ProductDelivery\",\"GetNameAs\":\"SH_PolFilm_ProductDelivery\",\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"RequestID\",\"GetNameAs\":\"RequestID\"},{\"Name\":\"CreateUser\",\"GetNameAs\":\"CreateUser\"},{\"Name\":\"UpdateUser\",\"GetNameAs\":\"UpdateUser\"},{\"Name\":\"CreateDate\",\"GetNameAs\":\"CreateDate\"},{\"Name\":\"UpdateDate\",\"GetNameAs\":\"UpdateDate\"},{\"Name\":\"IsDelete\",\"GetNameAs\":\"IsDelete\"},{\"Name\":\"CENTCODE\",\"GetNameAs\":\"CENTCODE\"},{\"Name\":\"CENTCODE2\",\"GetNameAs\":\"CENTCODE2\"},{\"Name\":\"CREATOR\",\"GetNameAs\":\"CREATOR\"},{\"Name\":\"FACTDATE\",\"GetNameAs\":\"FACTDATE\"},{\"Name\":\"FACTNO\",\"GetNameAs\":\"FACTNO\"},{\"Name\":\"H_KIND\",\"GetNameAs\":\"H_KIND\"},{\"Name\":\"INVCODE\",\"GetNameAs\":\"INVCODE\"},{\"Name\":\"TEMPNO\",\"GetNameAs\":\"TEMPNO\"},{\"Name\":\"NOTE\",\"GetNameAs\":\"NOTE\"},{\"Name\":\"Year\",\"GetNameAs\":\"Year\"},{\"Name\":\"ApiResult\",\"GetNameAs\":\"ApiResult\"},{\"Name\":\"Havale_List\",\"GetNameAs\":\"Havale_List\"}],\"Relation\":[{\"Name\":\"SH_PolFilm_ProductDeliveryDetail\",\"GetNameAs\":\"SH_PolFilm_ProductDeliveryDetail\",\"ModeErtebat\":2,\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"RequestID\",\"GetNameAs\":\"RequestID\"},{\"Name\":\"CreateUser\",\"GetNameAs\":\"CreateUser\"},{\"Name\":\"UpdateUser\",\"GetNameAs\":\"UpdateUser\"},{\"Name\":\"CreateDate\",\"GetNameAs\":\"CreateDate\"},{\"Name\":\"UpdateDate\",\"GetNameAs\":\"UpdateDate\"},{\"Name\":\"IsDelete\",\"GetNameAs\":\"IsDelete\"},{\"Name\":\"AMOUNT\",\"GetNameAs\":\"AMOUNT\"},{\"Name\":\"PARTCODE\",\"GetNameAs\":\"PARTCODE\"},{\"Name\":\"RADYABI\",\"GetNameAs\":\"RADYABI\"},{\"Name\":\"SEFARESH\",\"GetNameAs\":\"SEFARESH\"},{\"Name\":\"ROW_ID\",\"GetNameAs\":\"ROW_ID\"},{\"Name\":\"Year\",\"GetNameAs\":\"Year\"},{\"Name\":\"shomarefani\",\"GetNameAs\":\"shomarefani\"},{\"Name\":\"ProductName\",\"GetNameAs\":\"ProductName\"},{\"Name\":\"CENTCODE3\",\"GetNameAs\":\"CENTCODE3\"},{\"Name\":\"Unit\",\"GetNameAs\":\"Unit\"}],\"Relation\":[]}]}");
 
         config = CKEditorBundleOptions.DefaultConfig.WithHtmlEditing();
         config.Language = "fa";

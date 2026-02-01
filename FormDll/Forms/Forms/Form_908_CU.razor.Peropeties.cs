@@ -144,7 +144,7 @@ namespace Forms.Forms
     /// <summary>
     ///  ورژنی که فرم باهاش ساخته شده
     /// </summary>
-    public string? VersionForm { get; set; } = "5603";
+    public string? VersionForm { get; set; } = "5622";
 
     /// <summary>
     ///  موجودیت
@@ -182,20 +182,6 @@ namespace Forms.Forms
 public Input<string?> Ref_Title;
 public Input<string?> Ref_Description;
 public Input<bool?> Ref_IsActive;
-public DxGrid? Grid_BaseInfo_ORG_Companies;
-
-public Dropdown Ref_BaseInfo_ORG_Companies_BaseInfo_ORG_SitesId;
-public Input<string?> Ref_BaseInfo_ORG_Companies_Code;
-public Input<string?> Ref_BaseInfo_ORG_Companies_Title;
-public Input<string?> Ref_BaseInfo_ORG_Companies_OldCompanyId;
-public Input<bool?> Ref_BaseInfo_ORG_Companies_IsActive;
-public Input<Guid> Ref_BaseInfo_ORG_Companies_Id;
-public Input<Guid?> Ref_BaseInfo_ORG_Companies_RequestID;
-public Input<Guid?> Ref_BaseInfo_ORG_Companies_CreateUser;
-public Input<Guid?> Ref_BaseInfo_ORG_Companies_UpdateUser;
-public Input<DateTime?> Ref_BaseInfo_ORG_Companies_CreateDate;
-public Input<DateTime?> Ref_BaseInfo_ORG_Companies_UpdateDate;
-public Input<bool?> Ref_BaseInfo_ORG_Companies_IsDelete;
 public Input<Guid> Ref_Id;
 public Input<Guid?> Ref_RequestID;
 public Input<Guid?> Ref_CreateUser;
@@ -203,6 +189,20 @@ public Input<Guid?> Ref_UpdateUser;
 public Input<DateTime?> Ref_CreateDate;
 public Input<DateTime?> Ref_UpdateDate;
 public Input<bool?> Ref_IsDelete;
+public DxGrid? Grid_BaseInfo_ORG_Companies;
+
+public Input<Guid> Ref_BaseInfo_ORG_Companies_Id;
+public Input<Guid?> Ref_BaseInfo_ORG_Companies_RequestID;
+public Input<Guid?> Ref_BaseInfo_ORG_Companies_CreateUser;
+public Input<Guid?> Ref_BaseInfo_ORG_Companies_UpdateUser;
+public Input<DateTime?> Ref_BaseInfo_ORG_Companies_CreateDate;
+public Input<DateTime?> Ref_BaseInfo_ORG_Companies_UpdateDate;
+public Input<bool?> Ref_BaseInfo_ORG_Companies_IsDelete;
+public Input<string?> Ref_BaseInfo_ORG_Companies_Code;
+public Input<string?> Ref_BaseInfo_ORG_Companies_Title;
+public Input<bool?> Ref_BaseInfo_ORG_Companies_IsActive;
+public Dropdown Ref_BaseInfo_ORG_Companies_BaseInfo_ORG_SitesId;
+public Input<string?> Ref_BaseInfo_ORG_Companies_OldCompanyId;
 
 
     #endregion

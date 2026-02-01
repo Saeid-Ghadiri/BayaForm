@@ -177,6 +177,17 @@
     font-weight: 650;
 }
 
+.input-view-long input {
+    display: inline-block;
+    max-width: 250px !important;
+    background: none !important;
+    border: none;
+    color: #1a1a1c;
+    font-size: 16px;
+    text-align: start;
+    font-weight: 650;
+}
+
 .lrt-input input {
     direction: ltr !important;
 }
@@ -292,6 +303,295 @@ td .picprofilebtn {
 
 .EmployeeWorkExperienceFile .btn-red {
     text-align: start;
+}
+
+/* ************************************************** */
+.modal-confirmation .modal-dialog:has(.btnHelp) {
+    max-width: 1000px
+}
+
+/* ************************************************** */
+
+/* ************************************************** */
+.employee-guide-wrapper {
+    --primary-color: #6c5ffc;
+    --secondary-color: #0d1a52;
+    --success-color: #28a745;
+    --warning-color: #ffc107;
+    --danger-color: #dc3545;
+    --info-color: #17a2b8;
+    background: linear-gradient(135deg, #f5f7fa 0%, #e4e8f0 100%);
+    color: #2d3748;
+    line-height: 1.8;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.employee-guide-wrapper>.container {
+    max-width: 1200px;
+    width: 100%;
+    margin: 0;
+    padding: 20px;
+    background: white;
+    border-radius: 20px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+}
+.header-section {
+    text-align: center;
+    margin-bottom: 40px;
+    padding-bottom: 30px;
+    border-bottom: 3px solid var(--primary-color);
+    background: linear-gradient(135deg, #6c5ffc 0%, #4e44ce 100%);
+    border-radius: 15px;
+    padding: 40px 20px;
+    color: white;
+    position: relative;
+    overflow: hidden;
+}
+
+.header-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="%23ffffff" fill-opacity="0.1" d="M0,224L48,218.7C96,213,192,203,288,197.3C384,192,480,192,576,202.7C672,213,768,235,864,229.3C960,224,1056,192,1152,186.7C1248,181,1344,203,1392,213.3L1440,224L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path></svg>');
+    background-size: cover;
+}
+
+.header-section * {
+    position: relative;
+    z-index: 1;
+}
+
+.header-section img {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    border: 4px solid white;
+    padding: 5px;
+    background: white;
+    margin-bottom: 20px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+.section-card {
+    background: white;
+    border-radius: 15px;
+    padding: 25px;
+    margin-bottom: 25px;
+    border: none;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+    transition: all 0.3s ease;
+    border-right: 5px solid var(--primary-color);
+}
+
+.section-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+}
+
+.section-title {
+    color: var(--primary-color);
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 20px;
+    padding-bottom: 15px;
+    border-bottom: 2px solid #f0f0f0;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.section-title i {
+    font-size: 1.8rem;
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.field-group {
+    background: #f8f9fa;
+    border-radius: 10px;
+    padding: 20px;
+    margin-bottom: 15px;
+    border: 1px solid #e9ecef;
+}
+
+.field-item {
+    padding: 10px 0;
+    border-bottom: 1px dashed #dee2e6;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.field-item:last-child {
+    border-bottom: none;
+}
+
+.field-name {
+    font-weight: 600;
+    color: #495057;
+    flex: 1;
+}
+
+.field-desc {
+    color: #6c757d;
+    flex: 2;
+    font-size: 0.95rem;
+}
+
+.requirement {
+    display: inline-block;
+    padding: 3px 10px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    margin-right: 10px;
+}
+
+.required {
+    background: linear-gradient(135deg, #dc3545, #c82333);
+    color: white;
+}
+
+.optional {
+    background: linear-gradient(135deg, #6c757d, #495057);
+    color: white;
+}
+
+.validation-rules {
+    background: #fff3cd;
+    border: 1px solid #ffc107;
+    border-radius: 10px;
+    padding: 15px;
+    margin-top: 15px;
+}
+
+.rule-item {
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 8px;
+}
+
+.rule-item i {
+    color: var(--warning-color);
+    margin-left: 10px;
+    margin-top: 3px;
+}
+
+.important-note {
+    background: linear-gradient(135deg, #ff6b6b, #ee5a52);
+    color: white;
+    padding: 15px;
+    border-radius: 10px;
+    margin: 20px 0;
+    animation: pulse 2s infinite;
+}
+
+@@keyframes pulse {
+    0% {
+        box-shadow: 0 0 0 0 rgba(255, 107, 107, 0.7);
+    }
+
+    70% {
+        box-shadow: 0 0 0 10px rgba(255, 107, 107, 0);
+    }
+
+    100% {
+        box-shadow: 0 0 0 0 rgba(255, 107, 107, 0);
+    }
+}
+
+.download-btn {
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    color: white;
+    border: none;
+    padding: 10px 25px;
+    border-radius: 25px;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    transition: all 0.3s ease;
+}
+
+.download-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(108, 95, 252, 0.4);
+    color: white;
+}
+
+.grid-visual {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+    margin-top: 30px;
+}
+
+.visual-item {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 3px 15px rgba(0, 0, 0, 0.08);
+    border-top: 4px solid var(--primary-color);
+}
+
+.badge-custom {
+    background: linear-gradient(135deg, var(--info-color), #138496);
+    color: white;
+    padding: 5px 15px;
+    border-radius: 20px;
+    font-size: 0.9rem;
+}
+
+.step-indicator {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.step-number {
+    width: 30px;
+    height: 30px;
+    background: var(--primary-color);
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    margin-left: 10px;
+}
+
+@@media (max-width: 768px) {
+    .container {
+        padding: 15px;
+        margin: 10px;
+    }
+
+    .header-section {
+        padding: 30px 15px;
+    }
+
+    .section-card {
+        padding: 20px 15px;
+    }
+
+    .field-item {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .field-desc {
+        margin-top: 5px;
+    }
 }
 </style>
 <div class="filterbox @(ShowFilterBar ? "" : "d-none")">

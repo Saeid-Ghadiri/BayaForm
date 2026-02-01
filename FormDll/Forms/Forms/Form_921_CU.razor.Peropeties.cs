@@ -144,7 +144,7 @@ namespace Forms.Forms
     /// <summary>
     ///  ورژنی که فرم باهاش ساخته شده
     /// </summary>
-    public string? VersionForm { get; set; } = "5603";
+    public string? VersionForm { get; set; } = "5622";
 
     /// <summary>
     ///  موجودیت
@@ -183,18 +183,6 @@ public Dropdown Ref_BaseInfo_ProvincesId;
 public Dropdown Ref_ParentId;
 public Input<string?> Ref_Title;
 public Input<Guid> Ref_Id;
-public DxGrid? Grid_InverseParent;
-
-public Input<Guid> Ref_InverseParent_Id;
-public Input<Guid?> Ref_InverseParent_RequestID;
-public Input<Guid?> Ref_InverseParent_CreateUser;
-public Input<Guid?> Ref_InverseParent_UpdateUser;
-public Input<DateTime?> Ref_InverseParent_CreateDate;
-public Input<DateTime?> Ref_InverseParent_UpdateDate;
-public Input<bool?> Ref_InverseParent_IsDelete;
-public Input<string?> Ref_InverseParent_Title;
-public Dropdown Ref_InverseParent_BaseInfo_ProvincesId;
-public Input<Guid?> Ref_InverseParent_ParentId;
 public Input<Guid?> Ref_RequestID;
 public Input<Guid?> Ref_CreateUser;
 public Input<Guid?> Ref_UpdateUser;

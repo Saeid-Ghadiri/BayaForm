@@ -144,7 +144,7 @@ namespace Forms.Forms
     /// <summary>
     ///  ورژنی که فرم باهاش ساخته شده
     /// </summary>
-    public string? VersionForm { get; set; } = "5603";
+    public string? VersionForm { get; set; } = "5622";
 
     /// <summary>
     ///  موجودیت
@@ -182,10 +182,14 @@ namespace Forms.Forms
 public Input<Guid> Ref_Id;
 public Input<string?> Ref_StationTypeName;
 public Input<string?> Ref_StationTypeLatinName;
+public Input<Guid?> Ref_RequestID;
+public Input<Guid?> Ref_CreateUser;
+public Input<Guid?> Ref_UpdateUser;
+public Input<DateTime?> Ref_CreateDate;
+public Input<DateTime?> Ref_UpdateDate;
+public Input<bool?> Ref_IsDelete;
 public DxGrid? Grid_PPCAtlasBobbin_Station;
 
-public Input<string?> Ref_PPCAtlasBobbin_Station_StationName;
-public Input<string?> Ref_PPCAtlasBobbin_Station_StationEnName;
 public Input<Guid> Ref_PPCAtlasBobbin_Station_Id;
 public Input<Guid?> Ref_PPCAtlasBobbin_Station_RequestID;
 public Input<Guid?> Ref_PPCAtlasBobbin_Station_CreateUser;
@@ -193,12 +197,8 @@ public Input<Guid?> Ref_PPCAtlasBobbin_Station_UpdateUser;
 public Input<DateTime?> Ref_PPCAtlasBobbin_Station_CreateDate;
 public Input<DateTime?> Ref_PPCAtlasBobbin_Station_UpdateDate;
 public Input<bool?> Ref_PPCAtlasBobbin_Station_IsDelete;
-public Input<Guid?> Ref_RequestID;
-public Input<Guid?> Ref_CreateUser;
-public Input<Guid?> Ref_UpdateUser;
-public Input<DateTime?> Ref_CreateDate;
-public Input<DateTime?> Ref_UpdateDate;
-public Input<bool?> Ref_IsDelete;
+public Input<string?> Ref_PPCAtlasBobbin_Station_StationName;
+public Input<string?> Ref_PPCAtlasBobbin_Station_StationEnName;
 
 
     #endregion

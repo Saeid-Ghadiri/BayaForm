@@ -144,7 +144,7 @@ namespace Forms.Forms
     /// <summary>
     ///  ورژنی که فرم باهاش ساخته شده
     /// </summary>
-    public string? VersionForm { get; set; } = "5603";
+    public string? VersionForm { get; set; } = "5622";
 
     /// <summary>
     ///  موجودیت
@@ -181,7 +181,7 @@ namespace Forms.Forms
 
 public Input<decimal?> Ref_OrdPoint;
 public Input<decimal?> Ref_MaxAmount;
-public Dropdown Ref_PartNo;
+public Input<string?> Ref_PartNo;
 public Dropdown Ref_InvCode;
 public Input<int?> Ref_Year;
 public Input<decimal?> Ref_EhtiatAmount;

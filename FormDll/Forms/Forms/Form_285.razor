@@ -32,7 +32,19 @@
     <EditForm @ref="_Form" Model="_Entity" OnSubmit="Submit">
         
 <Input Id="Id" @ref="Ref_Id"   CssClass="d-none"   @bind-Value="_Entity.Id" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
-<label for="FileUploads_FileUploads_GridFileUploads_MainFileUploadsId_180">بارگذاری فایل
+
+<Input Id="RequestID" @ref="Ref_RequestID"      @bind-Value="_Entity.RequestID" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+<Input Id="CreateUser" @ref="Ref_CreateUser"      @bind-Value="_Entity.CreateUser" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+<Input Id="UpdateUser" @ref="Ref_UpdateUser"      @bind-Value="_Entity.UpdateUser" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+<Input Id="CreateDate" @ref="Ref_CreateDate"   CssClass="d-none"   @bind-Value="_Entity.CreateDate" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+<Input Id="UpdateDate" @ref="Ref_UpdateDate"   CssClass="d-none"   @bind-Value="_Entity.UpdateDate" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+<Input Id="IsDelete" @ref="Ref_IsDelete"   CssClass="d-none"   @bind-Value="_Entity.IsDelete" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+<label for="FileUploads_FileUploads_GridFileUploads_MainFileUploadsId_179">بارگذاری فایل
    
     
 </label>
@@ -45,14 +57,14 @@
         EditFormButtonsVisible="false"
         CustomizeEditModel="CustomizeEditGrid_FileUploads_FileUploads"
         CustomizeElement="CustomizeRowsGrid_FileUploads_FileUploads" 
-        Component="@((Utility.JSON.ToObject<View_Component>("{\"primaryKey\":false,\"EntityID\":180,\"FieldId\":0,\"ViewId\":285,\"NotMapped\":false,\"Relation\":false,\"RelationExternal\":false,\"RelationChildModel\":\"FileUploads_FileUploads\",\"GridMainModel\":\"FileUploads_FileUploads\",\"widget\":{\"altInput\":false,\"allowInput\":false,\"clickOpens\":false,\"enableDate\":false,\"enableTime\":false,\"noCalendar\":false,\"useLocaleSettings\":false,\"hourIncrement\":0,\"minuteIncrement\":0,\"time_24hr\":false},\"data\":{},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"FieldsTemplate\":[],\"refreshOn\":\"data\",\"reorder\":false,\"addAnotherPosition\":\"bottom\",\"layoutFixed\":false,\"enableRowGroups\":false,\"initEmpty\":false,\"modal\":true,\"label\":\"بارگذاری فایل\",\"tableView\":false,\"key\":\"GridFileUploads_MainFileUploadsId_180\",\"type\":\"datagrid\",\"input\":true,\"modalEdit\":true,\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":false,\"AccessEdit\":true,\"AccessNew\":true}").Result))"
+        Component="@((Utility.JSON.ToObject<View_Component>("{\"primaryKey\":false,\"EntityID\":179,\"FieldId\":179,\"TypeCSharp\":\"\",\"NotNull\":false,\"ViewId\":0,\"NotMapped\":false,\"Relation\":false,\"RelationExternal\":false,\"RelationParentName\":\"\",\"RelationParentModel\":\"\",\"RelationChildModel\":\"FileUploads_FileUploads\",\"GridMainModel\":\"FileUploads_FileUploads\",\"widget\":{\"altInput\":false,\"allowInput\":false,\"clickOpens\":false,\"enableDate\":false,\"enableTime\":false,\"noCalendar\":false,\"useLocaleSettings\":false,\"hourIncrement\":0,\"minuteIncrement\":0,\"time_24hr\":false},\"wysiwyg\":false,\"data\":{},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"FieldsTemplate\":[],\"refreshOn\":\"data\",\"reorder\":false,\"addAnotherPosition\":\"bottom\",\"layoutFixed\":false,\"enableRowGroups\":false,\"initEmpty\":false,\"disabled\":true,\"modal\":true,\"label\":\"بارگذاری فایل\",\"tableView\":true,\"key\":\"GridFileUploads_MainFileUploadsId_179\",\"type\":\"datagrid\",\"input\":true,\"placeholder\":\"GridFileUploads_MainFileUploadsId_179\",\"modalEdit\":true,\"FieldUrl\":\"179?EId=179&SubId=13\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result))"
          >
     <Columns>
     
 <DxGridCommandColumn Width="70px">
     <HeaderTemplate Context="HeaderContext">
        
-<a id=FileUploads_FileUploads_GridFileUploads_MainFileUploadsId_180ButtonNew class="btn btn-sm btn-green btnGridAddData" @onclick="@(() => StartEditNewRowAsync_Grid_FileUploads_FileUploads())" style="text-decoration: none;" href="javascript:void(0);">
+<a id=FileUploads_FileUploads_GridFileUploads_MainFileUploadsId_179ButtonNew class="btn btn-sm btn-green btnGridAddData" @onclick="@(() => StartEditNewRowAsync_Grid_FileUploads_FileUploads())" style="text-decoration: none;" href="javascript:void(0);">
     <span class="fal fa-plus-circle btnicon"></span>
     <span>@languageContainer.Keys["DXGrid:New"]</span>
 </a>
@@ -60,11 +72,15 @@
     </HeaderTemplate>
     <CellDisplayTemplate Context="CellContext">
        
-<a id=FileUploads_FileUploads_GridFileUploads_MainFileUploadsId_180ButtonEdit class="btn btn-sm btn-yellow-light btnEditGridData" @onclick="@(() => StartModalGrid_FileUploads_FileUploads(CellContext))" style="text-decoration: none;" href="javascript:void(0);">
+<a id=FileUploads_FileUploads_GridFileUploads_MainFileUploadsId_179ButtonEdit class="btn btn-sm btn-yellow-light btnEditGridData" @onclick="@(() => StartModalGrid_FileUploads_FileUploads(CellContext))" style="text-decoration: none;" href="javascript:void(0);">
     <span class="fal fa-pencil btnicon"></span>
 </a>
 
        
+<a class="btn btn-sm btn-red-light btnDeleteGridData" @onclick="@(() => OnDeleteButtonClickGrid_FileUploads_FileUploads(CellContext))" style="text-decoration: none;" href="javascript:void(0);">
+    <span class="fal fa-times-circle btnicon"></span>
+</a>
+
     </CellDisplayTemplate>
 </DxGridCommandColumn>
 
@@ -185,18 +201,18 @@
 
 
         <DxFormLayoutItem ColSpanMd="12" Context="FormLayoutContextFileUploads_FileUploads" CssClass="btn-modal-custom">
-            <DxButton Id="FileUploads_FileUploads_GridFileUploads_MainFileUploadsId_180ButtonSave" Click="@(() => SaveModalGrid_FileUploads_FileUploads(EditFormContextFileUploads_FileUploads))" Text="@languageContainer.Keys["DXGrid:Save"]" CssClass="btn btn-green px-5" />
+            <DxButton Id="FileUploads_FileUploads_GridFileUploads_MainFileUploadsId_179ButtonSave" Click="@(() => SaveModalGrid_FileUploads_FileUploads(EditFormContextFileUploads_FileUploads))" Text="@languageContainer.Keys["DXGrid:Save"]" CssClass="btn btn-green px-5" />
             
-<DxButton id="FileUploads_FileUploads_GridFileUploads_MainFileUploadsId_180ButtonSaveAndNew"    Text="ذخیره و جدید" Click="@(() => SaveAndNewGrid_FileUploads_FileUploads(EditFormContextFileUploads_FileUploads))" CssClass="btn btn-green" />
+<DxButton id="FileUploads_FileUploads_GridFileUploads_MainFileUploadsId_179ButtonSaveAndNew"    Text="ذخیره و جدید" Click="@(() => SaveAndNewGrid_FileUploads_FileUploads(EditFormContextFileUploads_FileUploads))" CssClass="btn btn-green" />
 
 
-            <DxButton Id="FileUploads_FileUploads_GridFileUploads_MainFileUploadsId_180ButtonCancel" Click="@(() => Grid_FileUploads_FileUploads.CancelEditAsync())" Text="@languageContainer.Keys["DXGrid:Cancel"]" CssClass="btn btn-red" />
+            <DxButton Id="FileUploads_FileUploads_GridFileUploads_MainFileUploadsId_179ButtonCancel" Click="@(() => Grid_FileUploads_FileUploads.CancelEditAsync())" Text="@languageContainer.Keys["DXGrid:Cancel"]" CssClass="btn btn-red" />
             <button id="click_s"  hidden>submit</button>
              <span>|</span>
            
-            <DxButton Id="FileUploads_FileUploads_GridFileUploads_MainFileUploadsId_180ButtonBefore" Click="@(() => Dialog_Grid_FileUploads_FileUploads(0,IndexGrid_FileUploads_FileUploads,EditFormContextFileUploads_FileUploads))" Text="قبلی" CssClass="btn btn-purple" />@* @languageContainer.Keys["DXGrid:??"] *@
+            <DxButton Id="FileUploads_FileUploads_GridFileUploads_MainFileUploadsId_179ButtonBefore" Click="@(() => Dialog_Grid_FileUploads_FileUploads(0,IndexGrid_FileUploads_FileUploads,EditFormContextFileUploads_FileUploads))" Text="قبلی" CssClass="btn btn-purple" />@* @languageContainer.Keys["DXGrid:??"] *@
          
-            <DxButton Id="FileUploads_FileUploads_GridFileUploads_MainFileUploadsId_180ButtonNext" Click="@(() => Dialog_Grid_FileUploads_FileUploads(1,IndexGrid_FileUploads_FileUploads,EditFormContextFileUploads_FileUploads))" Text="بعدی" CssClass="btn btn-purple" />
+            <DxButton Id="FileUploads_FileUploads_GridFileUploads_MainFileUploadsId_179ButtonNext" Click="@(() => Dialog_Grid_FileUploads_FileUploads(1,IndexGrid_FileUploads_FileUploads,EditFormContextFileUploads_FileUploads))" Text="بعدی" CssClass="btn btn-purple" />
 
         </DxFormLayoutItem>
     </DxFormLayout>
@@ -589,18 +605,6 @@ public async void RowDubbleClickGrid_FileUploads_FileUploads(GridRowClickEventAr
 
 }
 }
-
-<Input Id="RequestID" @ref="Ref_RequestID"      @bind-Value="_Entity.RequestID" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
-
-<Input Id="CreateUser" @ref="Ref_CreateUser"      @bind-Value="_Entity.CreateUser" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
-
-<Input Id="UpdateUser" @ref="Ref_UpdateUser"      @bind-Value="_Entity.UpdateUser" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
-
-<Input Id="CreateDate" @ref="Ref_CreateDate"   CssClass="d-none"   @bind-Value="_Entity.CreateDate" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
-
-<Input Id="UpdateDate" @ref="Ref_UpdateDate"   CssClass="d-none"   @bind-Value="_Entity.UpdateDate" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
-
-<Input Id="IsDelete" @ref="Ref_IsDelete"   CssClass="d-none"   @bind-Value="_Entity.IsDelete" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
 
     </EditForm>
 </div>

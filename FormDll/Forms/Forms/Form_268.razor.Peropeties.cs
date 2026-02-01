@@ -144,7 +144,7 @@ namespace Forms.Forms
     /// <summary>
     ///  ورژنی که فرم باهاش ساخته شده
     /// </summary>
-    public string? VersionForm { get; set; } = "5603";
+    public string? VersionForm { get; set; } = "5622";
 
     /// <summary>
     ///  موجودیت
@@ -201,7 +201,7 @@ public Input<Guid?> Ref_test_OrderBody_UpdateUser;
 public Input<DateTime?> Ref_test_OrderBody_CreateDate;
 public Input<DateTime?> Ref_test_OrderBody_UpdateDate;
 public Input<bool?> Ref_test_OrderBody_IsDelete;
-public Input<Guid?> Ref_test_OrderBody_test_OrderId;
+public Dropdown Ref_test_OrderBody_test_OrderId;
 public Dropdown Ref_test_OrderBody_test_ProductId;
 public Dropdown Ref_test_OrderBody_test_UnitId;
 public Input<int?> Ref_test_OrderBody_Count;

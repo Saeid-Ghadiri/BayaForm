@@ -32,6 +32,26 @@
     <EditForm @ref="_Form" Model="_Entity" OnSubmit="Submit">
         
 <Input Id="Id" @ref="Ref_Id"   CssClass="d-none"   @bind-Value="_Entity.Id" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+<Input Id="RequestID" @ref="Ref_RequestID"      @bind-Value="_Entity.RequestID" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+<Input Id="CreateUser" @ref="Ref_CreateUser"      @bind-Value="_Entity.CreateUser" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+<Input Id="UpdateUser" @ref="Ref_UpdateUser"      @bind-Value="_Entity.UpdateUser" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+<Input Id="CreateDate" @ref="Ref_CreateDate"   CssClass="d-none"   @bind-Value="_Entity.CreateDate" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+<Input Id="UpdateDate" @ref="Ref_UpdateDate"   CssClass="d-none"   @bind-Value="_Entity.UpdateDate" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+<Input Id="IsDelete" @ref="Ref_IsDelete"   CssClass="d-none"   @bind-Value="_Entity.IsDelete" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+<Input Id="Name" @ref="Ref_Name" Label="نام محصول"   Disabled=true  @bind-Value="_Entity.Name" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"maxlength\":\"20\"}").Result))></Input>
+
+<Input Id="Price" @ref="Ref_Price" Label="قیمت محصول"     @bind-Value="_Entity.Price" type="number"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+<Input Id="Qtty" @ref="Ref_Qtty" Label="موجودی محصول"     @bind-Value="_Entity.Qtty" type="number"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+<RadioBoolean @ref="Ref_IsActive" InLine=true Id="IsActive"   LabelTrue="فعال" LabelFalse="غیر فعال" Label="وضعیت فعال بودن محصول" @bind-Value="_Entity.IsActive" CssClass="" ></RadioBoolean>
 <label for="SCMICT_Order1_GridSCMICT_ProductId_625">سفارش 1
    
     
@@ -45,7 +65,7 @@
         EditFormButtonsVisible="false"
         CustomizeEditModel="CustomizeEditGrid_SCMICT_Order1"
         CustomizeElement="CustomizeRowsGrid_SCMICT_Order1" 
-        Component="@((Utility.JSON.ToObject<View_Component>("{\"primaryKey\":false,\"EntityID\":625,\"FieldId\":625,\"NotNull\":false,\"ViewId\":0,\"NotMapped\":false,\"Relation\":false,\"RelationExternal\":false,\"RelationChildModel\":\"SCMICT_Order1\",\"GridMainModel\":\"SCMICT_Order1\",\"widget\":{\"altInput\":false,\"allowInput\":false,\"clickOpens\":false,\"enableDate\":false,\"enableTime\":false,\"noCalendar\":false,\"useLocaleSettings\":false,\"hourIncrement\":0,\"minuteIncrement\":0,\"time_24hr\":false},\"wysiwyg\":false,\"data\":{},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"FieldsTemplate\":[],\"refreshOn\":\"data\",\"reorder\":false,\"addAnotherPosition\":\"bottom\",\"layoutFixed\":false,\"enableRowGroups\":false,\"initEmpty\":false,\"disabled\":true,\"modal\":true,\"label\":\"سفارش 1\",\"tableView\":true,\"key\":\"GridSCMICT_ProductId_625\",\"type\":\"datagrid\",\"input\":true,\"placeholder\":\"GridSCMICT_ProductId_625\",\"modalEdit\":true,\"FieldUrl\":\"625?EId=625&SubId=21\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result))"
+        Component="@((Utility.JSON.ToObject<View_Component>("{\"primaryKey\":false,\"EntityID\":625,\"FieldId\":625,\"TypeCSharp\":\"\",\"NotNull\":false,\"ViewId\":0,\"NotMapped\":false,\"Relation\":false,\"RelationExternal\":false,\"RelationParentName\":\"\",\"RelationParentModel\":\"\",\"RelationChildModel\":\"SCMICT_Order1\",\"GridMainModel\":\"SCMICT_Order1\",\"widget\":{\"altInput\":false,\"allowInput\":false,\"clickOpens\":false,\"enableDate\":false,\"enableTime\":false,\"noCalendar\":false,\"useLocaleSettings\":false,\"hourIncrement\":0,\"minuteIncrement\":0,\"time_24hr\":false},\"wysiwyg\":false,\"data\":{},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"FieldsTemplate\":[],\"refreshOn\":\"data\",\"reorder\":false,\"addAnotherPosition\":\"bottom\",\"layoutFixed\":false,\"enableRowGroups\":false,\"initEmpty\":false,\"disabled\":true,\"modal\":true,\"label\":\"سفارش 1\",\"tableView\":true,\"key\":\"GridSCMICT_ProductId_625\",\"type\":\"datagrid\",\"input\":true,\"placeholder\":\"GridSCMICT_ProductId_625\",\"modalEdit\":true,\"FieldUrl\":\"625?EId=625&SubId=21\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result))"
          >
     <Columns>
     
@@ -566,26 +586,6 @@ public async void RowDubbleClickGrid_SCMICT_Order1(GridRowClickEventArgs e)
 
 }
 }
-
-<Input Id="RequestID" @ref="Ref_RequestID"      @bind-Value="_Entity.RequestID" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
-
-<Input Id="CreateUser" @ref="Ref_CreateUser"      @bind-Value="_Entity.CreateUser" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
-
-<Input Id="UpdateUser" @ref="Ref_UpdateUser"      @bind-Value="_Entity.UpdateUser" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
-
-<Input Id="CreateDate" @ref="Ref_CreateDate"   CssClass="d-none"   @bind-Value="_Entity.CreateDate" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
-
-<Input Id="UpdateDate" @ref="Ref_UpdateDate"   CssClass="d-none"   @bind-Value="_Entity.UpdateDate" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
-
-<Input Id="IsDelete" @ref="Ref_IsDelete"   CssClass="d-none"   @bind-Value="_Entity.IsDelete" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
-
-<Input Id="Name" @ref="Ref_Name" Label="نام محصول"   Disabled=true  @bind-Value="_Entity.Name" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"maxlength\":\"20\"}").Result))></Input>
-
-<Input Id="Price" @ref="Ref_Price" Label="قیمت محصول"     @bind-Value="_Entity.Price" type="number"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
-
-<Input Id="Qtty" @ref="Ref_Qtty" Label="موجودی محصول"     @bind-Value="_Entity.Qtty" type="number"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
-
-<RadioBoolean @ref="Ref_IsActive" InLine=true Id="IsActive"   LabelTrue="فعال" LabelFalse="غیر فعال" Label="وضعیت فعال بودن محصول" @bind-Value="_Entity.IsActive" CssClass="" ></RadioBoolean>
 
     </EditForm>
 </div>

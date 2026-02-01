@@ -32,536 +32,6 @@
     <EditForm @ref="_Form" Model="_Entity" OnSubmit="Submit">
         
 <Input Id="Id" @ref="Ref_Id"   CssClass="d-none"   @bind-Value="_Entity.Id" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
-<label for="SCMNFP_InquiryPriceProduct_GridSCMNFP_ProductRequestId_227">جزییات درخواست کالا
-   
-    
-</label>
-
-<DxGrid @ref="Grid_SCMNFP_InquiryPriceProduct" Data="_Entity.SCMNFP_InquiryPriceProduct" KeyFieldName="_Id" EditMode="GridEditMode.PopupEditForm"
-        EditModelSaving="OnEditModelSavingSCMNFP_InquiryPriceProduct"
-        DataItemDeleting="OnDataItemDeletingSCMNFP_InquiryPriceProduct"
-        PopupEditFormCssClass="ModalWidth"
-        PopupEditFormHeaderText="جزییات درخواست کالا"
-        EditFormButtonsVisible="false"
-        CustomizeEditModel="CustomizeEditGrid_SCMNFP_InquiryPriceProduct"
-        CustomizeElement="CustomizeRowsGrid_SCMNFP_InquiryPriceProduct" 
-        Component="@((Utility.JSON.ToObject<View_Component>("{\"primaryKey\":false,\"EntityID\":227,\"FieldId\":0,\"ViewId\":364,\"NotMapped\":false,\"Relation\":false,\"RelationExternal\":false,\"RelationChildModel\":\"SCMNFP_InquiryPriceProduct\",\"GridMainModel\":\"SCMNFP_InquiryPriceProduct\",\"widget\":{\"altInput\":false,\"allowInput\":false,\"clickOpens\":false,\"enableDate\":false,\"enableTime\":false,\"noCalendar\":false,\"useLocaleSettings\":false,\"hourIncrement\":0,\"minuteIncrement\":0,\"time_24hr\":false},\"data\":{},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"FieldsTemplate\":[],\"refreshOn\":\"data\",\"reorder\":false,\"addAnotherPosition\":\"bottom\",\"layoutFixed\":false,\"enableRowGroups\":false,\"initEmpty\":false,\"modal\":true,\"label\":\"جزییات درخواست کالا\",\"tableView\":false,\"key\":\"GridSCMNFP_ProductRequestId_227\",\"type\":\"datagrid\",\"input\":true,\"modalEdit\":true,\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":false,\"AccessEdit\":true,\"AccessNew\":true}").Result))"
-         >
-    <Columns>
-    
-<DxGridCommandColumn Width="70px">
-    <HeaderTemplate Context="HeaderContext">
-       
-<a id=SCMNFP_InquiryPriceProduct_GridSCMNFP_ProductRequestId_227ButtonNew class="btn btn-sm btn-green btnGridAddData" @onclick="@(() => StartEditNewRowAsync_Grid_SCMNFP_InquiryPriceProduct())" style="text-decoration: none;" href="javascript:void(0);">
-    <span class="fal fa-plus-circle btnicon"></span>
-    <span>@languageContainer.Keys["DXGrid:New"]</span>
-</a>
-
-    </HeaderTemplate>
-    <CellDisplayTemplate Context="CellContext">
-       
-<a id=SCMNFP_InquiryPriceProduct_GridSCMNFP_ProductRequestId_227ButtonEdit class="btn btn-sm btn-yellow-light btnEditGridData" @onclick="@(() => StartModalGrid_SCMNFP_InquiryPriceProduct(CellContext))" style="text-decoration: none;" href="javascript:void(0);">
-    <span class="fal fa-pencil btnicon"></span>
-</a>
-
-       
-    </CellDisplayTemplate>
-</DxGridCommandColumn>
-
-    <DxGridCommandColumn   Width="60px">
-           <HeaderTemplate Context="HeaderContext">
-               <a    style="text-decoration: none;"  >
-                
-                   <span>ردیف</span>
-               </a>
-           </HeaderTemplate>
-           <CellDisplayTemplate Context="CellContext">
-            @if (CellContext.VisibleIndex > 9){
-                <p>@(CellContext.VisibleIndex + 1)</p>
-            }else{
-                <p>@(((CellContext.Grid.PageIndex * CellContext.Grid.PageSize) + (CellContext.VisibleIndex + 1)))</p>
-            }
-          
-           </CellDisplayTemplate>
-     </DxGridCommandColumn>
-    <DxGridDataColumn  Caption="Id" Visible=false FieldName="Id" />
-
-<DxGridDataColumn  Caption="RequestID" Visible=false FieldName="RequestID" />
-
-<DxGridDataColumn  Caption="CreateUser" Visible=false FieldName="CreateUser" />
-
-<DxGridDataColumn  Caption="UpdateUser" Visible=false FieldName="UpdateUser" />
-
-<DxGridDataColumn  Caption="CreateDate" Visible=false FieldName="CreateDate" />
-
-<DxGridDataColumn  Caption="UpdateDate" Visible=false FieldName="UpdateDate" />
-
-<DxGridDataColumn  Caption="IsDelete" Visible=false FieldName="IsDelete" />
-
-<DxGridDataColumn  Caption="توضیحات استعلام"  FieldName="DescriptionInquiry" />
-
-
-</Columns>
-
-    <EditFormTemplate Context="EditFormContextSCMNFP_InquiryPriceProduct">
-    @{
-        SCMNFP_InquiryPriceProduct  = (Entity.SCMNFP_InquiryPriceProduct)EditFormContextSCMNFP_InquiryPriceProduct.EditModel;
-    }
-    <DxFormLayout>
-        <DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextSCMNFP_InquiryPriceProduct">
-    
-<Input Id="SCMNFP_InquiryPriceProduct_Id" @ref="Ref_SCMNFP_InquiryPriceProduct_Id"   CssClass="d-none"   @bind-Value="SCMNFP_InquiryPriceProduct.Id" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
-
-</DxFormLayoutItem>
-
-<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextSCMNFP_InquiryPriceProduct">
-    
-<Input Id="SCMNFP_InquiryPriceProduct_RequestID" @ref="Ref_SCMNFP_InquiryPriceProduct_RequestID"      @bind-Value="SCMNFP_InquiryPriceProduct.RequestID" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
-
-</DxFormLayoutItem>
-
-<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextSCMNFP_InquiryPriceProduct">
-    
-<Input Id="SCMNFP_InquiryPriceProduct_CreateUser" @ref="Ref_SCMNFP_InquiryPriceProduct_CreateUser"      @bind-Value="SCMNFP_InquiryPriceProduct.CreateUser" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
-
-</DxFormLayoutItem>
-
-<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextSCMNFP_InquiryPriceProduct">
-    
-<Input Id="SCMNFP_InquiryPriceProduct_UpdateUser" @ref="Ref_SCMNFP_InquiryPriceProduct_UpdateUser"      @bind-Value="SCMNFP_InquiryPriceProduct.UpdateUser" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
-
-</DxFormLayoutItem>
-
-<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextSCMNFP_InquiryPriceProduct">
-    
-<Input Id="SCMNFP_InquiryPriceProduct_CreateDate" @ref="Ref_SCMNFP_InquiryPriceProduct_CreateDate"   CssClass="d-none"   @bind-Value="SCMNFP_InquiryPriceProduct.CreateDate" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
-
-</DxFormLayoutItem>
-
-<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextSCMNFP_InquiryPriceProduct">
-    
-<Input Id="SCMNFP_InquiryPriceProduct_UpdateDate" @ref="Ref_SCMNFP_InquiryPriceProduct_UpdateDate"   CssClass="d-none"   @bind-Value="SCMNFP_InquiryPriceProduct.UpdateDate" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
-
-</DxFormLayoutItem>
-
-<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextSCMNFP_InquiryPriceProduct">
-    
-<Input Id="SCMNFP_InquiryPriceProduct_IsDelete" @ref="Ref_SCMNFP_InquiryPriceProduct_IsDelete"   CssClass="d-none"   @bind-Value="SCMNFP_InquiryPriceProduct.IsDelete" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
-
-</DxFormLayoutItem>
-
-<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextSCMNFP_InquiryPriceProduct">
-    
-<Input Id="SCMNFP_InquiryPriceProduct_DescriptionInquiry" @ref="Ref_SCMNFP_InquiryPriceProduct_DescriptionInquiry" Label="توضیحات استعلام"   Disabled=true  @bind-Value="SCMNFP_InquiryPriceProduct.DescriptionInquiry" type="textarea"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
-
-</DxFormLayoutItem>
-
-
-        <DxFormLayoutItem ColSpanMd="12" Context="FormLayoutContextSCMNFP_InquiryPriceProduct" CssClass="btn-modal-custom">
-            <DxButton Id="SCMNFP_InquiryPriceProduct_GridSCMNFP_ProductRequestId_227ButtonSave" Click="@(() => SaveModalGrid_SCMNFP_InquiryPriceProduct(EditFormContextSCMNFP_InquiryPriceProduct))" Text="@languageContainer.Keys["DXGrid:Save"]" CssClass="btn btn-green px-5" />
-            
-<DxButton id="SCMNFP_InquiryPriceProduct_GridSCMNFP_ProductRequestId_227ButtonSaveAndNew"    Text="ذخیره و جدید" Click="@(() => SaveAndNewGrid_SCMNFP_InquiryPriceProduct(EditFormContextSCMNFP_InquiryPriceProduct))" CssClass="btn btn-green" />
-
-
-            <DxButton Id="SCMNFP_InquiryPriceProduct_GridSCMNFP_ProductRequestId_227ButtonCancel" Click="@(() => Grid_SCMNFP_InquiryPriceProduct.CancelEditAsync())" Text="@languageContainer.Keys["DXGrid:Cancel"]" CssClass="btn btn-red" />
-            <button id="click_s"  hidden>submit</button>
-             <span>|</span>
-           
-            <DxButton Id="SCMNFP_InquiryPriceProduct_GridSCMNFP_ProductRequestId_227ButtonBefore" Click="@(() => Dialog_Grid_SCMNFP_InquiryPriceProduct(0,IndexGrid_SCMNFP_InquiryPriceProduct,EditFormContextSCMNFP_InquiryPriceProduct))" Text="قبلی" CssClass="btn btn-purple" />@* @languageContainer.Keys["DXGrid:??"] *@
-         
-            <DxButton Id="SCMNFP_InquiryPriceProduct_GridSCMNFP_ProductRequestId_227ButtonNext" Click="@(() => Dialog_Grid_SCMNFP_InquiryPriceProduct(1,IndexGrid_SCMNFP_InquiryPriceProduct,EditFormContextSCMNFP_InquiryPriceProduct))" Text="بعدی" CssClass="btn btn-purple" />
-
-        </DxFormLayoutItem>
-    </DxFormLayout>
-
-</EditFormTemplate>
-
-</DxGrid>
-
-<DxPopup @bind-Visible="@ConfirmationShownSCMNFP_InquiryPriceProduct" HeaderText="@languageContainer.Keys["DXGrid:DeleteItem"]" Width="350px" CloseOnOutsideClick="false">
-
-    <BodyContentTemplate Context="EditFormContext">
-        <div class="py-3 px-5 text-center">
-            <p>@languageContainer.Keys["DXGrid:DeleteItemHint"]</p>
-            <div class="confirm-dialog-buttons">
-                <DxButton Text="@languageContainer.Keys["DXGrid:Yes"]" CssClass="btn btn-red px-4" Click="@OnYesButtonClickGrid_SCMNFP_InquiryPriceProduct" />
-                <DxButton Text="@languageContainer.Keys["DXGrid:No"]" CssClass="btn btn-purple-light px-4" Click="@OnNoButtonClickGrid_SCMNFP_InquiryPriceProduct" />
-            </div>
-        </div>
-    </BodyContentTemplate>
-</DxPopup>
-
-<DxPopup @bind-Visible="@ConfirmationSCMNFP_InquiryPriceProduct" HeaderText="هشدار" Width="350px" CloseOnOutsideClick="false">
-    <BodyContentTemplate Context="EditFormContext">
-        <div class="py-3 px-5 text-center"> 
-            <p>اطلاعات این فرم تغییر کرده است آیا تغییرات ذخیره شود؟</p>
-            <div class="confirm-dialog-buttons">
-                <DxButton Text="بله" CssClass="btn btn-red px-4" Click="@OnYesButtonSCMNFP_InquiryPriceProduct" />
-                <DxButton Text="خیر" CssClass="btn btn-purple-light px-4" Click="@OnNoButtonSCMNFP_InquiryPriceProduct" />
-            </div>
-        </div>
-    </BodyContentTemplate>
-</DxPopup>
-@code {
-    // DxGrid? Grid_SCMNFP_InquiryPriceProduct;
-    Entity.SCMNFP_InquiryPriceProduct SCMNFP_InquiryPriceProduct;
-    bool ConfirmationShownSCMNFP_InquiryPriceProduct { get; set; } = false;
-    public Entity.SCMNFP_InquiryPriceProduct SelectedItemGrid_SCMNFP_InquiryPriceProduct { get; set; } = new Entity.SCMNFP_InquiryPriceProduct();
-    /// <summary>
-    /// شماره ستون
-    /// </summary>
-    public int IndexGrid_SCMNFP_InquiryPriceProduct { get; set; }
-
-    ///////////////////////
-    bool ConfirmationSCMNFP_InquiryPriceProduct { get; set; } = false;
-    GridEditFormTemplateContext? _ContextFormTemplateSCMNFP_InquiryPriceProduct { get; set; }
-    public int OpenDialogCodeSCMNFP_InquiryPriceProduct { get; set; } = 0;
-    ////////////////////////
-
-    async Task OnEditModelSavingSCMNFP_InquiryPriceProduct(GridEditModelSavingEventArgs arg)
-    {
-        var e = arg.EditModel;
-    bool NotValid = false;
-    //events
-       
-        
-      if (!NotValid)
-     {
-      SaveGrid_SCMNFP_InquiryPriceProduct(arg.DataItem, arg.EditModel);
-     }
-}
-
-async void Dialog_Grid_SCMNFP_InquiryPriceProduct(int _OpenDialogCode, int VisibleIndex, GridEditFormTemplateContext e)
-{
-    OpenDialogCodeSCMNFP_InquiryPriceProduct = _OpenDialogCode;
-    if (!CheckChangedData(await Utility.JSON.ToJson(e.EditModel)))
-    {
-    _ContextFormTemplateSCMNFP_InquiryPriceProduct = e;
-    ConfirmationSCMNFP_InquiryPriceProduct = true;
-    }
-    else
-    {
-    await OnNoButtonSCMNFP_InquiryPriceProduct();
-    }
-}
-async Task OnYesButtonSCMNFP_InquiryPriceProduct()
-{
-
-    ConfirmationSCMNFP_InquiryPriceProduct = false;
-    await Task.Delay(1500);
-    //bool FormValidate = await JSO.InvokeAsync<bool>("submitForm");
-    bool FormValidate =  await JS.InvokeAsync<bool>("submitForm");
-    if (FormValidate)
-    {
-        bool NotValid = false;
-    var e = _ContextFormTemplateSCMNFP_InquiryPriceProduct.EditModel;
-         //events
-         
-
-        if (!NotValid)
-         {
-        SaveGrid_SCMNFP_InquiryPriceProduct(_ContextFormTemplateSCMNFP_InquiryPriceProduct.DataItem, _ContextFormTemplateSCMNFP_InquiryPriceProduct.EditModel);
-            await Grid_SCMNFP_InquiryPriceProduct.CancelEditAsync();
-         await ChangePageGrid_SCMNFP_InquiryPriceProduct();
-         await SetEditFormContextGrid_SCMNFP_InquiryPriceProduct();
-         }
-          
-    }
-
-}
-async Task OnNoButtonSCMNFP_InquiryPriceProduct()
-{
-    ConfirmationSCMNFP_InquiryPriceProduct = false;
-    await ChangePageGrid_SCMNFP_InquiryPriceProduct();
-    await SetEditFormContextGrid_SCMNFP_InquiryPriceProduct();
-
-}
-async Task SetEditFormContextGrid_SCMNFP_InquiryPriceProduct()
-{
-    var e = (Entity.SCMNFP_InquiryPriceProduct)Grid_SCMNFP_InquiryPriceProduct.GetDataItem(IndexGrid_SCMNFP_InquiryPriceProduct);
-    JsonData = await Utility.JSON.ToJson(e);
-}
-
-async Task ChangePageGrid_SCMNFP_InquiryPriceProduct()
-{
-    int VisibleIndex = IndexGrid_SCMNFP_InquiryPriceProduct;
-    try
-    {
-    if (OpenDialogCodeSCMNFP_InquiryPriceProduct == 1)
-    {
-        if (VisibleIndex != (Grid_SCMNFP_InquiryPriceProduct.GetVisibleRowCount() - 1))
-    { 
-            Grid_SCMNFP_InquiryPriceProduct.CancelEditAsync();
-            IndexGrid_SCMNFP_InquiryPriceProduct = VisibleIndex + 1;
-    Grid_SCMNFP_InquiryPriceProduct.StartEditRowAsync(IndexGrid_SCMNFP_InquiryPriceProduct);
-    }
-    }
-    else if (OpenDialogCodeSCMNFP_InquiryPriceProduct == 0)
-    {
-        if (VisibleIndex != 0)
-        {
-
-            Grid_SCMNFP_InquiryPriceProduct.CancelEditAsync();
-            IndexGrid_SCMNFP_InquiryPriceProduct = VisibleIndex - 1;
-    Grid_SCMNFP_InquiryPriceProduct.StartEditRowAsync(IndexGrid_SCMNFP_InquiryPriceProduct);
-    }
-
-    }
-    var e = (Entity.SCMNFP_InquiryPriceProduct)Grid_SCMNFP_InquiryPriceProduct.GetDataItem(IndexGrid_SCMNFP_InquiryPriceProduct);
-    JsonData = await Utility.JSON.ToJson(e);
-    await Task.Delay(300);
-    
-    StateHasChanged();
-    }
-    catch (Exception ex)
-    {
-
-    Console.WriteLine("error in ChagePage" + ex.Message);
-    }
-
-}
-
-async Task StartEditNewRowAsync_Grid_SCMNFP_InquiryPriceProduct()
-{
-    IndexGrid_SCMNFP_InquiryPriceProduct = Grid_SCMNFP_InquiryPriceProduct.GetVisibleRowCount();
-Grid_SCMNFP_InquiryPriceProduct.StartEditNewRowAsync().GetAwaiter();
-var e = new Entity.SCMNFP_InquiryPriceProduct();
-JsonData = await Utility.JSON.ToJson(e);
-await Task.Delay(300);
-
-}
-
-async Task StartModalGrid_SCMNFP_InquiryPriceProduct(GridCommandColumnCellDisplayTemplateContext Context)
-{
-    IndexGrid_SCMNFP_InquiryPriceProduct = Context.VisibleIndex;
-Grid_SCMNFP_InquiryPriceProduct.StartEditRowAsync(Context.VisibleIndex).GetAwaiter();
-var e = (Entity.SCMNFP_InquiryPriceProduct)Context.DataItem;
-JsonData = await Utility.JSON.ToJson(e);
-await Task.Delay(300);
-
-   // await Task.Delay(500);
-}
-public async Task SaveModalGrid_SCMNFP_InquiryPriceProduct(GridEditFormTemplateContext arg)
-{
-     //bool FormValidate = await JSO.InvokeAsync<bool>("submitForm");
-     bool FormValidate =  await JS.InvokeAsync<bool>("submitForm");
-
-    if(FormValidate){
-
-    var e = arg.EditModel;
-    bool NotValid = false;
-    //events
-    
-    if (!NotValid)
-    {
-        SaveGrid_SCMNFP_InquiryPriceProduct(arg.DataItem, arg.EditModel);
-
-     await arg.Grid.CancelEditAsync(); 
-
-    }
-
-    }
-
-}
-public async Task SaveAndNewGrid_SCMNFP_InquiryPriceProduct(GridEditFormTemplateContext arg)
-{ 
-     //bool FormValidate = await JSO.InvokeAsync<bool>("submitForm");
-     bool FormValidate = await JS.InvokeAsync<bool>("submitForm");
-     
-    if(FormValidate){
-       
-         var e = arg.EditModel;
-          bool NotValid = false;
-     //events
-    
-    if (!NotValid)
-    {
-        SaveGrid_SCMNFP_InquiryPriceProduct(arg.DataItem, arg.EditModel);
-
-         await arg.Grid.CancelEditAsync();
-        await StartEditNewRowAsync_Grid_SCMNFP_InquiryPriceProduct();
-
-    }
-          
-    }
-   
-}
-
-void PerviousPageGrid_SCMNFP_InquiryPriceProduct(int VisibleIndex)
-{
-    try
-     {
-    if (VisibleIndex == 0)
-    {
-        Console.WriteLine(VisibleIndex.ToString());
-    }
-    else
-    {
-Grid_SCMNFP_InquiryPriceProduct.CancelEditAsync();
-        IndexGrid_SCMNFP_InquiryPriceProduct = VisibleIndex - 1;
-         Grid_SCMNFP_InquiryPriceProduct.StartEditRowAsync(IndexGrid_SCMNFP_InquiryPriceProduct);
-     }
-    }
-     catch (Exception e)
-     {
-    Console.WriteLine("PerviousPage Message");
-    Console.WriteLine(e.Message);
-    }
-
-}
-
-void NextPageGrid_SCMNFP_InquiryPriceProduct(int VisibleIndex)
-{
-
-    if (VisibleIndex == Grid_SCMNFP_InquiryPriceProduct.GetVisibleRowCount() - 1)
-    {
-    Console.WriteLine(VisibleIndex.ToString());
-    }
-    else
-    {
-    Console.WriteLine("NextPage Start Grid_SCMNFP_InquiryPriceProduct ");
-    try
-    {
-Grid_SCMNFP_InquiryPriceProduct.CancelEditAsync();
-        IndexGrid_SCMNFP_InquiryPriceProduct = VisibleIndex + 1;
-         Grid_SCMNFP_InquiryPriceProduct.StartEditRowAsync(IndexGrid_SCMNFP_InquiryPriceProduct);
-     }
-    catch (Exception e)
-    {
-        Console.WriteLine("NextPage Message");
-        Console.WriteLine(e.Message);
-    }
-
-    }
-}
-
-public void SaveGrid_SCMNFP_InquiryPriceProduct(object DataItem, object EditModel)
-{
-    var ListEntity = _Entity.SCMNFP_InquiryPriceProduct;
-    var MainModel = (Entity.SCMNFP_InquiryPriceProduct)DataItem;
-    if (MainModel != null)
-    {
-MainModel.Id = ((Entity.SCMNFP_InquiryPriceProduct)EditModel).Id;
-MainModel.RequestID = ((Entity.SCMNFP_InquiryPriceProduct)EditModel).RequestID;
-MainModel.CreateUser = ((Entity.SCMNFP_InquiryPriceProduct)EditModel).CreateUser;
-MainModel.UpdateUser = ((Entity.SCMNFP_InquiryPriceProduct)EditModel).UpdateUser;
-MainModel.CreateDate = ((Entity.SCMNFP_InquiryPriceProduct)EditModel).CreateDate;
-MainModel.UpdateDate = ((Entity.SCMNFP_InquiryPriceProduct)EditModel).UpdateDate;
-MainModel.IsDelete = ((Entity.SCMNFP_InquiryPriceProduct)EditModel).IsDelete;
-MainModel.DescriptionInquiry = ((Entity.SCMNFP_InquiryPriceProduct)EditModel).DescriptionInquiry;
-
-    }
-    else
-    {
-    ListEntity.Add((Entity.SCMNFP_InquiryPriceProduct)EditModel);
-    }
-}
-
-async Task OnDataItemDeletingSCMNFP_InquiryPriceProduct(GridDataItemDeletingEventArgs e)
-    {
-    var ListEntity = _Entity.SCMNFP_InquiryPriceProduct;
-    ListEntity.Remove((Entity.SCMNFP_InquiryPriceProduct)e.DataItem);
-}
-async void OnDeleteButtonClickGrid_SCMNFP_InquiryPriceProduct (GridCommandColumnCellDisplayTemplateContext ex)
-{
-    SelectedItemGrid_SCMNFP_InquiryPriceProduct = (ex.DataItem as Entity.SCMNFP_InquiryPriceProduct);
-    var e =SelectedItemGrid_SCMNFP_InquiryPriceProduct;
-    
-     
-    Console.WriteLine("end OnDeleteButtonClickGrid_test_OrderBody 0");
-    ConfirmationShownSCMNFP_InquiryPriceProduct = true;
-    await Task.Yield();
-     await InvokeAsync(StateHasChanged);
-    
-    Console.WriteLine("end OnDeleteButtonClickGrid_test_OrderBody 1");
-}
-async void OnYesButtonClickGrid_SCMNFP_InquiryPriceProduct ()
-{
-       if (SelectedItemGrid_SCMNFP_InquiryPriceProduct != null)
-    {
-      if (SelectedItemGrid_SCMNFP_InquiryPriceProduct.Id == Guid.Empty)
-      {
-          var ListEntity = _Entity.SCMNFP_InquiryPriceProduct;
-        ListEntity.Remove((Entity.SCMNFP_InquiryPriceProduct)SelectedItemGrid_SCMNFP_InquiryPriceProduct);
-     
-      }
-      else
-      {
-        var cleanModel = new Entity.SCMNFP_InquiryPriceProduct();
-      // چک کن آیا پراپرتی IsDelete در این نوع وجود دارد؟
-        var prop = typeof(Entity.SCMNFP_InquiryPriceProduct).GetProperty("IsDelete");
-        if (prop != null && prop.CanRead && prop.CanWrite)
-        {
-            // مقدار فعلی را بگیر
-            var currentValue = prop.GetValue(SelectedItemGrid_SCMNFP_InquiryPriceProduct);
-
-            if (currentValue is bool boolValue)
-            {
-                // مقدار را معکوس کن
-                var newValue = !boolValue;
-
-                // روی هر دو شیء تنظیم کن
-                prop.SetValue(SelectedItemGrid_SCMNFP_InquiryPriceProduct, newValue);
-                prop.SetValue(cleanModel, newValue);
-            }
-        }
-        EntityHelper.SetPropertyValue(cleanModel, cleanModel._GetIdName, SelectedItemGrid_SCMNFP_InquiryPriceProduct._Id);
-    
-       
-       
-      }
-    }
-    var e= SelectedItemGrid_SCMNFP_InquiryPriceProduct;
-    
-    Grid_SCMNFP_InquiryPriceProduct.Reload();
-    ConfirmationShownSCMNFP_InquiryPriceProduct = false;
-     await Task.Yield();
-    await InvokeAsync(StateHasChanged);
-
-}
-void OnNoButtonClickGrid_SCMNFP_InquiryPriceProduct ()
-{
-    ConfirmationShownSCMNFP_InquiryPriceProduct = false;
-}
-
-void CustomizeRowsGrid_SCMNFP_InquiryPriceProduct(GridCustomizeElementEventArgs e)
-{
-    ///استایل سطر
-    if (e.ElementType == GridElementType.DataRow)
-    {
-    var item = ((Entity.SCMNFP_InquiryPriceProduct)e.Grid.GetDataItem(e.VisibleIndex));
-
-       if (item.IsDelete == true)
-       {
-           e.CssClass = "bg-lightred disablediv";
-       }
-    }
-}
-
-async void CustomizeEditGrid_SCMNFP_InquiryPriceProduct(GridCustomizeEditModelEventArgs e)
-{
-
-    if (e.IsNew)
-    {
-
-    var newRow = (Entity.SCMNFP_InquiryPriceProduct)e.EditModel;
-
-     
-
-    }
-
-
-}
-public async void RowClickGrid_SCMNFP_InquiryPriceProduct(GridRowClickEventArgs e)
-{
-
-}
-
-public async void RowDubbleClickGrid_SCMNFP_InquiryPriceProduct(GridRowClickEventArgs e)
-{
-
-}
-}
 
 <Input Id="RequestID" @ref="Ref_RequestID"      @bind-Value="_Entity.RequestID" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
 
@@ -574,7 +44,7 @@ public async void RowDubbleClickGrid_SCMNFP_InquiryPriceProduct(GridRowClickEven
 <Input Id="UpdateDate" @ref="Ref_UpdateDate"   CssClass="d-none"   @bind-Value="_Entity.UpdateDate" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
 
 <Input Id="IsDelete" @ref="Ref_IsDelete"   CssClass="d-none"   @bind-Value="_Entity.IsDelete" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
-<label for="SCMNFP_ProductRequestDetails_GridSCMNFP_ProductRequestId_239">استعلام قیمت کالا
+<label for="SCMNFP_ProductRequestDetails_GridSCMNFP_ProductRequestId_228">جزییات درخواست کالا
    
     
 </label>
@@ -583,18 +53,18 @@ public async void RowDubbleClickGrid_SCMNFP_InquiryPriceProduct(GridRowClickEven
         EditModelSaving="OnEditModelSavingSCMNFP_ProductRequestDetails"
         DataItemDeleting="OnDataItemDeletingSCMNFP_ProductRequestDetails"
         PopupEditFormCssClass="ModalWidth"
-        PopupEditFormHeaderText="استعلام قیمت کالا"
+        PopupEditFormHeaderText="جزییات درخواست کالا"
         EditFormButtonsVisible="false"
         CustomizeEditModel="CustomizeEditGrid_SCMNFP_ProductRequestDetails"
         CustomizeElement="CustomizeRowsGrid_SCMNFP_ProductRequestDetails" 
-        Component="@((Utility.JSON.ToObject<View_Component>("{\"primaryKey\":false,\"EntityID\":239,\"FieldId\":239,\"TypeCSharp\":\"\",\"NotNull\":false,\"ViewId\":0,\"NotMapped\":false,\"Relation\":false,\"RelationExternal\":false,\"RelationParentName\":\"\",\"RelationParentModel\":\"\",\"RelationChildModel\":\"SCMNFP_ProductRequestDetails\",\"GridMainModel\":\"SCMNFP_ProductRequestDetails\",\"widget\":{\"altInput\":false,\"allowInput\":false,\"clickOpens\":false,\"enableDate\":false,\"enableTime\":false,\"noCalendar\":false,\"useLocaleSettings\":false,\"hourIncrement\":0,\"minuteIncrement\":0,\"time_24hr\":false},\"wysiwyg\":false,\"data\":{},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"FieldsTemplate\":[],\"refreshOn\":\"data\",\"reorder\":false,\"addAnotherPosition\":\"bottom\",\"layoutFixed\":false,\"enableRowGroups\":false,\"initEmpty\":false,\"disabled\":true,\"modal\":true,\"label\":\"استعلام قیمت کالا\",\"tableView\":true,\"key\":\"GridSCMNFP_ProductRequestId_239\",\"type\":\"datagrid\",\"input\":true,\"placeholder\":\"GridSCMNFP_ProductRequestId\",\"modalEdit\":true,\"FieldUrl\":\"239?EId=239&SubId=20\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":false,\"AccessEdit\":true,\"AccessNew\":true}").Result))"
+        Component="@((Utility.JSON.ToObject<View_Component>("{\"primaryKey\":false,\"EntityID\":228,\"FieldId\":228,\"TypeCSharp\":\"\",\"NotNull\":false,\"ViewId\":0,\"NotMapped\":false,\"Relation\":false,\"RelationExternal\":false,\"RelationParentName\":\"\",\"RelationParentModel\":\"\",\"RelationChildModel\":\"SCMNFP_ProductRequestDetails\",\"GridMainModel\":\"SCMNFP_ProductRequestDetails\",\"widget\":{\"altInput\":false,\"allowInput\":false,\"clickOpens\":false,\"enableDate\":false,\"enableTime\":false,\"noCalendar\":false,\"useLocaleSettings\":false,\"hourIncrement\":0,\"minuteIncrement\":0,\"time_24hr\":false},\"wysiwyg\":false,\"data\":{},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"FieldsTemplate\":[],\"refreshOn\":\"data\",\"reorder\":false,\"addAnotherPosition\":\"bottom\",\"layoutFixed\":false,\"enableRowGroups\":false,\"initEmpty\":false,\"disabled\":true,\"modal\":true,\"label\":\"جزییات درخواست کالا\",\"tableView\":true,\"key\":\"GridSCMNFP_ProductRequestId_228\",\"type\":\"datagrid\",\"input\":true,\"placeholder\":\"GridSCMNFP_ProductRequestId_228\",\"modalEdit\":true,\"FieldUrl\":\"228?EId=228&SubId=20\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result))"
          >
     <Columns>
     
 <DxGridCommandColumn Width="70px">
     <HeaderTemplate Context="HeaderContext">
        
-<a id=SCMNFP_ProductRequestDetails_GridSCMNFP_ProductRequestId_239ButtonNew class="btn btn-sm btn-green btnGridAddData" @onclick="@(() => StartEditNewRowAsync_Grid_SCMNFP_ProductRequestDetails())" style="text-decoration: none;" href="javascript:void(0);">
+<a id=SCMNFP_ProductRequestDetails_GridSCMNFP_ProductRequestId_228ButtonNew class="btn btn-sm btn-green btnGridAddData" @onclick="@(() => StartEditNewRowAsync_Grid_SCMNFP_ProductRequestDetails())" style="text-decoration: none;" href="javascript:void(0);">
     <span class="fal fa-plus-circle btnicon"></span>
     <span>@languageContainer.Keys["DXGrid:New"]</span>
 </a>
@@ -602,11 +72,15 @@ public async void RowDubbleClickGrid_SCMNFP_InquiryPriceProduct(GridRowClickEven
     </HeaderTemplate>
     <CellDisplayTemplate Context="CellContext">
        
-<a id=SCMNFP_ProductRequestDetails_GridSCMNFP_ProductRequestId_239ButtonEdit class="btn btn-sm btn-yellow-light btnEditGridData" @onclick="@(() => StartModalGrid_SCMNFP_ProductRequestDetails(CellContext))" style="text-decoration: none;" href="javascript:void(0);">
+<a id=SCMNFP_ProductRequestDetails_GridSCMNFP_ProductRequestId_228ButtonEdit class="btn btn-sm btn-yellow-light btnEditGridData" @onclick="@(() => StartModalGrid_SCMNFP_ProductRequestDetails(CellContext))" style="text-decoration: none;" href="javascript:void(0);">
     <span class="fal fa-pencil btnicon"></span>
 </a>
 
        
+<a class="btn btn-sm btn-red-light btnDeleteGridData" @onclick="@(() => OnDeleteButtonClickGrid_SCMNFP_ProductRequestDetails(CellContext))" style="text-decoration: none;" href="javascript:void(0);">
+    <span class="fal fa-times-circle btnicon"></span>
+</a>
+
     </CellDisplayTemplate>
 </DxGridCommandColumn>
 
@@ -700,18 +174,18 @@ public async void RowDubbleClickGrid_SCMNFP_InquiryPriceProduct(GridRowClickEven
 
 
         <DxFormLayoutItem ColSpanMd="12" Context="FormLayoutContextSCMNFP_ProductRequestDetails" CssClass="btn-modal-custom">
-            <DxButton Id="SCMNFP_ProductRequestDetails_GridSCMNFP_ProductRequestId_239ButtonSave" Click="@(() => SaveModalGrid_SCMNFP_ProductRequestDetails(EditFormContextSCMNFP_ProductRequestDetails))" Text="@languageContainer.Keys["DXGrid:Save"]" CssClass="btn btn-green px-5" />
+            <DxButton Id="SCMNFP_ProductRequestDetails_GridSCMNFP_ProductRequestId_228ButtonSave" Click="@(() => SaveModalGrid_SCMNFP_ProductRequestDetails(EditFormContextSCMNFP_ProductRequestDetails))" Text="@languageContainer.Keys["DXGrid:Save"]" CssClass="btn btn-green px-5" />
             
-<DxButton id="SCMNFP_ProductRequestDetails_GridSCMNFP_ProductRequestId_239ButtonSaveAndNew"    Text="ذخیره و جدید" Click="@(() => SaveAndNewGrid_SCMNFP_ProductRequestDetails(EditFormContextSCMNFP_ProductRequestDetails))" CssClass="btn btn-green" />
+<DxButton id="SCMNFP_ProductRequestDetails_GridSCMNFP_ProductRequestId_228ButtonSaveAndNew"    Text="ذخیره و جدید" Click="@(() => SaveAndNewGrid_SCMNFP_ProductRequestDetails(EditFormContextSCMNFP_ProductRequestDetails))" CssClass="btn btn-green" />
 
 
-            <DxButton Id="SCMNFP_ProductRequestDetails_GridSCMNFP_ProductRequestId_239ButtonCancel" Click="@(() => Grid_SCMNFP_ProductRequestDetails.CancelEditAsync())" Text="@languageContainer.Keys["DXGrid:Cancel"]" CssClass="btn btn-red" />
+            <DxButton Id="SCMNFP_ProductRequestDetails_GridSCMNFP_ProductRequestId_228ButtonCancel" Click="@(() => Grid_SCMNFP_ProductRequestDetails.CancelEditAsync())" Text="@languageContainer.Keys["DXGrid:Cancel"]" CssClass="btn btn-red" />
             <button id="click_s"  hidden>submit</button>
              <span>|</span>
            
-            <DxButton Id="SCMNFP_ProductRequestDetails_GridSCMNFP_ProductRequestId_239ButtonBefore" Click="@(() => Dialog_Grid_SCMNFP_ProductRequestDetails(0,IndexGrid_SCMNFP_ProductRequestDetails,EditFormContextSCMNFP_ProductRequestDetails))" Text="قبلی" CssClass="btn btn-purple" />@* @languageContainer.Keys["DXGrid:??"] *@
+            <DxButton Id="SCMNFP_ProductRequestDetails_GridSCMNFP_ProductRequestId_228ButtonBefore" Click="@(() => Dialog_Grid_SCMNFP_ProductRequestDetails(0,IndexGrid_SCMNFP_ProductRequestDetails,EditFormContextSCMNFP_ProductRequestDetails))" Text="قبلی" CssClass="btn btn-purple" />@* @languageContainer.Keys["DXGrid:??"] *@
          
-            <DxButton Id="SCMNFP_ProductRequestDetails_GridSCMNFP_ProductRequestId_239ButtonNext" Click="@(() => Dialog_Grid_SCMNFP_ProductRequestDetails(1,IndexGrid_SCMNFP_ProductRequestDetails,EditFormContextSCMNFP_ProductRequestDetails))" Text="بعدی" CssClass="btn btn-purple" />
+            <DxButton Id="SCMNFP_ProductRequestDetails_GridSCMNFP_ProductRequestId_228ButtonNext" Click="@(() => Dialog_Grid_SCMNFP_ProductRequestDetails(1,IndexGrid_SCMNFP_ProductRequestDetails,EditFormContextSCMNFP_ProductRequestDetails))" Text="بعدی" CssClass="btn btn-purple" />
 
         </DxFormLayoutItem>
     </DxFormLayout>
@@ -1100,6 +574,540 @@ public async void RowClickGrid_SCMNFP_ProductRequestDetails(GridRowClickEventArg
 }
 
 public async void RowDubbleClickGrid_SCMNFP_ProductRequestDetails(GridRowClickEventArgs e)
+{
+
+}
+}
+<label for="SCMNFP_InquiryPriceProduct_GridSCMNFP_ProductRequestId_239">استعلام قیمت کالا
+   
+    
+</label>
+
+<DxGrid @ref="Grid_SCMNFP_InquiryPriceProduct" Data="_Entity.SCMNFP_InquiryPriceProduct" KeyFieldName="_Id" EditMode="GridEditMode.PopupEditForm"
+        EditModelSaving="OnEditModelSavingSCMNFP_InquiryPriceProduct"
+        DataItemDeleting="OnDataItemDeletingSCMNFP_InquiryPriceProduct"
+        PopupEditFormCssClass="ModalWidth"
+        PopupEditFormHeaderText="استعلام قیمت کالا"
+        EditFormButtonsVisible="false"
+        CustomizeEditModel="CustomizeEditGrid_SCMNFP_InquiryPriceProduct"
+        CustomizeElement="CustomizeRowsGrid_SCMNFP_InquiryPriceProduct" 
+        Component="@((Utility.JSON.ToObject<View_Component>("{\"primaryKey\":false,\"EntityID\":239,\"FieldId\":239,\"TypeCSharp\":\"\",\"NotNull\":false,\"ViewId\":0,\"NotMapped\":false,\"Relation\":false,\"RelationExternal\":false,\"RelationParentName\":\"\",\"RelationParentModel\":\"\",\"RelationChildModel\":\"SCMNFP_InquiryPriceProduct\",\"GridMainModel\":\"SCMNFP_InquiryPriceProduct\",\"widget\":{\"altInput\":false,\"allowInput\":false,\"clickOpens\":false,\"enableDate\":false,\"enableTime\":false,\"noCalendar\":false,\"useLocaleSettings\":false,\"hourIncrement\":0,\"minuteIncrement\":0,\"time_24hr\":false},\"wysiwyg\":false,\"data\":{},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"FieldsTemplate\":[],\"refreshOn\":\"data\",\"reorder\":false,\"addAnotherPosition\":\"bottom\",\"layoutFixed\":false,\"enableRowGroups\":false,\"initEmpty\":false,\"disabled\":true,\"modal\":true,\"label\":\"استعلام قیمت کالا\",\"tableView\":true,\"key\":\"GridSCMNFP_ProductRequestId_239\",\"type\":\"datagrid\",\"input\":true,\"placeholder\":\"GridSCMNFP_ProductRequestId_239\",\"modalEdit\":true,\"FieldUrl\":\"239?EId=239&SubId=20\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result))"
+         >
+    <Columns>
+    
+<DxGridCommandColumn Width="70px">
+    <HeaderTemplate Context="HeaderContext">
+       
+<a id=SCMNFP_InquiryPriceProduct_GridSCMNFP_ProductRequestId_239ButtonNew class="btn btn-sm btn-green btnGridAddData" @onclick="@(() => StartEditNewRowAsync_Grid_SCMNFP_InquiryPriceProduct())" style="text-decoration: none;" href="javascript:void(0);">
+    <span class="fal fa-plus-circle btnicon"></span>
+    <span>@languageContainer.Keys["DXGrid:New"]</span>
+</a>
+
+    </HeaderTemplate>
+    <CellDisplayTemplate Context="CellContext">
+       
+<a id=SCMNFP_InquiryPriceProduct_GridSCMNFP_ProductRequestId_239ButtonEdit class="btn btn-sm btn-yellow-light btnEditGridData" @onclick="@(() => StartModalGrid_SCMNFP_InquiryPriceProduct(CellContext))" style="text-decoration: none;" href="javascript:void(0);">
+    <span class="fal fa-pencil btnicon"></span>
+</a>
+
+       
+<a class="btn btn-sm btn-red-light btnDeleteGridData" @onclick="@(() => OnDeleteButtonClickGrid_SCMNFP_InquiryPriceProduct(CellContext))" style="text-decoration: none;" href="javascript:void(0);">
+    <span class="fal fa-times-circle btnicon"></span>
+</a>
+
+    </CellDisplayTemplate>
+</DxGridCommandColumn>
+
+    <DxGridCommandColumn   Width="60px">
+           <HeaderTemplate Context="HeaderContext">
+               <a    style="text-decoration: none;"  >
+                
+                   <span>ردیف</span>
+               </a>
+           </HeaderTemplate>
+           <CellDisplayTemplate Context="CellContext">
+            @if (CellContext.VisibleIndex > 9){
+                <p>@(CellContext.VisibleIndex + 1)</p>
+            }else{
+                <p>@(((CellContext.Grid.PageIndex * CellContext.Grid.PageSize) + (CellContext.VisibleIndex + 1)))</p>
+            }
+          
+           </CellDisplayTemplate>
+     </DxGridCommandColumn>
+    <DxGridDataColumn  Caption="Id" Visible=false FieldName="Id" />
+
+<DxGridDataColumn  Caption="RequestID" Visible=false FieldName="RequestID" />
+
+<DxGridDataColumn  Caption="CreateUser" Visible=false FieldName="CreateUser" />
+
+<DxGridDataColumn  Caption="UpdateUser" Visible=false FieldName="UpdateUser" />
+
+<DxGridDataColumn  Caption="CreateDate" Visible=false FieldName="CreateDate" />
+
+<DxGridDataColumn  Caption="UpdateDate" Visible=false FieldName="UpdateDate" />
+
+<DxGridDataColumn  Caption="IsDelete" Visible=false FieldName="IsDelete" />
+
+<DxGridDataColumn  Caption="توضیحات استعلام"  FieldName="DescriptionInquiry" />
+
+
+</Columns>
+
+    <EditFormTemplate Context="EditFormContextSCMNFP_InquiryPriceProduct">
+    @{
+        SCMNFP_InquiryPriceProduct  = (Entity.SCMNFP_InquiryPriceProduct)EditFormContextSCMNFP_InquiryPriceProduct.EditModel;
+    }
+    <DxFormLayout>
+        <DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextSCMNFP_InquiryPriceProduct">
+    
+<Input Id="SCMNFP_InquiryPriceProduct_Id" @ref="Ref_SCMNFP_InquiryPriceProduct_Id"   CssClass="d-none"   @bind-Value="SCMNFP_InquiryPriceProduct.Id" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+</DxFormLayoutItem>
+
+<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextSCMNFP_InquiryPriceProduct">
+    
+<Input Id="SCMNFP_InquiryPriceProduct_RequestID" @ref="Ref_SCMNFP_InquiryPriceProduct_RequestID"      @bind-Value="SCMNFP_InquiryPriceProduct.RequestID" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+</DxFormLayoutItem>
+
+<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextSCMNFP_InquiryPriceProduct">
+    
+<Input Id="SCMNFP_InquiryPriceProduct_CreateUser" @ref="Ref_SCMNFP_InquiryPriceProduct_CreateUser"      @bind-Value="SCMNFP_InquiryPriceProduct.CreateUser" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+</DxFormLayoutItem>
+
+<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextSCMNFP_InquiryPriceProduct">
+    
+<Input Id="SCMNFP_InquiryPriceProduct_UpdateUser" @ref="Ref_SCMNFP_InquiryPriceProduct_UpdateUser"      @bind-Value="SCMNFP_InquiryPriceProduct.UpdateUser" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+</DxFormLayoutItem>
+
+<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextSCMNFP_InquiryPriceProduct">
+    
+<Input Id="SCMNFP_InquiryPriceProduct_CreateDate" @ref="Ref_SCMNFP_InquiryPriceProduct_CreateDate"   CssClass="d-none"   @bind-Value="SCMNFP_InquiryPriceProduct.CreateDate" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+</DxFormLayoutItem>
+
+<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextSCMNFP_InquiryPriceProduct">
+    
+<Input Id="SCMNFP_InquiryPriceProduct_UpdateDate" @ref="Ref_SCMNFP_InquiryPriceProduct_UpdateDate"   CssClass="d-none"   @bind-Value="SCMNFP_InquiryPriceProduct.UpdateDate" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+</DxFormLayoutItem>
+
+<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextSCMNFP_InquiryPriceProduct">
+    
+<Input Id="SCMNFP_InquiryPriceProduct_IsDelete" @ref="Ref_SCMNFP_InquiryPriceProduct_IsDelete"   CssClass="d-none"   @bind-Value="SCMNFP_InquiryPriceProduct.IsDelete" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+</DxFormLayoutItem>
+
+<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextSCMNFP_InquiryPriceProduct">
+    
+<Input Id="SCMNFP_InquiryPriceProduct_DescriptionInquiry" @ref="Ref_SCMNFP_InquiryPriceProduct_DescriptionInquiry" Label="توضیحات استعلام"   Disabled=true  @bind-Value="SCMNFP_InquiryPriceProduct.DescriptionInquiry" type="textarea"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+</DxFormLayoutItem>
+
+
+        <DxFormLayoutItem ColSpanMd="12" Context="FormLayoutContextSCMNFP_InquiryPriceProduct" CssClass="btn-modal-custom">
+            <DxButton Id="SCMNFP_InquiryPriceProduct_GridSCMNFP_ProductRequestId_239ButtonSave" Click="@(() => SaveModalGrid_SCMNFP_InquiryPriceProduct(EditFormContextSCMNFP_InquiryPriceProduct))" Text="@languageContainer.Keys["DXGrid:Save"]" CssClass="btn btn-green px-5" />
+            
+<DxButton id="SCMNFP_InquiryPriceProduct_GridSCMNFP_ProductRequestId_239ButtonSaveAndNew"    Text="ذخیره و جدید" Click="@(() => SaveAndNewGrid_SCMNFP_InquiryPriceProduct(EditFormContextSCMNFP_InquiryPriceProduct))" CssClass="btn btn-green" />
+
+
+            <DxButton Id="SCMNFP_InquiryPriceProduct_GridSCMNFP_ProductRequestId_239ButtonCancel" Click="@(() => Grid_SCMNFP_InquiryPriceProduct.CancelEditAsync())" Text="@languageContainer.Keys["DXGrid:Cancel"]" CssClass="btn btn-red" />
+            <button id="click_s"  hidden>submit</button>
+             <span>|</span>
+           
+            <DxButton Id="SCMNFP_InquiryPriceProduct_GridSCMNFP_ProductRequestId_239ButtonBefore" Click="@(() => Dialog_Grid_SCMNFP_InquiryPriceProduct(0,IndexGrid_SCMNFP_InquiryPriceProduct,EditFormContextSCMNFP_InquiryPriceProduct))" Text="قبلی" CssClass="btn btn-purple" />@* @languageContainer.Keys["DXGrid:??"] *@
+         
+            <DxButton Id="SCMNFP_InquiryPriceProduct_GridSCMNFP_ProductRequestId_239ButtonNext" Click="@(() => Dialog_Grid_SCMNFP_InquiryPriceProduct(1,IndexGrid_SCMNFP_InquiryPriceProduct,EditFormContextSCMNFP_InquiryPriceProduct))" Text="بعدی" CssClass="btn btn-purple" />
+
+        </DxFormLayoutItem>
+    </DxFormLayout>
+
+</EditFormTemplate>
+
+</DxGrid>
+
+<DxPopup @bind-Visible="@ConfirmationShownSCMNFP_InquiryPriceProduct" HeaderText="@languageContainer.Keys["DXGrid:DeleteItem"]" Width="350px" CloseOnOutsideClick="false">
+
+    <BodyContentTemplate Context="EditFormContext">
+        <div class="py-3 px-5 text-center">
+            <p>@languageContainer.Keys["DXGrid:DeleteItemHint"]</p>
+            <div class="confirm-dialog-buttons">
+                <DxButton Text="@languageContainer.Keys["DXGrid:Yes"]" CssClass="btn btn-red px-4" Click="@OnYesButtonClickGrid_SCMNFP_InquiryPriceProduct" />
+                <DxButton Text="@languageContainer.Keys["DXGrid:No"]" CssClass="btn btn-purple-light px-4" Click="@OnNoButtonClickGrid_SCMNFP_InquiryPriceProduct" />
+            </div>
+        </div>
+    </BodyContentTemplate>
+</DxPopup>
+
+<DxPopup @bind-Visible="@ConfirmationSCMNFP_InquiryPriceProduct" HeaderText="هشدار" Width="350px" CloseOnOutsideClick="false">
+    <BodyContentTemplate Context="EditFormContext">
+        <div class="py-3 px-5 text-center"> 
+            <p>اطلاعات این فرم تغییر کرده است آیا تغییرات ذخیره شود؟</p>
+            <div class="confirm-dialog-buttons">
+                <DxButton Text="بله" CssClass="btn btn-red px-4" Click="@OnYesButtonSCMNFP_InquiryPriceProduct" />
+                <DxButton Text="خیر" CssClass="btn btn-purple-light px-4" Click="@OnNoButtonSCMNFP_InquiryPriceProduct" />
+            </div>
+        </div>
+    </BodyContentTemplate>
+</DxPopup>
+@code {
+    // DxGrid? Grid_SCMNFP_InquiryPriceProduct;
+    Entity.SCMNFP_InquiryPriceProduct SCMNFP_InquiryPriceProduct;
+    bool ConfirmationShownSCMNFP_InquiryPriceProduct { get; set; } = false;
+    public Entity.SCMNFP_InquiryPriceProduct SelectedItemGrid_SCMNFP_InquiryPriceProduct { get; set; } = new Entity.SCMNFP_InquiryPriceProduct();
+    /// <summary>
+    /// شماره ستون
+    /// </summary>
+    public int IndexGrid_SCMNFP_InquiryPriceProduct { get; set; }
+
+    ///////////////////////
+    bool ConfirmationSCMNFP_InquiryPriceProduct { get; set; } = false;
+    GridEditFormTemplateContext? _ContextFormTemplateSCMNFP_InquiryPriceProduct { get; set; }
+    public int OpenDialogCodeSCMNFP_InquiryPriceProduct { get; set; } = 0;
+    ////////////////////////
+
+    async Task OnEditModelSavingSCMNFP_InquiryPriceProduct(GridEditModelSavingEventArgs arg)
+    {
+        var e = arg.EditModel;
+    bool NotValid = false;
+    //events
+       
+        
+      if (!NotValid)
+     {
+      SaveGrid_SCMNFP_InquiryPriceProduct(arg.DataItem, arg.EditModel);
+     }
+}
+
+async void Dialog_Grid_SCMNFP_InquiryPriceProduct(int _OpenDialogCode, int VisibleIndex, GridEditFormTemplateContext e)
+{
+    OpenDialogCodeSCMNFP_InquiryPriceProduct = _OpenDialogCode;
+    if (!CheckChangedData(await Utility.JSON.ToJson(e.EditModel)))
+    {
+    _ContextFormTemplateSCMNFP_InquiryPriceProduct = e;
+    ConfirmationSCMNFP_InquiryPriceProduct = true;
+    }
+    else
+    {
+    await OnNoButtonSCMNFP_InquiryPriceProduct();
+    }
+}
+async Task OnYesButtonSCMNFP_InquiryPriceProduct()
+{
+
+    ConfirmationSCMNFP_InquiryPriceProduct = false;
+    await Task.Delay(1500);
+    //bool FormValidate = await JSO.InvokeAsync<bool>("submitForm");
+    bool FormValidate =  await JS.InvokeAsync<bool>("submitForm");
+    if (FormValidate)
+    {
+        bool NotValid = false;
+    var e = _ContextFormTemplateSCMNFP_InquiryPriceProduct.EditModel;
+         //events
+         
+
+        if (!NotValid)
+         {
+        SaveGrid_SCMNFP_InquiryPriceProduct(_ContextFormTemplateSCMNFP_InquiryPriceProduct.DataItem, _ContextFormTemplateSCMNFP_InquiryPriceProduct.EditModel);
+            await Grid_SCMNFP_InquiryPriceProduct.CancelEditAsync();
+         await ChangePageGrid_SCMNFP_InquiryPriceProduct();
+         await SetEditFormContextGrid_SCMNFP_InquiryPriceProduct();
+         }
+          
+    }
+
+}
+async Task OnNoButtonSCMNFP_InquiryPriceProduct()
+{
+    ConfirmationSCMNFP_InquiryPriceProduct = false;
+    await ChangePageGrid_SCMNFP_InquiryPriceProduct();
+    await SetEditFormContextGrid_SCMNFP_InquiryPriceProduct();
+
+}
+async Task SetEditFormContextGrid_SCMNFP_InquiryPriceProduct()
+{
+    var e = (Entity.SCMNFP_InquiryPriceProduct)Grid_SCMNFP_InquiryPriceProduct.GetDataItem(IndexGrid_SCMNFP_InquiryPriceProduct);
+    JsonData = await Utility.JSON.ToJson(e);
+}
+
+async Task ChangePageGrid_SCMNFP_InquiryPriceProduct()
+{
+    int VisibleIndex = IndexGrid_SCMNFP_InquiryPriceProduct;
+    try
+    {
+    if (OpenDialogCodeSCMNFP_InquiryPriceProduct == 1)
+    {
+        if (VisibleIndex != (Grid_SCMNFP_InquiryPriceProduct.GetVisibleRowCount() - 1))
+    { 
+            Grid_SCMNFP_InquiryPriceProduct.CancelEditAsync();
+            IndexGrid_SCMNFP_InquiryPriceProduct = VisibleIndex + 1;
+    Grid_SCMNFP_InquiryPriceProduct.StartEditRowAsync(IndexGrid_SCMNFP_InquiryPriceProduct);
+    }
+    }
+    else if (OpenDialogCodeSCMNFP_InquiryPriceProduct == 0)
+    {
+        if (VisibleIndex != 0)
+        {
+
+            Grid_SCMNFP_InquiryPriceProduct.CancelEditAsync();
+            IndexGrid_SCMNFP_InquiryPriceProduct = VisibleIndex - 1;
+    Grid_SCMNFP_InquiryPriceProduct.StartEditRowAsync(IndexGrid_SCMNFP_InquiryPriceProduct);
+    }
+
+    }
+    var e = (Entity.SCMNFP_InquiryPriceProduct)Grid_SCMNFP_InquiryPriceProduct.GetDataItem(IndexGrid_SCMNFP_InquiryPriceProduct);
+    JsonData = await Utility.JSON.ToJson(e);
+    await Task.Delay(300);
+    
+    StateHasChanged();
+    }
+    catch (Exception ex)
+    {
+
+    Console.WriteLine("error in ChagePage" + ex.Message);
+    }
+
+}
+
+async Task StartEditNewRowAsync_Grid_SCMNFP_InquiryPriceProduct()
+{
+    IndexGrid_SCMNFP_InquiryPriceProduct = Grid_SCMNFP_InquiryPriceProduct.GetVisibleRowCount();
+Grid_SCMNFP_InquiryPriceProduct.StartEditNewRowAsync().GetAwaiter();
+var e = new Entity.SCMNFP_InquiryPriceProduct();
+JsonData = await Utility.JSON.ToJson(e);
+await Task.Delay(300);
+
+}
+
+async Task StartModalGrid_SCMNFP_InquiryPriceProduct(GridCommandColumnCellDisplayTemplateContext Context)
+{
+    IndexGrid_SCMNFP_InquiryPriceProduct = Context.VisibleIndex;
+Grid_SCMNFP_InquiryPriceProduct.StartEditRowAsync(Context.VisibleIndex).GetAwaiter();
+var e = (Entity.SCMNFP_InquiryPriceProduct)Context.DataItem;
+JsonData = await Utility.JSON.ToJson(e);
+await Task.Delay(300);
+
+   // await Task.Delay(500);
+}
+public async Task SaveModalGrid_SCMNFP_InquiryPriceProduct(GridEditFormTemplateContext arg)
+{
+     //bool FormValidate = await JSO.InvokeAsync<bool>("submitForm");
+     bool FormValidate =  await JS.InvokeAsync<bool>("submitForm");
+
+    if(FormValidate){
+
+    var e = arg.EditModel;
+    bool NotValid = false;
+    //events
+    
+    if (!NotValid)
+    {
+        SaveGrid_SCMNFP_InquiryPriceProduct(arg.DataItem, arg.EditModel);
+
+     await arg.Grid.CancelEditAsync(); 
+
+    }
+
+    }
+
+}
+public async Task SaveAndNewGrid_SCMNFP_InquiryPriceProduct(GridEditFormTemplateContext arg)
+{ 
+     //bool FormValidate = await JSO.InvokeAsync<bool>("submitForm");
+     bool FormValidate = await JS.InvokeAsync<bool>("submitForm");
+     
+    if(FormValidate){
+       
+         var e = arg.EditModel;
+          bool NotValid = false;
+     //events
+    
+    if (!NotValid)
+    {
+        SaveGrid_SCMNFP_InquiryPriceProduct(arg.DataItem, arg.EditModel);
+
+         await arg.Grid.CancelEditAsync();
+        await StartEditNewRowAsync_Grid_SCMNFP_InquiryPriceProduct();
+
+    }
+          
+    }
+   
+}
+
+void PerviousPageGrid_SCMNFP_InquiryPriceProduct(int VisibleIndex)
+{
+    try
+     {
+    if (VisibleIndex == 0)
+    {
+        Console.WriteLine(VisibleIndex.ToString());
+    }
+    else
+    {
+Grid_SCMNFP_InquiryPriceProduct.CancelEditAsync();
+        IndexGrid_SCMNFP_InquiryPriceProduct = VisibleIndex - 1;
+         Grid_SCMNFP_InquiryPriceProduct.StartEditRowAsync(IndexGrid_SCMNFP_InquiryPriceProduct);
+     }
+    }
+     catch (Exception e)
+     {
+    Console.WriteLine("PerviousPage Message");
+    Console.WriteLine(e.Message);
+    }
+
+}
+
+void NextPageGrid_SCMNFP_InquiryPriceProduct(int VisibleIndex)
+{
+
+    if (VisibleIndex == Grid_SCMNFP_InquiryPriceProduct.GetVisibleRowCount() - 1)
+    {
+    Console.WriteLine(VisibleIndex.ToString());
+    }
+    else
+    {
+    Console.WriteLine("NextPage Start Grid_SCMNFP_InquiryPriceProduct ");
+    try
+    {
+Grid_SCMNFP_InquiryPriceProduct.CancelEditAsync();
+        IndexGrid_SCMNFP_InquiryPriceProduct = VisibleIndex + 1;
+         Grid_SCMNFP_InquiryPriceProduct.StartEditRowAsync(IndexGrid_SCMNFP_InquiryPriceProduct);
+     }
+    catch (Exception e)
+    {
+        Console.WriteLine("NextPage Message");
+        Console.WriteLine(e.Message);
+    }
+
+    }
+}
+
+public void SaveGrid_SCMNFP_InquiryPriceProduct(object DataItem, object EditModel)
+{
+    var ListEntity = _Entity.SCMNFP_InquiryPriceProduct;
+    var MainModel = (Entity.SCMNFP_InquiryPriceProduct)DataItem;
+    if (MainModel != null)
+    {
+MainModel.Id = ((Entity.SCMNFP_InquiryPriceProduct)EditModel).Id;
+MainModel.RequestID = ((Entity.SCMNFP_InquiryPriceProduct)EditModel).RequestID;
+MainModel.CreateUser = ((Entity.SCMNFP_InquiryPriceProduct)EditModel).CreateUser;
+MainModel.UpdateUser = ((Entity.SCMNFP_InquiryPriceProduct)EditModel).UpdateUser;
+MainModel.CreateDate = ((Entity.SCMNFP_InquiryPriceProduct)EditModel).CreateDate;
+MainModel.UpdateDate = ((Entity.SCMNFP_InquiryPriceProduct)EditModel).UpdateDate;
+MainModel.IsDelete = ((Entity.SCMNFP_InquiryPriceProduct)EditModel).IsDelete;
+MainModel.DescriptionInquiry = ((Entity.SCMNFP_InquiryPriceProduct)EditModel).DescriptionInquiry;
+
+    }
+    else
+    {
+    ListEntity.Add((Entity.SCMNFP_InquiryPriceProduct)EditModel);
+    }
+}
+
+async Task OnDataItemDeletingSCMNFP_InquiryPriceProduct(GridDataItemDeletingEventArgs e)
+    {
+    var ListEntity = _Entity.SCMNFP_InquiryPriceProduct;
+    ListEntity.Remove((Entity.SCMNFP_InquiryPriceProduct)e.DataItem);
+}
+async void OnDeleteButtonClickGrid_SCMNFP_InquiryPriceProduct (GridCommandColumnCellDisplayTemplateContext ex)
+{
+    SelectedItemGrid_SCMNFP_InquiryPriceProduct = (ex.DataItem as Entity.SCMNFP_InquiryPriceProduct);
+    var e =SelectedItemGrid_SCMNFP_InquiryPriceProduct;
+    
+     
+    Console.WriteLine("end OnDeleteButtonClickGrid_test_OrderBody 0");
+    ConfirmationShownSCMNFP_InquiryPriceProduct = true;
+    await Task.Yield();
+     await InvokeAsync(StateHasChanged);
+    
+    Console.WriteLine("end OnDeleteButtonClickGrid_test_OrderBody 1");
+}
+async void OnYesButtonClickGrid_SCMNFP_InquiryPriceProduct ()
+{
+       if (SelectedItemGrid_SCMNFP_InquiryPriceProduct != null)
+    {
+      if (SelectedItemGrid_SCMNFP_InquiryPriceProduct.Id == Guid.Empty)
+      {
+          var ListEntity = _Entity.SCMNFP_InquiryPriceProduct;
+        ListEntity.Remove((Entity.SCMNFP_InquiryPriceProduct)SelectedItemGrid_SCMNFP_InquiryPriceProduct);
+     
+      }
+      else
+      {
+        var cleanModel = new Entity.SCMNFP_InquiryPriceProduct();
+      // چک کن آیا پراپرتی IsDelete در این نوع وجود دارد؟
+        var prop = typeof(Entity.SCMNFP_InquiryPriceProduct).GetProperty("IsDelete");
+        if (prop != null && prop.CanRead && prop.CanWrite)
+        {
+            // مقدار فعلی را بگیر
+            var currentValue = prop.GetValue(SelectedItemGrid_SCMNFP_InquiryPriceProduct);
+
+            if (currentValue is bool boolValue)
+            {
+                // مقدار را معکوس کن
+                var newValue = !boolValue;
+
+                // روی هر دو شیء تنظیم کن
+                prop.SetValue(SelectedItemGrid_SCMNFP_InquiryPriceProduct, newValue);
+                prop.SetValue(cleanModel, newValue);
+            }
+        }
+        EntityHelper.SetPropertyValue(cleanModel, cleanModel._GetIdName, SelectedItemGrid_SCMNFP_InquiryPriceProduct._Id);
+    
+       
+       
+      }
+    }
+    var e= SelectedItemGrid_SCMNFP_InquiryPriceProduct;
+    
+    Grid_SCMNFP_InquiryPriceProduct.Reload();
+    ConfirmationShownSCMNFP_InquiryPriceProduct = false;
+     await Task.Yield();
+    await InvokeAsync(StateHasChanged);
+
+}
+void OnNoButtonClickGrid_SCMNFP_InquiryPriceProduct ()
+{
+    ConfirmationShownSCMNFP_InquiryPriceProduct = false;
+}
+
+void CustomizeRowsGrid_SCMNFP_InquiryPriceProduct(GridCustomizeElementEventArgs e)
+{
+    ///استایل سطر
+    if (e.ElementType == GridElementType.DataRow)
+    {
+    var item = ((Entity.SCMNFP_InquiryPriceProduct)e.Grid.GetDataItem(e.VisibleIndex));
+
+       if (item.IsDelete == true)
+       {
+           e.CssClass = "bg-lightred disablediv";
+       }
+    }
+}
+
+async void CustomizeEditGrid_SCMNFP_InquiryPriceProduct(GridCustomizeEditModelEventArgs e)
+{
+
+    if (e.IsNew)
+    {
+
+    var newRow = (Entity.SCMNFP_InquiryPriceProduct)e.EditModel;
+
+     
+
+    }
+
+
+}
+public async void RowClickGrid_SCMNFP_InquiryPriceProduct(GridRowClickEventArgs e)
+{
+
+}
+
+public async void RowDubbleClickGrid_SCMNFP_InquiryPriceProduct(GridRowClickEventArgs e)
 {
 
 }

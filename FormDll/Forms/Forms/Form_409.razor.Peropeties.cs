@@ -144,7 +144,7 @@ namespace Forms.Forms
     /// <summary>
     ///  ورژنی که فرم باهاش ساخته شده
     /// </summary>
-    public string? VersionForm { get; set; } = "5603";
+    public string? VersionForm { get; set; } = "5622";
 
     /// <summary>
     ///  موجودیت
@@ -184,27 +184,6 @@ public Input<string?> Ref_UserStarterCompanyName;
 public Input<string?> Ref_UserStarterUnitName;
 public Input<string?> Ref_UserStarterSectionName;
 public RadioBoolean Ref_HardwareORNetwork;
-public DxGrid? Grid_SCMICT_ProductRequestDetails;
-
-public Input<string?> Ref_SCMICT_ProductRequestDetails_SH_DESC;
-public Input<string?> Ref_SCMICT_ProductRequestDetails_SH_PARTNO;
-public Input<string?> Ref_SCMICT_ProductRequestDetails_SH_UNIT;
-public Dropdown Ref_SCMICT_ProductRequestDetails_SCMICT_PriorityId;
-public Input<string?> Ref_SCMICT_ProductRequestDetails_PlaceOfUse;
-public Input<string?> Ref_SCMICT_ProductRequestDetails_SR_Desc;
-public Input<string?> Ref_SCMICT_ProductRequestDetails_HeadDesc;
-public RadioBoolean Ref_SCMICT_ProductRequestDetails_InquiryIsEnable;
-public FileUploadPage.Uploader<Entity.SCMICT_ProductRequestDetails_ICTGoodsFileUpload> Ref_SCMICT_ProductRequestDetails_SCMICT_ProductRequestDetails_ICTGoodsFileUpload;
-public FileUploadPage.Uploader<Entity.SCMICT_ProductRequestDetails_InquiryFile1> Ref_SCMICT_ProductRequestDetails_SCMICT_ProductRequestDetails_InquiryFile1;
-public FileUploadPage.Uploader<Entity.SCMICT_ProductRequestDetails_InquiryFile2> Ref_SCMICT_ProductRequestDetails_SCMICT_ProductRequestDetails_InquiryFile2;
-public FileUploadPage.Uploader<Entity.SCMICT_ProductRequestDetails_InquiryFile3> Ref_SCMICT_ProductRequestDetails_SCMICT_ProductRequestDetails_InquiryFile3;
-public Input<Guid> Ref_SCMICT_ProductRequestDetails_Id;
-public Input<Guid?> Ref_SCMICT_ProductRequestDetails_RequestID;
-public Input<Guid?> Ref_SCMICT_ProductRequestDetails_CreateUser;
-public Input<Guid?> Ref_SCMICT_ProductRequestDetails_UpdateUser;
-public Input<DateTime?> Ref_SCMICT_ProductRequestDetails_CreateDate;
-public Input<DateTime?> Ref_SCMICT_ProductRequestDetails_UpdateDate;
-public Input<bool?> Ref_SCMICT_ProductRequestDetails_IsDelete;
 public Input<Guid> Ref_Id;
 public Input<Guid?> Ref_RequestID;
 public Input<Guid?> Ref_CreateUser;
@@ -212,6 +191,27 @@ public Input<Guid?> Ref_UpdateUser;
 public Input<DateTime?> Ref_CreateDate;
 public Input<DateTime?> Ref_UpdateDate;
 public Input<bool?> Ref_IsDelete;
+public DxGrid? Grid_SCMICT_ProductRequestDetails;
+
+public Input<Guid> Ref_SCMICT_ProductRequestDetails_Id;
+public Input<Guid?> Ref_SCMICT_ProductRequestDetails_RequestID;
+public Input<Guid?> Ref_SCMICT_ProductRequestDetails_CreateUser;
+public Input<Guid?> Ref_SCMICT_ProductRequestDetails_UpdateUser;
+public Input<DateTime?> Ref_SCMICT_ProductRequestDetails_CreateDate;
+public Input<DateTime?> Ref_SCMICT_ProductRequestDetails_UpdateDate;
+public Input<bool?> Ref_SCMICT_ProductRequestDetails_IsDelete;
+public Input<string?> Ref_SCMICT_ProductRequestDetails_SH_PARTNO;
+public Input<string?> Ref_SCMICT_ProductRequestDetails_SH_DESC;
+public Input<string?> Ref_SCMICT_ProductRequestDetails_SH_UNIT;
+public Dropdown Ref_SCMICT_ProductRequestDetails_SCMICT_PriorityId;
+public Input<string?> Ref_SCMICT_ProductRequestDetails_PlaceOfUse;
+public Input<string?> Ref_SCMICT_ProductRequestDetails_SR_Desc;
+public FileUploadPage.Uploader<Entity.SCMICT_ProductRequestDetails_ICTGoodsFileUpload> Ref_SCMICT_ProductRequestDetails_SCMICT_ProductRequestDetails_ICTGoodsFileUpload;
+public RadioBoolean Ref_SCMICT_ProductRequestDetails_InquiryIsEnable;
+public Input<string?> Ref_SCMICT_ProductRequestDetails_HeadDesc;
+public FileUploadPage.Uploader<Entity.SCMICT_ProductRequestDetails_InquiryFile1> Ref_SCMICT_ProductRequestDetails_SCMICT_ProductRequestDetails_InquiryFile1;
+public FileUploadPage.Uploader<Entity.SCMICT_ProductRequestDetails_InquiryFile2> Ref_SCMICT_ProductRequestDetails_SCMICT_ProductRequestDetails_InquiryFile2;
+public FileUploadPage.Uploader<Entity.SCMICT_ProductRequestDetails_InquiryFile3> Ref_SCMICT_ProductRequestDetails_SCMICT_ProductRequestDetails_InquiryFile3;
 
 
     #endregion

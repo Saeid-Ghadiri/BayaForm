@@ -144,7 +144,7 @@ namespace Forms.Forms
     /// <summary>
     ///  ورژنی که فرم باهاش ساخته شده
     /// </summary>
-    public string? VersionForm { get; set; } = "5603";
+    public string? VersionForm { get; set; } = "5622";
 
     /// <summary>
     ///  موجودیت
@@ -183,36 +183,6 @@ public Input<string?> Ref_SystemUser;
 public Input<string?> Ref_UserCompanyName;
 public Input<string?> Ref_SystemUnitUser;
 public Input<string?> Ref_SystemSectionUser;
-public DxGrid? Grid_SCM_ProductRequestDetails;
-
-public Input<string?> Ref_SCM_ProductRequestDetails_ProductNameText;
-public Input<string?> Ref_SCM_ProductRequestDetails_ProductUnitText;
-public Input<double?> Ref_SCM_ProductRequestDetails_ProductRequestingQTY;
-public Dropdown Ref_SCM_ProductRequestDetails_SCM_PriorityId;
-public Input<string?> Ref_SCM_ProductRequestDetails_PlaceOfUseProduct;
-public Input<string?> Ref_SCM_ProductRequestDetails_ProductRowDescription;
-public RadioBoolean Ref_SCM_ProductRequestDetails_ForeignMachineryProductTrueFasle;
-public RadioBoolean Ref_SCM_ProductRequestDetails_InquiryTrueFalse;
-public Input<double?> Ref_SCM_ProductRequestDetails_DeficitSupplyNumber;
-public RadioBoolean Ref_SCM_ProductRequestDetails_TypeofProductDelivery;
-public Dropdown Ref_SCM_ProductRequestDetails_SCM_ProcurementId;
-public Dropdown Ref_SCM_ProductRequestDetails_SCM_NumTransfersGoodsWarehouseId;
-public Input<double?> Ref_SCM_ProductRequestDetails_TheNumberDeliveredByLogistics;
-public Input<double?> Ref_SCM_ProductRequestDetails_TheNumberDeliveredByLogistics2;
-public Input<double?> Ref_SCM_ProductRequestDetails_TheNumberDeliveredByLogistics3;
-public RadioBoolean Ref_SCM_ProductRequestDetails_SurplusProductIsEnable;
-public Input<double?> Ref_SCM_ProductRequestDetails_NumberOfSurplusProduct;
-public Input<double?> Ref_SCM_ProductRequestDetails_NumberofProductDelivery1;
-public Input<double?> Ref_SCM_ProductRequestDetails_NumberofProductDelivery2;
-public Input<double?> Ref_SCM_ProductRequestDetails_NumberofProductDelivery3;
-public Input<string?> Ref_SCM_ProductRequestDetails_DescriptionWarehouseKeeper;
-public Input<Guid> Ref_SCM_ProductRequestDetails_Id;
-public Input<Guid?> Ref_SCM_ProductRequestDetails_RequestID;
-public Input<Guid?> Ref_SCM_ProductRequestDetails_CreateUser;
-public Input<Guid?> Ref_SCM_ProductRequestDetails_UpdateUser;
-public Input<DateTime?> Ref_SCM_ProductRequestDetails_CreateDate;
-public Input<DateTime?> Ref_SCM_ProductRequestDetails_UpdateDate;
-public Input<bool?> Ref_SCM_ProductRequestDetails_IsDelete;
 public Input<Guid> Ref_Id;
 public Input<Guid?> Ref_RequestID;
 public Input<Guid?> Ref_CreateUser;
@@ -220,6 +190,36 @@ public Input<Guid?> Ref_UpdateUser;
 public Input<DateTime?> Ref_CreateDate;
 public Input<DateTime?> Ref_UpdateDate;
 public Input<bool?> Ref_IsDelete;
+public DxGrid? Grid_SCM_ProductRequestDetails;
+
+public Input<Guid> Ref_SCM_ProductRequestDetails_Id;
+public Input<Guid?> Ref_SCM_ProductRequestDetails_RequestID;
+public Input<Guid?> Ref_SCM_ProductRequestDetails_CreateUser;
+public Input<Guid?> Ref_SCM_ProductRequestDetails_UpdateUser;
+public Input<DateTime?> Ref_SCM_ProductRequestDetails_CreateDate;
+public Input<DateTime?> Ref_SCM_ProductRequestDetails_UpdateDate;
+public Input<bool?> Ref_SCM_ProductRequestDetails_IsDelete;
+public Input<string?> Ref_SCM_ProductRequestDetails_ProductUnitText;
+public Input<double?> Ref_SCM_ProductRequestDetails_ProductRequestingQTY;
+public Dropdown Ref_SCM_ProductRequestDetails_SCM_PriorityId;
+public Input<string?> Ref_SCM_ProductRequestDetails_PlaceOfUseProduct;
+public Input<string?> Ref_SCM_ProductRequestDetails_ProductRowDescription;
+public Input<string?> Ref_SCM_ProductRequestDetails_ProductNameText;
+public RadioBoolean Ref_SCM_ProductRequestDetails_ForeignMachineryProductTrueFasle;
+public RadioBoolean Ref_SCM_ProductRequestDetails_InquiryTrueFalse;
+public Dropdown Ref_SCM_ProductRequestDetails_SCM_ProcurementId;
+public Input<double?> Ref_SCM_ProductRequestDetails_DeficitSupplyNumber;
+public RadioBoolean Ref_SCM_ProductRequestDetails_TypeofProductDelivery;
+public Input<string?> Ref_SCM_ProductRequestDetails_DescriptionWarehouseKeeper;
+public Input<double?> Ref_SCM_ProductRequestDetails_TheNumberDeliveredByLogistics;
+public Input<double?> Ref_SCM_ProductRequestDetails_TheNumberDeliveredByLogistics2;
+public Input<double?> Ref_SCM_ProductRequestDetails_TheNumberDeliveredByLogistics3;
+public Input<double?> Ref_SCM_ProductRequestDetails_NumberofProductDelivery2;
+public Input<double?> Ref_SCM_ProductRequestDetails_NumberofProductDelivery3;
+public RadioBoolean Ref_SCM_ProductRequestDetails_SurplusProductIsEnable;
+public Input<double?> Ref_SCM_ProductRequestDetails_NumberOfSurplusProduct;
+public Dropdown Ref_SCM_ProductRequestDetails_SCM_NumTransfersGoodsWarehouseId;
+public Input<double?> Ref_SCM_ProductRequestDetails_NumberofProductDelivery1;
 
 
     #endregion

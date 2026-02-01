@@ -144,7 +144,7 @@ namespace Forms.Forms
     /// <summary>
     ///  ورژنی که فرم باهاش ساخته شده
     /// </summary>
-    public string? VersionForm { get; set; } = "5603";
+    public string? VersionForm { get; set; } = "5622";
 
     /// <summary>
     ///  موجودیت
@@ -198,81 +198,7 @@ public Input<string?> Ref_FactoryPhoneNumber;
 public Input<string?> Ref_FactoryFax;
 public Input<string?> Ref_FactoryAddress;
 public FileUploadPage.Uploader<Entity.SCMPETCO_SupplierMaster_Attachments> Ref_SCMPETCO_SupplierMaster_Attachments;
-public DxGrid? Grid_SCMPETCO_OrgSkills_SupplierDetail;
-
-public Input<string?> Ref_SCMPETCO_OrgSkills_SupplierDetail_ServicesName;
-public Input<string?> Ref_SCMPETCO_OrgSkills_SupplierDetail_ProductName;
-public Input<decimal?> Ref_SCMPETCO_OrgSkills_SupplierDetail_DailyCapacity;
-public Input<string?> Ref_SCMPETCO_OrgSkills_SupplierDetail_Description;
-public Input<Guid> Ref_SCMPETCO_OrgSkills_SupplierDetail_Id;
-public Input<Guid?> Ref_SCMPETCO_OrgSkills_SupplierDetail_RequestID;
-public Input<Guid?> Ref_SCMPETCO_OrgSkills_SupplierDetail_CreateUser;
-public Input<Guid?> Ref_SCMPETCO_OrgSkills_SupplierDetail_UpdateUser;
-public Input<DateTime?> Ref_SCMPETCO_OrgSkills_SupplierDetail_CreateDate;
-public Input<DateTime?> Ref_SCMPETCO_OrgSkills_SupplierDetail_UpdateDate;
-public Input<bool?> Ref_SCMPETCO_OrgSkills_SupplierDetail_IsDelete;
-public DxGrid? Grid_SCMPETCO_Partnerships_SupplierDetail;
-
-public Input<string?> Ref_SCMPETCO_Partnerships_SupplierDetail_ContractorDetails;
-public Input<string?> Ref_SCMPETCO_Partnerships_SupplierDetail_ServicesTitle;
-public Input<string?> Ref_SCMPETCO_Partnerships_SupplierDetail_StartDate;
-public Input<DateTime?> Ref_SCMPETCO_Partnerships_SupplierDetail_StartDateEN;
-public Input<Guid> Ref_SCMPETCO_Partnerships_SupplierDetail_Id;
-public Input<Guid?> Ref_SCMPETCO_Partnerships_SupplierDetail_RequestID;
-public Input<Guid?> Ref_SCMPETCO_Partnerships_SupplierDetail_CreateUser;
-public Input<Guid?> Ref_SCMPETCO_Partnerships_SupplierDetail_UpdateUser;
-public Input<DateTime?> Ref_SCMPETCO_Partnerships_SupplierDetail_CreateDate;
-public Input<DateTime?> Ref_SCMPETCO_Partnerships_SupplierDetail_UpdateDate;
-public Input<bool?> Ref_SCMPETCO_Partnerships_SupplierDetail_IsDelete;
 public Input<string?> Ref_TestingSkillsDesc;
-public DxGrid? Grid_SCMPETCO_PaymentMethod_Supplier;
-
-public Dropdown Ref_SCMPETCO_PaymentMethod_Supplier_SCMPETCO_TitlePaymentMethod_SupplierId;
-public Input<bool?> Ref_SCMPETCO_PaymentMethod_Supplier_IsActive;
-public Input<string?> Ref_SCMPETCO_PaymentMethod_Supplier_Description;
-public Input<Guid> Ref_SCMPETCO_PaymentMethod_Supplier_Id;
-public Input<Guid?> Ref_SCMPETCO_PaymentMethod_Supplier_RequestID;
-public Input<Guid?> Ref_SCMPETCO_PaymentMethod_Supplier_CreateUser;
-public Input<Guid?> Ref_SCMPETCO_PaymentMethod_Supplier_UpdateUser;
-public Input<DateTime?> Ref_SCMPETCO_PaymentMethod_Supplier_CreateDate;
-public Input<DateTime?> Ref_SCMPETCO_PaymentMethod_Supplier_UpdateDate;
-public Input<bool?> Ref_SCMPETCO_PaymentMethod_Supplier_IsDelete;
-public DxGrid? Grid_SCMPETCO_TransportationMethod_Supplier;
-
-public Dropdown Ref_SCMPETCO_TransportationMethod_Supplier_SCMPETCO_SCMPETCO_TitleTransportationMethod_SupplierId;
-public Input<bool?> Ref_SCMPETCO_TransportationMethod_Supplier_IsActive;
-public Input<string?> Ref_SCMPETCO_TransportationMethod_Supplier_Description;
-public Input<Guid> Ref_SCMPETCO_TransportationMethod_Supplier_Id;
-public Input<Guid?> Ref_SCMPETCO_TransportationMethod_Supplier_RequestID;
-public Input<Guid?> Ref_SCMPETCO_TransportationMethod_Supplier_CreateUser;
-public Input<Guid?> Ref_SCMPETCO_TransportationMethod_Supplier_UpdateUser;
-public Input<DateTime?> Ref_SCMPETCO_TransportationMethod_Supplier_CreateDate;
-public Input<DateTime?> Ref_SCMPETCO_TransportationMethod_Supplier_UpdateDate;
-public Input<bool?> Ref_SCMPETCO_TransportationMethod_Supplier_IsDelete;
-public DxGrid? Grid_SCMPETCO_InspectionMethod_Supplier;
-
-public Dropdown Ref_SCMPETCO_InspectionMethod_Supplier_SCMPETCO_TitleInspectionMethod_SupplierId;
-public Input<bool?> Ref_SCMPETCO_InspectionMethod_Supplier_IsActive;
-public Input<string?> Ref_SCMPETCO_InspectionMethod_Supplier_Description;
-public Input<Guid> Ref_SCMPETCO_InspectionMethod_Supplier_Id;
-public Input<Guid?> Ref_SCMPETCO_InspectionMethod_Supplier_RequestID;
-public Input<Guid?> Ref_SCMPETCO_InspectionMethod_Supplier_CreateUser;
-public Input<Guid?> Ref_SCMPETCO_InspectionMethod_Supplier_UpdateUser;
-public Input<DateTime?> Ref_SCMPETCO_InspectionMethod_Supplier_CreateDate;
-public Input<DateTime?> Ref_SCMPETCO_InspectionMethod_Supplier_UpdateDate;
-public Input<bool?> Ref_SCMPETCO_InspectionMethod_Supplier_IsDelete;
-public DxGrid? Grid_SCMPETCO_PreAssessment_Supplier;
-
-public Dropdown Ref_SCMPETCO_PreAssessment_Supplier_SCMPETCO_TitlePreAssessment_SupplierId;
-public Dropdown Ref_SCMPETCO_PreAssessment_Supplier_SCMPETCO_ScoringMethod_SupplierId;
-public Input<string?> Ref_SCMPETCO_PreAssessment_Supplier_Description;
-public Input<Guid> Ref_SCMPETCO_PreAssessment_Supplier_Id;
-public Input<Guid?> Ref_SCMPETCO_PreAssessment_Supplier_RequestID;
-public Input<Guid?> Ref_SCMPETCO_PreAssessment_Supplier_CreateUser;
-public Input<Guid?> Ref_SCMPETCO_PreAssessment_Supplier_UpdateUser;
-public Input<DateTime?> Ref_SCMPETCO_PreAssessment_Supplier_CreateDate;
-public Input<DateTime?> Ref_SCMPETCO_PreAssessment_Supplier_UpdateDate;
-public Input<bool?> Ref_SCMPETCO_PreAssessment_Supplier_IsDelete;
 public Input<decimal?> Ref_FinalScore;
 public Input<string?> Ref_GradType;
 public Input<Guid?> Ref_RequestID;
@@ -283,6 +209,80 @@ public Input<string?> Ref_ProcurementSupervisorDesc;
 public Input<string?> Ref_QCManagerDec;
 public Input<DateTime?> Ref_UpdateDate;
 public Input<Guid> Ref_Id;
+public DxGrid? Grid_SCMPETCO_OrgSkills_SupplierDetail;
+
+public Input<Guid> Ref_SCMPETCO_OrgSkills_SupplierDetail_Id;
+public Input<Guid?> Ref_SCMPETCO_OrgSkills_SupplierDetail_RequestID;
+public Input<Guid?> Ref_SCMPETCO_OrgSkills_SupplierDetail_CreateUser;
+public Input<Guid?> Ref_SCMPETCO_OrgSkills_SupplierDetail_UpdateUser;
+public Input<DateTime?> Ref_SCMPETCO_OrgSkills_SupplierDetail_CreateDate;
+public Input<DateTime?> Ref_SCMPETCO_OrgSkills_SupplierDetail_UpdateDate;
+public Input<bool?> Ref_SCMPETCO_OrgSkills_SupplierDetail_IsDelete;
+public Input<string?> Ref_SCMPETCO_OrgSkills_SupplierDetail_ServicesName;
+public Input<string?> Ref_SCMPETCO_OrgSkills_SupplierDetail_ProductName;
+public Input<decimal?> Ref_SCMPETCO_OrgSkills_SupplierDetail_DailyCapacity;
+public Input<string?> Ref_SCMPETCO_OrgSkills_SupplierDetail_Description;
+public DxGrid? Grid_SCMPETCO_Partnerships_SupplierDetail;
+
+public Input<Guid> Ref_SCMPETCO_Partnerships_SupplierDetail_Id;
+public Input<Guid?> Ref_SCMPETCO_Partnerships_SupplierDetail_RequestID;
+public Input<Guid?> Ref_SCMPETCO_Partnerships_SupplierDetail_CreateUser;
+public Input<Guid?> Ref_SCMPETCO_Partnerships_SupplierDetail_UpdateUser;
+public Input<DateTime?> Ref_SCMPETCO_Partnerships_SupplierDetail_CreateDate;
+public Input<DateTime?> Ref_SCMPETCO_Partnerships_SupplierDetail_UpdateDate;
+public Input<bool?> Ref_SCMPETCO_Partnerships_SupplierDetail_IsDelete;
+public Input<string?> Ref_SCMPETCO_Partnerships_SupplierDetail_ContractorDetails;
+public Input<string?> Ref_SCMPETCO_Partnerships_SupplierDetail_ServicesTitle;
+public Input<string?> Ref_SCMPETCO_Partnerships_SupplierDetail_StartDate;
+public Input<DateTime?> Ref_SCMPETCO_Partnerships_SupplierDetail_StartDateEN;
+public DxGrid? Grid_SCMPETCO_PreAssessment_Supplier;
+
+public Input<Guid> Ref_SCMPETCO_PreAssessment_Supplier_Id;
+public Input<Guid?> Ref_SCMPETCO_PreAssessment_Supplier_RequestID;
+public Input<Guid?> Ref_SCMPETCO_PreAssessment_Supplier_CreateUser;
+public Input<Guid?> Ref_SCMPETCO_PreAssessment_Supplier_UpdateUser;
+public Input<DateTime?> Ref_SCMPETCO_PreAssessment_Supplier_CreateDate;
+public Input<DateTime?> Ref_SCMPETCO_PreAssessment_Supplier_UpdateDate;
+public Input<bool?> Ref_SCMPETCO_PreAssessment_Supplier_IsDelete;
+public Dropdown Ref_SCMPETCO_PreAssessment_Supplier_SCMPETCO_TitlePreAssessment_SupplierId;
+public Dropdown Ref_SCMPETCO_PreAssessment_Supplier_SCMPETCO_ScoringMethod_SupplierId;
+public Input<string?> Ref_SCMPETCO_PreAssessment_Supplier_Description;
+public DxGrid? Grid_SCMPETCO_PaymentMethod_Supplier;
+
+public Input<Guid> Ref_SCMPETCO_PaymentMethod_Supplier_Id;
+public Input<Guid?> Ref_SCMPETCO_PaymentMethod_Supplier_RequestID;
+public Input<Guid?> Ref_SCMPETCO_PaymentMethod_Supplier_CreateUser;
+public Input<Guid?> Ref_SCMPETCO_PaymentMethod_Supplier_UpdateUser;
+public Input<DateTime?> Ref_SCMPETCO_PaymentMethod_Supplier_CreateDate;
+public Input<DateTime?> Ref_SCMPETCO_PaymentMethod_Supplier_UpdateDate;
+public Input<bool?> Ref_SCMPETCO_PaymentMethod_Supplier_IsDelete;
+public Input<string?> Ref_SCMPETCO_PaymentMethod_Supplier_Description;
+public Input<bool?> Ref_SCMPETCO_PaymentMethod_Supplier_IsActive;
+public Dropdown Ref_SCMPETCO_PaymentMethod_Supplier_SCMPETCO_TitlePaymentMethod_SupplierId;
+public DxGrid? Grid_SCMPETCO_TransportationMethod_Supplier;
+
+public Input<Guid> Ref_SCMPETCO_TransportationMethod_Supplier_Id;
+public Input<Guid?> Ref_SCMPETCO_TransportationMethod_Supplier_RequestID;
+public Input<Guid?> Ref_SCMPETCO_TransportationMethod_Supplier_CreateUser;
+public Input<Guid?> Ref_SCMPETCO_TransportationMethod_Supplier_UpdateUser;
+public Input<DateTime?> Ref_SCMPETCO_TransportationMethod_Supplier_CreateDate;
+public Input<DateTime?> Ref_SCMPETCO_TransportationMethod_Supplier_UpdateDate;
+public Input<bool?> Ref_SCMPETCO_TransportationMethod_Supplier_IsDelete;
+public Input<string?> Ref_SCMPETCO_TransportationMethod_Supplier_Description;
+public Input<bool?> Ref_SCMPETCO_TransportationMethod_Supplier_IsActive;
+public Dropdown Ref_SCMPETCO_TransportationMethod_Supplier_SCMPETCO_SCMPETCO_TitleTransportationMethod_SupplierId;
+public DxGrid? Grid_SCMPETCO_InspectionMethod_Supplier;
+
+public Input<Guid> Ref_SCMPETCO_InspectionMethod_Supplier_Id;
+public Input<Guid?> Ref_SCMPETCO_InspectionMethod_Supplier_RequestID;
+public Input<Guid?> Ref_SCMPETCO_InspectionMethod_Supplier_CreateUser;
+public Input<Guid?> Ref_SCMPETCO_InspectionMethod_Supplier_UpdateUser;
+public Input<DateTime?> Ref_SCMPETCO_InspectionMethod_Supplier_CreateDate;
+public Input<DateTime?> Ref_SCMPETCO_InspectionMethod_Supplier_UpdateDate;
+public Input<bool?> Ref_SCMPETCO_InspectionMethod_Supplier_IsDelete;
+public Input<string?> Ref_SCMPETCO_InspectionMethod_Supplier_Description;
+public Input<bool?> Ref_SCMPETCO_InspectionMethod_Supplier_IsActive;
+public Dropdown Ref_SCMPETCO_InspectionMethod_Supplier_SCMPETCO_TitleInspectionMethod_SupplierId;
 
 
     #endregion

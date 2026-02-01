@@ -144,7 +144,7 @@ namespace Forms.Forms
     /// <summary>
     ///  ورژنی که فرم باهاش ساخته شده
     /// </summary>
-    public string? VersionForm { get; set; } = "5603";
+    public string? VersionForm { get; set; } = "5622";
 
     /// <summary>
     ///  موجودیت
@@ -186,13 +186,39 @@ public Input<string?> Ref_UserStarterSectionName;
 public Input<string?> Ref_RequestTrakingCode;
 public Input<string?> Ref_ProcessVersionID;
 public RadioBoolean Ref_HardwareORNetwork;
+public Input<Guid> Ref_Id;
+public Input<Guid?> Ref_RequestID;
+public Input<Guid?> Ref_CreateUser;
+public Input<Guid?> Ref_UpdateUser;
+public Input<DateTime?> Ref_CreateDate;
+public Input<DateTime?> Ref_UpdateDate;
+public Input<bool?> Ref_IsDelete;
 public DxGrid? Grid_SCMICT_ProductRequestDetails;
 
-public Dropdown Ref_SCMICT_ProductRequestDetails_petcoProductSearch_NotMapped;
-public Input<string?> Ref_SCMICT_ProductRequestDetails_SH_DESC;
+public Input<Guid> Ref_SCMICT_ProductRequestDetails_Id;
+public Input<Guid?> Ref_SCMICT_ProductRequestDetails_RequestID;
+public Input<Guid?> Ref_SCMICT_ProductRequestDetails_CreateUser;
+public Input<Guid?> Ref_SCMICT_ProductRequestDetails_UpdateUser;
+public Input<DateTime?> Ref_SCMICT_ProductRequestDetails_CreateDate;
+public Input<DateTime?> Ref_SCMICT_ProductRequestDetails_UpdateDate;
+public Input<bool?> Ref_SCMICT_ProductRequestDetails_IsDelete;
 public Input<string?> Ref_SCMICT_ProductRequestDetails_SH_PARTNO;
+public Input<Guid?> Ref_SCMICT_ProductRequestDetails_SH_PARTNO_GUID;
+public Input<string?> Ref_SCMICT_ProductRequestDetails_SH_PARTCODE;
+public Input<Guid?> Ref_SCMICT_ProductRequestDetails_SH_PARTCODE_GUID;
+public Input<string?> Ref_SCMICT_ProductRequestDetails_SH_DESC;
 public Input<string?> Ref_SCMICT_ProductRequestDetails_SH_UNIT;
+public Input<string?> Ref_SCMICT_ProductRequestDetails_SH_SUBGRCODE;
+public Input<Guid?> Ref_SCMICT_ProductRequestDetails_SH_SUBGRCODE_GUID;
+public Input<string?> Ref_SCMICT_ProductRequestDetails_SH_GRCODE;
+public Input<Guid?> Ref_SCMICT_ProductRequestDetails_SH_GRCODE_GUID;
+public Input<string?> Ref_SCMICT_ProductRequestDetails_SH_GroupName;
+public Input<string?> Ref_SCMICT_ProductRequestDetails_SH_SubGroupName;
+public Input<int?> Ref_SCMICT_ProductRequestDetails_SH_YEAR;
 public Input<double?> Ref_SCMICT_ProductRequestDetails_SH_Amount;
+public Input<string?> Ref_SCMICT_ProductRequestDetails_SH_IsExist;
+public Input<string?> Ref_SCMICT_ProductRequestDetails_SH_Factory;
+public Input<int?> Ref_SCMICT_ProductRequestDetails_SH_MapGroupCode;
 public Input<double?> Ref_SCMICT_ProductRequestDetails_ProductRequestingQTY;
 public Dropdown Ref_SCMICT_ProductRequestDetails_SCMICT_PriorityId;
 public Input<string?> Ref_SCMICT_ProductRequestDetails_PlaceOfUse;
@@ -201,33 +227,7 @@ public FileUploadPage.Uploader<Entity.SCMICT_ProductRequestDetails_ICTGoodsFileU
 public RadioBoolean Ref_SCMICT_ProductRequestDetails_ITILCodeIsEnable;
 public Dropdown Ref_SCMICT_ProductRequestDetails_ResultingFromITIL;
 public Input<string?> Ref_SCMICT_ProductRequestDetails_ReasonRequestRow;
-public Input<Guid> Ref_SCMICT_ProductRequestDetails_Id;
-public Input<Guid?> Ref_SCMICT_ProductRequestDetails_RequestID;
-public Input<Guid?> Ref_SCMICT_ProductRequestDetails_CreateUser;
-public Input<Guid?> Ref_SCMICT_ProductRequestDetails_UpdateUser;
-public Input<DateTime?> Ref_SCMICT_ProductRequestDetails_CreateDate;
-public Input<DateTime?> Ref_SCMICT_ProductRequestDetails_UpdateDate;
-public Input<bool?> Ref_SCMICT_ProductRequestDetails_IsDelete;
-public Input<Guid?> Ref_SCMICT_ProductRequestDetails_SH_PARTNO_GUID;
-public Input<string?> Ref_SCMICT_ProductRequestDetails_SH_PARTCODE;
-public Input<Guid?> Ref_SCMICT_ProductRequestDetails_SH_PARTCODE_GUID;
-public Input<string?> Ref_SCMICT_ProductRequestDetails_SH_SUBGRCODE;
-public Input<Guid?> Ref_SCMICT_ProductRequestDetails_SH_SUBGRCODE_GUID;
-public Input<string?> Ref_SCMICT_ProductRequestDetails_SH_GRCODE;
-public Input<Guid?> Ref_SCMICT_ProductRequestDetails_SH_GRCODE_GUID;
-public Input<string?> Ref_SCMICT_ProductRequestDetails_SH_GroupName;
-public Input<string?> Ref_SCMICT_ProductRequestDetails_SH_SubGroupName;
-public Input<int?> Ref_SCMICT_ProductRequestDetails_SH_YEAR;
-public Input<string?> Ref_SCMICT_ProductRequestDetails_SH_IsExist;
-public Input<string?> Ref_SCMICT_ProductRequestDetails_SH_Factory;
-public Input<int?> Ref_SCMICT_ProductRequestDetails_SH_MapGroupCode;
-public Input<Guid> Ref_Id;
-public Input<Guid?> Ref_RequestID;
-public Input<Guid?> Ref_CreateUser;
-public Input<Guid?> Ref_UpdateUser;
-public Input<DateTime?> Ref_CreateDate;
-public Input<DateTime?> Ref_UpdateDate;
-public Input<bool?> Ref_IsDelete;
+public Dropdown Ref_SCMICT_ProductRequestDetails_petcoProductSearch_NotMapped;
 
 
     #endregion

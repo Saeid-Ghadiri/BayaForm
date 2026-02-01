@@ -155,37 +155,13 @@
 
 <DxGridDataColumn  Caption="IsDelete" Visible=false FieldName="IsDelete" />
 
-<DxGridDataColumn Context="PartNo_" Caption="کد کالا" >
+<DxGridDataColumn  Caption="کد کالا"  FieldName="PartNo" />
+
+<DxGridDataColumn Context="InvCode_" Caption="انبار" >
     <CellDisplayTemplate>
        
 @{
-    Baya.Models.ViewEngine.View_Component HeaderPartNo = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"primaryKey\":false,\"EntityID\":732,\"FieldId\":30314,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":983,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":true,\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://shomaran.workcv.ir:2010/fa-ir/api/v1/view_cardpart/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"inputFormat\":\"DropDown\",\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"partno\",\"template\":\"<span>{{item.desc}} {{item.partno}} {{item.partcode}} </span>\",\"FieldsTemplate\":[],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"searchField\":\"desc,partno,partcode\",\"modal\":true,\"label\":\"کد کالا\",\"tableView\":true,\"key\":\"PartNo\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"30314?EId=732&SubId=28\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
-    var RowPartNo = ((Entity.Shomaran_SefareshPoint)PartNo_.DataItem).PartNo;
-}
-
-<Dropdown ExternalApi=true CssClass="" NotMapped=false TextGrid=true Value="@RowPartNo"   FieldName="PartNo" OnItemSelected="ItemSelected_Shomaran_SefareshPointPartNo_Header" Component="HeaderPartNo">
-</Dropdown>
-@code {
-    public async Task ItemSelected_Shomaran_SefareshPointPartNo_Header(object _Item)
-    {
-      //  var Selected = Utility.JSON.ToObject<dynamic>(Utility.JSON.ToJson(_Item).Result).Result;
-  //   PartNo
-
-  //  #CustomCode
-
- //   
-
-  //  #OnItemSelected
-    }
-}
-
-    </CellDisplayTemplate>
-</DxGridDataColumn>
-<DxGridDataColumn Context="InvCode_" Caption="کد انبار" >
-    <CellDisplayTemplate>
-       
-@{
-    Baya.Models.ViewEngine.View_Component HeaderInvCode = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"primaryKey\":false,\"EntityID\":732,\"FieldId\":30315,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":983,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":true,\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://shomaran.workcv.ir:2010/fa-ir/api/v1/view_INV/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"inputFormat\":\"DropDown\",\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"INVCODE\",\"template\":\"<span>{{item.INVNAME}} {{item.INVCODE}} </span>\",\"FieldsTemplate\":[],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"searchField\":\"INVNAME,INVCODE\",\"modal\":true,\"label\":\"کد انبار\",\"tableView\":true,\"key\":\"InvCode\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"30315?EId=732&SubId=28\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
+    Baya.Models.ViewEngine.View_Component HeaderInvCode = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"primaryKey\":false,\"EntityID\":732,\"FieldId\":30315,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":983,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":true,\"RelationParentName\":\"\",\"RelationParentModel\":\"\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://shomaran.workcv.ir:2010/fa-ir/api/v1/view_INV/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"inputFormat\":\"DropDown\",\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"INVCODE\",\"template\":\"<span>{{item.INVNAME}} {{item.INVCODE}} </span>\",\"FieldsTemplate\":[],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"searchField\":\"INVNAME,INVCODE\",\"disabled\":false,\"modal\":true,\"label\":\"انبار\",\"tableView\":true,\"key\":\"InvCode\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"30315?EId=732&SubId=28\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
     var RowInvCode = ((Entity.Shomaran_SefareshPoint)InvCode_.DataItem).InvCode;
 }
 

@@ -144,7 +144,7 @@ namespace Forms.Forms
     /// <summary>
     ///  ورژنی که فرم باهاش ساخته شده
     /// </summary>
-    public string? VersionForm { get; set; } = "5603";
+    public string? VersionForm { get; set; } = "5622";
 
     /// <summary>
     ///  موجودیت
@@ -183,27 +183,6 @@ public Input<string?> Ref_SystemUser;
 public Input<string?> Ref_UserCompanyName;
 public Input<string?> Ref_SystemUnitUser;
 public Input<string?> Ref_SystemSectionUser;
-public DxGrid? Grid_SCMPETCO_ProductRequestDetails;
-
-public Input<string?> Ref_SCMPETCO_ProductRequestDetails_ProductNameText;
-public Input<string?> Ref_SCMPETCO_ProductRequestDetails_ProductCodeText;
-public Input<string?> Ref_SCMPETCO_ProductRequestDetails_ProductUnitText;
-public Input<double?> Ref_SCMPETCO_ProductRequestDetails_ProductInventoryText;
-public Dropdown Ref_SCMPETCO_ProductRequestDetails_SCMPETCO_PriorityId;
-public Input<string?> Ref_SCMPETCO_ProductRequestDetails_PlaceOfUseProduct;
-public Input<string?> Ref_SCMPETCO_ProductRequestDetails_ProductRowDescription;
-public Input<double?> Ref_SCMPETCO_ProductRequestDetails_ProductRequestingQTY;
-public Input<string?> Ref_SCMPETCO_ProductRequestDetails_DescriptionWarehouseKeeper;
-public Input<double?> Ref_SCMPETCO_ProductRequestDetails_NumberofProductDelivery;
-public Input<int?> Ref_SCMPETCO_ProductRequestDetails_DeliveryCode;
-public Input<string?> Ref_SCMPETCO_ProductRequestDetails_DateTimeDeliveryCode;
-public Input<Guid> Ref_SCMPETCO_ProductRequestDetails_Id;
-public Input<Guid?> Ref_SCMPETCO_ProductRequestDetails_RequestID;
-public Input<Guid?> Ref_SCMPETCO_ProductRequestDetails_CreateUser;
-public Input<Guid?> Ref_SCMPETCO_ProductRequestDetails_UpdateUser;
-public Input<DateTime?> Ref_SCMPETCO_ProductRequestDetails_CreateDate;
-public Input<DateTime?> Ref_SCMPETCO_ProductRequestDetails_UpdateDate;
-public Input<bool?> Ref_SCMPETCO_ProductRequestDetails_IsDelete;
 public Input<Guid> Ref_Id;
 public Input<Guid?> Ref_RequestID;
 public Input<Guid?> Ref_CreateUser;
@@ -223,6 +202,27 @@ public Input<string?> Ref_T_TEMPNO;
 public Input<int?> Ref_T_TempNoNum;
 public Input<string?> Ref_T_Year;
 public Dropdown Ref_T_HavaleDTL;
+public DxGrid? Grid_SCMPETCO_ProductRequestDetails;
+
+public Input<Guid> Ref_SCMPETCO_ProductRequestDetails_Id;
+public Input<Guid?> Ref_SCMPETCO_ProductRequestDetails_RequestID;
+public Input<Guid?> Ref_SCMPETCO_ProductRequestDetails_CreateUser;
+public Input<Guid?> Ref_SCMPETCO_ProductRequestDetails_UpdateUser;
+public Input<DateTime?> Ref_SCMPETCO_ProductRequestDetails_CreateDate;
+public Input<DateTime?> Ref_SCMPETCO_ProductRequestDetails_UpdateDate;
+public Input<bool?> Ref_SCMPETCO_ProductRequestDetails_IsDelete;
+public Input<string?> Ref_SCMPETCO_ProductRequestDetails_ProductCodeText;
+public Input<string?> Ref_SCMPETCO_ProductRequestDetails_ProductUnitText;
+public Input<double?> Ref_SCMPETCO_ProductRequestDetails_ProductInventoryText;
+public Input<double?> Ref_SCMPETCO_ProductRequestDetails_ProductRequestingQTY;
+public Dropdown Ref_SCMPETCO_ProductRequestDetails_SCMPETCO_PriorityId;
+public Input<string?> Ref_SCMPETCO_ProductRequestDetails_PlaceOfUseProduct;
+public Input<string?> Ref_SCMPETCO_ProductRequestDetails_ProductRowDescription;
+public Input<string?> Ref_SCMPETCO_ProductRequestDetails_ProductNameText;
+public Input<double?> Ref_SCMPETCO_ProductRequestDetails_NumberofProductDelivery;
+public Input<string?> Ref_SCMPETCO_ProductRequestDetails_DescriptionWarehouseKeeper;
+public Input<int?> Ref_SCMPETCO_ProductRequestDetails_DeliveryCode;
+public Input<string?> Ref_SCMPETCO_ProductRequestDetails_DateTimeDeliveryCode;
 
 
     #endregion

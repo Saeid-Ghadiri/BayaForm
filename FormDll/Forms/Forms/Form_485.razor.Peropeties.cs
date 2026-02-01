@@ -144,7 +144,7 @@ namespace Forms.Forms
     /// <summary>
     ///  ورژنی که فرم باهاش ساخته شده
     /// </summary>
-    public string? VersionForm { get; set; } = "5603";
+    public string? VersionForm { get; set; } = "5622";
 
     /// <summary>
     ///  موجودیت
@@ -180,6 +180,14 @@ namespace Forms.Forms
     #region FormProperty
 
 public Input<Guid> Ref_Id;
+public Input<Guid?> Ref_RequestID;
+public Input<Guid?> Ref_CreateUser;
+public Input<Guid?> Ref_UpdateUser;
+public Input<DateTime?> Ref_CreateDate;
+public Input<DateTime?> Ref_UpdateDate;
+public Input<bool?> Ref_IsDelete;
+public Input<string?> Ref_RawMaterialGroupName;
+public Input<string> Ref_RawMaterialGroupLatinName;
 public DxGrid? Grid_PPCAtlasBobbin_RawMaterial;
 
 public Input<Guid> Ref_PPCAtlasBobbin_RawMaterial_Id;
@@ -193,14 +201,6 @@ public Input<string> Ref_PPCAtlasBobbin_RawMaterial_RawMaterialCode;
 public Input<string> Ref_PPCAtlasBobbin_RawMaterial_RawMaterialName;
 public Input<string> Ref_PPCAtlasBobbin_RawMaterial_RawMaterialLatinName;
 public Dropdown Ref_PPCAtlasBobbin_RawMaterial_Global_UnitId;
-public Input<Guid?> Ref_RequestID;
-public Input<Guid?> Ref_CreateUser;
-public Input<Guid?> Ref_UpdateUser;
-public Input<DateTime?> Ref_CreateDate;
-public Input<DateTime?> Ref_UpdateDate;
-public Input<bool?> Ref_IsDelete;
-public Input<string?> Ref_RawMaterialGroupName;
-public Input<string> Ref_RawMaterialGroupLatinName;
 
 
     #endregion

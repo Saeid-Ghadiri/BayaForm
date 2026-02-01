@@ -144,7 +144,7 @@ namespace Forms.Forms
     /// <summary>
     ///  ورژنی که فرم باهاش ساخته شده
     /// </summary>
-    public string? VersionForm { get; set; } = "5603";
+    public string? VersionForm { get; set; } = "5622";
 
     /// <summary>
     ///  موجودیت
@@ -186,6 +186,7 @@ public Input<Guid?> Ref_UpdateUser;
 public Input<DateTime?> Ref_CreateDate;
 public Input<DateTime?> Ref_UpdateDate;
 public Input<bool?> Ref_IsDelete;
+public Input<string?> Ref_Title;
 public DxGrid? Grid_SCMPETCO_OS_Details;
 
 public Input<Guid> Ref_SCMPETCO_OS_Details_Id;
@@ -201,8 +202,7 @@ public Dropdown Ref_SCMPETCO_OS_Details_Global_UnitsId;
 public Input<int?> Ref_SCMPETCO_OS_Details_Amount;
 public Dropdown Ref_SCMPETCO_OS_Details_Global_PriorityId;
 public Input<string?> Ref_SCMPETCO_OS_Details_AreaUse;
-public Input<Guid?> Ref_SCMPETCO_OS_Details_SCMPETCO_AreaOperationId;
-public Input<string?> Ref_Title;
+public Dropdown Ref_SCMPETCO_OS_Details_SCMPETCO_AreaOperationId;
 
 
     #endregion

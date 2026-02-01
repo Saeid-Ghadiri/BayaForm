@@ -144,7 +144,7 @@ namespace Forms.Forms
     /// <summary>
     ///  ورژنی که فرم باهاش ساخته شده
     /// </summary>
-    public string? VersionForm { get; set; } = "5603";
+    public string? VersionForm { get; set; } = "5622";
 
     /// <summary>
     ///  موجودیت
@@ -193,19 +193,6 @@ public Dropdown Ref_Product;
 public RadioBoolean Ref_QC;
 public Input<string?> Ref_Description;
 public Input<int?> Ref_Year;
-public DxGrid? Grid_SH_Petco_DepoInDetail;
-
-public Dropdown Ref_SH_Petco_DepoInDetail_ProductSearch;
-public Input<string?> Ref_SH_Petco_DepoInDetail_ProductName;
-public Input<string?> Ref_SH_Petco_DepoInDetail_PartCode;
-public Input<string?> Ref_SH_Petco_DepoInDetail_ShomareFani;
-public Input<decimal?> Ref_SH_Petco_DepoInDetail_Amount;
-public Input<string?> Ref_SH_Petco_DepoInDetail_Unit;
-public Input<string?> Ref_SH_Petco_DepoInDetail_Note;
-public Input<string?> Ref_SH_Petco_DepoInDetail_Sefaresh;
-public Input<string?> Ref_SH_Petco_DepoInDetail_Radyabi;
-public Input<int?> Ref_SH_Petco_DepoInDetail_Year;
-public Input<string?> Ref_SH_Petco_DepoInDetail_RowId;
 public Input<string?> Ref_ApiResult;
 public Input<Guid?> Ref_RequestID;
 public Input<Guid?> Ref_CreateUser;
@@ -213,6 +200,19 @@ public Input<Guid?> Ref_UpdateUser;
 public Input<DateTime?> Ref_CreateDate;
 public Input<DateTime?> Ref_UpdateDate;
 public Input<bool?> Ref_IsDelete;
+public DxGrid? Grid_SH_Petco_DepoInDetail;
+
+public Dropdown Ref_SH_Petco_DepoInDetail_ProductSearch;
+public Input<string?> Ref_SH_Petco_DepoInDetail_ProductName;
+public Input<string?> Ref_SH_Petco_DepoInDetail_Unit;
+public Input<string?> Ref_SH_Petco_DepoInDetail_ShomareFani;
+public Input<string?> Ref_SH_Petco_DepoInDetail_PartCode;
+public Input<string?> Ref_SH_Petco_DepoInDetail_Radyabi;
+public Input<string?> Ref_SH_Petco_DepoInDetail_Sefaresh;
+public Input<string?> Ref_SH_Petco_DepoInDetail_RowId;
+public Input<int?> Ref_SH_Petco_DepoInDetail_Year;
+public Input<string?> Ref_SH_Petco_DepoInDetail_Note;
+public Input<decimal?> Ref_SH_Petco_DepoInDetail_Amount;
 
 
     #endregion

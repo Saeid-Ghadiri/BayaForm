@@ -144,7 +144,7 @@ namespace Forms.Forms
     /// <summary>
     ///  ورژنی که فرم باهاش ساخته شده
     /// </summary>
-    public string? VersionForm { get; set; } = "5603";
+    public string? VersionForm { get; set; } = "5622";
 
     /// <summary>
     ///  موجودیت
@@ -194,26 +194,6 @@ public Dropdown Ref_InvCode;
 public Dropdown Ref_NBARGASHT;
 public Input<string?> Ref_Note;
 public Input<int?> Ref_Year;
-public DxGrid? Grid_Shomaran_FactbBuyDetail;
-
-public Dropdown Ref_Shomaran_FactbBuyDetail_ProductSearch;
-public Input<string?> Ref_Shomaran_FactbBuyDetail_PartCode;
-public Input<string?> Ref_Shomaran_FactbBuyDetail_ProductName;
-public Input<string?> Ref_Shomaran_FactbBuyDetail_ShomareFani;
-public Input<decimal?> Ref_Shomaran_FactbBuyDetail_Amount;
-public Input<string?> Ref_Shomaran_FactbBuyDetail_Unit;
-public Input<string?> Ref_Shomaran_FactbBuyDetail_Sefaresh;
-public Input<string?> Ref_Shomaran_FactbBuyDetail_Radyabi;
-public Input<int?> Ref_Shomaran_FactbBuyDetail_Year;
-public Input<Guid> Ref_Shomaran_FactbBuyDetail_Id;
-public Input<Guid?> Ref_Shomaran_FactbBuyDetail_RequestID;
-public Input<Guid?> Ref_Shomaran_FactbBuyDetail_CreateUser;
-public Input<Guid?> Ref_Shomaran_FactbBuyDetail_UpdateUser;
-public Input<DateTime?> Ref_Shomaran_FactbBuyDetail_CreateDate;
-public Input<DateTime?> Ref_Shomaran_FactbBuyDetail_UpdateDate;
-public Input<bool?> Ref_Shomaran_FactbBuyDetail_IsDelete;
-public Input<int?> Ref_Shomaran_FactbBuyDetail_RowId;
-public Dropdown Ref_Shomaran_FactbBuyDetail_PayCode;
 public Input<string?> Ref_ApiResult;
 public Input<Guid> Ref_Id;
 public Input<Guid?> Ref_RequestID;
@@ -222,6 +202,26 @@ public Input<Guid?> Ref_UpdateUser;
 public Input<DateTime?> Ref_CreateDate;
 public Input<DateTime?> Ref_UpdateDate;
 public Input<bool?> Ref_IsDelete;
+public DxGrid? Grid_Shomaran_FactbBuyDetail;
+
+public Input<Guid> Ref_Shomaran_FactbBuyDetail_Id;
+public Input<Guid?> Ref_Shomaran_FactbBuyDetail_RequestID;
+public Input<Guid?> Ref_Shomaran_FactbBuyDetail_CreateUser;
+public Input<Guid?> Ref_Shomaran_FactbBuyDetail_UpdateUser;
+public Input<DateTime?> Ref_Shomaran_FactbBuyDetail_CreateDate;
+public Input<DateTime?> Ref_Shomaran_FactbBuyDetail_UpdateDate;
+public Input<bool?> Ref_Shomaran_FactbBuyDetail_IsDelete;
+public Input<decimal?> Ref_Shomaran_FactbBuyDetail_Amount;
+public Input<string?> Ref_Shomaran_FactbBuyDetail_PartCode;
+public Input<string?> Ref_Shomaran_FactbBuyDetail_Radyabi;
+public Input<string?> Ref_Shomaran_FactbBuyDetail_Sefaresh;
+public Input<int?> Ref_Shomaran_FactbBuyDetail_RowId;
+public Input<int?> Ref_Shomaran_FactbBuyDetail_Year;
+public Dropdown Ref_Shomaran_FactbBuyDetail_ProductSearch;
+public Input<string?> Ref_Shomaran_FactbBuyDetail_ShomareFani;
+public Input<string?> Ref_Shomaran_FactbBuyDetail_ProductName;
+public Input<string?> Ref_Shomaran_FactbBuyDetail_Unit;
+public Dropdown Ref_Shomaran_FactbBuyDetail_PayCode;
 
 
     #endregion

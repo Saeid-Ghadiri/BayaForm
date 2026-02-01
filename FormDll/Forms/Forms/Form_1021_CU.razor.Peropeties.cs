@@ -144,7 +144,7 @@ namespace Forms.Forms
     /// <summary>
     ///  ورژنی که فرم باهاش ساخته شده
     /// </summary>
-    public string? VersionForm { get; set; } = "5603";
+    public string? VersionForm { get; set; } = "5622";
 
     /// <summary>
     ///  موجودیت
@@ -191,19 +191,6 @@ public Dropdown Ref_CENTCODE2;
 public Dropdown Ref_INVCODE;
 public Input<string?> Ref_NOTE;
 public Input<int?> Ref_Year;
-public DxGrid? Grid_SH_Petco_ProductDeliveryDetail;
-
-public Dropdown Ref_SH_Petco_ProductDeliveryDetail_ProductSearch;
-public Input<string?> Ref_SH_Petco_ProductDeliveryDetail_PARTCODE;
-public Input<string?> Ref_SH_Petco_ProductDeliveryDetail_ProductName;
-public Input<string?> Ref_SH_Petco_ProductDeliveryDetail_shomarefani;
-public Input<decimal?> Ref_SH_Petco_ProductDeliveryDetail_AMOUNT;
-public Input<string?> Ref_SH_Petco_ProductDeliveryDetail_Unit;
-public Dropdown Ref_SH_Petco_ProductDeliveryDetail_CENTCODE3;
-public Input<string?> Ref_SH_Petco_ProductDeliveryDetail_RADYABI;
-public Input<string?> Ref_SH_Petco_ProductDeliveryDetail_SEFARESH;
-public Input<int?> Ref_SH_Petco_ProductDeliveryDetail_Year;
-public Input<int?> Ref_SH_Petco_ProductDeliveryDetail_ROW_ID;
 public Input<string?> Ref_ApiResult;
 public Input<Guid?> Ref_RequestID;
 public Input<Guid?> Ref_CreateUser;
@@ -211,6 +198,19 @@ public Input<Guid?> Ref_UpdateUser;
 public Input<DateTime?> Ref_CreateDate;
 public Input<DateTime?> Ref_UpdateDate;
 public Input<bool?> Ref_IsDelete;
+public DxGrid? Grid_SH_Petco_ProductDeliveryDetail;
+
+public Dropdown Ref_SH_Petco_ProductDeliveryDetail_ProductSearch;
+public Input<string?> Ref_SH_Petco_ProductDeliveryDetail_PARTCODE;
+public Input<string?> Ref_SH_Petco_ProductDeliveryDetail_shomarefani;
+public Input<string?> Ref_SH_Petco_ProductDeliveryDetail_ProductName;
+public Input<string?> Ref_SH_Petco_ProductDeliveryDetail_Unit;
+public Dropdown Ref_SH_Petco_ProductDeliveryDetail_CENTCODE3;
+public Input<decimal?> Ref_SH_Petco_ProductDeliveryDetail_AMOUNT;
+public Input<string?> Ref_SH_Petco_ProductDeliveryDetail_RADYABI;
+public Input<string?> Ref_SH_Petco_ProductDeliveryDetail_SEFARESH;
+public Input<int?> Ref_SH_Petco_ProductDeliveryDetail_ROW_ID;
+public Input<int?> Ref_SH_Petco_ProductDeliveryDetail_Year;
 
 
     #endregion

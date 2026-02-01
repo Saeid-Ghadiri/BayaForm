@@ -139,7 +139,7 @@
 <div class="tab-content" id="nav-tabContent">
     <div class="tab-pane fade   show active" id="tabs_tab1_tab" role="tabpanel" aria-labelledby="nav-tabs_tab1">
    
-<RadioBoolean @ref="Ref_HardwareORNetwork" InLine=true Id="HardwareORNetwork"   LabelTrue="سخت افزار" LabelFalse="شبکه" Label="بخش سخت افزار یا شبکه" @bind-Value="_Entity.HardwareORNetwork" CssClass="" Disabled=true></RadioBoolean>
+<RadioBoolean @ref="Ref_HardwareORNetwork" InLine=true Id="HardwareORNetwork"   LabelTrue="سخت افزار" LabelFalse="شبکه" Label="حذف --- بخش سخت افزار یا شبکه" @bind-Value="_Entity.HardwareORNetwork" CssClass="" Disabled=true></RadioBoolean>
 
 </div> 
 <div class="tab-pane fade  " id="tabs_tab2_tab" role="tabpanel" aria-labelledby="nav-tabs_tab2">
@@ -161,7 +161,7 @@
 
 <div class="col-md-3">
     
-<Input Id="UserStarterFullName" @ref="Ref_UserStarterFullName"   CssClass="                                    " Disabled=true  @bind-Value="_Entity.UserStarterFullName" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+<Input Id="UserStarterFullName" @ref="Ref_UserStarterFullName"   CssClass="                                    " Disabled=true  @bind-Value="_Entity.UserStarterFullName" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"maxlength\":\"350\"}").Result))></Input>
 
 </div>
 
@@ -196,6 +196,30 @@
 </div> 
 
 </div>
+<div  class="">
+    <hr class="hrdash border-danger-subtle">
+</div>
+<div  class="">
+    <hr class="hrdash border-danger-subtle">
+</div>
+
+<Input Id="Id" @ref="Ref_Id"   CssClass="d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none"   @bind-Value="_Entity.Id" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+<Input Id="IsDelete" @ref="Ref_IsDelete"   CssClass="d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none"   @bind-Value="_Entity.IsDelete" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+<Input Id="RequestID" @ref="Ref_RequestID"   CssClass="                                    "   @bind-Value="_Entity.RequestID" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+<Input Id="CreateUser" @ref="Ref_CreateUser"   CssClass="                                    "   @bind-Value="_Entity.CreateUser" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+<Input Id="UpdateUser" @ref="Ref_UpdateUser"   CssClass="                                    "   @bind-Value="_Entity.UpdateUser" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+<Input Id="CreateDate" @ref="Ref_CreateDate"   CssClass="d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none"   @bind-Value="_Entity.CreateDate" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+<Input Id="UpdateDate" @ref="Ref_UpdateDate"   CssClass="d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none"   @bind-Value="_Entity.UpdateDate" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+<label for="SCMPLATE_ProductRequestDetails_GridSCMPLATE_ProductRequestId_303">جزییات درخواست کالا
+   
+    
+</label>
 
 <DxGrid @ref="Grid_SCMPLATE_ProductRequestDetails" Data="_Entity.SCMPLATE_ProductRequestDetails" KeyFieldName="_Id" EditMode="GridEditMode.PopupEditForm"
         EditModelSaving="OnEditModelSavingSCMPLATE_ProductRequestDetails"
@@ -205,13 +229,18 @@
         EditFormButtonsVisible="false"
         CustomizeEditModel="CustomizeEditGrid_SCMPLATE_ProductRequestDetails"
         CustomizeElement="CustomizeRowsGrid_SCMPLATE_ProductRequestDetails" 
-        Component="@((Utility.JSON.ToObject<View_Component>("{\"primaryKey\":false,\"EntityID\":303,\"FieldId\":303,\"NotNull\":false,\"ViewId\":0,\"NotMapped\":false,\"Relation\":false,\"RelationExternal\":false,\"RelationChildModel\":\"SCMPLATE_ProductRequestDetails\",\"GridMainModel\":\"SCMPLATE_ProductRequestDetails\",\"widget\":{\"altInput\":false,\"allowInput\":false,\"clickOpens\":false,\"enableDate\":false,\"enableTime\":false,\"noCalendar\":false,\"useLocaleSettings\":false,\"hourIncrement\":0,\"minuteIncrement\":0,\"time_24hr\":false},\"wysiwyg\":false,\"data\":{},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"FieldsTemplate\":[],\"refreshOn\":\"data\",\"reorder\":false,\"addAnotherPosition\":\"bottom\",\"layoutFixed\":false,\"enableRowGroups\":false,\"initEmpty\":false,\"disabled\":true,\"modal\":true,\"label\":\"جزییات درخواست کالا\",\"tableView\":true,\"key\":\"GridSCMPLATE_ProductRequestId_303\",\"type\":\"datagrid\",\"input\":true,\"hideLabel\":true,\"modalEdit\":true,\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":false,\"AccessEdit\":true,\"AccessNew\":false,\"editmodelsaving\":\"GridSCMPLATE_ProductRequestId_303_editmodelsaving\",\"afterrendermodal\":\"GridSCMPLATE_ProductRequestId_303_afterrendermodal\"}").Result))"
+        Component="@((Utility.JSON.ToObject<View_Component>("{\"primaryKey\":false,\"EntityID\":303,\"FieldId\":303,\"TypeCSharp\":\"\",\"NotNull\":false,\"ViewId\":0,\"NotMapped\":false,\"Relation\":false,\"RelationExternal\":false,\"RelationParentName\":\"\",\"RelationParentModel\":\"\",\"RelationChildModel\":\"SCMPLATE_ProductRequestDetails\",\"GridMainModel\":\"SCMPLATE_ProductRequestDetails\",\"widget\":{\"altInput\":false,\"allowInput\":false,\"clickOpens\":false,\"enableDate\":false,\"enableTime\":false,\"noCalendar\":false,\"useLocaleSettings\":false,\"hourIncrement\":0,\"minuteIncrement\":0,\"time_24hr\":false},\"wysiwyg\":false,\"data\":{},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"FieldsTemplate\":[],\"refreshOn\":\"data\",\"reorder\":false,\"addAnotherPosition\":\"bottom\",\"layoutFixed\":false,\"enableRowGroups\":false,\"initEmpty\":false,\"disabled\":true,\"modal\":true,\"label\":\"جزییات درخواست کالا\",\"tableView\":true,\"key\":\"GridSCMPLATE_ProductRequestId_303\",\"type\":\"datagrid\",\"input\":true,\"placeholder\":\"GridSCMPLATE_ProductRequestId_303\",\"modalEdit\":true,\"FieldUrl\":\"303?EId=303&SubId=24\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true,\"editmodelsaving\":\"GridSCMPLATE_ProductRequestId_303_editmodelsaving\",\"afterrendermodal\":\"GridSCMPLATE_ProductRequestId_303_afterrendermodal\"}").Result))"
          >
     <Columns>
     
 <DxGridCommandColumn Width="70px">
     <HeaderTemplate Context="HeaderContext">
        
+<a id=SCMPLATE_ProductRequestDetails_GridSCMPLATE_ProductRequestId_303ButtonNew class="btn btn-sm btn-green btnGridAddData" @onclick="@(() => StartEditNewRowAsync_Grid_SCMPLATE_ProductRequestDetails())" style="text-decoration: none;" href="javascript:void(0);">
+    <span class="fal fa-plus-circle btnicon"></span>
+    <span>@languageContainer.Keys["DXGrid:New"]</span>
+</a>
+
     </HeaderTemplate>
     <CellDisplayTemplate Context="CellContext">
        
@@ -220,6 +249,10 @@
 </a>
 
        
+<a class="btn btn-sm btn-red-light btnDeleteGridData" @onclick="@(() => OnDeleteButtonClickGrid_SCMPLATE_ProductRequestDetails(CellContext))" style="text-decoration: none;" href="javascript:void(0);">
+    <span class="fal fa-times-circle btnicon"></span>
+</a>
+
     </CellDisplayTemplate>
 </DxGridCommandColumn>
 
@@ -239,27 +272,37 @@
           
            </CellDisplayTemplate>
      </DxGridCommandColumn>
-    <DxGridDataColumn  Caption="نام کالا شماران"  FieldName="SH_DESC" />
+    <DxGridDataColumn  Caption="Id" Visible=false FieldName="Id" />
+
+<DxGridDataColumn  Caption="RequestID" Visible=false FieldName="RequestID" />
+
+<DxGridDataColumn  Caption="CreateUser" Visible=false FieldName="CreateUser" />
+
+<DxGridDataColumn  Caption="UpdateUser" Visible=false FieldName="UpdateUser" />
+
+<DxGridDataColumn  Caption="CreateDate" Visible=false FieldName="CreateDate" />
+
+<DxGridDataColumn  Caption="UpdateDate" Visible=false FieldName="UpdateDate" />
+
+<DxGridDataColumn  Caption="IsDelete" Visible=false FieldName="IsDelete" />
 
 <DxGridDataColumn  Caption="کد کالا شماران"  FieldName="SH_PARTNO" />
+
+<DxGridDataColumn  Caption="نام کالا شماران"  FieldName="SH_DESC" />
 
 <DxGridDataColumn  Caption="واحد کالا شماران"  FieldName="SH_UNIT" />
 
 <DxGridDataColumn DisplayFormat="G" Caption="موجودی کالا شماران"  FieldName="SH_Amount" />
 
-<DxGridDataColumn  Caption="محل مصرف"  FieldName="PlaceOfUse" />
-
-<DxGridDataColumn DisplayFormat="G" Caption="تعداد یا مقدار درخواستی"  FieldName="ProductRequestingQTY" />
-
 <DxGridDataColumn Context="Global_PriorityId_" Caption="اولویت" >
     <CellDisplayTemplate>
        
 @{
-    Baya.Models.ViewEngine.View_Component HeaderGlobal_PriorityId = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"primaryKey\":false,\"EntityID\":303,\"FieldId\":3827,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":856,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":false,\"RelationParentName\":\"Global_Priority\",\"RelationParentModel\":\"Global_Priority\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/Global_Priority/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.Title}} </span>\",\"FieldsTemplate\":[],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"disableLimit\":false,\"noRefreshOnScroll\":false,\"disabled\":true,\"modal\":true,\"label\":\"اولویت\",\"tableView\":true,\"key\":\"Global_PriorityId\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"customClass\":\"Width10rem\",\"FieldUrl\":\"3827?EId=303&SubId=24\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
+    Baya.Models.ViewEngine.View_Component HeaderGlobal_PriorityId = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"primaryKey\":false,\"EntityID\":303,\"FieldId\":3827,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":856,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":false,\"RelationParentName\":\"Global_Priority\",\"RelationParentModel\":\"Global_Priority\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/Global_Priority/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.Title}} </span>\",\"FieldsTemplate\":[],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"searchField\":\"\",\"disabled\":true,\"modal\":true,\"label\":\"اولویت\",\"tableView\":true,\"key\":\"Global_PriorityId\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"3827?EId=303&SubId=24\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
     var RowGlobal_PriorityId = ((Entity.SCMPLATE_ProductRequestDetails)Global_PriorityId_.DataItem).Global_PriorityId;
 }
 
-<Dropdown ExternalApi=false CssClass="Width10rem" NotMapped=false TextGrid=true Value="@RowGlobal_PriorityId"   FieldName="Global_PriorityId" OnItemSelected="ItemSelected_SCMPLATE_ProductRequestDetailsGlobal_PriorityId_Header" Component="HeaderGlobal_PriorityId">
+<Dropdown ExternalApi=false CssClass="" NotMapped=false TextGrid=true Value="@RowGlobal_PriorityId"   FieldName="Global_PriorityId" OnItemSelected="ItemSelected_SCMPLATE_ProductRequestDetailsGlobal_PriorityId_Header" Component="HeaderGlobal_PriorityId">
 </Dropdown>
 @code {
     public async Task ItemSelected_SCMPLATE_ProductRequestDetailsGlobal_PriorityId_Header(object _Item)
@@ -277,6 +320,12 @@
 
     </CellDisplayTemplate>
 </DxGridDataColumn>
+<DxGridDataColumn DisplayFormat="G" Caption="تعداد یا مقدار درخواستی"  FieldName="ProductRequestingQTY" />
+
+<DxGridDataColumn  Caption="محل مصرف"  FieldName="PlaceOfUse" />
+
+<DxGridDataColumn  Caption="توضیحات درخواست کننده"  FieldName="SR_Desc" />
+
 <DxGridDataColumn Context="GoodsDeliveryApproved_" Caption="کالا، مورد تایید است؟" >
     <CellDisplayTemplate>
        
@@ -305,22 +354,6 @@
 
     </CellDisplayTemplate>
 </DxGridDataColumn>
-<DxGridDataColumn  Caption="توضیحات درخواست کننده"  FieldName="SR_Desc" />
-
-<DxGridDataColumn  Caption="Id" Visible=false FieldName="Id" />
-
-<DxGridDataColumn  Caption="RequestID" Visible=false FieldName="RequestID" />
-
-<DxGridDataColumn  Caption="CreateUser" Visible=false FieldName="CreateUser" />
-
-<DxGridDataColumn  Caption="UpdateUser" Visible=false FieldName="UpdateUser" />
-
-<DxGridDataColumn  Caption="CreateDate" Visible=false FieldName="CreateDate" />
-
-<DxGridDataColumn  Caption="UpdateDate" Visible=false FieldName="UpdateDate" />
-
-<DxGridDataColumn  Caption="IsDelete" Visible=false FieldName="IsDelete" />
-
 
 </Columns>
 
@@ -331,37 +364,67 @@
     <DxFormLayout>
         <DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextSCMPLATE_ProductRequestDetails">
     
-<Input Id="SCMPLATE_ProductRequestDetails_SH_DESC" @ref="Ref_SCMPLATE_ProductRequestDetails_SH_DESC" Label="نام کالا شماران"  CssClass="WidthAuto" Disabled=true  @bind-Value="SCMPLATE_ProductRequestDetails.SH_DESC" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+<Input Id="SCMPLATE_ProductRequestDetails_Id" @ref="Ref_SCMPLATE_ProductRequestDetails_Id"   CssClass="d-none"   @bind-Value="SCMPLATE_ProductRequestDetails.Id" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
 
 </DxFormLayoutItem>
 
 <DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextSCMPLATE_ProductRequestDetails">
     
-<Input Id="SCMPLATE_ProductRequestDetails_SH_PARTNO" @ref="Ref_SCMPLATE_ProductRequestDetails_SH_PARTNO" Label="کد کالا شماران"  CssClass="Width10rem" Disabled=true  @bind-Value="SCMPLATE_ProductRequestDetails.SH_PARTNO" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+<Input Id="SCMPLATE_ProductRequestDetails_RequestID" @ref="Ref_SCMPLATE_ProductRequestDetails_RequestID"      @bind-Value="SCMPLATE_ProductRequestDetails.RequestID" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
 
 </DxFormLayoutItem>
 
 <DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextSCMPLATE_ProductRequestDetails">
     
-<Input Id="SCMPLATE_ProductRequestDetails_SH_UNIT" @ref="Ref_SCMPLATE_ProductRequestDetails_SH_UNIT" Label="واحد کالا شماران"  CssClass="Width10rem" Disabled=true  @bind-Value="SCMPLATE_ProductRequestDetails.SH_UNIT" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+<Input Id="SCMPLATE_ProductRequestDetails_CreateUser" @ref="Ref_SCMPLATE_ProductRequestDetails_CreateUser"      @bind-Value="SCMPLATE_ProductRequestDetails.CreateUser" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
 
 </DxFormLayoutItem>
 
 <DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextSCMPLATE_ProductRequestDetails">
     
-<Input Id="SCMPLATE_ProductRequestDetails_SH_Amount" @ref="Ref_SCMPLATE_ProductRequestDetails_SH_Amount" Label="موجودی کالا شماران"  CssClass="Width10rem" Disabled=true  @bind-Value="SCMPLATE_ProductRequestDetails.SH_Amount" type="number"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"step\":\"any\"}").Result))></Input>
+<Input Id="SCMPLATE_ProductRequestDetails_UpdateUser" @ref="Ref_SCMPLATE_ProductRequestDetails_UpdateUser"      @bind-Value="SCMPLATE_ProductRequestDetails.UpdateUser" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
 
 </DxFormLayoutItem>
 
 <DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextSCMPLATE_ProductRequestDetails">
     
-<Input Id="SCMPLATE_ProductRequestDetails_PlaceOfUse" @ref="Ref_SCMPLATE_ProductRequestDetails_PlaceOfUse" Label="محل مصرف"  CssClass="Width12rem" Disabled=true  @bind-Value="SCMPLATE_ProductRequestDetails.PlaceOfUse" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+<Input Id="SCMPLATE_ProductRequestDetails_CreateDate" @ref="Ref_SCMPLATE_ProductRequestDetails_CreateDate"   CssClass="d-none"   @bind-Value="SCMPLATE_ProductRequestDetails.CreateDate" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
 
 </DxFormLayoutItem>
 
 <DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextSCMPLATE_ProductRequestDetails">
     
-<Input Id="SCMPLATE_ProductRequestDetails_ProductRequestingQTY" @ref="Ref_SCMPLATE_ProductRequestDetails_ProductRequestingQTY" Label="تعداد یا مقدار درخواستی"  CssClass="Width10rem" Disabled=true  @bind-Value="SCMPLATE_ProductRequestDetails.ProductRequestingQTY" type="number"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"step\":\"any\"}").Result))></Input>
+<Input Id="SCMPLATE_ProductRequestDetails_UpdateDate" @ref="Ref_SCMPLATE_ProductRequestDetails_UpdateDate"   CssClass="d-none"   @bind-Value="SCMPLATE_ProductRequestDetails.UpdateDate" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+</DxFormLayoutItem>
+
+<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextSCMPLATE_ProductRequestDetails">
+    
+<Input Id="SCMPLATE_ProductRequestDetails_IsDelete" @ref="Ref_SCMPLATE_ProductRequestDetails_IsDelete"   CssClass="d-none"   @bind-Value="SCMPLATE_ProductRequestDetails.IsDelete" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+</DxFormLayoutItem>
+
+<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextSCMPLATE_ProductRequestDetails">
+    
+<Input Id="SCMPLATE_ProductRequestDetails_SH_PARTNO" @ref="Ref_SCMPLATE_ProductRequestDetails_SH_PARTNO" Label="کد کالا شماران"   Disabled=true  @bind-Value="SCMPLATE_ProductRequestDetails.SH_PARTNO" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+</DxFormLayoutItem>
+
+<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextSCMPLATE_ProductRequestDetails">
+    
+<Input Id="SCMPLATE_ProductRequestDetails_SH_DESC" @ref="Ref_SCMPLATE_ProductRequestDetails_SH_DESC" Label="نام کالا شماران"   Disabled=true  @bind-Value="SCMPLATE_ProductRequestDetails.SH_DESC" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+</DxFormLayoutItem>
+
+<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextSCMPLATE_ProductRequestDetails">
+    
+<Input Id="SCMPLATE_ProductRequestDetails_SH_UNIT" @ref="Ref_SCMPLATE_ProductRequestDetails_SH_UNIT" Label="واحد کالا شماران"   Disabled=true  @bind-Value="SCMPLATE_ProductRequestDetails.SH_UNIT" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+</DxFormLayoutItem>
+
+<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextSCMPLATE_ProductRequestDetails">
+    
+<Input Id="SCMPLATE_ProductRequestDetails_SH_Amount" @ref="Ref_SCMPLATE_ProductRequestDetails_SH_Amount" Label="موجودی کالا شماران"   Disabled=true  @bind-Value="SCMPLATE_ProductRequestDetails.SH_Amount" type="number"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"step\":\"any\"}").Result))></Input>
 
 </DxFormLayoutItem>
 
@@ -369,10 +432,10 @@
      
  
 @code {
-    Baya.Models.ViewEngine.View_Component Component_SCMPLATE_ProductRequestDetailsGlobal_PriorityId = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"primaryKey\":false,\"EntityID\":303,\"FieldId\":3827,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":856,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":false,\"RelationParentName\":\"Global_Priority\",\"RelationParentModel\":\"Global_Priority\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/Global_Priority/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.Title}} </span>\",\"FieldsTemplate\":[],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"disableLimit\":false,\"noRefreshOnScroll\":false,\"disabled\":true,\"modal\":true,\"label\":\"اولویت\",\"tableView\":true,\"key\":\"Global_PriorityId\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"customClass\":\"Width10rem\",\"FieldUrl\":\"3827?EId=303&SubId=24\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
+    Baya.Models.ViewEngine.View_Component Component_SCMPLATE_ProductRequestDetailsGlobal_PriorityId = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"primaryKey\":false,\"EntityID\":303,\"FieldId\":3827,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":856,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":false,\"RelationParentName\":\"Global_Priority\",\"RelationParentModel\":\"Global_Priority\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/Global_Priority/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.Title}} </span>\",\"FieldsTemplate\":[],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"searchField\":\"\",\"disabled\":true,\"modal\":true,\"label\":\"اولویت\",\"tableView\":true,\"key\":\"Global_PriorityId\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"3827?EId=303&SubId=24\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
 }
 
-    <Dropdown Id=SCMPLATE_ProductRequestDetails_Global_PriorityId Disabled=true @ref="Ref_SCMPLATE_ProductRequestDetails_Global_PriorityId" Label="اولویت" CssClass="Width10rem"  DisplayFormat="DropDown" ExternalApi=false NotMapped=false TextGrid=false Text="" Value="@SCMPLATE_ProductRequestDetails.Global_PriorityId" FieldName="Global_PriorityId" OnItemSelected="ItemSelected_SCMPLATE_ProductRequestDetailsGlobal_PriorityId" Component="Component_SCMPLATE_ProductRequestDetailsGlobal_PriorityId" _Entity="_Entity" _EntityRow=SCMPLATE_ProductRequestDetails>
+    <Dropdown Id=SCMPLATE_ProductRequestDetails_Global_PriorityId Disabled=true @ref="Ref_SCMPLATE_ProductRequestDetails_Global_PriorityId" Label="اولویت" CssClass=""  DisplayFormat="DropDown" ExternalApi=false NotMapped=false TextGrid=false Text="" Value="@SCMPLATE_ProductRequestDetails.Global_PriorityId" FieldName="Global_PriorityId" OnItemSelected="ItemSelected_SCMPLATE_ProductRequestDetailsGlobal_PriorityId" Component="Component_SCMPLATE_ProductRequestDetailsGlobal_PriorityId" _Entity="_Entity" _EntityRow=SCMPLATE_ProductRequestDetails>
 </Dropdown>
 @code {
     public async Task ItemSelected_SCMPLATE_ProductRequestDetailsGlobal_PriorityId(object _Item)
@@ -408,6 +471,24 @@
 
 <DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextSCMPLATE_ProductRequestDetails">
     
+<Input Id="SCMPLATE_ProductRequestDetails_ProductRequestingQTY" @ref="Ref_SCMPLATE_ProductRequestDetails_ProductRequestingQTY" Label="تعداد یا مقدار درخواستی"   Disabled=true  @bind-Value="SCMPLATE_ProductRequestDetails.ProductRequestingQTY" type="number"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"step\":\"any\"}").Result))></Input>
+
+</DxFormLayoutItem>
+
+<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextSCMPLATE_ProductRequestDetails">
+    
+<Input Id="SCMPLATE_ProductRequestDetails_PlaceOfUse" @ref="Ref_SCMPLATE_ProductRequestDetails_PlaceOfUse" Label="محل مصرف"   Disabled=true  @bind-Value="SCMPLATE_ProductRequestDetails.PlaceOfUse" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+</DxFormLayoutItem>
+
+<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextSCMPLATE_ProductRequestDetails">
+    
+<Input Id="SCMPLATE_ProductRequestDetails_SR_Desc" @ref="Ref_SCMPLATE_ProductRequestDetails_SR_Desc" Label="توضیحات درخواست کننده"   Disabled=true  @bind-Value="SCMPLATE_ProductRequestDetails.SR_Desc" type="textarea"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"maxlength\":\"350\"}").Result))></Input>
+
+</DxFormLayoutItem>
+
+<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextSCMPLATE_ProductRequestDetails">
+    
 <RadioBoolean @ref="Ref_SCMPLATE_ProductRequestDetails_GoodsDeliveryApproved" InLine=true Id="SCMPLATE_ProductRequestDetails_GoodsDeliveryApproved" Required=true oninput="@(e => GoodsDeliveryApproved_oninput(e ,SCMPLATE_ProductRequestDetails))"  LabelTrue="بله" LabelFalse="خیر" Label="کالا، مورد تایید است؟" @bind-Value="SCMPLATE_ProductRequestDetails.GoodsDeliveryApproved" CssClass="" ></RadioBoolean>
 
 </DxFormLayoutItem>
@@ -418,58 +499,12 @@
 
 </DxFormLayoutItem>
 
-<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextSCMPLATE_ProductRequestDetails">
-    
-<Input Id="SCMPLATE_ProductRequestDetails_SR_Desc" @ref="Ref_SCMPLATE_ProductRequestDetails_SR_Desc" Label="توضیحات درخواست کننده"  CssClass="Width12rem" Disabled=true  @bind-Value="SCMPLATE_ProductRequestDetails.SR_Desc" type="textarea"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"maxlength\":\"350\"}").Result))></Input>
-
-</DxFormLayoutItem>
-
-<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextSCMPLATE_ProductRequestDetails">
-    
-<Input Id="SCMPLATE_ProductRequestDetails_Id" @ref="Ref_SCMPLATE_ProductRequestDetails_Id"   CssClass="d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none"   @bind-Value="SCMPLATE_ProductRequestDetails.Id" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
-
-</DxFormLayoutItem>
-
-<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextSCMPLATE_ProductRequestDetails">
-    
-<Input Id="SCMPLATE_ProductRequestDetails_RequestID" @ref="Ref_SCMPLATE_ProductRequestDetails_RequestID"   CssClass="                         "   @bind-Value="SCMPLATE_ProductRequestDetails.RequestID" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
-
-</DxFormLayoutItem>
-
-<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextSCMPLATE_ProductRequestDetails">
-    
-<Input Id="SCMPLATE_ProductRequestDetails_CreateUser" @ref="Ref_SCMPLATE_ProductRequestDetails_CreateUser"   CssClass="                         "   @bind-Value="SCMPLATE_ProductRequestDetails.CreateUser" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
-
-</DxFormLayoutItem>
-
-<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextSCMPLATE_ProductRequestDetails">
-    
-<Input Id="SCMPLATE_ProductRequestDetails_UpdateUser" @ref="Ref_SCMPLATE_ProductRequestDetails_UpdateUser"   CssClass="                         "   @bind-Value="SCMPLATE_ProductRequestDetails.UpdateUser" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
-
-</DxFormLayoutItem>
-
-<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextSCMPLATE_ProductRequestDetails">
-    
-<Input Id="SCMPLATE_ProductRequestDetails_CreateDate" @ref="Ref_SCMPLATE_ProductRequestDetails_CreateDate"   CssClass="d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none"   @bind-Value="SCMPLATE_ProductRequestDetails.CreateDate" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
-
-</DxFormLayoutItem>
-
-<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextSCMPLATE_ProductRequestDetails">
-    
-<Input Id="SCMPLATE_ProductRequestDetails_UpdateDate" @ref="Ref_SCMPLATE_ProductRequestDetails_UpdateDate"   CssClass="d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none"   @bind-Value="SCMPLATE_ProductRequestDetails.UpdateDate" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
-
-</DxFormLayoutItem>
-
-<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextSCMPLATE_ProductRequestDetails">
-    
-<Input Id="SCMPLATE_ProductRequestDetails_IsDelete" @ref="Ref_SCMPLATE_ProductRequestDetails_IsDelete"   CssClass="d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none"   @bind-Value="SCMPLATE_ProductRequestDetails.IsDelete" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
-
-</DxFormLayoutItem>
-
 
         <DxFormLayoutItem ColSpanMd="12" Context="FormLayoutContextSCMPLATE_ProductRequestDetails" CssClass="btn-modal-custom">
             <DxButton Id="SCMPLATE_ProductRequestDetails_GridSCMPLATE_ProductRequestId_303ButtonSave" Click="@(() => SaveModalGrid_SCMPLATE_ProductRequestDetails(EditFormContextSCMPLATE_ProductRequestDetails))" Text="@languageContainer.Keys["DXGrid:Save"]" CssClass="btn btn-green px-5" />
             
+<DxButton id="SCMPLATE_ProductRequestDetails_GridSCMPLATE_ProductRequestId_303ButtonSaveAndNew"    Text="ذخیره و جدید" Click="@(() => SaveAndNewGrid_SCMPLATE_ProductRequestDetails(EditFormContextSCMPLATE_ProductRequestDetails))" CssClass="btn btn-green" />
+
 
             <DxButton Id="SCMPLATE_ProductRequestDetails_GridSCMPLATE_ProductRequestId_303ButtonCancel" Click="@(() => Grid_SCMPLATE_ProductRequestDetails.CancelEditAsync())" Text="@languageContainer.Keys["DXGrid:Cancel"]" CssClass="btn btn-red" />
             <button id="click_s"  hidden>submit</button>
@@ -749,17 +784,6 @@ public void SaveGrid_SCMPLATE_ProductRequestDetails(object DataItem, object Edit
     var MainModel = (Entity.SCMPLATE_ProductRequestDetails)DataItem;
     if (MainModel != null)
     {
-MainModel.SH_DESC = ((Entity.SCMPLATE_ProductRequestDetails)EditModel).SH_DESC;
-MainModel.SH_PARTNO = ((Entity.SCMPLATE_ProductRequestDetails)EditModel).SH_PARTNO;
-MainModel.SH_UNIT = ((Entity.SCMPLATE_ProductRequestDetails)EditModel).SH_UNIT;
-MainModel.SH_Amount = ((Entity.SCMPLATE_ProductRequestDetails)EditModel).SH_Amount;
-MainModel.PlaceOfUse = ((Entity.SCMPLATE_ProductRequestDetails)EditModel).PlaceOfUse;
-MainModel.ProductRequestingQTY = ((Entity.SCMPLATE_ProductRequestDetails)EditModel).ProductRequestingQTY;
-MainModel.Global_PriorityId = ((Entity.SCMPLATE_ProductRequestDetails)EditModel).Global_PriorityId;
-MainModel.Global_Priority = ((Entity.SCMPLATE_ProductRequestDetails)EditModel).Global_Priority;
-MainModel.GoodsDeliveryApproved = ((Entity.SCMPLATE_ProductRequestDetails)EditModel).GoodsDeliveryApproved;
-MainModel.HasModification = ((Entity.SCMPLATE_ProductRequestDetails)EditModel).HasModification;
-MainModel.SR_Desc = ((Entity.SCMPLATE_ProductRequestDetails)EditModel).SR_Desc;
 MainModel.Id = ((Entity.SCMPLATE_ProductRequestDetails)EditModel).Id;
 MainModel.RequestID = ((Entity.SCMPLATE_ProductRequestDetails)EditModel).RequestID;
 MainModel.CreateUser = ((Entity.SCMPLATE_ProductRequestDetails)EditModel).CreateUser;
@@ -767,6 +791,17 @@ MainModel.UpdateUser = ((Entity.SCMPLATE_ProductRequestDetails)EditModel).Update
 MainModel.CreateDate = ((Entity.SCMPLATE_ProductRequestDetails)EditModel).CreateDate;
 MainModel.UpdateDate = ((Entity.SCMPLATE_ProductRequestDetails)EditModel).UpdateDate;
 MainModel.IsDelete = ((Entity.SCMPLATE_ProductRequestDetails)EditModel).IsDelete;
+MainModel.SH_PARTNO = ((Entity.SCMPLATE_ProductRequestDetails)EditModel).SH_PARTNO;
+MainModel.SH_DESC = ((Entity.SCMPLATE_ProductRequestDetails)EditModel).SH_DESC;
+MainModel.SH_UNIT = ((Entity.SCMPLATE_ProductRequestDetails)EditModel).SH_UNIT;
+MainModel.SH_Amount = ((Entity.SCMPLATE_ProductRequestDetails)EditModel).SH_Amount;
+MainModel.Global_PriorityId = ((Entity.SCMPLATE_ProductRequestDetails)EditModel).Global_PriorityId;
+MainModel.Global_Priority = ((Entity.SCMPLATE_ProductRequestDetails)EditModel).Global_Priority;
+MainModel.ProductRequestingQTY = ((Entity.SCMPLATE_ProductRequestDetails)EditModel).ProductRequestingQTY;
+MainModel.PlaceOfUse = ((Entity.SCMPLATE_ProductRequestDetails)EditModel).PlaceOfUse;
+MainModel.SR_Desc = ((Entity.SCMPLATE_ProductRequestDetails)EditModel).SR_Desc;
+MainModel.GoodsDeliveryApproved = ((Entity.SCMPLATE_ProductRequestDetails)EditModel).GoodsDeliveryApproved;
+MainModel.HasModification = ((Entity.SCMPLATE_ProductRequestDetails)EditModel).HasModification;
 
     }
     else
@@ -880,26 +915,6 @@ public async void RowDubbleClickGrid_SCMPLATE_ProductRequestDetails(GridRowClick
 
 }
 }
-<div  class="">
-    <hr class="hrdash border-danger-subtle">
-</div>
-<div  class="">
-    <hr class="hrdash border-danger-subtle">
-</div>
-
-<Input Id="Id" @ref="Ref_Id"   CssClass="d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none"   @bind-Value="_Entity.Id" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
-
-<Input Id="IsDelete" @ref="Ref_IsDelete"   CssClass="d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none"   @bind-Value="_Entity.IsDelete" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
-
-<Input Id="RequestID" @ref="Ref_RequestID"   CssClass="                                    "   @bind-Value="_Entity.RequestID" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
-
-<Input Id="CreateUser" @ref="Ref_CreateUser"   CssClass="                                    "   @bind-Value="_Entity.CreateUser" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
-
-<Input Id="UpdateUser" @ref="Ref_UpdateUser"   CssClass="                                    "   @bind-Value="_Entity.UpdateUser" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
-
-<Input Id="CreateDate" @ref="Ref_CreateDate"   CssClass="d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none"   @bind-Value="_Entity.CreateDate" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
-
-<Input Id="UpdateDate" @ref="Ref_UpdateDate"   CssClass="d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none"   @bind-Value="_Entity.UpdateDate" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
 
     </EditForm>
 </div>

@@ -125,7 +125,7 @@
      
  
 @code {
-    Baya.Models.ViewEngine.View_Component Component_SCM_OS_MasterSCM_ResultingFromId = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"EntityName\":\"برون سپاری - اصلی\",\"primaryKey\":false,\"EntityID\":251,\"FieldId\":3037,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":390,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":false,\"RelationParentName\":\"SCM_ResultingFrom\",\"RelationParentModel\":\"SCM_ResultingFrom\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/SCM_ResultingFrom/GetList\"},\"validate\":{\"required\":true,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.Title}} </span>\",\"FieldsTemplate\":[],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"disabled\":true,\"modal\":true,\"label\":\"منتج از\",\"tableView\":true,\"key\":\"SCM_ResultingFromId\",\"type\":\"select\",\"input\":true,\"modalEdit\":true,\"FieldUrl\":\"3037?EId=251&SubId=8\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
+    Baya.Models.ViewEngine.View_Component Component_SCM_OS_MasterSCM_ResultingFromId = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"EntityName\":\"برون سپاری - اصلی\",\"primaryKey\":false,\"EntityID\":251,\"FieldId\":3037,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":390,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":false,\"RelationParentName\":\"SCM_ResultingFrom\",\"RelationParentModel\":\"SCM_ResultingFrom\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/SCM_ResultingFrom/GetList\"},\"validate\":{\"required\":true,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.Title}} </span>\",\"FieldsTemplate\":[],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"searchField\":\"\",\"disabled\":true,\"modal\":true,\"label\":\"منتج از\",\"tableView\":true,\"key\":\"SCM_ResultingFromId\",\"type\":\"select\",\"input\":true,\"modalEdit\":true,\"FieldUrl\":\"3037?EId=251&SubId=8\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
 }
 
     <Dropdown Id=SCM_ResultingFromId Disabled=true @ref="Ref_SCM_ResultingFromId" Label="منتج از" CssClass="" Required=true DisplayFormat="DropDown" ExternalApi=false NotMapped=false TextGrid=false Text="" Value="@_Entity.SCM_ResultingFromId" FieldName="SCM_ResultingFromId" OnItemSelected="ItemSelected_SCM_OS_MasterSCM_ResultingFromId" Component="Component_SCM_OS_MasterSCM_ResultingFromId" _Entity="_Entity" >
@@ -167,6 +167,20 @@
 </div>
 
 </div>
+
+<Input Id="Id" @ref="Ref_Id"   CssClass="d-none"   @bind-Value="_Entity.Id" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+<Input Id="RequestID" @ref="Ref_RequestID"      @bind-Value="_Entity.RequestID" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+<Input Id="CreateUser" @ref="Ref_CreateUser"      @bind-Value="_Entity.CreateUser" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+<Input Id="UpdateUser" @ref="Ref_UpdateUser"      @bind-Value="_Entity.UpdateUser" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+<Input Id="CreateDate" @ref="Ref_CreateDate"   CssClass="d-none"   @bind-Value="_Entity.CreateDate" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+<Input Id="UpdateDate" @ref="Ref_UpdateDate"   CssClass="d-none"   @bind-Value="_Entity.UpdateDate" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+<Input Id="IsDelete" @ref="Ref_IsDelete"   CssClass="d-none"   @bind-Value="_Entity.IsDelete" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
 <label for="SCM_OS_Details_GridSCM_OS_MasterId_252">برون سپاری - جزئیات
    
     
@@ -180,13 +194,18 @@
         EditFormButtonsVisible="false"
         CustomizeEditModel="CustomizeEditGrid_SCM_OS_Details"
         CustomizeElement="CustomizeRowsGrid_SCM_OS_Details" 
-        Component="@((Utility.JSON.ToObject<View_Component>("{\"primaryKey\":false,\"EntityID\":252,\"FieldId\":252,\"NotNull\":false,\"ViewId\":0,\"NotMapped\":false,\"Relation\":false,\"RelationExternal\":false,\"RelationChildModel\":\"SCM_OS_Details\",\"GridMainModel\":\"SCM_OS_Details\",\"widget\":{\"altInput\":false,\"allowInput\":false,\"clickOpens\":false,\"enableDate\":false,\"enableTime\":false,\"noCalendar\":false,\"useLocaleSettings\":false,\"hourIncrement\":0,\"minuteIncrement\":0,\"time_24hr\":false},\"wysiwyg\":false,\"data\":{},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"FieldsTemplate\":[],\"refreshOn\":\"data\",\"reorder\":false,\"addAnotherPosition\":\"bottom\",\"layoutFixed\":false,\"enableRowGroups\":false,\"initEmpty\":false,\"disabled\":true,\"modal\":true,\"label\":\"برون سپاری - جزئیات\",\"tableView\":true,\"key\":\"GridSCM_OS_MasterId_252\",\"type\":\"datagrid\",\"input\":true,\"modalEdit\":true,\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":false,\"AccessEdit\":true,\"AccessNew\":false}").Result))"
+        Component="@((Utility.JSON.ToObject<View_Component>("{\"primaryKey\":false,\"EntityID\":252,\"FieldId\":252,\"TypeCSharp\":\"\",\"NotNull\":false,\"ViewId\":0,\"NotMapped\":false,\"Relation\":false,\"RelationExternal\":false,\"RelationParentName\":\"\",\"RelationParentModel\":\"\",\"RelationChildModel\":\"SCM_OS_Details\",\"GridMainModel\":\"SCM_OS_Details\",\"widget\":{\"altInput\":false,\"allowInput\":false,\"clickOpens\":false,\"enableDate\":false,\"enableTime\":false,\"noCalendar\":false,\"useLocaleSettings\":false,\"hourIncrement\":0,\"minuteIncrement\":0,\"time_24hr\":false},\"wysiwyg\":false,\"data\":{},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"FieldsTemplate\":[],\"refreshOn\":\"data\",\"reorder\":false,\"addAnotherPosition\":\"bottom\",\"layoutFixed\":false,\"enableRowGroups\":false,\"initEmpty\":false,\"disabled\":true,\"modal\":true,\"label\":\"برون سپاری - جزئیات\",\"tableView\":true,\"key\":\"GridSCM_OS_MasterId_252\",\"type\":\"datagrid\",\"input\":true,\"placeholder\":\"GridSCM_OS_MasterId_252\",\"modalEdit\":true,\"FieldUrl\":\"252?EId=252&SubId=8\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result))"
          >
     <Columns>
     
 <DxGridCommandColumn Width="70px">
     <HeaderTemplate Context="HeaderContext">
        
+<a id=SCM_OS_Details_GridSCM_OS_MasterId_252ButtonNew class="btn btn-sm btn-green btnGridAddData" @onclick="@(() => StartEditNewRowAsync_Grid_SCM_OS_Details())" style="text-decoration: none;" href="javascript:void(0);">
+    <span class="fal fa-plus-circle btnicon"></span>
+    <span>@languageContainer.Keys["DXGrid:New"]</span>
+</a>
+
     </HeaderTemplate>
     <CellDisplayTemplate Context="CellContext">
        
@@ -195,6 +214,10 @@
 </a>
 
        
+<a class="btn btn-sm btn-red-light btnDeleteGridData" @onclick="@(() => OnDeleteButtonClickGrid_SCM_OS_Details(CellContext))" style="text-decoration: none;" href="javascript:void(0);">
+    <span class="fal fa-times-circle btnicon"></span>
+</a>
+
     </CellDisplayTemplate>
 </DxGridCommandColumn>
 
@@ -214,37 +237,25 @@
           
            </CellDisplayTemplate>
      </DxGridCommandColumn>
-    <DxGridDataColumn Context="SCM_OS_JobTitleId_" Caption="عنوان کار درخواستی" >
-    <CellDisplayTemplate>
-       
-@{
-    Baya.Models.ViewEngine.View_Component HeaderSCM_OS_JobTitleId = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"primaryKey\":false,\"EntityID\":252,\"FieldId\":14249,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":390,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":false,\"RelationParentName\":\"SCM_OS_JobTitle\",\"RelationParentModel\":\"SCM_OS_JobTitle\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/SCM_OS_JobTitle/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.Title}} </span>\",\"FieldsTemplate\":[{\"key\":\"Title\",\"value\":\"nvarchar(Max)\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"disabled\":true,\"modal\":true,\"label\":\"عنوان کار درخواستی\",\"tableView\":true,\"key\":\"SCM_OS_JobTitleId\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"14249?EId=252&SubId=8\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
-    var RowSCM_OS_JobTitleId = ((Entity.SCM_OS_Details)SCM_OS_JobTitleId_.DataItem).SCM_OS_JobTitleId;
-}
+    <DxGridDataColumn  Caption="Id" Visible=false FieldName="Id" />
 
-<Dropdown ExternalApi=false CssClass="" NotMapped=false TextGrid=true Value="@RowSCM_OS_JobTitleId"   FieldName="SCM_OS_JobTitleId" OnItemSelected="ItemSelected_SCM_OS_DetailsSCM_OS_JobTitleId_Header" Component="HeaderSCM_OS_JobTitleId">
-</Dropdown>
-@code {
-    public async Task ItemSelected_SCM_OS_DetailsSCM_OS_JobTitleId_Header(object _Item)
-    {
-      //  var Selected = Utility.JSON.ToObject<dynamic>(Utility.JSON.ToJson(_Item).Result).Result;
-  //   SCM_OS_JobTitleId
+<DxGridDataColumn  Caption="RequestID" Visible=false FieldName="RequestID" />
 
-  //  #CustomCode
+<DxGridDataColumn  Caption="CreateUser" Visible=false FieldName="CreateUser" />
 
- //   
+<DxGridDataColumn  Caption="UpdateUser" Visible=false FieldName="UpdateUser" />
 
-  //  #OnItemSelected
-    }
-}
+<DxGridDataColumn  Caption="CreateDate" Visible=false FieldName="CreateDate" />
 
-    </CellDisplayTemplate>
-</DxGridDataColumn>
+<DxGridDataColumn  Caption="UpdateDate" Visible=false FieldName="UpdateDate" />
+
+<DxGridDataColumn  Caption="IsDelete" Visible=false FieldName="IsDelete" />
+
 <DxGridDataColumn Context="SCM_UnitsId_" Caption="واحد" >
     <CellDisplayTemplate>
        
 @{
-    Baya.Models.ViewEngine.View_Component HeaderSCM_UnitsId = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"primaryKey\":false,\"EntityID\":252,\"FieldId\":3039,\"TypeCSharp\":\"string\",\"NotNull\":true,\"ViewId\":390,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":false,\"RelationParentName\":\"SCM_Units\",\"RelationParentModel\":\"SCM_Units\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/SCM_Units/GetList\"},\"validate\":{\"required\":true,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.Title}} </span>\",\"FieldsTemplate\":[],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"disabled\":true,\"modal\":true,\"label\":\"واحد\",\"tableView\":true,\"key\":\"SCM_UnitsId\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"3039?EId=252&SubId=8\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
+    Baya.Models.ViewEngine.View_Component HeaderSCM_UnitsId = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"primaryKey\":false,\"EntityID\":252,\"FieldId\":3039,\"TypeCSharp\":\"string\",\"NotNull\":true,\"ViewId\":390,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":false,\"RelationParentName\":\"SCM_Units\",\"RelationParentModel\":\"SCM_Units\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/SCM_Units/GetList\"},\"validate\":{\"required\":true,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.Title}} </span>\",\"FieldsTemplate\":[],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"searchField\":\"\",\"disabled\":true,\"modal\":true,\"label\":\"واحد\",\"tableView\":true,\"key\":\"SCM_UnitsId\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"3039?EId=252&SubId=8\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
     var RowSCM_UnitsId = ((Entity.SCM_OS_Details)SCM_UnitsId_.DataItem).SCM_UnitsId;
 }
 
@@ -272,7 +283,7 @@
     <CellDisplayTemplate>
        
 @{
-    Baya.Models.ViewEngine.View_Component HeaderSCM_PriorityId = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"primaryKey\":false,\"EntityID\":252,\"FieldId\":3041,\"TypeCSharp\":\"string\",\"NotNull\":true,\"ViewId\":390,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":false,\"RelationParentName\":\"SCM_Priority\",\"RelationParentModel\":\"SCM_Priority\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/SCM_Priority/GetList\"},\"validate\":{\"required\":true,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.PriorityTitle}} </span>\",\"FieldsTemplate\":[],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"disabled\":true,\"modal\":true,\"label\":\"اولویت\",\"tableView\":true,\"key\":\"SCM_PriorityId\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"3041?EId=252&SubId=8\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
+    Baya.Models.ViewEngine.View_Component HeaderSCM_PriorityId = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"primaryKey\":false,\"EntityID\":252,\"FieldId\":3041,\"TypeCSharp\":\"string\",\"NotNull\":true,\"ViewId\":390,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":false,\"RelationParentName\":\"SCM_Priority\",\"RelationParentModel\":\"SCM_Priority\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/SCM_Priority/GetList\"},\"validate\":{\"required\":true,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.PriorityTitle}} </span>\",\"FieldsTemplate\":[],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"searchField\":\"\",\"disabled\":true,\"modal\":true,\"label\":\"اولویت\",\"tableView\":true,\"key\":\"SCM_PriorityId\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"3041?EId=252&SubId=8\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
     var RowSCM_PriorityId = ((Entity.SCM_OS_Details)SCM_PriorityId_.DataItem).SCM_PriorityId;
 }
 
@@ -294,23 +305,21 @@
 
     </CellDisplayTemplate>
 </DxGridDataColumn>
-<DxGridDataColumn  Caption="توضیحات درخواست کننده"  FieldName="RequsterDesc" />
-
-<DxGridDataColumn Context="SCM_OS_PlaceofUseId_" Caption="محل مصرف" >
+<DxGridDataColumn Context="SCM_AreaOperationId_" Caption="محل عملیات" >
     <CellDisplayTemplate>
        
 @{
-    Baya.Models.ViewEngine.View_Component HeaderSCM_OS_PlaceofUseId = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"primaryKey\":false,\"EntityID\":252,\"FieldId\":14250,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":390,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":false,\"RelationParentName\":\"SCM_OS_PlaceofUse\",\"RelationParentModel\":\"SCM_OS_PlaceofUse\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/SCM_OS_PlaceofUse/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.Title}} </span>\",\"FieldsTemplate\":[{\"key\":\"Title\",\"value\":\"nvarchar(Max)\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"disabled\":true,\"modal\":true,\"label\":\"محل مصرف\",\"tableView\":true,\"key\":\"SCM_OS_PlaceofUseId\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"14250?EId=252&SubId=8\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
-    var RowSCM_OS_PlaceofUseId = ((Entity.SCM_OS_Details)SCM_OS_PlaceofUseId_.DataItem).SCM_OS_PlaceofUseId;
+    Baya.Models.ViewEngine.View_Component HeaderSCM_AreaOperationId = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"primaryKey\":false,\"EntityID\":252,\"FieldId\":3043,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":390,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":false,\"RelationParentName\":\"SCM_AreaOperation\",\"RelationParentModel\":\"SCM_AreaOperation\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/SCM_AreaOperation/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.Title}} </span>\",\"FieldsTemplate\":[],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"searchField\":\"\",\"disabled\":true,\"modal\":true,\"label\":\"محل عملیات\",\"tableView\":true,\"key\":\"SCM_AreaOperationId\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"3043?EId=252&SubId=8\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
+    var RowSCM_AreaOperationId = ((Entity.SCM_OS_Details)SCM_AreaOperationId_.DataItem).SCM_AreaOperationId;
 }
 
-<Dropdown ExternalApi=false CssClass="" NotMapped=false TextGrid=true Value="@RowSCM_OS_PlaceofUseId"   FieldName="SCM_OS_PlaceofUseId" OnItemSelected="ItemSelected_SCM_OS_DetailsSCM_OS_PlaceofUseId_Header" Component="HeaderSCM_OS_PlaceofUseId">
+<Dropdown ExternalApi=false CssClass="" NotMapped=false TextGrid=true Value="@RowSCM_AreaOperationId"   FieldName="SCM_AreaOperationId" OnItemSelected="ItemSelected_SCM_OS_DetailsSCM_AreaOperationId_Header" Component="HeaderSCM_AreaOperationId">
 </Dropdown>
 @code {
-    public async Task ItemSelected_SCM_OS_DetailsSCM_OS_PlaceofUseId_Header(object _Item)
+    public async Task ItemSelected_SCM_OS_DetailsSCM_AreaOperationId_Header(object _Item)
     {
       //  var Selected = Utility.JSON.ToObject<dynamic>(Utility.JSON.ToJson(_Item).Result).Result;
-  //   SCM_OS_PlaceofUseId
+  //   SCM_AreaOperationId
 
   //  #CustomCode
 
@@ -322,21 +331,49 @@
 
     </CellDisplayTemplate>
 </DxGridDataColumn>
-<DxGridDataColumn Context="SCM_AreaOperationId_" Caption="محل عملیات" >
+<DxGridDataColumn  Caption="توضیحات درخواست کننده"  FieldName="RequsterDesc" />
+
+<DxGridDataColumn Context="SCM_OS_JobTitleId_" Caption="عنوان کار درخواستی" >
     <CellDisplayTemplate>
        
 @{
-    Baya.Models.ViewEngine.View_Component HeaderSCM_AreaOperationId = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"primaryKey\":false,\"EntityID\":252,\"FieldId\":3043,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":390,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":false,\"RelationParentName\":\"SCM_AreaOperation\",\"RelationParentModel\":\"SCM_AreaOperation\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/SCM_AreaOperation/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.Title}} </span>\",\"FieldsTemplate\":[],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"disabled\":true,\"modal\":true,\"label\":\"محل عملیات\",\"tableView\":true,\"key\":\"SCM_AreaOperationId\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"3043?EId=252&SubId=8\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
-    var RowSCM_AreaOperationId = ((Entity.SCM_OS_Details)SCM_AreaOperationId_.DataItem).SCM_AreaOperationId;
+    Baya.Models.ViewEngine.View_Component HeaderSCM_OS_JobTitleId = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"primaryKey\":false,\"EntityID\":252,\"FieldId\":14249,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":390,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":false,\"RelationParentName\":\"SCM_OS_JobTitle\",\"RelationParentModel\":\"SCM_OS_JobTitle\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/SCM_OS_JobTitle/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.Title}} </span>\",\"FieldsTemplate\":[{\"key\":\"Title\",\"value\":\"nvarchar(Max)\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"searchField\":\"\",\"disabled\":true,\"modal\":true,\"label\":\"عنوان کار درخواستی\",\"tableView\":true,\"key\":\"SCM_OS_JobTitleId\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"14249?EId=252&SubId=8\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
+    var RowSCM_OS_JobTitleId = ((Entity.SCM_OS_Details)SCM_OS_JobTitleId_.DataItem).SCM_OS_JobTitleId;
 }
 
-<Dropdown ExternalApi=false CssClass="" NotMapped=false TextGrid=true Value="@RowSCM_AreaOperationId"   FieldName="SCM_AreaOperationId" OnItemSelected="ItemSelected_SCM_OS_DetailsSCM_AreaOperationId_Header" Component="HeaderSCM_AreaOperationId">
+<Dropdown ExternalApi=false CssClass="" NotMapped=false TextGrid=true Value="@RowSCM_OS_JobTitleId"   FieldName="SCM_OS_JobTitleId" OnItemSelected="ItemSelected_SCM_OS_DetailsSCM_OS_JobTitleId_Header" Component="HeaderSCM_OS_JobTitleId">
 </Dropdown>
 @code {
-    public async Task ItemSelected_SCM_OS_DetailsSCM_AreaOperationId_Header(object _Item)
+    public async Task ItemSelected_SCM_OS_DetailsSCM_OS_JobTitleId_Header(object _Item)
     {
       //  var Selected = Utility.JSON.ToObject<dynamic>(Utility.JSON.ToJson(_Item).Result).Result;
-  //   SCM_AreaOperationId
+  //   SCM_OS_JobTitleId
+
+  //  #CustomCode
+
+ //   
+
+  //  #OnItemSelected
+    }
+}
+
+    </CellDisplayTemplate>
+</DxGridDataColumn>
+<DxGridDataColumn Context="SCM_OS_PlaceofUseId_" Caption="محل مصرف" >
+    <CellDisplayTemplate>
+       
+@{
+    Baya.Models.ViewEngine.View_Component HeaderSCM_OS_PlaceofUseId = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"primaryKey\":false,\"EntityID\":252,\"FieldId\":14250,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":390,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":false,\"RelationParentName\":\"SCM_OS_PlaceofUse\",\"RelationParentModel\":\"SCM_OS_PlaceofUse\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/SCM_OS_PlaceofUse/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.Title}} </span>\",\"FieldsTemplate\":[{\"key\":\"Title\",\"value\":\"nvarchar(Max)\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"searchField\":\"\",\"disabled\":true,\"modal\":true,\"label\":\"محل مصرف\",\"tableView\":true,\"key\":\"SCM_OS_PlaceofUseId\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"14250?EId=252&SubId=8\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
+    var RowSCM_OS_PlaceofUseId = ((Entity.SCM_OS_Details)SCM_OS_PlaceofUseId_.DataItem).SCM_OS_PlaceofUseId;
+}
+
+<Dropdown ExternalApi=false CssClass="" NotMapped=false TextGrid=true Value="@RowSCM_OS_PlaceofUseId"   FieldName="SCM_OS_PlaceofUseId" OnItemSelected="ItemSelected_SCM_OS_DetailsSCM_OS_PlaceofUseId_Header" Component="HeaderSCM_OS_PlaceofUseId">
+</Dropdown>
+@code {
+    public async Task ItemSelected_SCM_OS_DetailsSCM_OS_PlaceofUseId_Header(object _Item)
+    {
+      //  var Selected = Utility.JSON.ToObject<dynamic>(Utility.JSON.ToJson(_Item).Result).Result;
+  //   SCM_OS_PlaceofUseId
 
   //  #CustomCode
 
@@ -362,20 +399,6 @@
 
     </CellDisplayTemplate>
 </DxGridDataColumn>
-<DxGridDataColumn  Caption="Id" Visible=false FieldName="Id" />
-
-<DxGridDataColumn  Caption="RequestID" Visible=false FieldName="RequestID" />
-
-<DxGridDataColumn  Caption="CreateUser" Visible=false FieldName="CreateUser" />
-
-<DxGridDataColumn  Caption="UpdateUser" Visible=false FieldName="UpdateUser" />
-
-<DxGridDataColumn  Caption="CreateDate" Visible=false FieldName="CreateDate" />
-
-<DxGridDataColumn  Caption="UpdateDate" Visible=false FieldName="UpdateDate" />
-
-<DxGridDataColumn  Caption="IsDelete" Visible=false FieldName="IsDelete" />
-
 
 </Columns>
 
@@ -385,43 +408,44 @@
     }
     <DxFormLayout>
         <DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextSCM_OS_Details">
-     
- 
-@code {
-    Baya.Models.ViewEngine.View_Component Component_SCM_OS_DetailsSCM_OS_JobTitleId = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"primaryKey\":false,\"EntityID\":252,\"FieldId\":14249,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":390,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":false,\"RelationParentName\":\"SCM_OS_JobTitle\",\"RelationParentModel\":\"SCM_OS_JobTitle\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/SCM_OS_JobTitle/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.Title}} </span>\",\"FieldsTemplate\":[{\"key\":\"Title\",\"value\":\"nvarchar(Max)\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"disabled\":true,\"modal\":true,\"label\":\"عنوان کار درخواستی\",\"tableView\":true,\"key\":\"SCM_OS_JobTitleId\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"14249?EId=252&SubId=8\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
-}
-
-    <Dropdown Id=SCM_OS_Details_SCM_OS_JobTitleId Disabled=true @ref="Ref_SCM_OS_Details_SCM_OS_JobTitleId" Label="عنوان کار درخواستی" CssClass=""  DisplayFormat="DropDown" ExternalApi=false NotMapped=false TextGrid=false Text="" Value="@SCM_OS_Details.SCM_OS_JobTitleId" FieldName="SCM_OS_JobTitleId" OnItemSelected="ItemSelected_SCM_OS_DetailsSCM_OS_JobTitleId" Component="Component_SCM_OS_DetailsSCM_OS_JobTitleId" _Entity="_Entity" _EntityRow=SCM_OS_Details>
-</Dropdown>
-@code {
-    public async Task ItemSelected_SCM_OS_DetailsSCM_OS_JobTitleId(object _Item)
-    {
-        var Selected = Utility.JSON.ToObject<dynamic>(Utility.JSON.ToJson(_Item).Result).Result;
-     var Item = SCM_OS_Details;
-
-      //Todo
- //برای اینکه آی دی تغییر کند اینجا نیز باید تغییر کند
- //بهتر است از پرایمیری کی استفاده شود
- if (_Item != null)
- {
-     Console.WriteLine(" Item Is Not Null");
-    Item.SCM_OS_JobTitleId = Selected.Id;
     
- }
- else
- {
-     Console.WriteLine(" Item Is Null");
-      Item.SCM_OS_JobTitleId =EntityHelper.SetPropertyNull(Item.SCM_OS_JobTitleId);
- }
- Item.SCM_OS_JobTitle = await Utility.JSON.ToObject<Entity.SCM_OS_JobTitle>(await Utility.JSON.ToJson(_Item));
-    StateHasChanged();
+<Input Id="SCM_OS_Details_Id" @ref="Ref_SCM_OS_Details_Id"   CssClass="d-none"   @bind-Value="SCM_OS_Details.Id" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
 
+</DxFormLayoutItem>
 
+<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextSCM_OS_Details">
     
+<Input Id="SCM_OS_Details_RequestID" @ref="Ref_SCM_OS_Details_RequestID"      @bind-Value="SCM_OS_Details.RequestID" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
 
+</DxFormLayoutItem>
+
+<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextSCM_OS_Details">
     
-    }
-} 
+<Input Id="SCM_OS_Details_CreateUser" @ref="Ref_SCM_OS_Details_CreateUser"      @bind-Value="SCM_OS_Details.CreateUser" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+</DxFormLayoutItem>
+
+<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextSCM_OS_Details">
+    
+<Input Id="SCM_OS_Details_UpdateUser" @ref="Ref_SCM_OS_Details_UpdateUser"      @bind-Value="SCM_OS_Details.UpdateUser" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+</DxFormLayoutItem>
+
+<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextSCM_OS_Details">
+    
+<Input Id="SCM_OS_Details_CreateDate" @ref="Ref_SCM_OS_Details_CreateDate"   CssClass="d-none"   @bind-Value="SCM_OS_Details.CreateDate" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+</DxFormLayoutItem>
+
+<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextSCM_OS_Details">
+    
+<Input Id="SCM_OS_Details_UpdateDate" @ref="Ref_SCM_OS_Details_UpdateDate"   CssClass="d-none"   @bind-Value="SCM_OS_Details.UpdateDate" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+</DxFormLayoutItem>
+
+<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextSCM_OS_Details">
+    
+<Input Id="SCM_OS_Details_IsDelete" @ref="Ref_SCM_OS_Details_IsDelete"   CssClass="d-none"   @bind-Value="SCM_OS_Details.IsDelete" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
 
 </DxFormLayoutItem>
 
@@ -429,7 +453,7 @@
      
  
 @code {
-    Baya.Models.ViewEngine.View_Component Component_SCM_OS_DetailsSCM_UnitsId = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"primaryKey\":false,\"EntityID\":252,\"FieldId\":3039,\"TypeCSharp\":\"string\",\"NotNull\":true,\"ViewId\":390,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":false,\"RelationParentName\":\"SCM_Units\",\"RelationParentModel\":\"SCM_Units\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/SCM_Units/GetList\"},\"validate\":{\"required\":true,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.Title}} </span>\",\"FieldsTemplate\":[],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"disabled\":true,\"modal\":true,\"label\":\"واحد\",\"tableView\":true,\"key\":\"SCM_UnitsId\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"3039?EId=252&SubId=8\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
+    Baya.Models.ViewEngine.View_Component Component_SCM_OS_DetailsSCM_UnitsId = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"primaryKey\":false,\"EntityID\":252,\"FieldId\":3039,\"TypeCSharp\":\"string\",\"NotNull\":true,\"ViewId\":390,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":false,\"RelationParentName\":\"SCM_Units\",\"RelationParentModel\":\"SCM_Units\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/SCM_Units/GetList\"},\"validate\":{\"required\":true,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.Title}} </span>\",\"FieldsTemplate\":[],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"searchField\":\"\",\"disabled\":true,\"modal\":true,\"label\":\"واحد\",\"tableView\":true,\"key\":\"SCM_UnitsId\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"3039?EId=252&SubId=8\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
 }
 
     <Dropdown Id=SCM_OS_Details_SCM_UnitsId Disabled=true @ref="Ref_SCM_OS_Details_SCM_UnitsId" Label="واحد" CssClass="" Required=true DisplayFormat="DropDown" ExternalApi=false NotMapped=false TextGrid=false Text="" Value="@SCM_OS_Details.SCM_UnitsId" FieldName="SCM_UnitsId" OnItemSelected="ItemSelected_SCM_OS_DetailsSCM_UnitsId" Component="Component_SCM_OS_DetailsSCM_UnitsId" _Entity="_Entity" _EntityRow=SCM_OS_Details>
@@ -476,7 +500,7 @@
      
  
 @code {
-    Baya.Models.ViewEngine.View_Component Component_SCM_OS_DetailsSCM_PriorityId = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"primaryKey\":false,\"EntityID\":252,\"FieldId\":3041,\"TypeCSharp\":\"string\",\"NotNull\":true,\"ViewId\":390,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":false,\"RelationParentName\":\"SCM_Priority\",\"RelationParentModel\":\"SCM_Priority\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/SCM_Priority/GetList\"},\"validate\":{\"required\":true,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.PriorityTitle}} </span>\",\"FieldsTemplate\":[],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"disabled\":true,\"modal\":true,\"label\":\"اولویت\",\"tableView\":true,\"key\":\"SCM_PriorityId\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"3041?EId=252&SubId=8\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
+    Baya.Models.ViewEngine.View_Component Component_SCM_OS_DetailsSCM_PriorityId = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"primaryKey\":false,\"EntityID\":252,\"FieldId\":3041,\"TypeCSharp\":\"string\",\"NotNull\":true,\"ViewId\":390,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":false,\"RelationParentName\":\"SCM_Priority\",\"RelationParentModel\":\"SCM_Priority\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/SCM_Priority/GetList\"},\"validate\":{\"required\":true,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.PriorityTitle}} </span>\",\"FieldsTemplate\":[],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"searchField\":\"\",\"disabled\":true,\"modal\":true,\"label\":\"اولویت\",\"tableView\":true,\"key\":\"SCM_PriorityId\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"3041?EId=252&SubId=8\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
 }
 
     <Dropdown Id=SCM_OS_Details_SCM_PriorityId Disabled=true @ref="Ref_SCM_OS_Details_SCM_PriorityId" Label="اولویت" CssClass="" Required=true DisplayFormat="DropDown" ExternalApi=false NotMapped=false TextGrid=false Text="" Value="@SCM_OS_Details.SCM_PriorityId" FieldName="SCM_PriorityId" OnItemSelected="ItemSelected_SCM_OS_DetailsSCM_PriorityId" Component="Component_SCM_OS_DetailsSCM_PriorityId" _Entity="_Entity" _EntityRow=SCM_OS_Details>
@@ -514,57 +538,10 @@
 </DxFormLayoutItem>
 
 <DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextSCM_OS_Details">
-    
-<Input Id="SCM_OS_Details_RequsterDesc" @ref="Ref_SCM_OS_Details_RequsterDesc" Label="توضیحات درخواست کننده"   Disabled=true  @bind-Value="SCM_OS_Details.RequsterDesc" type="textarea"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
-
-</DxFormLayoutItem>
-
-<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextSCM_OS_Details">
      
  
 @code {
-    Baya.Models.ViewEngine.View_Component Component_SCM_OS_DetailsSCM_OS_PlaceofUseId = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"primaryKey\":false,\"EntityID\":252,\"FieldId\":14250,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":390,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":false,\"RelationParentName\":\"SCM_OS_PlaceofUse\",\"RelationParentModel\":\"SCM_OS_PlaceofUse\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/SCM_OS_PlaceofUse/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.Title}} </span>\",\"FieldsTemplate\":[{\"key\":\"Title\",\"value\":\"nvarchar(Max)\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"disabled\":true,\"modal\":true,\"label\":\"محل مصرف\",\"tableView\":true,\"key\":\"SCM_OS_PlaceofUseId\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"14250?EId=252&SubId=8\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
-}
-
-    <Dropdown Id=SCM_OS_Details_SCM_OS_PlaceofUseId Disabled=true @ref="Ref_SCM_OS_Details_SCM_OS_PlaceofUseId" Label="محل مصرف" CssClass=""  DisplayFormat="DropDown" ExternalApi=false NotMapped=false TextGrid=false Text="" Value="@SCM_OS_Details.SCM_OS_PlaceofUseId" FieldName="SCM_OS_PlaceofUseId" OnItemSelected="ItemSelected_SCM_OS_DetailsSCM_OS_PlaceofUseId" Component="Component_SCM_OS_DetailsSCM_OS_PlaceofUseId" _Entity="_Entity" _EntityRow=SCM_OS_Details>
-</Dropdown>
-@code {
-    public async Task ItemSelected_SCM_OS_DetailsSCM_OS_PlaceofUseId(object _Item)
-    {
-        var Selected = Utility.JSON.ToObject<dynamic>(Utility.JSON.ToJson(_Item).Result).Result;
-     var Item = SCM_OS_Details;
-
-      //Todo
- //برای اینکه آی دی تغییر کند اینجا نیز باید تغییر کند
- //بهتر است از پرایمیری کی استفاده شود
- if (_Item != null)
- {
-     Console.WriteLine(" Item Is Not Null");
-    Item.SCM_OS_PlaceofUseId = Selected.Id;
-    
- }
- else
- {
-     Console.WriteLine(" Item Is Null");
-      Item.SCM_OS_PlaceofUseId =EntityHelper.SetPropertyNull(Item.SCM_OS_PlaceofUseId);
- }
- Item.SCM_OS_PlaceofUse = await Utility.JSON.ToObject<Entity.SCM_OS_PlaceofUse>(await Utility.JSON.ToJson(_Item));
-    StateHasChanged();
-
-
-    
-
-    
-    }
-} 
-
-</DxFormLayoutItem>
-
-<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextSCM_OS_Details">
-     
- 
-@code {
-    Baya.Models.ViewEngine.View_Component Component_SCM_OS_DetailsSCM_AreaOperationId = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"primaryKey\":false,\"EntityID\":252,\"FieldId\":3043,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":390,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":false,\"RelationParentName\":\"SCM_AreaOperation\",\"RelationParentModel\":\"SCM_AreaOperation\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/SCM_AreaOperation/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.Title}} </span>\",\"FieldsTemplate\":[],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"disabled\":true,\"modal\":true,\"label\":\"محل عملیات\",\"tableView\":true,\"key\":\"SCM_AreaOperationId\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"3043?EId=252&SubId=8\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
+    Baya.Models.ViewEngine.View_Component Component_SCM_OS_DetailsSCM_AreaOperationId = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"primaryKey\":false,\"EntityID\":252,\"FieldId\":3043,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":390,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":false,\"RelationParentName\":\"SCM_AreaOperation\",\"RelationParentModel\":\"SCM_AreaOperation\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/SCM_AreaOperation/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.Title}} </span>\",\"FieldsTemplate\":[],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"searchField\":\"\",\"disabled\":true,\"modal\":true,\"label\":\"محل عملیات\",\"tableView\":true,\"key\":\"SCM_AreaOperationId\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"3043?EId=252&SubId=8\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
 }
 
     <Dropdown Id=SCM_OS_Details_SCM_AreaOperationId Disabled=true @ref="Ref_SCM_OS_Details_SCM_AreaOperationId" Label="محل عملیات" CssClass=""  DisplayFormat="DropDown" ExternalApi=false NotMapped=false TextGrid=false Text="" Value="@SCM_OS_Details.SCM_AreaOperationId" FieldName="SCM_AreaOperationId" OnItemSelected="ItemSelected_SCM_OS_DetailsSCM_AreaOperationId" Component="Component_SCM_OS_DetailsSCM_AreaOperationId" _Entity="_Entity" _EntityRow=SCM_OS_Details>
@@ -603,49 +580,95 @@
 
 <DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextSCM_OS_Details">
     
+<Input Id="SCM_OS_Details_RequsterDesc" @ref="Ref_SCM_OS_Details_RequsterDesc" Label="توضیحات درخواست کننده"   Disabled=true  @bind-Value="SCM_OS_Details.RequsterDesc" type="textarea"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+</DxFormLayoutItem>
+
+<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextSCM_OS_Details">
+     
+ 
+@code {
+    Baya.Models.ViewEngine.View_Component Component_SCM_OS_DetailsSCM_OS_JobTitleId = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"primaryKey\":false,\"EntityID\":252,\"FieldId\":14249,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":390,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":false,\"RelationParentName\":\"SCM_OS_JobTitle\",\"RelationParentModel\":\"SCM_OS_JobTitle\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/SCM_OS_JobTitle/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.Title}} </span>\",\"FieldsTemplate\":[{\"key\":\"Title\",\"value\":\"nvarchar(Max)\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"searchField\":\"\",\"disabled\":true,\"modal\":true,\"label\":\"عنوان کار درخواستی\",\"tableView\":true,\"key\":\"SCM_OS_JobTitleId\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"14249?EId=252&SubId=8\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
+}
+
+    <Dropdown Id=SCM_OS_Details_SCM_OS_JobTitleId Disabled=true @ref="Ref_SCM_OS_Details_SCM_OS_JobTitleId" Label="عنوان کار درخواستی" CssClass=""  DisplayFormat="DropDown" ExternalApi=false NotMapped=false TextGrid=false Text="" Value="@SCM_OS_Details.SCM_OS_JobTitleId" FieldName="SCM_OS_JobTitleId" OnItemSelected="ItemSelected_SCM_OS_DetailsSCM_OS_JobTitleId" Component="Component_SCM_OS_DetailsSCM_OS_JobTitleId" _Entity="_Entity" _EntityRow=SCM_OS_Details>
+</Dropdown>
+@code {
+    public async Task ItemSelected_SCM_OS_DetailsSCM_OS_JobTitleId(object _Item)
+    {
+        var Selected = Utility.JSON.ToObject<dynamic>(Utility.JSON.ToJson(_Item).Result).Result;
+     var Item = SCM_OS_Details;
+
+      //Todo
+ //برای اینکه آی دی تغییر کند اینجا نیز باید تغییر کند
+ //بهتر است از پرایمیری کی استفاده شود
+ if (_Item != null)
+ {
+     Console.WriteLine(" Item Is Not Null");
+    Item.SCM_OS_JobTitleId = Selected.Id;
+    
+ }
+ else
+ {
+     Console.WriteLine(" Item Is Null");
+      Item.SCM_OS_JobTitleId =EntityHelper.SetPropertyNull(Item.SCM_OS_JobTitleId);
+ }
+ Item.SCM_OS_JobTitle = await Utility.JSON.ToObject<Entity.SCM_OS_JobTitle>(await Utility.JSON.ToJson(_Item));
+    StateHasChanged();
+
+
+    
+
+    
+    }
+} 
+
+</DxFormLayoutItem>
+
+<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextSCM_OS_Details">
+     
+ 
+@code {
+    Baya.Models.ViewEngine.View_Component Component_SCM_OS_DetailsSCM_OS_PlaceofUseId = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"primaryKey\":false,\"EntityID\":252,\"FieldId\":14250,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":390,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":false,\"RelationParentName\":\"SCM_OS_PlaceofUse\",\"RelationParentModel\":\"SCM_OS_PlaceofUse\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/SCM_OS_PlaceofUse/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.Title}} </span>\",\"FieldsTemplate\":[{\"key\":\"Title\",\"value\":\"nvarchar(Max)\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"searchField\":\"\",\"disabled\":true,\"modal\":true,\"label\":\"محل مصرف\",\"tableView\":true,\"key\":\"SCM_OS_PlaceofUseId\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"14250?EId=252&SubId=8\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
+}
+
+    <Dropdown Id=SCM_OS_Details_SCM_OS_PlaceofUseId Disabled=true @ref="Ref_SCM_OS_Details_SCM_OS_PlaceofUseId" Label="محل مصرف" CssClass=""  DisplayFormat="DropDown" ExternalApi=false NotMapped=false TextGrid=false Text="" Value="@SCM_OS_Details.SCM_OS_PlaceofUseId" FieldName="SCM_OS_PlaceofUseId" OnItemSelected="ItemSelected_SCM_OS_DetailsSCM_OS_PlaceofUseId" Component="Component_SCM_OS_DetailsSCM_OS_PlaceofUseId" _Entity="_Entity" _EntityRow=SCM_OS_Details>
+</Dropdown>
+@code {
+    public async Task ItemSelected_SCM_OS_DetailsSCM_OS_PlaceofUseId(object _Item)
+    {
+        var Selected = Utility.JSON.ToObject<dynamic>(Utility.JSON.ToJson(_Item).Result).Result;
+     var Item = SCM_OS_Details;
+
+      //Todo
+ //برای اینکه آی دی تغییر کند اینجا نیز باید تغییر کند
+ //بهتر است از پرایمیری کی استفاده شود
+ if (_Item != null)
+ {
+     Console.WriteLine(" Item Is Not Null");
+    Item.SCM_OS_PlaceofUseId = Selected.Id;
+    
+ }
+ else
+ {
+     Console.WriteLine(" Item Is Null");
+      Item.SCM_OS_PlaceofUseId =EntityHelper.SetPropertyNull(Item.SCM_OS_PlaceofUseId);
+ }
+ Item.SCM_OS_PlaceofUse = await Utility.JSON.ToObject<Entity.SCM_OS_PlaceofUse>(await Utility.JSON.ToJson(_Item));
+    StateHasChanged();
+
+
+    
+
+    
+    }
+} 
+
+</DxFormLayoutItem>
+
+<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextSCM_OS_Details">
+    
 <RadioBoolean @ref="Ref_SCM_OS_Details_IsEnableApproved" InLine=true Id="SCM_OS_Details_IsEnableApproved"   LabelTrue="بله" LabelFalse="خیر" Label="آیا مورد تایید است؟" @bind-Value="SCM_OS_Details.IsEnableApproved" CssClass="" Disabled=true></RadioBoolean>
-
-</DxFormLayoutItem>
-
-<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextSCM_OS_Details">
-    
-<Input Id="SCM_OS_Details_Id" @ref="Ref_SCM_OS_Details_Id"   CssClass="d-none"   @bind-Value="SCM_OS_Details.Id" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
-
-</DxFormLayoutItem>
-
-<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextSCM_OS_Details">
-    
-<Input Id="SCM_OS_Details_RequestID" @ref="Ref_SCM_OS_Details_RequestID"      @bind-Value="SCM_OS_Details.RequestID" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
-
-</DxFormLayoutItem>
-
-<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextSCM_OS_Details">
-    
-<Input Id="SCM_OS_Details_CreateUser" @ref="Ref_SCM_OS_Details_CreateUser"      @bind-Value="SCM_OS_Details.CreateUser" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
-
-</DxFormLayoutItem>
-
-<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextSCM_OS_Details">
-    
-<Input Id="SCM_OS_Details_UpdateUser" @ref="Ref_SCM_OS_Details_UpdateUser"      @bind-Value="SCM_OS_Details.UpdateUser" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
-
-</DxFormLayoutItem>
-
-<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextSCM_OS_Details">
-    
-<Input Id="SCM_OS_Details_CreateDate" @ref="Ref_SCM_OS_Details_CreateDate"   CssClass="d-none"   @bind-Value="SCM_OS_Details.CreateDate" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
-
-</DxFormLayoutItem>
-
-<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextSCM_OS_Details">
-    
-<Input Id="SCM_OS_Details_UpdateDate" @ref="Ref_SCM_OS_Details_UpdateDate"   CssClass="d-none"   @bind-Value="SCM_OS_Details.UpdateDate" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
-
-</DxFormLayoutItem>
-
-<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextSCM_OS_Details">
-    
-<Input Id="SCM_OS_Details_IsDelete" @ref="Ref_SCM_OS_Details_IsDelete"   CssClass="d-none"   @bind-Value="SCM_OS_Details.IsDelete" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
 
 </DxFormLayoutItem>
 
@@ -653,6 +676,8 @@
         <DxFormLayoutItem ColSpanMd="12" Context="FormLayoutContextSCM_OS_Details" CssClass="btn-modal-custom">
             <DxButton Id="SCM_OS_Details_GridSCM_OS_MasterId_252ButtonSave" Click="@(() => SaveModalGrid_SCM_OS_Details(EditFormContextSCM_OS_Details))" Text="@languageContainer.Keys["DXGrid:Save"]" CssClass="btn btn-green px-5" />
             
+<DxButton id="SCM_OS_Details_GridSCM_OS_MasterId_252ButtonSaveAndNew"    Text="ذخیره و جدید" Click="@(() => SaveAndNewGrid_SCM_OS_Details(EditFormContextSCM_OS_Details))" CssClass="btn btn-green" />
+
 
             <DxButton Id="SCM_OS_Details_GridSCM_OS_MasterId_252ButtonCancel" Click="@(() => Grid_SCM_OS_Details.CancelEditAsync())" Text="@languageContainer.Keys["DXGrid:Cancel"]" CssClass="btn btn-red" />
             <button id="click_s"  hidden>submit</button>
@@ -932,19 +957,6 @@ public void SaveGrid_SCM_OS_Details(object DataItem, object EditModel)
     var MainModel = (Entity.SCM_OS_Details)DataItem;
     if (MainModel != null)
     {
-MainModel.SCM_OS_JobTitleId = ((Entity.SCM_OS_Details)EditModel).SCM_OS_JobTitleId;
-MainModel.SCM_OS_JobTitle = ((Entity.SCM_OS_Details)EditModel).SCM_OS_JobTitle;
-MainModel.SCM_UnitsId = ((Entity.SCM_OS_Details)EditModel).SCM_UnitsId;
-MainModel.SCM_Units = ((Entity.SCM_OS_Details)EditModel).SCM_Units;
-MainModel.Amount = ((Entity.SCM_OS_Details)EditModel).Amount;
-MainModel.SCM_PriorityId = ((Entity.SCM_OS_Details)EditModel).SCM_PriorityId;
-MainModel.SCM_Priority = ((Entity.SCM_OS_Details)EditModel).SCM_Priority;
-MainModel.RequsterDesc = ((Entity.SCM_OS_Details)EditModel).RequsterDesc;
-MainModel.SCM_OS_PlaceofUseId = ((Entity.SCM_OS_Details)EditModel).SCM_OS_PlaceofUseId;
-MainModel.SCM_OS_PlaceofUse = ((Entity.SCM_OS_Details)EditModel).SCM_OS_PlaceofUse;
-MainModel.SCM_AreaOperationId = ((Entity.SCM_OS_Details)EditModel).SCM_AreaOperationId;
-MainModel.SCM_AreaOperation = ((Entity.SCM_OS_Details)EditModel).SCM_AreaOperation;
-MainModel.IsEnableApproved = ((Entity.SCM_OS_Details)EditModel).IsEnableApproved;
 MainModel.Id = ((Entity.SCM_OS_Details)EditModel).Id;
 MainModel.RequestID = ((Entity.SCM_OS_Details)EditModel).RequestID;
 MainModel.CreateUser = ((Entity.SCM_OS_Details)EditModel).CreateUser;
@@ -952,6 +964,19 @@ MainModel.UpdateUser = ((Entity.SCM_OS_Details)EditModel).UpdateUser;
 MainModel.CreateDate = ((Entity.SCM_OS_Details)EditModel).CreateDate;
 MainModel.UpdateDate = ((Entity.SCM_OS_Details)EditModel).UpdateDate;
 MainModel.IsDelete = ((Entity.SCM_OS_Details)EditModel).IsDelete;
+MainModel.SCM_UnitsId = ((Entity.SCM_OS_Details)EditModel).SCM_UnitsId;
+MainModel.SCM_Units = ((Entity.SCM_OS_Details)EditModel).SCM_Units;
+MainModel.Amount = ((Entity.SCM_OS_Details)EditModel).Amount;
+MainModel.SCM_PriorityId = ((Entity.SCM_OS_Details)EditModel).SCM_PriorityId;
+MainModel.SCM_Priority = ((Entity.SCM_OS_Details)EditModel).SCM_Priority;
+MainModel.SCM_AreaOperationId = ((Entity.SCM_OS_Details)EditModel).SCM_AreaOperationId;
+MainModel.SCM_AreaOperation = ((Entity.SCM_OS_Details)EditModel).SCM_AreaOperation;
+MainModel.RequsterDesc = ((Entity.SCM_OS_Details)EditModel).RequsterDesc;
+MainModel.SCM_OS_JobTitleId = ((Entity.SCM_OS_Details)EditModel).SCM_OS_JobTitleId;
+MainModel.SCM_OS_JobTitle = ((Entity.SCM_OS_Details)EditModel).SCM_OS_JobTitle;
+MainModel.SCM_OS_PlaceofUseId = ((Entity.SCM_OS_Details)EditModel).SCM_OS_PlaceofUseId;
+MainModel.SCM_OS_PlaceofUse = ((Entity.SCM_OS_Details)EditModel).SCM_OS_PlaceofUse;
+MainModel.IsEnableApproved = ((Entity.SCM_OS_Details)EditModel).IsEnableApproved;
 
     }
     else
@@ -1066,20 +1091,6 @@ public async void RowDubbleClickGrid_SCM_OS_Details(GridRowClickEventArgs e)
 }
 }
 
-<Input Id="Id" @ref="Ref_Id"   CssClass="d-none"   @bind-Value="_Entity.Id" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
-
-<Input Id="RequestID" @ref="Ref_RequestID"      @bind-Value="_Entity.RequestID" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
-
-<Input Id="CreateUser" @ref="Ref_CreateUser"      @bind-Value="_Entity.CreateUser" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
-
-<Input Id="UpdateUser" @ref="Ref_UpdateUser"      @bind-Value="_Entity.UpdateUser" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
-
-<Input Id="CreateDate" @ref="Ref_CreateDate"   CssClass="d-none"   @bind-Value="_Entity.CreateDate" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
-
-<Input Id="UpdateDate" @ref="Ref_UpdateDate"   CssClass="d-none"   @bind-Value="_Entity.UpdateDate" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
-
-<Input Id="IsDelete" @ref="Ref_IsDelete"   CssClass="d-none"   @bind-Value="_Entity.IsDelete" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
-
     </EditForm>
 </div>
 
@@ -1096,8 +1107,8 @@ public async void RowDubbleClickGrid_SCM_OS_Details(GridRowClickEventArgs e)
     {
         Console.WriteLine("#log OnInitializedAsync");
 
-        TableGet = await Utility.JSON.ToObject<Table>("{\"Name\":\"SCM_OS_Master\",\"GetNameAs\":\"SCM_OS_Master\",\"Column\":[{\"Name\":\"SCM_ResultingFromId\",\"GetNameAs\":\"SCM_ResultingFromId\"},{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"RequestID\",\"GetNameAs\":\"RequestID\"},{\"Name\":\"CreateUser\",\"GetNameAs\":\"CreateUser\"},{\"Name\":\"UpdateUser\",\"GetNameAs\":\"UpdateUser\"},{\"Name\":\"CreateDate\",\"GetNameAs\":\"CreateDate\"},{\"Name\":\"UpdateDate\",\"GetNameAs\":\"UpdateDate\"},{\"Name\":\"IsDelete\",\"GetNameAs\":\"IsDelete\"},{\"Name\":\"UserStarterFullName\",\"GetNameAs\":\"UserStarterFullName\"},{\"Name\":\"UserStarterCompanyName\",\"GetNameAs\":\"UserStarterCompanyName\"},{\"Name\":\"UserStarterUnitName\",\"GetNameAs\":\"UserStarterUnitName\"},{\"Name\":\"UserStarterSectionName\",\"GetNameAs\":\"UserStarterSectionName\"}],\"Relation\":[{\"Name\":\"SCM_ResultingFrom\",\"GetNameAs\":\"SCM_ResultingFrom\",\"ModeErtebat\":1,\"Column\":[{\"Name\":\"Title\",\"GetNameAs\":\"Title\"}],\"Relation\":[]},{\"Name\":\"SCM_ICT_Departments\",\"GetNameAs\":\"SCM_ICT_Departments\",\"ModeErtebat\":1,\"Column\":[{\"Name\":\"Code\",\"GetNameAs\":\"Code\"},{\"Name\":\"Title\",\"GetNameAs\":\"Title\"}],\"Relation\":[]},{\"Name\":\"SCM_OS_Details\",\"GetNameAs\":\"SCM_OS_Details\",\"ModeErtebat\":2,\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"RequestID\",\"GetNameAs\":\"RequestID\"},{\"Name\":\"CreateUser\",\"GetNameAs\":\"CreateUser\"},{\"Name\":\"UpdateUser\",\"GetNameAs\":\"UpdateUser\"},{\"Name\":\"CreateDate\",\"GetNameAs\":\"CreateDate\"},{\"Name\":\"UpdateDate\",\"GetNameAs\":\"UpdateDate\"},{\"Name\":\"IsDelete\",\"GetNameAs\":\"IsDelete\"},{\"Name\":\"SCM_UnitsId\",\"GetNameAs\":\"SCM_UnitsId\"},{\"Name\":\"Amount\",\"GetNameAs\":\"Amount\"},{\"Name\":\"SCM_PriorityId\",\"GetNameAs\":\"SCM_PriorityId\"},{\"Name\":\"SCM_AreaOperationId\",\"GetNameAs\":\"SCM_AreaOperationId\"},{\"Name\":\"RequsterDesc\",\"GetNameAs\":\"RequsterDesc\"},{\"Name\":\"SCM_OS_JobTitleId\",\"GetNameAs\":\"SCM_OS_JobTitleId\"},{\"Name\":\"SCM_OS_PlaceofUseId\",\"GetNameAs\":\"SCM_OS_PlaceofUseId\"},{\"Name\":\"IsEnableApproved\",\"GetNameAs\":\"IsEnableApproved\"}],\"Relation\":[{\"Name\":\"SCM_Units\",\"GetNameAs\":\"SCM_Units\",\"ModeErtebat\":1,\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"Title\",\"GetNameAs\":\"Title\"}]},{\"Name\":\"SCM_Priority\",\"GetNameAs\":\"SCM_Priority\",\"ModeErtebat\":1,\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"PriorityTitle\",\"GetNameAs\":\"PriorityTitle\"},{\"Name\":\"PriorityDateTime\",\"GetNameAs\":\"PriorityDateTime\"},{\"Name\":\"PriorityDescription\",\"GetNameAs\":\"PriorityDescription\"}]},{\"Name\":\"SCM_AreaOperation\",\"GetNameAs\":\"SCM_AreaOperation\",\"ModeErtebat\":1,\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"Title\",\"GetNameAs\":\"Title\"}]},{\"Name\":\"SCM_OS_JobTitle\",\"GetNameAs\":\"SCM_OS_JobTitle\",\"ModeErtebat\":1,\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"Code\",\"GetNameAs\":\"Code\"},{\"Name\":\"Title\",\"GetNameAs\":\"Title\"}]},{\"Name\":\"SCM_OS_PlaceofUse\",\"GetNameAs\":\"SCM_OS_PlaceofUse\",\"ModeErtebat\":1,\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"Code\",\"GetNameAs\":\"Code\"},{\"Name\":\"Title\",\"GetNameAs\":\"Title\"}]}]}]}");
-        TablePost = await Utility.JSON.ToObject<Table>("{\"Name\":\"SCM_OS_Master\",\"GetNameAs\":\"SCM_OS_Master\",\"Column\":[{\"Name\":\"SCM_ResultingFromId\",\"GetNameAs\":\"SCM_ResultingFromId\"},{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"RequestID\",\"GetNameAs\":\"RequestID\"},{\"Name\":\"CreateUser\",\"GetNameAs\":\"CreateUser\"},{\"Name\":\"UpdateUser\",\"GetNameAs\":\"UpdateUser\"},{\"Name\":\"CreateDate\",\"GetNameAs\":\"CreateDate\"},{\"Name\":\"UpdateDate\",\"GetNameAs\":\"UpdateDate\"},{\"Name\":\"IsDelete\",\"GetNameAs\":\"IsDelete\"},{\"Name\":\"UserStarterFullName\",\"GetNameAs\":\"UserStarterFullName\"},{\"Name\":\"UserStarterCompanyName\",\"GetNameAs\":\"UserStarterCompanyName\"},{\"Name\":\"UserStarterUnitName\",\"GetNameAs\":\"UserStarterUnitName\"},{\"Name\":\"UserStarterSectionName\",\"GetNameAs\":\"UserStarterSectionName\"}],\"Relation\":[{\"Name\":\"SCM_OS_Details\",\"GetNameAs\":\"SCM_OS_Details\",\"ModeErtebat\":2,\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"RequestID\",\"GetNameAs\":\"RequestID\"},{\"Name\":\"CreateUser\",\"GetNameAs\":\"CreateUser\"},{\"Name\":\"UpdateUser\",\"GetNameAs\":\"UpdateUser\"},{\"Name\":\"CreateDate\",\"GetNameAs\":\"CreateDate\"},{\"Name\":\"UpdateDate\",\"GetNameAs\":\"UpdateDate\"},{\"Name\":\"IsDelete\",\"GetNameAs\":\"IsDelete\"},{\"Name\":\"SCM_UnitsId\",\"GetNameAs\":\"SCM_UnitsId\"},{\"Name\":\"Amount\",\"GetNameAs\":\"Amount\"},{\"Name\":\"SCM_PriorityId\",\"GetNameAs\":\"SCM_PriorityId\"},{\"Name\":\"SCM_AreaOperationId\",\"GetNameAs\":\"SCM_AreaOperationId\"},{\"Name\":\"RequsterDesc\",\"GetNameAs\":\"RequsterDesc\"},{\"Name\":\"SCM_OS_JobTitleId\",\"GetNameAs\":\"SCM_OS_JobTitleId\"},{\"Name\":\"SCM_OS_PlaceofUseId\",\"GetNameAs\":\"SCM_OS_PlaceofUseId\"},{\"Name\":\"IsEnableApproved\",\"GetNameAs\":\"IsEnableApproved\"}],\"Relation\":[]}]}");
+        TableGet = await Utility.JSON.ToObject<Table>("{\"Name\":\"SCM_OS_Master\",\"GetNameAs\":\"SCM_OS_Master\",\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"RequestID\",\"GetNameAs\":\"RequestID\"},{\"Name\":\"CreateUser\",\"GetNameAs\":\"CreateUser\"},{\"Name\":\"UpdateUser\",\"GetNameAs\":\"UpdateUser\"},{\"Name\":\"CreateDate\",\"GetNameAs\":\"CreateDate\"},{\"Name\":\"UpdateDate\",\"GetNameAs\":\"UpdateDate\"},{\"Name\":\"IsDelete\",\"GetNameAs\":\"IsDelete\"},{\"Name\":\"SCM_ResultingFromId\",\"GetNameAs\":\"SCM_ResultingFromId\"},{\"Name\":\"UserStarterFullName\",\"GetNameAs\":\"UserStarterFullName\"},{\"Name\":\"UserStarterCompanyName\",\"GetNameAs\":\"UserStarterCompanyName\"},{\"Name\":\"UserStarterUnitName\",\"GetNameAs\":\"UserStarterUnitName\"},{\"Name\":\"UserStarterSectionName\",\"GetNameAs\":\"UserStarterSectionName\"}],\"Relation\":[{\"Name\":\"SCM_ResultingFrom\",\"GetNameAs\":\"SCM_ResultingFrom\",\"ModeErtebat\":1,\"Column\":[{\"Name\":\"Title\",\"GetNameAs\":\"Title\"}],\"Relation\":[]},{\"Name\":\"SCM_ICT_Departments\",\"GetNameAs\":\"SCM_ICT_Departments\",\"ModeErtebat\":1,\"Column\":[{\"Name\":\"Code\",\"GetNameAs\":\"Code\"},{\"Name\":\"Title\",\"GetNameAs\":\"Title\"}],\"Relation\":[]},{\"Name\":\"SCM_OS_Details\",\"GetNameAs\":\"SCM_OS_Details\",\"ModeErtebat\":2,\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"RequestID\",\"GetNameAs\":\"RequestID\"},{\"Name\":\"CreateUser\",\"GetNameAs\":\"CreateUser\"},{\"Name\":\"UpdateUser\",\"GetNameAs\":\"UpdateUser\"},{\"Name\":\"CreateDate\",\"GetNameAs\":\"CreateDate\"},{\"Name\":\"UpdateDate\",\"GetNameAs\":\"UpdateDate\"},{\"Name\":\"IsDelete\",\"GetNameAs\":\"IsDelete\"},{\"Name\":\"SCM_UnitsId\",\"GetNameAs\":\"SCM_UnitsId\"},{\"Name\":\"Amount\",\"GetNameAs\":\"Amount\"},{\"Name\":\"SCM_PriorityId\",\"GetNameAs\":\"SCM_PriorityId\"},{\"Name\":\"SCM_AreaOperationId\",\"GetNameAs\":\"SCM_AreaOperationId\"},{\"Name\":\"RequsterDesc\",\"GetNameAs\":\"RequsterDesc\"},{\"Name\":\"SCM_OS_JobTitleId\",\"GetNameAs\":\"SCM_OS_JobTitleId\"},{\"Name\":\"SCM_OS_PlaceofUseId\",\"GetNameAs\":\"SCM_OS_PlaceofUseId\"},{\"Name\":\"IsEnableApproved\",\"GetNameAs\":\"IsEnableApproved\"}],\"Relation\":[{\"Name\":\"SCM_Units\",\"GetNameAs\":\"SCM_Units\",\"ModeErtebat\":1,\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"Title\",\"GetNameAs\":\"Title\"}]},{\"Name\":\"SCM_Priority\",\"GetNameAs\":\"SCM_Priority\",\"ModeErtebat\":1,\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"PriorityTitle\",\"GetNameAs\":\"PriorityTitle\"},{\"Name\":\"PriorityDateTime\",\"GetNameAs\":\"PriorityDateTime\"},{\"Name\":\"PriorityDescription\",\"GetNameAs\":\"PriorityDescription\"}]},{\"Name\":\"SCM_AreaOperation\",\"GetNameAs\":\"SCM_AreaOperation\",\"ModeErtebat\":1,\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"Title\",\"GetNameAs\":\"Title\"}]},{\"Name\":\"SCM_OS_JobTitle\",\"GetNameAs\":\"SCM_OS_JobTitle\",\"ModeErtebat\":1,\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"Code\",\"GetNameAs\":\"Code\"},{\"Name\":\"Title\",\"GetNameAs\":\"Title\"}]},{\"Name\":\"SCM_OS_PlaceofUse\",\"GetNameAs\":\"SCM_OS_PlaceofUse\",\"ModeErtebat\":1,\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"Code\",\"GetNameAs\":\"Code\"},{\"Name\":\"Title\",\"GetNameAs\":\"Title\"}]}]}]}");
+        TablePost = await Utility.JSON.ToObject<Table>("{\"Name\":\"SCM_OS_Master\",\"GetNameAs\":\"SCM_OS_Master\",\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"RequestID\",\"GetNameAs\":\"RequestID\"},{\"Name\":\"CreateUser\",\"GetNameAs\":\"CreateUser\"},{\"Name\":\"UpdateUser\",\"GetNameAs\":\"UpdateUser\"},{\"Name\":\"CreateDate\",\"GetNameAs\":\"CreateDate\"},{\"Name\":\"UpdateDate\",\"GetNameAs\":\"UpdateDate\"},{\"Name\":\"IsDelete\",\"GetNameAs\":\"IsDelete\"},{\"Name\":\"SCM_ResultingFromId\",\"GetNameAs\":\"SCM_ResultingFromId\"},{\"Name\":\"UserStarterFullName\",\"GetNameAs\":\"UserStarterFullName\"},{\"Name\":\"UserStarterCompanyName\",\"GetNameAs\":\"UserStarterCompanyName\"},{\"Name\":\"UserStarterUnitName\",\"GetNameAs\":\"UserStarterUnitName\"},{\"Name\":\"UserStarterSectionName\",\"GetNameAs\":\"UserStarterSectionName\"}],\"Relation\":[{\"Name\":\"SCM_OS_Details\",\"GetNameAs\":\"SCM_OS_Details\",\"ModeErtebat\":2,\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"RequestID\",\"GetNameAs\":\"RequestID\"},{\"Name\":\"CreateUser\",\"GetNameAs\":\"CreateUser\"},{\"Name\":\"UpdateUser\",\"GetNameAs\":\"UpdateUser\"},{\"Name\":\"CreateDate\",\"GetNameAs\":\"CreateDate\"},{\"Name\":\"UpdateDate\",\"GetNameAs\":\"UpdateDate\"},{\"Name\":\"IsDelete\",\"GetNameAs\":\"IsDelete\"},{\"Name\":\"SCM_UnitsId\",\"GetNameAs\":\"SCM_UnitsId\"},{\"Name\":\"Amount\",\"GetNameAs\":\"Amount\"},{\"Name\":\"SCM_PriorityId\",\"GetNameAs\":\"SCM_PriorityId\"},{\"Name\":\"SCM_AreaOperationId\",\"GetNameAs\":\"SCM_AreaOperationId\"},{\"Name\":\"RequsterDesc\",\"GetNameAs\":\"RequsterDesc\"},{\"Name\":\"SCM_OS_JobTitleId\",\"GetNameAs\":\"SCM_OS_JobTitleId\"},{\"Name\":\"SCM_OS_PlaceofUseId\",\"GetNameAs\":\"SCM_OS_PlaceofUseId\"},{\"Name\":\"IsEnableApproved\",\"GetNameAs\":\"IsEnableApproved\"}],\"Relation\":[]}]}");
 
         config = CKEditorBundleOptions.DefaultConfig.WithHtmlEditing();
         config.Language = "fa";

@@ -144,7 +144,7 @@ namespace Forms.Forms
     /// <summary>
     ///  ورژنی که فرم باهاش ساخته شده
     /// </summary>
-    public string? VersionForm { get; set; } = "5603";
+    public string? VersionForm { get; set; } = "5622";
 
     /// <summary>
     ///  موجودیت
@@ -183,20 +183,15 @@ public Input<string?> Ref_SystemUser;
 public Input<string?> Ref_SystemUnitUser;
 public Input<string?> Ref_SystemSectionUser;
 public Input<string?> Ref_UserCompanyName;
+public Input<Guid> Ref_Id;
+public Input<Guid?> Ref_RequestID;
+public Input<Guid?> Ref_CreateUser;
+public Input<Guid?> Ref_UpdateUser;
+public Input<DateTime?> Ref_CreateDate;
+public Input<DateTime?> Ref_UpdateDate;
+public Input<bool?> Ref_IsDelete;
 public DxGrid? Grid_SCMPETCO_ProductRequestDetails;
 
-public Input<string?> Ref_SCMPETCO_ProductRequestDetails_ProductNameText;
-public Input<string?> Ref_SCMPETCO_ProductRequestDetails_ProductCodeText;
-public Input<string?> Ref_SCMPETCO_ProductRequestDetails_ProductUnitText;
-public Input<double?> Ref_SCMPETCO_ProductRequestDetails_ProductInventoryText;
-public Dropdown Ref_SCMPETCO_ProductRequestDetails_SCMPETCO_PriorityId;
-public Input<string?> Ref_SCMPETCO_ProductRequestDetails_PlaceOfUseProduct;
-public Input<string?> Ref_SCMPETCO_ProductRequestDetails_ProductRowDescription;
-public Input<double?> Ref_SCMPETCO_ProductRequestDetails_ProductRequestingQTY;
-public Input<string?> Ref_SCMPETCO_ProductRequestDetails_DescriptionWarehouseKeeper;
-public Input<double?> Ref_SCMPETCO_ProductRequestDetails_NumberofProductDelivery;
-public Input<int?> Ref_SCMPETCO_ProductRequestDetails_DeliveryCode;
-public Input<string?> Ref_SCMPETCO_ProductRequestDetails_DateTimeDeliveryCode;
 public Input<Guid> Ref_SCMPETCO_ProductRequestDetails_Id;
 public Input<Guid?> Ref_SCMPETCO_ProductRequestDetails_RequestID;
 public Input<Guid?> Ref_SCMPETCO_ProductRequestDetails_CreateUser;
@@ -204,10 +199,18 @@ public Input<Guid?> Ref_SCMPETCO_ProductRequestDetails_UpdateUser;
 public Input<DateTime?> Ref_SCMPETCO_ProductRequestDetails_CreateDate;
 public Input<DateTime?> Ref_SCMPETCO_ProductRequestDetails_UpdateDate;
 public Input<bool?> Ref_SCMPETCO_ProductRequestDetails_IsDelete;
-public Dropdown Ref_SCMPETCO_ProductRequestDetails_Global_ShomaranInfoId;
-public Dropdown Ref_SCMPETCO_ProductRequestDetails_T_Search_NotMapped;
-public Dropdown Ref_SCMPETCO_ProductRequestDetails_KH_Search_NotMapped;
-public Dropdown Ref_SCMPETCO_ProductRequestDetails_FB_Search_NotMapped;
+public Input<string?> Ref_SCMPETCO_ProductRequestDetails_ProductCodeText;
+public Input<string?> Ref_SCMPETCO_ProductRequestDetails_ProductUnitText;
+public Input<double?> Ref_SCMPETCO_ProductRequestDetails_ProductInventoryText;
+public Input<double?> Ref_SCMPETCO_ProductRequestDetails_ProductRequestingQTY;
+public Dropdown Ref_SCMPETCO_ProductRequestDetails_SCMPETCO_PriorityId;
+public Input<string?> Ref_SCMPETCO_ProductRequestDetails_PlaceOfUseProduct;
+public Input<string?> Ref_SCMPETCO_ProductRequestDetails_ProductRowDescription;
+public Input<string?> Ref_SCMPETCO_ProductRequestDetails_ProductNameText;
+public Input<double?> Ref_SCMPETCO_ProductRequestDetails_NumberofProductDelivery;
+public Input<string?> Ref_SCMPETCO_ProductRequestDetails_DescriptionWarehouseKeeper;
+public Input<int?> Ref_SCMPETCO_ProductRequestDetails_DeliveryCode;
+public Input<string?> Ref_SCMPETCO_ProductRequestDetails_DateTimeDeliveryCode;
 public Input<string?> Ref_SCMPETCO_ProductRequestDetails_T_CENTCODE;
 public Input<Guid?> Ref_SCMPETCO_ProductRequestDetails_T_CENTCODE_GUID;
 public Input<string?> Ref_SCMPETCO_ProductRequestDetails_T_PAYCENTName;
@@ -218,7 +221,6 @@ public Input<Guid?> Ref_SCMPETCO_ProductRequestDetails_T_FACTNO_GUID;
 public Input<string?> Ref_SCMPETCO_ProductRequestDetails_T_TEMPNO;
 public Input<int?> Ref_SCMPETCO_ProductRequestDetails_T_TempNoNum;
 public Input<int?> Ref_SCMPETCO_ProductRequestDetails_T_YEAR;
-public Dropdown Ref_SCMPETCO_ProductRequestDetails_SH_Tahvil_DTL;
 public Input<string?> Ref_SCMPETCO_ProductRequestDetails_KH_APPROVER;
 public Input<string?> Ref_SCMPETCO_ProductRequestDetails_KH_CENTCODE;
 public Input<Guid?> Ref_SCMPETCO_ProductRequestDetails_KH_CENTCODE_GUID;
@@ -233,12 +235,9 @@ public Input<string?> Ref_SCMPETCO_ProductRequestDetails_KH_OKFACTDATE;
 public Input<string?> Ref_SCMPETCO_ProductRequestDetails_KH_INVCODE;
 public Input<string?> Ref_SCMPETCO_ProductRequestDetails_KH_REQPERSON;
 public Input<int?> Ref_SCMPETCO_ProductRequestDetails_KH_YEAR;
-public Input<string?> Ref_SCMPETCO_ProductRequestDetails_FB_USER;
-public Input<string?> Ref_SCMPETCO_ProductRequestDetails_FB_USERNAME;
-public Input<string?> Ref_SCMPETCO_ProductRequestDetails_FB_WELLDONE;
-public Input<string?> Ref_SCMPETCO_ProductRequestDetails_FB_WUSER;
-public Input<int?> Ref_SCMPETCO_ProductRequestDetails_FB_YEAR;
+public Dropdown Ref_SCMPETCO_ProductRequestDetails_SH_Tahvil_DTL;
 public Dropdown Ref_SCMPETCO_ProductRequestDetails_SH_Kharid_DTL;
+public Dropdown Ref_SCMPETCO_ProductRequestDetails_Global_ShomaranInfoId;
 public Input<string?> Ref_SCMPETCO_ProductRequestDetails_FB_ACCCODE;
 public Input<string?> Ref_SCMPETCO_ProductRequestDetails_FB_ACTCODE;
 public Input<int?> Ref_SCMPETCO_ProductRequestDetails_FB_ACTYEAR;
@@ -359,17 +358,18 @@ public Input<string?> Ref_SCMPETCO_ProductRequestDetails_FB_TAFKINDNO5;
 public Input<string?> Ref_SCMPETCO_ProductRequestDetails_FB_TAFKINDNO6;
 public Input<string?> Ref_SCMPETCO_ProductRequestDetails_FB_TAFKINDNO7;
 public Input<string?> Ref_SCMPETCO_ProductRequestDetails_FB_TANNO;
+public Input<string?> Ref_SCMPETCO_ProductRequestDetails_FB_USER;
+public Input<string?> Ref_SCMPETCO_ProductRequestDetails_FB_USERNAME;
 public Input<int?> Ref_SCMPETCO_ProductRequestDetails_FB_WDPERCENT;
+public Input<string?> Ref_SCMPETCO_ProductRequestDetails_FB_WELLDONE;
+public Input<string?> Ref_SCMPETCO_ProductRequestDetails_FB_WUSER;
+public Input<int?> Ref_SCMPETCO_ProductRequestDetails_FB_YEAR;
+public Dropdown Ref_SCMPETCO_ProductRequestDetails_T_Search_NotMapped;
+public Dropdown Ref_SCMPETCO_ProductRequestDetails_KH_Search_NotMapped;
+public Dropdown Ref_SCMPETCO_ProductRequestDetails_FB_Search_NotMapped;
+public Dropdown Ref_SCMPETCO_ProductRequestDetails_SH_FactBuy_DTL;
 public Input<Guid?> Ref_SCMPETCO_ProductRequestDetails_FB_FACTNO_GUID;
 public Input<int?> Ref_SCMPETCO_ProductRequestDetails_FB_FactorNum;
-public Dropdown Ref_SCMPETCO_ProductRequestDetails_SH_FactBuy_DTL;
-public Input<Guid> Ref_Id;
-public Input<Guid?> Ref_RequestID;
-public Input<Guid?> Ref_CreateUser;
-public Input<Guid?> Ref_UpdateUser;
-public Input<DateTime?> Ref_CreateDate;
-public Input<DateTime?> Ref_UpdateDate;
-public Input<bool?> Ref_IsDelete;
 
 
     #endregion

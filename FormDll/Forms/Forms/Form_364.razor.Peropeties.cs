@@ -144,7 +144,7 @@ namespace Forms.Forms
     /// <summary>
     ///  ورژنی که فرم باهاش ساخته شده
     /// </summary>
-    public string? VersionForm { get; set; } = "5603";
+    public string? VersionForm { get; set; } = "5622";
 
     /// <summary>
     ///  موجودیت
@@ -180,16 +180,6 @@ namespace Forms.Forms
     #region FormProperty
 
 public Input<Guid> Ref_Id;
-public DxGrid? Grid_SCMNFP_InquiryPriceProduct;
-
-public Input<Guid> Ref_SCMNFP_InquiryPriceProduct_Id;
-public Input<Guid?> Ref_SCMNFP_InquiryPriceProduct_RequestID;
-public Input<Guid?> Ref_SCMNFP_InquiryPriceProduct_CreateUser;
-public Input<Guid?> Ref_SCMNFP_InquiryPriceProduct_UpdateUser;
-public Input<DateTime?> Ref_SCMNFP_InquiryPriceProduct_CreateDate;
-public Input<DateTime?> Ref_SCMNFP_InquiryPriceProduct_UpdateDate;
-public Input<bool?> Ref_SCMNFP_InquiryPriceProduct_IsDelete;
-public Input<string?> Ref_SCMNFP_InquiryPriceProduct_DescriptionInquiry;
 public Input<Guid?> Ref_RequestID;
 public Input<Guid?> Ref_CreateUser;
 public Input<Guid?> Ref_UpdateUser;
@@ -206,6 +196,16 @@ public Input<DateTime?> Ref_SCMNFP_ProductRequestDetails_CreateDate;
 public Input<DateTime?> Ref_SCMNFP_ProductRequestDetails_UpdateDate;
 public Input<bool?> Ref_SCMNFP_ProductRequestDetails_IsDelete;
 public Input<string?> Ref_SCMNFP_ProductRequestDetails_ProductName;
+public DxGrid? Grid_SCMNFP_InquiryPriceProduct;
+
+public Input<Guid> Ref_SCMNFP_InquiryPriceProduct_Id;
+public Input<Guid?> Ref_SCMNFP_InquiryPriceProduct_RequestID;
+public Input<Guid?> Ref_SCMNFP_InquiryPriceProduct_CreateUser;
+public Input<Guid?> Ref_SCMNFP_InquiryPriceProduct_UpdateUser;
+public Input<DateTime?> Ref_SCMNFP_InquiryPriceProduct_CreateDate;
+public Input<DateTime?> Ref_SCMNFP_InquiryPriceProduct_UpdateDate;
+public Input<bool?> Ref_SCMNFP_InquiryPriceProduct_IsDelete;
+public Input<string?> Ref_SCMNFP_InquiryPriceProduct_DescriptionInquiry;
 
 
     #endregion

@@ -144,7 +144,7 @@ namespace Forms.Forms
     /// <summary>
     ///  ورژنی که فرم باهاش ساخته شده
     /// </summary>
-    public string? VersionForm { get; set; } = "5603";
+    public string? VersionForm { get; set; } = "5622";
 
     /// <summary>
     ///  موجودیت
@@ -185,8 +185,22 @@ public Input<string?> Ref_UserStarterUnitName;
 public Input<string?> Ref_UserStarterSectionName;
 public Dropdown Ref_SCM_ResultingFromId;
 public RadioBoolean Ref_HardwareORNetwork;
+public Input<Guid> Ref_Id;
+public Input<Guid?> Ref_RequestID;
+public Input<Guid?> Ref_CreateUser;
+public Input<Guid?> Ref_UpdateUser;
+public Input<DateTime?> Ref_CreateDate;
+public Input<DateTime?> Ref_UpdateDate;
+public Input<bool?> Ref_IsDelete;
 public DxGrid? Grid_SCM_OS_Details;
 
+public Input<Guid> Ref_SCM_OS_Details_Id;
+public Input<Guid?> Ref_SCM_OS_Details_RequestID;
+public Input<Guid?> Ref_SCM_OS_Details_CreateUser;
+public Input<Guid?> Ref_SCM_OS_Details_UpdateUser;
+public Input<DateTime?> Ref_SCM_OS_Details_CreateDate;
+public Input<DateTime?> Ref_SCM_OS_Details_UpdateDate;
+public Input<bool?> Ref_SCM_OS_Details_IsDelete;
 public Input<string?> Ref_SCM_OS_Details_Title;
 public Dropdown Ref_SCM_OS_Details_SCM_UnitsId;
 public Input<double?> Ref_SCM_OS_Details_Amount;
@@ -202,28 +216,14 @@ public FileUploadPage.Uploader<Entity.SCM_OS_Details_InquiryFile3> Ref_SCM_OS_De
 public Input<string?> Ref_SCM_OS_Details_ProcurementConfirmedInquiryNum;
 public Input<string?> Ref_SCM_OS_Details_ProcurementDesc;
 public Input<string?> Ref_SCM_OS_Details_InqueryApproveNum;
-public RadioBoolean Ref_SCM_OS_Details_ITILCodeIsEnable;
 public Dropdown Ref_SCM_OS_Details_ResultingFromITIL;
 public Dropdown Ref_SCM_OS_Details_ITILDetails;
-public Input<string?> Ref_SCM_OS_Details_CreatedAtITIL;
+public RadioBoolean Ref_SCM_OS_Details_ITILCodeIsEnable;
 public Input<string?> Ref_SCM_OS_Details_RequesterUserITIL;
+public Input<string?> Ref_SCM_OS_Details_CreatedAtITIL;
 public RadioBoolean Ref_SCM_OS_Details_GuaranteeIsEnable;
 public RadioBoolean Ref_SCM_OS_Details_HistoryRepairsIsEnable;
-public Input<Guid> Ref_SCM_OS_Details_Id;
-public Input<Guid?> Ref_SCM_OS_Details_RequestID;
-public Input<Guid?> Ref_SCM_OS_Details_CreateUser;
-public Input<Guid?> Ref_SCM_OS_Details_UpdateUser;
-public Input<DateTime?> Ref_SCM_OS_Details_CreateDate;
-public Input<DateTime?> Ref_SCM_OS_Details_UpdateDate;
-public Input<bool?> Ref_SCM_OS_Details_IsDelete;
 public Input<string?> Ref_SCM_OS_Details_RequestIdITIL;
-public Input<Guid> Ref_Id;
-public Input<Guid?> Ref_RequestID;
-public Input<Guid?> Ref_CreateUser;
-public Input<Guid?> Ref_UpdateUser;
-public Input<DateTime?> Ref_CreateDate;
-public Input<DateTime?> Ref_UpdateDate;
-public Input<bool?> Ref_IsDelete;
 
 
     #endregion

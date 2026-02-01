@@ -32,7 +32,75 @@
     <EditForm @ref="_Form" Model="_Entity" OnSubmit="Submit">
         
 <Input Id="Id" @ref="Ref_Id"   CssClass="d-none"   @bind-Value="_Entity.Id" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
-<label for="Shomaran_TransDetail_GridShomaran_TransId_727">TransDetail
+
+<Input Id="RequestID" @ref="Ref_RequestID"      @bind-Value="_Entity.RequestID" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+<Input Id="CreateUser" @ref="Ref_CreateUser"      @bind-Value="_Entity.CreateUser" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+<Input Id="UpdateUser" @ref="Ref_UpdateUser"      @bind-Value="_Entity.UpdateUser" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+<Input Id="CreateDate" @ref="Ref_CreateDate"   CssClass="d-none"   @bind-Value="_Entity.CreateDate" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+<Input Id="UpdateDate" @ref="Ref_UpdateDate"   CssClass="d-none"   @bind-Value="_Entity.UpdateDate" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+<Input Id="IsDelete" @ref="Ref_IsDelete"   CssClass="d-none"   @bind-Value="_Entity.IsDelete" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+<Input Id="Creator" @ref="Ref_Creator" Label="تنظیم کننده"     @bind-Value="_Entity.Creator" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+<Input Id="FactDate" @ref="Ref_FactDate" Label="تاریخ"  CssClass=" PersianDatePicker"   @bind-Value="_Entity.FactDate" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"data-jdp\":\"  \",\"data-jdp-only-date\":\"   \"}").Result))></Input>
+ 
+ 
+@code {
+    Baya.Models.ViewEngine.View_Component Component_Shomaran_TransSInvCode = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"EntityName\":\"Trans\",\"primaryKey\":false,\"EntityID\":726,\"FieldId\":30221,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":985,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":true,\"RelationParentName\":\"\",\"RelationParentModel\":\"\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://shomaran.workcv.ir:2010/fa-ir/api/v1/view_INV/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"inputFormat\":\"DropDown\",\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"INVCODE\",\"template\":\"<span>{{item.INVNAME}} {{item.INVCODE}} </span>\",\"FieldsTemplate\":[{\"key\":\"INVNAME\",\"value\":\"nvarchar(Max)\"},{\"key\":\"INVCODE\",\"value\":\"nvarchar(Max)\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"searchField\":\"INVNAME,INVCODE\",\"disabled\":false,\"modal\":true,\"label\":\"انبار مبدا\",\"tableView\":true,\"key\":\"SInvCode\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"30221?EId=726&SubId=28\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
+}
+
+    <Dropdown Id=SInvCode  @ref="Ref_SInvCode" Label="انبار مبدا" CssClass=""  DisplayFormat="DropDown" ExternalApi=true NotMapped=false TextGrid=false  Value="@_Entity.SInvCode" FieldName="SInvCode" OnItemSelected="ItemSelected_Shomaran_TransSInvCode" Component="Component_Shomaran_TransSInvCode" _Entity="_Entity" >
+</Dropdown>
+@code {
+    public async Task ItemSelected_Shomaran_TransSInvCode(object _Item)
+    {
+        var Selected = Utility.JSON.ToObject<dynamic>(Utility.JSON.ToJson(_Item).Result).Result;
+     var Item = _Entity;
+
+    Item.SInvCode = Selected.INVCODE;
+
+
+    
+
+    
+    }
+} 
+ 
+ 
+@code {
+    Baya.Models.ViewEngine.View_Component Component_Shomaran_TransTInvCode = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"EntityName\":\"Trans\",\"primaryKey\":false,\"EntityID\":726,\"FieldId\":30222,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":985,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":true,\"RelationParentName\":\"\",\"RelationParentModel\":\"\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://shomaran.workcv.ir:2010/fa-ir/api/v1/view_INV/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"inputFormat\":\"DropDown\",\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"INVCODE\",\"template\":\"<span>{{item.INVNAME}} {{item.INVCODE}} </span>\",\"FieldsTemplate\":[{\"key\":\"INVNAME\",\"value\":\"nvarchar(Max)\"},{\"key\":\"INVCODE\",\"value\":\"nvarchar(Max)\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"searchField\":\"INVNAME,INVCODE\",\"disabled\":false,\"modal\":true,\"label\":\"انبار مقصد\",\"tableView\":true,\"key\":\"TInvCode\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"30222?EId=726&SubId=28\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
+}
+
+    <Dropdown Id=TInvCode  @ref="Ref_TInvCode" Label="انبار مقصد" CssClass=""  DisplayFormat="DropDown" ExternalApi=true NotMapped=false TextGrid=false  Value="@_Entity.TInvCode" FieldName="TInvCode" OnItemSelected="ItemSelected_Shomaran_TransTInvCode" Component="Component_Shomaran_TransTInvCode" _Entity="_Entity" >
+</Dropdown>
+@code {
+    public async Task ItemSelected_Shomaran_TransTInvCode(object _Item)
+    {
+        var Selected = Utility.JSON.ToObject<dynamic>(Utility.JSON.ToJson(_Item).Result).Result;
+     var Item = _Entity;
+
+    Item.TInvCode = Selected.INVCODE;
+
+
+    
+
+    
+    }
+} 
+
+<Input Id="TDesc" @ref="Ref_TDesc" Label="توضیحات"     @bind-Value="_Entity.TDesc" type="textarea"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+<Input Id="TempNo" @ref="Ref_TempNo" Label="عطف مبدا"     @bind-Value="_Entity.TempNo" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+<Input Id="WUser" @ref="Ref_WUser" Label="کاربر ثبت کننده"     @bind-Value="_Entity.WUser" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+<Input Id="Year" @ref="Ref_Year" Label="سال"     @bind-Value="_Entity.Year" type="number"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+<label for="Shomaran_TransDetail_GridShomaran_TransId_727">جزئیات انتقال بین انبارها
    
     
 </label>
@@ -41,11 +109,11 @@
         EditModelSaving="OnEditModelSavingShomaran_TransDetail"
         DataItemDeleting="OnDataItemDeletingShomaran_TransDetail"
         PopupEditFormCssClass="ModalWidth"
-        PopupEditFormHeaderText="TransDetail"
+        PopupEditFormHeaderText="جزئیات انتقال بین انبارها"
         EditFormButtonsVisible="false"
         CustomizeEditModel="CustomizeEditGrid_Shomaran_TransDetail"
         CustomizeElement="CustomizeRowsGrid_Shomaran_TransDetail" 
-        Component="@((Utility.JSON.ToObject<View_Component>("{\"primaryKey\":false,\"EntityID\":727,\"FieldId\":727,\"NotNull\":false,\"ViewId\":0,\"NotMapped\":false,\"Relation\":false,\"RelationExternal\":false,\"RelationChildModel\":\"Shomaran_TransDetail\",\"GridMainModel\":\"Shomaran_TransDetail\",\"widget\":{\"altInput\":false,\"allowInput\":false,\"clickOpens\":false,\"enableDate\":false,\"enableTime\":false,\"noCalendar\":false,\"useLocaleSettings\":false,\"hourIncrement\":0,\"minuteIncrement\":0,\"time_24hr\":false},\"wysiwyg\":false,\"data\":{},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"FieldsTemplate\":[],\"refreshOn\":\"data\",\"reorder\":false,\"addAnotherPosition\":\"bottom\",\"layoutFixed\":false,\"enableRowGroups\":false,\"initEmpty\":false,\"disabled\":true,\"modal\":true,\"label\":\"TransDetail\",\"tableView\":true,\"key\":\"GridShomaran_TransId_727\",\"type\":\"datagrid\",\"input\":true,\"placeholder\":\"GridShomaran_TransId_727\",\"modalEdit\":true,\"FieldUrl\":\"727?EId=727&SubId=28\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result))"
+        Component="@((Utility.JSON.ToObject<View_Component>("{\"primaryKey\":false,\"EntityID\":727,\"FieldId\":727,\"TypeCSharp\":\"\",\"NotNull\":false,\"ViewId\":0,\"NotMapped\":false,\"Relation\":false,\"RelationExternal\":false,\"RelationParentName\":\"\",\"RelationParentModel\":\"\",\"RelationChildModel\":\"Shomaran_TransDetail\",\"GridMainModel\":\"Shomaran_TransDetail\",\"widget\":{\"altInput\":false,\"allowInput\":false,\"clickOpens\":false,\"enableDate\":false,\"enableTime\":false,\"noCalendar\":false,\"useLocaleSettings\":false,\"hourIncrement\":0,\"minuteIncrement\":0,\"time_24hr\":false},\"wysiwyg\":false,\"data\":{},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"FieldsTemplate\":[],\"refreshOn\":\"data\",\"reorder\":false,\"addAnotherPosition\":\"bottom\",\"layoutFixed\":false,\"enableRowGroups\":false,\"initEmpty\":false,\"disabled\":true,\"modal\":true,\"label\":\"جزئیات انتقال بین انبارها\",\"tableView\":true,\"key\":\"GridShomaran_TransId_727\",\"type\":\"datagrid\",\"input\":true,\"placeholder\":\"GridShomaran_TransId_727\",\"modalEdit\":true,\"FieldUrl\":\"727?EId=727&SubId=28\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result))"
          >
     <Columns>
     
@@ -106,37 +174,13 @@
 
 <DxGridDataColumn DisplayFormat="G" Caption="مقدار2"  FieldName="Amount2" />
 
-<DxGridDataColumn  Caption="توضیحات ردیف"  FieldName="Note" />
+<DxGridDataColumn  Caption="توضیحات"  FieldName="Note" />
 
-<DxGridDataColumn Context="PartCode_" Caption="کد کالای پشت سیستمی" >
-    <CellDisplayTemplate>
-       
-@{
-    Baya.Models.ViewEngine.View_Component HeaderPartCode = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"primaryKey\":false,\"EntityID\":727,\"FieldId\":30237,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":985,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":true,\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://shomaran.workcv.ir:2010/fa-ir/api/v1/view_cardpart/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"inputFormat\":\"DropDown\",\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"partcode\",\"template\":\"<span>{{item.desc}} {{item.partno}} {{item.partcode}} </span>\",\"FieldsTemplate\":[{\"key\":\"desc\",\"value\":\"nvarchar(Max)\"},{\"key\":\"partno\",\"value\":\"nvarchar(Max)\"},{\"key\":\"partcode\",\"value\":\"nvarchar(Max)\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"searchField\":\"desc,partcode\",\"modal\":true,\"label\":\"کد کالای پشت سیستمی\",\"tableView\":true,\"key\":\"PartCode\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"30237?EId=727&SubId=28\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
-    var RowPartCode = ((Entity.Shomaran_TransDetail)PartCode_.DataItem).PartCode;
-}
+<DxGridDataColumn  Caption="کد کالا"  FieldName="PartCode" />
 
-<Dropdown ExternalApi=true CssClass="" NotMapped=false TextGrid=true Value="@RowPartCode"   FieldName="PartCode" OnItemSelected="ItemSelected_Shomaran_TransDetailPartCode_Header" Component="HeaderPartCode">
-</Dropdown>
-@code {
-    public async Task ItemSelected_Shomaran_TransDetailPartCode_Header(object _Item)
-    {
-      //  var Selected = Utility.JSON.ToObject<dynamic>(Utility.JSON.ToJson(_Item).Result).Result;
-  //   PartCode
+<DxGridDataColumn  Caption="شماره ردیابی"  FieldName="Radyabi" />
 
-  //  #CustomCode
-
- //   
-
-  //  #OnItemSelected
-    }
-}
-
-    </CellDisplayTemplate>
-</DxGridDataColumn>
-<DxGridDataColumn  Caption="ردیابی"  FieldName="Radyabi" />
-
-<DxGridDataColumn  Caption="سفارش کالا"  FieldName="Sefaresh" />
+<DxGridDataColumn  Caption="شماره سفارش"  FieldName="Sefaresh" />
 
 <DxGridDataColumn  Caption="ردیف دیتیل"  FieldName="RowOrder" />
 
@@ -146,7 +190,7 @@
     <CellDisplayTemplate>
        
 @{
-    Baya.Models.ViewEngine.View_Component HeaderShomaran_TransId = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"primaryKey\":false,\"EntityID\":727,\"FieldId\":30242,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":985,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":true,\"RelationParentName\":\"Shomaran_Trans\",\"RelationParentModel\":\"Shomaran_Trans\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/Shomaran_Trans/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.Id}} </span>\",\"FieldsTemplate\":[{\"key\":\"Id\",\"value\":\"uniqueidentifier\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"modal\":true,\"label\":\"جزئیات Trans\",\"tableView\":true,\"key\":\"Shomaran_TransId\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"30242?EId=727&SubId=28\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
+    Baya.Models.ViewEngine.View_Component HeaderShomaran_TransId = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"primaryKey\":false,\"EntityID\":727,\"FieldId\":30242,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":985,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":true,\"RelationParentName\":\"Shomaran_Trans\",\"RelationParentModel\":\"Shomaran_Trans\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/Shomaran_Trans/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.Id}} </span>\",\"FieldsTemplate\":[{\"key\":\"Id\",\"value\":\"uniqueidentifier\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"searchField\":\"\",\"disabled\":false,\"modal\":true,\"label\":\"جزئیات Trans\",\"tableView\":true,\"key\":\"Shomaran_TransId\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"30242?EId=727&SubId=28\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
     var RowShomaran_TransId = ((Entity.Shomaran_TransDetail)Shomaran_TransId_.DataItem).Shomaran_TransId;
 }
 
@@ -232,45 +276,25 @@
 
 <DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextShomaran_TransDetail">
     
-<Input Id="Shomaran_TransDetail_Note" @ref="Ref_Shomaran_TransDetail_Note" Label="توضیحات ردیف"     @bind-Value="Shomaran_TransDetail.Note" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
-
-</DxFormLayoutItem>
-
-<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextShomaran_TransDetail">
-     
- 
-@code {
-    Baya.Models.ViewEngine.View_Component Component_Shomaran_TransDetailPartCode = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"primaryKey\":false,\"EntityID\":727,\"FieldId\":30237,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":985,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":true,\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://shomaran.workcv.ir:2010/fa-ir/api/v1/view_cardpart/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"inputFormat\":\"DropDown\",\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"partcode\",\"template\":\"<span>{{item.desc}} {{item.partno}} {{item.partcode}} </span>\",\"FieldsTemplate\":[{\"key\":\"desc\",\"value\":\"nvarchar(Max)\"},{\"key\":\"partno\",\"value\":\"nvarchar(Max)\"},{\"key\":\"partcode\",\"value\":\"nvarchar(Max)\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"searchField\":\"desc,partcode\",\"modal\":true,\"label\":\"کد کالای پشت سیستمی\",\"tableView\":true,\"key\":\"PartCode\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"30237?EId=727&SubId=28\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
-}
-
-    <Dropdown Id=Shomaran_TransDetail_PartCode  @ref="Ref_Shomaran_TransDetail_PartCode" Label="کد کالای پشت سیستمی" CssClass=""  DisplayFormat="DropDown" ExternalApi=true NotMapped=false TextGrid=false  Value="@Shomaran_TransDetail.PartCode" FieldName="PartCode" OnItemSelected="ItemSelected_Shomaran_TransDetailPartCode" Component="Component_Shomaran_TransDetailPartCode" _Entity="_Entity" _EntityRow=Shomaran_TransDetail>
-</Dropdown>
-@code {
-    public async Task ItemSelected_Shomaran_TransDetailPartCode(object _Item)
-    {
-        var Selected = Utility.JSON.ToObject<dynamic>(Utility.JSON.ToJson(_Item).Result).Result;
-     var Item = Shomaran_TransDetail;
-
-    Item.PartCode = Selected.partcode;
-
-
-    
-
-    
-    }
-} 
+<Input Id="Shomaran_TransDetail_Note" @ref="Ref_Shomaran_TransDetail_Note" Label="توضیحات"     @bind-Value="Shomaran_TransDetail.Note" type="textarea"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
 
 </DxFormLayoutItem>
 
 <DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextShomaran_TransDetail">
     
-<Input Id="Shomaran_TransDetail_Radyabi" @ref="Ref_Shomaran_TransDetail_Radyabi" Label="ردیابی"     @bind-Value="Shomaran_TransDetail.Radyabi" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+<Input Id="Shomaran_TransDetail_PartCode" @ref="Ref_Shomaran_TransDetail_PartCode" Label="کد کالا"     @bind-Value="Shomaran_TransDetail.PartCode" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"maxlength\":\"150\"}").Result))></Input>
 
 </DxFormLayoutItem>
 
 <DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextShomaran_TransDetail">
     
-<Input Id="Shomaran_TransDetail_Sefaresh" @ref="Ref_Shomaran_TransDetail_Sefaresh" Label="سفارش کالا"     @bind-Value="Shomaran_TransDetail.Sefaresh" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+<Input Id="Shomaran_TransDetail_Radyabi" @ref="Ref_Shomaran_TransDetail_Radyabi" Label="شماره ردیابی"     @bind-Value="Shomaran_TransDetail.Radyabi" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+</DxFormLayoutItem>
+
+<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextShomaran_TransDetail">
+    
+<Input Id="Shomaran_TransDetail_Sefaresh" @ref="Ref_Shomaran_TransDetail_Sefaresh" Label="شماره سفارش"     @bind-Value="Shomaran_TransDetail.Sefaresh" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
 
 </DxFormLayoutItem>
 
@@ -290,7 +314,7 @@
      
  
 @code {
-    Baya.Models.ViewEngine.View_Component Component_Shomaran_TransDetailShomaran_TransId = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"primaryKey\":false,\"EntityID\":727,\"FieldId\":30242,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":985,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":true,\"RelationParentName\":\"Shomaran_Trans\",\"RelationParentModel\":\"Shomaran_Trans\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/Shomaran_Trans/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.Id}} </span>\",\"FieldsTemplate\":[{\"key\":\"Id\",\"value\":\"uniqueidentifier\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"modal\":true,\"label\":\"جزئیات Trans\",\"tableView\":true,\"key\":\"Shomaran_TransId\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"30242?EId=727&SubId=28\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
+    Baya.Models.ViewEngine.View_Component Component_Shomaran_TransDetailShomaran_TransId = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"primaryKey\":false,\"EntityID\":727,\"FieldId\":30242,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":985,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":true,\"RelationParentName\":\"Shomaran_Trans\",\"RelationParentModel\":\"Shomaran_Trans\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/Shomaran_Trans/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.Id}} </span>\",\"FieldsTemplate\":[{\"key\":\"Id\",\"value\":\"uniqueidentifier\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"searchField\":\"\",\"disabled\":false,\"modal\":true,\"label\":\"جزئیات Trans\",\"tableView\":true,\"key\":\"Shomaran_TransId\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"30242?EId=727&SubId=28\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
 }
 
     <Dropdown Id=Shomaran_TransDetail_Shomaran_TransId  @ref="Ref_Shomaran_TransDetail_Shomaran_TransId" Label="جزئیات Trans" CssClass=""  DisplayFormat="DropDown" ExternalApi=true NotMapped=false TextGrid=false  Value="@Shomaran_TransDetail.Shomaran_TransId" FieldName="Shomaran_TransId" OnItemSelected="ItemSelected_Shomaran_TransDetailShomaran_TransId" Component="Component_Shomaran_TransDetailShomaran_TransId" _Entity="_Entity" _EntityRow=Shomaran_TransDetail>
@@ -726,74 +750,6 @@ public async void RowDubbleClickGrid_Shomaran_TransDetail(GridRowClickEventArgs 
 
 }
 }
-
-<Input Id="RequestID" @ref="Ref_RequestID"      @bind-Value="_Entity.RequestID" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
-
-<Input Id="CreateUser" @ref="Ref_CreateUser"      @bind-Value="_Entity.CreateUser" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
-
-<Input Id="UpdateUser" @ref="Ref_UpdateUser"      @bind-Value="_Entity.UpdateUser" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
-
-<Input Id="CreateDate" @ref="Ref_CreateDate"   CssClass="d-none"   @bind-Value="_Entity.CreateDate" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
-
-<Input Id="UpdateDate" @ref="Ref_UpdateDate"   CssClass="d-none"   @bind-Value="_Entity.UpdateDate" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
-
-<Input Id="IsDelete" @ref="Ref_IsDelete"   CssClass="d-none"   @bind-Value="_Entity.IsDelete" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
-
-<Input Id="Creator" @ref="Ref_Creator" Label="ایجاد کننده"     @bind-Value="_Entity.Creator" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
-
-<Input Id="FactDate" @ref="Ref_FactDate" Label="تاریخ"  CssClass=" PersianDatePicker"   @bind-Value="_Entity.FactDate" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"data-jdp\":\"  \",\"data-jdp-only-date\":\"   \"}").Result))></Input>
- 
- 
-@code {
-    Baya.Models.ViewEngine.View_Component Component_Shomaran_TransSInvCode = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"EntityName\":\"Trans\",\"primaryKey\":false,\"EntityID\":726,\"FieldId\":30221,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":985,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":true,\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://shomaran.workcv.ir:2010/fa-ir/api/v1/view_INV/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"inputFormat\":\"DropDown\",\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"INVCODE\",\"template\":\"<span>{{item.INVNAME}} {{item.INVCODE}} </span>\",\"FieldsTemplate\":[{\"key\":\"INVNAME\",\"value\":\"nvarchar(Max)\"},{\"key\":\"INVCODE\",\"value\":\"nvarchar(Max)\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"searchField\":\"INVNAME,INVCODE\",\"modal\":true,\"label\":\"کد انبار مبدا\",\"tableView\":true,\"key\":\"SInvCode\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"30221?EId=726&SubId=28\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
-}
-
-    <Dropdown Id=SInvCode  @ref="Ref_SInvCode" Label="کد انبار مبدا" CssClass=""  DisplayFormat="DropDown" ExternalApi=true NotMapped=false TextGrid=false  Value="@_Entity.SInvCode" FieldName="SInvCode" OnItemSelected="ItemSelected_Shomaran_TransSInvCode" Component="Component_Shomaran_TransSInvCode" _Entity="_Entity" >
-</Dropdown>
-@code {
-    public async Task ItemSelected_Shomaran_TransSInvCode(object _Item)
-    {
-        var Selected = Utility.JSON.ToObject<dynamic>(Utility.JSON.ToJson(_Item).Result).Result;
-     var Item = _Entity;
-
-    Item.SInvCode = Selected.INVCODE;
-
-
-    
-
-    
-    }
-} 
- 
- 
-@code {
-    Baya.Models.ViewEngine.View_Component Component_Shomaran_TransTInvCode = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"EntityName\":\"Trans\",\"primaryKey\":false,\"EntityID\":726,\"FieldId\":30222,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":985,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":true,\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://shomaran.workcv.ir:2010/fa-ir/api/v1/view_INV/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"inputFormat\":\"DropDown\",\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"INVCODE\",\"template\":\"<span>{{item.INVNAME}} {{item.INVCODE}} </span>\",\"FieldsTemplate\":[{\"key\":\"INVNAME\",\"value\":\"nvarchar(Max)\"},{\"key\":\"INVCODE\",\"value\":\"nvarchar(Max)\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"searchField\":\"INVNAME,INVCODE\",\"modal\":true,\"label\":\"کد انبار مقصد\",\"tableView\":true,\"key\":\"TInvCode\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"30222?EId=726&SubId=28\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
-}
-
-    <Dropdown Id=TInvCode  @ref="Ref_TInvCode" Label="کد انبار مقصد" CssClass=""  DisplayFormat="DropDown" ExternalApi=true NotMapped=false TextGrid=false  Value="@_Entity.TInvCode" FieldName="TInvCode" OnItemSelected="ItemSelected_Shomaran_TransTInvCode" Component="Component_Shomaran_TransTInvCode" _Entity="_Entity" >
-</Dropdown>
-@code {
-    public async Task ItemSelected_Shomaran_TransTInvCode(object _Item)
-    {
-        var Selected = Utility.JSON.ToObject<dynamic>(Utility.JSON.ToJson(_Item).Result).Result;
-     var Item = _Entity;
-
-    Item.TInvCode = Selected.INVCODE;
-
-
-    
-
-    
-    }
-} 
-
-<Input Id="TDesc" @ref="Ref_TDesc" Label="توضیحات در فرم"     @bind-Value="_Entity.TDesc" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
-
-<Input Id="TempNo" @ref="Ref_TempNo" Label="شماره عطف"     @bind-Value="_Entity.TempNo" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
-
-<Input Id="WUser" @ref="Ref_WUser" Label="کاربر ثبت کننده"     @bind-Value="_Entity.WUser" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
-
-<Input Id="Year" @ref="Ref_Year" Label="سال"     @bind-Value="_Entity.Year" type="number"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
 
     </EditForm>
 </div>

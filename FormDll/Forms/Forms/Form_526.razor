@@ -160,10 +160,6 @@
 
 <div class="col-md-6">
     
-<Input Id="RequestTrakingCode" @ref="Ref_RequestTrakingCode" Label="کد پیگیری سیستمی"  CssClass="d-none" Disabled=true  @bind-Value="_Entity.RequestTrakingCode" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
-
-<Input Id="ProcessVersionID" @ref="Ref_ProcessVersionID" Label="شناسه نسخه فرآیند جاری"  CssClass="d-none" Disabled=true  @bind-Value="_Entity.ProcessVersionID" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
-
 </div>
 
 </div>
@@ -193,7 +189,7 @@
      
  
 @code {
-    Baya.Models.ViewEngine.View_Component Component_SCMPETCO_OS_MasterSCMPETCO_OS_ResultingFromId = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"EntityName\":\"برون سپاری پتکو - بخش اصلی\",\"primaryKey\":false,\"EntityID\":344,\"FieldId\":14634,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":526,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":false,\"RelationParentName\":\"SCMPETCO_OS_ResultingFrom\",\"RelationParentModel\":\"SCMPETCO_OS_ResultingFrom\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/SCMPETCO_OS_ResultingFrom/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.Title}} </span>\",\"FieldsTemplate\":[{\"key\":\"Title\",\"value\":\"int\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"disabled\":true,\"modal\":true,\"label\":\"برون سپاری منتج از \",\"tableView\":true,\"key\":\"SCMPETCO_OS_ResultingFromId\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"14634?EId=344&SubId=19\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
+    Baya.Models.ViewEngine.View_Component Component_SCMPETCO_OS_MasterSCMPETCO_OS_ResultingFromId = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"EntityName\":\"برون سپاری پتکو - بخش اصلی\",\"primaryKey\":false,\"EntityID\":344,\"FieldId\":14634,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":526,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":false,\"RelationParentName\":\"SCMPETCO_OS_ResultingFrom\",\"RelationParentModel\":\"SCMPETCO_OS_ResultingFrom\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/SCMPETCO_OS_ResultingFrom/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.Title}} </span>\",\"FieldsTemplate\":[{\"key\":\"Title\",\"value\":\"int\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"searchField\":\"\",\"disabled\":true,\"modal\":true,\"label\":\"برون سپاری منتج از \",\"tableView\":true,\"key\":\"SCMPETCO_OS_ResultingFromId\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"14634?EId=344&SubId=19\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
 }
 
     <Dropdown Id=SCMPETCO_OS_ResultingFromId Disabled=true @ref="Ref_SCMPETCO_OS_ResultingFromId" Label="برون سپاری منتج از " CssClass=""  DisplayFormat="DropDown" ExternalApi=false NotMapped=false TextGrid=false Text="" Value="@_Entity.SCMPETCO_OS_ResultingFromId" FieldName="SCMPETCO_OS_ResultingFromId" OnItemSelected="ItemSelected_SCMPETCO_OS_MasterSCMPETCO_OS_ResultingFromId" Component="Component_SCMPETCO_OS_MasterSCMPETCO_OS_ResultingFromId" _Entity="_Entity" >
@@ -244,6 +240,24 @@
 
 </div>
 
+<Input Id="Id" @ref="Ref_Id"   CssClass="d-none"   @bind-Value="_Entity.Id" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+<Input Id="RequestID" @ref="Ref_RequestID"      @bind-Value="_Entity.RequestID" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+<Input Id="CreateUser" @ref="Ref_CreateUser"      @bind-Value="_Entity.CreateUser" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+<Input Id="UpdateUser" @ref="Ref_UpdateUser"      @bind-Value="_Entity.UpdateUser" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+<Input Id="CreateDate" @ref="Ref_CreateDate"   CssClass="d-none"   @bind-Value="_Entity.CreateDate" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+<Input Id="UpdateDate" @ref="Ref_UpdateDate"   CssClass="d-none"   @bind-Value="_Entity.UpdateDate" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+<Input Id="IsDelete" @ref="Ref_IsDelete"   CssClass="d-none"   @bind-Value="_Entity.IsDelete" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+<label for="SCMPETCO_OS_Details_GridSCMPETCO_OS_MasterId_343">برون سپاری پتکو - بخش جزئیات
+   
+    
+</label>
+
 <DxGrid @ref="Grid_SCMPETCO_OS_Details" Data="_Entity.SCMPETCO_OS_Details" KeyFieldName="_Id" EditMode="GridEditMode.PopupEditForm"
         EditModelSaving="OnEditModelSavingSCMPETCO_OS_Details"
         DataItemDeleting="OnDataItemDeletingSCMPETCO_OS_Details"
@@ -252,13 +266,18 @@
         EditFormButtonsVisible="false"
         CustomizeEditModel="CustomizeEditGrid_SCMPETCO_OS_Details"
         CustomizeElement="CustomizeRowsGrid_SCMPETCO_OS_Details" 
-        Component="@((Utility.JSON.ToObject<View_Component>("{\"primaryKey\":false,\"EntityID\":343,\"FieldId\":343,\"NotNull\":false,\"ViewId\":0,\"NotMapped\":false,\"Relation\":false,\"RelationExternal\":false,\"RelationChildModel\":\"SCMPETCO_OS_Details\",\"GridMainModel\":\"SCMPETCO_OS_Details\",\"widget\":{\"altInput\":false,\"allowInput\":false,\"clickOpens\":false,\"enableDate\":false,\"enableTime\":false,\"noCalendar\":false,\"useLocaleSettings\":false,\"hourIncrement\":0,\"minuteIncrement\":0,\"time_24hr\":false},\"wysiwyg\":false,\"data\":{},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"FieldsTemplate\":[],\"refreshOn\":\"data\",\"reorder\":false,\"addAnotherPosition\":\"bottom\",\"layoutFixed\":false,\"enableRowGroups\":false,\"initEmpty\":false,\"disabled\":true,\"modal\":true,\"label\":\"برون سپاری پتکو - بخش جزئیات\",\"tableView\":true,\"key\":\"GridSCMPETCO_OS_MasterId_343\",\"type\":\"datagrid\",\"input\":true,\"hideLabel\":true,\"modalEdit\":true,\"customClass\":\"mt-3\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":false,\"AccessEdit\":true,\"AccessNew\":false,\"editmodelsaving\":\"SCMPETCO_OS_Details_editmodelsaving\",\"afterrendermodal\":\"SCMPETCO_OS_Details_afterrendermodal\"}").Result))"
-        CssClass="mt-3" >
+        Component="@((Utility.JSON.ToObject<View_Component>("{\"primaryKey\":false,\"EntityID\":343,\"FieldId\":343,\"TypeCSharp\":\"\",\"NotNull\":false,\"ViewId\":0,\"NotMapped\":false,\"Relation\":false,\"RelationExternal\":false,\"RelationParentName\":\"\",\"RelationParentModel\":\"\",\"RelationChildModel\":\"SCMPETCO_OS_Details\",\"GridMainModel\":\"SCMPETCO_OS_Details\",\"widget\":{\"altInput\":false,\"allowInput\":false,\"clickOpens\":false,\"enableDate\":false,\"enableTime\":false,\"noCalendar\":false,\"useLocaleSettings\":false,\"hourIncrement\":0,\"minuteIncrement\":0,\"time_24hr\":false},\"wysiwyg\":false,\"data\":{},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"FieldsTemplate\":[],\"refreshOn\":\"data\",\"reorder\":false,\"addAnotherPosition\":\"bottom\",\"layoutFixed\":false,\"enableRowGroups\":false,\"initEmpty\":false,\"disabled\":true,\"modal\":true,\"label\":\"برون سپاری پتکو - بخش جزئیات\",\"tableView\":true,\"key\":\"GridSCMPETCO_OS_MasterId_343\",\"type\":\"datagrid\",\"input\":true,\"placeholder\":\"GridSCMPETCO_OS_MasterId_343\",\"modalEdit\":true,\"FieldUrl\":\"343?EId=343&SubId=19\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result))"
+         >
     <Columns>
     
 <DxGridCommandColumn Width="70px">
     <HeaderTemplate Context="HeaderContext">
        
+<a id=SCMPETCO_OS_Details_GridSCMPETCO_OS_MasterId_343ButtonNew class="btn btn-sm btn-green btnGridAddData" @onclick="@(() => StartEditNewRowAsync_Grid_SCMPETCO_OS_Details())" style="text-decoration: none;" href="javascript:void(0);">
+    <span class="fal fa-plus-circle btnicon"></span>
+    <span>@languageContainer.Keys["DXGrid:New"]</span>
+</a>
+
     </HeaderTemplate>
     <CellDisplayTemplate Context="CellContext">
        
@@ -267,6 +286,10 @@
 </a>
 
        
+<a class="btn btn-sm btn-red-light btnDeleteGridData" @onclick="@(() => OnDeleteButtonClickGrid_SCMPETCO_OS_Details(CellContext))" style="text-decoration: none;" href="javascript:void(0);">
+    <span class="fal fa-times-circle btnicon"></span>
+</a>
+
     </CellDisplayTemplate>
 </DxGridCommandColumn>
 
@@ -286,13 +309,27 @@
           
            </CellDisplayTemplate>
      </DxGridCommandColumn>
-    <DxGridDataColumn  Caption="عنوان کار"  FieldName="OS_JobTitle" />
+    <DxGridDataColumn  Caption="Id" Visible=false FieldName="Id" />
+
+<DxGridDataColumn  Caption="RequestID" Visible=false FieldName="RequestID" />
+
+<DxGridDataColumn  Caption="CreateUser" Visible=false FieldName="CreateUser" />
+
+<DxGridDataColumn  Caption="UpdateUser" Visible=false FieldName="UpdateUser" />
+
+<DxGridDataColumn  Caption="CreateDate" Visible=false FieldName="CreateDate" />
+
+<DxGridDataColumn  Caption="UpdateDate" Visible=false FieldName="UpdateDate" />
+
+<DxGridDataColumn  Caption="IsDelete" Visible=false FieldName="IsDelete" />
+
+<DxGridDataColumn  Caption="عنوان کار"  FieldName="OS_JobTitle" />
 
 <DxGridDataColumn Context="Global_UnitsId_" Caption="واحد کالا" >
     <CellDisplayTemplate>
        
 @{
-    Baya.Models.ViewEngine.View_Component HeaderGlobal_UnitsId = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"primaryKey\":false,\"EntityID\":343,\"FieldId\":14536,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":526,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":false,\"RelationParentName\":\"Global_Units\",\"RelationParentModel\":\"Global_Units\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/Global_Units/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.Title}} </span>\",\"FieldsTemplate\":[{\"key\":\"Title\",\"value\":\"int\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"disabled\":true,\"modal\":true,\"label\":\"واحد کالا\",\"tableView\":true,\"key\":\"Global_UnitsId\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"14536?EId=343&SubId=19\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
+    Baya.Models.ViewEngine.View_Component HeaderGlobal_UnitsId = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"primaryKey\":false,\"EntityID\":343,\"FieldId\":14536,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":526,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":false,\"RelationParentName\":\"Global_Units\",\"RelationParentModel\":\"Global_Units\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/Global_Units/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.Title}} </span>\",\"FieldsTemplate\":[{\"key\":\"Title\",\"value\":\"int\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"searchField\":\"\",\"disabled\":true,\"modal\":true,\"label\":\"واحد کالا\",\"tableView\":true,\"key\":\"Global_UnitsId\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"14536?EId=343&SubId=19\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
     var RowGlobal_UnitsId = ((Entity.SCMPETCO_OS_Details)Global_UnitsId_.DataItem).Global_UnitsId;
 }
 
@@ -320,7 +357,7 @@
     <CellDisplayTemplate>
        
 @{
-    Baya.Models.ViewEngine.View_Component HeaderGlobal_PriorityId = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"primaryKey\":false,\"EntityID\":343,\"FieldId\":14539,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":526,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":false,\"RelationParentName\":\"Global_Priority\",\"RelationParentModel\":\"Global_Priority\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/Global_Priority/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.Title}} </span>\",\"FieldsTemplate\":[{\"key\":\"Title\",\"value\":\"int\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"disabled\":true,\"modal\":true,\"label\":\"اولویت\",\"tableView\":true,\"key\":\"Global_PriorityId\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"14539?EId=343&SubId=19\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
+    Baya.Models.ViewEngine.View_Component HeaderGlobal_PriorityId = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"primaryKey\":false,\"EntityID\":343,\"FieldId\":14539,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":526,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":false,\"RelationParentName\":\"Global_Priority\",\"RelationParentModel\":\"Global_Priority\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/Global_Priority/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.Title}} </span>\",\"FieldsTemplate\":[{\"key\":\"Title\",\"value\":\"int\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"searchField\":\"\",\"disabled\":true,\"modal\":true,\"label\":\"اولویت\",\"tableView\":true,\"key\":\"Global_PriorityId\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"14539?EId=343&SubId=19\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
     var RowGlobal_PriorityId = ((Entity.SCMPETCO_OS_Details)Global_PriorityId_.DataItem).Global_PriorityId;
 }
 
@@ -346,20 +383,6 @@
 
 <DxGridDataColumn  Caption="توضیحات درخواست کننده"  FieldName="RequsterDesc" />
 
-<DxGridDataColumn Context="IsEnableNeedNegotiated_" Caption="آیا نیاز به مذاکره دارد؟" >
-    <CellDisplayTemplate>
-       
-@{
-    var SCMPETCO_OS_Details_IsEnableNeedNegotiated = ((Entity.SCMPETCO_OS_Details)IsEnableNeedNegotiated_.DataItem).IsEnableNeedNegotiated;
-}
-
-<p class="text-center " hidden="@(SCMPETCO_OS_Details_IsEnableNeedNegotiated !=null ? !SCMPETCO_OS_Details_IsEnableNeedNegotiated : true)">بله</p>
-
-<p class="text-center" hidden="@(SCMPETCO_OS_Details_IsEnableNeedNegotiated !=null ? SCMPETCO_OS_Details_IsEnableNeedNegotiated : true)">خیر</p>
-
-
-    </CellDisplayTemplate>
-</DxGridDataColumn>
 <DxGridDataColumn Context="UploadFileIsEnable_" Caption="آیا مدارک پیوست دارد؟" >
     <CellDisplayTemplate>
        
@@ -396,6 +419,12 @@
 
     </CellDisplayTemplate>
 </DxGridDataColumn>
+<DxGridDataColumn  Caption="توضیحات دفتر فنی"  FieldName="TO_Decs" />
+
+<DxGridDataColumn  Caption="توضیحات مدیر کارخانه"  FieldName="FM_Desc" />
+
+<DxGridDataColumn  Caption="توضیحات مدیر عامل"  FieldName="CEO_Desc" />
+
 <DxGridDataColumn Context="IsEnableSampleGoods_" Caption="آیا این درخواست نمونه دارد؟" >
     <CellDisplayTemplate>
        
@@ -432,12 +461,6 @@
 
     </CellDisplayTemplate>
 </DxGridDataColumn>
-<DxGridDataColumn  Caption="توضیحات مدیر عامل"  FieldName="CEO_Desc" />
-
-<DxGridDataColumn  Caption="توضیحات مدیر کارخانه"  FieldName="FM_Desc" />
-
-<DxGridDataColumn  Caption="توضیحات دفتر فنی"  FieldName="TO_Decs" />
-
 <DxGridDataColumn Context="IsEnableDemolitionAndRenovation_" Caption="آیا نیاز به عملیات تخریب و نوسازی دارد؟" >
     <CellDisplayTemplate>
        
@@ -452,20 +475,20 @@
 
     </CellDisplayTemplate>
 </DxGridDataColumn>
-<DxGridDataColumn  Caption="Id" Visible=false FieldName="Id" />
+<DxGridDataColumn Context="IsEnableNeedNegotiated_" Caption="آیا نیاز به مذاکره دارد؟" >
+    <CellDisplayTemplate>
+       
+@{
+    var SCMPETCO_OS_Details_IsEnableNeedNegotiated = ((Entity.SCMPETCO_OS_Details)IsEnableNeedNegotiated_.DataItem).IsEnableNeedNegotiated;
+}
 
-<DxGridDataColumn  Caption="RequestID" Visible=false FieldName="RequestID" />
+<p class="text-center " hidden="@(SCMPETCO_OS_Details_IsEnableNeedNegotiated !=null ? !SCMPETCO_OS_Details_IsEnableNeedNegotiated : true)">بله</p>
 
-<DxGridDataColumn  Caption="CreateUser" Visible=false FieldName="CreateUser" />
+<p class="text-center" hidden="@(SCMPETCO_OS_Details_IsEnableNeedNegotiated !=null ? SCMPETCO_OS_Details_IsEnableNeedNegotiated : true)">خیر</p>
 
-<DxGridDataColumn  Caption="UpdateUser" Visible=false FieldName="UpdateUser" />
 
-<DxGridDataColumn  Caption="CreateDate" Visible=false FieldName="CreateDate" />
-
-<DxGridDataColumn  Caption="UpdateDate" Visible=false FieldName="UpdateDate" />
-
-<DxGridDataColumn  Caption="IsDelete" Visible=false FieldName="IsDelete" />
-
+    </CellDisplayTemplate>
+</DxGridDataColumn>
 
 </Columns>
 
@@ -476,6 +499,48 @@
     <DxFormLayout>
         <DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextSCMPETCO_OS_Details">
     
+<Input Id="SCMPETCO_OS_Details_Id" @ref="Ref_SCMPETCO_OS_Details_Id"   CssClass="d-none"   @bind-Value="SCMPETCO_OS_Details.Id" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+</DxFormLayoutItem>
+
+<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextSCMPETCO_OS_Details">
+    
+<Input Id="SCMPETCO_OS_Details_RequestID" @ref="Ref_SCMPETCO_OS_Details_RequestID"      @bind-Value="SCMPETCO_OS_Details.RequestID" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+</DxFormLayoutItem>
+
+<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextSCMPETCO_OS_Details">
+    
+<Input Id="SCMPETCO_OS_Details_CreateUser" @ref="Ref_SCMPETCO_OS_Details_CreateUser"      @bind-Value="SCMPETCO_OS_Details.CreateUser" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+</DxFormLayoutItem>
+
+<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextSCMPETCO_OS_Details">
+    
+<Input Id="SCMPETCO_OS_Details_UpdateUser" @ref="Ref_SCMPETCO_OS_Details_UpdateUser"      @bind-Value="SCMPETCO_OS_Details.UpdateUser" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+</DxFormLayoutItem>
+
+<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextSCMPETCO_OS_Details">
+    
+<Input Id="SCMPETCO_OS_Details_CreateDate" @ref="Ref_SCMPETCO_OS_Details_CreateDate"   CssClass="d-none"   @bind-Value="SCMPETCO_OS_Details.CreateDate" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+</DxFormLayoutItem>
+
+<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextSCMPETCO_OS_Details">
+    
+<Input Id="SCMPETCO_OS_Details_UpdateDate" @ref="Ref_SCMPETCO_OS_Details_UpdateDate"   CssClass="d-none"   @bind-Value="SCMPETCO_OS_Details.UpdateDate" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+</DxFormLayoutItem>
+
+<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextSCMPETCO_OS_Details">
+    
+<Input Id="SCMPETCO_OS_Details_IsDelete" @ref="Ref_SCMPETCO_OS_Details_IsDelete"   CssClass="d-none"   @bind-Value="SCMPETCO_OS_Details.IsDelete" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+</DxFormLayoutItem>
+
+<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextSCMPETCO_OS_Details">
+    
 <Input Id="SCMPETCO_OS_Details_OS_JobTitle" @ref="Ref_SCMPETCO_OS_Details_OS_JobTitle" Label="عنوان کار"   Disabled=true  @bind-Value="SCMPETCO_OS_Details.OS_JobTitle" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"maxlength\":\"100\"}").Result))></Input>
 
 </DxFormLayoutItem>
@@ -484,7 +549,7 @@
      
  
 @code {
-    Baya.Models.ViewEngine.View_Component Component_SCMPETCO_OS_DetailsGlobal_UnitsId = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"primaryKey\":false,\"EntityID\":343,\"FieldId\":14536,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":526,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":false,\"RelationParentName\":\"Global_Units\",\"RelationParentModel\":\"Global_Units\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/Global_Units/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.Title}} </span>\",\"FieldsTemplate\":[{\"key\":\"Title\",\"value\":\"int\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"disabled\":true,\"modal\":true,\"label\":\"واحد کالا\",\"tableView\":true,\"key\":\"Global_UnitsId\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"14536?EId=343&SubId=19\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
+    Baya.Models.ViewEngine.View_Component Component_SCMPETCO_OS_DetailsGlobal_UnitsId = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"primaryKey\":false,\"EntityID\":343,\"FieldId\":14536,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":526,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":false,\"RelationParentName\":\"Global_Units\",\"RelationParentModel\":\"Global_Units\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/Global_Units/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.Title}} </span>\",\"FieldsTemplate\":[{\"key\":\"Title\",\"value\":\"int\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"searchField\":\"\",\"disabled\":true,\"modal\":true,\"label\":\"واحد کالا\",\"tableView\":true,\"key\":\"Global_UnitsId\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"14536?EId=343&SubId=19\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
 }
 
     <Dropdown Id=SCMPETCO_OS_Details_Global_UnitsId Disabled=true @ref="Ref_SCMPETCO_OS_Details_Global_UnitsId" Label="واحد کالا" CssClass=""  DisplayFormat="DropDown" ExternalApi=false NotMapped=false TextGrid=false Text="" Value="@SCMPETCO_OS_Details.Global_UnitsId" FieldName="Global_UnitsId" OnItemSelected="ItemSelected_SCMPETCO_OS_DetailsGlobal_UnitsId" Component="Component_SCMPETCO_OS_DetailsGlobal_UnitsId" _Entity="_Entity" _EntityRow=SCMPETCO_OS_Details>
@@ -531,7 +596,7 @@
      
  
 @code {
-    Baya.Models.ViewEngine.View_Component Component_SCMPETCO_OS_DetailsGlobal_PriorityId = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"primaryKey\":false,\"EntityID\":343,\"FieldId\":14539,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":526,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":false,\"RelationParentName\":\"Global_Priority\",\"RelationParentModel\":\"Global_Priority\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/Global_Priority/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.Title}} </span>\",\"FieldsTemplate\":[{\"key\":\"Title\",\"value\":\"int\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"disabled\":true,\"modal\":true,\"label\":\"اولویت\",\"tableView\":true,\"key\":\"Global_PriorityId\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"14539?EId=343&SubId=19\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
+    Baya.Models.ViewEngine.View_Component Component_SCMPETCO_OS_DetailsGlobal_PriorityId = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"primaryKey\":false,\"EntityID\":343,\"FieldId\":14539,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":526,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":false,\"RelationParentName\":\"Global_Priority\",\"RelationParentModel\":\"Global_Priority\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/Global_Priority/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.Title}} </span>\",\"FieldsTemplate\":[{\"key\":\"Title\",\"value\":\"int\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"searchField\":\"\",\"disabled\":true,\"modal\":true,\"label\":\"اولویت\",\"tableView\":true,\"key\":\"Global_PriorityId\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"14539?EId=343&SubId=19\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
 }
 
     <Dropdown Id=SCMPETCO_OS_Details_Global_PriorityId Disabled=true @ref="Ref_SCMPETCO_OS_Details_Global_PriorityId" Label="اولویت" CssClass=""  DisplayFormat="DropDown" ExternalApi=false NotMapped=false TextGrid=false Text="" Value="@SCMPETCO_OS_Details.Global_PriorityId" FieldName="Global_PriorityId" OnItemSelected="ItemSelected_SCMPETCO_OS_DetailsGlobal_PriorityId" Component="Component_SCMPETCO_OS_DetailsGlobal_PriorityId" _Entity="_Entity" _EntityRow=SCMPETCO_OS_Details>
@@ -582,18 +647,30 @@
 
 <DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextSCMPETCO_OS_Details">
     
-<RadioBoolean @ref="Ref_SCMPETCO_OS_Details_IsEnableNeedNegotiated" InLine=true Id="SCMPETCO_OS_Details_IsEnableNeedNegotiated" Required=true  LabelTrue="بله" LabelFalse="خیر" Label="آیا نیاز به مذاکره دارد؟" @bind-Value="SCMPETCO_OS_Details.IsEnableNeedNegotiated" CssClass="" ></RadioBoolean>
-
-</DxFormLayoutItem>
-
-<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextSCMPETCO_OS_Details">
-    
 <RadioBoolean @ref="Ref_SCMPETCO_OS_Details_UploadFileIsEnable" InLine=true Id="SCMPETCO_OS_Details_UploadFileIsEnable"  oninput="@(e => UploadFileIsEnable_oninput(e ,SCMPETCO_OS_Details))"  LabelTrue="بله" LabelFalse="خیر" Label="آیا مدارک پیوست دارد؟" @bind-Value="SCMPETCO_OS_Details.UploadFileIsEnable" CssClass="" Disabled=true></RadioBoolean>
 
 </DxFormLayoutItem>
 
 <DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextSCMPETCO_OS_Details">
     <Uploader Id=SCMPETCO_OS_Details_SCMPETCO_OS_Details_UploadFiles  @ref="Ref_SCMPETCO_OS_Details_SCMPETCO_OS_Details_UploadFiles" Disabled=true  Accept="image/* , application/pdf , .doc,.docx , .xls,.xlsx , .ppt,.pptx" MinSize="1KB" MaxSize="5MB" Caption="مدارک پیوست" Data="SCMPETCO_OS_Details.SCMPETCO_OS_Details_UploadFiles" Url="https://File.workcv.ir/fa/api/v1/File/Post" TItem="Entity.SCMPETCO_OS_Details_UploadFiles"></Uploader>
+
+</DxFormLayoutItem>
+
+<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextSCMPETCO_OS_Details">
+    
+<Input Id="SCMPETCO_OS_Details_TO_Decs" @ref="Ref_SCMPETCO_OS_Details_TO_Decs" Label="توضیحات دفتر فنی"   Disabled=true  @bind-Value="SCMPETCO_OS_Details.TO_Decs" type="textarea"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"maxlength\":\"300\"}").Result))></Input>
+
+</DxFormLayoutItem>
+
+<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextSCMPETCO_OS_Details">
+    
+<Input Id="SCMPETCO_OS_Details_FM_Desc" @ref="Ref_SCMPETCO_OS_Details_FM_Desc" Label="توضیحات مدیر کارخانه"   Disabled=true  @bind-Value="SCMPETCO_OS_Details.FM_Desc" type="textarea"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"maxlength\":\"300\"}").Result))></Input>
+
+</DxFormLayoutItem>
+
+<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextSCMPETCO_OS_Details">
+    
+<Input Id="SCMPETCO_OS_Details_CEO_Desc" @ref="Ref_SCMPETCO_OS_Details_CEO_Desc" Label="توضیحات مدیر عامل"     @bind-Value="SCMPETCO_OS_Details.CEO_Desc" type="textarea"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"maxlength\":\"300\"}").Result))></Input>
 
 </DxFormLayoutItem>
 
@@ -610,67 +687,13 @@
 
 <DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextSCMPETCO_OS_Details">
     
-<Input Id="SCMPETCO_OS_Details_CEO_Desc" @ref="Ref_SCMPETCO_OS_Details_CEO_Desc" Label="توضیحات مدیر عامل"     @bind-Value="SCMPETCO_OS_Details.CEO_Desc" type="textarea"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"maxlength\":\"300\"}").Result))></Input>
-
-</DxFormLayoutItem>
-
-<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextSCMPETCO_OS_Details">
-    
-<Input Id="SCMPETCO_OS_Details_FM_Desc" @ref="Ref_SCMPETCO_OS_Details_FM_Desc" Label="توضیحات مدیر کارخانه"   Disabled=true  @bind-Value="SCMPETCO_OS_Details.FM_Desc" type="textarea"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"maxlength\":\"300\"}").Result))></Input>
-
-</DxFormLayoutItem>
-
-<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextSCMPETCO_OS_Details">
-    
-<Input Id="SCMPETCO_OS_Details_TO_Decs" @ref="Ref_SCMPETCO_OS_Details_TO_Decs" Label="توضیحات دفتر فنی"   Disabled=true  @bind-Value="SCMPETCO_OS_Details.TO_Decs" type="textarea"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"maxlength\":\"300\"}").Result))></Input>
-
-</DxFormLayoutItem>
-
-<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextSCMPETCO_OS_Details">
-    
 <RadioBoolean @ref="Ref_SCMPETCO_OS_Details_IsEnableDemolitionAndRenovation" InLine=true Id="SCMPETCO_OS_Details_IsEnableDemolitionAndRenovation"   LabelTrue="بله" LabelFalse="خیر" Label="آیا نیاز به عملیات تخریب و نوسازی دارد؟" @bind-Value="SCMPETCO_OS_Details.IsEnableDemolitionAndRenovation" CssClass="" Disabled=true></RadioBoolean>
 
 </DxFormLayoutItem>
 
 <DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextSCMPETCO_OS_Details">
     
-<Input Id="SCMPETCO_OS_Details_Id" @ref="Ref_SCMPETCO_OS_Details_Id"   CssClass="d-none"   @bind-Value="SCMPETCO_OS_Details.Id" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
-
-</DxFormLayoutItem>
-
-<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextSCMPETCO_OS_Details">
-    
-<Input Id="SCMPETCO_OS_Details_RequestID" @ref="Ref_SCMPETCO_OS_Details_RequestID"      @bind-Value="SCMPETCO_OS_Details.RequestID" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
-
-</DxFormLayoutItem>
-
-<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextSCMPETCO_OS_Details">
-    
-<Input Id="SCMPETCO_OS_Details_CreateUser" @ref="Ref_SCMPETCO_OS_Details_CreateUser"      @bind-Value="SCMPETCO_OS_Details.CreateUser" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
-
-</DxFormLayoutItem>
-
-<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextSCMPETCO_OS_Details">
-    
-<Input Id="SCMPETCO_OS_Details_UpdateUser" @ref="Ref_SCMPETCO_OS_Details_UpdateUser"      @bind-Value="SCMPETCO_OS_Details.UpdateUser" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
-
-</DxFormLayoutItem>
-
-<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextSCMPETCO_OS_Details">
-    
-<Input Id="SCMPETCO_OS_Details_CreateDate" @ref="Ref_SCMPETCO_OS_Details_CreateDate"   CssClass="d-none"   @bind-Value="SCMPETCO_OS_Details.CreateDate" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
-
-</DxFormLayoutItem>
-
-<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextSCMPETCO_OS_Details">
-    
-<Input Id="SCMPETCO_OS_Details_UpdateDate" @ref="Ref_SCMPETCO_OS_Details_UpdateDate"   CssClass="d-none"   @bind-Value="SCMPETCO_OS_Details.UpdateDate" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
-
-</DxFormLayoutItem>
-
-<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextSCMPETCO_OS_Details">
-    
-<Input Id="SCMPETCO_OS_Details_IsDelete" @ref="Ref_SCMPETCO_OS_Details_IsDelete"   CssClass="d-none"   @bind-Value="SCMPETCO_OS_Details.IsDelete" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+<RadioBoolean @ref="Ref_SCMPETCO_OS_Details_IsEnableNeedNegotiated" InLine=true Id="SCMPETCO_OS_Details_IsEnableNeedNegotiated" Required=true  LabelTrue="بله" LabelFalse="خیر" Label="آیا نیاز به مذاکره دارد؟" @bind-Value="SCMPETCO_OS_Details.IsEnableNeedNegotiated" CssClass="" ></RadioBoolean>
 
 </DxFormLayoutItem>
 
@@ -678,6 +701,8 @@
         <DxFormLayoutItem ColSpanMd="12" Context="FormLayoutContextSCMPETCO_OS_Details" CssClass="btn-modal-custom">
             <DxButton Id="SCMPETCO_OS_Details_GridSCMPETCO_OS_MasterId_343ButtonSave" Click="@(() => SaveModalGrid_SCMPETCO_OS_Details(EditFormContextSCMPETCO_OS_Details))" Text="@languageContainer.Keys["DXGrid:Save"]" CssClass="btn btn-green px-5" />
             
+<DxButton id="SCMPETCO_OS_Details_GridSCMPETCO_OS_MasterId_343ButtonSaveAndNew"    Text="ذخیره و جدید" Click="@(() => SaveAndNewGrid_SCMPETCO_OS_Details(EditFormContextSCMPETCO_OS_Details))" CssClass="btn btn-green" />
+
 
             <DxButton Id="SCMPETCO_OS_Details_GridSCMPETCO_OS_MasterId_343ButtonCancel" Click="@(() => Grid_SCMPETCO_OS_Details.CancelEditAsync())" Text="@languageContainer.Keys["DXGrid:Cancel"]" CssClass="btn btn-red" />
             <button id="click_s"  hidden>submit</button>
@@ -739,7 +764,7 @@
         var e = arg.EditModel;
     bool NotValid = false;
     //events
-       NotValid = await SCMPETCO_OS_Details_editmodelsaving(e);
+       
         
       if (!NotValid)
      {
@@ -772,7 +797,7 @@ async Task OnYesButtonSCMPETCO_OS_Details()
         bool NotValid = false;
     var e = _ContextFormTemplateSCMPETCO_OS_Details.EditModel;
          //events
-         NotValid = await SCMPETCO_OS_Details_editmodelsaving(e);
+         
 
         if (!NotValid)
          {
@@ -826,7 +851,7 @@ async Task ChangePageGrid_SCMPETCO_OS_Details()
     var e = (Entity.SCMPETCO_OS_Details)Grid_SCMPETCO_OS_Details.GetDataItem(IndexGrid_SCMPETCO_OS_Details);
     JsonData = await Utility.JSON.ToJson(e);
     await Task.Delay(300);
-    await SCMPETCO_OS_Details_afterrendermodal(e);
+    
     StateHasChanged();
     }
     catch (Exception ex)
@@ -844,7 +869,7 @@ Grid_SCMPETCO_OS_Details.StartEditNewRowAsync().GetAwaiter();
 var e = new Entity.SCMPETCO_OS_Details();
 JsonData = await Utility.JSON.ToJson(e);
 await Task.Delay(300);
-await SCMPETCO_OS_Details_afterrendermodal(e);
+
 }
 
 async Task StartModalGrid_SCMPETCO_OS_Details(GridCommandColumnCellDisplayTemplateContext Context)
@@ -854,7 +879,7 @@ Grid_SCMPETCO_OS_Details.StartEditRowAsync(Context.VisibleIndex).GetAwaiter();
 var e = (Entity.SCMPETCO_OS_Details)Context.DataItem;
 JsonData = await Utility.JSON.ToJson(e);
 await Task.Delay(300);
-await SCMPETCO_OS_Details_afterrendermodal(e);
+
    // await Task.Delay(500);
 }
 public async Task SaveModalGrid_SCMPETCO_OS_Details(GridEditFormTemplateContext arg)
@@ -867,7 +892,7 @@ public async Task SaveModalGrid_SCMPETCO_OS_Details(GridEditFormTemplateContext 
     var e = arg.EditModel;
     bool NotValid = false;
     //events
-    NotValid = await SCMPETCO_OS_Details_editmodelsaving(e);
+    
     if (!NotValid)
     {
         SaveGrid_SCMPETCO_OS_Details(arg.DataItem, arg.EditModel);
@@ -889,7 +914,7 @@ public async Task SaveAndNewGrid_SCMPETCO_OS_Details(GridEditFormTemplateContext
          var e = arg.EditModel;
           bool NotValid = false;
      //events
-    NotValid = await SCMPETCO_OS_Details_editmodelsaving(e);
+    
     if (!NotValid)
     {
         SaveGrid_SCMPETCO_OS_Details(arg.DataItem, arg.EditModel);
@@ -957,6 +982,13 @@ public void SaveGrid_SCMPETCO_OS_Details(object DataItem, object EditModel)
     var MainModel = (Entity.SCMPETCO_OS_Details)DataItem;
     if (MainModel != null)
     {
+MainModel.Id = ((Entity.SCMPETCO_OS_Details)EditModel).Id;
+MainModel.RequestID = ((Entity.SCMPETCO_OS_Details)EditModel).RequestID;
+MainModel.CreateUser = ((Entity.SCMPETCO_OS_Details)EditModel).CreateUser;
+MainModel.UpdateUser = ((Entity.SCMPETCO_OS_Details)EditModel).UpdateUser;
+MainModel.CreateDate = ((Entity.SCMPETCO_OS_Details)EditModel).CreateDate;
+MainModel.UpdateDate = ((Entity.SCMPETCO_OS_Details)EditModel).UpdateDate;
+MainModel.IsDelete = ((Entity.SCMPETCO_OS_Details)EditModel).IsDelete;
 MainModel.OS_JobTitle = ((Entity.SCMPETCO_OS_Details)EditModel).OS_JobTitle;
 MainModel.Global_UnitsId = ((Entity.SCMPETCO_OS_Details)EditModel).Global_UnitsId;
 MainModel.Global_Units = ((Entity.SCMPETCO_OS_Details)EditModel).Global_Units;
@@ -965,20 +997,13 @@ MainModel.Global_PriorityId = ((Entity.SCMPETCO_OS_Details)EditModel).Global_Pri
 MainModel.Global_Priority = ((Entity.SCMPETCO_OS_Details)EditModel).Global_Priority;
 MainModel.AreaUse = ((Entity.SCMPETCO_OS_Details)EditModel).AreaUse;
 MainModel.RequsterDesc = ((Entity.SCMPETCO_OS_Details)EditModel).RequsterDesc;
-MainModel.IsEnableNeedNegotiated = ((Entity.SCMPETCO_OS_Details)EditModel).IsEnableNeedNegotiated;
 MainModel.UploadFileIsEnable = ((Entity.SCMPETCO_OS_Details)EditModel).UploadFileIsEnable;
-MainModel.IsEnableSampleGoods = ((Entity.SCMPETCO_OS_Details)EditModel).IsEnableSampleGoods;
-MainModel.CEO_Desc = ((Entity.SCMPETCO_OS_Details)EditModel).CEO_Desc;
-MainModel.FM_Desc = ((Entity.SCMPETCO_OS_Details)EditModel).FM_Desc;
 MainModel.TO_Decs = ((Entity.SCMPETCO_OS_Details)EditModel).TO_Decs;
+MainModel.FM_Desc = ((Entity.SCMPETCO_OS_Details)EditModel).FM_Desc;
+MainModel.CEO_Desc = ((Entity.SCMPETCO_OS_Details)EditModel).CEO_Desc;
+MainModel.IsEnableSampleGoods = ((Entity.SCMPETCO_OS_Details)EditModel).IsEnableSampleGoods;
 MainModel.IsEnableDemolitionAndRenovation = ((Entity.SCMPETCO_OS_Details)EditModel).IsEnableDemolitionAndRenovation;
-MainModel.Id = ((Entity.SCMPETCO_OS_Details)EditModel).Id;
-MainModel.RequestID = ((Entity.SCMPETCO_OS_Details)EditModel).RequestID;
-MainModel.CreateUser = ((Entity.SCMPETCO_OS_Details)EditModel).CreateUser;
-MainModel.UpdateUser = ((Entity.SCMPETCO_OS_Details)EditModel).UpdateUser;
-MainModel.CreateDate = ((Entity.SCMPETCO_OS_Details)EditModel).CreateDate;
-MainModel.UpdateDate = ((Entity.SCMPETCO_OS_Details)EditModel).UpdateDate;
-MainModel.IsDelete = ((Entity.SCMPETCO_OS_Details)EditModel).IsDelete;
+MainModel.IsEnableNeedNegotiated = ((Entity.SCMPETCO_OS_Details)EditModel).IsEnableNeedNegotiated;
 
     }
     else
@@ -1093,20 +1118,6 @@ public async void RowDubbleClickGrid_SCMPETCO_OS_Details(GridRowClickEventArgs e
 }
 }
 
-<Input Id="Id" @ref="Ref_Id"   CssClass="d-none"   @bind-Value="_Entity.Id" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
-
-<Input Id="RequestID" @ref="Ref_RequestID"      @bind-Value="_Entity.RequestID" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
-
-<Input Id="CreateUser" @ref="Ref_CreateUser"      @bind-Value="_Entity.CreateUser" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
-
-<Input Id="UpdateUser" @ref="Ref_UpdateUser"      @bind-Value="_Entity.UpdateUser" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
-
-<Input Id="CreateDate" @ref="Ref_CreateDate"   CssClass="d-none"   @bind-Value="_Entity.CreateDate" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
-
-<Input Id="UpdateDate" @ref="Ref_UpdateDate"   CssClass="d-none"   @bind-Value="_Entity.UpdateDate" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
-
-<Input Id="IsDelete" @ref="Ref_IsDelete"   CssClass="d-none"   @bind-Value="_Entity.IsDelete" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
-
     </EditForm>
 </div>
 
@@ -1123,8 +1134,8 @@ public async void RowDubbleClickGrid_SCMPETCO_OS_Details(GridRowClickEventArgs e
     {
         Console.WriteLine("#log OnInitializedAsync");
 
-        TableGet = await Utility.JSON.ToObject<Table>("{\"Name\":\"SCMPETCO_OS_Master\",\"GetNameAs\":\"SCMPETCO_OS_Master\",\"Column\":[{\"Name\":\"SCMPETCO_OS_ResultingFromId\",\"GetNameAs\":\"SCMPETCO_OS_ResultingFromId\"},{\"Name\":\"UserStarterFullName\",\"GetNameAs\":\"UserStarterFullName\"},{\"Name\":\"UserStarterCompanyName\",\"GetNameAs\":\"UserStarterCompanyName\"},{\"Name\":\"UserStarterUnitName\",\"GetNameAs\":\"UserStarterUnitName\"},{\"Name\":\"UserStarterSectionName\",\"GetNameAs\":\"UserStarterSectionName\"},{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"RequestID\",\"GetNameAs\":\"RequestID\"},{\"Name\":\"CreateUser\",\"GetNameAs\":\"CreateUser\"},{\"Name\":\"UpdateUser\",\"GetNameAs\":\"UpdateUser\"},{\"Name\":\"CreateDate\",\"GetNameAs\":\"CreateDate\"},{\"Name\":\"UpdateDate\",\"GetNameAs\":\"UpdateDate\"},{\"Name\":\"IsDelete\",\"GetNameAs\":\"IsDelete\"}],\"Relation\":[{\"Name\":\"SCMPETCO_OS_ResultingFrom\",\"GetNameAs\":\"SCMPETCO_OS_ResultingFrom\",\"ModeErtebat\":1,\"Column\":[{\"Name\":\"Code\",\"GetNameAs\":\"Code\"},{\"Name\":\"Title\",\"GetNameAs\":\"Title\"}],\"Relation\":[]},{\"Name\":\"SCMPETCO_ICT_Departments\",\"GetNameAs\":\"SCMPETCO_ICT_Departments\",\"ModeErtebat\":1,\"Column\":[{\"Name\":\"Code\",\"GetNameAs\":\"Code\"},{\"Name\":\"Title\",\"GetNameAs\":\"Title\"}],\"Relation\":[]},{\"Name\":\"SCMPETCO_OS_Details\",\"GetNameAs\":\"SCMPETCO_OS_Details\",\"ModeErtebat\":2,\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"RequestID\",\"GetNameAs\":\"RequestID\"},{\"Name\":\"CreateUser\",\"GetNameAs\":\"CreateUser\"},{\"Name\":\"UpdateUser\",\"GetNameAs\":\"UpdateUser\"},{\"Name\":\"CreateDate\",\"GetNameAs\":\"CreateDate\"},{\"Name\":\"UpdateDate\",\"GetNameAs\":\"UpdateDate\"},{\"Name\":\"IsDelete\",\"GetNameAs\":\"IsDelete\"},{\"Name\":\"OS_JobTitle\",\"GetNameAs\":\"OS_JobTitle\"},{\"Name\":\"Global_UnitsId\",\"GetNameAs\":\"Global_UnitsId\"},{\"Name\":\"Amount\",\"GetNameAs\":\"Amount\"},{\"Name\":\"Global_PriorityId\",\"GetNameAs\":\"Global_PriorityId\"},{\"Name\":\"AreaUse\",\"GetNameAs\":\"AreaUse\"},{\"Name\":\"RequsterDesc\",\"GetNameAs\":\"RequsterDesc\"},{\"Name\":\"UploadFileIsEnable\",\"GetNameAs\":\"UploadFileIsEnable\"},{\"Name\":\"TO_Decs\",\"GetNameAs\":\"TO_Decs\"},{\"Name\":\"FM_Desc\",\"GetNameAs\":\"FM_Desc\"},{\"Name\":\"CEO_Desc\",\"GetNameAs\":\"CEO_Desc\"},{\"Name\":\"IsEnableSampleGoods\",\"GetNameAs\":\"IsEnableSampleGoods\"},{\"Name\":\"IsEnableDemolitionAndRenovation\",\"GetNameAs\":\"IsEnableDemolitionAndRenovation\"},{\"Name\":\"IsEnableNeedNegotiated\",\"GetNameAs\":\"IsEnableNeedNegotiated\"}],\"Relation\":[{\"Name\":\"Global_Units\",\"GetNameAs\":\"Global_Units\",\"ModeErtebat\":1,\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"Code\",\"GetNameAs\":\"Code\"},{\"Name\":\"Title\",\"GetNameAs\":\"Title\"}]},{\"Name\":\"Global_Priority\",\"GetNameAs\":\"Global_Priority\",\"ModeErtebat\":1,\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"Title\",\"GetNameAs\":\"Title\"},{\"Name\":\"Code\",\"GetNameAs\":\"Code\"}]},{\"Name\":\"SCMPETCO_OS_Details_UploadFiles\",\"GetNameAs\":\"SCMPETCO_OS_Details_UploadFiles\",\"ModeErtebat\":2,\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"SCMPETCO_OS_DetailsId\",\"GetNameAs\":\"SCMPETCO_OS_DetailsId\"},{\"Name\":\"storage\",\"GetNameAs\":\"storage\"},{\"Name\":\"name\",\"GetNameAs\":\"name\"},{\"Name\":\"url\",\"GetNameAs\":\"url\"},{\"Name\":\"size\",\"GetNameAs\":\"size\"},{\"Name\":\"type\",\"GetNameAs\":\"type\"},{\"Name\":\"originalName\",\"GetNameAs\":\"originalName\"},{\"Name\":\"hash\",\"GetNameAs\":\"hash\"},{\"Name\":\"RequestID\",\"GetNameAs\":\"RequestID\"},{\"Name\":\"CreateUser\",\"GetNameAs\":\"CreateUser\"},{\"Name\":\"UpdateUser\",\"GetNameAs\":\"UpdateUser\"},{\"Name\":\"CreateDate\",\"GetNameAs\":\"CreateDate\"},{\"Name\":\"UpdateDate\",\"GetNameAs\":\"UpdateDate\"},{\"Name\":\"IsDelete\",\"GetNameAs\":\"IsDelete\"}]},{\"Name\":\"SCMPETCO_OS_Details_SampleGoodsFiles\",\"GetNameAs\":\"SCMPETCO_OS_Details_SampleGoodsFiles\",\"ModeErtebat\":2,\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"SCMPETCO_OS_DetailsId\",\"GetNameAs\":\"SCMPETCO_OS_DetailsId\"},{\"Name\":\"storage\",\"GetNameAs\":\"storage\"},{\"Name\":\"name\",\"GetNameAs\":\"name\"},{\"Name\":\"url\",\"GetNameAs\":\"url\"},{\"Name\":\"size\",\"GetNameAs\":\"size\"},{\"Name\":\"type\",\"GetNameAs\":\"type\"},{\"Name\":\"originalName\",\"GetNameAs\":\"originalName\"},{\"Name\":\"hash\",\"GetNameAs\":\"hash\"},{\"Name\":\"RequestID\",\"GetNameAs\":\"RequestID\"},{\"Name\":\"CreateUser\",\"GetNameAs\":\"CreateUser\"},{\"Name\":\"UpdateUser\",\"GetNameAs\":\"UpdateUser\"},{\"Name\":\"CreateDate\",\"GetNameAs\":\"CreateDate\"},{\"Name\":\"UpdateDate\",\"GetNameAs\":\"UpdateDate\"},{\"Name\":\"IsDelete\",\"GetNameAs\":\"IsDelete\"}]}]}]}");
-        TablePost = await Utility.JSON.ToObject<Table>("{\"Name\":\"SCMPETCO_OS_Master\",\"GetNameAs\":\"SCMPETCO_OS_Master\",\"Column\":[{\"Name\":\"SCMPETCO_OS_ResultingFromId\",\"GetNameAs\":\"SCMPETCO_OS_ResultingFromId\"},{\"Name\":\"UserStarterFullName\",\"GetNameAs\":\"UserStarterFullName\"},{\"Name\":\"UserStarterCompanyName\",\"GetNameAs\":\"UserStarterCompanyName\"},{\"Name\":\"UserStarterUnitName\",\"GetNameAs\":\"UserStarterUnitName\"},{\"Name\":\"UserStarterSectionName\",\"GetNameAs\":\"UserStarterSectionName\"},{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"RequestID\",\"GetNameAs\":\"RequestID\"},{\"Name\":\"CreateUser\",\"GetNameAs\":\"CreateUser\"},{\"Name\":\"UpdateUser\",\"GetNameAs\":\"UpdateUser\"},{\"Name\":\"CreateDate\",\"GetNameAs\":\"CreateDate\"},{\"Name\":\"UpdateDate\",\"GetNameAs\":\"UpdateDate\"},{\"Name\":\"IsDelete\",\"GetNameAs\":\"IsDelete\"}],\"Relation\":[{\"Name\":\"SCMPETCO_OS_Details\",\"GetNameAs\":\"SCMPETCO_OS_Details\",\"ModeErtebat\":2,\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"RequestID\",\"GetNameAs\":\"RequestID\"},{\"Name\":\"CreateUser\",\"GetNameAs\":\"CreateUser\"},{\"Name\":\"UpdateUser\",\"GetNameAs\":\"UpdateUser\"},{\"Name\":\"CreateDate\",\"GetNameAs\":\"CreateDate\"},{\"Name\":\"UpdateDate\",\"GetNameAs\":\"UpdateDate\"},{\"Name\":\"IsDelete\",\"GetNameAs\":\"IsDelete\"},{\"Name\":\"OS_JobTitle\",\"GetNameAs\":\"OS_JobTitle\"},{\"Name\":\"Global_UnitsId\",\"GetNameAs\":\"Global_UnitsId\"},{\"Name\":\"Amount\",\"GetNameAs\":\"Amount\"},{\"Name\":\"Global_PriorityId\",\"GetNameAs\":\"Global_PriorityId\"},{\"Name\":\"AreaUse\",\"GetNameAs\":\"AreaUse\"},{\"Name\":\"RequsterDesc\",\"GetNameAs\":\"RequsterDesc\"},{\"Name\":\"UploadFileIsEnable\",\"GetNameAs\":\"UploadFileIsEnable\"},{\"Name\":\"TO_Decs\",\"GetNameAs\":\"TO_Decs\"},{\"Name\":\"FM_Desc\",\"GetNameAs\":\"FM_Desc\"},{\"Name\":\"CEO_Desc\",\"GetNameAs\":\"CEO_Desc\"},{\"Name\":\"IsEnableSampleGoods\",\"GetNameAs\":\"IsEnableSampleGoods\"},{\"Name\":\"IsEnableDemolitionAndRenovation\",\"GetNameAs\":\"IsEnableDemolitionAndRenovation\"},{\"Name\":\"IsEnableNeedNegotiated\",\"GetNameAs\":\"IsEnableNeedNegotiated\"}],\"Relation\":[{\"Name\":\"SCMPETCO_OS_Details_UploadFiles\",\"GetNameAs\":\"SCMPETCO_OS_Details_UploadFiles\",\"ModeErtebat\":2,\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"SCMPETCO_OS_DetailsId\",\"GetNameAs\":\"SCMPETCO_OS_DetailsId\"},{\"Name\":\"storage\",\"GetNameAs\":\"storage\"},{\"Name\":\"name\",\"GetNameAs\":\"name\"},{\"Name\":\"url\",\"GetNameAs\":\"url\"},{\"Name\":\"size\",\"GetNameAs\":\"size\"},{\"Name\":\"type\",\"GetNameAs\":\"type\"},{\"Name\":\"originalName\",\"GetNameAs\":\"originalName\"},{\"Name\":\"hash\",\"GetNameAs\":\"hash\"},{\"Name\":\"RequestID\",\"GetNameAs\":\"RequestID\"},{\"Name\":\"CreateUser\",\"GetNameAs\":\"CreateUser\"},{\"Name\":\"UpdateUser\",\"GetNameAs\":\"UpdateUser\"},{\"Name\":\"CreateDate\",\"GetNameAs\":\"CreateDate\"},{\"Name\":\"UpdateDate\",\"GetNameAs\":\"UpdateDate\"},{\"Name\":\"IsDelete\",\"GetNameAs\":\"IsDelete\"}]},{\"Name\":\"SCMPETCO_OS_Details_SampleGoodsFiles\",\"GetNameAs\":\"SCMPETCO_OS_Details_SampleGoodsFiles\",\"ModeErtebat\":2,\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"SCMPETCO_OS_DetailsId\",\"GetNameAs\":\"SCMPETCO_OS_DetailsId\"},{\"Name\":\"storage\",\"GetNameAs\":\"storage\"},{\"Name\":\"name\",\"GetNameAs\":\"name\"},{\"Name\":\"url\",\"GetNameAs\":\"url\"},{\"Name\":\"size\",\"GetNameAs\":\"size\"},{\"Name\":\"type\",\"GetNameAs\":\"type\"},{\"Name\":\"originalName\",\"GetNameAs\":\"originalName\"},{\"Name\":\"hash\",\"GetNameAs\":\"hash\"},{\"Name\":\"RequestID\",\"GetNameAs\":\"RequestID\"},{\"Name\":\"CreateUser\",\"GetNameAs\":\"CreateUser\"},{\"Name\":\"UpdateUser\",\"GetNameAs\":\"UpdateUser\"},{\"Name\":\"CreateDate\",\"GetNameAs\":\"CreateDate\"},{\"Name\":\"UpdateDate\",\"GetNameAs\":\"UpdateDate\"},{\"Name\":\"IsDelete\",\"GetNameAs\":\"IsDelete\"}]}]}]}");
+        TableGet = await Utility.JSON.ToObject<Table>("{\"Name\":\"SCMPETCO_OS_Master\",\"GetNameAs\":\"SCMPETCO_OS_Master\",\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"RequestID\",\"GetNameAs\":\"RequestID\"},{\"Name\":\"CreateUser\",\"GetNameAs\":\"CreateUser\"},{\"Name\":\"UpdateUser\",\"GetNameAs\":\"UpdateUser\"},{\"Name\":\"CreateDate\",\"GetNameAs\":\"CreateDate\"},{\"Name\":\"UpdateDate\",\"GetNameAs\":\"UpdateDate\"},{\"Name\":\"IsDelete\",\"GetNameAs\":\"IsDelete\"},{\"Name\":\"UserStarterFullName\",\"GetNameAs\":\"UserStarterFullName\"},{\"Name\":\"UserStarterCompanyName\",\"GetNameAs\":\"UserStarterCompanyName\"},{\"Name\":\"UserStarterUnitName\",\"GetNameAs\":\"UserStarterUnitName\"},{\"Name\":\"UserStarterSectionName\",\"GetNameAs\":\"UserStarterSectionName\"},{\"Name\":\"SCMPETCO_OS_ResultingFromId\",\"GetNameAs\":\"SCMPETCO_OS_ResultingFromId\"}],\"Relation\":[{\"Name\":\"SCMPETCO_OS_ResultingFrom\",\"GetNameAs\":\"SCMPETCO_OS_ResultingFrom\",\"ModeErtebat\":1,\"Column\":[{\"Name\":\"Code\",\"GetNameAs\":\"Code\"},{\"Name\":\"Title\",\"GetNameAs\":\"Title\"}],\"Relation\":[]},{\"Name\":\"SCMPETCO_ICT_Departments\",\"GetNameAs\":\"SCMPETCO_ICT_Departments\",\"ModeErtebat\":1,\"Column\":[{\"Name\":\"Code\",\"GetNameAs\":\"Code\"},{\"Name\":\"Title\",\"GetNameAs\":\"Title\"}],\"Relation\":[]},{\"Name\":\"SCMPETCO_OS_Details\",\"GetNameAs\":\"SCMPETCO_OS_Details\",\"ModeErtebat\":2,\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"RequestID\",\"GetNameAs\":\"RequestID\"},{\"Name\":\"CreateUser\",\"GetNameAs\":\"CreateUser\"},{\"Name\":\"UpdateUser\",\"GetNameAs\":\"UpdateUser\"},{\"Name\":\"CreateDate\",\"GetNameAs\":\"CreateDate\"},{\"Name\":\"UpdateDate\",\"GetNameAs\":\"UpdateDate\"},{\"Name\":\"IsDelete\",\"GetNameAs\":\"IsDelete\"},{\"Name\":\"OS_JobTitle\",\"GetNameAs\":\"OS_JobTitle\"},{\"Name\":\"Global_UnitsId\",\"GetNameAs\":\"Global_UnitsId\"},{\"Name\":\"Amount\",\"GetNameAs\":\"Amount\"},{\"Name\":\"Global_PriorityId\",\"GetNameAs\":\"Global_PriorityId\"},{\"Name\":\"AreaUse\",\"GetNameAs\":\"AreaUse\"},{\"Name\":\"RequsterDesc\",\"GetNameAs\":\"RequsterDesc\"},{\"Name\":\"UploadFileIsEnable\",\"GetNameAs\":\"UploadFileIsEnable\"},{\"Name\":\"TO_Decs\",\"GetNameAs\":\"TO_Decs\"},{\"Name\":\"FM_Desc\",\"GetNameAs\":\"FM_Desc\"},{\"Name\":\"CEO_Desc\",\"GetNameAs\":\"CEO_Desc\"},{\"Name\":\"IsEnableSampleGoods\",\"GetNameAs\":\"IsEnableSampleGoods\"},{\"Name\":\"IsEnableDemolitionAndRenovation\",\"GetNameAs\":\"IsEnableDemolitionAndRenovation\"},{\"Name\":\"IsEnableNeedNegotiated\",\"GetNameAs\":\"IsEnableNeedNegotiated\"}],\"Relation\":[{\"Name\":\"Global_Units\",\"GetNameAs\":\"Global_Units\",\"ModeErtebat\":1,\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"Code\",\"GetNameAs\":\"Code\"},{\"Name\":\"Title\",\"GetNameAs\":\"Title\"}]},{\"Name\":\"Global_Priority\",\"GetNameAs\":\"Global_Priority\",\"ModeErtebat\":1,\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"Title\",\"GetNameAs\":\"Title\"},{\"Name\":\"Code\",\"GetNameAs\":\"Code\"}]},{\"Name\":\"SCMPETCO_OS_Details_UploadFiles\",\"GetNameAs\":\"SCMPETCO_OS_Details_UploadFiles\",\"ModeErtebat\":2,\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"SCMPETCO_OS_DetailsId\",\"GetNameAs\":\"SCMPETCO_OS_DetailsId\"},{\"Name\":\"storage\",\"GetNameAs\":\"storage\"},{\"Name\":\"name\",\"GetNameAs\":\"name\"},{\"Name\":\"url\",\"GetNameAs\":\"url\"},{\"Name\":\"size\",\"GetNameAs\":\"size\"},{\"Name\":\"type\",\"GetNameAs\":\"type\"},{\"Name\":\"originalName\",\"GetNameAs\":\"originalName\"},{\"Name\":\"hash\",\"GetNameAs\":\"hash\"},{\"Name\":\"RequestID\",\"GetNameAs\":\"RequestID\"},{\"Name\":\"CreateUser\",\"GetNameAs\":\"CreateUser\"},{\"Name\":\"UpdateUser\",\"GetNameAs\":\"UpdateUser\"},{\"Name\":\"CreateDate\",\"GetNameAs\":\"CreateDate\"},{\"Name\":\"UpdateDate\",\"GetNameAs\":\"UpdateDate\"},{\"Name\":\"IsDelete\",\"GetNameAs\":\"IsDelete\"}]},{\"Name\":\"SCMPETCO_OS_Details_SampleGoodsFiles\",\"GetNameAs\":\"SCMPETCO_OS_Details_SampleGoodsFiles\",\"ModeErtebat\":2,\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"SCMPETCO_OS_DetailsId\",\"GetNameAs\":\"SCMPETCO_OS_DetailsId\"},{\"Name\":\"storage\",\"GetNameAs\":\"storage\"},{\"Name\":\"name\",\"GetNameAs\":\"name\"},{\"Name\":\"url\",\"GetNameAs\":\"url\"},{\"Name\":\"size\",\"GetNameAs\":\"size\"},{\"Name\":\"type\",\"GetNameAs\":\"type\"},{\"Name\":\"originalName\",\"GetNameAs\":\"originalName\"},{\"Name\":\"hash\",\"GetNameAs\":\"hash\"},{\"Name\":\"RequestID\",\"GetNameAs\":\"RequestID\"},{\"Name\":\"CreateUser\",\"GetNameAs\":\"CreateUser\"},{\"Name\":\"UpdateUser\",\"GetNameAs\":\"UpdateUser\"},{\"Name\":\"CreateDate\",\"GetNameAs\":\"CreateDate\"},{\"Name\":\"UpdateDate\",\"GetNameAs\":\"UpdateDate\"},{\"Name\":\"IsDelete\",\"GetNameAs\":\"IsDelete\"}]}]}]}");
+        TablePost = await Utility.JSON.ToObject<Table>("{\"Name\":\"SCMPETCO_OS_Master\",\"GetNameAs\":\"SCMPETCO_OS_Master\",\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"RequestID\",\"GetNameAs\":\"RequestID\"},{\"Name\":\"CreateUser\",\"GetNameAs\":\"CreateUser\"},{\"Name\":\"UpdateUser\",\"GetNameAs\":\"UpdateUser\"},{\"Name\":\"CreateDate\",\"GetNameAs\":\"CreateDate\"},{\"Name\":\"UpdateDate\",\"GetNameAs\":\"UpdateDate\"},{\"Name\":\"IsDelete\",\"GetNameAs\":\"IsDelete\"},{\"Name\":\"UserStarterFullName\",\"GetNameAs\":\"UserStarterFullName\"},{\"Name\":\"UserStarterCompanyName\",\"GetNameAs\":\"UserStarterCompanyName\"},{\"Name\":\"UserStarterUnitName\",\"GetNameAs\":\"UserStarterUnitName\"},{\"Name\":\"UserStarterSectionName\",\"GetNameAs\":\"UserStarterSectionName\"},{\"Name\":\"SCMPETCO_OS_ResultingFromId\",\"GetNameAs\":\"SCMPETCO_OS_ResultingFromId\"}],\"Relation\":[{\"Name\":\"SCMPETCO_OS_Details\",\"GetNameAs\":\"SCMPETCO_OS_Details\",\"ModeErtebat\":2,\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"RequestID\",\"GetNameAs\":\"RequestID\"},{\"Name\":\"CreateUser\",\"GetNameAs\":\"CreateUser\"},{\"Name\":\"UpdateUser\",\"GetNameAs\":\"UpdateUser\"},{\"Name\":\"CreateDate\",\"GetNameAs\":\"CreateDate\"},{\"Name\":\"UpdateDate\",\"GetNameAs\":\"UpdateDate\"},{\"Name\":\"IsDelete\",\"GetNameAs\":\"IsDelete\"},{\"Name\":\"OS_JobTitle\",\"GetNameAs\":\"OS_JobTitle\"},{\"Name\":\"Global_UnitsId\",\"GetNameAs\":\"Global_UnitsId\"},{\"Name\":\"Amount\",\"GetNameAs\":\"Amount\"},{\"Name\":\"Global_PriorityId\",\"GetNameAs\":\"Global_PriorityId\"},{\"Name\":\"AreaUse\",\"GetNameAs\":\"AreaUse\"},{\"Name\":\"RequsterDesc\",\"GetNameAs\":\"RequsterDesc\"},{\"Name\":\"UploadFileIsEnable\",\"GetNameAs\":\"UploadFileIsEnable\"},{\"Name\":\"TO_Decs\",\"GetNameAs\":\"TO_Decs\"},{\"Name\":\"FM_Desc\",\"GetNameAs\":\"FM_Desc\"},{\"Name\":\"CEO_Desc\",\"GetNameAs\":\"CEO_Desc\"},{\"Name\":\"IsEnableSampleGoods\",\"GetNameAs\":\"IsEnableSampleGoods\"},{\"Name\":\"IsEnableDemolitionAndRenovation\",\"GetNameAs\":\"IsEnableDemolitionAndRenovation\"},{\"Name\":\"IsEnableNeedNegotiated\",\"GetNameAs\":\"IsEnableNeedNegotiated\"}],\"Relation\":[{\"Name\":\"SCMPETCO_OS_Details_UploadFiles\",\"GetNameAs\":\"SCMPETCO_OS_Details_UploadFiles\",\"ModeErtebat\":2,\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"SCMPETCO_OS_DetailsId\",\"GetNameAs\":\"SCMPETCO_OS_DetailsId\"},{\"Name\":\"storage\",\"GetNameAs\":\"storage\"},{\"Name\":\"name\",\"GetNameAs\":\"name\"},{\"Name\":\"url\",\"GetNameAs\":\"url\"},{\"Name\":\"size\",\"GetNameAs\":\"size\"},{\"Name\":\"type\",\"GetNameAs\":\"type\"},{\"Name\":\"originalName\",\"GetNameAs\":\"originalName\"},{\"Name\":\"hash\",\"GetNameAs\":\"hash\"},{\"Name\":\"RequestID\",\"GetNameAs\":\"RequestID\"},{\"Name\":\"CreateUser\",\"GetNameAs\":\"CreateUser\"},{\"Name\":\"UpdateUser\",\"GetNameAs\":\"UpdateUser\"},{\"Name\":\"CreateDate\",\"GetNameAs\":\"CreateDate\"},{\"Name\":\"UpdateDate\",\"GetNameAs\":\"UpdateDate\"},{\"Name\":\"IsDelete\",\"GetNameAs\":\"IsDelete\"}]},{\"Name\":\"SCMPETCO_OS_Details_SampleGoodsFiles\",\"GetNameAs\":\"SCMPETCO_OS_Details_SampleGoodsFiles\",\"ModeErtebat\":2,\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"SCMPETCO_OS_DetailsId\",\"GetNameAs\":\"SCMPETCO_OS_DetailsId\"},{\"Name\":\"storage\",\"GetNameAs\":\"storage\"},{\"Name\":\"name\",\"GetNameAs\":\"name\"},{\"Name\":\"url\",\"GetNameAs\":\"url\"},{\"Name\":\"size\",\"GetNameAs\":\"size\"},{\"Name\":\"type\",\"GetNameAs\":\"type\"},{\"Name\":\"originalName\",\"GetNameAs\":\"originalName\"},{\"Name\":\"hash\",\"GetNameAs\":\"hash\"},{\"Name\":\"RequestID\",\"GetNameAs\":\"RequestID\"},{\"Name\":\"CreateUser\",\"GetNameAs\":\"CreateUser\"},{\"Name\":\"UpdateUser\",\"GetNameAs\":\"UpdateUser\"},{\"Name\":\"CreateDate\",\"GetNameAs\":\"CreateDate\"},{\"Name\":\"UpdateDate\",\"GetNameAs\":\"UpdateDate\"},{\"Name\":\"IsDelete\",\"GetNameAs\":\"IsDelete\"}]}]}]}");
 
         config = CKEditorBundleOptions.DefaultConfig.WithHtmlEditing();
         config.Language = "fa";
@@ -1197,8 +1208,6 @@ _Entity.UserStarterFullName = _RequestParameters.UserStarterFullName;
 _Entity.UserStarterCompanyName = _RequestParameters.UserStarterCompanyName;
 _Entity.UserStarterUnitName = _RequestParameters.UserStarterUnitName;
 _Entity.UserStarterSectionName = _RequestParameters.UserStarterSectionName;
-_Entity.RequestTrakingCode = _RequestParameters.RequestTrakingCode;
-_Entity.ProcessVersionID = _RequestParameters.ProcessVersionID;
 
 
                     //نمونه ست کردن پارامتر روش اول

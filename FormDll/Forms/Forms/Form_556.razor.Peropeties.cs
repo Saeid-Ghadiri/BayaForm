@@ -144,7 +144,7 @@ namespace Forms.Forms
     /// <summary>
     ///  ورژنی که فرم باهاش ساخته شده
     /// </summary>
-    public string? VersionForm { get; set; } = "5603";
+    public string? VersionForm { get; set; } = "5622";
 
     /// <summary>
     ///  موجودیت
@@ -186,34 +186,6 @@ public Input<string?> Ref_UserStarterSectionName;
 public Input<string?> Ref_CancellationReason;
 public Dropdown Ref_SCM_ResultingFromId;
 public Input<Guid> Ref_Id;
-public DxGrid? Grid_SCM_OS_Details;
-
-public Input<string?> Ref_SCM_OS_Details_Title;
-public Dropdown Ref_SCM_OS_Details_SCM_UnitsId;
-public Input<double?> Ref_SCM_OS_Details_Amount;
-public Dropdown Ref_SCM_OS_Details_SCM_PriorityId;
-public Input<string?> Ref_SCM_OS_Details_AreaUse;
-public Dropdown Ref_SCM_OS_Details_SCM_AreaOperationId;
-public RadioBoolean Ref_SCM_OS_Details_UploadFileIsEnable;
-public FileUploadPage.Uploader<Entity.SCM_OS_Details_UploadFile> Ref_SCM_OS_Details_SCM_OS_Details_UploadFile;
-public RadioBoolean Ref_SCM_OS_Details_InquiryIsEnable;
-public FileUploadPage.Uploader<Entity.SCM_OS_Details_InquiryFile1> Ref_SCM_OS_Details_SCM_OS_Details_InquiryFile1;
-public FileUploadPage.Uploader<Entity.SCM_OS_Details_InquiryFile2> Ref_SCM_OS_Details_SCM_OS_Details_InquiryFile2;
-public FileUploadPage.Uploader<Entity.SCM_OS_Details_InquiryFile3> Ref_SCM_OS_Details_SCM_OS_Details_InquiryFile3;
-public Input<string?> Ref_SCM_OS_Details_RequsterDesc;
-public Input<string?> Ref_SCM_OS_Details_TM_ApproverDesc;
-public Input<string?> Ref_SCM_OS_Details_FM_Desc;
-public Input<string?> Ref_SCM_OS_Details_ProcurementConfirmedInquiryNum;
-public Input<string?> Ref_SCM_OS_Details_FM_ConfirmedInquiryNum;
-public Input<string?> Ref_SCM_OS_Details_ProcurementDesc;
-public Input<string?> Ref_SCM_OS_Details_InqueryApproveNum;
-public Input<Guid> Ref_SCM_OS_Details_Id;
-public Input<Guid?> Ref_SCM_OS_Details_RequestID;
-public Input<Guid?> Ref_SCM_OS_Details_CreateUser;
-public Input<Guid?> Ref_SCM_OS_Details_UpdateUser;
-public Input<DateTime?> Ref_SCM_OS_Details_CreateDate;
-public Input<DateTime?> Ref_SCM_OS_Details_UpdateDate;
-public Input<bool?> Ref_SCM_OS_Details_IsDelete;
 public Input<Guid?> Ref_RequestID;
 public Input<Guid?> Ref_CreateUser;
 public Input<Guid?> Ref_UpdateUser;
@@ -221,6 +193,34 @@ public Input<DateTime?> Ref_CreateDate;
 public Input<DateTime?> Ref_UpdateDate;
 public Input<bool?> Ref_IsDelete;
 public Input<string?> Ref_CancelledBy;
+public DxGrid? Grid_SCM_OS_Details;
+
+public Input<Guid> Ref_SCM_OS_Details_Id;
+public Input<Guid?> Ref_SCM_OS_Details_RequestID;
+public Input<Guid?> Ref_SCM_OS_Details_CreateUser;
+public Input<Guid?> Ref_SCM_OS_Details_UpdateUser;
+public Input<DateTime?> Ref_SCM_OS_Details_CreateDate;
+public Input<DateTime?> Ref_SCM_OS_Details_UpdateDate;
+public Input<bool?> Ref_SCM_OS_Details_IsDelete;
+public Input<string?> Ref_SCM_OS_Details_Title;
+public Dropdown Ref_SCM_OS_Details_SCM_UnitsId;
+public Input<double?> Ref_SCM_OS_Details_Amount;
+public Dropdown Ref_SCM_OS_Details_SCM_PriorityId;
+public Input<string?> Ref_SCM_OS_Details_AreaUse;
+public Dropdown Ref_SCM_OS_Details_SCM_AreaOperationId;
+public Input<string?> Ref_SCM_OS_Details_RequsterDesc;
+public RadioBoolean Ref_SCM_OS_Details_UploadFileIsEnable;
+public FileUploadPage.Uploader<Entity.SCM_OS_Details_UploadFile> Ref_SCM_OS_Details_SCM_OS_Details_UploadFile;
+public RadioBoolean Ref_SCM_OS_Details_InquiryIsEnable;
+public FileUploadPage.Uploader<Entity.SCM_OS_Details_InquiryFile1> Ref_SCM_OS_Details_SCM_OS_Details_InquiryFile1;
+public FileUploadPage.Uploader<Entity.SCM_OS_Details_InquiryFile2> Ref_SCM_OS_Details_SCM_OS_Details_InquiryFile2;
+public FileUploadPage.Uploader<Entity.SCM_OS_Details_InquiryFile3> Ref_SCM_OS_Details_SCM_OS_Details_InquiryFile3;
+public Input<string?> Ref_SCM_OS_Details_TM_ApproverDesc;
+public Input<string?> Ref_SCM_OS_Details_FM_Desc;
+public Input<string?> Ref_SCM_OS_Details_ProcurementConfirmedInquiryNum;
+public Input<string?> Ref_SCM_OS_Details_FM_ConfirmedInquiryNum;
+public Input<string?> Ref_SCM_OS_Details_ProcurementDesc;
+public Input<string?> Ref_SCM_OS_Details_InqueryApproveNum;
 
 
     #endregion

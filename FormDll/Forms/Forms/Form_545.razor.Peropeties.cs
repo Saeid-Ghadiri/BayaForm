@@ -144,7 +144,7 @@ namespace Forms.Forms
     /// <summary>
     ///  ورژنی که فرم باهاش ساخته شده
     /// </summary>
-    public string? VersionForm { get; set; } = "5603";
+    public string? VersionForm { get; set; } = "5622";
 
     /// <summary>
     ///  موجودیت
@@ -184,25 +184,6 @@ public Input<string?> Ref_UserStarterCompanyName;
 public Input<string?> Ref_UserStarterUnitName;
 public Input<string?> Ref_UserStarterSectionName;
 public Dropdown Ref_SCM_ResultingFromId;
-public DxGrid? Grid_SCM_OS_Details;
-
-public Input<string?> Ref_SCM_OS_Details_Title;
-public Dropdown Ref_SCM_OS_Details_SCM_UnitsId;
-public Input<double?> Ref_SCM_OS_Details_Amount;
-public Dropdown Ref_SCM_OS_Details_SCM_PriorityId;
-public Input<string?> Ref_SCM_OS_Details_AreaUse;
-public Input<string?> Ref_SCM_OS_Details_FirstApproverDesc;
-public Dropdown Ref_SCM_OS_Details_SCM_AreaOperationId;
-public RadioBoolean Ref_SCM_OS_Details_UploadFileIsEnable;
-public FileUploadPage.Uploader<Entity.SCM_OS_Details_UploadFile> Ref_SCM_OS_Details_SCM_OS_Details_UploadFile;
-public Input<string?> Ref_SCM_OS_Details_RequsterDesc;
-public Input<Guid> Ref_SCM_OS_Details_Id;
-public Input<Guid?> Ref_SCM_OS_Details_RequestID;
-public Input<Guid?> Ref_SCM_OS_Details_CreateUser;
-public Input<Guid?> Ref_SCM_OS_Details_UpdateUser;
-public Input<DateTime?> Ref_SCM_OS_Details_CreateDate;
-public Input<DateTime?> Ref_SCM_OS_Details_UpdateDate;
-public Input<bool?> Ref_SCM_OS_Details_IsDelete;
 public Input<Guid> Ref_Id;
 public Input<Guid?> Ref_RequestID;
 public Input<Guid?> Ref_CreateUser;
@@ -212,6 +193,25 @@ public Input<bool?> Ref_IsDelete;
 public Input<DateTime?> Ref_UpdateDate;
 public Input<string?> Ref_RequestTrakingCode;
 public Input<string?> Ref_ProcessVersionID;
+public DxGrid? Grid_SCM_OS_Details;
+
+public Input<Guid> Ref_SCM_OS_Details_Id;
+public Input<Guid?> Ref_SCM_OS_Details_RequestID;
+public Input<Guid?> Ref_SCM_OS_Details_CreateUser;
+public Input<Guid?> Ref_SCM_OS_Details_UpdateUser;
+public Input<DateTime?> Ref_SCM_OS_Details_CreateDate;
+public Input<DateTime?> Ref_SCM_OS_Details_UpdateDate;
+public Input<bool?> Ref_SCM_OS_Details_IsDelete;
+public Input<string?> Ref_SCM_OS_Details_Title;
+public Dropdown Ref_SCM_OS_Details_SCM_UnitsId;
+public Input<double?> Ref_SCM_OS_Details_Amount;
+public Dropdown Ref_SCM_OS_Details_SCM_PriorityId;
+public Input<string?> Ref_SCM_OS_Details_AreaUse;
+public Dropdown Ref_SCM_OS_Details_SCM_AreaOperationId;
+public Input<string?> Ref_SCM_OS_Details_RequsterDesc;
+public Input<string?> Ref_SCM_OS_Details_FirstApproverDesc;
+public RadioBoolean Ref_SCM_OS_Details_UploadFileIsEnable;
+public FileUploadPage.Uploader<Entity.SCM_OS_Details_UploadFile> Ref_SCM_OS_Details_SCM_OS_Details_UploadFile;
 
 
     #endregion

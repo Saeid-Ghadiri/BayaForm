@@ -101,6 +101,28 @@
 <div  class="">
     
 </div>
+
+<Input Id="Id" @ref="Ref_Id"   CssClass="d-none"   @bind-Value="_Entity.Id" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+<Input Id="RequestID" @ref="Ref_RequestID"      @bind-Value="_Entity.RequestID" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+<Input Id="CreateUser" @ref="Ref_CreateUser"      @bind-Value="_Entity.CreateUser" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+<Input Id="UpdateUser" @ref="Ref_UpdateUser"      @bind-Value="_Entity.UpdateUser" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+<Input Id="CreateDate" @ref="Ref_CreateDate"   CssClass="d-none"   @bind-Value="_Entity.CreateDate" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+<Input Id="UpdateDate" @ref="Ref_UpdateDate"   CssClass="d-none"   @bind-Value="_Entity.UpdateDate" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+<Input Id="IsDelete" @ref="Ref_IsDelete"   CssClass="d-none"   @bind-Value="_Entity.IsDelete" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+<Input Id="SystemUser" @ref="Ref_SystemUser" Label="کاربر سیستمی"   Disabled=true  @bind-Value="_Entity.SystemUser" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"maxlength\":\"40\"}").Result))></Input>
+
+<Input Id="SystemUnitUser" @ref="Ref_SystemUnitUser" Label="واحد کاربر سیستمی"   Disabled=true  @bind-Value="_Entity.SystemUnitUser" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"maxlength\":\"40\"}").Result))></Input>
+
+<Input Id="SystemSectionUser" @ref="Ref_SystemSectionUser" Label="قسمت کاربر سیستمی"   Disabled=true  @bind-Value="_Entity.SystemSectionUser" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"maxlength\":\"40\"}").Result))></Input>
+
+<Input Id="UserCompanyName" @ref="Ref_UserCompanyName" Label="شرکت کاربر"   Disabled=true  @bind-Value="_Entity.UserCompanyName" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"maxlength\":\"40\"}").Result))></Input>
 <label for="SCM_ProductRequestDetails_GridSCM_ProductRequestId_182">جزییات درخواست کالا
    
     
@@ -114,7 +136,7 @@
         EditFormButtonsVisible="false"
         CustomizeEditModel="CustomizeEditGrid_SCM_ProductRequestDetails"
         CustomizeElement="CustomizeRowsGrid_SCM_ProductRequestDetails" 
-        Component="@((Utility.JSON.ToObject<View_Component>("{\"primaryKey\":false,\"EntityID\":182,\"FieldId\":182,\"NotNull\":false,\"ViewId\":0,\"NotMapped\":false,\"Relation\":false,\"RelationExternal\":false,\"RelationChildModel\":\"SCM_ProductRequestDetails\",\"GridMainModel\":\"SCM_ProductRequestDetails\",\"widget\":{\"altInput\":false,\"allowInput\":false,\"clickOpens\":false,\"enableDate\":false,\"enableTime\":false,\"noCalendar\":false,\"useLocaleSettings\":false,\"hourIncrement\":0,\"minuteIncrement\":0,\"time_24hr\":false},\"wysiwyg\":false,\"data\":{},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"FieldsTemplate\":[],\"refreshOn\":\"data\",\"reorder\":false,\"addAnotherPosition\":\"bottom\",\"layoutFixed\":false,\"enableRowGroups\":false,\"initEmpty\":false,\"disabled\":true,\"modal\":true,\"label\":\"جزییات درخواست کالا\",\"tableView\":true,\"key\":\"GridSCM_ProductRequestId_182\",\"type\":\"datagrid\",\"input\":true,\"modalEdit\":true,\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":false,\"AccessEdit\":true,\"AccessNew\":true}").Result))"
+        Component="@((Utility.JSON.ToObject<View_Component>("{\"primaryKey\":false,\"EntityID\":182,\"FieldId\":182,\"TypeCSharp\":\"\",\"NotNull\":false,\"ViewId\":0,\"NotMapped\":false,\"Relation\":false,\"RelationExternal\":false,\"RelationParentName\":\"\",\"RelationParentModel\":\"\",\"RelationChildModel\":\"SCM_ProductRequestDetails\",\"GridMainModel\":\"SCM_ProductRequestDetails\",\"widget\":{\"altInput\":false,\"allowInput\":false,\"clickOpens\":false,\"enableDate\":false,\"enableTime\":false,\"noCalendar\":false,\"useLocaleSettings\":false,\"hourIncrement\":0,\"minuteIncrement\":0,\"time_24hr\":false},\"wysiwyg\":false,\"data\":{},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"FieldsTemplate\":[],\"refreshOn\":\"data\",\"reorder\":false,\"addAnotherPosition\":\"bottom\",\"layoutFixed\":false,\"enableRowGroups\":false,\"initEmpty\":false,\"disabled\":true,\"modal\":true,\"label\":\"جزییات درخواست کالا\",\"tableView\":true,\"key\":\"GridSCM_ProductRequestId_182\",\"type\":\"datagrid\",\"input\":true,\"placeholder\":\"GridSCM_ProductRequestId_182\",\"modalEdit\":true,\"FieldUrl\":\"182?EId=182&SubId=8\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result))"
          >
     <Columns>
     
@@ -134,6 +156,10 @@
 </a>
 
        
+<a class="btn btn-sm btn-red-light btnDeleteGridData" @onclick="@(() => OnDeleteButtonClickGrid_SCM_ProductRequestDetails(CellContext))" style="text-decoration: none;" href="javascript:void(0);">
+    <span class="fal fa-times-circle btnicon"></span>
+</a>
+
     </CellDisplayTemplate>
 </DxGridCommandColumn>
 
@@ -153,7 +179,19 @@
           
            </CellDisplayTemplate>
      </DxGridCommandColumn>
-    <DxGridDataColumn  Caption="نام کالا شماران"  FieldName="ProductNameText" />
+    <DxGridDataColumn  Caption="Id" Visible=false FieldName="Id" />
+
+<DxGridDataColumn  Caption="RequestID" Visible=false FieldName="RequestID" />
+
+<DxGridDataColumn  Caption="CreateUser" Visible=false FieldName="CreateUser" />
+
+<DxGridDataColumn  Caption="UpdateUser" Visible=false FieldName="UpdateUser" />
+
+<DxGridDataColumn  Caption="CreateDate" Visible=false FieldName="CreateDate" />
+
+<DxGridDataColumn  Caption="UpdateDate" Visible=false FieldName="UpdateDate" />
+
+<DxGridDataColumn  Caption="IsDelete" Visible=false FieldName="IsDelete" />
 
 <DxGridDataColumn  Caption="کد کالا شماران"  FieldName="ProductCodeText" />
 
@@ -161,9 +199,17 @@
 
 <DxGridDataColumn DisplayFormat="G" Caption="تعداد یا مقدار درخواستی"  FieldName="ProductRequestingQTY" />
 
+<DxGridDataColumn  Caption="محل مصرف کالا"  FieldName="PlaceOfUseProduct" />
+
 <DxGridDataColumn  Caption="توضیحات درخواست کننده"  FieldName="ProductRowDescription" />
 
-<DxGridDataColumn  Caption="محل مصرف کالا"  FieldName="PlaceOfUseProduct" />
+<DxGridDataColumn  Caption="نام کالا شماران"  FieldName="ProductNameText" />
+
+<DxGridDataColumn  Caption="تاریخ تحویل کالا"  FieldName="ProductDeliveryDateTime" />
+
+<DxGridDataColumn DisplayFormat="G" Caption="تعداد یا مقدار واگذاری کالا"  FieldName="NumberofProductDelivery" />
+
+<DxGridDataColumn  Caption="توضیحات انباردار"  FieldName="DescriptionWarehouseKeeper" />
 
 <DxGridDataColumn Context="DeliveredProductApproved_" Caption="آیا کالا مورد تایید است؟" >
     <CellDisplayTemplate>
@@ -193,26 +239,6 @@
 
     </CellDisplayTemplate>
 </DxGridDataColumn>
-<DxGridDataColumn  Caption="تاریخ تحویل کالا"  FieldName="ProductDeliveryDateTime" />
-
-<DxGridDataColumn DisplayFormat="G" Caption="تعداد یا مقدار واگذاری کالا"  FieldName="NumberofProductDelivery" />
-
-<DxGridDataColumn  Caption="توضیحات انباردار"  FieldName="DescriptionWarehouseKeeper" />
-
-<DxGridDataColumn  Caption="Id" Visible=false FieldName="Id" />
-
-<DxGridDataColumn  Caption="RequestID" Visible=false FieldName="RequestID" />
-
-<DxGridDataColumn  Caption="CreateUser" Visible=false FieldName="CreateUser" />
-
-<DxGridDataColumn  Caption="UpdateUser" Visible=false FieldName="UpdateUser" />
-
-<DxGridDataColumn  Caption="CreateDate" Visible=false FieldName="CreateDate" />
-
-<DxGridDataColumn  Caption="UpdateDate" Visible=false FieldName="UpdateDate" />
-
-<DxGridDataColumn  Caption="IsDelete" Visible=false FieldName="IsDelete" />
-
 
 </Columns>
 
@@ -222,72 +248,6 @@
     }
     <DxFormLayout>
         <DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextSCM_ProductRequestDetails">
-    
-<Input Id="SCM_ProductRequestDetails_ProductNameText" @ref="Ref_SCM_ProductRequestDetails_ProductNameText" Label="نام کالا شماران"  CssClass="WidthAuto" Disabled=true  @bind-Value="SCM_ProductRequestDetails.ProductNameText" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
-
-</DxFormLayoutItem>
-
-<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextSCM_ProductRequestDetails">
-    
-<Input Id="SCM_ProductRequestDetails_ProductCodeText" @ref="Ref_SCM_ProductRequestDetails_ProductCodeText" Label="کد کالا شماران"  CssClass="Width10rem" Disabled=true  @bind-Value="SCM_ProductRequestDetails.ProductCodeText" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
-
-</DxFormLayoutItem>
-
-<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextSCM_ProductRequestDetails">
-    
-<Input Id="SCM_ProductRequestDetails_ProductUnitText" @ref="Ref_SCM_ProductRequestDetails_ProductUnitText" Label="واحد کالا"  CssClass="Width10rem" Disabled=true  @bind-Value="SCM_ProductRequestDetails.ProductUnitText" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
-
-</DxFormLayoutItem>
-
-<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextSCM_ProductRequestDetails">
-    
-<Input Id="SCM_ProductRequestDetails_ProductRequestingQTY" @ref="Ref_SCM_ProductRequestDetails_ProductRequestingQTY" Label="تعداد یا مقدار درخواستی"  CssClass="Width10rem" Disabled=true  @bind-Value="SCM_ProductRequestDetails.ProductRequestingQTY" type="number"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"step\":\"any\"}").Result))></Input>
-
-</DxFormLayoutItem>
-
-<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextSCM_ProductRequestDetails">
-    
-<Input Id="SCM_ProductRequestDetails_ProductRowDescription" @ref="Ref_SCM_ProductRequestDetails_ProductRowDescription" Label="توضیحات درخواست کننده"  CssClass="Width12rem" Disabled=true  @bind-Value="SCM_ProductRequestDetails.ProductRowDescription" type="textarea"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
-
-</DxFormLayoutItem>
-
-<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextSCM_ProductRequestDetails">
-    
-<Input Id="SCM_ProductRequestDetails_PlaceOfUseProduct" @ref="Ref_SCM_ProductRequestDetails_PlaceOfUseProduct" Label="محل مصرف کالا"  CssClass="Width12rem" Disabled=true  @bind-Value="SCM_ProductRequestDetails.PlaceOfUseProduct" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
-
-</DxFormLayoutItem>
-
-<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextSCM_ProductRequestDetails">
-    
-<RadioBoolean @ref="Ref_SCM_ProductRequestDetails_DeliveredProductApproved" InLine=true Id="SCM_ProductRequestDetails_DeliveredProductApproved"   LabelTrue="بله" LabelFalse="خیر" Label="آیا کالا مورد تایید است؟" @bind-Value="SCM_ProductRequestDetails.DeliveredProductApproved" CssClass="" Disabled=true></RadioBoolean>
-
-</DxFormLayoutItem>
-
-<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextSCM_ProductRequestDetails">
-    
-<RadioBoolean @ref="Ref_SCM_ProductRequestDetails_IsEnableNeedModified" InLine=true Id="SCM_ProductRequestDetails_IsEnableNeedModified"   LabelTrue="بله" LabelFalse="خیر" Label="آیا این درخواست اصلاح گردد؟" @bind-Value="SCM_ProductRequestDetails.IsEnableNeedModified" CssClass="" Disabled=true></RadioBoolean>
-
-</DxFormLayoutItem>
-
-<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextSCM_ProductRequestDetails">
-    
-<Input Id="SCM_ProductRequestDetails_ProductDeliveryDateTime" @ref="Ref_SCM_ProductRequestDetails_ProductDeliveryDateTime" Label="تاریخ تحویل کالا"  CssClass=" PersianDatePicker"  Required=true @bind-Value="SCM_ProductRequestDetails.ProductDeliveryDateTime" type="textfield"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"data-jdp\":\"  \"}").Result))></Input>
-
-</DxFormLayoutItem>
-
-<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextSCM_ProductRequestDetails">
-    
-<Input Id="SCM_ProductRequestDetails_NumberofProductDelivery" @ref="Ref_SCM_ProductRequestDetails_NumberofProductDelivery" Label="تعداد یا مقدار واگذاری کالا"  CssClass="Width10rem" Disabled=true  @bind-Value="SCM_ProductRequestDetails.NumberofProductDelivery" type="number"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"step\":\"any\"}").Result))></Input>
-
-</DxFormLayoutItem>
-
-<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextSCM_ProductRequestDetails">
-    
-<Input Id="SCM_ProductRequestDetails_DescriptionWarehouseKeeper" @ref="Ref_SCM_ProductRequestDetails_DescriptionWarehouseKeeper" Label="توضیحات انباردار"  CssClass="Width12rem" Disabled=true  @bind-Value="SCM_ProductRequestDetails.DescriptionWarehouseKeeper" type="textarea"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"maxlength\":\"350\"}").Result))></Input>
-
-</DxFormLayoutItem>
-
-<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextSCM_ProductRequestDetails">
     
 <Input Id="SCM_ProductRequestDetails_Id" @ref="Ref_SCM_ProductRequestDetails_Id"   CssClass="d-none"   @bind-Value="SCM_ProductRequestDetails.Id" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
 
@@ -326,6 +286,72 @@
 <DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextSCM_ProductRequestDetails">
     
 <Input Id="SCM_ProductRequestDetails_IsDelete" @ref="Ref_SCM_ProductRequestDetails_IsDelete"   CssClass="d-none"   @bind-Value="SCM_ProductRequestDetails.IsDelete" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+</DxFormLayoutItem>
+
+<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextSCM_ProductRequestDetails">
+    
+<Input Id="SCM_ProductRequestDetails_ProductCodeText" @ref="Ref_SCM_ProductRequestDetails_ProductCodeText" Label="کد کالا شماران"   Disabled=true  @bind-Value="SCM_ProductRequestDetails.ProductCodeText" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+</DxFormLayoutItem>
+
+<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextSCM_ProductRequestDetails">
+    
+<Input Id="SCM_ProductRequestDetails_ProductUnitText" @ref="Ref_SCM_ProductRequestDetails_ProductUnitText" Label="واحد کالا"   Disabled=true  @bind-Value="SCM_ProductRequestDetails.ProductUnitText" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+</DxFormLayoutItem>
+
+<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextSCM_ProductRequestDetails">
+    
+<Input Id="SCM_ProductRequestDetails_ProductRequestingQTY" @ref="Ref_SCM_ProductRequestDetails_ProductRequestingQTY" Label="تعداد یا مقدار درخواستی"   Disabled=true  @bind-Value="SCM_ProductRequestDetails.ProductRequestingQTY" type="number"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"step\":\"any\"}").Result))></Input>
+
+</DxFormLayoutItem>
+
+<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextSCM_ProductRequestDetails">
+    
+<Input Id="SCM_ProductRequestDetails_PlaceOfUseProduct" @ref="Ref_SCM_ProductRequestDetails_PlaceOfUseProduct" Label="محل مصرف کالا"   Disabled=true  @bind-Value="SCM_ProductRequestDetails.PlaceOfUseProduct" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+</DxFormLayoutItem>
+
+<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextSCM_ProductRequestDetails">
+    
+<Input Id="SCM_ProductRequestDetails_ProductRowDescription" @ref="Ref_SCM_ProductRequestDetails_ProductRowDescription" Label="توضیحات درخواست کننده"   Disabled=true  @bind-Value="SCM_ProductRequestDetails.ProductRowDescription" type="textarea"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+</DxFormLayoutItem>
+
+<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextSCM_ProductRequestDetails">
+    
+<Input Id="SCM_ProductRequestDetails_ProductNameText" @ref="Ref_SCM_ProductRequestDetails_ProductNameText" Label="نام کالا شماران"   Disabled=true  @bind-Value="SCM_ProductRequestDetails.ProductNameText" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+</DxFormLayoutItem>
+
+<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextSCM_ProductRequestDetails">
+    
+<Input Id="SCM_ProductRequestDetails_ProductDeliveryDateTime" @ref="Ref_SCM_ProductRequestDetails_ProductDeliveryDateTime" Label="تاریخ تحویل کالا"  CssClass=" PersianDatePicker"  Required=true @bind-Value="SCM_ProductRequestDetails.ProductDeliveryDateTime" type="textfield"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"data-jdp\":\"  \"}").Result))></Input>
+
+</DxFormLayoutItem>
+
+<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextSCM_ProductRequestDetails">
+    
+<Input Id="SCM_ProductRequestDetails_NumberofProductDelivery" @ref="Ref_SCM_ProductRequestDetails_NumberofProductDelivery" Label="تعداد یا مقدار واگذاری کالا"   Disabled=true  @bind-Value="SCM_ProductRequestDetails.NumberofProductDelivery" type="number"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"step\":\"any\"}").Result))></Input>
+
+</DxFormLayoutItem>
+
+<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextSCM_ProductRequestDetails">
+    
+<Input Id="SCM_ProductRequestDetails_DescriptionWarehouseKeeper" @ref="Ref_SCM_ProductRequestDetails_DescriptionWarehouseKeeper" Label="توضیحات انباردار"   Disabled=true  @bind-Value="SCM_ProductRequestDetails.DescriptionWarehouseKeeper" type="textarea"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"maxlength\":\"350\"}").Result))></Input>
+
+</DxFormLayoutItem>
+
+<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextSCM_ProductRequestDetails">
+    
+<RadioBoolean @ref="Ref_SCM_ProductRequestDetails_DeliveredProductApproved" InLine=true Id="SCM_ProductRequestDetails_DeliveredProductApproved"   LabelTrue="بله" LabelFalse="خیر" Label="آیا کالا مورد تایید است؟" @bind-Value="SCM_ProductRequestDetails.DeliveredProductApproved" CssClass="" Disabled=true></RadioBoolean>
+
+</DxFormLayoutItem>
+
+<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextSCM_ProductRequestDetails">
+    
+<RadioBoolean @ref="Ref_SCM_ProductRequestDetails_IsEnableNeedModified" InLine=true Id="SCM_ProductRequestDetails_IsEnableNeedModified"   LabelTrue="بله" LabelFalse="خیر" Label="آیا این درخواست اصلاح گردد؟" @bind-Value="SCM_ProductRequestDetails.IsEnableNeedModified" CssClass="" Disabled=true></RadioBoolean>
 
 </DxFormLayoutItem>
 
@@ -614,17 +640,6 @@ public void SaveGrid_SCM_ProductRequestDetails(object DataItem, object EditModel
     var MainModel = (Entity.SCM_ProductRequestDetails)DataItem;
     if (MainModel != null)
     {
-MainModel.ProductNameText = ((Entity.SCM_ProductRequestDetails)EditModel).ProductNameText;
-MainModel.ProductCodeText = ((Entity.SCM_ProductRequestDetails)EditModel).ProductCodeText;
-MainModel.ProductUnitText = ((Entity.SCM_ProductRequestDetails)EditModel).ProductUnitText;
-MainModel.ProductRequestingQTY = ((Entity.SCM_ProductRequestDetails)EditModel).ProductRequestingQTY;
-MainModel.ProductRowDescription = ((Entity.SCM_ProductRequestDetails)EditModel).ProductRowDescription;
-MainModel.PlaceOfUseProduct = ((Entity.SCM_ProductRequestDetails)EditModel).PlaceOfUseProduct;
-MainModel.DeliveredProductApproved = ((Entity.SCM_ProductRequestDetails)EditModel).DeliveredProductApproved;
-MainModel.IsEnableNeedModified = ((Entity.SCM_ProductRequestDetails)EditModel).IsEnableNeedModified;
-MainModel.ProductDeliveryDateTime = ((Entity.SCM_ProductRequestDetails)EditModel).ProductDeliveryDateTime;
-MainModel.NumberofProductDelivery = ((Entity.SCM_ProductRequestDetails)EditModel).NumberofProductDelivery;
-MainModel.DescriptionWarehouseKeeper = ((Entity.SCM_ProductRequestDetails)EditModel).DescriptionWarehouseKeeper;
 MainModel.Id = ((Entity.SCM_ProductRequestDetails)EditModel).Id;
 MainModel.RequestID = ((Entity.SCM_ProductRequestDetails)EditModel).RequestID;
 MainModel.CreateUser = ((Entity.SCM_ProductRequestDetails)EditModel).CreateUser;
@@ -632,6 +647,17 @@ MainModel.UpdateUser = ((Entity.SCM_ProductRequestDetails)EditModel).UpdateUser;
 MainModel.CreateDate = ((Entity.SCM_ProductRequestDetails)EditModel).CreateDate;
 MainModel.UpdateDate = ((Entity.SCM_ProductRequestDetails)EditModel).UpdateDate;
 MainModel.IsDelete = ((Entity.SCM_ProductRequestDetails)EditModel).IsDelete;
+MainModel.ProductCodeText = ((Entity.SCM_ProductRequestDetails)EditModel).ProductCodeText;
+MainModel.ProductUnitText = ((Entity.SCM_ProductRequestDetails)EditModel).ProductUnitText;
+MainModel.ProductRequestingQTY = ((Entity.SCM_ProductRequestDetails)EditModel).ProductRequestingQTY;
+MainModel.PlaceOfUseProduct = ((Entity.SCM_ProductRequestDetails)EditModel).PlaceOfUseProduct;
+MainModel.ProductRowDescription = ((Entity.SCM_ProductRequestDetails)EditModel).ProductRowDescription;
+MainModel.ProductNameText = ((Entity.SCM_ProductRequestDetails)EditModel).ProductNameText;
+MainModel.ProductDeliveryDateTime = ((Entity.SCM_ProductRequestDetails)EditModel).ProductDeliveryDateTime;
+MainModel.NumberofProductDelivery = ((Entity.SCM_ProductRequestDetails)EditModel).NumberofProductDelivery;
+MainModel.DescriptionWarehouseKeeper = ((Entity.SCM_ProductRequestDetails)EditModel).DescriptionWarehouseKeeper;
+MainModel.DeliveredProductApproved = ((Entity.SCM_ProductRequestDetails)EditModel).DeliveredProductApproved;
+MainModel.IsEnableNeedModified = ((Entity.SCM_ProductRequestDetails)EditModel).IsEnableNeedModified;
 
     }
     else
@@ -746,28 +772,6 @@ public async void RowDubbleClickGrid_SCM_ProductRequestDetails(GridRowClickEvent
 }
 }
 
-<Input Id="Id" @ref="Ref_Id"   CssClass="d-none"   @bind-Value="_Entity.Id" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
-
-<Input Id="RequestID" @ref="Ref_RequestID"      @bind-Value="_Entity.RequestID" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
-
-<Input Id="CreateUser" @ref="Ref_CreateUser"      @bind-Value="_Entity.CreateUser" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
-
-<Input Id="UpdateUser" @ref="Ref_UpdateUser"      @bind-Value="_Entity.UpdateUser" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
-
-<Input Id="CreateDate" @ref="Ref_CreateDate"   CssClass="d-none"   @bind-Value="_Entity.CreateDate" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
-
-<Input Id="UpdateDate" @ref="Ref_UpdateDate"   CssClass="d-none"   @bind-Value="_Entity.UpdateDate" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
-
-<Input Id="IsDelete" @ref="Ref_IsDelete"   CssClass="d-none"   @bind-Value="_Entity.IsDelete" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
-
-<Input Id="SystemUser" @ref="Ref_SystemUser" Label="کاربر سیستمی"   Disabled=true  @bind-Value="_Entity.SystemUser" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"maxlength\":\"40\"}").Result))></Input>
-
-<Input Id="SystemUnitUser" @ref="Ref_SystemUnitUser" Label="واحد کاربر سیستمی"   Disabled=true  @bind-Value="_Entity.SystemUnitUser" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"maxlength\":\"40\"}").Result))></Input>
-
-<Input Id="SystemSectionUser" @ref="Ref_SystemSectionUser" Label="قسمت کاربر سیستمی"   Disabled=true  @bind-Value="_Entity.SystemSectionUser" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"maxlength\":\"40\"}").Result))></Input>
-
-<Input Id="UserCompanyName" @ref="Ref_UserCompanyName" Label="شرکت کاربر"   Disabled=true  @bind-Value="_Entity.UserCompanyName" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"maxlength\":\"40\"}").Result))></Input>
-
     </EditForm>
 </div>
 
@@ -784,8 +788,8 @@ public async void RowDubbleClickGrid_SCM_ProductRequestDetails(GridRowClickEvent
     {
         Console.WriteLine("#log OnInitializedAsync");
 
-        TableGet = await Utility.JSON.ToObject<Table>("{\"Name\":\"SCM_ProductRequest\",\"GetNameAs\":\"SCM_ProductRequest\",\"Column\":[{\"Name\":\"SystemUser\",\"GetNameAs\":\"SystemUser\"},{\"Name\":\"SystemUnitUser\",\"GetNameAs\":\"SystemUnitUser\"},{\"Name\":\"SystemSectionUser\",\"GetNameAs\":\"SystemSectionUser\"},{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"RequestID\",\"GetNameAs\":\"RequestID\"},{\"Name\":\"CreateUser\",\"GetNameAs\":\"CreateUser\"},{\"Name\":\"UpdateUser\",\"GetNameAs\":\"UpdateUser\"},{\"Name\":\"CreateDate\",\"GetNameAs\":\"CreateDate\"},{\"Name\":\"UpdateDate\",\"GetNameAs\":\"UpdateDate\"},{\"Name\":\"IsDelete\",\"GetNameAs\":\"IsDelete\"},{\"Name\":\"UserCompanyName\",\"GetNameAs\":\"UserCompanyName\"}],\"Relation\":[{\"Name\":\"SCM_ICT_Departments\",\"GetNameAs\":\"SCM_ICT_Departments\",\"ModeErtebat\":1,\"Column\":[{\"Name\":\"Code\",\"GetNameAs\":\"Code\"},{\"Name\":\"Title\",\"GetNameAs\":\"Title\"}],\"Relation\":[]},{\"Name\":\"SCM_ProductRequestDetails\",\"GetNameAs\":\"SCM_ProductRequestDetails\",\"ModeErtebat\":2,\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"RequestID\",\"GetNameAs\":\"RequestID\"},{\"Name\":\"CreateUser\",\"GetNameAs\":\"CreateUser\"},{\"Name\":\"UpdateUser\",\"GetNameAs\":\"UpdateUser\"},{\"Name\":\"CreateDate\",\"GetNameAs\":\"CreateDate\"},{\"Name\":\"UpdateDate\",\"GetNameAs\":\"UpdateDate\"},{\"Name\":\"IsDelete\",\"GetNameAs\":\"IsDelete\"},{\"Name\":\"ProductCodeText\",\"GetNameAs\":\"ProductCodeText\"},{\"Name\":\"ProductUnitText\",\"GetNameAs\":\"ProductUnitText\"},{\"Name\":\"ProductRequestingQTY\",\"GetNameAs\":\"ProductRequestingQTY\"},{\"Name\":\"PlaceOfUseProduct\",\"GetNameAs\":\"PlaceOfUseProduct\"},{\"Name\":\"ProductRowDescription\",\"GetNameAs\":\"ProductRowDescription\"},{\"Name\":\"ProductNameText\",\"GetNameAs\":\"ProductNameText\"},{\"Name\":\"ProductDeliveryDateTime\",\"GetNameAs\":\"ProductDeliveryDateTime\"},{\"Name\":\"NumberofProductDelivery\",\"GetNameAs\":\"NumberofProductDelivery\"},{\"Name\":\"DescriptionWarehouseKeeper\",\"GetNameAs\":\"DescriptionWarehouseKeeper\"},{\"Name\":\"DeliveredProductApproved\",\"GetNameAs\":\"DeliveredProductApproved\"},{\"Name\":\"IsEnableNeedModified\",\"GetNameAs\":\"IsEnableNeedModified\"}],\"Relation\":[]}]}");
-        TablePost = await Utility.JSON.ToObject<Table>("{\"Name\":\"SCM_ProductRequest\",\"GetNameAs\":\"SCM_ProductRequest\",\"Column\":[{\"Name\":\"SystemUser\",\"GetNameAs\":\"SystemUser\"},{\"Name\":\"SystemUnitUser\",\"GetNameAs\":\"SystemUnitUser\"},{\"Name\":\"SystemSectionUser\",\"GetNameAs\":\"SystemSectionUser\"},{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"RequestID\",\"GetNameAs\":\"RequestID\"},{\"Name\":\"CreateUser\",\"GetNameAs\":\"CreateUser\"},{\"Name\":\"UpdateUser\",\"GetNameAs\":\"UpdateUser\"},{\"Name\":\"CreateDate\",\"GetNameAs\":\"CreateDate\"},{\"Name\":\"UpdateDate\",\"GetNameAs\":\"UpdateDate\"},{\"Name\":\"IsDelete\",\"GetNameAs\":\"IsDelete\"},{\"Name\":\"UserCompanyName\",\"GetNameAs\":\"UserCompanyName\"}],\"Relation\":[{\"Name\":\"SCM_ProductRequestDetails\",\"GetNameAs\":\"SCM_ProductRequestDetails\",\"ModeErtebat\":2,\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"RequestID\",\"GetNameAs\":\"RequestID\"},{\"Name\":\"CreateUser\",\"GetNameAs\":\"CreateUser\"},{\"Name\":\"UpdateUser\",\"GetNameAs\":\"UpdateUser\"},{\"Name\":\"CreateDate\",\"GetNameAs\":\"CreateDate\"},{\"Name\":\"UpdateDate\",\"GetNameAs\":\"UpdateDate\"},{\"Name\":\"IsDelete\",\"GetNameAs\":\"IsDelete\"},{\"Name\":\"ProductCodeText\",\"GetNameAs\":\"ProductCodeText\"},{\"Name\":\"ProductUnitText\",\"GetNameAs\":\"ProductUnitText\"},{\"Name\":\"ProductRequestingQTY\",\"GetNameAs\":\"ProductRequestingQTY\"},{\"Name\":\"PlaceOfUseProduct\",\"GetNameAs\":\"PlaceOfUseProduct\"},{\"Name\":\"ProductRowDescription\",\"GetNameAs\":\"ProductRowDescription\"},{\"Name\":\"ProductNameText\",\"GetNameAs\":\"ProductNameText\"},{\"Name\":\"ProductDeliveryDateTime\",\"GetNameAs\":\"ProductDeliveryDateTime\"},{\"Name\":\"NumberofProductDelivery\",\"GetNameAs\":\"NumberofProductDelivery\"},{\"Name\":\"DescriptionWarehouseKeeper\",\"GetNameAs\":\"DescriptionWarehouseKeeper\"},{\"Name\":\"DeliveredProductApproved\",\"GetNameAs\":\"DeliveredProductApproved\"},{\"Name\":\"IsEnableNeedModified\",\"GetNameAs\":\"IsEnableNeedModified\"}],\"Relation\":[]}]}");
+        TableGet = await Utility.JSON.ToObject<Table>("{\"Name\":\"SCM_ProductRequest\",\"GetNameAs\":\"SCM_ProductRequest\",\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"RequestID\",\"GetNameAs\":\"RequestID\"},{\"Name\":\"CreateUser\",\"GetNameAs\":\"CreateUser\"},{\"Name\":\"UpdateUser\",\"GetNameAs\":\"UpdateUser\"},{\"Name\":\"CreateDate\",\"GetNameAs\":\"CreateDate\"},{\"Name\":\"UpdateDate\",\"GetNameAs\":\"UpdateDate\"},{\"Name\":\"IsDelete\",\"GetNameAs\":\"IsDelete\"},{\"Name\":\"SystemUser\",\"GetNameAs\":\"SystemUser\"},{\"Name\":\"SystemUnitUser\",\"GetNameAs\":\"SystemUnitUser\"},{\"Name\":\"SystemSectionUser\",\"GetNameAs\":\"SystemSectionUser\"},{\"Name\":\"UserCompanyName\",\"GetNameAs\":\"UserCompanyName\"}],\"Relation\":[{\"Name\":\"SCM_ICT_Departments\",\"GetNameAs\":\"SCM_ICT_Departments\",\"ModeErtebat\":1,\"Column\":[{\"Name\":\"Code\",\"GetNameAs\":\"Code\"},{\"Name\":\"Title\",\"GetNameAs\":\"Title\"}],\"Relation\":[]},{\"Name\":\"SCM_ProductRequestDetails\",\"GetNameAs\":\"SCM_ProductRequestDetails\",\"ModeErtebat\":2,\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"RequestID\",\"GetNameAs\":\"RequestID\"},{\"Name\":\"CreateUser\",\"GetNameAs\":\"CreateUser\"},{\"Name\":\"UpdateUser\",\"GetNameAs\":\"UpdateUser\"},{\"Name\":\"CreateDate\",\"GetNameAs\":\"CreateDate\"},{\"Name\":\"UpdateDate\",\"GetNameAs\":\"UpdateDate\"},{\"Name\":\"IsDelete\",\"GetNameAs\":\"IsDelete\"},{\"Name\":\"ProductCodeText\",\"GetNameAs\":\"ProductCodeText\"},{\"Name\":\"ProductUnitText\",\"GetNameAs\":\"ProductUnitText\"},{\"Name\":\"ProductRequestingQTY\",\"GetNameAs\":\"ProductRequestingQTY\"},{\"Name\":\"PlaceOfUseProduct\",\"GetNameAs\":\"PlaceOfUseProduct\"},{\"Name\":\"ProductRowDescription\",\"GetNameAs\":\"ProductRowDescription\"},{\"Name\":\"ProductNameText\",\"GetNameAs\":\"ProductNameText\"},{\"Name\":\"ProductDeliveryDateTime\",\"GetNameAs\":\"ProductDeliveryDateTime\"},{\"Name\":\"NumberofProductDelivery\",\"GetNameAs\":\"NumberofProductDelivery\"},{\"Name\":\"DescriptionWarehouseKeeper\",\"GetNameAs\":\"DescriptionWarehouseKeeper\"},{\"Name\":\"DeliveredProductApproved\",\"GetNameAs\":\"DeliveredProductApproved\"},{\"Name\":\"IsEnableNeedModified\",\"GetNameAs\":\"IsEnableNeedModified\"}],\"Relation\":[]}]}");
+        TablePost = await Utility.JSON.ToObject<Table>("{\"Name\":\"SCM_ProductRequest\",\"GetNameAs\":\"SCM_ProductRequest\",\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"RequestID\",\"GetNameAs\":\"RequestID\"},{\"Name\":\"CreateUser\",\"GetNameAs\":\"CreateUser\"},{\"Name\":\"UpdateUser\",\"GetNameAs\":\"UpdateUser\"},{\"Name\":\"CreateDate\",\"GetNameAs\":\"CreateDate\"},{\"Name\":\"UpdateDate\",\"GetNameAs\":\"UpdateDate\"},{\"Name\":\"IsDelete\",\"GetNameAs\":\"IsDelete\"},{\"Name\":\"SystemUser\",\"GetNameAs\":\"SystemUser\"},{\"Name\":\"SystemUnitUser\",\"GetNameAs\":\"SystemUnitUser\"},{\"Name\":\"SystemSectionUser\",\"GetNameAs\":\"SystemSectionUser\"},{\"Name\":\"UserCompanyName\",\"GetNameAs\":\"UserCompanyName\"}],\"Relation\":[{\"Name\":\"SCM_ProductRequestDetails\",\"GetNameAs\":\"SCM_ProductRequestDetails\",\"ModeErtebat\":2,\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"RequestID\",\"GetNameAs\":\"RequestID\"},{\"Name\":\"CreateUser\",\"GetNameAs\":\"CreateUser\"},{\"Name\":\"UpdateUser\",\"GetNameAs\":\"UpdateUser\"},{\"Name\":\"CreateDate\",\"GetNameAs\":\"CreateDate\"},{\"Name\":\"UpdateDate\",\"GetNameAs\":\"UpdateDate\"},{\"Name\":\"IsDelete\",\"GetNameAs\":\"IsDelete\"},{\"Name\":\"ProductCodeText\",\"GetNameAs\":\"ProductCodeText\"},{\"Name\":\"ProductUnitText\",\"GetNameAs\":\"ProductUnitText\"},{\"Name\":\"ProductRequestingQTY\",\"GetNameAs\":\"ProductRequestingQTY\"},{\"Name\":\"PlaceOfUseProduct\",\"GetNameAs\":\"PlaceOfUseProduct\"},{\"Name\":\"ProductRowDescription\",\"GetNameAs\":\"ProductRowDescription\"},{\"Name\":\"ProductNameText\",\"GetNameAs\":\"ProductNameText\"},{\"Name\":\"ProductDeliveryDateTime\",\"GetNameAs\":\"ProductDeliveryDateTime\"},{\"Name\":\"NumberofProductDelivery\",\"GetNameAs\":\"NumberofProductDelivery\"},{\"Name\":\"DescriptionWarehouseKeeper\",\"GetNameAs\":\"DescriptionWarehouseKeeper\"},{\"Name\":\"DeliveredProductApproved\",\"GetNameAs\":\"DeliveredProductApproved\"},{\"Name\":\"IsEnableNeedModified\",\"GetNameAs\":\"IsEnableNeedModified\"}],\"Relation\":[]}]}");
 
         config = CKEditorBundleOptions.DefaultConfig.WithHtmlEditing();
         config.Language = "fa";

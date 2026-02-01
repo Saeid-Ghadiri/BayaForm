@@ -144,7 +144,7 @@ namespace Forms.Forms
     /// <summary>
     ///  ورژنی که فرم باهاش ساخته شده
     /// </summary>
-    public string? VersionForm { get; set; } = "5603";
+    public string? VersionForm { get; set; } = "5622";
 
     /// <summary>
     ///  موجودیت
@@ -184,21 +184,14 @@ public Input<string?> Ref_UserCompanyName;
 public Input<string?> Ref_SystemUnitUser;
 public Input<string?> Ref_SystemSectionUser;
 public Input<Guid> Ref_Id;
+public Input<Guid?> Ref_RequestID;
+public Input<Guid?> Ref_CreateUser;
+public Input<Guid?> Ref_UpdateUser;
+public Input<DateTime?> Ref_CreateDate;
+public Input<DateTime?> Ref_UpdateDate;
+public Input<bool?> Ref_IsDelete;
 public DxGrid? Grid_SCM_ProductRequestDetails;
 
-public Input<string?> Ref_SCM_ProductRequestDetails_ProductNameText;
-public Input<string?> Ref_SCM_ProductRequestDetails_ProductUnitText;
-public Dropdown Ref_SCM_ProductRequestDetails_SCM_PriorityId;
-public Input<string?> Ref_SCM_ProductRequestDetails_PlaceOfUseProduct;
-public Input<string?> Ref_SCM_ProductRequestDetails_ProductRowDescription;
-public RadioBoolean Ref_SCM_ProductRequestDetails_ForeignMachineryProductTrueFasle;
-public Input<double?> Ref_SCM_ProductRequestDetails_DeficitSupplyNumber;
-public RadioBoolean Ref_SCM_ProductRequestDetails_InquiryTrueFalse;
-public FileUploadPage.Uploader<Entity.SCM_ProductRequestDetails_InquiryFirst> Ref_SCM_ProductRequestDetails_SCM_ProductRequestDetails_InquiryFirst;
-public FileUploadPage.Uploader<Entity.SCM_ProductRequestDetails_InquirySecondFile> Ref_SCM_ProductRequestDetails_SCM_ProductRequestDetails_InquirySecondFile;
-public FileUploadPage.Uploader<Entity.SCM_ProductRequestDetails_InquiryThirdFile> Ref_SCM_ProductRequestDetails_SCM_ProductRequestDetails_InquiryThirdFile;
-public Input<string?> Ref_SCM_ProductRequestDetails_ConfirmationOfTheInquiryTechnicalManager;
-public Input<string?> Ref_SCM_ProductRequestDetails_ConfirmationOfTheInquiryLogistics;
 public Input<Guid> Ref_SCM_ProductRequestDetails_Id;
 public Input<Guid?> Ref_SCM_ProductRequestDetails_RequestID;
 public Input<Guid?> Ref_SCM_ProductRequestDetails_CreateUser;
@@ -206,12 +199,19 @@ public Input<Guid?> Ref_SCM_ProductRequestDetails_UpdateUser;
 public Input<DateTime?> Ref_SCM_ProductRequestDetails_CreateDate;
 public Input<DateTime?> Ref_SCM_ProductRequestDetails_UpdateDate;
 public Input<bool?> Ref_SCM_ProductRequestDetails_IsDelete;
-public Input<Guid?> Ref_RequestID;
-public Input<Guid?> Ref_CreateUser;
-public Input<Guid?> Ref_UpdateUser;
-public Input<DateTime?> Ref_CreateDate;
-public Input<DateTime?> Ref_UpdateDate;
-public Input<bool?> Ref_IsDelete;
+public Input<string?> Ref_SCM_ProductRequestDetails_ProductUnitText;
+public Dropdown Ref_SCM_ProductRequestDetails_SCM_PriorityId;
+public Input<string?> Ref_SCM_ProductRequestDetails_PlaceOfUseProduct;
+public Input<string?> Ref_SCM_ProductRequestDetails_ProductRowDescription;
+public Input<string?> Ref_SCM_ProductRequestDetails_ProductNameText;
+public RadioBoolean Ref_SCM_ProductRequestDetails_ForeignMachineryProductTrueFasle;
+public RadioBoolean Ref_SCM_ProductRequestDetails_InquiryTrueFalse;
+public Input<double?> Ref_SCM_ProductRequestDetails_DeficitSupplyNumber;
+public FileUploadPage.Uploader<Entity.SCM_ProductRequestDetails_InquiryFirst> Ref_SCM_ProductRequestDetails_SCM_ProductRequestDetails_InquiryFirst;
+public FileUploadPage.Uploader<Entity.SCM_ProductRequestDetails_InquirySecondFile> Ref_SCM_ProductRequestDetails_SCM_ProductRequestDetails_InquirySecondFile;
+public FileUploadPage.Uploader<Entity.SCM_ProductRequestDetails_InquiryThirdFile> Ref_SCM_ProductRequestDetails_SCM_ProductRequestDetails_InquiryThirdFile;
+public Input<string?> Ref_SCM_ProductRequestDetails_ConfirmationOfTheInquiryTechnicalManager;
+public Input<string?> Ref_SCM_ProductRequestDetails_ConfirmationOfTheInquiryLogistics;
 
 
     #endregion

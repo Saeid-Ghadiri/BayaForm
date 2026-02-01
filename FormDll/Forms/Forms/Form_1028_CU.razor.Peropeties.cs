@@ -144,7 +144,7 @@ namespace Forms.Forms
     /// <summary>
     ///  ورژنی که فرم باهاش ساخته شده
     /// </summary>
-    public string? VersionForm { get; set; } = "5603";
+    public string? VersionForm { get; set; } = "5622";
 
     /// <summary>
     ///  موجودیت
@@ -195,18 +195,6 @@ public Dropdown Ref_InvCode;
 public Dropdown Ref_NBARGASHT;
 public Input<string?> Ref_Note;
 public Input<int?> Ref_Year;
-public DxGrid? Grid_SH_Petco_FactbBuyDetail;
-
-public Dropdown Ref_SH_Petco_FactbBuyDetail_ProductSearch;
-public Input<string?> Ref_SH_Petco_FactbBuyDetail_PartCode;
-public Input<string?> Ref_SH_Petco_FactbBuyDetail_ProductName;
-public Input<string?> Ref_SH_Petco_FactbBuyDetail_ShomareFani;
-public Input<decimal?> Ref_SH_Petco_FactbBuyDetail_Amount;
-public Input<string?> Ref_SH_Petco_FactbBuyDetail_Unit;
-public Input<string?> Ref_SH_Petco_FactbBuyDetail_Radyabi;
-public Input<string?> Ref_SH_Petco_FactbBuyDetail_Sefaresh;
-public Input<int?> Ref_SH_Petco_FactbBuyDetail_Year;
-public Input<int?> Ref_SH_Petco_FactbBuyDetail_RowId;
 public Input<string?> Ref_ApiResult;
 public Input<Guid?> Ref_RequestID;
 public Input<Guid?> Ref_CreateUser;
@@ -214,6 +202,18 @@ public Input<Guid?> Ref_UpdateUser;
 public Input<DateTime?> Ref_CreateDate;
 public Input<DateTime?> Ref_UpdateDate;
 public Input<bool?> Ref_IsDelete;
+public DxGrid? Grid_SH_Petco_FactbBuyDetail;
+
+public Dropdown Ref_SH_Petco_FactbBuyDetail_ProductSearch;
+public Input<string?> Ref_SH_Petco_FactbBuyDetail_ShomareFani;
+public Input<string?> Ref_SH_Petco_FactbBuyDetail_ProductName;
+public Input<string?> Ref_SH_Petco_FactbBuyDetail_Unit;
+public Input<string?> Ref_SH_Petco_FactbBuyDetail_PartCode;
+public Input<decimal?> Ref_SH_Petco_FactbBuyDetail_Amount;
+public Input<string?> Ref_SH_Petco_FactbBuyDetail_Radyabi;
+public Input<string?> Ref_SH_Petco_FactbBuyDetail_Sefaresh;
+public Input<int?> Ref_SH_Petco_FactbBuyDetail_RowId;
+public Input<int?> Ref_SH_Petco_FactbBuyDetail_Year;
 
 
     #endregion

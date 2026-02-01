@@ -144,7 +144,7 @@ namespace Forms.Forms
     /// <summary>
     ///  ورژنی که فرم باهاش ساخته شده
     /// </summary>
-    public string? VersionForm { get; set; } = "5603";
+    public string? VersionForm { get; set; } = "5622";
 
     /// <summary>
     ///  موجودیت
@@ -195,25 +195,25 @@ public Dropdown Ref_PARTKIND;
 public Input<string?> Ref_NOTE;
 public Input<int?> Ref_YEAR;
 public Input<int?> Ref_ORDERYEAR;
-public DxGrid? Grid_SH_Petco_FactBuyDetail;
-
-public Dropdown Ref_SH_Petco_FactBuyDetail_ProductSearch;
-public Input<string?> Ref_SH_Petco_FactBuyDetail_ProductName;
-public Input<string?> Ref_SH_Petco_FactBuyDetail_PARTCODE;
-public Input<string?> Ref_SH_Petco_FactBuyDetail_ShomareFani;
-public Input<decimal?> Ref_SH_Petco_FactBuyDetail_AMOUNT;
-public Input<string?> Ref_SH_Petco_FactBuyDetail_ProductUnit;
-public Input<string?> Ref_SH_Petco_FactBuyDetail_NoteD;
-public Input<string?> Ref_SH_Petco_FactBuyDetail_RADYABI;
-public Input<string?> Ref_SH_Petco_FactBuyDetail_SEFARESH;
-public Input<int?> Ref_SH_Petco_FactBuyDetail_YEAR;
-public Input<int?> Ref_SH_Petco_FactBuyDetail_ROW_ID;
 public Input<Guid?> Ref_RequestID;
 public Input<Guid?> Ref_CreateUser;
 public Input<Guid?> Ref_UpdateUser;
 public Input<DateTime?> Ref_CreateDate;
 public Input<DateTime?> Ref_UpdateDate;
 public Input<bool?> Ref_IsDelete;
+public DxGrid? Grid_SH_Petco_FactBuyDetail;
+
+public Dropdown Ref_SH_Petco_FactBuyDetail_ProductSearch;
+public Input<string?> Ref_SH_Petco_FactBuyDetail_ProductName;
+public Input<string?> Ref_SH_Petco_FactBuyDetail_ProductUnit;
+public Input<string?> Ref_SH_Petco_FactBuyDetail_PARTCODE;
+public Input<decimal?> Ref_SH_Petco_FactBuyDetail_AMOUNT;
+public Input<string?> Ref_SH_Petco_FactBuyDetail_RADYABI;
+public Input<string?> Ref_SH_Petco_FactBuyDetail_SEFARESH;
+public Input<int?> Ref_SH_Petco_FactBuyDetail_ROW_ID;
+public Input<int?> Ref_SH_Petco_FactBuyDetail_YEAR;
+public Input<string?> Ref_SH_Petco_FactBuyDetail_NoteD;
+public Input<string?> Ref_SH_Petco_FactBuyDetail_ShomareFani;
 
 
     #endregion
