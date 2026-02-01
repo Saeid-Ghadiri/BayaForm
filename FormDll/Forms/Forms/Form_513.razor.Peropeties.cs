@@ -144,7 +144,7 @@ namespace Forms.Forms
     /// <summary>
     ///  ورژنی که فرم باهاش ساخته شده
     /// </summary>
-    public string? VersionForm { get; set; } = "5584";
+    public string? VersionForm { get; set; } = "5603";
 
     /// <summary>
     ///  موجودیت
@@ -202,6 +202,8 @@ public Input<double?> Ref_SCMPLATE_ProductRequestDetails_DeficitSupplyNumber;
 public Input<double?> Ref_SCMPLATE_ProductRequestDetails_NumberofGoodsDelivery;
 public Input<int?> Ref_SCMPLATE_ProductRequestDetails_GetDeliveryCode;
 public RadioBoolean Ref_SCMPLATE_ProductRequestDetails_HasOrderPoint;
+public Input<int?> Ref_SCMPLATE_ProductRequestDetails_OldBuyCount;
+public Input<string?> Ref_SCMPLATE_ProductRequestDetails_OldBuyDate;
 public Input<string?> Ref_SCMPLATE_ProductRequestDetails_DateTimeDeliveryCode;
 public RadioBoolean Ref_SCMPLATE_ProductRequestDetails_GoodsDeliveryIsEnable;
 public RadioBoolean Ref_SCMPLATE_ProductRequestDetails_DeficitSupplyIsEnable;

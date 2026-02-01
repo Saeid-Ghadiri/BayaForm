@@ -348,13 +348,7 @@ namespace Forms.Forms
 		#region HR_EMP_EmployeesId Selected
 		/// <summary>
 		/// وقتی کارمند انتخاب می‌شود، فقط همسر همان کارمند را در دراپ‌دان خانواده لود می‌کند.
-		/// فیلتر بر اساس:
-		/// 1- HR_EMP_EmployeesId (کارمند)
-		/// 2- HR_FamilyRelationshipId = همسر
-		/// وقتی کارمند انتخاب شد، بر اساس نوع صاحب حساب (AccHolderType)
-		/// داده‌های مناسب را در دراپ‌دان‌ها لود می‌کند.
 		/// </summary>
-		/// <param name="Selected">آیتم انتخاب شده در دراپ‌دان کارمند</param>
 		public async Task HR_EMP_EmployeesId_onitemselected(dynamic Selected)
 		{
 			Console.WriteLine("======================================");
@@ -379,7 +373,7 @@ namespace Forms.Forms
 			}
 
 			// =====================
-			// بررسی نوع صاحب حساب - نرمال‌سازی به حروف بزرگ ✅
+			// بررسی نوع صاحب حساب - نرمال‌سازی به حروف بزرگ
 			// =====================
 			string accType = _Entity.HR_Base_AccountHolderTypeId?.ToString()?.ToUpper();
 			Console.WriteLine("#Log: AccHolderType (normalized) = " + accType);
@@ -414,13 +408,14 @@ namespace Forms.Forms
 			{
 				Console.WriteLine("#Log: AccHolderType = Spouse -> load Spouse data");
 
-				// دراپ‌دان‌ها نمایش داده می‌شوند 
+				// مطمئن شویم که دراپ‌دان‌ها نمایش داده می‌شوند
 				Ref_HR_EMP_EmployeesId?.SetVisible(true);
 				Ref_HR_EMP_EmployeeFamileisId?.SetVisible(true);
 				await InvokeAsync(StateHasChanged);
 
 				// شناسه رابطه "همسر"
 				string WifeRelationId = "F6710783-B11E-F011-A502-005056A2B6BD";
+				Console.WriteLine($"#Log: WifeRelationId = {WifeRelationId}");
 
 				// Table مجازی (با Relation)
 				var TablePost = new Baya.Models.ORM.Table
@@ -432,7 +427,9 @@ namespace Forms.Forms
 						new Coulmn { Name = "Id", NameAs = "Id" },
 						new Coulmn { Name = "HR_EMP_EmployeesId", NameAs = "HR_EMP_EmployeesId" },
 						new Coulmn { Name = "HR_FamilyRelationshipId", NameAs = "HR_FamilyRelationshipId" },
-						new Coulmn { Name = "FullName", NameAs = "FullName" }
+						new Coulmn { Name = "FirstName", NameAs = "FirstName" },
+						new Coulmn { Name = "LastName", NameAs = "LastName" },
+						new Coulmn { Name = "NationalCode", NameAs = "NationalCode" },
 					},
 					Relation = new List<Baya.Models.ORM.Table>
 					{
@@ -444,14 +441,14 @@ namespace Forms.Forms
 							Column = new List<Coulmn>
 							{
 								new Coulmn { Name = "Id", NameAs = "Id" },
-								new Coulmn { Name = "Title", NameAs = "Title" }
+								new Coulmn { Name = "Title", NameAs = "Title" },
 							}
 						}
 					}
 				};
 
 				// Query
-				var NewQuery = new QueryBuilderFilterRule
+				var Filter = new QueryBuilderFilterRule
 				{
 					Condition = "AND",
 					Rules = new List<QueryBuilderFilterRule>
@@ -473,7 +470,7 @@ namespace Forms.Forms
 					}
 				};
 
-				Console.WriteLine("#Log: Filter = " + await Utility.JSON.ToJson(NewQuery));
+				Console.WriteLine("#Log: Filter = " + await Utility.JSON.ToJson(Filter));
 
 				Baya.Models.ORM.PagedResult Pager = new()
 				{
@@ -481,30 +478,85 @@ namespace Forms.Forms
 					PageNumber = 1,
 				};
 
-				var Model = await ApiServer.External.Services.Data.GetListPost(
-					Table: TablePost,
-					Filter: NewQuery,
-					Pagination: Pager,
-					Entity: "HR_EMP_EmployeeFamileis"
-				);
-
-				if (Model?.Status == HttpStatusCode.OK && !string.IsNullOrEmpty(Model.Content?.ToString()))
+				//Entity.HR_EMP_EmployeeFamileis fam = new();
+				
+				try
 				{
-					try
+					string tableJson = await Utility.JSON.ToJson(TablePost);
+					string filterJson = await Utility.JSON.ToJson(Filter);
+
+					Console.WriteLine("======================================");
+					Console.WriteLine("📤 API REQUEST DETAILS:");
+					Console.WriteLine("======================================");
+					Console.WriteLine($"Table JSON: {tableJson}");
+					Console.WriteLine($"Filter JSON: {filterJson}");
+					Console.WriteLine($"Entity: HR_EMP_EmployeeFamileis");
+					Console.WriteLine("======================================");
+
+					var Model = await ApiServer.External.Services.Data.GetListPost(
+						Table: TablePost,
+						Filter: Filter,
+						Pagination: Pager,
+						Entity: "HR_EMP_EmployeeFamileis"
+					);
+
+					Console.WriteLine($"#Log: Model Status = {Model.Status}");
+					Console.WriteLine($"#Log: Model Content = {Model.Content}");
+					Console.WriteLine($"#Log: Model Message = {Model.Message}");
+
+					// ✅ بررسی کامل پاسخ API
+					if (Model == null)
 					{
-						Console.WriteLine("#Log: Spouse data received");
-						Ref_HR_EMP_EmployeeFamileisId?.LoadData(Model.Content.ToString());
-						await InvokeAsync(StateHasChanged);
+						Console.WriteLine("#Log: ❌ Model is NULL - API call failed completely");
+						await _MSG.ShowError("خطا در برقراری ارتباط با سرور");
+						return;
 					}
-					catch (Exception ex)
+
+					if (Model.Status == HttpStatusCode.OK)
 					{
-						Console.WriteLine($"💥 Error processing spouse data: {ex.Message}");
+						if (string.IsNullOrEmpty(Model.Content?.ToString()))
+						{
+							Console.WriteLine("#Log: ⚠️ No spouse data found (empty content)");
+							await _MSG.ShowWarning("هیچ همسری برای این کارمند پیدا نشد");
+							return;
+						}
+
+						try
+						{
+							Console.WriteLine("#Log: ✅ Spouse data received, loading into dropdown");
+							//Ref_HR_EMP_EmployeeFamileisId?.LoadData(Model.Content.ToString());
+							//Ref_HR_EMP_EmployeeFamileisId?.LoadData();
+							Ref_HR_EMP_EmployeeFamileisId?.Search(Filter);
+							await InvokeAsync(StateHasChanged);
+						}
+						catch (Exception ex)
+						{
+							Console.WriteLine($"💥 Error loading spouse data into dropdown: {ex.Message}");
+							Console.WriteLine($"Stack Trace: {ex.StackTrace}");
+							await _MSG.ShowError("خطا در نمایش داده‌های همسر");
+						}
+					}
+					else
+					{
+						Console.WriteLine($"❌ API returned error status: {Model.Status}");
+						await _MSG.ShowError($"خطا از سرور: {Model.Status}");
 					}
 				}
-				else
+				catch (Exception ex)
 				{
-					Console.WriteLine($"❌ Error loading spouse data, Status={Model?.Status}");
-					await _MSG.ShowWarning("هیچ همسری برای این کارمند پیدا نشد");
+					// ✅ لاگ کامل خطا
+					Console.WriteLine("======================================");
+					Console.WriteLine("💥 API ERROR DETAILS:");
+					Console.WriteLine("======================================");
+					Console.WriteLine($"Exception Message: {ex.Message}");
+					Console.WriteLine($"Inner Exception: {ex.InnerException?.Message}");
+					Console.WriteLine($"Stack Trace: {ex.StackTrace}");
+					Console.WriteLine("======================================");
+
+
+					//Console.WriteLine($"💥 Exception during API call: {ex.Message}");
+					//Console.WriteLine($"Stack Trace: {ex.StackTrace}");
+					await _MSG.ShowError("خطا در دریافت داده‌ها از سرور");
 				}
 
 				return;
@@ -517,7 +569,6 @@ namespace Forms.Forms
 
 			Ref_HR_EMP_EmployeesId?.SetVisible(false);
 			Ref_HR_EMP_EmployeeFamileisId?.SetVisible(false);
-
 			await InvokeAsync(StateHasChanged);
 		}
 		#endregion

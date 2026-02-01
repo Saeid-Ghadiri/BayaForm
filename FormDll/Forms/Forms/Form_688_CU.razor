@@ -132,6 +132,304 @@
 .lrt-input input {
     direction: ltr !important;
 }
+
+/* ************************************************** */
+/* ========================================
+   Main Container
+   ======================================== */
+#bankAccountGuide {
+    background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+    border-radius: 16px;
+    padding: 25px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    box-shadow: 0 6px 16px rgba(0,0,0,0.05);
+    border: 1px solid #dee2e6;
+    height: 550px;
+    max-height: 550px;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+/* ========================================
+   Scrollbar Styling
+   ======================================== */
+#bankAccountGuide::-webkit-scrollbar {
+    width: 8px;
+}
+#bankAccountGuide::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 10px;
+}
+#bankAccountGuide::-webkit-scrollbar-thumb {
+    background: #1b3b5f;
+    border-radius: 10px;
+    transition: background 0.3s;
+}
+#bankAccountGuide::-webkit-scrollbar-thumb:hover {
+    background: #39609b;
+}
+
+/* ========================================
+   Header Section
+   ======================================== */
+.guide-header {
+    text-align: center;
+    padding-bottom: 15px;
+    border-bottom: 2px solid #4a90e2;
+}
+.guide-header h2 {
+    margin: 0;
+    font-size: 22px;
+    font-weight: 700;
+    color: #2c3e50;
+    letter-spacing: -0.5px;
+}
+.guide-header p {
+    margin: 8px 0 0;
+    font-size: 13px;
+    color: #6c757d;
+    font-weight: 500;
+}
+
+/* ========================================
+   Guide Steps
+   ======================================== */
+.guide-step {
+    background: white;
+    border-radius: 12px;
+    padding: 18px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+.step-title {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 12px;
+}
+.step-number {
+    background: #4a90e2;
+    color: white;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 14px;
+}
+.step-title h3 {
+    margin: 0;
+    font-size: 16px;
+    font-weight: 700;
+    color: #2c3e50;
+}
+.step-account-type { border-left: 4px solid #4a90e2; }
+.step-employee-spouse { border-left: 4px solid #e27d60; }
+.step-bank-info { border-left: 4px solid #85ad88; }
+.step-category-bank { border-left: 4px solid #6a4c93; }
+
+/* ========================================
+   Step Content
+   ======================================== */
+.step-content {
+    padding: 12px;
+    border-radius: 8px;
+    margin-top: 10px;
+}
+.step-content ul {
+    margin: 0;
+    padding-right: 20px;
+    line-height: 1.7;
+}
+.step-content li {
+    margin-bottom: 4px;
+}
+.nested-list {
+    margin: 8px 0 0 !important;
+    padding-right: 25px !important;
+}
+.info-blue { background: #e3f2fd; color: #1565c0; }
+.info-red { background: #ffebee; color: #c62828; }
+.info-green { background: #f1f8e9; color: #2e7d32; }
+.info-purple { background: #f3e5f5; color: #4a148c; }
+
+/* ========================================
+   Step Notes
+   ======================================== */
+.step-note {
+    margin-top: 12px;
+    padding: 10px 12px;
+    border-radius: 8px;
+    border-right: 3px solid;
+}
+.step-note strong {
+    display: block;
+    margin-bottom: 4px;
+}
+.step-note p {
+    margin: 0;
+    font-size: 12px;
+    line-height: 1.6;
+}
+.warning {
+    background: #fff8e1;
+    border-right-color: #ffc107;
+    color: #e65100;
+}
+.success {
+    background: #e8f5e9;
+    border-right-color: #4caf50;
+    color: #1b5e20;
+}
+
+/* ========================================
+   Format Table
+   ======================================== */
+.format-table {
+    width: 100%;
+    font-size: 13px;
+    border-collapse: collapse;
+}
+.format-table th {
+    padding: 10px;
+    background: #c8e6c9;
+    text-align: right;
+    font-weight: bold;
+    color: #1b5e20;
+}
+.format-table td {
+    padding: 8px;
+    border-bottom: 1px solid #c8e6c9;
+}
+.format-table tr:last-child td {
+    border-bottom: none;
+}
+.format-table .code {
+    direction: ltr;
+    font-family: 'Courier New', monospace;
+    font-size: 12px;
+}
+
+/* ========================================
+   Final Notes Section
+   ======================================== */
+.guide-final-notes {
+    background: linear-gradient(135deg, #2c3e50, #1a252f);
+    border-radius: 12px;
+    padding: 20px;
+    color: white;
+    margin-top: 10px;
+}
+.guide-final-notes h3 {
+    margin: 0 0 12px;
+    font-size: 16px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+.guide-final-notes ul {
+    margin: 0;
+    padding-right: 25px;
+    font-size: 13px;
+    line-height: 1.8;
+}
+.guide-final-notes li {
+    margin-bottom: 6px;
+}
+.required {
+    color: #ff6b6b;
+}
+.responsibility-note {
+    margin-top: 15px;
+    padding: 12px;
+    background: rgba(255,255,255,0.1);
+    border-radius: 8px;
+    border-left: 3px solid #ff6b6b;
+}
+.responsibility-note strong {
+    display: block;
+    margin-bottom: 6px;
+}
+.responsibility-note span {
+    font-size: 12px;
+    opacity: 0.9;
+}
+
+/* ========================================
+   Quick Reference Card
+   ======================================== */
+.guide-quick-reference {
+    background: white;
+    border-radius: 12px;
+    padding: 15px;
+    border: 2px solid #4a90e2;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    margin-bottom: 10px;
+}
+.quick-ref-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+.quick-ref-icon {
+    background: #4a90e2;
+    color: white;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 12px;
+}
+.quick-ref-header strong {
+    color: #2c3e50;
+    font-size: 14px;
+}
+.quick-ref-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 10px;
+    font-size: 12px;
+}
+.quick-ref-item {
+    padding: 8px;
+    border-radius: 6px;
+    text-align: center;
+}
+.quick-ref-item:nth-child(1) { background: #e3f2fd; }
+.quick-ref-item:nth-child(2) { background: #e8f5e9; }
+.quick-ref-item:nth-child(3) { background: #fff3e0; }
+.quick-ref-item:nth-child(4) { background: #f3e5f5; }
+.ref-title {
+    font-weight: bold;
+    margin-bottom: 4px;
+}
+.quick-ref-item:nth-child(1) .ref-title { color: #1565c0; }
+.quick-ref-item:nth-child(2) .ref-title { color: #2e7d32; }
+.quick-ref-item:nth-child(3) .ref-title { color: #e65100; }
+.quick-ref-item:nth-child(4) .ref-title { color: #4a148c; }
+.ref-desc {
+    color: #546e7a;
+    font-size: 11px;
+}
+
+/* ========================================
+   Code Tag
+   ======================================== */
+code {
+    background: #fff3e0;
+    padding: 2px 6px;
+    border-radius: 3px;
+    font-family: 'Courier New', monospace;
+    font-size: 12px;
+}
 </style>
 
 <Plugins.Tools.ConfirmDialog @ref="Confirm" />
@@ -168,11 +466,11 @@
 
 <div class="row ">
     
-<div class="col-md-6">
+<div class="col-md-4">
      
  
 @code {
-    Baya.Models.ViewEngine.View_Component Component_HR_Base_BankAccountHR_Base_AccountHolderTypeId = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"EntityName\":\"حساب بانکی\",\"primaryKey\":false,\"EntityID\":357,\"FieldId\":31536,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":688,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":false,\"RelationParentName\":\"HR_Base_AccountHolderType\",\"RelationParentModel\":\"HR_Base_AccountHolderType\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/HR_Base_AccountHolderType/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.Title}} </span>\",\"FieldsTemplate\":[{\"key\":\"Title\",\"value\":\"nvarchar(Max)\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"searchField\":\"Title\",\"disabled\":false,\"modal\":true,\"label\":\"نوع دارنده حساب\",\"tableView\":true,\"key\":\"HR_Base_AccountHolderTypeId\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"31536?EId=357&SubId=15\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true,\"onitemselected\":\"HR_Base_AccountHolderTypeId_onitemselected\"}").Result;
+    Baya.Models.ViewEngine.View_Component Component_HR_Base_BankAccountHR_Base_AccountHolderTypeId = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"EntityName\":\"حساب بانکی\",\"primaryKey\":false,\"EntityID\":357,\"FieldId\":31536,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":688,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":false,\"RelationParentName\":\"HR_Base_AccountHolderType\",\"RelationParentModel\":\"HR_Base_AccountHolderType\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/HR_Base_AccountHolderType/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.Title}} </span>\",\"FieldsTemplate\":[{\"key\":\"Title\",\"value\":\"nvarchar(Max)\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"searchField\":\"Title\",\"modal\":true,\"label\":\"نوع دارنده حساب\",\"tableView\":true,\"key\":\"HR_Base_AccountHolderTypeId\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"31536?EId=357&SubId=15\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true,\"onitemselected\":\"HR_Base_AccountHolderTypeId_onitemselected\"}").Result;
 }
 
     <Dropdown Id=HR_Base_AccountHolderTypeId  @ref="Ref_HR_Base_AccountHolderTypeId" Label="نوع دارنده حساب" CssClass=""  DisplayFormat="DropDown" ExternalApi=false NotMapped=false TextGrid=false Text="" Value="@_Entity.HR_Base_AccountHolderTypeId" FieldName="HR_Base_AccountHolderTypeId" OnItemSelected="ItemSelected_HR_Base_BankAccountHR_Base_AccountHolderTypeId" Component="Component_HR_Base_BankAccountHR_Base_AccountHolderTypeId" _Entity="_Entity" >
@@ -206,10 +504,14 @@
     await HR_Base_AccountHolderTypeId_onitemselected( Selected);
     }
 } 
- 
+
+</div>
+
+<div class="col-md-4">
+     
  
 @code {
-    Baya.Models.ViewEngine.View_Component Component_HR_Base_BankAccountHR_EMP_EmployeesId = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"EntityName\":\"حساب بانکی\",\"primaryKey\":false,\"EntityID\":357,\"FieldId\":15252,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":688,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":true,\"RelationParentName\":\"HR_EMP_Employees\",\"RelationParentModel\":\"HR_EMP_Employees\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/View_HR_EMP_Employees/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"inputFormat\":\"DropDown\",\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.BaseInfo_ORG_CompaniesTitle}} {{item.EmployeeNo}} {{item.FirstName}} {{item.LastName}} </span>\",\"FieldsTemplate\":[{\"key\":\"EmployeeNo\",\"value\":\"nvarchar(Max)\"},{\"key\":\"FirstName\",\"value\":\"nvarchar(Max)\"},{\"key\":\"LastName\",\"value\":\"nvarchar(Max)\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"searchField\":\"EmployeeNo,FirstName,LastName\",\"disabled\":false,\"modal\":true,\"label\":\"اطلاعات کارمند\",\"tableView\":true,\"key\":\"HR_EMP_EmployeesId\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"15252?EId=357&SubId=15\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true,\"onitemselected\":\"HR_EMP_EmployeesId_onitemselected\"}").Result;
+    Baya.Models.ViewEngine.View_Component Component_HR_Base_BankAccountHR_EMP_EmployeesId = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"EntityName\":\"حساب بانکی\",\"primaryKey\":false,\"EntityID\":357,\"FieldId\":15252,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":688,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":true,\"RelationParentName\":\"HR_EMP_Employees\",\"RelationParentModel\":\"HR_EMP_Employees\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/View_HR_EMP_Employees/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"inputFormat\":\"DropDown\",\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.BaseInfo_ORG_CompaniesTitle}} {{item.EmployeeNo}} {{item.FirstName}} {{item.LastName}} </span>\",\"FieldsTemplate\":[{\"key\":\"EmployeeNo\",\"value\":\"nvarchar(Max)\"},{\"key\":\"FirstName\",\"value\":\"nvarchar(Max)\"},{\"key\":\"LastName\",\"value\":\"nvarchar(Max)\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"searchField\":\"EmployeeNo,FirstName,LastName\",\"modal\":true,\"label\":\"اطلاعات کارمند\",\"tableView\":true,\"key\":\"HR_EMP_EmployeesId\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"15252?EId=357&SubId=15\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true,\"onitemselected\":\"HR_EMP_EmployeesId_onitemselected\"}").Result;
 }
 
     <Dropdown Id=HR_EMP_EmployeesId  @ref="Ref_HR_EMP_EmployeesId" Label="اطلاعات کارمند" CssClass=""  DisplayFormat="DropDown" ExternalApi=true NotMapped=false TextGrid=false  Value="@_Entity.HR_EMP_EmployeesId" FieldName="HR_EMP_EmployeesId" OnItemSelected="ItemSelected_HR_Base_BankAccountHR_EMP_EmployeesId" Component="Component_HR_Base_BankAccountHR_EMP_EmployeesId" _Entity="_Entity" >
@@ -228,10 +530,14 @@
     await HR_EMP_EmployeesId_onitemselected( Selected);
     }
 } 
- 
+
+</div>
+
+<div class="col-md-4">
+     
  
 @code {
-    Baya.Models.ViewEngine.View_Component Component_HR_Base_BankAccountHR_EMP_EmployeeFamileisId = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"EntityName\":\"حساب بانکی\",\"primaryKey\":false,\"EntityID\":357,\"FieldId\":31487,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":688,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":false,\"RelationParentName\":\"HR_EMP_EmployeeFamileis\",\"RelationParentModel\":\"HR_EMP_EmployeeFamileis\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/HR_EMP_EmployeeFamileis/GetList?HR_EMP_EmployeesId={{data.HR_EMP_EmployeesId}}\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.HR_FamilyRelationshipId}} {{item.HR_Base_DependentId}} {{item.FirstName}} {{item.LastName}} {{item.HR_EMP_EmployeesId}} </span>\",\"FieldsTemplate\":[{\"key\":\"HR_FamilyRelationshipId\",\"value\":\"nvarchar(Max)\"},{\"key\":\"HR_Base_DependentId\",\"value\":\"nvarchar(Max)\"},{\"key\":\"FirstName\",\"value\":\"nvarchar(Max)\"},{\"key\":\"LastName\",\"value\":\"nvarchar(Max)\"},{\"key\":\"HR_EMP_EmployeesId\",\"value\":\"nvarchar(Max)\"}],\"dataSrc\":\"url\",\"refreshOn\":\"HR_Base_BankAccount.HR_EMP_EmployeesId\",\"searchField\":\"FirstName,LastName\",\"clearOnRefresh\":true,\"disabled\":false,\"modal\":true,\"label\":\"اطلاعات خانواده کارمند\",\"tableView\":true,\"key\":\"HR_EMP_EmployeeFamileisId\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"31487?EId=357&SubId=15\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
+    Baya.Models.ViewEngine.View_Component Component_HR_Base_BankAccountHR_EMP_EmployeeFamileisId = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"EntityName\":\"حساب بانکی\",\"primaryKey\":false,\"EntityID\":357,\"FieldId\":31487,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":688,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":false,\"RelationParentName\":\"HR_EMP_EmployeeFamileis\",\"RelationParentModel\":\"HR_EMP_EmployeeFamileis\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/HR_EMP_EmployeeFamileis/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.FirstName}} {{item.LastName}} </span>\",\"FieldsTemplate\":[{\"key\":\"HR_FamilyRelationshipId\",\"value\":\"nvarchar(Max)\"},{\"key\":\"HR_Base_DependentId\",\"value\":\"nvarchar(Max)\"},{\"key\":\"FirstName\",\"value\":\"nvarchar(Max)\"},{\"key\":\"LastName\",\"value\":\"nvarchar(Max)\"},{\"key\":\"HR_EMP_EmployeesId\",\"value\":\"nvarchar(Max)\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"searchField\":\"FirstName,LastName\",\"modal\":true,\"label\":\"اطلاعات خانواده کارمند\",\"tableView\":true,\"key\":\"HR_EMP_EmployeeFamileisId\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"31487?EId=357&SubId=15\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
 }
 
     <Dropdown Id=HR_EMP_EmployeeFamileisId  @ref="Ref_HR_EMP_EmployeeFamileisId" Label="اطلاعات خانواده کارمند" CssClass=""  DisplayFormat="DropDown" ExternalApi=false NotMapped=false TextGrid=false Text="" Value="@_Entity.HR_EMP_EmployeeFamileisId" FieldName="HR_EMP_EmployeeFamileisId" OnItemSelected="ItemSelected_HR_Base_BankAccountHR_EMP_EmployeeFamileisId" Component="Component_HR_Base_BankAccountHR_EMP_EmployeeFamileisId" _Entity="_Entity" >
@@ -268,10 +574,6 @@
 
 </div>
 
-<div class="col-md-6">
-    
-</div>
-
 </div>
 <div  class="">
     <hr class="hrdash">
@@ -283,7 +585,7 @@
      
  
 @code {
-    Baya.Models.ViewEngine.View_Component Component_HR_Base_BankAccountHR_Base_BankAcountCategoryId = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"EntityName\":\"حساب بانکی\",\"primaryKey\":false,\"EntityID\":357,\"FieldId\":31464,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":688,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":false,\"RelationParentName\":\"HR_Base_BankAcountCategory\",\"RelationParentModel\":\"HR_Base_BankAcountCategory\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/HR_Base_BankAcountCategory/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.Title}} </span>\",\"FieldsTemplate\":[{\"key\":\"Title\",\"value\":\"nvarchar(Max)\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"searchField\":\"Title\",\"disabled\":false,\"modal\":true,\"label\":\"دسته بندی حساب های بانکی کارمند\",\"tableView\":true,\"key\":\"HR_Base_BankAcountCategoryId\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"31464?EId=357&SubId=15\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true,\"onitemselected\":\"HR_Base_BankAcountCategoryId_onitemselected\"}").Result;
+    Baya.Models.ViewEngine.View_Component Component_HR_Base_BankAccountHR_Base_BankAcountCategoryId = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"EntityName\":\"حساب بانکی\",\"primaryKey\":false,\"EntityID\":357,\"FieldId\":31464,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":688,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":false,\"RelationParentName\":\"HR_Base_BankAcountCategory\",\"RelationParentModel\":\"HR_Base_BankAcountCategory\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/HR_Base_BankAcountCategory/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.Title}} </span>\",\"FieldsTemplate\":[{\"key\":\"Title\",\"value\":\"nvarchar(Max)\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"searchField\":\"Title\",\"modal\":true,\"label\":\"دسته بندی حساب های بانکی کارمند\",\"tableView\":true,\"key\":\"HR_Base_BankAcountCategoryId\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"31464?EId=357&SubId=15\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true,\"onitemselected\":\"HR_Base_BankAcountCategoryId_onitemselected\"}").Result;
 }
 
     <Dropdown Id=HR_Base_BankAcountCategoryId  @ref="Ref_HR_Base_BankAcountCategoryId" Label="دسته بندی حساب های بانکی کارمند" CssClass=""  DisplayFormat="DropDown" ExternalApi=false NotMapped=false TextGrid=false Text="" Value="@_Entity.HR_Base_BankAcountCategoryId" FieldName="HR_Base_BankAcountCategoryId" OnItemSelected="ItemSelected_HR_Base_BankAccountHR_Base_BankAcountCategoryId" Component="Component_HR_Base_BankAccountHR_Base_BankAcountCategoryId" _Entity="_Entity" >
@@ -320,7 +622,7 @@
  
  
 @code {
-    Baya.Models.ViewEngine.View_Component Component_HR_Base_BankAccountBaseInfo_BankAccountTypeId = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"EntityName\":\"حساب بانکی\",\"primaryKey\":false,\"EntityID\":357,\"FieldId\":19486,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":688,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":false,\"RelationParentName\":\"BaseInfo_BankAccountType\",\"RelationParentModel\":\"BaseInfo_BankAccountType\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/BaseInfo_BankAccountType/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.Title}} </span>\",\"FieldsTemplate\":[{\"key\":\"Title\",\"value\":\"nvarchar(Max)\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"searchField\":\"Title\",\"disableLimit\":false,\"noRefreshOnScroll\":false,\"disabled\":false,\"modal\":true,\"label\":\"نوع حساب بانکی\",\"tableView\":true,\"key\":\"BaseInfo_BankAccountTypeId\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"19486?EId=357&SubId=15\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
+    Baya.Models.ViewEngine.View_Component Component_HR_Base_BankAccountBaseInfo_BankAccountTypeId = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"EntityName\":\"حساب بانکی\",\"primaryKey\":false,\"EntityID\":357,\"FieldId\":19486,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":688,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":false,\"RelationParentName\":\"BaseInfo_BankAccountType\",\"RelationParentModel\":\"BaseInfo_BankAccountType\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/BaseInfo_BankAccountType/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.Title}} </span>\",\"FieldsTemplate\":[{\"key\":\"Title\",\"value\":\"nvarchar(Max)\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"searchField\":\"Title\",\"disableLimit\":false,\"noRefreshOnScroll\":false,\"modal\":true,\"label\":\"نوع حساب بانکی\",\"tableView\":true,\"key\":\"BaseInfo_BankAccountTypeId\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"19486?EId=357&SubId=15\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
 }
 
     <Dropdown Id=BaseInfo_BankAccountTypeId  @ref="Ref_BaseInfo_BankAccountTypeId" Label="نوع حساب بانکی" CssClass=""  DisplayFormat="DropDown" ExternalApi=false NotMapped=false TextGrid=false Text="" Value="@_Entity.BaseInfo_BankAccountTypeId" FieldName="BaseInfo_BankAccountTypeId" OnItemSelected="ItemSelected_HR_Base_BankAccountBaseInfo_BankAccountTypeId" Component="Component_HR_Base_BankAccountBaseInfo_BankAccountTypeId" _Entity="_Entity" >
@@ -357,7 +659,7 @@
  
  
 @code {
-    Baya.Models.ViewEngine.View_Component Component_HR_Base_BankAccountBaseInfo_BankId = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"EntityName\":\"حساب بانکی\",\"primaryKey\":false,\"EntityID\":357,\"FieldId\":29973,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":688,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":false,\"RelationParentName\":\"BaseInfo_Bank\",\"RelationParentModel\":\"BaseInfo_Banks\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/BaseInfo_Banks/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.Title}} </span>\",\"FieldsTemplate\":[{\"key\":\"Title\",\"value\":\"nvarchar(Max)\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"searchField\":\"Title\",\"disableLimit\":false,\"noRefreshOnScroll\":false,\"disabled\":false,\"modal\":true,\"label\":\"بانک\",\"tableView\":true,\"key\":\"BaseInfo_BankId\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"29973?EId=357&SubId=15\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
+    Baya.Models.ViewEngine.View_Component Component_HR_Base_BankAccountBaseInfo_BankId = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"EntityName\":\"حساب بانکی\",\"primaryKey\":false,\"EntityID\":357,\"FieldId\":29973,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":688,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":false,\"RelationParentName\":\"BaseInfo_Bank\",\"RelationParentModel\":\"BaseInfo_Banks\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/BaseInfo_Banks/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.Title}} </span>\",\"FieldsTemplate\":[{\"key\":\"Title\",\"value\":\"nvarchar(Max)\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"searchField\":\"Title\",\"disableLimit\":false,\"noRefreshOnScroll\":false,\"modal\":true,\"label\":\"بانک\",\"tableView\":true,\"key\":\"BaseInfo_BankId\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"29973?EId=357&SubId=15\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
 }
 
     <Dropdown Id=BaseInfo_BankId  @ref="Ref_BaseInfo_BankId" Label="بانک" CssClass=""  DisplayFormat="DropDown" ExternalApi=false NotMapped=false TextGrid=false Text="" Value="@_Entity.BaseInfo_BankId" FieldName="BaseInfo_BankId" OnItemSelected="ItemSelected_HR_Base_BankAccountBaseInfo_BankId" Component="Component_HR_Base_BankAccountBaseInfo_BankId" _Entity="_Entity" >
@@ -394,7 +696,7 @@
  
  
 @code {
-    Baya.Models.ViewEngine.View_Component Component_HR_Base_BankAccountBaseInfo_BankBranchesId = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"EntityName\":\"حساب بانکی\",\"primaryKey\":false,\"EntityID\":357,\"FieldId\":19449,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":688,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":false,\"RelationParentName\":\"BaseInfo_BankBranches\",\"RelationParentModel\":\"BaseInfo_BankBranches\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/BaseInfo_BankBranches/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.Title}} </span>\",\"FieldsTemplate\":[{\"key\":\"Title\",\"value\":\"nvarchar(Max)\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"searchField\":\"Title\",\"disableLimit\":false,\"noRefreshOnScroll\":false,\"disabled\":false,\"modal\":true,\"label\":\" شعبه بانک\",\"tableView\":true,\"key\":\"BaseInfo_BankBranchesId\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"19449?EId=357&SubId=15\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
+    Baya.Models.ViewEngine.View_Component Component_HR_Base_BankAccountBaseInfo_BankBranchesId = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"EntityName\":\"حساب بانکی\",\"primaryKey\":false,\"EntityID\":357,\"FieldId\":19449,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":688,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":false,\"RelationParentName\":\"BaseInfo_BankBranches\",\"RelationParentModel\":\"BaseInfo_BankBranches\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/BaseInfo_BankBranches/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.Title}} </span>\",\"FieldsTemplate\":[{\"key\":\"Title\",\"value\":\"nvarchar(Max)\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"searchField\":\"Title\",\"disableLimit\":false,\"noRefreshOnScroll\":false,\"modal\":true,\"label\":\" شعبه بانک\",\"tableView\":true,\"key\":\"BaseInfo_BankBranchesId\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"19449?EId=357&SubId=15\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
 }
 
     <Dropdown Id=BaseInfo_BankBranchesId  @ref="Ref_BaseInfo_BankBranchesId" Label=" شعبه بانک" CssClass=""  DisplayFormat="DropDown" ExternalApi=false NotMapped=false TextGrid=false Text="" Value="@_Entity.BaseInfo_BankBranchesId" FieldName="BaseInfo_BankBranchesId" OnItemSelected="ItemSelected_HR_Base_BankAccountBaseInfo_BankBranchesId" Component="Component_HR_Base_BankAccountBaseInfo_BankBranchesId" _Entity="_Entity" >
@@ -443,87 +745,161 @@
     
 <div class="">
     <div  class="">
-    <div style="
-    background: linear-gradient(135deg, #faf7f4, #f1ebe6);
-    border-radius: 16px;
-    padding: 22px;
-    display: flex;
-    gap: 20px;
-    align-items: center;
-    box-shadow: 0 6px 16px rgba(0,0,0,0.05);
-">
-
-    <!-- Animated Banking Cards Illustration (متحرک کارت‌های بانکی) -->
-    <div style="flex: 0 0 180px; position: relative;">
-        <svg viewBox="0 0 300 300" width="160" height="160" xmlns="http://www.w3.org/2000/svg">
-            <!-- کارت بانکی اصلی (جلو می‌آد و می‌چرخه) -->
-            <g id="main-card">
-                <rect x="50" y="80" width="200" height="120" rx="15" fill="#4a90e2" stroke="#2c5aa0" stroke-width="4"/>
-                <rect x="70" y="100" width="140" height="30" rx="6" fill="#5ba3f5"/>
-                <text x="140" y="145" font-size="18" fill="#fff" font-family="sans-serif" text-anchor="middle">IR62 0100 ....</text>
-                <circle cx="200" cy="165" r="20" fill="#ffd700"/>
-                <rect x="70" y="170" width="80" height="12" rx="6" fill="#ccc"/>
-
-                <!-- انیمیشن‌های SMIL -->
-                <animateTransform attributeName="transform" type="translate" values="0,0; 20,-20; 0,0" dur="5s" repeatCount="indefinite"/>
-                <animateTransform attributeName="transform" type="rotate" values="0 150 140; -8 150 140; 0 150 140" dur="5s" repeatCount="indefinite" additive="sum"/>
-                <animateTransform attributeName="transform" type="scale" values="1; 1.15; 1" dur="5s" repeatCount="indefinite" additive="sum"/>
-                <animate attributeName="opacity" values="0.8; 1; 0.8" dur="5s" repeatCount="indefinite"/>
-            </g>
-
-            <!-- کارت دوم (شناور در پشت) -->
-            <g id="card2">
-                <rect x="30" y="120" width="180" height="110" rx="15" fill="#e27d60" stroke="#b35640" stroke-width="4"/>
-                <rect x="50" y="135" width="120" height="25" rx="5" fill="#f28e70"/>
-                <text x="120" y="175" font-size="16" fill="#fff" font-family="sans-serif" text-anchor="middle">IR73 ....</text>
-                <circle cx="170" cy="195" r="15" fill="#ffcc00"/>
-
-                <animateTransform attributeName="transform" type="translate" values="0,0; -15,15; 0,0" dur="6s" repeatCount="indefinite"/>
-                <animateTransform attributeName="transform" type="rotate" values="0 120 175; 10 120 175; 0 120 175" dur="6s" repeatCount="indefinite" additive="sum"/>
-            </g>
-
-            <!-- کارت سوم (کوچک‌تر و چرخشی) -->
-            <g id="card3">
-                <rect x="80" y="50" width="160" height="100" rx="12" fill="#85ad88" stroke="#5e8a60" stroke-width="3"/>
-                <text x="160" y="100" font-size="14" fill="#fff" font-family="sans-serif" text-anchor="middle">Bank Card</text>
-
-                <animateTransform attributeName="transform" type="rotate" values="0 160 100; 360 160 100" dur="12s" repeatCount="indefinite" additive="sum"/>
-                <animateTransform attributeName="transform" type="translate" values="0,0; 0,-10; 0,0" dur="4s" repeatCount="indefinite"/>
-            </g>
-
-            <!-- افکت درخشش کلی -->
-            <circle cx="150" cy="150" r="80" fill="none" stroke="#ffd700" stroke-width="2" opacity="0.3">
-                <animate attributeName="r" values="70; 100; 70" dur="4s" repeatCount="indefinite"/>
-                <animate attributeName="opacity" values="0.3; 0.6; 0.3" dur="4s" repeatCount="indefinite"/>
-            </circle>
-        </svg>
+    <!-- HTML Structure -->
+<div id="bankAccountGuide">
+    <!-- Header Section -->
+    <div class="guide-header">
+        <h2>📋 راهنمای تکمیل فرم اطلاعات حساب بانکی</h2>
+        <p>لطفاً مراحل زیر را به ترتیب دنبال کنید</p>
     </div>
 
-    <!-- Guide Content -->
-    <div style="flex: 1;">
-        <h3 style="margin: 0 0 8px; font-size: 17px; font-weight: 700; color:#3a2d28;">
-            راهنمای اطلاعات حساب بانکی
-        </h3>
-
-        <p style="margin: 0 0 14px; font-size: 13px; color:#6b5a52;">
-            لطفاً اطلاعات بانکی را دقیق و مطابق مدارک رسمی وارد نمایید.
-        </p>
-
-        <ul style="padding-right: 18px; margin: 0; font-size: 13px; color:#4a3b35;">
-            <li>نام بانک و شماره حساب الزامی است</li>
-            <li>شماره شبا باید با <strong>IR</strong> شروع شود</li>
-            <li>نام صاحب حساب باید با نام فرد انتخاب شده یکسان باشد</li>
-        </ul>
-
-        <div style="
-            margin-top: 12px;
-            font-size: 12px;
-            color: #8a6d5c;
-        ">
-            ⚠️ مسئولیت صحت اطلاعات وارد شده بر عهده کارمنداست.
+    <!-- Step 1: نوع صاحب حساب -->
+    <div class="guide-step step-account-type">
+        <div class="step-title">
+            <span class="step-number">1</span>
+            <h3>انتخاب نوع صاحب حساب بانکی</h3>
+        </div>
+        
+        <div class="step-content info-blue">
+            <ul>
+                <li><strong>کارمند:</strong> اگر حساب بانکی متعلق به خود کارمند است</li>
+                <li><strong>همسر:</strong> اگر حساب بانکی متعلق به همسر کارمند است</li>
+            </ul>
+        </div>
+        
+        <div class="step-note warning">
+            <strong>⚠️ نکته مهم:</strong>
+            <p>پس از انتخاب نوع صاحب حساب، فیلدهای مربوطه به طور خودکار نمایش داده می‌شوند.</p>
         </div>
     </div>
 
+    <!-- Step 2: انتخاب کارمند/همسر -->
+    <div class="guide-step step-employee-spouse">
+        <div class="step-title">
+            <span class="step-number">2</span>
+            <h3>انتخاب کارمند و همسر</h3>
+        </div>
+        
+        <div class="step-content info-red">
+            <ul>
+                <li><strong>در حالت "کارمند":</strong> فقط فیلد انتخاب کارمند نمایش داده می‌شود</li>
+                <li><strong>در حالت "همسر":</strong> دو فیلد نمایش داده می‌شود:
+                    <ul class="nested-list">
+                        <li>انتخاب کارمند</li>
+                        <li>انتخاب همسر (پس از انتخاب کارمند، لیست همسران بارگذاری می‌شود)</li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+        
+        <div class="step-note success">
+            <strong>✅ توجه:</strong>
+            <p>اگر همسری برای کارمند پیدا نشد، ابتدا از پنل ادمین، اطلاعات همسر را ثبت کنید.</p>
+        </div>
+    </div>
+
+    <!-- Step 3: اطلاعات بانکی -->
+    <div class="guide-step step-bank-info">
+        <div class="step-title">
+            <span class="step-number">3</span>
+            <h3>وارد کردن اطلاعات بانکی</h3>
+        </div>
+        
+        <div class="step-content info-green">
+            <table class="format-table">
+                <tr>
+                    <th>فیلد</th>
+                    <th>فرمت صحیح</th>
+                    <th>مثال</th>
+                </tr>
+                <tr>
+                    <td>شماره شبا (IBAN)</td>
+                    <td>26 کاراکتر با پیشوند IR</td>
+                    <td class="code">IR620100000000000000000001</td>
+                </tr>
+                <tr>
+                    <td>شماره کارت</td>
+                    <td>16 رقم</td>
+                    <td class="code">6037991234567890</td>
+                </tr>
+                <tr>
+                    <td>شماره حساب</td>
+                    <td>بدون محدودیت خاص</td>
+                    <td class="code">010000000000000000000001</td>
+                </tr>
+            </table>
+        </div>
+        
+        <div class="step-note warning">
+            <strong>⚠️ هشدارهای مهم:</strong>
+            <ul>
+                <li>شماره شبا <strong>حتماً</strong> باید با <code>IR</code> شروع شود</li>
+                <li>تعداد کاراکترهای شبا باید دقیقاً <strong>26</strong> کاراکتر باشد</li>
+                <li>شماره کارت باید دقیقاً <strong>16</strong> رقم باشد</li>
+                <li>کد شعبه و نام شعبه اختیاری هستند</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Step 4: دسته‌بندی و بانک -->
+    <div class="guide-step step-category-bank">
+        <div class="step-title">
+            <span class="step-number">4</span>
+            <h3>انتخاب دسته‌بندی و بانک</h3>
+        </div>
+        
+        <div class="step-content info-purple">
+            <ul>
+                <li><strong>دسته‌بندی حساب:</strong> نوع حساب بانکی را انتخاب کنید (مثلاً حقوق و دستمزد)</li>
+                <li><strong>بانک:</strong> نام بانک را انتخاب کنید</li>
+                <li><strong>نکته ویژه:</strong> اگر دسته‌بندی "حقوق و دستمزد" را انتخاب کنید، بانک به طور خودکار به "سپه" تنظیم می‌شود</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Final Notes Section -->
+    <div class="guide-final-notes">
+        <h3><span>📌</span> نکات نهایی قبل از ثبت</h3>
+        
+        <ul>
+            <li>همه فیلدهای ستاره‌دار (<span class="required">*</span>) اجباری هستند</li>
+            <li>اطلاعات وارد شده را دوباره بررسی کنید</li>
+            <li>نام صاحب حساب باید با نام فرد انتخاب شده یکسان باشد</li>
+            <li>پس از ثبت، امکان ویرایش محدود است</li>
+        </ul>
+        
+        <div class="responsibility-note">
+            <strong>⚠️ مسئولیت:</strong>
+            <span>صحت اطلاعات وارد شده کاملاً بر عهده کارمند/مدیر مربوطه است.</span>
+        </div>
+    </div>
+
+    <!-- Quick Reference Card -->
+    <div class="guide-quick-reference">
+        <div class="quick-ref-header">
+            <span class="quick-ref-icon">!</span>
+            <strong>خلاصه سریع</strong>
+        </div>
+        
+        <div class="quick-ref-grid">
+            <div class="quick-ref-item">
+                <div class="ref-title">شبا</div>
+                <div class="ref-desc">26 کاراکتر با IR</div>
+            </div>
+            <div class="quick-ref-item">
+                <div class="ref-title">کارت</div>
+                <div class="ref-desc">16 رقم</div>
+            </div>
+            <div class="quick-ref-item">
+                <div class="ref-title">صاحب حساب</div>
+                <div class="ref-desc">کارمند یا همسر</div>
+            </div>
+            <div class="quick-ref-item">
+                <div class="ref-title">بانک</div>
+                <div class="ref-desc">اختیاری</div>
+            </div>
+        </div>
+    </div>
 </div>
 </div>
 
@@ -579,7 +955,7 @@
     {
         Console.WriteLine("#log OnInitializedAsync");
 
-        TableGet = await Utility.JSON.ToObject<Table>("{\"Name\":\"HR_Base_BankAccount\",\"GetNameAs\":\"HR_Base_BankAccount\",\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"RequestID\",\"GetNameAs\":\"RequestID\"},{\"Name\":\"CreateUser\",\"GetNameAs\":\"CreateUser\"},{\"Name\":\"UpdateUser\",\"GetNameAs\":\"UpdateUser\"},{\"Name\":\"CreateDate\",\"GetNameAs\":\"CreateDate\"},{\"Name\":\"UpdateDate\",\"GetNameAs\":\"UpdateDate\"},{\"Name\":\"IsDelete\",\"GetNameAs\":\"IsDelete\"},{\"Name\":\"IBAN\",\"GetNameAs\":\"IBAN\"},{\"Name\":\"CartNo\",\"GetNameAs\":\"CartNo\"},{\"Name\":\"IsActive\",\"GetNameAs\":\"IsActive\"},{\"Name\":\"HR_EMP_EmployeesId\",\"GetNameAs\":\"HR_EMP_EmployeesId\"},{\"Name\":\"BaseInfo_BankBranchesId\",\"GetNameAs\":\"BaseInfo_BankBranchesId\"},{\"Name\":\"BaseInfo_BankAccountTypeId\",\"GetNameAs\":\"BaseInfo_BankAccountTypeId\"},{\"Name\":\"BankAccountNumber\",\"GetNameAs\":\"BankAccountNumber\"},{\"Name\":\"BaseInfo_BankId\",\"GetNameAs\":\"BaseInfo_BankId\"},{\"Name\":\"HR_Base_BankAcountCategoryId\",\"GetNameAs\":\"HR_Base_BankAcountCategoryId\"},{\"Name\":\"HR_EMP_EmployeeFamileisId\",\"GetNameAs\":\"HR_EMP_EmployeeFamileisId\"},{\"Name\":\"HR_Base_AccountHolderTypeId\",\"GetNameAs\":\"HR_Base_AccountHolderTypeId\"}],\"Relation\":[{\"Name\":\"BaseInfo_BankAccountType\",\"GetNameAs\":\"BaseInfo_BankAccountType\",\"ModeErtebat\":1,\"Column\":[{\"Name\":\"Title\",\"GetNameAs\":\"Title\"}],\"Relation\":[]},{\"Name\":\"HR_EMP_Employees\",\"GetNameAs\":\"HR_EMP_Employees\",\"ModeErtebat\":1,\"Column\":[{\"Name\":\"LastName\",\"GetNameAs\":\"LastName\"},{\"Name\":\"LastNameEn\",\"GetNameAs\":\"LastNameEn\"},{\"Name\":\"DeleteDateTime\",\"GetNameAs\":\"DeleteDateTime\"},{\"Name\":\"HR_EMP_StatusId\",\"GetNameAs\":\"HR_EMP_StatusId\"},{\"Name\":\"EmployeeLastPersonelNo\",\"GetNameAs\":\"EmployeeLastPersonelNo\"},{\"Name\":\"EmployeeNo\",\"GetNameAs\":\"EmployeeNo\"},{\"Name\":\"EmployeePersonelNo\",\"GetNameAs\":\"EmployeePersonelNo\"},{\"Name\":\"FirstName\",\"GetNameAs\":\"FirstName\"},{\"Name\":\"FirstNameEn\",\"GetNameAs\":\"FirstNameEn\"},{\"Name\":\"HR_Base_FactoryId\",\"GetNameAs\":\"HR_Base_FactoryId\"},{\"Name\":\"BaseInfo_ORG_CompaniesId\",\"GetNameAs\":\"BaseInfo_ORG_CompaniesId\"},{\"Name\":\"UserId\",\"GetNameAs\":\"UserId\"},{\"Name\":\"LastEmployeeNo\",\"GetNameAs\":\"LastEmployeeNo\"},{\"Name\":\"ProfilePicture\",\"GetNameAs\":\"ProfilePicture\"},{\"Name\":\"FullName\",\"GetNameAs\":\"FullName\"},{\"Name\":\"NationalCode\",\"GetNameAs\":\"NationalCode\"}],\"Relation\":[]},{\"Name\":\"BaseInfo_Bank\",\"GetNameAs\":\"BaseInfo_Bank\",\"ModeErtebat\":1,\"Column\":[{\"Name\":\"Title\",\"GetNameAs\":\"Title\"},{\"Name\":\"CNAPSE_Code\",\"GetNameAs\":\"CNAPSE_Code\"},{\"Name\":\"IsActive\",\"GetNameAs\":\"IsActive\"},{\"Name\":\"ExtCode\",\"GetNameAs\":\"ExtCode\"},{\"Name\":\"BaseInfo_BankType\",\"GetNameAs\":\"BaseInfo_BankType\"}],\"Relation\":[]},{\"Name\":\"BaseInfo_BankBranches\",\"GetNameAs\":\"BaseInfo_BankBranches\",\"ModeErtebat\":1,\"Column\":[{\"Name\":\"Title\",\"GetNameAs\":\"Title\"},{\"Name\":\"Address\",\"GetNameAs\":\"Address\"},{\"Name\":\"Code\",\"GetNameAs\":\"Code\"},{\"Name\":\"IsActive\",\"GetNameAs\":\"IsActive\"},{\"Name\":\"BaseInfo_CitiesId\",\"GetNameAs\":\"BaseInfo_CitiesId\"},{\"Name\":\"BaseInfo_BanksId\",\"GetNameAs\":\"BaseInfo_BanksId\"},{\"Name\":\"BaseInfo_CitiesAreasId\",\"GetNameAs\":\"BaseInfo_CitiesAreasId\"}],\"Relation\":[]},{\"Name\":\"HR_Base_BankAcountCategory\",\"GetNameAs\":\"HR_Base_BankAcountCategory\",\"ModeErtebat\":1,\"Column\":[{\"Name\":\"Code\",\"GetNameAs\":\"Code\"},{\"Name\":\"Title\",\"GetNameAs\":\"Title\"}],\"Relation\":[]},{\"Name\":\"HR_EMP_EmployeeFamileis\",\"GetNameAs\":\"HR_EMP_EmployeeFamileis\",\"ModeErtebat\":1,\"Column\":[{\"Name\":\"HR_Base_AcademicDegreesId\",\"GetNameAs\":\"HR_Base_AcademicDegreesId\"},{\"Name\":\"MarriageDate\",\"GetNameAs\":\"MarriageDate\"},{\"Name\":\"IdCardNo\",\"GetNameAs\":\"IdCardNo\"},{\"Name\":\"IsFamily\",\"GetNameAs\":\"IsFamily\"},{\"Name\":\"LastName\",\"GetNameAs\":\"LastName\"},{\"Name\":\"RestartDate\",\"GetNameAs\":\"RestartDate\"},{\"Name\":\"NationalCode\",\"GetNameAs\":\"NationalCode\"},{\"Name\":\"SupplementaryInsurance\",\"GetNameAs\":\"SupplementaryInsurance\"},{\"Name\":\"SupplementaryInsuranceEndDate\",\"GetNameAs\":\"SupplementaryInsuranceEndDate\"},{\"Name\":\"SupplementaryInsuranceStartDate\",\"GetNameAs\":\"SupplementaryInsuranceStartDate\"},{\"Name\":\"ValidityDate\",\"GetNameAs\":\"ValidityDate\"},{\"Name\":\"DeleteDateTime\",\"GetNameAs\":\"DeleteDateTime\"},{\"Name\":\"BirthDate\",\"GetNameAs\":\"BirthDate\"},{\"Name\":\"Description\",\"GetNameAs\":\"Description\"},{\"Name\":\"HR_EMP_EmployeesId\",\"GetNameAs\":\"HR_EMP_EmployeesId\"},{\"Name\":\"Dependent\",\"GetNameAs\":\"Dependent\"},{\"Name\":\"FatherName\",\"GetNameAs\":\"FatherName\"},{\"Name\":\"FirstName\",\"GetNameAs\":\"FirstName\"},{\"Name\":\"HR_Base_CitiesId\",\"GetNameAs\":\"HR_Base_CitiesId\"},{\"Name\":\"HR_Base_GenderId\",\"GetNameAs\":\"HR_Base_GenderId\"},{\"Name\":\"HR_FamilyRelationshipId\",\"GetNameAs\":\"HR_FamilyRelationshipId\"},{\"Name\":\"HR_EMP_EmployeeFamileisMasterId\",\"GetNameAs\":\"HR_EMP_EmployeeFamileisMasterId\"},{\"Name\":\"BaseInfo_CitiesId\",\"GetNameAs\":\"BaseInfo_CitiesId\"},{\"Name\":\"BaseInfo_GenderId\",\"GetNameAs\":\"BaseInfo_GenderId\"},{\"Name\":\"BaseInfo_MaritalStatusId\",\"GetNameAs\":\"BaseInfo_MaritalStatusId\"},{\"Name\":\"HR_Base_DependentId\",\"GetNameAs\":\"HR_Base_DependentId\"},{\"Name\":\"BirthDate_Fa\",\"GetNameAs\":\"BirthDate_Fa\"},{\"Name\":\"IsMarried\",\"GetNameAs\":\"IsMarried\"},{\"Name\":\"MarriageDate_Fa\",\"GetNameAs\":\"MarriageDate_Fa\"},{\"Name\":\"SupplementaryInsuranceStartDate_Fa\",\"GetNameAs\":\"SupplementaryInsuranceStartDate_Fa\"},{\"Name\":\"SupplementaryInsuranceEndDate_Fa\",\"GetNameAs\":\"SupplementaryInsuranceEndDate_Fa\"},{\"Name\":\"IsCurrentlyStudying\",\"GetNameAs\":\"IsCurrentlyStudying\"},{\"Name\":\"EducationStartDate_Fa\",\"GetNameAs\":\"EducationStartDate_Fa\"},{\"Name\":\"EducationStartDate\",\"GetNameAs\":\"EducationStartDate\"},{\"Name\":\"EducationEndDate_Fa\",\"GetNameAs\":\"EducationEndDate_Fa\"},{\"Name\":\"EducationEndDate\",\"GetNameAs\":\"EducationEndDate\"},{\"Name\":\"StudyCertificateFile\",\"GetNameAs\":\"StudyCertificateFile\"},{\"Name\":\"DivorceDate\",\"GetNameAs\":\"DivorceDate\"},{\"Name\":\"DivorceDate_Fa\",\"GetNameAs\":\"DivorceDate_Fa\"},{\"Name\":\"SpouseDeathDate\",\"GetNameAs\":\"SpouseDeathDate\"},{\"Name\":\"SpouseDeathDate_Fa\",\"GetNameAs\":\"SpouseDeathDate_Fa\"}],\"Relation\":[]},{\"Name\":\"HR_Base_AccountHolderType\",\"GetNameAs\":\"HR_Base_AccountHolderType\",\"ModeErtebat\":1,\"Column\":[{\"Name\":\"Code\",\"GetNameAs\":\"Code\"},{\"Name\":\"Title\",\"GetNameAs\":\"Title\"}],\"Relation\":[]}]}");
+        TableGet = await Utility.JSON.ToObject<Table>("{\"Name\":\"HR_Base_BankAccount\",\"GetNameAs\":\"HR_Base_BankAccount\",\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"RequestID\",\"GetNameAs\":\"RequestID\"},{\"Name\":\"CreateUser\",\"GetNameAs\":\"CreateUser\"},{\"Name\":\"UpdateUser\",\"GetNameAs\":\"UpdateUser\"},{\"Name\":\"CreateDate\",\"GetNameAs\":\"CreateDate\"},{\"Name\":\"UpdateDate\",\"GetNameAs\":\"UpdateDate\"},{\"Name\":\"IsDelete\",\"GetNameAs\":\"IsDelete\"},{\"Name\":\"IBAN\",\"GetNameAs\":\"IBAN\"},{\"Name\":\"CartNo\",\"GetNameAs\":\"CartNo\"},{\"Name\":\"IsActive\",\"GetNameAs\":\"IsActive\"},{\"Name\":\"HR_EMP_EmployeesId\",\"GetNameAs\":\"HR_EMP_EmployeesId\"},{\"Name\":\"BaseInfo_BankBranchesId\",\"GetNameAs\":\"BaseInfo_BankBranchesId\"},{\"Name\":\"BaseInfo_BankAccountTypeId\",\"GetNameAs\":\"BaseInfo_BankAccountTypeId\"},{\"Name\":\"BankAccountNumber\",\"GetNameAs\":\"BankAccountNumber\"},{\"Name\":\"BaseInfo_BankId\",\"GetNameAs\":\"BaseInfo_BankId\"},{\"Name\":\"HR_Base_BankAcountCategoryId\",\"GetNameAs\":\"HR_Base_BankAcountCategoryId\"},{\"Name\":\"HR_EMP_EmployeeFamileisId\",\"GetNameAs\":\"HR_EMP_EmployeeFamileisId\"},{\"Name\":\"HR_Base_AccountHolderTypeId\",\"GetNameAs\":\"HR_Base_AccountHolderTypeId\"}],\"Relation\":[{\"Name\":\"BaseInfo_BankAccountType\",\"GetNameAs\":\"BaseInfo_BankAccountType\",\"ModeErtebat\":1,\"Column\":[{\"Name\":\"Title\",\"GetNameAs\":\"Title\"}],\"Relation\":[]},{\"Name\":\"HR_EMP_Employees\",\"GetNameAs\":\"HR_EMP_Employees\",\"ModeErtebat\":1,\"Column\":[{\"Name\":\"LastName\",\"GetNameAs\":\"LastName\"},{\"Name\":\"LastNameEn\",\"GetNameAs\":\"LastNameEn\"},{\"Name\":\"DeleteDateTime\",\"GetNameAs\":\"DeleteDateTime\"},{\"Name\":\"HR_EMP_StatusId\",\"GetNameAs\":\"HR_EMP_StatusId\"},{\"Name\":\"EmployeeLastPersonelNo\",\"GetNameAs\":\"EmployeeLastPersonelNo\"},{\"Name\":\"EmployeeNo\",\"GetNameAs\":\"EmployeeNo\"},{\"Name\":\"EmployeePersonelNo\",\"GetNameAs\":\"EmployeePersonelNo\"},{\"Name\":\"FirstName\",\"GetNameAs\":\"FirstName\"},{\"Name\":\"FirstNameEn\",\"GetNameAs\":\"FirstNameEn\"},{\"Name\":\"HR_Base_FactoryId\",\"GetNameAs\":\"HR_Base_FactoryId\"},{\"Name\":\"BaseInfo_ORG_CompaniesId\",\"GetNameAs\":\"BaseInfo_ORG_CompaniesId\"},{\"Name\":\"UserId\",\"GetNameAs\":\"UserId\"},{\"Name\":\"LastEmployeeNo\",\"GetNameAs\":\"LastEmployeeNo\"},{\"Name\":\"ProfilePicture\",\"GetNameAs\":\"ProfilePicture\"},{\"Name\":\"FullName\",\"GetNameAs\":\"FullName\"},{\"Name\":\"NationalCode\",\"GetNameAs\":\"NationalCode\"}],\"Relation\":[]},{\"Name\":\"BaseInfo_Bank\",\"GetNameAs\":\"BaseInfo_Bank\",\"ModeErtebat\":1,\"Column\":[{\"Name\":\"Title\",\"GetNameAs\":\"Title\"},{\"Name\":\"CNAPSE_Code\",\"GetNameAs\":\"CNAPSE_Code\"},{\"Name\":\"IsActive\",\"GetNameAs\":\"IsActive\"},{\"Name\":\"ExtCode\",\"GetNameAs\":\"ExtCode\"},{\"Name\":\"BaseInfo_BankType\",\"GetNameAs\":\"BaseInfo_BankType\"}],\"Relation\":[]},{\"Name\":\"BaseInfo_BankBranches\",\"GetNameAs\":\"BaseInfo_BankBranches\",\"ModeErtebat\":1,\"Column\":[{\"Name\":\"Title\",\"GetNameAs\":\"Title\"},{\"Name\":\"Address\",\"GetNameAs\":\"Address\"},{\"Name\":\"Code\",\"GetNameAs\":\"Code\"},{\"Name\":\"IsActive\",\"GetNameAs\":\"IsActive\"},{\"Name\":\"BaseInfo_CitiesId\",\"GetNameAs\":\"BaseInfo_CitiesId\"},{\"Name\":\"BaseInfo_BanksId\",\"GetNameAs\":\"BaseInfo_BanksId\"},{\"Name\":\"BaseInfo_CitiesAreasId\",\"GetNameAs\":\"BaseInfo_CitiesAreasId\"}],\"Relation\":[]},{\"Name\":\"HR_Base_BankAcountCategory\",\"GetNameAs\":\"HR_Base_BankAcountCategory\",\"ModeErtebat\":1,\"Column\":[{\"Name\":\"Code\",\"GetNameAs\":\"Code\"},{\"Name\":\"Title\",\"GetNameAs\":\"Title\"}],\"Relation\":[]},{\"Name\":\"HR_Base_AccountHolderType\",\"GetNameAs\":\"HR_Base_AccountHolderType\",\"ModeErtebat\":1,\"Column\":[{\"Name\":\"Code\",\"GetNameAs\":\"Code\"},{\"Name\":\"Title\",\"GetNameAs\":\"Title\"}],\"Relation\":[]},{\"Name\":\"HR_EMP_EmployeeFamileis\",\"GetNameAs\":\"HR_EMP_EmployeeFamileis\",\"ModeErtebat\":1,\"Column\":[{\"Name\":\"HR_Base_AcademicDegreesId\",\"GetNameAs\":\"HR_Base_AcademicDegreesId\"},{\"Name\":\"MarriageDate\",\"GetNameAs\":\"MarriageDate\"},{\"Name\":\"IdCardNo\",\"GetNameAs\":\"IdCardNo\"},{\"Name\":\"IsFamily\",\"GetNameAs\":\"IsFamily\"},{\"Name\":\"LastName\",\"GetNameAs\":\"LastName\"},{\"Name\":\"RestartDate\",\"GetNameAs\":\"RestartDate\"},{\"Name\":\"NationalCode\",\"GetNameAs\":\"NationalCode\"},{\"Name\":\"SupplementaryInsurance\",\"GetNameAs\":\"SupplementaryInsurance\"},{\"Name\":\"SupplementaryInsuranceEndDate\",\"GetNameAs\":\"SupplementaryInsuranceEndDate\"},{\"Name\":\"SupplementaryInsuranceStartDate\",\"GetNameAs\":\"SupplementaryInsuranceStartDate\"},{\"Name\":\"ValidityDate\",\"GetNameAs\":\"ValidityDate\"},{\"Name\":\"DeleteDateTime\",\"GetNameAs\":\"DeleteDateTime\"},{\"Name\":\"BirthDate\",\"GetNameAs\":\"BirthDate\"},{\"Name\":\"Description\",\"GetNameAs\":\"Description\"},{\"Name\":\"HR_EMP_EmployeesId\",\"GetNameAs\":\"HR_EMP_EmployeesId\"},{\"Name\":\"Dependent\",\"GetNameAs\":\"Dependent\"},{\"Name\":\"FatherName\",\"GetNameAs\":\"FatherName\"},{\"Name\":\"FirstName\",\"GetNameAs\":\"FirstName\"},{\"Name\":\"HR_Base_CitiesId\",\"GetNameAs\":\"HR_Base_CitiesId\"},{\"Name\":\"HR_Base_GenderId\",\"GetNameAs\":\"HR_Base_GenderId\"},{\"Name\":\"HR_FamilyRelationshipId\",\"GetNameAs\":\"HR_FamilyRelationshipId\"},{\"Name\":\"HR_EMP_EmployeeFamileisMasterId\",\"GetNameAs\":\"HR_EMP_EmployeeFamileisMasterId\"},{\"Name\":\"BaseInfo_CitiesId\",\"GetNameAs\":\"BaseInfo_CitiesId\"},{\"Name\":\"BaseInfo_GenderId\",\"GetNameAs\":\"BaseInfo_GenderId\"},{\"Name\":\"BaseInfo_MaritalStatusId\",\"GetNameAs\":\"BaseInfo_MaritalStatusId\"},{\"Name\":\"HR_Base_DependentId\",\"GetNameAs\":\"HR_Base_DependentId\"},{\"Name\":\"BirthDate_Fa\",\"GetNameAs\":\"BirthDate_Fa\"},{\"Name\":\"IsMarried\",\"GetNameAs\":\"IsMarried\"},{\"Name\":\"MarriageDate_Fa\",\"GetNameAs\":\"MarriageDate_Fa\"},{\"Name\":\"SupplementaryInsuranceStartDate_Fa\",\"GetNameAs\":\"SupplementaryInsuranceStartDate_Fa\"},{\"Name\":\"SupplementaryInsuranceEndDate_Fa\",\"GetNameAs\":\"SupplementaryInsuranceEndDate_Fa\"},{\"Name\":\"IsCurrentlyStudying\",\"GetNameAs\":\"IsCurrentlyStudying\"},{\"Name\":\"EducationStartDate_Fa\",\"GetNameAs\":\"EducationStartDate_Fa\"},{\"Name\":\"EducationStartDate\",\"GetNameAs\":\"EducationStartDate\"},{\"Name\":\"EducationEndDate_Fa\",\"GetNameAs\":\"EducationEndDate_Fa\"},{\"Name\":\"EducationEndDate\",\"GetNameAs\":\"EducationEndDate\"},{\"Name\":\"StudyCertificateFile\",\"GetNameAs\":\"StudyCertificateFile\"},{\"Name\":\"DivorceDate\",\"GetNameAs\":\"DivorceDate\"},{\"Name\":\"DivorceDate_Fa\",\"GetNameAs\":\"DivorceDate_Fa\"},{\"Name\":\"SpouseDeathDate\",\"GetNameAs\":\"SpouseDeathDate\"},{\"Name\":\"SpouseDeathDate_Fa\",\"GetNameAs\":\"SpouseDeathDate_Fa\"}],\"Relation\":[]}]}");
         TablePost = await Utility.JSON.ToObject<Table>("{\"Name\":\"HR_Base_BankAccount\",\"GetNameAs\":\"HR_Base_BankAccount\",\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"RequestID\",\"GetNameAs\":\"RequestID\"},{\"Name\":\"CreateUser\",\"GetNameAs\":\"CreateUser\"},{\"Name\":\"UpdateUser\",\"GetNameAs\":\"UpdateUser\"},{\"Name\":\"CreateDate\",\"GetNameAs\":\"CreateDate\"},{\"Name\":\"UpdateDate\",\"GetNameAs\":\"UpdateDate\"},{\"Name\":\"IsDelete\",\"GetNameAs\":\"IsDelete\"},{\"Name\":\"IBAN\",\"GetNameAs\":\"IBAN\"},{\"Name\":\"CartNo\",\"GetNameAs\":\"CartNo\"},{\"Name\":\"IsActive\",\"GetNameAs\":\"IsActive\"},{\"Name\":\"HR_EMP_EmployeesId\",\"GetNameAs\":\"HR_EMP_EmployeesId\"},{\"Name\":\"BaseInfo_BankBranchesId\",\"GetNameAs\":\"BaseInfo_BankBranchesId\"},{\"Name\":\"BaseInfo_BankAccountTypeId\",\"GetNameAs\":\"BaseInfo_BankAccountTypeId\"},{\"Name\":\"BankAccountNumber\",\"GetNameAs\":\"BankAccountNumber\"},{\"Name\":\"BaseInfo_BankId\",\"GetNameAs\":\"BaseInfo_BankId\"},{\"Name\":\"HR_Base_BankAcountCategoryId\",\"GetNameAs\":\"HR_Base_BankAcountCategoryId\"},{\"Name\":\"HR_EMP_EmployeeFamileisId\",\"GetNameAs\":\"HR_EMP_EmployeeFamileisId\"},{\"Name\":\"HR_Base_AccountHolderTypeId\",\"GetNameAs\":\"HR_Base_AccountHolderTypeId\"}],\"Relation\":[]}");
 
         config = CKEditorBundleOptions.DefaultConfig.WithHtmlEditing();

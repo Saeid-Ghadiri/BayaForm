@@ -494,6 +494,9 @@ namespace Forms.Forms
             // field is double
             //Item.NumberofGoodsDelivery = Value;
             Ref_SCMPLATE_ProductRequestDetails_GetDeliveryCode?.SetVisible(Visible);
+
+            Ref_SCMPLATE_ProductRequestDetails_OldBuyCount.SetVisible(Visible);
+            Ref_SCMPLATE_ProductRequestDetails_OldBuyDate.SetVisible(Visible);
         }
 
         public async Task KharidIsVisible(bool Visible, bool Value, Entity.SCMPLATE_ProductRequestDetails Item)
@@ -506,6 +509,9 @@ namespace Forms.Forms
 
             // نقطه سفارش دارد
             Ref_SCMPLATE_ProductRequestDetails_HasOrderPoint.SetVisible(Visible);
+
+            Ref_SCMPLATE_ProductRequestDetails_OldBuyCount.SetVisible(Visible);
+            Ref_SCMPLATE_ProductRequestDetails_OldBuyDate.SetVisible(Visible);
         }
 
         public async Task TahvilKharidIsVisible(bool Visible, bool Value, Entity.SCMPLATE_ProductRequestDetails Item)
@@ -527,6 +533,9 @@ namespace Forms.Forms
             Ref_SCMPLATE_ProductRequestDetails_NumberofGoodsDelivery.SetVisible(Visible);
             // field is double
             //Item.NumberofGoodsDelivery = Value;
+
+            Ref_SCMPLATE_ProductRequestDetails_OldBuyCount.SetVisible(Visible);
+            Ref_SCMPLATE_ProductRequestDetails_OldBuyDate.SetVisible(Visible);
         }
 
         public async Task AnbardarIsVisible(bool Visible)
