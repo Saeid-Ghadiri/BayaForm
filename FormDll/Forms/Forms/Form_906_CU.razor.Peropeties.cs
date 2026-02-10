@@ -144,7 +144,7 @@ namespace Forms.Forms
     /// <summary>
     ///  ورژنی که فرم باهاش ساخته شده
     /// </summary>
-    public string? VersionForm { get; set; } = "5622";
+    public string? VersionForm { get; set; } = "5671";
 
     /// <summary>
     ///  موجودیت
@@ -197,21 +197,8 @@ public Input<decimal?> Ref_MAIN_MNT;
 public Input<string?> Ref_FACTDATE;
 public Input<string?> Ref_CREATOR;
 public Input<int?> Ref_Year;
-public Input<Guid> Ref_Id;
-public Input<Guid?> Ref_RequestID;
-public Input<Guid?> Ref_CreateUser;
-public Input<Guid?> Ref_UpdateUser;
-public Input<DateTime?> Ref_CreateDate;
-public Input<string?> Ref_ApiResult;
 public DxGrid? Grid_Shomaran_ProductDeliveryDetail;
 
-public Input<Guid> Ref_Shomaran_ProductDeliveryDetail_Id;
-public Input<Guid?> Ref_Shomaran_ProductDeliveryDetail_RequestID;
-public Input<Guid?> Ref_Shomaran_ProductDeliveryDetail_CreateUser;
-public Input<Guid?> Ref_Shomaran_ProductDeliveryDetail_UpdateUser;
-public Input<DateTime?> Ref_Shomaran_ProductDeliveryDetail_CreateDate;
-public Input<DateTime?> Ref_Shomaran_ProductDeliveryDetail_UpdateDate;
-public Input<bool?> Ref_Shomaran_ProductDeliveryDetail_IsDelete;
 public Input<decimal?> Ref_Shomaran_ProductDeliveryDetail_AMOUNT;
 public Input<decimal?> Ref_Shomaran_ProductDeliveryDetail_AMOUNT2;
 public Input<string?> Ref_Shomaran_ProductDeliveryDetail_CODE;
@@ -220,6 +207,19 @@ public Input<string?> Ref_Shomaran_ProductDeliveryDetail_RADYABI;
 public Input<string?> Ref_Shomaran_ProductDeliveryDetail_SEFARESH;
 public Input<int?> Ref_Shomaran_ProductDeliveryDetail_ROW_ID;
 public Input<int?> Ref_Shomaran_ProductDeliveryDetail_Year;
+public Input<Guid> Ref_Shomaran_ProductDeliveryDetail_Id;
+public Input<Guid?> Ref_Shomaran_ProductDeliveryDetail_RequestID;
+public Input<Guid?> Ref_Shomaran_ProductDeliveryDetail_CreateUser;
+public Input<Guid?> Ref_Shomaran_ProductDeliveryDetail_UpdateUser;
+public Input<DateTime?> Ref_Shomaran_ProductDeliveryDetail_CreateDate;
+public Input<DateTime?> Ref_Shomaran_ProductDeliveryDetail_UpdateDate;
+public Input<bool?> Ref_Shomaran_ProductDeliveryDetail_IsDelete;
+public Input<Guid> Ref_Id;
+public Input<Guid?> Ref_RequestID;
+public Input<Guid?> Ref_CreateUser;
+public Input<Guid?> Ref_UpdateUser;
+public Input<DateTime?> Ref_CreateDate;
+public Input<string?> Ref_ApiResult;
 
 
     #endregion

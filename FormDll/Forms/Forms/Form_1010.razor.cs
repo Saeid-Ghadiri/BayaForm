@@ -254,21 +254,21 @@ namespace Forms.Forms
 		{
 			bool IsValid = true;
 
-			if (Item.IDMS_ProductCategoriesId == null)
-			{
-				IsValid = false;
-				await _MSG.ShowError("لطفاً دسته‌بندی محصول را انتخاب کنید.");
-			}
-			if (Item.IDMS_ProductTypes == null)
-			{
-				IsValid = false;
-				await _MSG.ShowError("لطفاً نوع محصول را انتخاب کنید.");
-			}
-			if (Item.IDMS_ProductsId == null)
-			{
-				IsValid = false;
-				await _MSG.ShowError("لطفاً محصول را انتخاب کنید.");
-			}
+			// if (Item.IDMS_ProductCategoriesId == null)
+			// {
+			// 	IsValid = false;
+			// 	await _MSG.ShowError("لطفاً دسته‌بندی محصول را انتخاب کنید.");
+			// }
+			// if (Item.IDMS_ProductTypes == null)
+			// {
+			// 	IsValid = false;
+			// 	await _MSG.ShowError("لطفاً نوع محصول را انتخاب کنید.");
+			// }
+			// if (Item.IDMS_ProductsId == null)
+			// {
+			// 	IsValid = false;
+			// 	await _MSG.ShowError("لطفاً محصول را انتخاب کنید.");
+			// }
 			// if (Item.IDMS_CustomerId == null)
 			// {
 			// 	IsValid = false;
@@ -280,17 +280,17 @@ namespace Forms.Forms
 			// 	await _MSG.ShowError("لطفاً گزینه «منتج از» را انتخاب کنید.");
 			// }
 
-			// تاریخ پیشنهادی انجام کار (شمسی)
-			if (string.IsNullOrWhiteSpace(Item.RequestedDueDate_Fa))
-			{
-				IsValid = false;
-				await _MSG.ShowError("لطفاً تاریخ پیشنهادی انجام کار را وارد کنید.");
-			}
-			else if (!PersianDateUtils.TryParseDateString(Item.RequestedDueDate_Fa, out _))
-			{
-				IsValid = false;
-				await _MSG.ShowError("لطفاً تاریخ پیشنهادی انجام کار را با فرمت صحیح شمسی (مثال: 1403/01/01) وارد کنید.");
-			}
+			// // تاریخ پیشنهادی انجام کار (شمسی)
+			// if (string.IsNullOrWhiteSpace(Item.RequestedDueDate_Fa))
+			// {
+			// 	IsValid = false;
+			// 	await _MSG.ShowError("لطفاً تاریخ پیشنهادی انجام کار را وارد کنید.");
+			// }
+			// else if (!PersianDateUtils.TryParseDateString(Item.RequestedDueDate_Fa, out _))
+			// {
+			// 	IsValid = false;
+			// 	await _MSG.ShowError("لطفاً تاریخ پیشنهادی انجام کار را با فرمت صحیح شمسی (مثال: 1403/01/01) وارد کنید.");
+			// }
 
 			return IsValid;
 		}
@@ -760,41 +760,45 @@ namespace Forms.Forms
 		#endregion
 
 		#region IDMS_ProductTypes
-		//public async Task  IDMS_ProductTypesId_onitemselected(Entity.IDMS_ProductTypes Selected ,Entity.IDMS_RDC_Details Item  )
 		public async Task IDMS_ProductTypesId_onitemselected(dynamic Selected, Entity.IDMS_RDC_Details Item)
 		{
-			// اگر Selected null باشد (مثلاً وقتی ResetDropdown فراخوانی می‌شود)، از متد خارج می‌شویم
-			if (Selected == null)
-			{
-				Console.WriteLine("#Log: Selected is null - dropdown was reset");
-				return;
-			}
 
-			Console.WriteLine("#Log ::0::");
-
-			var jsonSelected = await Utility.JSON.ToJson(Selected);
-			Console.WriteLine(jsonSelected);
-
-			string selectedProductTypes = Selected.Id.ToString();
-
-			Console.WriteLine("#Log ::1::" + selectedProductTypes);
-
-			if (string.IsNullOrWhiteSpace(selectedProductTypes))
-			{
-				Console.WriteLine("#Log: Selected ProductTypes is empty");
-				return; // یا LoadData("") ارسال شود
-			}
-
-			Ref_IDMS_RDC_Details_IDMS_ProductsId.SetEntity(selectedProductTypes);
-			
-			await Task.Delay(100);
-
-			// LoadData رشته می‌خواهد
-			await Ref_IDMS_RDC_Details_IDMS_ProductsId.LoadData();
-
-			StateHasChanged();
 		}
+		// public async Task IDMS_ProductTypesId_onitemselected(dynamic Selected, Entity.IDMS_RDC_Details Item)
+		// {
+		// 	// اگر Selected null باشد (مثلاً وقتی ResetDropdown فراخوانی می‌شود)، از متد خارج می‌شویم
+		// 	if (Selected == null)
+		// 	{
+		// 		Console.WriteLine("#Log: Selected is null - dropdown was reset");
+		// 		return;
+		// 	}
+
+		// 	Console.WriteLine("#Log ::0::");
+
+		// 	var jsonSelected = await Utility.JSON.ToJson(Selected);
+		// 	Console.WriteLine(jsonSelected);
+
+		// 	string selectedProductTypes = Selected.Id.ToString();
+
+		// 	Console.WriteLine("#Log ::1::" + selectedProductTypes);
+
+		// 	if (string.IsNullOrWhiteSpace(selectedProductTypes))
+		// 	{
+		// 		Console.WriteLine("#Log: Selected ProductTypes is empty");
+		// 		return; // یا LoadData("") ارسال شود
+		// 	}
+
+		// 	Ref_IDMS_RDC_Details_IDMS_ProductsId.SetEntity(selectedProductTypes);
+			
+		// 	await Task.Delay(100);
+
+		// 	// LoadData رشته می‌خواهد
+		// 	await Ref_IDMS_RDC_Details_IDMS_ProductsId.LoadData();
+
+		// 	StateHasChanged();
+		// }
 		#endregion
+
 
 		#endregion FunctionEvents
 

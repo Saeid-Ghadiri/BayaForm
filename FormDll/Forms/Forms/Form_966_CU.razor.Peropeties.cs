@@ -144,7 +144,7 @@ namespace Forms.Forms
     /// <summary>
     ///  ورژنی که فرم باهاش ساخته شده
     /// </summary>
-    public string? VersionForm { get; set; } = "5622";
+    public string? VersionForm { get; set; } = "5671";
 
     /// <summary>
     ///  موجودیت
@@ -185,15 +185,16 @@ public Input<string?> Ref_LastName;
 public ElementReference Ref_submit;
 public ElementReference Ref_submit1;
 public ElementReference Ref_submit2;
-public Input<Guid> Ref_Id;
-public Input<Guid?> Ref_RequestID;
-public Input<Guid?> Ref_CreateUser;
-public Input<Guid?> Ref_UpdateUser;
-public Input<DateTime?> Ref_CreateDate;
-public Input<DateTime?> Ref_UpdateDate;
-public Input<bool?> Ref_IsDelete;
 public DxGrid? Grid_HR_EMP_EmployeeInfos;
 
+public Dropdown Ref_HR_EMP_EmployeeInfos_BaseInfo_MaritalStatusId;
+public Dropdown Ref_HR_EMP_EmployeeInfos_CityOfBirth;
+public Dropdown Ref_HR_EMP_EmployeeInfos_CityOfIssue;
+public Dropdown Ref_HR_EMP_EmployeeInfos_BaseInfo_BloodGroupId;
+public Dropdown Ref_HR_EMP_EmployeeInfos_BaseInfo_ReligionId;
+public Dropdown Ref_HR_EMP_EmployeeInfos_BaseInfo_MilitaryStatusId;
+public Dropdown Ref_HR_EMP_EmployeeInfos_BaseInfo_CitiesAreasId;
+public Dropdown Ref_HR_EMP_EmployeeInfos_BaseInfo_GenderId;
 public Input<Guid> Ref_HR_EMP_EmployeeInfos_Id;
 public Input<Guid?> Ref_HR_EMP_EmployeeInfos_RequestID;
 public Input<Guid?> Ref_HR_EMP_EmployeeInfos_CreateUser;
@@ -206,39 +207,12 @@ public Input<byte?> Ref_HR_EMP_EmployeeInfos_BirthDateDD;
 public Input<byte?> Ref_HR_EMP_EmployeeInfos_BirthDateMM;
 public Input<short?> Ref_HR_EMP_EmployeeInfos_BirthDateYYYY;
 public Input<string?> Ref_HR_EMP_EmployeeInfos_FatherName;
-public Dropdown Ref_HR_EMP_EmployeeInfos_BaseInfo_MaritalStatusId;
-public Dropdown Ref_HR_EMP_EmployeeInfos_CityOfBirth;
-public Dropdown Ref_HR_EMP_EmployeeInfos_CityOfIssue;
-public Dropdown Ref_HR_EMP_EmployeeInfos_BaseInfo_BloodGroupId;
-public Dropdown Ref_HR_EMP_EmployeeInfos_BaseInfo_ReligionId;
-public Dropdown Ref_HR_EMP_EmployeeInfos_BaseInfo_MilitaryStatusId;
-public Dropdown Ref_HR_EMP_EmployeeInfos_BaseInfo_CitiesAreasId;
-public Dropdown Ref_HR_EMP_EmployeeInfos_BaseInfo_GenderId;
 public Input<DateTime?> Ref_HR_EMP_EmployeeInfos_BirthDate;
 public Input<string?> Ref_HR_EMP_EmployeeInfos_BirthDate_Fa;
-public DxGrid? Grid_HR_EMP_EmployeeFamileis;
-
-public Input<Guid> Ref_HR_EMP_EmployeeFamileis_Id;
-public Input<Guid?> Ref_HR_EMP_EmployeeFamileis_RequestID;
-public Input<Guid?> Ref_HR_EMP_EmployeeFamileis_CreateUser;
-public Input<Guid?> Ref_HR_EMP_EmployeeFamileis_UpdateUser;
-public Input<DateTime?> Ref_HR_EMP_EmployeeFamileis_CreateDate;
-public Input<DateTime?> Ref_HR_EMP_EmployeeFamileis_UpdateDate;
-public Input<bool?> Ref_HR_EMP_EmployeeFamileis_IsDelete;
-public Input<string?> Ref_HR_EMP_EmployeeFamileis_IdCardNo;
-public Input<string?> Ref_HR_EMP_EmployeeFamileis_LastName;
-public Input<string?> Ref_HR_EMP_EmployeeFamileis_NationalCode;
-public Input<string?> Ref_HR_EMP_EmployeeFamileis_BirthDate;
-public Input<string?> Ref_HR_EMP_EmployeeFamileis_Description;
-public Input<string?> Ref_HR_EMP_EmployeeFamileis_FatherName;
-public Input<string?> Ref_HR_EMP_EmployeeFamileis_FirstName;
-public Dropdown Ref_HR_EMP_EmployeeFamileis_HR_FamilyRelationshipId;
-public Dropdown Ref_HR_EMP_EmployeeFamileis_BaseInfo_CitiesId;
-public Dropdown Ref_HR_EMP_EmployeeFamileis_BaseInfo_GenderId;
-public Dropdown Ref_HR_EMP_EmployeeFamileis_BaseInfo_MaritalStatusId;
-public Dropdown Ref_HR_EMP_EmployeeFamileis_HR_Base_DependentId;
 public DxGrid? Grid_HR_Base_BankAccount;
 
+public Dropdown Ref_HR_Base_BankAccount_BaseInfo_BankId;
+public Input<string?> Ref_HR_Base_BankAccount_IBAN;
 public Input<Guid> Ref_HR_Base_BankAccount_Id;
 public Input<Guid?> Ref_HR_Base_BankAccount_RequestID;
 public Input<Guid?> Ref_HR_Base_BankAccount_CreateUser;
@@ -246,8 +220,34 @@ public Input<Guid?> Ref_HR_Base_BankAccount_UpdateUser;
 public Input<DateTime?> Ref_HR_Base_BankAccount_CreateDate;
 public Input<DateTime?> Ref_HR_Base_BankAccount_UpdateDate;
 public Input<bool?> Ref_HR_Base_BankAccount_IsDelete;
-public Input<string?> Ref_HR_Base_BankAccount_IBAN;
-public Dropdown Ref_HR_Base_BankAccount_BaseInfo_BankId;
+public DxGrid? Grid_HR_EMP_EmployeeFamileis;
+
+public Input<string?> Ref_HR_EMP_EmployeeFamileis_FirstName;
+public Input<string?> Ref_HR_EMP_EmployeeFamileis_LastName;
+public Input<string?> Ref_HR_EMP_EmployeeFamileis_FatherName;
+public Input<string?> Ref_HR_EMP_EmployeeFamileis_NationalCode;
+public Input<string?> Ref_HR_EMP_EmployeeFamileis_IdCardNo;
+public Input<string?> Ref_HR_EMP_EmployeeFamileis_BirthDate;
+public Dropdown Ref_HR_EMP_EmployeeFamileis_BaseInfo_CitiesId;
+public Dropdown Ref_HR_EMP_EmployeeFamileis_BaseInfo_GenderId;
+public Dropdown Ref_HR_EMP_EmployeeFamileis_BaseInfo_MaritalStatusId;
+public Dropdown Ref_HR_EMP_EmployeeFamileis_HR_FamilyRelationshipId;
+public Dropdown Ref_HR_EMP_EmployeeFamileis_HR_Base_DependentId;
+public Input<string?> Ref_HR_EMP_EmployeeFamileis_Description;
+public Input<Guid> Ref_HR_EMP_EmployeeFamileis_Id;
+public Input<Guid?> Ref_HR_EMP_EmployeeFamileis_RequestID;
+public Input<Guid?> Ref_HR_EMP_EmployeeFamileis_CreateUser;
+public Input<Guid?> Ref_HR_EMP_EmployeeFamileis_UpdateUser;
+public Input<DateTime?> Ref_HR_EMP_EmployeeFamileis_CreateDate;
+public Input<DateTime?> Ref_HR_EMP_EmployeeFamileis_UpdateDate;
+public Input<bool?> Ref_HR_EMP_EmployeeFamileis_IsDelete;
+public Input<Guid> Ref_Id;
+public Input<Guid?> Ref_RequestID;
+public Input<Guid?> Ref_CreateUser;
+public Input<Guid?> Ref_UpdateUser;
+public Input<DateTime?> Ref_CreateDate;
+public Input<DateTime?> Ref_UpdateDate;
+public Input<bool?> Ref_IsDelete;
 
 
     #endregion

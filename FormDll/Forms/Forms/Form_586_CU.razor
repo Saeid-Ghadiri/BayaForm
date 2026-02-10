@@ -71,7 +71,7 @@
         EditFormButtonsVisible="false"
         CustomizeEditModel="CustomizeEditGrid_PPCAtlasBobbin_EnteringWarehouse"
         CustomizeElement="CustomizeRowsGrid_PPCAtlasBobbin_EnteringWarehouse" 
-        Component="@((Utility.JSON.ToObject<View_Component>("{\"primaryKey\":false,\"EntityID\":330,\"FieldId\":330,\"TypeCSharp\":\"\",\"NotNull\":false,\"ViewId\":0,\"NotMapped\":false,\"Relation\":false,\"RelationExternal\":false,\"RelationParentName\":\"\",\"RelationParentModel\":\"\",\"RelationChildModel\":\"PPCAtlasBobbin_EnteringWarehouse\",\"GridMainModel\":\"PPCAtlasBobbin_EnteringWarehouse\",\"widget\":{\"altInput\":false,\"allowInput\":false,\"clickOpens\":false,\"enableDate\":false,\"enableTime\":false,\"noCalendar\":false,\"useLocaleSettings\":false,\"hourIncrement\":0,\"minuteIncrement\":0,\"time_24hr\":false},\"wysiwyg\":false,\"data\":{},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"FieldsTemplate\":[],\"refreshOn\":\"data\",\"reorder\":false,\"addAnotherPosition\":\"bottom\",\"layoutFixed\":false,\"enableRowGroups\":false,\"initEmpty\":false,\"disabled\":true,\"modal\":true,\"label\":\"انبار مواد اولیه\",\"tableView\":true,\"key\":\"GridGlobal_VehicleId_330\",\"type\":\"datagrid\",\"input\":true,\"placeholder\":\"GridGlobal_VehicleId_330\",\"modalEdit\":true,\"FieldUrl\":\"330?EId=330&SubId=26\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result))"
+        Component="@((Utility.JSON.ToObject<View_Component>("{\"primaryKey\":false,\"EntityID\":330,\"FieldId\":330,\"TypeCSharp\":\"\",\"NotNull\":false,\"ViewId\":0,\"NotMapped\":false,\"Relation\":false,\"RelationExternal\":false,\"RelationParentName\":\"\",\"RelationParentModel\":\"\",\"RelationChildModel\":\"PPCAtlasBobbin_EnteringWarehouse\",\"GridMainModel\":\"PPCAtlasBobbin_EnteringWarehouse\",\"widget\":{\"altInput\":false,\"allowInput\":false,\"clickOpens\":false,\"enableDate\":false,\"enableTime\":false,\"noCalendar\":false,\"useLocaleSettings\":false,\"hourIncrement\":0,\"minuteIncrement\":0,\"time_24hr\":false},\"wysiwyg\":false,\"data\":{},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"FieldsTemplate\":[],\"refreshOn\":\"data\",\"reorder\":false,\"addAnotherPosition\":\"bottom\",\"layoutFixed\":false,\"enableRowGroups\":false,\"initEmpty\":false,\"disabled\":true,\"modal\":true,\"label\":\"انبار مواد اولیه\",\"tableView\":true,\"key\":\"GridGlobal_VehicleId_330\",\"type\":\"datagrid\",\"input\":true,\"placeholder\":\"GridGlobal_VehicleId\",\"modalEdit\":true,\"FieldUrl\":\"330?EId=330&SubId=26\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":false,\"AccessEdit\":true,\"AccessNew\":true}").Result))"
          >
     <Columns>
     
@@ -91,10 +91,6 @@
 </a>
 
        
-<a class="btn btn-sm btn-red-light btnDeleteGridData" @onclick="@(() => OnDeleteButtonClickGrid_PPCAtlasBobbin_EnteringWarehouse(CellContext))" style="text-decoration: none;" href="javascript:void(0);">
-    <span class="fal fa-times-circle btnicon"></span>
-</a>
-
     </CellDisplayTemplate>
 </DxGridCommandColumn>
 
@@ -134,32 +130,8 @@
 
 <DxGridDataColumn  Caption="تاریخ بارنامه"  FieldName="DateBarnameh" />
 
-<DxGridDataColumn Context="Global_VehicleId_" Caption="وسیله نقلیه" >
-    <CellDisplayTemplate>
-       
-@{
-    Baya.Models.ViewEngine.View_Component HeaderGlobal_VehicleId = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"primaryKey\":false,\"EntityID\":330,\"FieldId\":14214,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":586,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":false,\"RelationParentName\":\"Global_Vehicle\",\"RelationParentModel\":\"Global_Vehicle\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/Global_Vehicle/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.Title}} </span>\",\"FieldsTemplate\":[{\"key\":\"Title\",\"value\":\"nvarchar(Max)\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"searchField\":\"\",\"disabled\":false,\"modal\":true,\"label\":\"وسیله نقلیه\",\"tableView\":true,\"key\":\"Global_VehicleId\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"14214?EId=330&SubId=26\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
-    var RowGlobal_VehicleId = ((Entity.PPCAtlasBobbin_EnteringWarehouse)Global_VehicleId_.DataItem).Global_VehicleId;
-}
+<DxGridDataColumn  Caption="وسیله نقلیه"  FieldName="Global_VehicleId" />
 
-<Dropdown ExternalApi=false CssClass="" NotMapped=false TextGrid=true Value="@RowGlobal_VehicleId"   FieldName="Global_VehicleId" OnItemSelected="ItemSelected_PPCAtlasBobbin_EnteringWarehouseGlobal_VehicleId_Header" Component="HeaderGlobal_VehicleId">
-</Dropdown>
-@code {
-    public async Task ItemSelected_PPCAtlasBobbin_EnteringWarehouseGlobal_VehicleId_Header(object _Item)
-    {
-      //  var Selected = Utility.JSON.ToObject<dynamic>(Utility.JSON.ToJson(_Item).Result).Result;
-  //   Global_VehicleId
-
-  //  #CustomCode
-
- //   
-
-  //  #OnItemSelected
-    }
-}
-
-    </CellDisplayTemplate>
-</DxGridDataColumn>
 <DxGridDataColumn  Caption="پلاک خودرو"  FieldName="CarNumber" />
 
 <DxGridDataColumn  Caption="نام راننده"  FieldName="DriverName" />
@@ -237,43 +209,8 @@
 </DxFormLayoutItem>
 
 <DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextPPCAtlasBobbin_EnteringWarehouse">
-     
- 
-@code {
-    Baya.Models.ViewEngine.View_Component Component_PPCAtlasBobbin_EnteringWarehouseGlobal_VehicleId = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"primaryKey\":false,\"EntityID\":330,\"FieldId\":14214,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":586,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":false,\"RelationParentName\":\"Global_Vehicle\",\"RelationParentModel\":\"Global_Vehicle\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/Global_Vehicle/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.Title}} </span>\",\"FieldsTemplate\":[{\"key\":\"Title\",\"value\":\"nvarchar(Max)\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"searchField\":\"\",\"disabled\":false,\"modal\":true,\"label\":\"وسیله نقلیه\",\"tableView\":true,\"key\":\"Global_VehicleId\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"14214?EId=330&SubId=26\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
-}
-
-    <Dropdown Id=PPCAtlasBobbin_EnteringWarehouse_Global_VehicleId  @ref="Ref_PPCAtlasBobbin_EnteringWarehouse_Global_VehicleId" Label="وسیله نقلیه" CssClass=""  DisplayFormat="DropDown" ExternalApi=false NotMapped=false TextGrid=false Text="" Value="@PPCAtlasBobbin_EnteringWarehouse.Global_VehicleId" FieldName="Global_VehicleId" OnItemSelected="ItemSelected_PPCAtlasBobbin_EnteringWarehouseGlobal_VehicleId" Component="Component_PPCAtlasBobbin_EnteringWarehouseGlobal_VehicleId" _Entity="_Entity" _EntityRow=PPCAtlasBobbin_EnteringWarehouse>
-</Dropdown>
-@code {
-    public async Task ItemSelected_PPCAtlasBobbin_EnteringWarehouseGlobal_VehicleId(object _Item)
-    {
-        var Selected = Utility.JSON.ToObject<dynamic>(Utility.JSON.ToJson(_Item).Result).Result;
-     var Item = PPCAtlasBobbin_EnteringWarehouse;
-
-      //Todo
- //برای اینکه آی دی تغییر کند اینجا نیز باید تغییر کند
- //بهتر است از پرایمیری کی استفاده شود
- if (_Item != null)
- {
-     Console.WriteLine(" Item Is Not Null");
-    Item.Global_VehicleId = Selected.Id;
     
- }
- else
- {
-     Console.WriteLine(" Item Is Null");
-      Item.Global_VehicleId =EntityHelper.SetPropertyNull(Item.Global_VehicleId);
- }
- Item.Global_Vehicle = await Utility.JSON.ToObject<Entity.Global_Vehicle>(await Utility.JSON.ToJson(_Item));
-    StateHasChanged();
-
-
-    
-
-    
-    }
-} 
+<Input Id="PPCAtlasBobbin_EnteringWarehouse_Global_VehicleId" @ref="Ref_PPCAtlasBobbin_EnteringWarehouse_Global_VehicleId" Label="وسیله نقلیه"     @bind-Value="PPCAtlasBobbin_EnteringWarehouse.Global_VehicleId" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
 
 </DxFormLayoutItem>
 
@@ -595,7 +532,6 @@ MainModel.EnteringWarehouseNo = ((Entity.PPCAtlasBobbin_EnteringWarehouse)EditMo
 MainModel.BarNamehNo = ((Entity.PPCAtlasBobbin_EnteringWarehouse)EditModel).BarNamehNo;
 MainModel.DateBarnameh = ((Entity.PPCAtlasBobbin_EnteringWarehouse)EditModel).DateBarnameh;
 MainModel.Global_VehicleId = ((Entity.PPCAtlasBobbin_EnteringWarehouse)EditModel).Global_VehicleId;
-MainModel.Global_Vehicle = ((Entity.PPCAtlasBobbin_EnteringWarehouse)EditModel).Global_Vehicle;
 MainModel.CarNumber = ((Entity.PPCAtlasBobbin_EnteringWarehouse)EditModel).CarNumber;
 MainModel.DriverName = ((Entity.PPCAtlasBobbin_EnteringWarehouse)EditModel).DriverName;
 MainModel.MobileDriverName = ((Entity.PPCAtlasBobbin_EnteringWarehouse)EditModel).MobileDriverName;

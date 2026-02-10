@@ -144,7 +144,7 @@ namespace Forms.Forms
     /// <summary>
     ///  ورژنی که فرم باهاش ساخته شده
     /// </summary>
-    public string? VersionForm { get; set; } = "5622";
+    public string? VersionForm { get; set; } = "5671";
 
     /// <summary>
     ///  موجودیت
@@ -184,6 +184,26 @@ public Input<string?> Ref_UserCompanyName;
 public Input<string?> Ref_SystemUnitUser;
 public Input<string?> Ref_SystemSectionUser;
 public Input<string?> Ref_CancellationReason;
+public DxGrid? Grid_SCM_ProductRequestDetails;
+
+public Input<string?> Ref_SCM_ProductRequestDetails_ProductNameText;
+public Input<string?> Ref_SCM_ProductRequestDetails_ProductCodeText;
+public Input<string?> Ref_SCM_ProductRequestDetails_ProductUnitText;
+public Dropdown Ref_SCM_ProductRequestDetails_SCM_ProcurementId;
+public RadioBoolean Ref_SCM_ProductRequestDetails_ForeignMachineryProductTrueFasle;
+public Dropdown Ref_SCM_ProductRequestDetails_SCM_PriorityId;
+public Input<double?> Ref_SCM_ProductRequestDetails_DeficitSupplyNumber;
+public Input<string?> Ref_SCM_ProductRequestDetails_PlaceOfUseProduct;
+public Input<string?> Ref_SCM_ProductRequestDetails_ProductRowDescription;
+public Input<string?> Ref_SCM_ProductRequestDetails_ProcurementWorkAllocationDateTime;
+public RadioBoolean Ref_SCM_ProductRequestDetails_FutureActionTrueFalse;
+public Input<Guid> Ref_SCM_ProductRequestDetails_Id;
+public Input<Guid?> Ref_SCM_ProductRequestDetails_RequestID;
+public Input<Guid?> Ref_SCM_ProductRequestDetails_CreateUser;
+public Input<Guid?> Ref_SCM_ProductRequestDetails_UpdateUser;
+public Input<DateTime?> Ref_SCM_ProductRequestDetails_CreateDate;
+public Input<DateTime?> Ref_SCM_ProductRequestDetails_UpdateDate;
+public Input<bool?> Ref_SCM_ProductRequestDetails_IsDelete;
 public Input<Guid> Ref_Id;
 public Input<Guid?> Ref_RequestID;
 public Input<Guid?> Ref_CreateUser;
@@ -192,26 +212,6 @@ public Input<DateTime?> Ref_CreateDate;
 public Input<DateTime?> Ref_UpdateDate;
 public Input<bool?> Ref_IsDelete;
 public Input<string?> Ref_CancelledBy;
-public DxGrid? Grid_SCM_ProductRequestDetails;
-
-public Input<Guid> Ref_SCM_ProductRequestDetails_Id;
-public Input<Guid?> Ref_SCM_ProductRequestDetails_RequestID;
-public Input<Guid?> Ref_SCM_ProductRequestDetails_CreateUser;
-public Input<Guid?> Ref_SCM_ProductRequestDetails_UpdateUser;
-public Input<DateTime?> Ref_SCM_ProductRequestDetails_CreateDate;
-public Input<DateTime?> Ref_SCM_ProductRequestDetails_UpdateDate;
-public Input<bool?> Ref_SCM_ProductRequestDetails_IsDelete;
-public Input<string?> Ref_SCM_ProductRequestDetails_ProductCodeText;
-public Input<string?> Ref_SCM_ProductRequestDetails_ProductUnitText;
-public Dropdown Ref_SCM_ProductRequestDetails_SCM_PriorityId;
-public Input<string?> Ref_SCM_ProductRequestDetails_PlaceOfUseProduct;
-public Input<string?> Ref_SCM_ProductRequestDetails_ProductRowDescription;
-public Input<string?> Ref_SCM_ProductRequestDetails_ProductNameText;
-public RadioBoolean Ref_SCM_ProductRequestDetails_ForeignMachineryProductTrueFasle;
-public RadioBoolean Ref_SCM_ProductRequestDetails_FutureActionTrueFalse;
-public Dropdown Ref_SCM_ProductRequestDetails_SCM_ProcurementId;
-public Input<double?> Ref_SCM_ProductRequestDetails_DeficitSupplyNumber;
-public Input<string?> Ref_SCM_ProductRequestDetails_ProcurementWorkAllocationDateTime;
 
 
     #endregion

@@ -219,25 +219,7 @@
 </div>
 
 <div class="col-md-9">
-    
-</div>
-
-</div>
-
-<Input Id="Id" @ref="Ref_Id"   CssClass="d-none"   @bind-Value="_Entity.Id" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
-
-<Input Id="RequestID" @ref="Ref_RequestID"      @bind-Value="_Entity.RequestID" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
-
-<Input Id="CreateUser" @ref="Ref_CreateUser"      @bind-Value="_Entity.CreateUser" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
-
-<Input Id="UpdateUser" @ref="Ref_UpdateUser"      @bind-Value="_Entity.UpdateUser" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
-
-<Input Id="CreateDate" @ref="Ref_CreateDate"   CssClass="d-none"   @bind-Value="_Entity.CreateDate" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
-
-<Input Id="UpdateDate" @ref="Ref_UpdateDate"   CssClass="d-none"   @bind-Value="_Entity.UpdateDate" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
-
-<Input Id="IsDelete" @ref="Ref_IsDelete"   CssClass="d-none"   @bind-Value="_Entity.IsDelete" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
-<label for="HR_ORG_Posts_GridHR_ORG_PositionsId_389">پست سازمانی
+    <label for="HR_ORG_Posts_GridHR_ORG_PositionsId_389">پست سازمانی
    
     
 </label>
@@ -250,7 +232,7 @@
         EditFormButtonsVisible="false"
         CustomizeEditModel="CustomizeEditGrid_HR_ORG_Posts"
         CustomizeElement="CustomizeRowsGrid_HR_ORG_Posts" 
-        Component="@((Utility.JSON.ToObject<View_Component>("{\"primaryKey\":false,\"EntityID\":389,\"FieldId\":389,\"TypeCSharp\":\"\",\"NotNull\":false,\"ViewId\":0,\"NotMapped\":false,\"Relation\":false,\"RelationExternal\":false,\"RelationParentName\":\"\",\"RelationParentModel\":\"\",\"RelationChildModel\":\"HR_ORG_Posts\",\"GridMainModel\":\"HR_ORG_Posts\",\"widget\":{\"altInput\":false,\"allowInput\":false,\"clickOpens\":false,\"enableDate\":false,\"enableTime\":false,\"noCalendar\":false,\"useLocaleSettings\":false,\"hourIncrement\":0,\"minuteIncrement\":0,\"time_24hr\":false},\"wysiwyg\":false,\"data\":{},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"FieldsTemplate\":[],\"refreshOn\":\"data\",\"reorder\":false,\"addAnotherPosition\":\"bottom\",\"layoutFixed\":false,\"enableRowGroups\":false,\"initEmpty\":false,\"disabled\":true,\"modal\":true,\"label\":\"پست سازمانی\",\"tableView\":true,\"key\":\"GridHR_ORG_PositionsId_389\",\"type\":\"datagrid\",\"input\":true,\"placeholder\":\"GridHR_ORG_PositionsId_389\",\"modalEdit\":true,\"FieldUrl\":\"389?EId=389&SubId=15\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result))"
+        Component="@((Utility.JSON.ToObject<View_Component>("{\"primaryKey\":false,\"EntityID\":389,\"FieldId\":389,\"NotNull\":false,\"ViewId\":0,\"NotMapped\":false,\"Relation\":false,\"RelationExternal\":false,\"RelationChildModel\":\"HR_ORG_Posts\",\"GridMainModel\":\"HR_ORG_Posts\",\"widget\":{\"altInput\":false,\"allowInput\":false,\"clickOpens\":false,\"enableDate\":false,\"enableTime\":false,\"noCalendar\":false,\"useLocaleSettings\":false,\"hourIncrement\":0,\"minuteIncrement\":0,\"time_24hr\":false},\"wysiwyg\":false,\"data\":{},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"FieldsTemplate\":[],\"refreshOn\":\"data\",\"reorder\":false,\"addAnotherPosition\":\"bottom\",\"layoutFixed\":false,\"enableRowGroups\":false,\"initEmpty\":false,\"disabled\":true,\"modal\":true,\"label\":\"پست سازمانی\",\"tableView\":true,\"key\":\"GridHR_ORG_PositionsId_389\",\"type\":\"datagrid\",\"input\":true,\"placeholder\":\"GridHR_ORG_PositionsId_389\",\"modalEdit\":true,\"FieldUrl\":\"389?EId=389&SubId=15\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result))"
          >
     <Columns>
     
@@ -293,47 +275,15 @@
           
            </CellDisplayTemplate>
      </DxGridCommandColumn>
-    <DxGridDataColumn  Caption="Id" Visible=false FieldName="Id" />
-
-<DxGridDataColumn  Caption="RequestID" Visible=false FieldName="RequestID" />
-
-<DxGridDataColumn  Caption="CreateUser" Visible=false FieldName="CreateUser" />
-
-<DxGridDataColumn  Caption="UpdateUser" Visible=false FieldName="UpdateUser" />
-
-<DxGridDataColumn  Caption="CreateDate" Visible=false FieldName="CreateDate" />
-
-<DxGridDataColumn  Caption="UpdateDate" Visible=false FieldName="UpdateDate" />
-
-<DxGridDataColumn  Caption="IsDelete" Visible=false FieldName="IsDelete" />
-
-<DxGridDataColumn Context="State_" Caption="فعال است؟" >
+    <DxGridDataColumn Context="HR_ORG_PositionsId_" Caption="سمت سازمانی" >
     <CellDisplayTemplate>
        
 @{
-    var HR_ORG_Posts_State = ((Entity.HR_ORG_Posts)State_.DataItem).State;
-}
-
-<p class="text-center " hidden="@(HR_ORG_Posts_State !=null ? !HR_ORG_Posts_State : true)">@languageContainer.Keys["DXGrid:Yes"]</p>
-
-<p class="text-center" hidden="@(HR_ORG_Posts_State !=null ? HR_ORG_Posts_State : true)">@languageContainer.Keys["DXGrid:No"]</p>
- 
-
-    </CellDisplayTemplate>
-</DxGridDataColumn>
-<DxGridDataColumn  Caption="عنوان پست سازمانی"  FieldName="Title" />
-
-<DxGridDataColumn  Caption="توضیحات"  FieldName="Description" />
-
-<DxGridDataColumn Context="HR_ORG_PositionsId_" Caption="سمت سازمانی" >
-    <CellDisplayTemplate>
-       
-@{
-    Baya.Models.ViewEngine.View_Component HeaderHR_ORG_PositionsId = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"primaryKey\":false,\"EntityID\":389,\"FieldId\":15728,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":682,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":false,\"RelationParentName\":\"HR_ORG_Positions\",\"RelationParentModel\":\"HR_ORG_Positions\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\" https://bayaorm.workcv.ir/fa/api/v1/View_HR_ORG_Positions/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"inputFormat\":\"DropDown\",\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.PositionCode}} {{item.Title}} {{item.HR_ORG_PositionClassificationTitle}} </span>\",\"FieldsTemplate\":[{\"key\":\"PositionCode\",\"value\":\"nvarchar(Max)\"},{\"key\":\"Title\",\"value\":\"nvarchar(Max)\"},{\"key\":\"HR_ORG_PositionClassificationTitle\",\"value\":\"nvarchar(Max)\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"searchField\":\"PositionCode,Title,HR_ORG_PositionClassificationTitle\",\"disabled\":false,\"modal\":true,\"label\":\"سمت سازمانی\",\"tableView\":true,\"key\":\"HR_ORG_PositionsId\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"15728?EId=389&SubId=15\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
+    Baya.Models.ViewEngine.View_Component HeaderHR_ORG_PositionsId = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"primaryKey\":false,\"EntityID\":389,\"FieldId\":15728,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":682,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":false,\"RelationParentName\":\"HR_ORG_Positions\",\"RelationParentModel\":\"HR_ORG_Positions\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\" https://bayaorm.workcv.ir/fa/api/v1/View_HR_ORG_Positions/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"inputFormat\":\"DropDown\",\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.PositionCode}} {{item.Title}} {{item.HR_ORG_PositionClassificationTitle}} </span>\",\"FieldsTemplate\":[{\"key\":\"PositionCode\",\"value\":\"nvarchar(Max)\"},{\"key\":\"Title\",\"value\":\"nvarchar(Max)\"},{\"key\":\"HR_ORG_PositionClassificationTitle\",\"value\":\"nvarchar(Max)\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"searchField\":\"PositionCode,Title,HR_ORG_PositionClassificationTitle\",\"disableLimit\":false,\"noRefreshOnScroll\":false,\"disabled\":false,\"modal\":true,\"label\":\"سمت سازمانی\",\"tableView\":true,\"key\":\"HR_ORG_PositionsId\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"customClass\":\"Gcol-sm-8 Gcol-md-6 Gcol-lg-6\",\"FieldUrl\":\"15728?EId=389&SubId=15\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
     var RowHR_ORG_PositionsId = ((Entity.HR_ORG_Posts)HR_ORG_PositionsId_.DataItem).HR_ORG_PositionsId;
 }
 
-<Dropdown ExternalApi=false CssClass="" NotMapped=false TextGrid=true Value="@RowHR_ORG_PositionsId"   FieldName="HR_ORG_PositionsId" OnItemSelected="ItemSelected_HR_ORG_PostsHR_ORG_PositionsId_Header" Component="HeaderHR_ORG_PositionsId">
+<Dropdown ExternalApi=false CssClass="Gcol-sm-8 Gcol-md-6 Gcol-lg-6" NotMapped=false TextGrid=true Value="@RowHR_ORG_PositionsId"   FieldName="HR_ORG_PositionsId" OnItemSelected="ItemSelected_HR_ORG_PostsHR_ORG_PositionsId_Header" Component="HeaderHR_ORG_PositionsId">
 </Dropdown>
 @code {
     public async Task ItemSelected_HR_ORG_PostsHR_ORG_PositionsId_Header(object _Item)
@@ -351,15 +301,35 @@
 
     </CellDisplayTemplate>
 </DxGridDataColumn>
+<DxGridDataColumn Context="html_" Caption="HTML" >
+    <CellDisplayTemplate>
+      <div  class="htmlview Gcol-sm-8 Gcol-md-6 Gcol-lg-6">
+    
+</div>
+
+    </CellDisplayTemplate>
+</DxGridDataColumn>
+<DxGridDataColumn  Caption="کد پست سازمانی"  FieldName="PostCode" />
+
+<DxGridDataColumn  Caption="عنوان پست سازمانی"  FieldName="Title" />
+
+<DxGridDataColumn Context="html4_" Caption="HTML" >
+    <CellDisplayTemplate>
+      <div  class="htmlview Gcol-sm-8 Gcol-md-6 Gcol-lg-6">
+    
+</div>
+
+    </CellDisplayTemplate>
+</DxGridDataColumn>
 <DxGridDataColumn Context="HR_Base_InsuranceJobsId_" Caption="عنوان شغلی در بیمه" >
     <CellDisplayTemplate>
        
 @{
-    Baya.Models.ViewEngine.View_Component HeaderHR_Base_InsuranceJobsId = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"primaryKey\":false,\"EntityID\":389,\"FieldId\":15729,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":682,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":true,\"RelationParentName\":\"\",\"RelationParentModel\":\"\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/View_Insurance/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"InsuranceJobsId\",\"template\":\"<span>{{item.InsuranceTypesTitle}} {{item.InsuranceTypesCode}} {{item.InsuranceJobsTitle}} </span>\",\"FieldsTemplate\":[{\"key\":\"InsuranceTypesTitle\",\"value\":\"nvarchar(Max)\"},{\"key\":\"InsuranceTypesCode\",\"value\":\"nvarchar(Max)\"},{\"key\":\"InsuranceJobsTitle\",\"value\":\"nvarchar(Max)\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"searchField\":\"InsuranceTypesTitle,InsuranceTypesCode,InsuranceJobsTitle\",\"disabled\":false,\"modal\":true,\"label\":\"عنوان شغلی در بیمه\",\"tableView\":true,\"key\":\"HR_Base_InsuranceJobsId\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"15729?EId=389&SubId=15\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
+    Baya.Models.ViewEngine.View_Component HeaderHR_Base_InsuranceJobsId = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"primaryKey\":false,\"EntityID\":389,\"FieldId\":15729,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":682,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":true,\"RelationParentName\":\"\",\"RelationParentModel\":\"\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/View_Insurance/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"InsuranceJobsId\",\"template\":\"<span>{{item.InsuranceTypesTitle}} {{item.InsuranceTypesCode}} {{item.InsuranceJobsTitle}} </span>\",\"FieldsTemplate\":[{\"key\":\"InsuranceTypesTitle\",\"value\":\"nvarchar(Max)\"},{\"key\":\"InsuranceTypesCode\",\"value\":\"nvarchar(Max)\"},{\"key\":\"InsuranceJobsTitle\",\"value\":\"nvarchar(Max)\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"searchField\":\"InsuranceTypesTitle,InsuranceTypesCode,InsuranceJobsTitle\",\"disableLimit\":false,\"noRefreshOnScroll\":false,\"disabled\":false,\"modal\":true,\"label\":\"عنوان شغلی در بیمه\",\"tableView\":true,\"key\":\"HR_Base_InsuranceJobsId\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"customClass\":\"Gcol-sm-8 Gcol-md-6 Gcol-lg-6\",\"FieldUrl\":\"15729?EId=389&SubId=15\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
     var RowHR_Base_InsuranceJobsId = ((Entity.HR_ORG_Posts)HR_Base_InsuranceJobsId_.DataItem).HR_Base_InsuranceJobsId;
 }
 
-<Dropdown ExternalApi=true CssClass="" NotMapped=false TextGrid=true Value="@RowHR_Base_InsuranceJobsId"   FieldName="HR_Base_InsuranceJobsId" OnItemSelected="ItemSelected_HR_ORG_PostsHR_Base_InsuranceJobsId_Header" Component="HeaderHR_Base_InsuranceJobsId">
+<Dropdown ExternalApi=true CssClass="Gcol-sm-8 Gcol-md-6 Gcol-lg-6" NotMapped=false TextGrid=true Value="@RowHR_Base_InsuranceJobsId"   FieldName="HR_Base_InsuranceJobsId" OnItemSelected="ItemSelected_HR_ORG_PostsHR_Base_InsuranceJobsId_Header" Component="HeaderHR_Base_InsuranceJobsId">
 </Dropdown>
 @code {
     public async Task ItemSelected_HR_ORG_PostsHR_Base_InsuranceJobsId_Header(object _Item)
@@ -377,7 +347,51 @@
 
     </CellDisplayTemplate>
 </DxGridDataColumn>
-<DxGridDataColumn  Caption="کد پست سازمانی"  FieldName="PostCode" />
+<DxGridDataColumn Context="html2_" Caption="HTML" >
+    <CellDisplayTemplate>
+      <div  class="htmlview Gcol-sm-8 Gcol-md-6 Gcol-lg-8">
+    
+</div>
+
+    </CellDisplayTemplate>
+</DxGridDataColumn>
+<DxGridDataColumn  Caption="توضیحات"  FieldName="Description" />
+
+<DxGridDataColumn Context="html3_" Caption="HTML" >
+    <CellDisplayTemplate>
+      <div  class="Gcol-sm-8 Gcol-md-6 Gcol-lg-6">
+    
+</div>
+
+    </CellDisplayTemplate>
+</DxGridDataColumn>
+<DxGridDataColumn Context="State_" Caption="فعال است؟" >
+    <CellDisplayTemplate>
+       
+@{
+    var HR_ORG_Posts_State = ((Entity.HR_ORG_Posts)State_.DataItem).State;
+}
+
+<p class="text-center " hidden="@(HR_ORG_Posts_State !=null ? !HR_ORG_Posts_State : true)">@languageContainer.Keys["DXGrid:Yes"]</p>
+
+<p class="text-center" hidden="@(HR_ORG_Posts_State !=null ? HR_ORG_Posts_State : true)">@languageContainer.Keys["DXGrid:No"]</p>
+ 
+
+    </CellDisplayTemplate>
+</DxGridDataColumn>
+<DxGridDataColumn  Caption="Id" Visible=false FieldName="Id" />
+
+<DxGridDataColumn  Caption="RequestID" Visible=false FieldName="RequestID" />
+
+<DxGridDataColumn  Caption="CreateUser" Visible=false FieldName="CreateUser" />
+
+<DxGridDataColumn  Caption="UpdateUser" Visible=false FieldName="UpdateUser" />
+
+<DxGridDataColumn  Caption="CreateDate" Visible=false FieldName="CreateDate" />
+
+<DxGridDataColumn  Caption="UpdateDate" Visible=false FieldName="UpdateDate" />
+
+<DxGridDataColumn  Caption="IsDelete" Visible=false FieldName="IsDelete" />
 
 
 </Columns>
@@ -388,6 +402,125 @@
     }
     <DxFormLayout>
         <DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextHR_ORG_Posts">
+     
+ 
+@code {
+    Baya.Models.ViewEngine.View_Component Component_HR_ORG_PostsHR_ORG_PositionsId = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"primaryKey\":false,\"EntityID\":389,\"FieldId\":15728,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":682,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":false,\"RelationParentName\":\"HR_ORG_Positions\",\"RelationParentModel\":\"HR_ORG_Positions\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\" https://bayaorm.workcv.ir/fa/api/v1/View_HR_ORG_Positions/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"inputFormat\":\"DropDown\",\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.PositionCode}} {{item.Title}} {{item.HR_ORG_PositionClassificationTitle}} </span>\",\"FieldsTemplate\":[{\"key\":\"PositionCode\",\"value\":\"nvarchar(Max)\"},{\"key\":\"Title\",\"value\":\"nvarchar(Max)\"},{\"key\":\"HR_ORG_PositionClassificationTitle\",\"value\":\"nvarchar(Max)\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"searchField\":\"PositionCode,Title,HR_ORG_PositionClassificationTitle\",\"disableLimit\":false,\"noRefreshOnScroll\":false,\"disabled\":false,\"modal\":true,\"label\":\"سمت سازمانی\",\"tableView\":true,\"key\":\"HR_ORG_PositionsId\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"customClass\":\"Gcol-sm-8 Gcol-md-6 Gcol-lg-6\",\"FieldUrl\":\"15728?EId=389&SubId=15\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
+}
+
+    <Dropdown Id=HR_ORG_Posts_HR_ORG_PositionsId  @ref="Ref_HR_ORG_Posts_HR_ORG_PositionsId" Label="سمت سازمانی" CssClass="Gcol-sm-8 Gcol-md-6 Gcol-lg-6"  DisplayFormat="DropDown" ExternalApi=false NotMapped=false TextGrid=false Text="" Value="@HR_ORG_Posts.HR_ORG_PositionsId" FieldName="HR_ORG_PositionsId" OnItemSelected="ItemSelected_HR_ORG_PostsHR_ORG_PositionsId" Component="Component_HR_ORG_PostsHR_ORG_PositionsId" _Entity="_Entity" _EntityRow=HR_ORG_Posts>
+</Dropdown>
+@code {
+    public async Task ItemSelected_HR_ORG_PostsHR_ORG_PositionsId(object _Item)
+    {
+        var Selected = Utility.JSON.ToObject<dynamic>(Utility.JSON.ToJson(_Item).Result).Result;
+     var Item = HR_ORG_Posts;
+
+      //Todo
+ //برای اینکه آی دی تغییر کند اینجا نیز باید تغییر کند
+ //بهتر است از پرایمیری کی استفاده شود
+ if (_Item != null)
+ {
+     Console.WriteLine(" Item Is Not Null");
+    Item.HR_ORG_PositionsId = Selected.Id;
+    
+ }
+ else
+ {
+     Console.WriteLine(" Item Is Null");
+      Item.HR_ORG_PositionsId =EntityHelper.SetPropertyNull(Item.HR_ORG_PositionsId);
+ }
+ Item.HR_ORG_Positions = await Utility.JSON.ToObject<Entity.HR_ORG_Positions>(await Utility.JSON.ToJson(_Item));
+    StateHasChanged();
+
+
+    
+
+    
+    }
+} 
+
+</DxFormLayoutItem>
+
+<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextHR_ORG_Posts">
+    <div  class="htmlview Gcol-sm-8 Gcol-md-6 Gcol-lg-6">
+    
+</div>
+
+</DxFormLayoutItem>
+
+<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextHR_ORG_Posts">
+    
+<Input Id="HR_ORG_Posts_PostCode" @ref="Ref_HR_ORG_Posts_PostCode" Label="کد پست سازمانی"  CssClass="Gcol-sm-8 Gcol-md-6 Gcol-lg-3"   @bind-Value="HR_ORG_Posts.PostCode" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"maxlength\":\"10\"}").Result))></Input>
+
+</DxFormLayoutItem>
+
+<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextHR_ORG_Posts">
+    
+<Input Id="HR_ORG_Posts_Title" @ref="Ref_HR_ORG_Posts_Title" Label="عنوان پست سازمانی"  CssClass="Gcol-sm-8 Gcol-md-6 Gcol-lg-3"   @bind-Value="HR_ORG_Posts.Title" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"maxlength\":\"75\"}").Result))></Input>
+
+</DxFormLayoutItem>
+
+<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextHR_ORG_Posts">
+    <div  class="htmlview Gcol-sm-8 Gcol-md-6 Gcol-lg-6">
+    
+</div>
+
+</DxFormLayoutItem>
+
+<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextHR_ORG_Posts">
+     
+ 
+@code {
+    Baya.Models.ViewEngine.View_Component Component_HR_ORG_PostsHR_Base_InsuranceJobsId = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"primaryKey\":false,\"EntityID\":389,\"FieldId\":15729,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":682,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":true,\"RelationParentName\":\"\",\"RelationParentModel\":\"\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/View_Insurance/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"InsuranceJobsId\",\"template\":\"<span>{{item.InsuranceTypesTitle}} {{item.InsuranceTypesCode}} {{item.InsuranceJobsTitle}} </span>\",\"FieldsTemplate\":[{\"key\":\"InsuranceTypesTitle\",\"value\":\"nvarchar(Max)\"},{\"key\":\"InsuranceTypesCode\",\"value\":\"nvarchar(Max)\"},{\"key\":\"InsuranceJobsTitle\",\"value\":\"nvarchar(Max)\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"searchField\":\"InsuranceTypesTitle,InsuranceTypesCode,InsuranceJobsTitle\",\"disableLimit\":false,\"noRefreshOnScroll\":false,\"disabled\":false,\"modal\":true,\"label\":\"عنوان شغلی در بیمه\",\"tableView\":true,\"key\":\"HR_Base_InsuranceJobsId\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"customClass\":\"Gcol-sm-8 Gcol-md-6 Gcol-lg-6\",\"FieldUrl\":\"15729?EId=389&SubId=15\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
+}
+
+    <Dropdown Id=HR_ORG_Posts_HR_Base_InsuranceJobsId  @ref="Ref_HR_ORG_Posts_HR_Base_InsuranceJobsId" Label="عنوان شغلی در بیمه" CssClass="Gcol-sm-8 Gcol-md-6 Gcol-lg-6"  DisplayFormat="DropDown" ExternalApi=true NotMapped=false TextGrid=false  Value="@HR_ORG_Posts.HR_Base_InsuranceJobsId" FieldName="HR_Base_InsuranceJobsId" OnItemSelected="ItemSelected_HR_ORG_PostsHR_Base_InsuranceJobsId" Component="Component_HR_ORG_PostsHR_Base_InsuranceJobsId" _Entity="_Entity" _EntityRow=HR_ORG_Posts>
+</Dropdown>
+@code {
+    public async Task ItemSelected_HR_ORG_PostsHR_Base_InsuranceJobsId(object _Item)
+    {
+        var Selected = Utility.JSON.ToObject<dynamic>(Utility.JSON.ToJson(_Item).Result).Result;
+     var Item = HR_ORG_Posts;
+
+    Item.HR_Base_InsuranceJobsId = Selected.InsuranceJobsId;
+
+
+    
+
+    
+    }
+} 
+
+</DxFormLayoutItem>
+
+<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextHR_ORG_Posts">
+    <div  class="htmlview Gcol-sm-8 Gcol-md-6 Gcol-lg-8">
+    
+</div>
+
+</DxFormLayoutItem>
+
+<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextHR_ORG_Posts">
+    
+<Input Id="HR_ORG_Posts_Description" @ref="Ref_HR_ORG_Posts_Description" Label="توضیحات"  CssClass="Gcol-sm-8 Gcol-md-6 Gcol-lg-6"   @bind-Value="HR_ORG_Posts.Description" type="textarea"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"maxlength\":\"350\"}").Result))></Input>
+
+</DxFormLayoutItem>
+
+<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextHR_ORG_Posts">
+    <div  class="Gcol-sm-8 Gcol-md-6 Gcol-lg-6">
+    
+</div>
+
+</DxFormLayoutItem>
+
+<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextHR_ORG_Posts">
+    
+<Input Id="HR_ORG_Posts_State" @ref="Ref_HR_ORG_Posts_State" Label="فعال است؟"  CssClass="Gcol-sm-8 Gcol-md-6 Gcol-lg-3"   @bind-Value="HR_ORG_Posts.State" type="checkbox"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+</DxFormLayoutItem>
+
+<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextHR_ORG_Posts">
     
 <Input Id="HR_ORG_Posts_Id" @ref="Ref_HR_ORG_Posts_Id"   CssClass="d-none"   @bind-Value="HR_ORG_Posts.Id" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
 
@@ -426,97 +559,6 @@
 <DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextHR_ORG_Posts">
     
 <Input Id="HR_ORG_Posts_IsDelete" @ref="Ref_HR_ORG_Posts_IsDelete"   CssClass="d-none"   @bind-Value="HR_ORG_Posts.IsDelete" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
-
-</DxFormLayoutItem>
-
-<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextHR_ORG_Posts">
-    
-<Input Id="HR_ORG_Posts_State" @ref="Ref_HR_ORG_Posts_State" Label="فعال است؟"     @bind-Value="HR_ORG_Posts.State" type="checkbox"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
-
-</DxFormLayoutItem>
-
-<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextHR_ORG_Posts">
-    
-<Input Id="HR_ORG_Posts_Title" @ref="Ref_HR_ORG_Posts_Title" Label="عنوان پست سازمانی"     @bind-Value="HR_ORG_Posts.Title" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"maxlength\":\"75\"}").Result))></Input>
-
-</DxFormLayoutItem>
-
-<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextHR_ORG_Posts">
-    
-<Input Id="HR_ORG_Posts_Description" @ref="Ref_HR_ORG_Posts_Description" Label="توضیحات"     @bind-Value="HR_ORG_Posts.Description" type="textarea"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"maxlength\":\"350\"}").Result))></Input>
-
-</DxFormLayoutItem>
-
-<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextHR_ORG_Posts">
-     
- 
-@code {
-    Baya.Models.ViewEngine.View_Component Component_HR_ORG_PostsHR_ORG_PositionsId = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"primaryKey\":false,\"EntityID\":389,\"FieldId\":15728,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":682,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":false,\"RelationParentName\":\"HR_ORG_Positions\",\"RelationParentModel\":\"HR_ORG_Positions\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\" https://bayaorm.workcv.ir/fa/api/v1/View_HR_ORG_Positions/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"inputFormat\":\"DropDown\",\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.PositionCode}} {{item.Title}} {{item.HR_ORG_PositionClassificationTitle}} </span>\",\"FieldsTemplate\":[{\"key\":\"PositionCode\",\"value\":\"nvarchar(Max)\"},{\"key\":\"Title\",\"value\":\"nvarchar(Max)\"},{\"key\":\"HR_ORG_PositionClassificationTitle\",\"value\":\"nvarchar(Max)\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"searchField\":\"PositionCode,Title,HR_ORG_PositionClassificationTitle\",\"disabled\":false,\"modal\":true,\"label\":\"سمت سازمانی\",\"tableView\":true,\"key\":\"HR_ORG_PositionsId\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"15728?EId=389&SubId=15\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
-}
-
-    <Dropdown Id=HR_ORG_Posts_HR_ORG_PositionsId  @ref="Ref_HR_ORG_Posts_HR_ORG_PositionsId" Label="سمت سازمانی" CssClass=""  DisplayFormat="DropDown" ExternalApi=false NotMapped=false TextGrid=false Text="" Value="@HR_ORG_Posts.HR_ORG_PositionsId" FieldName="HR_ORG_PositionsId" OnItemSelected="ItemSelected_HR_ORG_PostsHR_ORG_PositionsId" Component="Component_HR_ORG_PostsHR_ORG_PositionsId" _Entity="_Entity" _EntityRow=HR_ORG_Posts>
-</Dropdown>
-@code {
-    public async Task ItemSelected_HR_ORG_PostsHR_ORG_PositionsId(object _Item)
-    {
-        var Selected = Utility.JSON.ToObject<dynamic>(Utility.JSON.ToJson(_Item).Result).Result;
-     var Item = HR_ORG_Posts;
-
-      //Todo
- //برای اینکه آی دی تغییر کند اینجا نیز باید تغییر کند
- //بهتر است از پرایمیری کی استفاده شود
- if (_Item != null)
- {
-     Console.WriteLine(" Item Is Not Null");
-    Item.HR_ORG_PositionsId = Selected.Id;
-    
- }
- else
- {
-     Console.WriteLine(" Item Is Null");
-      Item.HR_ORG_PositionsId =EntityHelper.SetPropertyNull(Item.HR_ORG_PositionsId);
- }
- Item.HR_ORG_Positions = await Utility.JSON.ToObject<Entity.HR_ORG_Positions>(await Utility.JSON.ToJson(_Item));
-    StateHasChanged();
-
-
-    
-
-    
-    }
-} 
-
-</DxFormLayoutItem>
-
-<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextHR_ORG_Posts">
-     
- 
-@code {
-    Baya.Models.ViewEngine.View_Component Component_HR_ORG_PostsHR_Base_InsuranceJobsId = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"primaryKey\":false,\"EntityID\":389,\"FieldId\":15729,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":682,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":true,\"RelationParentName\":\"\",\"RelationParentModel\":\"\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/View_Insurance/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"InsuranceJobsId\",\"template\":\"<span>{{item.InsuranceTypesTitle}} {{item.InsuranceTypesCode}} {{item.InsuranceJobsTitle}} </span>\",\"FieldsTemplate\":[{\"key\":\"InsuranceTypesTitle\",\"value\":\"nvarchar(Max)\"},{\"key\":\"InsuranceTypesCode\",\"value\":\"nvarchar(Max)\"},{\"key\":\"InsuranceJobsTitle\",\"value\":\"nvarchar(Max)\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"searchField\":\"InsuranceTypesTitle,InsuranceTypesCode,InsuranceJobsTitle\",\"disabled\":false,\"modal\":true,\"label\":\"عنوان شغلی در بیمه\",\"tableView\":true,\"key\":\"HR_Base_InsuranceJobsId\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"15729?EId=389&SubId=15\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
-}
-
-    <Dropdown Id=HR_ORG_Posts_HR_Base_InsuranceJobsId  @ref="Ref_HR_ORG_Posts_HR_Base_InsuranceJobsId" Label="عنوان شغلی در بیمه" CssClass=""  DisplayFormat="DropDown" ExternalApi=true NotMapped=false TextGrid=false  Value="@HR_ORG_Posts.HR_Base_InsuranceJobsId" FieldName="HR_Base_InsuranceJobsId" OnItemSelected="ItemSelected_HR_ORG_PostsHR_Base_InsuranceJobsId" Component="Component_HR_ORG_PostsHR_Base_InsuranceJobsId" _Entity="_Entity" _EntityRow=HR_ORG_Posts>
-</Dropdown>
-@code {
-    public async Task ItemSelected_HR_ORG_PostsHR_Base_InsuranceJobsId(object _Item)
-    {
-        var Selected = Utility.JSON.ToObject<dynamic>(Utility.JSON.ToJson(_Item).Result).Result;
-     var Item = HR_ORG_Posts;
-
-    Item.HR_Base_InsuranceJobsId = Selected.InsuranceJobsId;
-
-
-    
-
-    
-    }
-} 
-
-</DxFormLayoutItem>
-
-<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextHR_ORG_Posts">
-    
-<Input Id="HR_ORG_Posts_PostCode" @ref="Ref_HR_ORG_Posts_PostCode" Label="کد پست سازمانی"     @bind-Value="HR_ORG_Posts.PostCode" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"maxlength\":\"10\"}").Result))></Input>
 
 </DxFormLayoutItem>
 
@@ -805,6 +847,13 @@ public void SaveGrid_HR_ORG_Posts(object DataItem, object EditModel)
     var MainModel = (Entity.HR_ORG_Posts)DataItem;
     if (MainModel != null)
     {
+MainModel.HR_ORG_PositionsId = ((Entity.HR_ORG_Posts)EditModel).HR_ORG_PositionsId;
+MainModel.HR_ORG_Positions = ((Entity.HR_ORG_Posts)EditModel).HR_ORG_Positions;
+MainModel.PostCode = ((Entity.HR_ORG_Posts)EditModel).PostCode;
+MainModel.Title = ((Entity.HR_ORG_Posts)EditModel).Title;
+MainModel.HR_Base_InsuranceJobsId = ((Entity.HR_ORG_Posts)EditModel).HR_Base_InsuranceJobsId;
+MainModel.Description = ((Entity.HR_ORG_Posts)EditModel).Description;
+MainModel.State = ((Entity.HR_ORG_Posts)EditModel).State;
 MainModel.Id = ((Entity.HR_ORG_Posts)EditModel).Id;
 MainModel.RequestID = ((Entity.HR_ORG_Posts)EditModel).RequestID;
 MainModel.CreateUser = ((Entity.HR_ORG_Posts)EditModel).CreateUser;
@@ -812,13 +861,6 @@ MainModel.UpdateUser = ((Entity.HR_ORG_Posts)EditModel).UpdateUser;
 MainModel.CreateDate = ((Entity.HR_ORG_Posts)EditModel).CreateDate;
 MainModel.UpdateDate = ((Entity.HR_ORG_Posts)EditModel).UpdateDate;
 MainModel.IsDelete = ((Entity.HR_ORG_Posts)EditModel).IsDelete;
-MainModel.State = ((Entity.HR_ORG_Posts)EditModel).State;
-MainModel.Title = ((Entity.HR_ORG_Posts)EditModel).Title;
-MainModel.Description = ((Entity.HR_ORG_Posts)EditModel).Description;
-MainModel.HR_ORG_PositionsId = ((Entity.HR_ORG_Posts)EditModel).HR_ORG_PositionsId;
-MainModel.HR_ORG_Positions = ((Entity.HR_ORG_Posts)EditModel).HR_ORG_Positions;
-MainModel.HR_Base_InsuranceJobsId = ((Entity.HR_ORG_Posts)EditModel).HR_Base_InsuranceJobsId;
-MainModel.PostCode = ((Entity.HR_ORG_Posts)EditModel).PostCode;
 
     }
     else
@@ -932,6 +974,24 @@ public async void RowDubbleClickGrid_HR_ORG_Posts(GridRowClickEventArgs e)
 
 }
 }
+
+</div>
+
+</div>
+
+<Input Id="Id" @ref="Ref_Id"   CssClass="d-none"   @bind-Value="_Entity.Id" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+<Input Id="RequestID" @ref="Ref_RequestID"      @bind-Value="_Entity.RequestID" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+<Input Id="CreateUser" @ref="Ref_CreateUser"      @bind-Value="_Entity.CreateUser" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+<Input Id="UpdateUser" @ref="Ref_UpdateUser"      @bind-Value="_Entity.UpdateUser" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+<Input Id="CreateDate" @ref="Ref_CreateDate"   CssClass="d-none"   @bind-Value="_Entity.CreateDate" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+<Input Id="UpdateDate" @ref="Ref_UpdateDate"   CssClass="d-none"   @bind-Value="_Entity.UpdateDate" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+<Input Id="IsDelete" @ref="Ref_IsDelete"   CssClass="d-none"   @bind-Value="_Entity.IsDelete" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
 
     </EditForm>
 </div>

@@ -144,7 +144,7 @@ namespace Forms.Forms
     /// <summary>
     ///  ورژنی که فرم باهاش ساخته شده
     /// </summary>
-    public string? VersionForm { get; set; } = "5622";
+    public string? VersionForm { get; set; } = "5671";
 
     /// <summary>
     ///  موجودیت
@@ -194,6 +194,26 @@ public Dropdown Ref_PARTKIND;
 public Input<string?> Ref_NOTE;
 public Input<short?> Ref_YEAR;
 public Input<short?> Ref_ORDERYEAR;
+public DxGrid? Grid_SH_PolFilm_FactBuyDetail;
+
+public Dropdown Ref_SH_PolFilm_FactBuyDetail_ProductSearch;
+public Input<string?> Ref_SH_PolFilm_FactBuyDetail_PARTCODE;
+public Input<string?> Ref_SH_PolFilm_FactBuyDetail_ProductName;
+public Input<string?> Ref_SH_PolFilm_FactBuyDetail_ShomareFani;
+public Input<decimal?> Ref_SH_PolFilm_FactBuyDetail_AMOUNT;
+public Input<string?> Ref_SH_PolFilm_FactBuyDetail_ProductUnit;
+public Input<string?> Ref_SH_PolFilm_FactBuyDetail_NoteD;
+public Input<string?> Ref_SH_PolFilm_FactBuyDetail_RADYABI;
+public Input<string?> Ref_SH_PolFilm_FactBuyDetail_SEFARESH;
+public Input<Guid> Ref_SH_PolFilm_FactBuyDetail_Id;
+public Input<Guid?> Ref_SH_PolFilm_FactBuyDetail_RequestID;
+public Input<Guid?> Ref_SH_PolFilm_FactBuyDetail_CreateUser;
+public Input<Guid?> Ref_SH_PolFilm_FactBuyDetail_UpdateUser;
+public Input<DateTime?> Ref_SH_PolFilm_FactBuyDetail_CreateDate;
+public Input<DateTime?> Ref_SH_PolFilm_FactBuyDetail_UpdateDate;
+public Input<bool?> Ref_SH_PolFilm_FactBuyDetail_IsDelete;
+public Input<int?> Ref_SH_PolFilm_FactBuyDetail_ROW_ID;
+public Input<short?> Ref_SH_PolFilm_FactBuyDetail_YEAR;
 public Input<string?> Ref_ApiResult;
 public Input<Guid> Ref_Id;
 public Input<Guid?> Ref_RequestID;
@@ -202,26 +222,6 @@ public Input<Guid?> Ref_UpdateUser;
 public Input<DateTime?> Ref_CreateDate;
 public Input<DateTime?> Ref_UpdateDate;
 public Input<bool?> Ref_IsDelete;
-public DxGrid? Grid_SH_PolFilm_FactBuyDetail;
-
-public Input<Guid> Ref_SH_PolFilm_FactBuyDetail_Id;
-public Input<Guid?> Ref_SH_PolFilm_FactBuyDetail_RequestID;
-public Input<Guid?> Ref_SH_PolFilm_FactBuyDetail_CreateUser;
-public Input<Guid?> Ref_SH_PolFilm_FactBuyDetail_UpdateUser;
-public Input<DateTime?> Ref_SH_PolFilm_FactBuyDetail_CreateDate;
-public Input<DateTime?> Ref_SH_PolFilm_FactBuyDetail_UpdateDate;
-public Input<bool?> Ref_SH_PolFilm_FactBuyDetail_IsDelete;
-public Input<decimal?> Ref_SH_PolFilm_FactBuyDetail_AMOUNT;
-public Input<string?> Ref_SH_PolFilm_FactBuyDetail_PARTCODE;
-public Input<string?> Ref_SH_PolFilm_FactBuyDetail_RADYABI;
-public Input<string?> Ref_SH_PolFilm_FactBuyDetail_SEFARESH;
-public Input<int?> Ref_SH_PolFilm_FactBuyDetail_ROW_ID;
-public Input<short?> Ref_SH_PolFilm_FactBuyDetail_YEAR;
-public Input<string?> Ref_SH_PolFilm_FactBuyDetail_NoteD;
-public Input<string?> Ref_SH_PolFilm_FactBuyDetail_ShomareFani;
-public Input<string?> Ref_SH_PolFilm_FactBuyDetail_ProductName;
-public Dropdown Ref_SH_PolFilm_FactBuyDetail_ProductSearch;
-public Input<string?> Ref_SH_PolFilm_FactBuyDetail_ProductUnit;
 
 
     #endregion

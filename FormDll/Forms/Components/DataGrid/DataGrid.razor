@@ -3,6 +3,7 @@
 @using Domain.Utility
 @using Microsoft.JSInterop
 @using Castle.DynamicLinqQueryBuilder
+@using Newtonsoft.Json
 @using Newtonsoft.Json.Linq
 @* @inherits DataGridBase *@
 
@@ -10,7 +11,7 @@
 @* https://docs.devexpress.com/Blazor/DevExpress.Blazor.DxGrid.PagerVisible *@
 
 <input id=@(Id + "Search") @oninput=SearchInput value="@SearchText" class="form-control mb-2 fcbg" placeholder="جستجو..." />
-<DxGrid id=@(Id + "Grid")  @ref=DxGrid Data="@Data"
+<DxGrid id=@(Id + "Grid") @ref=DxGrid Data="@Data"
         ShowSearchBox="false"
         SearchTextParseMode=GridSearchTextParseMode.ExactMatch
         PagerVisible="false"
@@ -18,7 +19,7 @@
         PageSize="PageSize"
         AllowSelectRowByClick="true"
         SelectedDataItemChanged="_SelectedDataItem"
-        PopupEditFormCssClass="ModalWidth" >
+        PopupEditFormCssClass="ModalWidth">
     <Columns>
         @BuildColumnsGrid
     </Columns>
@@ -28,7 +29,7 @@
 <span class="d-none">@(Utility.JSON.ToJson(SelectedDataItem).Result)</span>
 
 @code {
-    [Parameter] public string? Id { get; set; }   
+    [Parameter] public string? Id { get; set; }
 
     DxPager DxPager { get; set; }
 
@@ -43,7 +44,7 @@
     int PageIndex { get; set; }
 
     int PageSize { get; set; } = 10;
-    
+
     /// <summary>
     /// فیلتر QueryBuilder ذخیره شده برای استفاده در بارگذاری داده‌ها
     /// </summary>
@@ -100,6 +101,9 @@
     /// آیتم پیدا شده بر اساس DropdownValue
     /// </summary>
     public object? FoundItem { get; set; }
+
+
+    //IEnumerable<Entity.Priority> Data { get; set; }
 
     //[DefaultValue(null)]
     [Parameter]
@@ -204,6 +208,8 @@
 
     public async Task LoadData()
     {
+
+
         ListColumn = new List<View_values>();
         if (Component.data is not null && !string.IsNullOrEmpty(Component.data.url))
         {//اگه لود با URL هست
@@ -226,13 +232,13 @@
 
 
             //List = List.Select(x => x.Replace("{{", "").Replace("}}", "")).ToList();
-            List<KeyValuePair<string, string>> list =  ConvertParameter.GetTemplate(Component.template).Result;
+            List<KeyValuePair<string, string>> list = ConvertParameter.GetTemplate(Component.template).Result;
 
             foreach (var item in list)
             {
                 //عنوان رو نشون بدیم
                 //ListColumn.Add(new View_values() { key = "PriorityTitle", label = "عنوان" });
-                 ListColumn.Add(new View_values() { key = item.Key, label = item.Value });
+                ListColumn.Add(new View_values() { key = item.Key, label = item.Value });
             }
 
             string Url = Component.data.url;
@@ -248,42 +254,57 @@
             //splite =
 
             var QueryString = Url.Split("?")[1];
-            var ListQueryString = QueryString.Split("=");
+            // ابتدا با & جدا می‌کنیم تا پارامترها جدا شوند
+            var ListQueryParams = QueryString.Split("&", StringSplitOptions.RemoveEmptyEntries);
 
-            foreach (var item in ListQueryString)
-            { 
-                if (item.Contains("{{"))
-                {//اگه پارامتر داشت
-                    //حذف کاراکتر های اضافه
-                    string KeyName = item.Replace("&", "").Replace("{", "").Replace("}", "");
-                    //بیایم پارامتر رو بگیریم و مقدارشو از موجودیت یا رکورد گرید بگیریم
+            foreach (var param in ListQueryParams)
+            {
+                // هر پارامتر را با = جدا می‌کنیم تا key و value جدا شوند
+                var keyValue = param.Split("=", 2); // با limit=2 فقط اولین = را جدا می‌کند
+                if (keyValue.Length == 2)
+                {
+                    string value = keyValue[1];
+                    
+                    if (value.Contains("{{"))
+                    {//اگه پارامتر داشت
+                        // پیدا کردن تمام template ها در value
+                        var templateMatches = System.Text.RegularExpressions.Regex.Matches(value, @"\{\{([^}]+)\}\}");
+                        
+                        foreach (System.Text.RegularExpressions.Match match in templateMatches)
+                        {
+                            string fullTemplate = match.Value; // {{data.HR_EMP_EmployeesId}} یا {{row.xxx}}
+                            string KeyName = match.Groups[1].Value; // مقدار داخل {{ }} - data.HR_EMP_EmployeesId یا row.xxx
+                            
+                            //data.Global_CountryId
+                            //data.Global_CountryId.Id
+                            //row.Global_CountryId
+                            //row.Global_CountryId.Id
 
-                    //data.Global_CountryId
-                    //data.Global_CountryId.Id
-                    //row.Global_CountryId
-                    //row.Global_CountryId.Id
+                            //_Entity
+                            if (KeyName.StartsWith("data."))
+                            {//موجودیت اصلی
+                                string propertyName = KeyName.Replace("data.", "");
 
-                    //_Entity
-                    if (KeyName.StartsWith("data."))
-                    {//موجودیت اصلی
-                        KeyName = KeyName.Replace("data.", "");
+                                string Value = await GetValueFromObject(__Entity, propertyName);
+                                //جایگزینی مقدار داخل ادرس - استفاده از template کامل
+                                Url = Url.Replace(fullTemplate, Value);
+                            }
 
-                        string Value = await GetValueFromObject(__Entity, KeyName);
-                        //جایگزینی مقدار داخل ادرس
-                        Url = Url.Replace("{{data." + KeyName + "}}", Value);
-                    }
+                            //_EntityRow
+                            if (KeyName.StartsWith("row."))
+                            {//موجودیت گرید ایتیم گرید
+                                string propertyName = KeyName.Replace("row.", "");
 
-                    //_EntityRow
-                    if (KeyName.StartsWith("row."))
-                    {//موجودیت گرید ایتیم گرید
-                        KeyName = KeyName.Replace("row.", "");
-
-                        string Value = await GetValueFromObject(_EntityRow, KeyName);
-                        //جایگزینی مقدار داخل ادرس
-                        Url = Url.Replace("{{row." + KeyName + "}}", Value);
+                                string Value = await GetValueFromObject(_EntityRow, propertyName);
+                                //جایگزینی مقدار داخل ادرس - استفاده از template کامل
+                                Url = Url.Replace(fullTemplate, Value);
+                            }
+                        }
                     }
                 }
             }
+
+
 
 
 
@@ -319,6 +340,9 @@
                 {
                     //Data = R.Content;
                     Data = (await Utility.JSON.ToObject<List<object>>(R.Content?.ToString()));
+
+                    // جستجوی آیتم بر اساس DropdownValue
+                    await FindItemByDropdownValue();
                 }
                 else
                 {
@@ -343,7 +367,7 @@
 
         if (Component.data is not null && Component.data.values is not null)
         {//اگه لیست دیکشنریش پره
-         //Type = typeof(Blazor.FormBuilderTest.Models.View_values);
+            //Type = typeof(Blazor.FormBuilderTest.Models.View_values);
 
             //فیل لیبل رو نشون بدیم
             ListColumn.Add(new View_values() { key = "label", label = "عنوان" });
@@ -358,71 +382,72 @@
         StateHasChanged();
     }
 
-/// <summary>
-/// پیدا کردن آیتم در Data بر اساس DropdownValue و component.valueProperty
-/// </summary>
-private async Task FindItemByDropdownValue()
-{
-    FoundItem = null;
-
-    // بررسی اینکه DropdownValue و valueProperty موجود باشند
-    if (DropdownValue == null || Component == null || string.IsNullOrEmpty(Component.valueProperty))
+    /// <summary>
+    /// پیدا کردن آیتم در Data بر اساس DropdownValue و component.valueProperty
+    /// </summary>
+    private async Task FindItemByDropdownValue()
     {
-        return;
-    }
+        FoundItem = null;
 
-    // بررسی اینکه Data موجود باشد
-    if (Data == null)
-    {
-        return;
-    }
-
-    try
-    {
-        // تبدیل Data به لیست
-        var dataList = Data as List<object>;
-        if (dataList.Count == 0)
+        // بررسی اینکه DropdownValue و valueProperty موجود باشند
+        if (DropdownValue == null || Component == null || string.IsNullOrEmpty(Component.valueProperty))
         {
             return;
         }
 
-        // تبدیل DropdownValue به string برای مقایسه
-        string dropdownValueStr = DropdownValue?.ToString() ?? "";
-
-        // جستجو در لیست Data
-        foreach (var item in dataList)
+        // بررسی اینکه Data موجود باشد
+        if (Data == null)
         {
-            if (item == null)
-                continue;
+            return;
+        }
 
-            // تبدیل آیتم به JObject برای دسترسی به property
-            var json = Newtonsoft.Json.JsonConvert.SerializeObject(item);
-            JObject data = JObject.Parse(json);
-
-            // دریافت مقدار فیلد valueProperty
-            var fieldValue = data[Component.valueProperty];
-            if (fieldValue != null)
+        try
+        {
+            // تبدیل Data به لیست
+            var dataList = Data as List<object>;
+            if (dataList.Count == 0)
             {
-                string fieldValueStr = fieldValue.ToString();
+                return;
+            }
 
-                // مقایسه با DropdownValue
-                if (fieldValueStr == dropdownValueStr)
+            // تبدیل DropdownValue به string برای مقایسه
+            string dropdownValueStr = DropdownValue?.ToString() ?? "";
+
+            // جستجو در لیست Data
+            foreach (var item in dataList)
+            {
+                if (item == null)
+                    continue;
+
+                // تبدیل آیتم به JObject برای دسترسی به property
+                var json = Newtonsoft.Json.JsonConvert.SerializeObject(item);
+                JObject data = JObject.Parse(json);
+
+                // دریافت مقدار فیلد valueProperty
+                var fieldValue = data[Component.valueProperty];
+                if (fieldValue != null)
                 {
-                    FoundItem = item;
-                    break;
+                    string fieldValueStr = fieldValue.ToString();
+
+                    // مقایسه با DropdownValue
+                    if (fieldValueStr == dropdownValueStr)
+                    {
+                        FoundItem = item;
+                        break;
+                    }
                 }
             }
+            if (FoundItem != null)
+            {
+                DxGrid.SelectDataItem(FoundItem);
+            }
         }
-        if (FoundItem != null)
+        catch (Exception ex)
         {
-            DxGrid.SelectDataItem(FoundItem);
+            Console.WriteLine("#Log FindItemByDropdownValue Error: " + ex.Message);
         }
     }
-    catch (Exception ex)
-    {
-        Console.WriteLine("#Log FindItemByDropdownValue Error: " + ex.Message);
-    }
-}
+
 
     /// <summary>
     /// تابع سرچ با کوئری بیلدر
@@ -435,13 +460,13 @@ private async Task FindItemByDropdownValue()
         _currentFilter = Filter;
         await LoadData();
     }
-    
+
     /// <summary>
     /// ریست کردن گرید و پاک کردن داده‌های آن
     /// </summary>
     public void ResetGrid()
     {
-        Data= null;
+        Data = null;
         PageIndex = 0;
         SearchText = null;
         _currentFilter = null;
@@ -454,7 +479,6 @@ private async Task FindItemByDropdownValue()
         await OnItemSelected.InvokeAsync(Selected);
     }
 
-
     /// <summary>
     /// دریافت مقدار یک فیلد از موجودیت
     /// </summary>
@@ -466,16 +490,16 @@ private async Task FindItemByDropdownValue()
         if (Entity == null)
         {//موجودیت داده شده نال بود خالی برگردون
             return "";
-        } 
+        }
         if (KeyName.Contains("."))
         {//وقتی اسم موجودیت در موجودیت هستش
-         //اگه چند اسمی بودش
-         //Global_CountryId.Id
-         //todo
+            //اگه چند اسمی بودش
+            //Global_CountryId.Id
+            //todo
             string newKeyName = "";
-            object newEntity = null; 
+            object newEntity = null;
             return await GetValueFromObject(newEntity, newKeyName);
-        } 
+        }
         var type = Entity.GetType();
         string Value = "";
 
@@ -497,5 +521,4 @@ private async Task FindItemByDropdownValue()
         __Entity = t;
         StateHasChanged();
     }
-
 }

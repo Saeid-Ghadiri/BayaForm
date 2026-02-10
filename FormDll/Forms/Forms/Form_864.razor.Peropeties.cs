@@ -144,7 +144,7 @@ namespace Forms.Forms
     /// <summary>
     ///  ورژنی که فرم باهاش ساخته شده
     /// </summary>
-    public string? VersionForm { get; set; } = "5622";
+    public string? VersionForm { get; set; } = "5671";
 
     /// <summary>
     ///  موجودیت
@@ -180,16 +180,6 @@ namespace Forms.Forms
     #region FormProperty
 
 public Input<Guid> Ref_Id;
-public Input<Guid?> Ref_RequestID;
-public Input<Guid?> Ref_CreateUser;
-public Input<Guid?> Ref_UpdateUser;
-public Input<DateTime?> Ref_CreateDate;
-public Input<DateTime?> Ref_UpdateDate;
-public Input<bool?> Ref_IsDelete;
-public Input<string?> Ref_Name;
-public Input<int?> Ref_Price;
-public Input<int?> Ref_Qtty;
-public RadioBoolean Ref_IsActive;
 public DxGrid? Grid_SCMICT_Order1;
 
 public Input<Guid> Ref_SCMICT_Order1_Id;
@@ -200,6 +190,16 @@ public Input<DateTime?> Ref_SCMICT_Order1_CreateDate;
 public Input<DateTime?> Ref_SCMICT_Order1_UpdateDate;
 public Input<bool?> Ref_SCMICT_Order1_IsDelete;
 public Input<string?> Ref_SCMICT_Order1_Title;
+public Input<Guid?> Ref_RequestID;
+public Input<Guid?> Ref_CreateUser;
+public Input<Guid?> Ref_UpdateUser;
+public Input<DateTime?> Ref_CreateDate;
+public Input<DateTime?> Ref_UpdateDate;
+public Input<bool?> Ref_IsDelete;
+public Input<string?> Ref_Name;
+public Input<int?> Ref_Price;
+public Input<int?> Ref_Qtty;
+public RadioBoolean Ref_IsActive;
 
 
     #endregion

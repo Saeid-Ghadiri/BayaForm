@@ -144,7 +144,7 @@ namespace Forms.Forms
     /// <summary>
     ///  ورژنی که فرم باهاش ساخته شده
     /// </summary>
-    public string? VersionForm { get; set; } = "5622";
+    public string? VersionForm { get; set; } = "5671";
 
     /// <summary>
     ///  موجودیت
@@ -199,7 +199,7 @@ public Input<bool?> Ref_PPCAtlasBobbin_EnteringWarehouse_IsDelete;
 public Input<int?> Ref_PPCAtlasBobbin_EnteringWarehouse_EnteringWarehouseNo;
 public Input<int?> Ref_PPCAtlasBobbin_EnteringWarehouse_BarNamehNo;
 public Input<string?> Ref_PPCAtlasBobbin_EnteringWarehouse_DateBarnameh;
-public Dropdown Ref_PPCAtlasBobbin_EnteringWarehouse_Global_VehicleId;
+public Input<Guid?> Ref_PPCAtlasBobbin_EnteringWarehouse_Global_VehicleId;
 public Input<string?> Ref_PPCAtlasBobbin_EnteringWarehouse_CarNumber;
 public Input<string?> Ref_PPCAtlasBobbin_EnteringWarehouse_DriverName;
 public Input<string?> Ref_PPCAtlasBobbin_EnteringWarehouse_Remark;

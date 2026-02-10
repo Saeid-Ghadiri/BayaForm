@@ -144,7 +144,7 @@ namespace Forms.Forms
     /// <summary>
     ///  ورژنی که فرم باهاش ساخته شده
     /// </summary>
-    public string? VersionForm { get; set; } = "5622";
+    public string? VersionForm { get; set; } = "5671";
 
     /// <summary>
     ///  موجودیت
@@ -184,24 +184,10 @@ public Input<string?> Ref_UserStarterCompanyName;
 public Input<string?> Ref_UserStarterUnitName;
 public Input<string?> Ref_UserStarterSectionName;
 public RadioBoolean Ref_HardwareORNetwork;
-public Input<Guid> Ref_Id;
-public Input<Guid?> Ref_RequestID;
-public Input<Guid?> Ref_CreateUser;
-public Input<Guid?> Ref_UpdateUser;
-public Input<DateTime?> Ref_CreateDate;
-public Input<DateTime?> Ref_UpdateDate;
-public Input<bool?> Ref_IsDelete;
 public DxGrid? Grid_SCMICT_ProductRequestDetails;
 
-public Input<Guid> Ref_SCMICT_ProductRequestDetails_Id;
-public Input<Guid?> Ref_SCMICT_ProductRequestDetails_RequestID;
-public Input<Guid?> Ref_SCMICT_ProductRequestDetails_CreateUser;
-public Input<Guid?> Ref_SCMICT_ProductRequestDetails_UpdateUser;
-public Input<DateTime?> Ref_SCMICT_ProductRequestDetails_CreateDate;
-public Input<DateTime?> Ref_SCMICT_ProductRequestDetails_UpdateDate;
-public Input<bool?> Ref_SCMICT_ProductRequestDetails_IsDelete;
-public Input<string?> Ref_SCMICT_ProductRequestDetails_SH_PARTNO;
 public Input<string?> Ref_SCMICT_ProductRequestDetails_SH_DESC;
+public Input<string?> Ref_SCMICT_ProductRequestDetails_SH_PARTNO;
 public Input<string?> Ref_SCMICT_ProductRequestDetails_SH_UNIT;
 public Input<double?> Ref_SCMICT_ProductRequestDetails_ProductRequestingQTY;
 public Dropdown Ref_SCMICT_ProductRequestDetails_SCMICT_PriorityId;
@@ -216,6 +202,20 @@ public Input<string?> Ref_SCMICT_ProductRequestDetails_FMInquiryConfirm;
 public Input<int?> Ref_SCMICT_ProductRequestDetails_InvoiceAmount1;
 public Input<int?> Ref_SCMICT_ProductRequestDetails_InvoiceAmount2;
 public Input<int?> Ref_SCMICT_ProductRequestDetails_InvoiceAmount3;
+public Input<Guid> Ref_SCMICT_ProductRequestDetails_Id;
+public Input<Guid?> Ref_SCMICT_ProductRequestDetails_RequestID;
+public Input<Guid?> Ref_SCMICT_ProductRequestDetails_CreateUser;
+public Input<Guid?> Ref_SCMICT_ProductRequestDetails_UpdateUser;
+public Input<DateTime?> Ref_SCMICT_ProductRequestDetails_CreateDate;
+public Input<DateTime?> Ref_SCMICT_ProductRequestDetails_UpdateDate;
+public Input<bool?> Ref_SCMICT_ProductRequestDetails_IsDelete;
+public Input<Guid> Ref_Id;
+public Input<Guid?> Ref_RequestID;
+public Input<Guid?> Ref_CreateUser;
+public Input<Guid?> Ref_UpdateUser;
+public Input<DateTime?> Ref_CreateDate;
+public Input<DateTime?> Ref_UpdateDate;
+public Input<bool?> Ref_IsDelete;
 
 
     #endregion

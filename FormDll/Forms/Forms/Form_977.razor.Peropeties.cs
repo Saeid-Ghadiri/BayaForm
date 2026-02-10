@@ -144,7 +144,7 @@ namespace Forms.Forms
     /// <summary>
     ///  ورژنی که فرم باهاش ساخته شده
     /// </summary>
-    public string? VersionForm { get; set; } = "5622";
+    public string? VersionForm { get; set; } = "5671";
 
     /// <summary>
     ///  موجودیت
@@ -181,12 +181,6 @@ namespace Forms.Forms
 
 public Input<Guid> Ref_Id;
 public Dropdown Ref_SCMPETCO_SupplierMasterId;
-public Input<Guid?> Ref_RequestID;
-public Input<Guid?> Ref_CreateUser;
-public Input<Guid?> Ref_UpdateUser;
-public Input<DateTime?> Ref_CreateDate;
-public Input<DateTime?> Ref_UpdateDate;
-public Input<bool?> Ref_IsDelete;
 public DxGrid? Grid_SCMPETCO_SupplierEvaluationItems;
 
 public Input<Guid> Ref_SCMPETCO_SupplierEvaluationItems_Id;
@@ -201,6 +195,12 @@ public Dropdown Ref_SCMPETCO_SupplierEvaluationItems_SCMPETCO_SupplierEvaluation
 public Dropdown Ref_SCMPETCO_SupplierEvaluationItems_SCMPETCO_SupplierEvaluationModelId;
 public Dropdown Ref_SCMPETCO_SupplierEvaluationItems_SCMPETCO_ScoringMethod_SupplierId;
 public Input<string?> Ref_SCMPETCO_SupplierEvaluationItems_Description;
+public Input<Guid?> Ref_RequestID;
+public Input<Guid?> Ref_CreateUser;
+public Input<Guid?> Ref_UpdateUser;
+public Input<DateTime?> Ref_CreateDate;
+public Input<DateTime?> Ref_UpdateDate;
+public Input<bool?> Ref_IsDelete;
 
 
     #endregion

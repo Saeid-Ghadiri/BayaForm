@@ -144,7 +144,7 @@ namespace Forms.Forms
     /// <summary>
     ///  ورژنی که فرم باهاش ساخته شده
     /// </summary>
-    public string? VersionForm { get; set; } = "5622";
+    public string? VersionForm { get; set; } = "5671";
 
     /// <summary>
     ///  موجودیت
@@ -254,13 +254,6 @@ public Input<string?> Ref_HR_EMP_EmployeeInfos_BaseInfo_ORG_CompaniesId;
 public Input<string?> Ref_HR_EMP_EmployeeInfos_HR_EMP_StatusId;
 public DxGrid? Grid_HR_EMP_EmployeeFamileis;
 
-public Input<Guid> Ref_HR_EMP_EmployeeFamileis_Id;
-public Input<Guid?> Ref_HR_EMP_EmployeeFamileis_RequestID;
-public Input<Guid?> Ref_HR_EMP_EmployeeFamileis_CreateUser;
-public Input<Guid?> Ref_HR_EMP_EmployeeFamileis_UpdateUser;
-public Input<DateTime?> Ref_HR_EMP_EmployeeFamileis_CreateDate;
-public Input<DateTime?> Ref_HR_EMP_EmployeeFamileis_UpdateDate;
-public Input<bool?> Ref_HR_EMP_EmployeeFamileis_IsDelete;
 public Dropdown Ref_HR_EMP_EmployeeFamileis_HR_EMP_EmployeesId;
 public Dropdown Ref_HR_EMP_EmployeeFamileis_HR_FamilyRelationshipId;
 public Dropdown Ref_HR_EMP_EmployeeFamileis_HR_Base_DependentId;
@@ -288,6 +281,13 @@ public Input<DateTime?> Ref_HR_EMP_EmployeeFamileis_MarriageDate;
 public Input<DateTime?> Ref_HR_EMP_EmployeeFamileis_EducationStartDate;
 public Input<DateTime?> Ref_HR_EMP_EmployeeFamileis_EducationEndDate;
 public Input<string?> Ref_HR_EMP_EmployeeFamileis_BirthDate;
+public Input<Guid> Ref_HR_EMP_EmployeeFamileis_Id;
+public Input<Guid?> Ref_HR_EMP_EmployeeFamileis_RequestID;
+public Input<Guid?> Ref_HR_EMP_EmployeeFamileis_CreateUser;
+public Input<Guid?> Ref_HR_EMP_EmployeeFamileis_UpdateUser;
+public Input<DateTime?> Ref_HR_EMP_EmployeeFamileis_CreateDate;
+public Input<DateTime?> Ref_HR_EMP_EmployeeFamileis_UpdateDate;
+public Input<bool?> Ref_HR_EMP_EmployeeFamileis_IsDelete;
 public DxGrid? Grid_HR_Base_BankAccount;
 
 public Dropdown Ref_HR_Base_BankAccount_HR_Base_AccountHolderTypeId;

@@ -4,49 +4,57 @@
 @using Newtonsoft.Json.Linq
 @using Microsoft.JSInterop;
 @using Castle.DynamicLinqQueryBuilder;
-  
+
 @namespace DrowpDownPage
 
 <div id=@(Id) class="dropdown devdrop @(_Visible?"":"d-none") @CssClass">
-@if (!string.IsNullOrEmpty(Label) && _Visible)
-{
-    <label id=@(Id + "label")>
-        @Label
-        @if (Required.HasValue && Required == true)
-        {
-            <span class="text-danger" id=@(Id + "label")>*</span>
-        }
-        @if (!string.IsNullOrEmpty(ToolTip))
-        {
-            <i class="bi bi-question-circle text-muted" data-bs-toggle="tooltip" data-bs-title="@ToolTip" title="@ToolTip"></i>
-        }
-    </label>
-}
+    @if (!string.IsNullOrEmpty(Label) && _Visible)
+    {
+        <label id=@(Id + "label")>
+            @Label
+            @if (Required.HasValue && Required == true)
+            {
+                <span class="text-danger" id=@(Id + "label")>*</span>
+            }
+            @if (!string.IsNullOrEmpty(ToolTip))
+            {
+                <i class="bi bi-question-circle text-muted" data-bs-toggle="tooltip" data-bs-title="@ToolTip" title="@ToolTip"></i>
+            }
+        </label>
+    }
 
-    <input id=@(Id + "Input") type="hidden" value="@Value"/>
+
+    <input id=@(Id + "Input") type="hidden" value="@Value" />
     @if (DisplayFormat is null || DisplayFormat == "DropDown")
     {
-        @if(DropdownSelected!="انتخاب کنید" && Disabled==false){
+        @if (DropdownSelected != "انتخاب کنید" && Disabled == false)
+        {
             <span @onclick="ResetDropdown" class="bi bi-x btnclearDP"></span>
         }
-        
-        <button id=@(Id + "Button")  type="button" hidden="@((TextGrid))" class="form-select dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" data-bs-auto-close="outside" @attributes=@_Attributes>
+
+        <button id=@(Id + "Button") type="button" hidden="@((TextGrid))" class="form-select dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" data-bs-auto-close="outside" @attributes=@_Attributes>
             @DropdownSelected
         </button>
         <label hidden="@((!TextGrid))">@DropdownSelected</label>
         <div id=@(Id + "DivDataGrid") class="dropdown-menu p-2">
-            <DataGrid Id="@Id"   @ref=RefDataGrid OnItemSelected="ItemSelected" Component="Component" _Entity=__Entity _EntityRow=_EntityRow DropdownValue="@Value"></DataGrid>
+            <DataGrid Id="@Id" @ref=RefDataGrid OnItemSelected="ItemSelected" Component="Component" _Entity=__Entity _EntityRow=_EntityRow DropdownValue="@Value"></DataGrid>
+
         </div>
     }
     else
     {
-        <DataGrid   @ref=RefDataGrid OnItemSelected="ItemSelected" Component="Component" _Entity=__Entity _EntityRow=_EntityRow DropdownValue="@Value"></DataGrid>
+
+        <DataGrid @ref=RefDataGrid OnItemSelected="ItemSelected" Component="Component" _Entity=__Entity _EntityRow=_EntityRow DropdownValue="@Value"></DataGrid>
+
+
     }
+
+
 </div>
 
 
 @code {
-    [Parameter] public string? Id { get; set; }   
+    [Parameter] public string? Id { get; set; }
     [Inject]
     IJSRuntime JS { get; set; }
     [Inject]
@@ -71,7 +79,7 @@
     /// </summary>
     [Parameter]
     public Baya.Models.ViewEngine.View_Component Component { get; set; }
-    [Parameter] public string? Label { get; set; } 
+    [Parameter] public string? Label { get; set; }
     [Parameter] public bool? Required { get; set; }
     [Parameter] public string? ToolTip { get; set; }
     /// <summary>
@@ -79,9 +87,9 @@
     /// </summary>
     [Parameter]
     public object _Entity { get; set; }
-      
-  [Parameter] public EventCallback<object?> ValueChanged { get; set; }
-  public object? __Entity;
+
+    [Parameter] public EventCallback<object?> ValueChanged { get; set; }
+    public object? __Entity;
 
     /// <summary>
     /// ابجکت درون گرید - یک ردیف
@@ -118,7 +126,7 @@
     public string? Text { get; set; }
 
     /// <summary>
-    /// تشخیص نات مپ 
+    /// تشخیص نات مپ
     /// </summary>
     [Parameter]
     public bool NotMapped { get; set; }
@@ -156,7 +164,7 @@
 
     protected override async Task OnInitializedAsync()
     {
-     Console.WriteLine(Label + " " + Value?.ToString());
+        Console.WriteLine(Label + " " + Value?.ToString());
         DropdownSelected = "انتخاب کنید";
         //ست نمودن اولیه مقدار داخل دراپ دان
         if (!NotMapped)
@@ -165,12 +173,12 @@
             {
                 if (!string.IsNullOrEmpty(Text))
                 {
-                   if (!string.IsNullOrEmpty(Text.Trim()))
-                      DropdownSelected = Text;
+                    if (!string.IsNullOrEmpty(Text.Trim()))
+                        DropdownSelected = Text;
                 }
                 else
                 // اگر در حالت TextGrid هستیم و Value داریم و URL موجود است، داده را لود کن
-                if (  Value != null && Component?.data?.url != null)
+                if (Value != null && Component?.data?.url != null)
                 {
                     await LoadData(Value.ToString());
                 }
@@ -194,8 +202,8 @@
                 _Attributes.Add(item.Key, item.Value);
             }
         }
-    //Set Model First 
-     __Entity = _Entity;
+        //Set Model First
+        __Entity = _Entity;
         //اجرای دیسبل
         _Disabled = Disabled;
         RunDisabled();
@@ -224,12 +232,12 @@
     }
     #endregion
 
-     private bool? _prevDisabled = null;
+    private bool? _prevDisabled = null;
 
     #region StartUp
     protected override async Task OnParametersSetAsync()
     {
-         if (Value == null )
+        if (Value == null)
         {
             DropdownSelected = "انتخاب کنید";
         }
@@ -239,12 +247,12 @@
         if ((_value != Value) && (TextGrid) && (Value != null) && (Component?.data?.url != null))
         {
             _value = Value;
-            await LoadData(Value.ToString()); 
+            await LoadData(Value.ToString());
         }
 
-         // فقط وقتی Disabled تغییر کرده، RunDisabled را اجرا کن
+        // فقط وقتی Disabled تغییر کرده، RunDisabled را اجرا کن
         if (_prevDisabled != null && _prevDisabled != _Disabled)
-        { 
+        {
             RunDisabled();
         }
         Visible = _Visible;
@@ -266,11 +274,11 @@
         string item_ = "";
         Guid Value_ = new Guid();
         var json = Newtonsoft.Json.JsonConvert.SerializeObject(Item);
-        JObject  data = JObject.Parse(json);
+        JObject data = JObject.Parse(json);
         // SItem = data;
         List<KeyValuePair<string, string>> list = await ConvertParameter.GetTemplate(Component.template);
-         Value =!string.IsNullOrEmpty(Component.valueProperty) ?
-             data[Component?.valueProperty] ?? null : null;
+        Value = !string.IsNullOrEmpty(Component.valueProperty) ?
+            data[Component?.valueProperty] ?? null : null;
         for (int i = 0; i < list.Count; i++)
         {
             item_ = list[i].Key;
@@ -282,7 +290,7 @@
             {
                 DropdownSelected += " " + data[item_];
             }
-        } 
+        }
         if (NotMapped)
         {
             Value = DropdownSelected;
@@ -292,10 +300,10 @@
             DropdownSelected = "انتخاب کنید";
         }
         await OnItemSelected.InvokeAsync(Item);
-        await JS.InvokeVoidAsync("eval", "toggleDropdown()");
 
+        await JS.InvokeVoidAsync("eval", "toggleDropdown()");
     }
-    
+
     /// <summary>
     /// لود دیتای گرید
     /// </summary>
@@ -310,76 +318,76 @@
     /// </summary>
     /// <param name="SearchText"></param>
     /// <returns></returns>
-     public async Task LoadData(string SearchText)
-     { 
-         var ListColumn = new List<View_values>(); 
-         if (Component.data is not null && !string.IsNullOrEmpty(Component.data.url))
-         { 
-             string Url = Component.data.url; 
-             if (!string.IsNullOrEmpty(SearchText))
-             {//اگه تکست جستجو پره اونم ارسال کنه
+    public async Task LoadData(string SearchText)
+    {
+        var ListColumn = new List<View_values>();
+        if (Component.data is not null && !string.IsNullOrEmpty(Component.data.url))
+        {
+            string Url = Component.data.url;
+            if (!string.IsNullOrEmpty(SearchText))
+            {//اگه تکست جستجو پره اونم ارسال کنه
                 if (!Url.Contains("?"))
                 { Url += "?"; }
                 else
                 { Url += "&"; }
-                Url += $"{Component.valueProperty}=" + SearchText; 
-             } 
-             try
-             {
-                 var GetData = await Http.GetStringAsync(Url);
-              
-                 // Attempt to parse the response as a JToken
-                 JToken data = JToken.Parse(GetData);
-     
-                 string item_ = "";
-                 List<KeyValuePair<string, string>> list = await ConvertParameter.GetTemplate(Component.template);
-              
-                 // Check if the data is an array
-                 if (data.Type == JTokenType.Array)
-                 {
-                     // Process the first item in the array
-                     var firstItem = data.First;
-                     for (int i = 0; i < list.Count; i++)
-                     {
-                         Console.WriteLine(list[i]);
-                         item_ = list[i].Key;
-                         if (i == 0)
-                         {
-                             DropdownSelected = firstItem[item_].ToString();
-                         }
-                         else
-                         {
-                             DropdownSelected += " " + firstItem[item_];
-                         }
-                     }
-                 }
-                 else if (data.Type == JTokenType.Object)
-                 {
-                     // Process as an object if needed
-                     for (int i = 0; i < list.Count; i++)
-                     {
-                         Console.WriteLine(list[i]);
-                         item_ = list[i].Key;
-                         if (i == 0)
-                         {
-                             DropdownSelected = data[item_].ToString();
-                         }
-                         else
-                         {
-                             DropdownSelected += " " + data[item_];
-                         }
-                     }
-                 } 
-             }
-             catch (Exception ex)
-             {
-                 Console.WriteLine(ex.Message);
-             }
-             
-     
-         }
-     
-     }
+                Url += $"{Component.valueProperty}=" + SearchText;
+            }
+            try
+            {
+                var GetData = await Http.GetStringAsync(Url);
+
+                // Attempt to parse the response as a JToken
+                JToken data = JToken.Parse(GetData);
+
+                string item_ = "";
+                List<KeyValuePair<string, string>> list = await ConvertParameter.GetTemplate(Component.template);
+
+                // Check if the data is an array
+                if (data.Type == JTokenType.Array)
+                {
+                    // Process the first item in the array
+                    var firstItem = data.First;
+                    for (int i = 0; i < list.Count; i++)
+                    {
+
+                        item_ = list[i].Key;
+                        if (i == 0)
+                        {
+                            DropdownSelected = firstItem[item_].ToString();
+                        }
+                        else
+                        {
+                            DropdownSelected += " " + firstItem[item_];
+                        }
+                    }
+                }
+                else if (data.Type == JTokenType.Object)
+                {
+                    // Process as an object if needed
+                    for (int i = 0; i < list.Count; i++)
+                    {
+
+                        item_ = list[i].Key;
+                        if (i == 0)
+                        {
+                            DropdownSelected = data[item_].ToString();
+                        }
+                        else
+                        {
+                            DropdownSelected += " " + data[item_];
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+
+
+        }
+
+    }
 
     /// <summary>
     /// جستجو به صورت دستی
@@ -388,45 +396,45 @@
     /// <returns></returns>
     public async Task Search(QueryBuilderFilterRule Filter)
     {
-        await RefDataGrid.SearchFilter(Filter);
+        // await RefDataGrid.SearchFilter(Filter);
     }
 
 
- //   public async Task LoadData(string SearchText)
- //   {
- //
- //       var ListColumn = new List<View_values>();
- //       if (Component.data is not null && !string.IsNullOrEmpty(Component.data.url))
- //       {
- //           string Url = Component.data.url;
- //           if (!string.IsNullOrEmpty(SearchText))
- //           {//اگه تکست جستجو پره اونم ارسال کنه
- //               Url += $"?{Component.valueProperty}=" + SearchText;
- //           }
- //
- //           var GetData = await Http.GetStringAsync(Url);
- //           dynamic data = JsonConvert.DeserializeObject(GetData);
- //           string item_ = "";
- //           List<string> list = await GetTemplate();
- //           for (int i = 0; i < list.Count; i++)
- //           {
- //               item_ = list[i];
- //               if (i == 0)
- //               {
- //                   DropdownSelected = data[0][item_];
- //               }
- //               else
- //               {
- //                   DropdownSelected += " " + data[0][item_];
- //               }
- //           }
- //
- //       }
- //
- //   }
+    //   public async Task LoadData(string SearchText)
+    //   {
+    //
+    //       var ListColumn = new List<View_values>();
+    //       if (Component.data is not null && !string.IsNullOrEmpty(Component.data.url))
+    //       {
+    //           string Url = Component.data.url;
+    //           if (!string.IsNullOrEmpty(SearchText))
+    //           {//اگه تکست جستجو پره اونم ارسال کنه
+    //               Url += $"?{Component.valueProperty}=" + SearchText;
+    //           }
+    //
+    //           var GetData = await Http.GetStringAsync(Url);
+    //           dynamic data = JsonConvert.DeserializeObject(GetData);
+    //           string item_ = "";
+    //           List<string> list = await GetTemplate();
+    //           for (int i = 0; i < list.Count; i++)
+    //           {
+    //               item_ = list[i];
+    //               if (i == 0)
+    //               {
+    //                   DropdownSelected = data[0][item_];
+    //               }
+    //               else
+    //               {
+    //                   DropdownSelected += " " + data[0][item_];
+    //               }
+    //           }
+    //
+    //       }
+    //
+    //   }
     #endregion
 
-    
+
     #region class
     [Parameter] public string? CssClass { get; set; }
     public EventCallback<string?> ClassChanged { get; set; }
@@ -567,10 +575,10 @@
         _Disabled = !t;
     }
     public void SetEntity(object t)
-    { 
-    __Entity = t;
-    StateHasChanged();
-    RefDataGrid.SetEntity(t);
+    {
+        __Entity = t;
+        StateHasChanged();
+        RefDataGrid.SetEntity(t);
 
     }
     public async Task ResetDropdown()
@@ -581,7 +589,7 @@
         // ریست کردن گرید و پاک کردن داده‌های آن
         if (RefDataGrid != null)
         {
-            RefDataGrid.ResetGrid();
+            //RefDataGrid.ResetGrid();
         }
 
         await OnItemSelected.InvokeAsync(null);

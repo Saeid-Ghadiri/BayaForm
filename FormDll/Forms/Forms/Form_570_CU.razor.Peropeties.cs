@@ -144,7 +144,7 @@ namespace Forms.Forms
     /// <summary>
     ///  ورژنی که فرم باهاش ساخته شده
     /// </summary>
-    public string? VersionForm { get; set; } = "5622";
+    public string? VersionForm { get; set; } = "5671";
 
     /// <summary>
     ///  موجودیت
@@ -187,12 +187,6 @@ public Dropdown Ref_Global_VehicleId;
 public Input<string?> Ref_CarNumber;
 public Input<string?> Ref_DriverName;
 public Input<string?> Ref_Remark;
-public Input<Guid?> Ref_RequestID;
-public Input<Guid?> Ref_CreateUser;
-public Input<Guid?> Ref_UpdateUser;
-public Input<DateTime?> Ref_CreateDate;
-public Input<DateTime?> Ref_UpdateDate;
-public Input<bool?> Ref_IsDelete;
 public DxGrid? Grid_PPCAtlasBobbin_EnteringWarehouseDetail;
 
 public Input<Guid> Ref_PPCAtlasBobbin_EnteringWarehouseDetail_Id;
@@ -209,6 +203,12 @@ public Dropdown Ref_PPCAtlasBobbin_EnteringWarehouseDetail_PPCAtlasBobbin_Produc
 public Input<string?> Ref_PPCAtlasBobbin_EnteringWarehouseDetail_BarcodeNo;
 public Input<double?> Ref_PPCAtlasBobbin_EnteringWarehouseDetail_Amount;
 public Input<string?> Ref_PPCAtlasBobbin_EnteringWarehouseDetail_SellerBarcode;
+public Input<Guid?> Ref_RequestID;
+public Input<Guid?> Ref_CreateUser;
+public Input<Guid?> Ref_UpdateUser;
+public Input<DateTime?> Ref_CreateDate;
+public Input<DateTime?> Ref_UpdateDate;
+public Input<bool?> Ref_IsDelete;
 
 
     #endregion

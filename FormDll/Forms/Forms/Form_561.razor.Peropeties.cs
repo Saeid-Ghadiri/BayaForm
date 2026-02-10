@@ -144,7 +144,7 @@ namespace Forms.Forms
     /// <summary>
     ///  ورژنی که فرم باهاش ساخته شده
     /// </summary>
-    public string? VersionForm { get; set; } = "5622";
+    public string? VersionForm { get; set; } = "5671";
 
     /// <summary>
     ///  موجودیت
@@ -185,24 +185,8 @@ public Input<string?> Ref_UserStarterUnitName;
 public Input<string?> Ref_UserStarterSectionName;
 public Dropdown Ref_SCMPETCO_OS_ResultingFromId;
 public Dropdown Ref_SCMPETCO_ICT_DepartmentsId;
-public Input<Guid> Ref_Id;
-public Input<Guid?> Ref_RequestID;
-public Input<Guid?> Ref_CreateUser;
-public Input<Guid?> Ref_UpdateUser;
-public Input<DateTime?> Ref_CreateDate;
-public Input<DateTime?> Ref_UpdateDate;
-public Input<bool?> Ref_IsDelete;
-public Input<string?> Ref_RequestTrakingCode;
-public Input<string?> Ref_ProcessVersionID;
 public DxGrid? Grid_SCMPETCO_OS_Details;
 
-public Input<Guid> Ref_SCMPETCO_OS_Details_Id;
-public Input<Guid?> Ref_SCMPETCO_OS_Details_RequestID;
-public Input<Guid?> Ref_SCMPETCO_OS_Details_CreateUser;
-public Input<Guid?> Ref_SCMPETCO_OS_Details_UpdateUser;
-public Input<DateTime?> Ref_SCMPETCO_OS_Details_CreateDate;
-public Input<DateTime?> Ref_SCMPETCO_OS_Details_UpdateDate;
-public Input<bool?> Ref_SCMPETCO_OS_Details_IsDelete;
 public Input<string?> Ref_SCMPETCO_OS_Details_OS_JobTitle;
 public Dropdown Ref_SCMPETCO_OS_Details_Global_UnitsId;
 public Input<int?> Ref_SCMPETCO_OS_Details_Amount;
@@ -214,7 +198,6 @@ public RadioBoolean Ref_SCMPETCO_OS_Details_UploadFileIsEnable;
 public FileUploadPage.Uploader<Entity.SCMPETCO_OS_Details_UploadFiles> Ref_SCMPETCO_OS_Details_SCMPETCO_OS_Details_UploadFiles;
 public RadioBoolean Ref_SCMPETCO_OS_Details_IsEnableSampleGoods;
 public FileUploadPage.Uploader<Entity.SCMPETCO_OS_Details_SampleGoodsFiles> Ref_SCMPETCO_OS_Details_SCMPETCO_OS_Details_SampleGoodsFiles;
-public RadioBoolean Ref_SCMPETCO_OS_Details_IsEnableDemolitionAndRenovation;
 public RadioBoolean Ref_SCMPETCO_OS_Details_GuaranteeIsEnable;
 public RadioBoolean Ref_SCMPETCO_OS_Details_HistoryRepairsIsEnable;
 public RadioBoolean Ref_SCMPETCO_OS_Details_ITILCodeIsEnable;
@@ -223,6 +206,23 @@ public Input<string?> Ref_SCMPETCO_OS_Details_RequesterUserITIL;
 public Input<string?> Ref_SCMPETCO_OS_Details_CreatedAtITIL;
 public Dropdown Ref_SCMPETCO_OS_Details_ITILDetails;
 public Input<string?> Ref_SCMPETCO_OS_Details_RequestIdITIL;
+public RadioBoolean Ref_SCMPETCO_OS_Details_IsEnableDemolitionAndRenovation;
+public Input<Guid> Ref_SCMPETCO_OS_Details_Id;
+public Input<Guid?> Ref_SCMPETCO_OS_Details_RequestID;
+public Input<Guid?> Ref_SCMPETCO_OS_Details_CreateUser;
+public Input<Guid?> Ref_SCMPETCO_OS_Details_UpdateUser;
+public Input<DateTime?> Ref_SCMPETCO_OS_Details_CreateDate;
+public Input<DateTime?> Ref_SCMPETCO_OS_Details_UpdateDate;
+public Input<bool?> Ref_SCMPETCO_OS_Details_IsDelete;
+public Input<Guid> Ref_Id;
+public Input<Guid?> Ref_RequestID;
+public Input<Guid?> Ref_CreateUser;
+public Input<Guid?> Ref_UpdateUser;
+public Input<DateTime?> Ref_CreateDate;
+public Input<DateTime?> Ref_UpdateDate;
+public Input<bool?> Ref_IsDelete;
+public Input<string?> Ref_RequestTrakingCode;
+public Input<string?> Ref_ProcessVersionID;
 
 
     #endregion

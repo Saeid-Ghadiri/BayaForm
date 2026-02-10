@@ -32,22 +32,6 @@
     <EditForm @ref="_Form" Model="_Entity" OnSubmit="Submit">
         
 <Input Id="Id" @ref="Ref_Id"   CssClass="d-none"   @bind-Value="_Entity.Id" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
-
-<Input Id="RequestID" @ref="Ref_RequestID"      @bind-Value="_Entity.RequestID" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
-
-<Input Id="CreateUser" @ref="Ref_CreateUser"      @bind-Value="_Entity.CreateUser" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
-
-<Input Id="UpdateUser" @ref="Ref_UpdateUser"      @bind-Value="_Entity.UpdateUser" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
-
-<Input Id="CreateDate" @ref="Ref_CreateDate"   CssClass="d-none"   @bind-Value="_Entity.CreateDate" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
-
-<Input Id="UpdateDate" @ref="Ref_UpdateDate"   CssClass="d-none"   @bind-Value="_Entity.UpdateDate" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
-
-<Input Id="IsDelete" @ref="Ref_IsDelete"   CssClass="d-none"   @bind-Value="_Entity.IsDelete" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
-
-<Input Id="Title" @ref="Ref_Title" Label="Title"   Disabled=true  @bind-Value="_Entity.Title" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"maxlength\":\"30\"}").Result))></Input>
-
-<Input Id="Price" @ref="Ref_Price" Label="قیمت"   Disabled=true  @bind-Value="_Entity.Price" type="number"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
 <label for="SCMICT_Order2_GridSCMICT_Product2Id_627">Order2
    
     
@@ -61,7 +45,7 @@
         EditFormButtonsVisible="false"
         CustomizeEditModel="CustomizeEditGrid_SCMICT_Order2"
         CustomizeElement="CustomizeRowsGrid_SCMICT_Order2" 
-        Component="@((Utility.JSON.ToObject<View_Component>("{\"primaryKey\":false,\"EntityID\":627,\"FieldId\":627,\"TypeCSharp\":\"\",\"NotNull\":false,\"ViewId\":0,\"NotMapped\":false,\"Relation\":false,\"RelationExternal\":false,\"RelationParentName\":\"\",\"RelationParentModel\":\"\",\"RelationChildModel\":\"SCMICT_Order2\",\"GridMainModel\":\"SCMICT_Order2\",\"widget\":{\"altInput\":false,\"allowInput\":false,\"clickOpens\":false,\"enableDate\":false,\"enableTime\":false,\"noCalendar\":false,\"useLocaleSettings\":false,\"hourIncrement\":0,\"minuteIncrement\":0,\"time_24hr\":false},\"wysiwyg\":false,\"data\":{},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"FieldsTemplate\":[],\"refreshOn\":\"data\",\"reorder\":false,\"addAnotherPosition\":\"bottom\",\"layoutFixed\":false,\"enableRowGroups\":false,\"initEmpty\":false,\"disabled\":true,\"modal\":true,\"label\":\"Order2\",\"tableView\":true,\"key\":\"GridSCMICT_Product2Id_627\",\"type\":\"datagrid\",\"input\":true,\"placeholder\":\"GridSCMICT_Product2Id_627\",\"modalEdit\":true,\"FieldUrl\":\"627?EId=627&SubId=21\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result))"
+        Component="@((Utility.JSON.ToObject<View_Component>("{\"primaryKey\":false,\"EntityID\":627,\"FieldId\":627,\"NotNull\":false,\"ViewId\":0,\"NotMapped\":false,\"Relation\":false,\"RelationExternal\":false,\"RelationChildModel\":\"SCMICT_Order2\",\"GridMainModel\":\"SCMICT_Order2\",\"widget\":{\"altInput\":false,\"allowInput\":false,\"clickOpens\":false,\"enableDate\":false,\"enableTime\":false,\"noCalendar\":false,\"useLocaleSettings\":false,\"hourIncrement\":0,\"minuteIncrement\":0,\"time_24hr\":false},\"wysiwyg\":false,\"data\":{},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"FieldsTemplate\":[],\"refreshOn\":\"data\",\"reorder\":false,\"addAnotherPosition\":\"bottom\",\"layoutFixed\":false,\"enableRowGroups\":false,\"initEmpty\":false,\"disabled\":true,\"modal\":true,\"label\":\"Order2\",\"tableView\":true,\"key\":\"GridSCMICT_Product2Id_627\",\"type\":\"datagrid\",\"input\":true,\"placeholder\":\"GridSCMICT_Product2Id_627\",\"modalEdit\":true,\"FieldUrl\":\"627?EId=627&SubId=21\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result))"
          >
     <Columns>
     
@@ -118,32 +102,8 @@
 
 <DxGridDataColumn  Caption="IsDelete" Visible=false FieldName="IsDelete" />
 
-<DxGridDataColumn Context="SCMICT_Product2Id_" Caption="SCMICT_Product2Id" >
-    <CellDisplayTemplate>
-       
-@{
-    Baya.Models.ViewEngine.View_Component HeaderSCMICT_Product2Id = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"primaryKey\":false,\"EntityID\":627,\"FieldId\":18829,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":866,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":false,\"RelationParentName\":\"SCMICT_Product2\",\"RelationParentModel\":\"SCMICT_Product2\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/SCMICT_Product2/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.Id}} </span>\",\"FieldsTemplate\":[],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"searchField\":\"\",\"disabled\":false,\"modal\":true,\"label\":\"SCMICT_Product2Id\",\"tableView\":true,\"key\":\"SCMICT_Product2Id\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"18829?EId=627&SubId=21\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
-    var RowSCMICT_Product2Id = ((Entity.SCMICT_Order2)SCMICT_Product2Id_.DataItem).SCMICT_Product2Id;
-}
+<DxGridDataColumn  Caption="SCMICT_Product2Id"  FieldName="SCMICT_Product2Id" />
 
-<Dropdown ExternalApi=false CssClass="" NotMapped=false TextGrid=true Value="@RowSCMICT_Product2Id"   FieldName="SCMICT_Product2Id" OnItemSelected="ItemSelected_SCMICT_Order2SCMICT_Product2Id_Header" Component="HeaderSCMICT_Product2Id">
-</Dropdown>
-@code {
-    public async Task ItemSelected_SCMICT_Order2SCMICT_Product2Id_Header(object _Item)
-    {
-      //  var Selected = Utility.JSON.ToObject<dynamic>(Utility.JSON.ToJson(_Item).Result).Result;
-  //   SCMICT_Product2Id
-
-  //  #CustomCode
-
- //   
-
-  //  #OnItemSelected
-    }
-}
-
-    </CellDisplayTemplate>
-</DxGridDataColumn>
 <DxGridDataColumn  Caption="Title"  FieldName="Title" />
 
 
@@ -197,43 +157,8 @@
 </DxFormLayoutItem>
 
 <DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextSCMICT_Order2">
-     
- 
-@code {
-    Baya.Models.ViewEngine.View_Component Component_SCMICT_Order2SCMICT_Product2Id = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"primaryKey\":false,\"EntityID\":627,\"FieldId\":18829,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":866,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":false,\"RelationParentName\":\"SCMICT_Product2\",\"RelationParentModel\":\"SCMICT_Product2\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/SCMICT_Product2/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.Id}} </span>\",\"FieldsTemplate\":[],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"searchField\":\"\",\"disabled\":false,\"modal\":true,\"label\":\"SCMICT_Product2Id\",\"tableView\":true,\"key\":\"SCMICT_Product2Id\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"18829?EId=627&SubId=21\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
-}
-
-    <Dropdown Id=SCMICT_Order2_SCMICT_Product2Id  @ref="Ref_SCMICT_Order2_SCMICT_Product2Id" Label="SCMICT_Product2Id" CssClass=""  DisplayFormat="DropDown" ExternalApi=false NotMapped=false TextGrid=false Text="" Value="@SCMICT_Order2.SCMICT_Product2Id" FieldName="SCMICT_Product2Id" OnItemSelected="ItemSelected_SCMICT_Order2SCMICT_Product2Id" Component="Component_SCMICT_Order2SCMICT_Product2Id" _Entity="_Entity" _EntityRow=SCMICT_Order2>
-</Dropdown>
-@code {
-    public async Task ItemSelected_SCMICT_Order2SCMICT_Product2Id(object _Item)
-    {
-        var Selected = Utility.JSON.ToObject<dynamic>(Utility.JSON.ToJson(_Item).Result).Result;
-     var Item = SCMICT_Order2;
-
-      //Todo
- //برای اینکه آی دی تغییر کند اینجا نیز باید تغییر کند
- //بهتر است از پرایمیری کی استفاده شود
- if (_Item != null)
- {
-     Console.WriteLine(" Item Is Not Null");
-    Item.SCMICT_Product2Id = Selected.Id;
     
- }
- else
- {
-     Console.WriteLine(" Item Is Null");
-      Item.SCMICT_Product2Id =EntityHelper.SetPropertyNull(Item.SCMICT_Product2Id);
- }
- Item.SCMICT_Product2 = await Utility.JSON.ToObject<Entity.SCMICT_Product2>(await Utility.JSON.ToJson(_Item));
-    StateHasChanged();
-
-
-    
-
-    
-    }
-} 
+<Input Id="SCMICT_Order2_SCMICT_Product2Id" @ref="Ref_SCMICT_Order2_SCMICT_Product2Id" Label="SCMICT_Product2Id"     @bind-Value="SCMICT_Order2.SCMICT_Product2Id" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
 
 </DxFormLayoutItem>
 
@@ -536,7 +461,6 @@ MainModel.CreateDate = ((Entity.SCMICT_Order2)EditModel).CreateDate;
 MainModel.UpdateDate = ((Entity.SCMICT_Order2)EditModel).UpdateDate;
 MainModel.IsDelete = ((Entity.SCMICT_Order2)EditModel).IsDelete;
 MainModel.SCMICT_Product2Id = ((Entity.SCMICT_Order2)EditModel).SCMICT_Product2Id;
-MainModel.SCMICT_Product2 = ((Entity.SCMICT_Order2)EditModel).SCMICT_Product2;
 MainModel.Title = ((Entity.SCMICT_Order2)EditModel).Title;
 
     }
@@ -651,6 +575,22 @@ public async void RowDubbleClickGrid_SCMICT_Order2(GridRowClickEventArgs e)
 
 }
 }
+
+<Input Id="RequestID" @ref="Ref_RequestID"      @bind-Value="_Entity.RequestID" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+<Input Id="CreateUser" @ref="Ref_CreateUser"      @bind-Value="_Entity.CreateUser" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+<Input Id="UpdateUser" @ref="Ref_UpdateUser"      @bind-Value="_Entity.UpdateUser" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+<Input Id="CreateDate" @ref="Ref_CreateDate"   CssClass="d-none"   @bind-Value="_Entity.CreateDate" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+<Input Id="UpdateDate" @ref="Ref_UpdateDate"   CssClass="d-none"   @bind-Value="_Entity.UpdateDate" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+<Input Id="IsDelete" @ref="Ref_IsDelete"   CssClass="d-none"   @bind-Value="_Entity.IsDelete" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+<Input Id="Title" @ref="Ref_Title" Label="Title"   Disabled=true  @bind-Value="_Entity.Title" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"maxlength\":\"30\"}").Result))></Input>
+
+<Input Id="Price" @ref="Ref_Price" Label="قیمت"   Disabled=true  @bind-Value="_Entity.Price" type="number"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
 
     </EditForm>
 </div>

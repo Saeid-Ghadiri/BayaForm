@@ -144,7 +144,7 @@ namespace Forms.Forms
     /// <summary>
     ///  ورژنی که فرم باهاش ساخته شده
     /// </summary>
-    public string? VersionForm { get; set; } = "5622";
+    public string? VersionForm { get; set; } = "5671";
 
     /// <summary>
     ///  موجودیت
@@ -209,10 +209,108 @@ public Input<byte?> Ref_MilitaryServicesTime;
 public Dropdown Ref_HR_MilitaryServicesExemptionTypeId;
 public Input<string?> Ref_MilitaryServicesStartDate;
 public Input<string?> Ref_MilitaryServicesEndDate;
+public DxGrid? Grid_HR_RMS_EducationalRecords;
+
+public Input<Guid> Ref_HR_RMS_EducationalRecords_Id;
+public Input<Guid?> Ref_HR_RMS_EducationalRecords_RequestID;
+public Input<Guid?> Ref_HR_RMS_EducationalRecords_CreateUser;
+public Input<Guid?> Ref_HR_RMS_EducationalRecords_UpdateUser;
+public Input<DateTime?> Ref_HR_RMS_EducationalRecords_CreateDate;
+public Input<DateTime?> Ref_HR_RMS_EducationalRecords_UpdateDate;
+public Input<bool?> Ref_HR_RMS_EducationalRecords_IsDelete;
+public Dropdown Ref_HR_RMS_EducationalRecords_HR_Base_AcademicDegreesId;
+public Input<string?> Ref_HR_RMS_EducationalRecords_FromDate;
+public Input<string?> Ref_HR_RMS_EducationalRecords_ToDate;
+public Input<string?> Ref_HR_RMS_EducationalRecords_NameEducationalInstitution;
+public Dropdown Ref_HR_RMS_EducationalRecords_HR_Base_UniversityTypeId;
+public Input<double?> Ref_HR_RMS_EducationalRecords_GPA;
+public Input<string?> Ref_HR_RMS_EducationalRecords_CityStudy;
+public Input<string?> Ref_HR_RMS_EducationalRecords_FieldStudySpecialization;
 public RadioBoolean Ref_EducationalStatus;
 public Input<string?> Ref_AcademicDegrees;
 public Input<string?> Ref_YearEntry;
 public Input<bool?> Ref_DecisionToContinueStudying;
+public DxGrid? Grid_HR_RMS_JobHistory;
+
+public Input<Guid> Ref_HR_RMS_JobHistory_Id;
+public Input<Guid?> Ref_HR_RMS_JobHistory_RequestID;
+public Input<Guid?> Ref_HR_RMS_JobHistory_CreateUser;
+public Input<Guid?> Ref_HR_RMS_JobHistory_UpdateUser;
+public Input<DateTime?> Ref_HR_RMS_JobHistory_CreateDate;
+public Input<DateTime?> Ref_HR_RMS_JobHistory_UpdateDate;
+public Input<bool?> Ref_HR_RMS_JobHistory_IsDelete;
+public Input<string?> Ref_HR_RMS_JobHistory_StartWork;
+public Input<string?> Ref_HR_RMS_JobHistory_EndWork;
+public Input<string?> Ref_HR_RMS_JobHistory_CompanyName;
+public Input<string?> Ref_HR_RMS_JobHistory_TypeActivity;
+public Input<string?> Ref_HR_RMS_JobHistory_LastJobTitle;
+public Input<int?> Ref_HR_RMS_JobHistory_LastSalary;
+public Input<bool?> Ref_HR_RMS_JobHistory_HasInsurance;
+public Input<string?> Ref_HR_RMS_JobHistory_ReasonBreakup;
+public Input<string?> Ref_HR_RMS_JobHistory_NameDirectManager;
+public Input<string?> Ref_HR_RMS_JobHistory_WorkPhone;
+public Input<string?> Ref_HR_RMS_JobHistory_InsuranceTypes;
+public DxGrid? Grid_HR_RMS_TrainingCourses;
+
+public Input<Guid> Ref_HR_RMS_TrainingCourses_Id;
+public Input<Guid?> Ref_HR_RMS_TrainingCourses_RequestID;
+public Input<Guid?> Ref_HR_RMS_TrainingCourses_CreateUser;
+public Input<Guid?> Ref_HR_RMS_TrainingCourses_UpdateUser;
+public Input<DateTime?> Ref_HR_RMS_TrainingCourses_CreateDate;
+public Input<DateTime?> Ref_HR_RMS_TrainingCourses_UpdateDate;
+public Input<bool?> Ref_HR_RMS_TrainingCourses_IsDelete;
+public Input<string?> Ref_HR_RMS_TrainingCourses_TitleCourse;
+public Input<string?> Ref_HR_RMS_TrainingCourses_EducationalInstitution;
+public Input<string?> Ref_HR_RMS_TrainingCourses_CourseYear;
+public Input<byte?> Ref_HR_RMS_TrainingCourses_CourseDuration;
+public RadioBoolean Ref_HR_RMS_TrainingCourses_HasCertificate;
+public DxGrid? Grid_HR_RMS_FamiliarityForeigLanguages;
+
+public Input<Guid> Ref_HR_RMS_FamiliarityForeigLanguages_Id;
+public Input<Guid?> Ref_HR_RMS_FamiliarityForeigLanguages_RequestID;
+public Input<Guid?> Ref_HR_RMS_FamiliarityForeigLanguages_CreateUser;
+public Input<Guid?> Ref_HR_RMS_FamiliarityForeigLanguages_UpdateUser;
+public Input<DateTime?> Ref_HR_RMS_FamiliarityForeigLanguages_CreateDate;
+public Input<DateTime?> Ref_HR_RMS_FamiliarityForeigLanguages_UpdateDate;
+public Input<bool?> Ref_HR_RMS_FamiliarityForeigLanguages_IsDelete;
+public Input<string?> Ref_HR_RMS_FamiliarityForeigLanguages_NameLanguage;
+public Input<bool?> Ref_HR_RMS_FamiliarityForeigLanguages_SpecializationLiteraryField;
+public Input<bool?> Ref_HR_RMS_FamiliarityForeigLanguages_ExpertiseTechnicalField;
+public Input<bool?> Ref_HR_RMS_FamiliarityForeigLanguages_SpecializationBusiness;
+public Dropdown Ref_HR_RMS_FamiliarityForeigLanguages_HR_ReadingId;
+public Dropdown Ref_HR_RMS_FamiliarityForeigLanguages_HR_TalkId;
+public Dropdown Ref_HR_RMS_FamiliarityForeigLanguages_HR_TranslationId;
+public DxGrid? Grid_HR_RMS_FirstDegreeRelatives;
+
+public Input<Guid> Ref_HR_RMS_FirstDegreeRelatives_Id;
+public Input<Guid?> Ref_HR_RMS_FirstDegreeRelatives_RequestID;
+public Input<Guid?> Ref_HR_RMS_FirstDegreeRelatives_CreateUser;
+public Input<Guid?> Ref_HR_RMS_FirstDegreeRelatives_UpdateUser;
+public Input<DateTime?> Ref_HR_RMS_FirstDegreeRelatives_CreateDate;
+public Input<DateTime?> Ref_HR_RMS_FirstDegreeRelatives_UpdateDate;
+public Input<bool?> Ref_HR_RMS_FirstDegreeRelatives_IsDelete;
+public Dropdown Ref_HR_RMS_FirstDegreeRelatives_HR_FamilyRelationshipId;
+public Input<string?> Ref_HR_RMS_FirstDegreeRelatives_FirstName;
+public Input<string?> Ref_HR_RMS_FirstDegreeRelatives_LastName;
+public Input<byte?> Ref_HR_RMS_FirstDegreeRelatives_Age;
+public Input<string?> Ref_HR_RMS_FirstDegreeRelatives_Job;
+public Input<string?> Ref_HR_RMS_FirstDegreeRelatives_NameOrganization;
+public Input<bool?> Ref_HR_RMS_FirstDegreeRelatives_UnderFamilyCare;
+public Dropdown Ref_HR_RMS_FirstDegreeRelatives_HR_Base_AcademicDegreesId;
+public DxGrid? Grid_HR_RMS_FriendsAcquaintances;
+
+public Input<Guid> Ref_HR_RMS_FriendsAcquaintances_Id;
+public Input<Guid?> Ref_HR_RMS_FriendsAcquaintances_RequestID;
+public Input<Guid?> Ref_HR_RMS_FriendsAcquaintances_CreateUser;
+public Input<Guid?> Ref_HR_RMS_FriendsAcquaintances_UpdateUser;
+public Input<DateTime?> Ref_HR_RMS_FriendsAcquaintances_CreateDate;
+public Input<DateTime?> Ref_HR_RMS_FriendsAcquaintances_UpdateDate;
+public Input<bool?> Ref_HR_RMS_FriendsAcquaintances_IsDelete;
+public Input<string?> Ref_HR_RMS_FriendsAcquaintances_FirstName;
+public Input<string?> Ref_HR_RMS_FriendsAcquaintances_LastName;
+public Input<string?> Ref_HR_RMS_FriendsAcquaintances_Job;
+public Input<string?> Ref_HR_RMS_FriendsAcquaintances_Address;
+public Input<string?> Ref_HR_RMS_FriendsAcquaintances_Phone;
 public Input<string?> Ref_FamilyRelationship;
 public Input<string?> Ref_FullNameFamily;
 public Input<bool?> Ref_FamiliarPersonInsideTheCompany;
@@ -264,104 +362,6 @@ public Input<Guid?> Ref_UpdateUser;
 public Input<DateTime?> Ref_CreateDate;
 public Input<DateTime?> Ref_UpdateDate;
 public Input<bool?> Ref_IsDelete;
-public DxGrid? Grid_HR_RMS_FirstDegreeRelatives;
-
-public Input<Guid> Ref_HR_RMS_FirstDegreeRelatives_Id;
-public Input<Guid?> Ref_HR_RMS_FirstDegreeRelatives_RequestID;
-public Input<Guid?> Ref_HR_RMS_FirstDegreeRelatives_CreateUser;
-public Input<Guid?> Ref_HR_RMS_FirstDegreeRelatives_UpdateUser;
-public Input<DateTime?> Ref_HR_RMS_FirstDegreeRelatives_CreateDate;
-public Input<DateTime?> Ref_HR_RMS_FirstDegreeRelatives_UpdateDate;
-public Input<bool?> Ref_HR_RMS_FirstDegreeRelatives_IsDelete;
-public Dropdown Ref_HR_RMS_FirstDegreeRelatives_HR_FamilyRelationshipId;
-public Input<string?> Ref_HR_RMS_FirstDegreeRelatives_FirstName;
-public Input<string?> Ref_HR_RMS_FirstDegreeRelatives_LastName;
-public Input<byte?> Ref_HR_RMS_FirstDegreeRelatives_Age;
-public Input<string?> Ref_HR_RMS_FirstDegreeRelatives_Job;
-public Input<string?> Ref_HR_RMS_FirstDegreeRelatives_NameOrganization;
-public Input<bool?> Ref_HR_RMS_FirstDegreeRelatives_UnderFamilyCare;
-public Dropdown Ref_HR_RMS_FirstDegreeRelatives_HR_Base_AcademicDegreesId;
-public DxGrid? Grid_HR_RMS_JobHistory;
-
-public Input<Guid> Ref_HR_RMS_JobHistory_Id;
-public Input<Guid?> Ref_HR_RMS_JobHistory_RequestID;
-public Input<Guid?> Ref_HR_RMS_JobHistory_CreateUser;
-public Input<Guid?> Ref_HR_RMS_JobHistory_UpdateUser;
-public Input<DateTime?> Ref_HR_RMS_JobHistory_CreateDate;
-public Input<DateTime?> Ref_HR_RMS_JobHistory_UpdateDate;
-public Input<bool?> Ref_HR_RMS_JobHistory_IsDelete;
-public Input<string?> Ref_HR_RMS_JobHistory_StartWork;
-public Input<string?> Ref_HR_RMS_JobHistory_EndWork;
-public Input<string?> Ref_HR_RMS_JobHistory_CompanyName;
-public Input<string?> Ref_HR_RMS_JobHistory_TypeActivity;
-public Input<string?> Ref_HR_RMS_JobHistory_LastJobTitle;
-public Input<int?> Ref_HR_RMS_JobHistory_LastSalary;
-public Input<bool?> Ref_HR_RMS_JobHistory_HasInsurance;
-public Input<string?> Ref_HR_RMS_JobHistory_ReasonBreakup;
-public Input<string?> Ref_HR_RMS_JobHistory_NameDirectManager;
-public Input<string?> Ref_HR_RMS_JobHistory_WorkPhone;
-public Input<string?> Ref_HR_RMS_JobHistory_InsuranceTypes;
-public DxGrid? Grid_HR_RMS_TrainingCourses;
-
-public Input<Guid> Ref_HR_RMS_TrainingCourses_Id;
-public Input<Guid?> Ref_HR_RMS_TrainingCourses_RequestID;
-public Input<Guid?> Ref_HR_RMS_TrainingCourses_CreateUser;
-public Input<Guid?> Ref_HR_RMS_TrainingCourses_UpdateUser;
-public Input<DateTime?> Ref_HR_RMS_TrainingCourses_CreateDate;
-public Input<DateTime?> Ref_HR_RMS_TrainingCourses_UpdateDate;
-public Input<bool?> Ref_HR_RMS_TrainingCourses_IsDelete;
-public Input<string?> Ref_HR_RMS_TrainingCourses_TitleCourse;
-public Input<string?> Ref_HR_RMS_TrainingCourses_EducationalInstitution;
-public Input<string?> Ref_HR_RMS_TrainingCourses_CourseYear;
-public Input<byte?> Ref_HR_RMS_TrainingCourses_CourseDuration;
-public RadioBoolean Ref_HR_RMS_TrainingCourses_HasCertificate;
-public DxGrid? Grid_HR_RMS_FriendsAcquaintances;
-
-public Input<Guid> Ref_HR_RMS_FriendsAcquaintances_Id;
-public Input<Guid?> Ref_HR_RMS_FriendsAcquaintances_RequestID;
-public Input<Guid?> Ref_HR_RMS_FriendsAcquaintances_CreateUser;
-public Input<Guid?> Ref_HR_RMS_FriendsAcquaintances_UpdateUser;
-public Input<DateTime?> Ref_HR_RMS_FriendsAcquaintances_CreateDate;
-public Input<DateTime?> Ref_HR_RMS_FriendsAcquaintances_UpdateDate;
-public Input<bool?> Ref_HR_RMS_FriendsAcquaintances_IsDelete;
-public Input<string?> Ref_HR_RMS_FriendsAcquaintances_FirstName;
-public Input<string?> Ref_HR_RMS_FriendsAcquaintances_LastName;
-public Input<string?> Ref_HR_RMS_FriendsAcquaintances_Job;
-public Input<string?> Ref_HR_RMS_FriendsAcquaintances_Address;
-public Input<string?> Ref_HR_RMS_FriendsAcquaintances_Phone;
-public DxGrid? Grid_HR_RMS_EducationalRecords;
-
-public Input<Guid> Ref_HR_RMS_EducationalRecords_Id;
-public Input<Guid?> Ref_HR_RMS_EducationalRecords_RequestID;
-public Input<Guid?> Ref_HR_RMS_EducationalRecords_CreateUser;
-public Input<Guid?> Ref_HR_RMS_EducationalRecords_UpdateUser;
-public Input<DateTime?> Ref_HR_RMS_EducationalRecords_CreateDate;
-public Input<DateTime?> Ref_HR_RMS_EducationalRecords_UpdateDate;
-public Input<bool?> Ref_HR_RMS_EducationalRecords_IsDelete;
-public Dropdown Ref_HR_RMS_EducationalRecords_HR_Base_AcademicDegreesId;
-public Input<string?> Ref_HR_RMS_EducationalRecords_FromDate;
-public Input<string?> Ref_HR_RMS_EducationalRecords_ToDate;
-public Input<string?> Ref_HR_RMS_EducationalRecords_NameEducationalInstitution;
-public Dropdown Ref_HR_RMS_EducationalRecords_HR_Base_UniversityTypeId;
-public Input<double?> Ref_HR_RMS_EducationalRecords_GPA;
-public Input<string?> Ref_HR_RMS_EducationalRecords_CityStudy;
-public Input<string?> Ref_HR_RMS_EducationalRecords_FieldStudySpecialization;
-public DxGrid? Grid_HR_RMS_FamiliarityForeigLanguages;
-
-public Input<Guid> Ref_HR_RMS_FamiliarityForeigLanguages_Id;
-public Input<Guid?> Ref_HR_RMS_FamiliarityForeigLanguages_RequestID;
-public Input<Guid?> Ref_HR_RMS_FamiliarityForeigLanguages_CreateUser;
-public Input<Guid?> Ref_HR_RMS_FamiliarityForeigLanguages_UpdateUser;
-public Input<DateTime?> Ref_HR_RMS_FamiliarityForeigLanguages_CreateDate;
-public Input<DateTime?> Ref_HR_RMS_FamiliarityForeigLanguages_UpdateDate;
-public Input<bool?> Ref_HR_RMS_FamiliarityForeigLanguages_IsDelete;
-public Input<string?> Ref_HR_RMS_FamiliarityForeigLanguages_NameLanguage;
-public Input<bool?> Ref_HR_RMS_FamiliarityForeigLanguages_SpecializationLiteraryField;
-public Input<bool?> Ref_HR_RMS_FamiliarityForeigLanguages_ExpertiseTechnicalField;
-public Input<bool?> Ref_HR_RMS_FamiliarityForeigLanguages_SpecializationBusiness;
-public Dropdown Ref_HR_RMS_FamiliarityForeigLanguages_HR_ReadingId;
-public Dropdown Ref_HR_RMS_FamiliarityForeigLanguages_HR_TalkId;
-public Dropdown Ref_HR_RMS_FamiliarityForeigLanguages_HR_TranslationId;
 
 
     #endregion

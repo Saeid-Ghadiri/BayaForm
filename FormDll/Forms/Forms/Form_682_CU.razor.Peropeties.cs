@@ -144,7 +144,7 @@ namespace Forms.Forms
     /// <summary>
     ///  ورژنی که فرم باهاش ساخته شده
     /// </summary>
-    public string? VersionForm { get; set; } = "5622";
+    public string? VersionForm { get; set; } = "5671";
 
     /// <summary>
     ///  موجودیت
@@ -185,15 +185,14 @@ public Input<string?> Ref_Title;
 public Input<bool?> Ref_IsApprover;
 public Input<string?> Ref_Description;
 public Input<bool?> Ref_IsActive;
-public Input<Guid> Ref_Id;
-public Input<Guid?> Ref_RequestID;
-public Input<Guid?> Ref_CreateUser;
-public Input<Guid?> Ref_UpdateUser;
-public Input<DateTime?> Ref_CreateDate;
-public Input<DateTime?> Ref_UpdateDate;
-public Input<bool?> Ref_IsDelete;
 public DxGrid? Grid_HR_ORG_Posts;
 
+public Dropdown Ref_HR_ORG_Posts_HR_ORG_PositionsId;
+public Input<string?> Ref_HR_ORG_Posts_PostCode;
+public Input<string?> Ref_HR_ORG_Posts_Title;
+public Dropdown Ref_HR_ORG_Posts_HR_Base_InsuranceJobsId;
+public Input<string?> Ref_HR_ORG_Posts_Description;
+public Input<bool?> Ref_HR_ORG_Posts_State;
 public Input<Guid> Ref_HR_ORG_Posts_Id;
 public Input<Guid?> Ref_HR_ORG_Posts_RequestID;
 public Input<Guid?> Ref_HR_ORG_Posts_CreateUser;
@@ -201,12 +200,13 @@ public Input<Guid?> Ref_HR_ORG_Posts_UpdateUser;
 public Input<DateTime?> Ref_HR_ORG_Posts_CreateDate;
 public Input<DateTime?> Ref_HR_ORG_Posts_UpdateDate;
 public Input<bool?> Ref_HR_ORG_Posts_IsDelete;
-public Input<bool?> Ref_HR_ORG_Posts_State;
-public Input<string?> Ref_HR_ORG_Posts_Title;
-public Input<string?> Ref_HR_ORG_Posts_Description;
-public Dropdown Ref_HR_ORG_Posts_HR_ORG_PositionsId;
-public Dropdown Ref_HR_ORG_Posts_HR_Base_InsuranceJobsId;
-public Input<string?> Ref_HR_ORG_Posts_PostCode;
+public Input<Guid> Ref_Id;
+public Input<Guid?> Ref_RequestID;
+public Input<Guid?> Ref_CreateUser;
+public Input<Guid?> Ref_UpdateUser;
+public Input<DateTime?> Ref_CreateDate;
+public Input<DateTime?> Ref_UpdateDate;
+public Input<bool?> Ref_IsDelete;
 
 
     #endregion

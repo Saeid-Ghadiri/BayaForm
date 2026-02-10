@@ -144,7 +144,7 @@ namespace Forms.Forms
     /// <summary>
     ///  ورژنی که فرم باهاش ساخته شده
     /// </summary>
-    public string? VersionForm { get; set; } = "5622";
+    public string? VersionForm { get; set; } = "5671";
 
     /// <summary>
     ///  موجودیت
@@ -188,6 +188,26 @@ public Dropdown Ref_CentCode;
 public Dropdown Ref_InvCode;
 public Input<string?> Ref_Note;
 public Input<int?> Ref_Year;
+public DxGrid? Grid_Shomaran_ReturnHavaleDetail;
+
+public Dropdown Ref_Shomaran_ReturnHavaleDetail_ProductSearch;
+public Input<string?> Ref_Shomaran_ReturnHavaleDetail_PartCode;
+public Input<string?> Ref_Shomaran_ReturnHavaleDetail_ProductName;
+public Input<string?> Ref_Shomaran_ReturnHavaleDetail_ShomareFani;
+public Input<decimal?> Ref_Shomaran_ReturnHavaleDetail_Amount;
+public Input<string?> Ref_Shomaran_ReturnHavaleDetail_Unit;
+public Input<string?> Ref_Shomaran_ReturnHavaleDetail_Sefaresh;
+public Input<string?> Ref_Shomaran_ReturnHavaleDetail_Radyabi;
+public Input<int?> Ref_Shomaran_ReturnHavaleDetail_Year;
+public Input<Guid> Ref_Shomaran_ReturnHavaleDetail_Id;
+public Input<Guid?> Ref_Shomaran_ReturnHavaleDetail_RequestID;
+public Input<Guid?> Ref_Shomaran_ReturnHavaleDetail_CreateUser;
+public Input<Guid?> Ref_Shomaran_ReturnHavaleDetail_UpdateUser;
+public Input<DateTime?> Ref_Shomaran_ReturnHavaleDetail_CreateDate;
+public Input<DateTime?> Ref_Shomaran_ReturnHavaleDetail_UpdateDate;
+public Input<bool?> Ref_Shomaran_ReturnHavaleDetail_IsDelete;
+public Input<int?> Ref_Shomaran_ReturnHavaleDetail_RowOrder;
+public Dropdown Ref_Shomaran_ReturnHavaleDetail_CENTCODE3;
 public Input<string?> Ref_ApiResult;
 public Input<Guid> Ref_Id;
 public Input<Guid?> Ref_RequestID;
@@ -196,26 +216,6 @@ public Input<Guid?> Ref_UpdateUser;
 public Input<DateTime?> Ref_CreateDate;
 public Input<DateTime?> Ref_UpdateDate;
 public Input<bool?> Ref_IsDelete;
-public DxGrid? Grid_Shomaran_ReturnHavaleDetail;
-
-public Input<Guid> Ref_Shomaran_ReturnHavaleDetail_Id;
-public Input<Guid?> Ref_Shomaran_ReturnHavaleDetail_RequestID;
-public Input<Guid?> Ref_Shomaran_ReturnHavaleDetail_CreateUser;
-public Input<Guid?> Ref_Shomaran_ReturnHavaleDetail_UpdateUser;
-public Input<DateTime?> Ref_Shomaran_ReturnHavaleDetail_CreateDate;
-public Input<DateTime?> Ref_Shomaran_ReturnHavaleDetail_UpdateDate;
-public Input<bool?> Ref_Shomaran_ReturnHavaleDetail_IsDelete;
-public Input<decimal?> Ref_Shomaran_ReturnHavaleDetail_Amount;
-public Input<string?> Ref_Shomaran_ReturnHavaleDetail_PartCode;
-public Input<string?> Ref_Shomaran_ReturnHavaleDetail_Radyabi;
-public Input<string?> Ref_Shomaran_ReturnHavaleDetail_Sefaresh;
-public Input<int?> Ref_Shomaran_ReturnHavaleDetail_RowOrder;
-public Input<int?> Ref_Shomaran_ReturnHavaleDetail_Year;
-public Dropdown Ref_Shomaran_ReturnHavaleDetail_ProductSearch;
-public Input<string?> Ref_Shomaran_ReturnHavaleDetail_ShomareFani;
-public Input<string?> Ref_Shomaran_ReturnHavaleDetail_ProductName;
-public Input<string?> Ref_Shomaran_ReturnHavaleDetail_Unit;
-public Dropdown Ref_Shomaran_ReturnHavaleDetail_CENTCODE3;
 
 
     #endregion

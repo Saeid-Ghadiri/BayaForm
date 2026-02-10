@@ -144,7 +144,7 @@ namespace Forms.Forms
     /// <summary>
     ///  ورژنی که فرم باهاش ساخته شده
     /// </summary>
-    public string? VersionForm { get; set; } = "5622";
+    public string? VersionForm { get; set; } = "5671";
 
     /// <summary>
     ///  موجودیت
@@ -187,15 +187,15 @@ public Dropdown Ref_HR_ORG_SectionTypesId;
 public Dropdown Ref_HR_ORG_SectionStatusId;
 public Dropdown Ref_BaseInfo_TaxCategoryId;
 public Input<string?> Ref_Description;
-public Input<Guid> Ref_Id;
-public Input<Guid?> Ref_RequestID;
-public Input<Guid?> Ref_CreateUser;
-public Input<Guid?> Ref_UpdateUser;
-public Input<DateTime?> Ref_CreateDate;
-public Input<DateTime?> Ref_UpdateDate;
-public Input<bool?> Ref_IsDelete;
 public DxGrid? Grid_HR_ORG_Chart;
 
+public Dropdown Ref_HR_ORG_Chart_HR_ORG_SectionsId;
+public Dropdown Ref_HR_ORG_Chart_HR_ORG_PostsId;
+public Input<bool?> Ref_HR_ORG_Chart_IsApprover;
+public Input<int?> Ref_HR_ORG_Chart_NumberOfApproved;
+public Input<int?> Ref_HR_ORG_Chart_CurrentCount;
+public Dropdown Ref_HR_ORG_Chart_HR_ORG_ChartStatusId;
+public Input<string?> Ref_HR_ORG_Chart_Description;
 public Input<Guid> Ref_HR_ORG_Chart_Id;
 public Input<Guid?> Ref_HR_ORG_Chart_RequestID;
 public Input<Guid?> Ref_HR_ORG_Chart_CreateUser;
@@ -203,13 +203,13 @@ public Input<Guid?> Ref_HR_ORG_Chart_UpdateUser;
 public Input<DateTime?> Ref_HR_ORG_Chart_CreateDate;
 public Input<DateTime?> Ref_HR_ORG_Chart_UpdateDate;
 public Input<bool?> Ref_HR_ORG_Chart_IsDelete;
-public Input<int?> Ref_HR_ORG_Chart_NumberOfApproved;
-public Dropdown Ref_HR_ORG_Chart_HR_ORG_PostsId;
-public Dropdown Ref_HR_ORG_Chart_HR_ORG_SectionsId;
-public Input<bool?> Ref_HR_ORG_Chart_IsApprover;
-public Input<string?> Ref_HR_ORG_Chart_Description;
-public Dropdown Ref_HR_ORG_Chart_HR_ORG_ChartStatusId;
-public Input<int?> Ref_HR_ORG_Chart_CurrentCount;
+public Input<Guid> Ref_Id;
+public Input<Guid?> Ref_RequestID;
+public Input<Guid?> Ref_CreateUser;
+public Input<Guid?> Ref_UpdateUser;
+public Input<DateTime?> Ref_CreateDate;
+public Input<DateTime?> Ref_UpdateDate;
+public Input<bool?> Ref_IsDelete;
 
 
     #endregion

@@ -144,7 +144,7 @@ namespace Forms.Forms
     /// <summary>
     ///  ورژنی که فرم باهاش ساخته شده
     /// </summary>
-    public string? VersionForm { get; set; } = "5622";
+    public string? VersionForm { get; set; } = "5671";
 
     /// <summary>
     ///  موجودیت
@@ -192,6 +192,26 @@ public Dropdown Ref_INVCODE;
 public Dropdown Ref_PSOURCE;
 public Input<string?> Ref_Description;
 public Input<int?> Ref_YEAR;
+public DxGrid? Grid_SH_PolFilm_AnbordDetail;
+
+public Dropdown Ref_SH_PolFilm_AnbordDetail_ProductSearch;
+public Input<string?> Ref_SH_PolFilm_AnbordDetail_PARTCODE;
+public Input<string?> Ref_SH_PolFilm_AnbordDetail_ProductName;
+public Input<string?> Ref_SH_PolFilm_AnbordDetail_ProductUnit;
+public Input<string?> Ref_SH_PolFilm_AnbordDetail_ShomareFani;
+public Input<string?> Ref_SH_PolFilm_AnbordDetail_TECDESC;
+public Input<decimal?> Ref_SH_PolFilm_AnbordDetail_ORDAMOUNT;
+public Input<decimal?> Ref_SH_PolFilm_AnbordDetail_OKAMOUNT;
+public Input<string?> Ref_SH_PolFilm_AnbordDetail_DESC1;
+public Input<Guid> Ref_SH_PolFilm_AnbordDetail_Id;
+public Input<Guid?> Ref_SH_PolFilm_AnbordDetail_RequestID;
+public Input<Guid?> Ref_SH_PolFilm_AnbordDetail_CreateUser;
+public Input<Guid?> Ref_SH_PolFilm_AnbordDetail_UpdateUser;
+public Input<DateTime?> Ref_SH_PolFilm_AnbordDetail_CreateDate;
+public Input<DateTime?> Ref_SH_PolFilm_AnbordDetail_UpdateDate;
+public Input<bool?> Ref_SH_PolFilm_AnbordDetail_IsDelete;
+public Input<string?> Ref_SH_PolFilm_AnbordDetail_RowId;
+public Input<int?> Ref_SH_PolFilm_AnbordDetail_Year;
 public Input<string?> Ref_ApiResult;
 public Input<Guid> Ref_Id;
 public Input<Guid?> Ref_RequestID;
@@ -200,26 +220,6 @@ public Input<Guid?> Ref_UpdateUser;
 public Input<DateTime?> Ref_CreateDate;
 public Input<DateTime?> Ref_UpdateDate;
 public Input<bool?> Ref_IsDelete;
-public DxGrid? Grid_SH_PolFilm_AnbordDetail;
-
-public Input<Guid> Ref_SH_PolFilm_AnbordDetail_Id;
-public Input<Guid?> Ref_SH_PolFilm_AnbordDetail_RequestID;
-public Input<Guid?> Ref_SH_PolFilm_AnbordDetail_CreateUser;
-public Input<Guid?> Ref_SH_PolFilm_AnbordDetail_UpdateUser;
-public Input<DateTime?> Ref_SH_PolFilm_AnbordDetail_CreateDate;
-public Input<DateTime?> Ref_SH_PolFilm_AnbordDetail_UpdateDate;
-public Input<bool?> Ref_SH_PolFilm_AnbordDetail_IsDelete;
-public Input<decimal?> Ref_SH_PolFilm_AnbordDetail_OKAMOUNT;
-public Input<decimal?> Ref_SH_PolFilm_AnbordDetail_ORDAMOUNT;
-public Input<string?> Ref_SH_PolFilm_AnbordDetail_PARTCODE;
-public Input<string?> Ref_SH_PolFilm_AnbordDetail_RowId;
-public Input<int?> Ref_SH_PolFilm_AnbordDetail_Year;
-public Input<string?> Ref_SH_PolFilm_AnbordDetail_DESC1;
-public Dropdown Ref_SH_PolFilm_AnbordDetail_ProductSearch;
-public Input<string?> Ref_SH_PolFilm_AnbordDetail_ProductName;
-public Input<string?> Ref_SH_PolFilm_AnbordDetail_ShomareFani;
-public Input<string?> Ref_SH_PolFilm_AnbordDetail_TECDESC;
-public Input<string?> Ref_SH_PolFilm_AnbordDetail_ProductUnit;
 
 
     #endregion

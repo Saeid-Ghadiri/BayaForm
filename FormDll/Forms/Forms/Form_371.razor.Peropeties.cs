@@ -144,7 +144,7 @@ namespace Forms.Forms
     /// <summary>
     ///  ورژنی که فرم باهاش ساخته شده
     /// </summary>
-    public string? VersionForm { get; set; } = "5622";
+    public string? VersionForm { get; set; } = "5671";
 
     /// <summary>
     ///  موجودیت
@@ -205,11 +205,11 @@ public Input<string?> Ref_SCMNFP_ProductRequestDetails_ProductCode;
 public Input<string?> Ref_SCMNFP_ProductRequestDetails_ProductUnit;
 public Input<double?> Ref_SCMNFP_ProductRequestDetails_ProductInventory;
 public Input<double?> Ref_SCMNFP_ProductRequestDetails_ProductRequestingQTY;
+public Dropdown Ref_SCMNFP_ProductRequestDetails_SCMNFP_CostCenterId;
 public Dropdown Ref_SCMNFP_ProductRequestDetails_SCMNFP_PriorityId;
 public Input<string?> Ref_SCMNFP_ProductRequestDetails_DescriptionApplicant;
-public Input<string?> Ref_SCMNFP_ProductRequestDetails_DescriptionApproverFirst;
-public Dropdown Ref_SCMNFP_ProductRequestDetails_SCMNFP_CostCenterId;
 public RadioBoolean Ref_SCMNFP_ProductRequestDetails_RequestIsConfirmed;
+public Input<string?> Ref_SCMNFP_ProductRequestDetails_DescriptionApproverFirst;
 
 
     #endregion

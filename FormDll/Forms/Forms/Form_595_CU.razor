@@ -49,22 +49,6 @@
 
 </div>
 
-<Input Id="RequestID" @ref="Ref_RequestID"      @bind-Value="_Entity.RequestID" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
-
-<Input Id="CreateUser" @ref="Ref_CreateUser"      @bind-Value="_Entity.CreateUser" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
-
-<Input Id="UpdateUser" @ref="Ref_UpdateUser"      @bind-Value="_Entity.UpdateUser" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
-
-<Input Id="CreateDate" @ref="Ref_CreateDate"   CssClass="d-none"   @bind-Value="_Entity.CreateDate" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
-
-<Input Id="UpdateDate" @ref="Ref_UpdateDate"   CssClass="d-none"   @bind-Value="_Entity.UpdateDate" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
-
-<Input Id="IsDelete" @ref="Ref_IsDelete"   CssClass="d-none"   @bind-Value="_Entity.IsDelete" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
-<label for="PPCAtlasBobbin_Station_GridPPCAtlasBobbin_StationTypeId_337">ایستگاه
-   
-    
-</label>
-
 <DxGrid @ref="Grid_PPCAtlasBobbin_Station" Data="_Entity.PPCAtlasBobbin_Station" KeyFieldName="_Id" EditMode="GridEditMode.PopupEditForm"
         EditModelSaving="OnEditModelSavingPPCAtlasBobbin_Station"
         DataItemDeleting="OnDataItemDeletingPPCAtlasBobbin_Station"
@@ -73,7 +57,7 @@
         EditFormButtonsVisible="false"
         CustomizeEditModel="CustomizeEditGrid_PPCAtlasBobbin_Station"
         CustomizeElement="CustomizeRowsGrid_PPCAtlasBobbin_Station" 
-        Component="@((Utility.JSON.ToObject<View_Component>("{\"primaryKey\":false,\"EntityID\":337,\"FieldId\":337,\"TypeCSharp\":\"\",\"NotNull\":false,\"ViewId\":0,\"NotMapped\":false,\"Relation\":false,\"RelationExternal\":false,\"RelationParentName\":\"\",\"RelationParentModel\":\"\",\"RelationChildModel\":\"PPCAtlasBobbin_Station\",\"GridMainModel\":\"PPCAtlasBobbin_Station\",\"widget\":{\"altInput\":false,\"allowInput\":false,\"clickOpens\":false,\"enableDate\":false,\"enableTime\":false,\"noCalendar\":false,\"useLocaleSettings\":false,\"hourIncrement\":0,\"minuteIncrement\":0,\"time_24hr\":false},\"wysiwyg\":false,\"data\":{},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"FieldsTemplate\":[],\"refreshOn\":\"data\",\"reorder\":false,\"addAnotherPosition\":\"bottom\",\"layoutFixed\":false,\"enableRowGroups\":false,\"initEmpty\":false,\"disabled\":true,\"modal\":true,\"label\":\"ایستگاه\",\"tableView\":true,\"key\":\"GridPPCAtlasBobbin_StationTypeId_337\",\"type\":\"datagrid\",\"input\":true,\"placeholder\":\"GridPPCAtlasBobbin_StationTypeId_337\",\"modalEdit\":true,\"FieldUrl\":\"337?EId=337&SubId=26\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result))"
+        Component="@((Utility.JSON.ToObject<View_Component>("{\"primaryKey\":false,\"EntityID\":337,\"FieldId\":337,\"NotNull\":false,\"ViewId\":0,\"NotMapped\":false,\"Relation\":false,\"RelationExternal\":false,\"RelationChildModel\":\"PPCAtlasBobbin_Station\",\"GridMainModel\":\"PPCAtlasBobbin_Station\",\"widget\":{\"altInput\":false,\"allowInput\":false,\"clickOpens\":false,\"enableDate\":false,\"enableTime\":false,\"noCalendar\":false,\"useLocaleSettings\":false,\"hourIncrement\":0,\"minuteIncrement\":0,\"time_24hr\":false},\"wysiwyg\":false,\"data\":{},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"FieldsTemplate\":[],\"refreshOn\":\"data\",\"reorder\":false,\"addAnotherPosition\":\"bottom\",\"layoutFixed\":false,\"enableRowGroups\":false,\"initEmpty\":false,\"disabled\":true,\"modal\":true,\"label\":\"ایستگاه\",\"tableView\":true,\"key\":\"GridPPCAtlasBobbin_StationTypeId_337\",\"type\":\"datagrid\",\"input\":true,\"hideLabel\":true,\"modalEdit\":true,\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":false,\"AccessEdit\":true,\"AccessNew\":true}").Result))"
          >
     <Columns>
     
@@ -93,10 +77,6 @@
 </a>
 
        
-<a class="btn btn-sm btn-red-light btnDeleteGridData" @onclick="@(() => OnDeleteButtonClickGrid_PPCAtlasBobbin_Station(CellContext))" style="text-decoration: none;" href="javascript:void(0);">
-    <span class="fal fa-times-circle btnicon"></span>
-</a>
-
     </CellDisplayTemplate>
 </DxGridCommandColumn>
 
@@ -116,7 +96,11 @@
           
            </CellDisplayTemplate>
      </DxGridCommandColumn>
-    <DxGridDataColumn  Caption="Id" Visible=false FieldName="Id" />
+    <DxGridDataColumn  Caption="نام ایستگاه"  FieldName="StationName" />
+
+<DxGridDataColumn  Caption="نام ایستگاه لاتین"  FieldName="StationEnName" />
+
+<DxGridDataColumn  Caption="Id" Visible=false FieldName="Id" />
 
 <DxGridDataColumn  Caption="RequestID" Visible=false FieldName="RequestID" />
 
@@ -130,10 +114,6 @@
 
 <DxGridDataColumn  Caption="IsDelete" Visible=false FieldName="IsDelete" />
 
-<DxGridDataColumn  Caption="نام ایستگاه"  FieldName="StationName" />
-
-<DxGridDataColumn  Caption="نام ایستگاه لاتین"  FieldName="StationEnName" />
-
 
 </Columns>
 
@@ -143,6 +123,18 @@
     }
     <DxFormLayout>
         <DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextPPCAtlasBobbin_Station">
+    
+<Input Id="PPCAtlasBobbin_Station_StationName" @ref="Ref_PPCAtlasBobbin_Station_StationName" Label="نام ایستگاه"     @bind-Value="PPCAtlasBobbin_Station.StationName" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+</DxFormLayoutItem>
+
+<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextPPCAtlasBobbin_Station">
+    
+<Input Id="PPCAtlasBobbin_Station_StationEnName" @ref="Ref_PPCAtlasBobbin_Station_StationEnName" Label="نام ایستگاه لاتین"     @bind-Value="PPCAtlasBobbin_Station.StationEnName" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+</DxFormLayoutItem>
+
+<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextPPCAtlasBobbin_Station">
     
 <Input Id="PPCAtlasBobbin_Station_Id" @ref="Ref_PPCAtlasBobbin_Station_Id"   CssClass="d-none"   @bind-Value="PPCAtlasBobbin_Station.Id" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
 
@@ -181,18 +173,6 @@
 <DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextPPCAtlasBobbin_Station">
     
 <Input Id="PPCAtlasBobbin_Station_IsDelete" @ref="Ref_PPCAtlasBobbin_Station_IsDelete"   CssClass="d-none"   @bind-Value="PPCAtlasBobbin_Station.IsDelete" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
-
-</DxFormLayoutItem>
-
-<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextPPCAtlasBobbin_Station">
-    
-<Input Id="PPCAtlasBobbin_Station_StationName" @ref="Ref_PPCAtlasBobbin_Station_StationName" Label="نام ایستگاه"     @bind-Value="PPCAtlasBobbin_Station.StationName" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
-
-</DxFormLayoutItem>
-
-<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextPPCAtlasBobbin_Station">
-    
-<Input Id="PPCAtlasBobbin_Station_StationEnName" @ref="Ref_PPCAtlasBobbin_Station_StationEnName" Label="نام ایستگاه لاتین"     @bind-Value="PPCAtlasBobbin_Station.StationEnName" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
 
 </DxFormLayoutItem>
 
@@ -481,6 +461,8 @@ public void SaveGrid_PPCAtlasBobbin_Station(object DataItem, object EditModel)
     var MainModel = (Entity.PPCAtlasBobbin_Station)DataItem;
     if (MainModel != null)
     {
+MainModel.StationName = ((Entity.PPCAtlasBobbin_Station)EditModel).StationName;
+MainModel.StationEnName = ((Entity.PPCAtlasBobbin_Station)EditModel).StationEnName;
 MainModel.Id = ((Entity.PPCAtlasBobbin_Station)EditModel).Id;
 MainModel.RequestID = ((Entity.PPCAtlasBobbin_Station)EditModel).RequestID;
 MainModel.CreateUser = ((Entity.PPCAtlasBobbin_Station)EditModel).CreateUser;
@@ -488,8 +470,6 @@ MainModel.UpdateUser = ((Entity.PPCAtlasBobbin_Station)EditModel).UpdateUser;
 MainModel.CreateDate = ((Entity.PPCAtlasBobbin_Station)EditModel).CreateDate;
 MainModel.UpdateDate = ((Entity.PPCAtlasBobbin_Station)EditModel).UpdateDate;
 MainModel.IsDelete = ((Entity.PPCAtlasBobbin_Station)EditModel).IsDelete;
-MainModel.StationName = ((Entity.PPCAtlasBobbin_Station)EditModel).StationName;
-MainModel.StationEnName = ((Entity.PPCAtlasBobbin_Station)EditModel).StationEnName;
 
     }
     else
@@ -603,6 +583,18 @@ public async void RowDubbleClickGrid_PPCAtlasBobbin_Station(GridRowClickEventArg
 
 }
 }
+
+<Input Id="RequestID" @ref="Ref_RequestID"      @bind-Value="_Entity.RequestID" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+<Input Id="CreateUser" @ref="Ref_CreateUser"      @bind-Value="_Entity.CreateUser" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+<Input Id="UpdateUser" @ref="Ref_UpdateUser"      @bind-Value="_Entity.UpdateUser" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+<Input Id="CreateDate" @ref="Ref_CreateDate"   CssClass="d-none"   @bind-Value="_Entity.CreateDate" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+<Input Id="UpdateDate" @ref="Ref_UpdateDate"   CssClass="d-none"   @bind-Value="_Entity.UpdateDate" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+<Input Id="IsDelete" @ref="Ref_IsDelete"   CssClass="d-none"   @bind-Value="_Entity.IsDelete" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
 
     </EditForm>
 </div>

@@ -144,7 +144,7 @@ namespace Forms.Forms
     /// <summary>
     ///  ورژنی که فرم باهاش ساخته شده
     /// </summary>
-    public string? VersionForm { get; set; } = "5622";
+    public string? VersionForm { get; set; } = "5671";
 
     /// <summary>
     ///  موجودیت
@@ -190,6 +190,26 @@ public Dropdown Ref_CENTCODE2;
 public Dropdown Ref_INVCODE;
 public Input<string?> Ref_NOTE;
 public Input<int?> Ref_Year;
+public DxGrid? Grid_SH_PolFilm_ProductDeliveryDetail;
+
+public Dropdown Ref_SH_PolFilm_ProductDeliveryDetail_ProductSearch;
+public Input<string?> Ref_SH_PolFilm_ProductDeliveryDetail_PARTCODE;
+public Input<string?> Ref_SH_PolFilm_ProductDeliveryDetail_ProductName;
+public Input<string?> Ref_SH_PolFilm_ProductDeliveryDetail_shomarefani;
+public Input<decimal?> Ref_SH_PolFilm_ProductDeliveryDetail_AMOUNT;
+public Input<string?> Ref_SH_PolFilm_ProductDeliveryDetail_Unit;
+public Dropdown Ref_SH_PolFilm_ProductDeliveryDetail_CENTCODE3;
+public Input<string?> Ref_SH_PolFilm_ProductDeliveryDetail_RADYABI;
+public Input<string?> Ref_SH_PolFilm_ProductDeliveryDetail_SEFARESH;
+public Input<Guid> Ref_SH_PolFilm_ProductDeliveryDetail_Id;
+public Input<Guid?> Ref_SH_PolFilm_ProductDeliveryDetail_RequestID;
+public Input<Guid?> Ref_SH_PolFilm_ProductDeliveryDetail_CreateUser;
+public Input<Guid?> Ref_SH_PolFilm_ProductDeliveryDetail_UpdateUser;
+public Input<DateTime?> Ref_SH_PolFilm_ProductDeliveryDetail_CreateDate;
+public Input<DateTime?> Ref_SH_PolFilm_ProductDeliveryDetail_UpdateDate;
+public Input<bool?> Ref_SH_PolFilm_ProductDeliveryDetail_IsDelete;
+public Input<int?> Ref_SH_PolFilm_ProductDeliveryDetail_ROW_ID;
+public Input<int?> Ref_SH_PolFilm_ProductDeliveryDetail_Year;
 public Input<string?> Ref_ApiResult;
 public Input<Guid> Ref_Id;
 public Input<Guid?> Ref_RequestID;
@@ -198,26 +218,6 @@ public Input<Guid?> Ref_UpdateUser;
 public Input<DateTime?> Ref_CreateDate;
 public Input<DateTime?> Ref_UpdateDate;
 public Input<bool?> Ref_IsDelete;
-public DxGrid? Grid_SH_PolFilm_ProductDeliveryDetail;
-
-public Input<Guid> Ref_SH_PolFilm_ProductDeliveryDetail_Id;
-public Input<Guid?> Ref_SH_PolFilm_ProductDeliveryDetail_RequestID;
-public Input<Guid?> Ref_SH_PolFilm_ProductDeliveryDetail_CreateUser;
-public Input<Guid?> Ref_SH_PolFilm_ProductDeliveryDetail_UpdateUser;
-public Input<DateTime?> Ref_SH_PolFilm_ProductDeliveryDetail_CreateDate;
-public Input<DateTime?> Ref_SH_PolFilm_ProductDeliveryDetail_UpdateDate;
-public Input<bool?> Ref_SH_PolFilm_ProductDeliveryDetail_IsDelete;
-public Input<decimal?> Ref_SH_PolFilm_ProductDeliveryDetail_AMOUNT;
-public Input<string?> Ref_SH_PolFilm_ProductDeliveryDetail_PARTCODE;
-public Input<string?> Ref_SH_PolFilm_ProductDeliveryDetail_RADYABI;
-public Input<string?> Ref_SH_PolFilm_ProductDeliveryDetail_SEFARESH;
-public Input<int?> Ref_SH_PolFilm_ProductDeliveryDetail_ROW_ID;
-public Input<int?> Ref_SH_PolFilm_ProductDeliveryDetail_Year;
-public Input<string?> Ref_SH_PolFilm_ProductDeliveryDetail_shomarefani;
-public Input<string?> Ref_SH_PolFilm_ProductDeliveryDetail_ProductName;
-public Dropdown Ref_SH_PolFilm_ProductDeliveryDetail_ProductSearch;
-public Dropdown Ref_SH_PolFilm_ProductDeliveryDetail_CENTCODE3;
-public Input<string?> Ref_SH_PolFilm_ProductDeliveryDetail_Unit;
 
 
     #endregion

@@ -144,7 +144,7 @@ namespace Forms.Forms
     /// <summary>
     ///  ورژنی که فرم باهاش ساخته شده
     /// </summary>
-    public string? VersionForm { get; set; } = "5622";
+    public string? VersionForm { get; set; } = "5671";
 
     /// <summary>
     ///  موجودیت
@@ -187,6 +187,27 @@ public Dropdown Ref_Product;
 public Dropdown Ref_Receipt;
 public Input<string?> Ref_Note;
 public Input<int?> Ref_Year;
+public DxGrid? Grid_Shomaran_DepoOutDetail;
+
+public Dropdown Ref_Shomaran_DepoOutDetail_InvCode;
+public Input<string?> Ref_Shomaran_DepoOutDetail_PartCode;
+public Input<decimal?> Ref_Shomaran_DepoOutDetail_AMOUNT;
+public Input<string?> Ref_Shomaran_DepoOutDetail_Radyabi;
+public Input<string?> Ref_Shomaran_DepoOutDetail_Sefaresh;
+public Input<string?> Ref_Shomaran_DepoOutDetail_NoteD;
+public Input<int?> Ref_Shomaran_DepoOutDetail_Year;
+public Input<string?> Ref_Shomaran_DepoOutDetail_RowId;
+public Input<Guid> Ref_Shomaran_DepoOutDetail_Id;
+public Input<Guid?> Ref_Shomaran_DepoOutDetail_RequestID;
+public Input<Guid?> Ref_Shomaran_DepoOutDetail_CreateUser;
+public Input<Guid?> Ref_Shomaran_DepoOutDetail_UpdateUser;
+public Input<DateTime?> Ref_Shomaran_DepoOutDetail_CreateDate;
+public Input<DateTime?> Ref_Shomaran_DepoOutDetail_UpdateDate;
+public Input<bool?> Ref_Shomaran_DepoOutDetail_IsDelete;
+public Dropdown Ref_Shomaran_DepoOutDetail_ProductSearch;
+public Input<string?> Ref_Shomaran_DepoOutDetail_shomarefani;
+public Input<string?> Ref_Shomaran_DepoOutDetail_ProductName;
+public Input<string?> Ref_Shomaran_DepoOutDetail_Unit;
 public Input<string?> Ref_ApiResult;
 public Input<Guid> Ref_Id;
 public Input<Guid?> Ref_RequestID;
@@ -195,27 +216,6 @@ public Input<Guid?> Ref_UpdateUser;
 public Input<DateTime?> Ref_CreateDate;
 public Input<DateTime?> Ref_UpdateDate;
 public Input<bool?> Ref_IsDelete;
-public DxGrid? Grid_Shomaran_DepoOutDetail;
-
-public Input<Guid> Ref_Shomaran_DepoOutDetail_Id;
-public Input<Guid?> Ref_Shomaran_DepoOutDetail_RequestID;
-public Input<Guid?> Ref_Shomaran_DepoOutDetail_CreateUser;
-public Input<Guid?> Ref_Shomaran_DepoOutDetail_UpdateUser;
-public Input<DateTime?> Ref_Shomaran_DepoOutDetail_CreateDate;
-public Input<DateTime?> Ref_Shomaran_DepoOutDetail_UpdateDate;
-public Input<bool?> Ref_Shomaran_DepoOutDetail_IsDelete;
-public Input<decimal?> Ref_Shomaran_DepoOutDetail_AMOUNT;
-public Dropdown Ref_Shomaran_DepoOutDetail_InvCode;
-public Input<string?> Ref_Shomaran_DepoOutDetail_PartCode;
-public Input<string?> Ref_Shomaran_DepoOutDetail_Radyabi;
-public Input<string?> Ref_Shomaran_DepoOutDetail_Sefaresh;
-public Input<string?> Ref_Shomaran_DepoOutDetail_RowId;
-public Input<int?> Ref_Shomaran_DepoOutDetail_Year;
-public Input<string?> Ref_Shomaran_DepoOutDetail_NoteD;
-public Dropdown Ref_Shomaran_DepoOutDetail_ProductSearch;
-public Input<string?> Ref_Shomaran_DepoOutDetail_shomarefani;
-public Input<string?> Ref_Shomaran_DepoOutDetail_ProductName;
-public Input<string?> Ref_Shomaran_DepoOutDetail_Unit;
 
 
     #endregion

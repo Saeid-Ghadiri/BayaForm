@@ -93,123 +93,7 @@
 </div>
 
 <div class="col-md-12">
-    
-</div>
-
-<div class="col-md-3">
-    
-<Input Id="FACTNO" @ref="Ref_FACTNO" Label="شماره رسید انبار یا فاکتور خرید"     @bind-Value="_Entity.FACTNO" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
-
-<Input Id="FACTDATE" @ref="Ref_FACTDATE" Label="تاریخ رسید"  CssClass=" PersianDatePicker"   @bind-Value="_Entity.FACTDATE" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"data-jdp\":\"  \",\"data-jdp-only-date\":\"   \"}").Result))></Input>
- 
- 
-@code {
-    Baya.Models.ViewEngine.View_Component Component_Shomaran_FACTBUYORDERNO = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"EntityName\":\"رسید\",\"primaryKey\":false,\"EntityID\":692,\"FieldId\":19646,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":942,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":true,\"RelationParentName\":\"\",\"RelationParentModel\":\"\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://shomaran.workcv.ir:2010/fa-ir/api/v1/view_anbordwant/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"inputFormat\":\"DropDown\",\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"ORDERNO\",\"template\":\"<span>{{item.ORDERNO}} {{item.ORDERDATE}} {{item.YEAR}} </span>\",\"FieldsTemplate\":[{\"key\":\"ORDERNO\",\"value\":\"nvarchar(Max)\"},{\"key\":\"ORDERDATE\",\"value\":\"nvarchar(Max)\"},{\"key\":\"YEAR\",\"value\":\"int\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"searchField\":\"ORDERNO\",\"disableLimit\":false,\"noRefreshOnScroll\":false,\"disabled\":false,\"modal\":true,\"label\":\"درخواست خرید\",\"tableView\":true,\"key\":\"ORDERNO\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"19646?EId=692&SubId=28\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
-}
-
-    <Dropdown Id=ORDERNO  @ref="Ref_ORDERNO" Label="درخواست خرید" CssClass=""  DisplayFormat="DropDown" ExternalApi=true NotMapped=false TextGrid=false  Value="@_Entity.ORDERNO" FieldName="ORDERNO" OnItemSelected="ItemSelected_Shomaran_FACTBUYORDERNO" Component="Component_Shomaran_FACTBUYORDERNO" _Entity="_Entity" >
-</Dropdown>
-@code {
-    public async Task ItemSelected_Shomaran_FACTBUYORDERNO(object _Item)
-    {
-        var Selected = Utility.JSON.ToObject<dynamic>(Utility.JSON.ToJson(_Item).Result).Result;
-     var Item = _Entity;
-
-    Item.ORDERNO = Selected.ORDERNO;
-
-
-    
-
-    
-    }
-} 
- 
- 
-@code {
-    Baya.Models.ViewEngine.View_Component Component_Shomaran_FACTBUYINVCODE = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"EntityName\":\"رسید\",\"primaryKey\":false,\"EntityID\":692,\"FieldId\":19645,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":942,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":true,\"RelationParentName\":\"\",\"RelationParentModel\":\"\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://shomaran.workcv.ir:2010/fa-ir/api/v1/view_INV/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"inputFormat\":\"DropDown\",\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"INVCODE\",\"template\":\"<span>{{item.INVNAME}} </span>\",\"FieldsTemplate\":[{\"key\":\"INVNAME\",\"value\":\"nvarchar(Max)\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"searchField\":\"INVCODE\",\"disableLimit\":false,\"noRefreshOnScroll\":false,\"disabled\":false,\"modal\":true,\"label\":\"کد انبار\",\"tableView\":true,\"key\":\"INVCODE\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"19645?EId=692&SubId=28\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
-}
-
-    <Dropdown Id=INVCODE  @ref="Ref_INVCODE" Label="کد انبار" CssClass=""  DisplayFormat="DropDown" ExternalApi=true NotMapped=false TextGrid=false  Value="@_Entity.INVCODE" FieldName="INVCODE" OnItemSelected="ItemSelected_Shomaran_FACTBUYINVCODE" Component="Component_Shomaran_FACTBUYINVCODE" _Entity="_Entity" >
-</Dropdown>
-@code {
-    public async Task ItemSelected_Shomaran_FACTBUYINVCODE(object _Item)
-    {
-        var Selected = Utility.JSON.ToObject<dynamic>(Utility.JSON.ToJson(_Item).Result).Result;
-     var Item = _Entity;
-
-    Item.INVCODE = Selected.INVCODE;
-
-
-    
-
-    
-    }
-} 
-
-<Input Id="ORDERYEAR" @ref="Ref_ORDERYEAR" Label="سال درخواست خرید"     @bind-Value="_Entity.ORDERYEAR" type="number"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
-
-<Input Id="PARTKIND" @ref="Ref_PARTKIND" Label="نوع کالا ( کالا مواد مصرفی1 یا اموال و اثاثیه2 یا رسید مستقیم مصرف3 یا رسید قطعه داغی4 است )"     @bind-Value="_Entity.PARTKIND" type="number"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
-
-</div>
-
-<div class="col-md-3">
-    
-<Input Id="CREATOR" @ref="Ref_CREATOR" Label="یوزر ایجاد کننده"     @bind-Value="_Entity.CREATOR" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"maxlength\":\"20\"}").Result))></Input>
-
-</div>
-
-<div class="col-md-3">
-    
-<Input Id="FACTOR" @ref="Ref_FACTOR" Label="عطف رسید"     @bind-Value="_Entity.FACTOR" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"maxlength\":\"10\"}").Result))></Input>
-
-<Input Id="SELERNAME" @ref="Ref_SELERNAME" Label="نام فروشنده"     @bind-Value="_Entity.SELERNAME" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"maxlength\":\"100\"}").Result))></Input>
-
-<Input Id="SELERCODE" @ref="Ref_SELERCODE" Label="فروشنده کد"     @bind-Value="_Entity.SELERCODE" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"maxlength\":\"20\"}").Result))></Input>
-
-</div>
-
-<div class="col-md-3">
-    
-<Input Id="YEAR" @ref="Ref_YEAR" Label="سال"     @bind-Value="_Entity.YEAR" type="number"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
-
-</div>
-
-<div class="col-md-12">
-    
-<Input Id="NOTE" @ref="Ref_NOTE" Label="توضیح"     @bind-Value="_Entity.NOTE" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"maxlength\":\"350\"}").Result))></Input>
-
-</div>
-
-</div>
-
-<Input Id="Id" @ref="Ref_Id"   CssClass="d-none"   @bind-Value="_Entity.Id" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
-
-<Input Id="RequestID" @ref="Ref_RequestID"      @bind-Value="_Entity.RequestID" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
-
-<Input Id="CreateUser" @ref="Ref_CreateUser"      @bind-Value="_Entity.CreateUser" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
-
-<Input Id="UpdateUser" @ref="Ref_UpdateUser"      @bind-Value="_Entity.UpdateUser" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
-
-<Input Id="CreateDate" @ref="Ref_CreateDate"   CssClass="d-none"   @bind-Value="_Entity.CreateDate" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
-
-<Input Id="UpdateDate" @ref="Ref_UpdateDate"   CssClass="d-none"   @bind-Value="_Entity.UpdateDate" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
-
-<Input Id="IsDelete" @ref="Ref_IsDelete"   CssClass="d-none"   @bind-Value="_Entity.IsDelete" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
-
-<div class="row ">
-    
-<div class="col-md-6">
-    
-</div>
-
-<div class="col-md-6">
-    
-</div>
-
-</div>
-
-<Input Id="ApiResult" @ref="Ref_ApiResult" Label="ApiResult"     @bind-Value="_Entity.ApiResult" type="textarea"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
-<label for="Shomaran_FactBuyDetail_GridShomaran_FACTBUYId_693">حذف - جزئیات رسید
+    <label for="Shomaran_FactBuyDetail_GridShomaran_FACTBUYId_693">جزئیات رسید
    
     
 </label>
@@ -218,11 +102,11 @@
         EditModelSaving="OnEditModelSavingShomaran_FactBuyDetail"
         DataItemDeleting="OnDataItemDeletingShomaran_FactBuyDetail"
         PopupEditFormCssClass="ModalWidth"
-        PopupEditFormHeaderText="حذف - جزئیات رسید"
+        PopupEditFormHeaderText="جزئیات رسید"
         EditFormButtonsVisible="false"
         CustomizeEditModel="CustomizeEditGrid_Shomaran_FactBuyDetail"
         CustomizeElement="CustomizeRowsGrid_Shomaran_FactBuyDetail" 
-        Component="@((Utility.JSON.ToObject<View_Component>("{\"primaryKey\":false,\"EntityID\":693,\"FieldId\":693,\"TypeCSharp\":\"\",\"NotNull\":false,\"ViewId\":0,\"NotMapped\":false,\"Relation\":false,\"RelationExternal\":false,\"RelationParentName\":\"\",\"RelationParentModel\":\"\",\"RelationChildModel\":\"Shomaran_FactBuyDetail\",\"GridMainModel\":\"Shomaran_FactBuyDetail\",\"widget\":{\"altInput\":false,\"allowInput\":false,\"clickOpens\":false,\"enableDate\":false,\"enableTime\":false,\"noCalendar\":false,\"useLocaleSettings\":false,\"hourIncrement\":0,\"minuteIncrement\":0,\"time_24hr\":false},\"wysiwyg\":false,\"data\":{},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"FieldsTemplate\":[],\"refreshOn\":\"data\",\"reorder\":false,\"addAnotherPosition\":\"bottom\",\"layoutFixed\":false,\"enableRowGroups\":false,\"initEmpty\":false,\"disabled\":true,\"modal\":true,\"label\":\"حذف - جزئیات رسید\",\"tableView\":true,\"key\":\"GridShomaran_FACTBUYId_693\",\"type\":\"datagrid\",\"input\":true,\"placeholder\":\"GridShomaran_FACTBUYId_693\",\"modalEdit\":true,\"FieldUrl\":\"693?EId=693&SubId=28\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result))"
+        Component="@((Utility.JSON.ToObject<View_Component>("{\"primaryKey\":false,\"EntityID\":693,\"FieldId\":693,\"NotNull\":false,\"ViewId\":0,\"NotMapped\":false,\"Relation\":false,\"RelationExternal\":false,\"RelationChildModel\":\"Shomaran_FactBuyDetail\",\"GridMainModel\":\"Shomaran_FactBuyDetail\",\"widget\":{\"altInput\":false,\"allowInput\":false,\"clickOpens\":false,\"enableDate\":false,\"enableTime\":false,\"noCalendar\":false,\"useLocaleSettings\":false,\"hourIncrement\":0,\"minuteIncrement\":0,\"time_24hr\":false},\"wysiwyg\":false,\"data\":{},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"FieldsTemplate\":[],\"refreshOn\":\"data\",\"reorder\":false,\"addAnotherPosition\":\"bottom\",\"layoutFixed\":false,\"enableRowGroups\":false,\"initEmpty\":false,\"disabled\":true,\"modal\":true,\"label\":\"جزئیات رسید\",\"tableView\":true,\"key\":\"GridShomaran_FACTBUYId_693\",\"type\":\"datagrid\",\"input\":true,\"placeholder\":\"GridShomaran_FACTBUYId_693\",\"modalEdit\":true,\"FieldUrl\":\"693?EId=693&SubId=28\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result))"
          >
     <Columns>
     
@@ -281,11 +165,19 @@
 
 <DxGridDataColumn DisplayFormat="G" Caption="مقدار اول"  FieldName="AMOUNT" />
 
+<DxGridDataColumn  Caption="ردیابی کالا"  FieldName="RADYABI" />
+
+<DxGridDataColumn  Caption="سفارش کالاها"  FieldName="SEFARESH" />
+
+<DxGridDataColumn DisplayFormat="0" Caption="ردیف دیتیل فرم"  FieldName="ROW_ID" />
+
+<DxGridDataColumn DisplayFormat="0" Caption="سال"  FieldName="YEAR" />
+
 <DxGridDataColumn Context="PARTCODE_" Caption="کد کالای سیستمی" >
     <CellDisplayTemplate>
        
 @{
-    Baya.Models.ViewEngine.View_Component HeaderPARTCODE = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"primaryKey\":false,\"EntityID\":693,\"FieldId\":19665,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":942,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":true,\"RelationParentName\":\"\",\"RelationParentModel\":\"\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://shomaran.workcv.ir:2010/fa-ir/api/v1/view_cardpart/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"inputFormat\":\"DropDown\",\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"partcode\",\"template\":\"<span>{{item.desc}} {{item.partno}} {{item.partcode}} </span>\",\"FieldsTemplate\":[{\"key\":\"desc\",\"value\":\"nvarchar(Max)\"},{\"key\":\"partno\",\"value\":\"nvarchar(Max)\"},{\"key\":\"partcode\",\"value\":\"nvarchar(Max)\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"searchField\":\"\",\"disabled\":false,\"modal\":true,\"label\":\"کد کالای سیستمی\",\"tableView\":true,\"key\":\"PARTCODE\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"19665?EId=693&SubId=28\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
+    Baya.Models.ViewEngine.View_Component HeaderPARTCODE = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"primaryKey\":false,\"EntityID\":693,\"FieldId\":19665,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":942,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":true,\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://shomaran.workcv.ir:2010/fa-ir/api/v1/view_cardpart/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"inputFormat\":\"DropDown\",\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"partcode\",\"template\":\"<span>{{item.desc}} {{item.partno}} {{item.partcode}} </span>\",\"FieldsTemplate\":[{\"key\":\"desc\",\"value\":\"nvarchar(Max)\"},{\"key\":\"partno\",\"value\":\"nvarchar(Max)\"},{\"key\":\"partcode\",\"value\":\"nvarchar(Max)\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"modal\":true,\"label\":\"کد کالای سیستمی\",\"tableView\":true,\"key\":\"PARTCODE\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"19665?EId=693&SubId=28\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
     var RowPARTCODE = ((Entity.Shomaran_FactBuyDetail)PARTCODE_.DataItem).PARTCODE;
 }
 
@@ -307,14 +199,6 @@
 
     </CellDisplayTemplate>
 </DxGridDataColumn>
-<DxGridDataColumn  Caption="ردیابی کالا"  FieldName="RADYABI" />
-
-<DxGridDataColumn  Caption="سفارش کالاها"  FieldName="SEFARESH" />
-
-<DxGridDataColumn DisplayFormat="0" Caption="ردیف دیتیل فرم"  FieldName="ROW_ID" />
-
-<DxGridDataColumn DisplayFormat="0" Caption="سال"  FieldName="YEAR" />
-
 
 </Columns>
 
@@ -372,32 +256,6 @@
 </DxFormLayoutItem>
 
 <DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextShomaran_FactBuyDetail">
-     
- 
-@code {
-    Baya.Models.ViewEngine.View_Component Component_Shomaran_FactBuyDetailPARTCODE = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"primaryKey\":false,\"EntityID\":693,\"FieldId\":19665,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":942,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":true,\"RelationParentName\":\"\",\"RelationParentModel\":\"\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://shomaran.workcv.ir:2010/fa-ir/api/v1/view_cardpart/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"inputFormat\":\"DropDown\",\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"partcode\",\"template\":\"<span>{{item.desc}} {{item.partno}} {{item.partcode}} </span>\",\"FieldsTemplate\":[{\"key\":\"desc\",\"value\":\"nvarchar(Max)\"},{\"key\":\"partno\",\"value\":\"nvarchar(Max)\"},{\"key\":\"partcode\",\"value\":\"nvarchar(Max)\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"searchField\":\"\",\"disabled\":false,\"modal\":true,\"label\":\"کد کالای سیستمی\",\"tableView\":true,\"key\":\"PARTCODE\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"19665?EId=693&SubId=28\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
-}
-
-    <Dropdown Id=Shomaran_FactBuyDetail_PARTCODE  @ref="Ref_Shomaran_FactBuyDetail_PARTCODE" Label="کد کالای سیستمی" CssClass=""  DisplayFormat="DropDown" ExternalApi=true NotMapped=false TextGrid=false  Value="@Shomaran_FactBuyDetail.PARTCODE" FieldName="PARTCODE" OnItemSelected="ItemSelected_Shomaran_FactBuyDetailPARTCODE" Component="Component_Shomaran_FactBuyDetailPARTCODE" _Entity="_Entity" _EntityRow=Shomaran_FactBuyDetail>
-</Dropdown>
-@code {
-    public async Task ItemSelected_Shomaran_FactBuyDetailPARTCODE(object _Item)
-    {
-        var Selected = Utility.JSON.ToObject<dynamic>(Utility.JSON.ToJson(_Item).Result).Result;
-     var Item = Shomaran_FactBuyDetail;
-
-    Item.PARTCODE = Selected.partcode;
-
-
-    
-
-    
-    }
-} 
-
-</DxFormLayoutItem>
-
-<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextShomaran_FactBuyDetail">
     
 <Input Id="Shomaran_FactBuyDetail_RADYABI" @ref="Ref_Shomaran_FactBuyDetail_RADYABI" Label="ردیابی کالا"     @bind-Value="Shomaran_FactBuyDetail.RADYABI" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"maxlength\":\"20\"}").Result))></Input>
 
@@ -418,6 +276,32 @@
 <DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextShomaran_FactBuyDetail">
     
 <Input Id="Shomaran_FactBuyDetail_YEAR" @ref="Ref_Shomaran_FactBuyDetail_YEAR" Label="سال"     @bind-Value="Shomaran_FactBuyDetail.YEAR" type="number"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+</DxFormLayoutItem>
+
+<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextShomaran_FactBuyDetail">
+     
+ 
+@code {
+    Baya.Models.ViewEngine.View_Component Component_Shomaran_FactBuyDetailPARTCODE = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"primaryKey\":false,\"EntityID\":693,\"FieldId\":19665,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":942,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":true,\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://shomaran.workcv.ir:2010/fa-ir/api/v1/view_cardpart/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"inputFormat\":\"DropDown\",\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"partcode\",\"template\":\"<span>{{item.desc}} {{item.partno}} {{item.partcode}} </span>\",\"FieldsTemplate\":[{\"key\":\"desc\",\"value\":\"nvarchar(Max)\"},{\"key\":\"partno\",\"value\":\"nvarchar(Max)\"},{\"key\":\"partcode\",\"value\":\"nvarchar(Max)\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"modal\":true,\"label\":\"کد کالای سیستمی\",\"tableView\":true,\"key\":\"PARTCODE\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"19665?EId=693&SubId=28\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
+}
+
+    <Dropdown Id=Shomaran_FactBuyDetail_PARTCODE  @ref="Ref_Shomaran_FactBuyDetail_PARTCODE" Label="کد کالای سیستمی" CssClass=""  DisplayFormat="DropDown" ExternalApi=true NotMapped=false TextGrid=false  Value="@Shomaran_FactBuyDetail.PARTCODE" FieldName="PARTCODE" OnItemSelected="ItemSelected_Shomaran_FactBuyDetailPARTCODE" Component="Component_Shomaran_FactBuyDetailPARTCODE" _Entity="_Entity" _EntityRow=Shomaran_FactBuyDetail>
+</Dropdown>
+@code {
+    public async Task ItemSelected_Shomaran_FactBuyDetailPARTCODE(object _Item)
+    {
+        var Selected = Utility.JSON.ToObject<dynamic>(Utility.JSON.ToJson(_Item).Result).Result;
+     var Item = Shomaran_FactBuyDetail;
+
+    Item.PARTCODE = Selected.partcode;
+
+
+    
+
+    
+    }
+} 
 
 </DxFormLayoutItem>
 
@@ -714,11 +598,11 @@ MainModel.CreateDate = ((Entity.Shomaran_FactBuyDetail)EditModel).CreateDate;
 MainModel.UpdateDate = ((Entity.Shomaran_FactBuyDetail)EditModel).UpdateDate;
 MainModel.IsDelete = ((Entity.Shomaran_FactBuyDetail)EditModel).IsDelete;
 MainModel.AMOUNT = ((Entity.Shomaran_FactBuyDetail)EditModel).AMOUNT;
-MainModel.PARTCODE = ((Entity.Shomaran_FactBuyDetail)EditModel).PARTCODE;
 MainModel.RADYABI = ((Entity.Shomaran_FactBuyDetail)EditModel).RADYABI;
 MainModel.SEFARESH = ((Entity.Shomaran_FactBuyDetail)EditModel).SEFARESH;
 MainModel.ROW_ID = ((Entity.Shomaran_FactBuyDetail)EditModel).ROW_ID;
 MainModel.YEAR = ((Entity.Shomaran_FactBuyDetail)EditModel).YEAR;
+MainModel.PARTCODE = ((Entity.Shomaran_FactBuyDetail)EditModel).PARTCODE;
 
     }
     else
@@ -832,6 +716,122 @@ public async void RowDubbleClickGrid_Shomaran_FactBuyDetail(GridRowClickEventArg
 
 }
 }
+
+</div>
+
+<div class="col-md-3">
+    
+<Input Id="FACTNO" @ref="Ref_FACTNO" Label="شماره رسید انبار یا فاکتور خرید"     @bind-Value="_Entity.FACTNO" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+<Input Id="FACTDATE" @ref="Ref_FACTDATE" Label="تاریخ رسید"  CssClass=" PersianDatePicker"   @bind-Value="_Entity.FACTDATE" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"data-jdp\":\"  \",\"data-jdp-only-date\":\"   \"}").Result))></Input>
+ 
+ 
+@code {
+    Baya.Models.ViewEngine.View_Component Component_Shomaran_FACTBUYORDERNO = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"EntityName\":\"رسید\",\"primaryKey\":false,\"EntityID\":692,\"FieldId\":19646,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":942,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":true,\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://shomaran.workcv.ir:2010/fa-ir/api/v1/view_anbordwant/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"inputFormat\":\"DropDown\",\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"ORDERNO\",\"template\":\"<span>{{item.ORDERNO}} {{item.ORDERDATE}} {{item.YEAR}} </span>\",\"FieldsTemplate\":[{\"key\":\"ORDERNO\",\"value\":\"nvarchar(Max)\"},{\"key\":\"ORDERDATE\",\"value\":\"nvarchar(Max)\"},{\"key\":\"YEAR\",\"value\":\"int\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"searchField\":\"ORDERNO\",\"disableLimit\":false,\"noRefreshOnScroll\":false,\"modal\":true,\"label\":\"درخواست خرید\",\"tableView\":true,\"key\":\"ORDERNO\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"19646?EId=692&SubId=28\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
+}
+
+    <Dropdown Id=ORDERNO  @ref="Ref_ORDERNO" Label="درخواست خرید" CssClass=""  DisplayFormat="DropDown" ExternalApi=true NotMapped=false TextGrid=false  Value="@_Entity.ORDERNO" FieldName="ORDERNO" OnItemSelected="ItemSelected_Shomaran_FACTBUYORDERNO" Component="Component_Shomaran_FACTBUYORDERNO" _Entity="_Entity" >
+</Dropdown>
+@code {
+    public async Task ItemSelected_Shomaran_FACTBUYORDERNO(object _Item)
+    {
+        var Selected = Utility.JSON.ToObject<dynamic>(Utility.JSON.ToJson(_Item).Result).Result;
+     var Item = _Entity;
+
+    Item.ORDERNO = Selected.ORDERNO;
+
+
+    
+
+    
+    }
+} 
+ 
+ 
+@code {
+    Baya.Models.ViewEngine.View_Component Component_Shomaran_FACTBUYINVCODE = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"EntityName\":\"رسید\",\"primaryKey\":false,\"EntityID\":692,\"FieldId\":19645,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":942,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":true,\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://shomaran.workcv.ir:2010/fa-ir/api/v1/view_INV/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"inputFormat\":\"DropDown\",\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"INVCODE\",\"template\":\"<span>{{item.INVNAME}} </span>\",\"FieldsTemplate\":[{\"key\":\"INVNAME\",\"value\":\"nvarchar(Max)\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"searchField\":\"INVCODE\",\"disableLimit\":false,\"noRefreshOnScroll\":false,\"modal\":true,\"label\":\"کد انبار\",\"tableView\":true,\"key\":\"INVCODE\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"19645?EId=692&SubId=28\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
+}
+
+    <Dropdown Id=INVCODE  @ref="Ref_INVCODE" Label="کد انبار" CssClass=""  DisplayFormat="DropDown" ExternalApi=true NotMapped=false TextGrid=false  Value="@_Entity.INVCODE" FieldName="INVCODE" OnItemSelected="ItemSelected_Shomaran_FACTBUYINVCODE" Component="Component_Shomaran_FACTBUYINVCODE" _Entity="_Entity" >
+</Dropdown>
+@code {
+    public async Task ItemSelected_Shomaran_FACTBUYINVCODE(object _Item)
+    {
+        var Selected = Utility.JSON.ToObject<dynamic>(Utility.JSON.ToJson(_Item).Result).Result;
+     var Item = _Entity;
+
+    Item.INVCODE = Selected.INVCODE;
+
+
+    
+
+    
+    }
+} 
+
+<Input Id="ORDERYEAR" @ref="Ref_ORDERYEAR" Label="سال درخواست خرید"     @bind-Value="_Entity.ORDERYEAR" type="number"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+<Input Id="PARTKIND" @ref="Ref_PARTKIND" Label="نوع کالا ( کالا مواد مصرفی1 یا اموال و اثاثیه2 یا رسید مستقیم مصرف3 یا رسید قطعه داغی4 است )"     @bind-Value="_Entity.PARTKIND" type="number"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+</div>
+
+<div class="col-md-3">
+    
+<Input Id="CREATOR" @ref="Ref_CREATOR" Label="یوزر ایجاد کننده"     @bind-Value="_Entity.CREATOR" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"maxlength\":\"20\"}").Result))></Input>
+
+</div>
+
+<div class="col-md-3">
+    
+<Input Id="FACTOR" @ref="Ref_FACTOR" Label="عطف رسید"     @bind-Value="_Entity.FACTOR" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"maxlength\":\"10\"}").Result))></Input>
+
+<Input Id="SELERNAME" @ref="Ref_SELERNAME" Label="نام فروشنده"     @bind-Value="_Entity.SELERNAME" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"maxlength\":\"100\"}").Result))></Input>
+
+<Input Id="SELERCODE" @ref="Ref_SELERCODE" Label="فروشنده کد"     @bind-Value="_Entity.SELERCODE" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"maxlength\":\"20\"}").Result))></Input>
+
+</div>
+
+<div class="col-md-3">
+    
+<Input Id="YEAR" @ref="Ref_YEAR" Label="سال"     @bind-Value="_Entity.YEAR" type="number"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+</div>
+
+<div class="col-md-12">
+    
+<Input Id="NOTE" @ref="Ref_NOTE" Label="توضیح"     @bind-Value="_Entity.NOTE" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"maxlength\":\"350\"}").Result))></Input>
+
+</div>
+
+</div>
+
+<Input Id="Id" @ref="Ref_Id"   CssClass="d-none"   @bind-Value="_Entity.Id" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+<Input Id="RequestID" @ref="Ref_RequestID"      @bind-Value="_Entity.RequestID" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+<Input Id="CreateUser" @ref="Ref_CreateUser"      @bind-Value="_Entity.CreateUser" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+<Input Id="UpdateUser" @ref="Ref_UpdateUser"      @bind-Value="_Entity.UpdateUser" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+<Input Id="CreateDate" @ref="Ref_CreateDate"   CssClass="d-none"   @bind-Value="_Entity.CreateDate" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+<Input Id="UpdateDate" @ref="Ref_UpdateDate"   CssClass="d-none"   @bind-Value="_Entity.UpdateDate" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+<Input Id="IsDelete" @ref="Ref_IsDelete"   CssClass="d-none"   @bind-Value="_Entity.IsDelete" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+<div class="row ">
+    
+<div class="col-md-6">
+    
+</div>
+
+<div class="col-md-6">
+    
+</div>
+
+</div>
+
+<Input Id="ApiResult" @ref="Ref_ApiResult" Label="ApiResult"     @bind-Value="_Entity.ApiResult" type="textarea"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
 
     </EditForm>
 </div>

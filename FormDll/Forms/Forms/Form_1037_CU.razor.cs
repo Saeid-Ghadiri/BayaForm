@@ -1869,6 +1869,22 @@ public async Task  GridHR_EMP_EmployeesId_378_afterrendermodal(Entity.HR_EMP_Aca
             
         }
 
+		public async Task  HR_Base_AccountHolderTypeId_onitemselected(Entity.HR_Base_AccountHolderType Selected ,Entity.HR_Base_BankAccount Item  )
+        {
+
+            
+        }
+public async Task  HR_EMP_EmployeesId_onitemselected(Entity.HR_EMP_Employees Selected ,Entity.HR_Base_BankAccount Item  )
+        {
+
+            
+        }
+public async Task  HR_Base_BankAcountCategoryId_onitemselected(Entity.HR_Base_BankAcountCategory Selected ,Entity.HR_Base_BankAccount Item  )
+        {
+
+            
+        }
+
 		#endregion FunctionEvents
 
 	}

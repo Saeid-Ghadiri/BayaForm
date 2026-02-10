@@ -144,7 +144,7 @@ namespace Forms.Forms
     /// <summary>
     ///  ورژنی که فرم باهاش ساخته شده
     /// </summary>
-    public string? VersionForm { get; set; } = "5622";
+    public string? VersionForm { get; set; } = "5671";
 
     /// <summary>
     ///  موجودیت
@@ -185,15 +185,25 @@ public Input<string?> Ref_SystemUnitUser;
 public Input<string?> Ref_SystemSectionUser;
 public Input<string?> Ref_RequestTrakingCode;
 public Input<string?> Ref_ProcessVersionID;
-public Input<Guid> Ref_Id;
-public Input<Guid?> Ref_RequestID;
-public Input<Guid?> Ref_CreateUser;
-public Input<Guid?> Ref_UpdateUser;
-public Input<DateTime?> Ref_CreateDate;
-public Input<DateTime?> Ref_UpdateDate;
-public Input<bool?> Ref_IsDelete;
 public DxGrid? Grid_SCM_ProductRequestDetails;
 
+public Dropdown Ref_SCM_ProductRequestDetails_ProductName_NotMapped;
+public Input<string?> Ref_SCM_ProductRequestDetails_ProductNameText;
+public Input<string?> Ref_SCM_ProductRequestDetails_ProductCodeText;
+public Input<string?> Ref_SCM_ProductRequestDetails_ProductUnitText;
+public Input<double?> Ref_SCM_ProductRequestDetails_ProductInventoryText;
+public Input<string?> Ref_SCM_ProductRequestDetails_ProductRowDescription;
+public Input<double?> Ref_SCM_ProductRequestDetails_ProductRequestingQTY;
+public Dropdown Ref_SCM_ProductRequestDetails_SCM_PriorityId;
+public Input<string?> Ref_SCM_ProductRequestDetails_PlaceOfUseProduct;
+public RadioBoolean Ref_SCM_ProductRequestDetails_ProductDataSheetTrueFalse;
+public FileUploadPage.Uploader<Entity.SCM_ProductRequestDetails_ProductDataSheetFile> Ref_SCM_ProductRequestDetails_SCM_ProductRequestDetails_ProductDataSheetFile;
+public RadioBoolean Ref_SCM_ProductRequestDetails_ForeignMachineryProductTrueFasle;
+public Dropdown Ref_SCM_ProductRequestDetails_Global_SCMRequestTypeId;
+public Input<double?> Ref_SCM_ProductRequestDetails_DeficitSupplyNumber;
+public Input<int?> Ref_SCM_ProductRequestDetails_DeliveryCode;
+public RadioBoolean Ref_SCM_ProductRequestDetails_ProductDelivery;
+public RadioBoolean Ref_SCM_ProductRequestDetails_FutureActionTrueFalse;
 public Input<Guid> Ref_SCM_ProductRequestDetails_Id;
 public Input<Guid?> Ref_SCM_ProductRequestDetails_RequestID;
 public Input<Guid?> Ref_SCM_ProductRequestDetails_CreateUser;
@@ -201,31 +211,21 @@ public Input<Guid?> Ref_SCM_ProductRequestDetails_UpdateUser;
 public Input<DateTime?> Ref_SCM_ProductRequestDetails_CreateDate;
 public Input<DateTime?> Ref_SCM_ProductRequestDetails_UpdateDate;
 public Input<bool?> Ref_SCM_ProductRequestDetails_IsDelete;
-public Dropdown Ref_SCM_ProductRequestDetails_ProductName_NotMapped;
 public Input<string?> Ref_SCM_ProductRequestDetails_ProductMainCategoryText;
 public Input<string?> Ref_SCM_ProductRequestDetails_ProductMainCategoryIdText;
 public Input<string?> Ref_SCM_ProductRequestDetails_ProductSubCategoryText;
 public Input<string?> Ref_SCM_ProductRequestDetails_ProductSubCategoryIdText;
-public Input<string?> Ref_SCM_ProductRequestDetails_ProductCodeText;
-public Input<string?> Ref_SCM_ProductRequestDetails_ProductUnitText;
 public Input<string?> Ref_SCM_ProductRequestDetails_ShomaranFiscalYearText;
-public Input<double?> Ref_SCM_ProductRequestDetails_ProductInventoryText;
-public Input<double?> Ref_SCM_ProductRequestDetails_ProductRequestingQTY;
-public Dropdown Ref_SCM_ProductRequestDetails_SCM_PriorityId;
-public Input<string?> Ref_SCM_ProductRequestDetails_PlaceOfUseProduct;
-public Input<string?> Ref_SCM_ProductRequestDetails_ProductRowDescription;
-public Input<string?> Ref_SCM_ProductRequestDetails_ProductNameText;
-public RadioBoolean Ref_SCM_ProductRequestDetails_ForeignMachineryProductTrueFasle;
-public RadioBoolean Ref_SCM_ProductRequestDetails_FutureActionTrueFalse;
-public RadioBoolean Ref_SCM_ProductRequestDetails_ProductDataSheetTrueFalse;
-public FileUploadPage.Uploader<Entity.SCM_ProductRequestDetails_ProductDataSheetFile> Ref_SCM_ProductRequestDetails_SCM_ProductRequestDetails_ProductDataSheetFile;
-public Input<double?> Ref_SCM_ProductRequestDetails_DeficitSupplyNumber;
 public Input<string?> Ref_SCM_ProductRequestDetails_IsExistText;
-public RadioBoolean Ref_SCM_ProductRequestDetails_ProductDelivery;
 public Input<int?> Ref_SCM_ProductRequestDetails_MapGroupCodeNum;
-public Input<int?> Ref_SCM_ProductRequestDetails_DeliveryCode;
-public Dropdown Ref_SCM_ProductRequestDetails_Global_SCMRequestTypeId;
 public Dropdown Ref_SCM_ProductRequestDetails_SCM_MaterialWarehouse_PlaceofUseId;
+public Input<Guid> Ref_Id;
+public Input<Guid?> Ref_RequestID;
+public Input<Guid?> Ref_CreateUser;
+public Input<Guid?> Ref_UpdateUser;
+public Input<DateTime?> Ref_CreateDate;
+public Input<DateTime?> Ref_UpdateDate;
+public Input<bool?> Ref_IsDelete;
 
 
     #endregion

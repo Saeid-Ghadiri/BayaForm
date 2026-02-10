@@ -144,7 +144,7 @@ namespace Forms.Forms
     /// <summary>
     ///  ورژنی که فرم باهاش ساخته شده
     /// </summary>
-    public string? VersionForm { get; set; } = "5622";
+    public string? VersionForm { get; set; } = "5671";
 
     /// <summary>
     ///  موجودیت
@@ -201,13 +201,6 @@ public Input<string?> Ref_OKFACTDATE;
 public Input<string?> Ref_CREATOR;
 public Input<string?> Ref_WUSER;
 public Input<Guid> Ref_Id;
-public Input<Guid?> Ref_RequestID;
-public Input<Guid?> Ref_CreateUser;
-public Input<Guid?> Ref_UpdateUser;
-public Input<DateTime?> Ref_CreateDate;
-public Input<DateTime?> Ref_UpdateDate;
-public Input<bool?> Ref_IsDelete;
-public Input<string?> Ref_ApiResult;
 public DxGrid? Grid_Shomaran_AnbordDetail;
 
 public Input<Guid> Ref_Shomaran_AnbordDetail_Id;
@@ -220,11 +213,18 @@ public Input<bool?> Ref_Shomaran_AnbordDetail_IsDelete;
 public Input<double?> Ref_Shomaran_AnbordDetail_OKAMOUNT;
 public Input<decimal?> Ref_Shomaran_AnbordDetail_ORDAMOUNT;
 public Input<decimal?> Ref_Shomaran_AnbordDetail_ORDAMOUNT1;
-public Dropdown Ref_Shomaran_AnbordDetail_PARTCODE;
 public Input<string?> Ref_Shomaran_AnbordDetail_RADYABI;
 public Input<string?> Ref_Shomaran_AnbordDetail_SEFARESH;
 public Input<string?> Ref_Shomaran_AnbordDetail_RowId;
 public Input<short?> Ref_Shomaran_AnbordDetail_Year;
+public Dropdown Ref_Shomaran_AnbordDetail_PARTCODE;
+public Input<Guid?> Ref_RequestID;
+public Input<Guid?> Ref_CreateUser;
+public Input<Guid?> Ref_UpdateUser;
+public Input<DateTime?> Ref_CreateDate;
+public Input<DateTime?> Ref_UpdateDate;
+public Input<bool?> Ref_IsDelete;
+public Input<string?> Ref_ApiResult;
 
 
     #endregion

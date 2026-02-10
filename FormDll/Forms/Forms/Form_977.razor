@@ -35,10 +35,10 @@
  
  
 @code {
-    Baya.Models.ViewEngine.View_Component Component_SCMPETCO_SupplierEvaluationChecklistSCMPETCO_SupplierMasterId = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"EntityName\":\"چک لیست ارزیابی تامین کنندگان بخش اصلی\",\"primaryKey\":false,\"EntityID\":719,\"FieldId\":30170,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":977,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":true,\"RelationParentName\":\"SCMPETCO_SupplierMaster\",\"RelationParentModel\":\"SCMPETCO_SupplierMaster\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/SCMPETCO_SupplierMaster/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.SupplierName}} </span>\",\"FieldsTemplate\":[{\"key\":\"SupplierName\",\"value\":\"nvarchar(Max)\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"searchField\":\"\",\"disabled\":false,\"modal\":true,\"label\":\"فهرست تامین کنندگان\",\"tableView\":true,\"key\":\"SCMPETCO_SupplierMasterId\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"30170?EId=719&SubId=19\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
+    Baya.Models.ViewEngine.View_Component Component_SCMPETCO_SupplierEvaluationChecklistSCMPETCO_SupplierMasterId = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"EntityName\":\"چک لیست ارزیابی تامین کنندگان بخش اصلی\",\"primaryKey\":false,\"EntityID\":719,\"FieldId\":30170,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":977,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":false,\"RelationParentName\":\"SCMPETCO_SupplierMaster\",\"RelationParentModel\":\"SCMPETCO_SupplierMaster\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/SCMPETCO_SupplierMaster/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.SupplierName}} </span>\",\"FieldsTemplate\":[{\"key\":\"SupplierName\",\"value\":\"nvarchar(Max)\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"disabled\":false,\"modal\":true,\"label\":\"فهرست تامین کنندگان\",\"tableView\":true,\"key\":\"SCMPETCO_SupplierMasterId\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"30170?EId=719&SubId=19\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
 }
 
-    <Dropdown Id=SCMPETCO_SupplierMasterId  @ref="Ref_SCMPETCO_SupplierMasterId" Label="فهرست تامین کنندگان" CssClass=""  DisplayFormat="DropDown" ExternalApi=true NotMapped=false TextGrid=false  Value="@_Entity.SCMPETCO_SupplierMasterId" FieldName="SCMPETCO_SupplierMasterId" OnItemSelected="ItemSelected_SCMPETCO_SupplierEvaluationChecklistSCMPETCO_SupplierMasterId" Component="Component_SCMPETCO_SupplierEvaluationChecklistSCMPETCO_SupplierMasterId" _Entity="_Entity" >
+    <Dropdown Id=SCMPETCO_SupplierMasterId  @ref="Ref_SCMPETCO_SupplierMasterId" Label="فهرست تامین کنندگان" CssClass=""  DisplayFormat="DropDown" ExternalApi=false NotMapped=false TextGrid=false Text="" Value="@_Entity.SCMPETCO_SupplierMasterId" FieldName="SCMPETCO_SupplierMasterId" OnItemSelected="ItemSelected_SCMPETCO_SupplierEvaluationChecklistSCMPETCO_SupplierMasterId" Component="Component_SCMPETCO_SupplierEvaluationChecklistSCMPETCO_SupplierMasterId" _Entity="_Entity" >
 </Dropdown>
 @code {
     public async Task ItemSelected_SCMPETCO_SupplierEvaluationChecklistSCMPETCO_SupplierMasterId(object _Item)
@@ -46,7 +46,22 @@
         var Selected = Utility.JSON.ToObject<dynamic>(Utility.JSON.ToJson(_Item).Result).Result;
      var Item = _Entity;
 
+      //Todo
+ //برای اینکه آی دی تغییر کند اینجا نیز باید تغییر کند
+ //بهتر است از پرایمیری کی استفاده شود
+ if (_Item != null)
+ {
+     Console.WriteLine(" Item Is Not Null");
     Item.SCMPETCO_SupplierMasterId = Selected.Id;
+    
+ }
+ else
+ {
+     Console.WriteLine(" Item Is Null");
+      Item.SCMPETCO_SupplierMasterId =EntityHelper.SetPropertyNull(Item.SCMPETCO_SupplierMasterId);
+ }
+ Item.SCMPETCO_SupplierMaster = await Utility.JSON.ToObject<Entity.SCMPETCO_SupplierMaster>(await Utility.JSON.ToJson(_Item));
+    StateHasChanged();
 
 
     
@@ -54,18 +69,6 @@
     
     }
 } 
-
-<Input Id="RequestID" @ref="Ref_RequestID"      @bind-Value="_Entity.RequestID" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
-
-<Input Id="CreateUser" @ref="Ref_CreateUser"      @bind-Value="_Entity.CreateUser" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
-
-<Input Id="UpdateUser" @ref="Ref_UpdateUser"      @bind-Value="_Entity.UpdateUser" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
-
-<Input Id="CreateDate" @ref="Ref_CreateDate"   CssClass="d-none"   @bind-Value="_Entity.CreateDate" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
-
-<Input Id="UpdateDate" @ref="Ref_UpdateDate"   CssClass="d-none"   @bind-Value="_Entity.UpdateDate" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
-
-<Input Id="IsDelete" @ref="Ref_IsDelete"   CssClass="d-none"   @bind-Value="_Entity.IsDelete" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
 <label for="SCMPETCO_SupplierEvaluationItems_GridSCMPETCO_SupplierEvaluationChecklistId_720">جزییات فهرست ارزیابی تامین کنندگان
    
     
@@ -79,7 +82,7 @@
         EditFormButtonsVisible="false"
         CustomizeEditModel="CustomizeEditGrid_SCMPETCO_SupplierEvaluationItems"
         CustomizeElement="CustomizeRowsGrid_SCMPETCO_SupplierEvaluationItems" 
-        Component="@((Utility.JSON.ToObject<View_Component>("{\"primaryKey\":false,\"EntityID\":720,\"FieldId\":720,\"TypeCSharp\":\"\",\"NotNull\":false,\"ViewId\":0,\"NotMapped\":false,\"Relation\":false,\"RelationExternal\":false,\"RelationParentName\":\"\",\"RelationParentModel\":\"\",\"RelationChildModel\":\"SCMPETCO_SupplierEvaluationItems\",\"GridMainModel\":\"SCMPETCO_SupplierEvaluationItems\",\"widget\":{\"altInput\":false,\"allowInput\":false,\"clickOpens\":false,\"enableDate\":false,\"enableTime\":false,\"noCalendar\":false,\"useLocaleSettings\":false,\"hourIncrement\":0,\"minuteIncrement\":0,\"time_24hr\":false},\"wysiwyg\":false,\"data\":{},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"FieldsTemplate\":[],\"refreshOn\":\"data\",\"reorder\":false,\"addAnotherPosition\":\"bottom\",\"layoutFixed\":false,\"enableRowGroups\":false,\"initEmpty\":false,\"disabled\":true,\"modal\":true,\"label\":\"جزییات فهرست ارزیابی تامین کنندگان\",\"tableView\":true,\"key\":\"GridSCMPETCO_SupplierEvaluationChecklistId_720\",\"type\":\"datagrid\",\"input\":true,\"placeholder\":\"GridSCMPETCO_SupplierEvaluationChecklistId_720\",\"modalEdit\":true,\"FieldUrl\":\"720?EId=720&SubId=19\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result))"
+        Component="@((Utility.JSON.ToObject<View_Component>("{\"primaryKey\":false,\"EntityID\":720,\"FieldId\":720,\"NotNull\":false,\"ViewId\":0,\"NotMapped\":false,\"Relation\":false,\"RelationExternal\":false,\"RelationChildModel\":\"SCMPETCO_SupplierEvaluationItems\",\"GridMainModel\":\"SCMPETCO_SupplierEvaluationItems\",\"widget\":{\"altInput\":false,\"allowInput\":false,\"clickOpens\":false,\"enableDate\":false,\"enableTime\":false,\"noCalendar\":false,\"useLocaleSettings\":false,\"hourIncrement\":0,\"minuteIncrement\":0,\"time_24hr\":false},\"wysiwyg\":false,\"data\":{},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"FieldsTemplate\":[],\"refreshOn\":\"data\",\"reorder\":false,\"addAnotherPosition\":\"bottom\",\"layoutFixed\":false,\"enableRowGroups\":false,\"initEmpty\":false,\"disabled\":true,\"modal\":true,\"label\":\"جزییات فهرست ارزیابی تامین کنندگان\",\"tableView\":true,\"key\":\"GridSCMPETCO_SupplierEvaluationChecklistId_720\",\"type\":\"datagrid\",\"input\":true,\"placeholder\":\"GridSCMPETCO_SupplierEvaluationChecklistId_720\",\"modalEdit\":true,\"FieldUrl\":\"720?EId=720&SubId=19\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result))"
          >
     <Columns>
     
@@ -140,11 +143,11 @@
     <CellDisplayTemplate>
        
 @{
-    Baya.Models.ViewEngine.View_Component HeaderSCMPETCO_SupplierEvaluationChecklistId = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"primaryKey\":false,\"EntityID\":720,\"FieldId\":30121,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":977,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":true,\"RelationParentName\":\"SCMPETCO_SupplierEvaluationChecklist\",\"RelationParentModel\":\"SCMPETCO_SupplierEvaluationChecklist\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/SCMPETCO_SupplierEvaluationChecklist/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.Id}} </span>\",\"FieldsTemplate\":[{\"key\":\"Id\",\"value\":\"uniqueidentifier\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"searchField\":\"\",\"disabled\":false,\"modal\":true,\"label\":\"شناسه چک لیست ارزیابی تامین کنندگان\",\"tableView\":true,\"key\":\"SCMPETCO_SupplierEvaluationChecklistId\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"30121?EId=720&SubId=19\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
+    Baya.Models.ViewEngine.View_Component HeaderSCMPETCO_SupplierEvaluationChecklistId = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"primaryKey\":false,\"EntityID\":720,\"FieldId\":30121,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":977,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":false,\"RelationParentName\":\"SCMPETCO_SupplierEvaluationChecklist\",\"RelationParentModel\":\"SCMPETCO_SupplierEvaluationChecklist\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/SCMPETCO_SupplierEvaluationChecklist/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.Id}} </span>\",\"FieldsTemplate\":[{\"key\":\"Id\",\"value\":\"uniqueidentifier\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"disabled\":false,\"modal\":true,\"label\":\"شناسه چک لیست ارزیابی تامین کنندگان\",\"tableView\":true,\"key\":\"SCMPETCO_SupplierEvaluationChecklistId\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"30121?EId=720&SubId=19\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
     var RowSCMPETCO_SupplierEvaluationChecklistId = ((Entity.SCMPETCO_SupplierEvaluationItems)SCMPETCO_SupplierEvaluationChecklistId_.DataItem).SCMPETCO_SupplierEvaluationChecklistId;
 }
 
-<Dropdown ExternalApi=true CssClass="" NotMapped=false TextGrid=true Value="@RowSCMPETCO_SupplierEvaluationChecklistId"   FieldName="SCMPETCO_SupplierEvaluationChecklistId" OnItemSelected="ItemSelected_SCMPETCO_SupplierEvaluationItemsSCMPETCO_SupplierEvaluationChecklistId_Header" Component="HeaderSCMPETCO_SupplierEvaluationChecklistId">
+<Dropdown ExternalApi=false CssClass="" NotMapped=false TextGrid=true Value="@RowSCMPETCO_SupplierEvaluationChecklistId"   FieldName="SCMPETCO_SupplierEvaluationChecklistId" OnItemSelected="ItemSelected_SCMPETCO_SupplierEvaluationItemsSCMPETCO_SupplierEvaluationChecklistId_Header" Component="HeaderSCMPETCO_SupplierEvaluationChecklistId">
 </Dropdown>
 @code {
     public async Task ItemSelected_SCMPETCO_SupplierEvaluationItemsSCMPETCO_SupplierEvaluationChecklistId_Header(object _Item)
@@ -166,11 +169,11 @@
     <CellDisplayTemplate>
        
 @{
-    Baya.Models.ViewEngine.View_Component HeaderSCMPETCO_SupplierEvaluationTitleId = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"primaryKey\":false,\"EntityID\":720,\"FieldId\":30141,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":977,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":true,\"RelationParentName\":\"SCMPETCO_SupplierEvaluationTitle\",\"RelationParentModel\":\"SCMPETCO_SupplierEvaluationTitle\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/SCMPETCO_SupplierEvaluationTitle/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.Title}} {{item.Status}} </span>\",\"FieldsTemplate\":[{\"key\":\"Title\",\"value\":\"nvarchar(Max)\"},{\"key\":\"Status\",\"value\":\"int\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"searchField\":\"\",\"disabled\":false,\"modal\":true,\"label\":\"عناوین ارزیابی تامین کنندگان\",\"tableView\":true,\"key\":\"SCMPETCO_SupplierEvaluationTitleId\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"30141?EId=720&SubId=19\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
+    Baya.Models.ViewEngine.View_Component HeaderSCMPETCO_SupplierEvaluationTitleId = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"primaryKey\":false,\"EntityID\":720,\"FieldId\":30141,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":977,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":false,\"RelationParentName\":\"SCMPETCO_SupplierEvaluationTitle\",\"RelationParentModel\":\"SCMPETCO_SupplierEvaluationTitle\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/SCMPETCO_SupplierEvaluationTitle/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.Title}} {{item.Status}} </span>\",\"FieldsTemplate\":[{\"key\":\"Title\",\"value\":\"nvarchar(Max)\"},{\"key\":\"Status\",\"value\":\"int\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"disabled\":false,\"modal\":true,\"label\":\"عناوین ارزیابی تامین کنندگان\",\"tableView\":true,\"key\":\"SCMPETCO_SupplierEvaluationTitleId\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"30141?EId=720&SubId=19\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
     var RowSCMPETCO_SupplierEvaluationTitleId = ((Entity.SCMPETCO_SupplierEvaluationItems)SCMPETCO_SupplierEvaluationTitleId_.DataItem).SCMPETCO_SupplierEvaluationTitleId;
 }
 
-<Dropdown ExternalApi=true CssClass="" NotMapped=false TextGrid=true Value="@RowSCMPETCO_SupplierEvaluationTitleId"   FieldName="SCMPETCO_SupplierEvaluationTitleId" OnItemSelected="ItemSelected_SCMPETCO_SupplierEvaluationItemsSCMPETCO_SupplierEvaluationTitleId_Header" Component="HeaderSCMPETCO_SupplierEvaluationTitleId">
+<Dropdown ExternalApi=false CssClass="" NotMapped=false TextGrid=true Value="@RowSCMPETCO_SupplierEvaluationTitleId"   FieldName="SCMPETCO_SupplierEvaluationTitleId" OnItemSelected="ItemSelected_SCMPETCO_SupplierEvaluationItemsSCMPETCO_SupplierEvaluationTitleId_Header" Component="HeaderSCMPETCO_SupplierEvaluationTitleId">
 </Dropdown>
 @code {
     public async Task ItemSelected_SCMPETCO_SupplierEvaluationItemsSCMPETCO_SupplierEvaluationTitleId_Header(object _Item)
@@ -192,11 +195,11 @@
     <CellDisplayTemplate>
        
 @{
-    Baya.Models.ViewEngine.View_Component HeaderSCMPETCO_SupplierEvaluationModelId = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"primaryKey\":false,\"EntityID\":720,\"FieldId\":30142,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":977,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":true,\"RelationParentName\":\"SCMPETCO_SupplierEvaluationModel\",\"RelationParentModel\":\"SCMPETCO_SupplierEvaluationModel\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/SCMPETCO_SupplierEvaluationModel/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.Title}} </span>\",\"FieldsTemplate\":[{\"key\":\"Title\",\"value\":\"nvarchar(Max)\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"searchField\":\"\",\"disabled\":false,\"modal\":true,\"label\":\"مدل‌های ارزیابی تامین کننده\",\"tableView\":true,\"key\":\"SCMPETCO_SupplierEvaluationModelId\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"30142?EId=720&SubId=19\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
+    Baya.Models.ViewEngine.View_Component HeaderSCMPETCO_SupplierEvaluationModelId = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"primaryKey\":false,\"EntityID\":720,\"FieldId\":30142,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":977,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":false,\"RelationParentName\":\"SCMPETCO_SupplierEvaluationModel\",\"RelationParentModel\":\"SCMPETCO_SupplierEvaluationModel\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/SCMPETCO_SupplierEvaluationModel/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.Title}} </span>\",\"FieldsTemplate\":[{\"key\":\"Title\",\"value\":\"nvarchar(Max)\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"disabled\":false,\"modal\":true,\"label\":\"مدل‌های ارزیابی تامین کننده\",\"tableView\":true,\"key\":\"SCMPETCO_SupplierEvaluationModelId\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"30142?EId=720&SubId=19\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
     var RowSCMPETCO_SupplierEvaluationModelId = ((Entity.SCMPETCO_SupplierEvaluationItems)SCMPETCO_SupplierEvaluationModelId_.DataItem).SCMPETCO_SupplierEvaluationModelId;
 }
 
-<Dropdown ExternalApi=true CssClass="" NotMapped=false TextGrid=true Value="@RowSCMPETCO_SupplierEvaluationModelId"   FieldName="SCMPETCO_SupplierEvaluationModelId" OnItemSelected="ItemSelected_SCMPETCO_SupplierEvaluationItemsSCMPETCO_SupplierEvaluationModelId_Header" Component="HeaderSCMPETCO_SupplierEvaluationModelId">
+<Dropdown ExternalApi=false CssClass="" NotMapped=false TextGrid=true Value="@RowSCMPETCO_SupplierEvaluationModelId"   FieldName="SCMPETCO_SupplierEvaluationModelId" OnItemSelected="ItemSelected_SCMPETCO_SupplierEvaluationItemsSCMPETCO_SupplierEvaluationModelId_Header" Component="HeaderSCMPETCO_SupplierEvaluationModelId">
 </Dropdown>
 @code {
     public async Task ItemSelected_SCMPETCO_SupplierEvaluationItemsSCMPETCO_SupplierEvaluationModelId_Header(object _Item)
@@ -218,11 +221,11 @@
     <CellDisplayTemplate>
        
 @{
-    Baya.Models.ViewEngine.View_Component HeaderSCMPETCO_ScoringMethod_SupplierId = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"primaryKey\":false,\"EntityID\":720,\"FieldId\":30143,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":977,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":true,\"RelationParentName\":\"SCMPETCO_ScoringMethod_Supplier\",\"RelationParentModel\":\"SCMPETCO_ScoringMethod_Supplier\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/SCMPETCO_ScoringMethod_Supplier/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.Title}} {{item.ScoringNo}} </span>\",\"FieldsTemplate\":[{\"key\":\"Title\",\"value\":\"nvarchar(Max)\"},{\"key\":\"ScoringNo\",\"value\":\"int\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"searchField\":\"\",\"disabled\":false,\"modal\":true,\"label\":\"نحوه امتیازدهی به تامین کننده\",\"tableView\":true,\"key\":\"SCMPETCO_ScoringMethod_SupplierId\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"30143?EId=720&SubId=19\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
+    Baya.Models.ViewEngine.View_Component HeaderSCMPETCO_ScoringMethod_SupplierId = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"primaryKey\":false,\"EntityID\":720,\"FieldId\":30143,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":977,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":false,\"RelationParentName\":\"SCMPETCO_ScoringMethod_Supplier\",\"RelationParentModel\":\"SCMPETCO_ScoringMethod_Supplier\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/SCMPETCO_ScoringMethod_Supplier/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.Title}} {{item.ScoringNo}} </span>\",\"FieldsTemplate\":[{\"key\":\"Title\",\"value\":\"nvarchar(Max)\"},{\"key\":\"ScoringNo\",\"value\":\"int\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"disabled\":false,\"modal\":true,\"label\":\"نحوه امتیازدهی به تامین کننده\",\"tableView\":true,\"key\":\"SCMPETCO_ScoringMethod_SupplierId\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"30143?EId=720&SubId=19\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
     var RowSCMPETCO_ScoringMethod_SupplierId = ((Entity.SCMPETCO_SupplierEvaluationItems)SCMPETCO_ScoringMethod_SupplierId_.DataItem).SCMPETCO_ScoringMethod_SupplierId;
 }
 
-<Dropdown ExternalApi=true CssClass="" NotMapped=false TextGrid=true Value="@RowSCMPETCO_ScoringMethod_SupplierId"   FieldName="SCMPETCO_ScoringMethod_SupplierId" OnItemSelected="ItemSelected_SCMPETCO_SupplierEvaluationItemsSCMPETCO_ScoringMethod_SupplierId_Header" Component="HeaderSCMPETCO_ScoringMethod_SupplierId">
+<Dropdown ExternalApi=false CssClass="" NotMapped=false TextGrid=true Value="@RowSCMPETCO_ScoringMethod_SupplierId"   FieldName="SCMPETCO_ScoringMethod_SupplierId" OnItemSelected="ItemSelected_SCMPETCO_SupplierEvaluationItemsSCMPETCO_ScoringMethod_SupplierId_Header" Component="HeaderSCMPETCO_ScoringMethod_SupplierId">
 </Dropdown>
 @code {
     public async Task ItemSelected_SCMPETCO_SupplierEvaluationItemsSCMPETCO_ScoringMethod_SupplierId_Header(object _Item)
@@ -296,10 +299,10 @@
      
  
 @code {
-    Baya.Models.ViewEngine.View_Component Component_SCMPETCO_SupplierEvaluationItemsSCMPETCO_SupplierEvaluationChecklistId = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"primaryKey\":false,\"EntityID\":720,\"FieldId\":30121,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":977,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":true,\"RelationParentName\":\"SCMPETCO_SupplierEvaluationChecklist\",\"RelationParentModel\":\"SCMPETCO_SupplierEvaluationChecklist\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/SCMPETCO_SupplierEvaluationChecklist/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.Id}} </span>\",\"FieldsTemplate\":[{\"key\":\"Id\",\"value\":\"uniqueidentifier\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"searchField\":\"\",\"disabled\":false,\"modal\":true,\"label\":\"شناسه چک لیست ارزیابی تامین کنندگان\",\"tableView\":true,\"key\":\"SCMPETCO_SupplierEvaluationChecklistId\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"30121?EId=720&SubId=19\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
+    Baya.Models.ViewEngine.View_Component Component_SCMPETCO_SupplierEvaluationItemsSCMPETCO_SupplierEvaluationChecklistId = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"primaryKey\":false,\"EntityID\":720,\"FieldId\":30121,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":977,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":false,\"RelationParentName\":\"SCMPETCO_SupplierEvaluationChecklist\",\"RelationParentModel\":\"SCMPETCO_SupplierEvaluationChecklist\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/SCMPETCO_SupplierEvaluationChecklist/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.Id}} </span>\",\"FieldsTemplate\":[{\"key\":\"Id\",\"value\":\"uniqueidentifier\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"disabled\":false,\"modal\":true,\"label\":\"شناسه چک لیست ارزیابی تامین کنندگان\",\"tableView\":true,\"key\":\"SCMPETCO_SupplierEvaluationChecklistId\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"30121?EId=720&SubId=19\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
 }
 
-    <Dropdown Id=SCMPETCO_SupplierEvaluationItems_SCMPETCO_SupplierEvaluationChecklistId  @ref="Ref_SCMPETCO_SupplierEvaluationItems_SCMPETCO_SupplierEvaluationChecklistId" Label="شناسه چک لیست ارزیابی تامین کنندگان" CssClass=""  DisplayFormat="DropDown" ExternalApi=true NotMapped=false TextGrid=false  Value="@SCMPETCO_SupplierEvaluationItems.SCMPETCO_SupplierEvaluationChecklistId" FieldName="SCMPETCO_SupplierEvaluationChecklistId" OnItemSelected="ItemSelected_SCMPETCO_SupplierEvaluationItemsSCMPETCO_SupplierEvaluationChecklistId" Component="Component_SCMPETCO_SupplierEvaluationItemsSCMPETCO_SupplierEvaluationChecklistId" _Entity="_Entity" _EntityRow=SCMPETCO_SupplierEvaluationItems>
+    <Dropdown Id=SCMPETCO_SupplierEvaluationItems_SCMPETCO_SupplierEvaluationChecklistId  @ref="Ref_SCMPETCO_SupplierEvaluationItems_SCMPETCO_SupplierEvaluationChecklistId" Label="شناسه چک لیست ارزیابی تامین کنندگان" CssClass=""  DisplayFormat="DropDown" ExternalApi=false NotMapped=false TextGrid=false Text="" Value="@SCMPETCO_SupplierEvaluationItems.SCMPETCO_SupplierEvaluationChecklistId" FieldName="SCMPETCO_SupplierEvaluationChecklistId" OnItemSelected="ItemSelected_SCMPETCO_SupplierEvaluationItemsSCMPETCO_SupplierEvaluationChecklistId" Component="Component_SCMPETCO_SupplierEvaluationItemsSCMPETCO_SupplierEvaluationChecklistId" _Entity="_Entity" _EntityRow=SCMPETCO_SupplierEvaluationItems>
 </Dropdown>
 @code {
     public async Task ItemSelected_SCMPETCO_SupplierEvaluationItemsSCMPETCO_SupplierEvaluationChecklistId(object _Item)
@@ -307,7 +310,22 @@
         var Selected = Utility.JSON.ToObject<dynamic>(Utility.JSON.ToJson(_Item).Result).Result;
      var Item = SCMPETCO_SupplierEvaluationItems;
 
+      //Todo
+ //برای اینکه آی دی تغییر کند اینجا نیز باید تغییر کند
+ //بهتر است از پرایمیری کی استفاده شود
+ if (_Item != null)
+ {
+     Console.WriteLine(" Item Is Not Null");
     Item.SCMPETCO_SupplierEvaluationChecklistId = Selected.Id;
+    
+ }
+ else
+ {
+     Console.WriteLine(" Item Is Null");
+      Item.SCMPETCO_SupplierEvaluationChecklistId =EntityHelper.SetPropertyNull(Item.SCMPETCO_SupplierEvaluationChecklistId);
+ }
+ Item.SCMPETCO_SupplierEvaluationChecklist = await Utility.JSON.ToObject<Entity.SCMPETCO_SupplierEvaluationChecklist>(await Utility.JSON.ToJson(_Item));
+    StateHasChanged();
 
 
     
@@ -322,10 +340,10 @@
      
  
 @code {
-    Baya.Models.ViewEngine.View_Component Component_SCMPETCO_SupplierEvaluationItemsSCMPETCO_SupplierEvaluationTitleId = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"primaryKey\":false,\"EntityID\":720,\"FieldId\":30141,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":977,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":true,\"RelationParentName\":\"SCMPETCO_SupplierEvaluationTitle\",\"RelationParentModel\":\"SCMPETCO_SupplierEvaluationTitle\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/SCMPETCO_SupplierEvaluationTitle/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.Title}} {{item.Status}} </span>\",\"FieldsTemplate\":[{\"key\":\"Title\",\"value\":\"nvarchar(Max)\"},{\"key\":\"Status\",\"value\":\"int\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"searchField\":\"\",\"disabled\":false,\"modal\":true,\"label\":\"عناوین ارزیابی تامین کنندگان\",\"tableView\":true,\"key\":\"SCMPETCO_SupplierEvaluationTitleId\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"30141?EId=720&SubId=19\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
+    Baya.Models.ViewEngine.View_Component Component_SCMPETCO_SupplierEvaluationItemsSCMPETCO_SupplierEvaluationTitleId = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"primaryKey\":false,\"EntityID\":720,\"FieldId\":30141,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":977,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":false,\"RelationParentName\":\"SCMPETCO_SupplierEvaluationTitle\",\"RelationParentModel\":\"SCMPETCO_SupplierEvaluationTitle\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/SCMPETCO_SupplierEvaluationTitle/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.Title}} {{item.Status}} </span>\",\"FieldsTemplate\":[{\"key\":\"Title\",\"value\":\"nvarchar(Max)\"},{\"key\":\"Status\",\"value\":\"int\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"disabled\":false,\"modal\":true,\"label\":\"عناوین ارزیابی تامین کنندگان\",\"tableView\":true,\"key\":\"SCMPETCO_SupplierEvaluationTitleId\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"30141?EId=720&SubId=19\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
 }
 
-    <Dropdown Id=SCMPETCO_SupplierEvaluationItems_SCMPETCO_SupplierEvaluationTitleId  @ref="Ref_SCMPETCO_SupplierEvaluationItems_SCMPETCO_SupplierEvaluationTitleId" Label="عناوین ارزیابی تامین کنندگان" CssClass=""  DisplayFormat="DropDown" ExternalApi=true NotMapped=false TextGrid=false  Value="@SCMPETCO_SupplierEvaluationItems.SCMPETCO_SupplierEvaluationTitleId" FieldName="SCMPETCO_SupplierEvaluationTitleId" OnItemSelected="ItemSelected_SCMPETCO_SupplierEvaluationItemsSCMPETCO_SupplierEvaluationTitleId" Component="Component_SCMPETCO_SupplierEvaluationItemsSCMPETCO_SupplierEvaluationTitleId" _Entity="_Entity" _EntityRow=SCMPETCO_SupplierEvaluationItems>
+    <Dropdown Id=SCMPETCO_SupplierEvaluationItems_SCMPETCO_SupplierEvaluationTitleId  @ref="Ref_SCMPETCO_SupplierEvaluationItems_SCMPETCO_SupplierEvaluationTitleId" Label="عناوین ارزیابی تامین کنندگان" CssClass=""  DisplayFormat="DropDown" ExternalApi=false NotMapped=false TextGrid=false Text="" Value="@SCMPETCO_SupplierEvaluationItems.SCMPETCO_SupplierEvaluationTitleId" FieldName="SCMPETCO_SupplierEvaluationTitleId" OnItemSelected="ItemSelected_SCMPETCO_SupplierEvaluationItemsSCMPETCO_SupplierEvaluationTitleId" Component="Component_SCMPETCO_SupplierEvaluationItemsSCMPETCO_SupplierEvaluationTitleId" _Entity="_Entity" _EntityRow=SCMPETCO_SupplierEvaluationItems>
 </Dropdown>
 @code {
     public async Task ItemSelected_SCMPETCO_SupplierEvaluationItemsSCMPETCO_SupplierEvaluationTitleId(object _Item)
@@ -333,7 +351,22 @@
         var Selected = Utility.JSON.ToObject<dynamic>(Utility.JSON.ToJson(_Item).Result).Result;
      var Item = SCMPETCO_SupplierEvaluationItems;
 
+      //Todo
+ //برای اینکه آی دی تغییر کند اینجا نیز باید تغییر کند
+ //بهتر است از پرایمیری کی استفاده شود
+ if (_Item != null)
+ {
+     Console.WriteLine(" Item Is Not Null");
     Item.SCMPETCO_SupplierEvaluationTitleId = Selected.Id;
+    
+ }
+ else
+ {
+     Console.WriteLine(" Item Is Null");
+      Item.SCMPETCO_SupplierEvaluationTitleId =EntityHelper.SetPropertyNull(Item.SCMPETCO_SupplierEvaluationTitleId);
+ }
+ Item.SCMPETCO_SupplierEvaluationTitle = await Utility.JSON.ToObject<Entity.SCMPETCO_SupplierEvaluationTitle>(await Utility.JSON.ToJson(_Item));
+    StateHasChanged();
 
 
     
@@ -348,10 +381,10 @@
      
  
 @code {
-    Baya.Models.ViewEngine.View_Component Component_SCMPETCO_SupplierEvaluationItemsSCMPETCO_SupplierEvaluationModelId = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"primaryKey\":false,\"EntityID\":720,\"FieldId\":30142,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":977,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":true,\"RelationParentName\":\"SCMPETCO_SupplierEvaluationModel\",\"RelationParentModel\":\"SCMPETCO_SupplierEvaluationModel\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/SCMPETCO_SupplierEvaluationModel/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.Title}} </span>\",\"FieldsTemplate\":[{\"key\":\"Title\",\"value\":\"nvarchar(Max)\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"searchField\":\"\",\"disabled\":false,\"modal\":true,\"label\":\"مدل‌های ارزیابی تامین کننده\",\"tableView\":true,\"key\":\"SCMPETCO_SupplierEvaluationModelId\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"30142?EId=720&SubId=19\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
+    Baya.Models.ViewEngine.View_Component Component_SCMPETCO_SupplierEvaluationItemsSCMPETCO_SupplierEvaluationModelId = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"primaryKey\":false,\"EntityID\":720,\"FieldId\":30142,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":977,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":false,\"RelationParentName\":\"SCMPETCO_SupplierEvaluationModel\",\"RelationParentModel\":\"SCMPETCO_SupplierEvaluationModel\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/SCMPETCO_SupplierEvaluationModel/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.Title}} </span>\",\"FieldsTemplate\":[{\"key\":\"Title\",\"value\":\"nvarchar(Max)\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"disabled\":false,\"modal\":true,\"label\":\"مدل‌های ارزیابی تامین کننده\",\"tableView\":true,\"key\":\"SCMPETCO_SupplierEvaluationModelId\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"30142?EId=720&SubId=19\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
 }
 
-    <Dropdown Id=SCMPETCO_SupplierEvaluationItems_SCMPETCO_SupplierEvaluationModelId  @ref="Ref_SCMPETCO_SupplierEvaluationItems_SCMPETCO_SupplierEvaluationModelId" Label="مدل‌های ارزیابی تامین کننده" CssClass=""  DisplayFormat="DropDown" ExternalApi=true NotMapped=false TextGrid=false  Value="@SCMPETCO_SupplierEvaluationItems.SCMPETCO_SupplierEvaluationModelId" FieldName="SCMPETCO_SupplierEvaluationModelId" OnItemSelected="ItemSelected_SCMPETCO_SupplierEvaluationItemsSCMPETCO_SupplierEvaluationModelId" Component="Component_SCMPETCO_SupplierEvaluationItemsSCMPETCO_SupplierEvaluationModelId" _Entity="_Entity" _EntityRow=SCMPETCO_SupplierEvaluationItems>
+    <Dropdown Id=SCMPETCO_SupplierEvaluationItems_SCMPETCO_SupplierEvaluationModelId  @ref="Ref_SCMPETCO_SupplierEvaluationItems_SCMPETCO_SupplierEvaluationModelId" Label="مدل‌های ارزیابی تامین کننده" CssClass=""  DisplayFormat="DropDown" ExternalApi=false NotMapped=false TextGrid=false Text="" Value="@SCMPETCO_SupplierEvaluationItems.SCMPETCO_SupplierEvaluationModelId" FieldName="SCMPETCO_SupplierEvaluationModelId" OnItemSelected="ItemSelected_SCMPETCO_SupplierEvaluationItemsSCMPETCO_SupplierEvaluationModelId" Component="Component_SCMPETCO_SupplierEvaluationItemsSCMPETCO_SupplierEvaluationModelId" _Entity="_Entity" _EntityRow=SCMPETCO_SupplierEvaluationItems>
 </Dropdown>
 @code {
     public async Task ItemSelected_SCMPETCO_SupplierEvaluationItemsSCMPETCO_SupplierEvaluationModelId(object _Item)
@@ -359,7 +392,22 @@
         var Selected = Utility.JSON.ToObject<dynamic>(Utility.JSON.ToJson(_Item).Result).Result;
      var Item = SCMPETCO_SupplierEvaluationItems;
 
+      //Todo
+ //برای اینکه آی دی تغییر کند اینجا نیز باید تغییر کند
+ //بهتر است از پرایمیری کی استفاده شود
+ if (_Item != null)
+ {
+     Console.WriteLine(" Item Is Not Null");
     Item.SCMPETCO_SupplierEvaluationModelId = Selected.Id;
+    
+ }
+ else
+ {
+     Console.WriteLine(" Item Is Null");
+      Item.SCMPETCO_SupplierEvaluationModelId =EntityHelper.SetPropertyNull(Item.SCMPETCO_SupplierEvaluationModelId);
+ }
+ Item.SCMPETCO_SupplierEvaluationModel = await Utility.JSON.ToObject<Entity.SCMPETCO_SupplierEvaluationModel>(await Utility.JSON.ToJson(_Item));
+    StateHasChanged();
 
 
     
@@ -374,10 +422,10 @@
      
  
 @code {
-    Baya.Models.ViewEngine.View_Component Component_SCMPETCO_SupplierEvaluationItemsSCMPETCO_ScoringMethod_SupplierId = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"primaryKey\":false,\"EntityID\":720,\"FieldId\":30143,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":977,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":true,\"RelationParentName\":\"SCMPETCO_ScoringMethod_Supplier\",\"RelationParentModel\":\"SCMPETCO_ScoringMethod_Supplier\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/SCMPETCO_ScoringMethod_Supplier/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.Title}} {{item.ScoringNo}} </span>\",\"FieldsTemplate\":[{\"key\":\"Title\",\"value\":\"nvarchar(Max)\"},{\"key\":\"ScoringNo\",\"value\":\"int\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"searchField\":\"\",\"disabled\":false,\"modal\":true,\"label\":\"نحوه امتیازدهی به تامین کننده\",\"tableView\":true,\"key\":\"SCMPETCO_ScoringMethod_SupplierId\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"30143?EId=720&SubId=19\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
+    Baya.Models.ViewEngine.View_Component Component_SCMPETCO_SupplierEvaluationItemsSCMPETCO_ScoringMethod_SupplierId = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"primaryKey\":false,\"EntityID\":720,\"FieldId\":30143,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":977,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":false,\"RelationParentName\":\"SCMPETCO_ScoringMethod_Supplier\",\"RelationParentModel\":\"SCMPETCO_ScoringMethod_Supplier\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/SCMPETCO_ScoringMethod_Supplier/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.Title}} {{item.ScoringNo}} </span>\",\"FieldsTemplate\":[{\"key\":\"Title\",\"value\":\"nvarchar(Max)\"},{\"key\":\"ScoringNo\",\"value\":\"int\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"disabled\":false,\"modal\":true,\"label\":\"نحوه امتیازدهی به تامین کننده\",\"tableView\":true,\"key\":\"SCMPETCO_ScoringMethod_SupplierId\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"30143?EId=720&SubId=19\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
 }
 
-    <Dropdown Id=SCMPETCO_SupplierEvaluationItems_SCMPETCO_ScoringMethod_SupplierId  @ref="Ref_SCMPETCO_SupplierEvaluationItems_SCMPETCO_ScoringMethod_SupplierId" Label="نحوه امتیازدهی به تامین کننده" CssClass=""  DisplayFormat="DropDown" ExternalApi=true NotMapped=false TextGrid=false  Value="@SCMPETCO_SupplierEvaluationItems.SCMPETCO_ScoringMethod_SupplierId" FieldName="SCMPETCO_ScoringMethod_SupplierId" OnItemSelected="ItemSelected_SCMPETCO_SupplierEvaluationItemsSCMPETCO_ScoringMethod_SupplierId" Component="Component_SCMPETCO_SupplierEvaluationItemsSCMPETCO_ScoringMethod_SupplierId" _Entity="_Entity" _EntityRow=SCMPETCO_SupplierEvaluationItems>
+    <Dropdown Id=SCMPETCO_SupplierEvaluationItems_SCMPETCO_ScoringMethod_SupplierId  @ref="Ref_SCMPETCO_SupplierEvaluationItems_SCMPETCO_ScoringMethod_SupplierId" Label="نحوه امتیازدهی به تامین کننده" CssClass=""  DisplayFormat="DropDown" ExternalApi=false NotMapped=false TextGrid=false Text="" Value="@SCMPETCO_SupplierEvaluationItems.SCMPETCO_ScoringMethod_SupplierId" FieldName="SCMPETCO_ScoringMethod_SupplierId" OnItemSelected="ItemSelected_SCMPETCO_SupplierEvaluationItemsSCMPETCO_ScoringMethod_SupplierId" Component="Component_SCMPETCO_SupplierEvaluationItemsSCMPETCO_ScoringMethod_SupplierId" _Entity="_Entity" _EntityRow=SCMPETCO_SupplierEvaluationItems>
 </Dropdown>
 @code {
     public async Task ItemSelected_SCMPETCO_SupplierEvaluationItemsSCMPETCO_ScoringMethod_SupplierId(object _Item)
@@ -385,7 +433,22 @@
         var Selected = Utility.JSON.ToObject<dynamic>(Utility.JSON.ToJson(_Item).Result).Result;
      var Item = SCMPETCO_SupplierEvaluationItems;
 
+      //Todo
+ //برای اینکه آی دی تغییر کند اینجا نیز باید تغییر کند
+ //بهتر است از پرایمیری کی استفاده شود
+ if (_Item != null)
+ {
+     Console.WriteLine(" Item Is Not Null");
     Item.SCMPETCO_ScoringMethod_SupplierId = Selected.Id;
+    
+ }
+ else
+ {
+     Console.WriteLine(" Item Is Null");
+      Item.SCMPETCO_ScoringMethod_SupplierId =EntityHelper.SetPropertyNull(Item.SCMPETCO_ScoringMethod_SupplierId);
+ }
+ Item.SCMPETCO_ScoringMethod_Supplier = await Utility.JSON.ToObject<Entity.SCMPETCO_ScoringMethod_Supplier>(await Utility.JSON.ToJson(_Item));
+    StateHasChanged();
 
 
     
@@ -695,9 +758,13 @@ MainModel.CreateDate = ((Entity.SCMPETCO_SupplierEvaluationItems)EditModel).Crea
 MainModel.UpdateDate = ((Entity.SCMPETCO_SupplierEvaluationItems)EditModel).UpdateDate;
 MainModel.IsDelete = ((Entity.SCMPETCO_SupplierEvaluationItems)EditModel).IsDelete;
 MainModel.SCMPETCO_SupplierEvaluationChecklistId = ((Entity.SCMPETCO_SupplierEvaluationItems)EditModel).SCMPETCO_SupplierEvaluationChecklistId;
+MainModel.SCMPETCO_SupplierEvaluationChecklist = ((Entity.SCMPETCO_SupplierEvaluationItems)EditModel).SCMPETCO_SupplierEvaluationChecklist;
 MainModel.SCMPETCO_SupplierEvaluationTitleId = ((Entity.SCMPETCO_SupplierEvaluationItems)EditModel).SCMPETCO_SupplierEvaluationTitleId;
+MainModel.SCMPETCO_SupplierEvaluationTitle = ((Entity.SCMPETCO_SupplierEvaluationItems)EditModel).SCMPETCO_SupplierEvaluationTitle;
 MainModel.SCMPETCO_SupplierEvaluationModelId = ((Entity.SCMPETCO_SupplierEvaluationItems)EditModel).SCMPETCO_SupplierEvaluationModelId;
+MainModel.SCMPETCO_SupplierEvaluationModel = ((Entity.SCMPETCO_SupplierEvaluationItems)EditModel).SCMPETCO_SupplierEvaluationModel;
 MainModel.SCMPETCO_ScoringMethod_SupplierId = ((Entity.SCMPETCO_SupplierEvaluationItems)EditModel).SCMPETCO_ScoringMethod_SupplierId;
+MainModel.SCMPETCO_ScoringMethod_Supplier = ((Entity.SCMPETCO_SupplierEvaluationItems)EditModel).SCMPETCO_ScoringMethod_Supplier;
 MainModel.Description = ((Entity.SCMPETCO_SupplierEvaluationItems)EditModel).Description;
 
     }
@@ -813,6 +880,18 @@ public async void RowDubbleClickGrid_SCMPETCO_SupplierEvaluationItems(GridRowCli
 }
 }
 
+<Input Id="RequestID" @ref="Ref_RequestID"      @bind-Value="_Entity.RequestID" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+<Input Id="CreateUser" @ref="Ref_CreateUser"      @bind-Value="_Entity.CreateUser" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+<Input Id="UpdateUser" @ref="Ref_UpdateUser"      @bind-Value="_Entity.UpdateUser" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+<Input Id="CreateDate" @ref="Ref_CreateDate"   CssClass="d-none"   @bind-Value="_Entity.CreateDate" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+<Input Id="UpdateDate" @ref="Ref_UpdateDate"   CssClass="d-none"   @bind-Value="_Entity.UpdateDate" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+<Input Id="IsDelete" @ref="Ref_IsDelete"   CssClass="d-none"   @bind-Value="_Entity.IsDelete" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
     </EditForm>
 </div>
 
@@ -829,8 +908,8 @@ public async void RowDubbleClickGrid_SCMPETCO_SupplierEvaluationItems(GridRowCli
     {
         Console.WriteLine("#log OnInitializedAsync");
 
-        TableGet = await Utility.JSON.ToObject<Table>("{\"Name\":\"SCMPETCO_SupplierEvaluationChecklist\",\"GetNameAs\":\"SCMPETCO_SupplierEvaluationChecklist\",\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"RequestID\",\"GetNameAs\":\"RequestID\"},{\"Name\":\"CreateUser\",\"GetNameAs\":\"CreateUser\"},{\"Name\":\"UpdateUser\",\"GetNameAs\":\"UpdateUser\"},{\"Name\":\"CreateDate\",\"GetNameAs\":\"CreateDate\"},{\"Name\":\"UpdateDate\",\"GetNameAs\":\"UpdateDate\"},{\"Name\":\"IsDelete\",\"GetNameAs\":\"IsDelete\"},{\"Name\":\"SCMPETCO_SupplierMasterId\",\"GetNameAs\":\"SCMPETCO_SupplierMasterId\"}],\"Relation\":[{\"Name\":\"SCMPETCO_SupplierMaster\",\"GetNameAs\":\"SCMPETCO_SupplierMaster\",\"ModeErtebat\":1,\"Column\":[{\"Name\":\"SupplierName\",\"GetNameAs\":\"SupplierName\"},{\"Name\":\"ServiceName\",\"GetNameAs\":\"ServiceName\"},{\"Name\":\"SupplierBusinessOwner\",\"GetNameAs\":\"SupplierBusinessOwner\"},{\"Name\":\"OfficeAddress\",\"GetNameAs\":\"OfficeAddress\"},{\"Name\":\"ContactPerson\",\"GetNameAs\":\"ContactPerson\"},{\"Name\":\"OfficePhoneNumber\",\"GetNameAs\":\"OfficePhoneNumber\"},{\"Name\":\"OfficeFax\",\"GetNameAs\":\"OfficeFax\"},{\"Name\":\"FactoryAddress\",\"GetNameAs\":\"FactoryAddress\"},{\"Name\":\"FactoryPhoneNumber\",\"GetNameAs\":\"FactoryPhoneNumber\"},{\"Name\":\"FactoryFax\",\"GetNameAs\":\"FactoryFax\"},{\"Name\":\"Email\",\"GetNameAs\":\"Email\"},{\"Name\":\"SCMPETCO_SupplierMaster_Attachments\",\"GetNameAs\":\"SCMPETCO_SupplierMaster_Attachments\"},{\"Name\":\"SystemUser\",\"GetNameAs\":\"SystemUser\"},{\"Name\":\"SystemUnitUser\",\"GetNameAs\":\"SystemUnitUser\"},{\"Name\":\"SystemSectionUser\",\"GetNameAs\":\"SystemSectionUser\"},{\"Name\":\"UserCompanyName\",\"GetNameAs\":\"UserCompanyName\"},{\"Name\":\"RequestTrakingCode\",\"GetNameAs\":\"RequestTrakingCode\"},{\"Name\":\"ProcessVersionID\",\"GetNameAs\":\"ProcessVersionID\"},{\"Name\":\"ProcurementSupervisorDesc\",\"GetNameAs\":\"ProcurementSupervisorDesc\"},{\"Name\":\"QCManagerDec\",\"GetNameAs\":\"QCManagerDec\"},{\"Name\":\"SystemsMethodsDesc\",\"GetNameAs\":\"SystemsMethodsDesc\"},{\"Name\":\"HSEDesc\",\"GetNameAs\":\"HSEDesc\"},{\"Name\":\"FactoryManagerDesc\",\"GetNameAs\":\"FactoryManagerDesc\"},{\"Name\":\"CEODesc\",\"GetNameAs\":\"CEODesc\"},{\"Name\":\"FinalScore\",\"GetNameAs\":\"FinalScore\"},{\"Name\":\"SCMPETCO_GradTypeId\",\"GetNameAs\":\"SCMPETCO_GradTypeId\"},{\"Name\":\"GradType\",\"GetNameAs\":\"GradType\"},{\"Name\":\"TestingSkillsDesc\",\"GetNameAs\":\"TestingSkillsDesc\"}],\"Relation\":[]},{\"Name\":\"SCMPETCO_SupplierEvaluationItems\",\"GetNameAs\":\"SCMPETCO_SupplierEvaluationItems\",\"ModeErtebat\":2,\"Column\":[{\"Name\":\"SCMPETCO_ScoringMethod_SupplierId\",\"GetNameAs\":\"SCMPETCO_ScoringMethod_SupplierId\"},{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"RequestID\",\"GetNameAs\":\"RequestID\"},{\"Name\":\"CreateUser\",\"GetNameAs\":\"CreateUser\"},{\"Name\":\"UpdateUser\",\"GetNameAs\":\"UpdateUser\"},{\"Name\":\"CreateDate\",\"GetNameAs\":\"CreateDate\"},{\"Name\":\"UpdateDate\",\"GetNameAs\":\"UpdateDate\"},{\"Name\":\"IsDelete\",\"GetNameAs\":\"IsDelete\"},{\"Name\":\"SCMPETCO_SupplierEvaluationChecklistId\",\"GetNameAs\":\"SCMPETCO_SupplierEvaluationChecklistId\"},{\"Name\":\"SCMPETCO_SupplierEvaluationTitleId\",\"GetNameAs\":\"SCMPETCO_SupplierEvaluationTitleId\"},{\"Name\":\"SCMPETCO_SupplierEvaluationModelId\",\"GetNameAs\":\"SCMPETCO_SupplierEvaluationModelId\"},{\"Name\":\"Description\",\"GetNameAs\":\"Description\"}],\"Relation\":[{\"Name\":\"SCMPETCO_ScoringMethod_Supplier\",\"GetNameAs\":\"SCMPETCO_ScoringMethod_Supplier\",\"ModeErtebat\":1,\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"Code\",\"GetNameAs\":\"Code\"},{\"Name\":\"Title\",\"GetNameAs\":\"Title\"},{\"Name\":\"ScoringNo\",\"GetNameAs\":\"ScoringNo\"}]},{\"Name\":\"SCMPETCO_SupplierEvaluationChecklist\",\"GetNameAs\":\"SCMPETCO_SupplierEvaluationChecklist\",\"ModeErtebat\":1,\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"SCMPETCO_SupplierMasterId\",\"GetNameAs\":\"SCMPETCO_SupplierMasterId\"}]},{\"Name\":\"SCMPETCO_SupplierEvaluationTitle\",\"GetNameAs\":\"SCMPETCO_SupplierEvaluationTitle\",\"ModeErtebat\":1,\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"Code\",\"GetNameAs\":\"Code\"},{\"Name\":\"Title\",\"GetNameAs\":\"Title\"},{\"Name\":\"Status\",\"GetNameAs\":\"Status\"}]},{\"Name\":\"SCMPETCO_SupplierEvaluationModel\",\"GetNameAs\":\"SCMPETCO_SupplierEvaluationModel\",\"ModeErtebat\":1,\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"Title\",\"GetNameAs\":\"Title\"},{\"Name\":\"Code\",\"GetNameAs\":\"Code\"}]}]}]}");
-        TablePost = await Utility.JSON.ToObject<Table>("{\"Name\":\"SCMPETCO_SupplierEvaluationChecklist\",\"GetNameAs\":\"SCMPETCO_SupplierEvaluationChecklist\",\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"RequestID\",\"GetNameAs\":\"RequestID\"},{\"Name\":\"CreateUser\",\"GetNameAs\":\"CreateUser\"},{\"Name\":\"UpdateUser\",\"GetNameAs\":\"UpdateUser\"},{\"Name\":\"CreateDate\",\"GetNameAs\":\"CreateDate\"},{\"Name\":\"UpdateDate\",\"GetNameAs\":\"UpdateDate\"},{\"Name\":\"IsDelete\",\"GetNameAs\":\"IsDelete\"},{\"Name\":\"SCMPETCO_SupplierMasterId\",\"GetNameAs\":\"SCMPETCO_SupplierMasterId\"}],\"Relation\":[{\"Name\":\"SCMPETCO_SupplierEvaluationItems\",\"GetNameAs\":\"SCMPETCO_SupplierEvaluationItems\",\"ModeErtebat\":2,\"Column\":[{\"Name\":\"SCMPETCO_ScoringMethod_SupplierId\",\"GetNameAs\":\"SCMPETCO_ScoringMethod_SupplierId\"},{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"RequestID\",\"GetNameAs\":\"RequestID\"},{\"Name\":\"CreateUser\",\"GetNameAs\":\"CreateUser\"},{\"Name\":\"UpdateUser\",\"GetNameAs\":\"UpdateUser\"},{\"Name\":\"CreateDate\",\"GetNameAs\":\"CreateDate\"},{\"Name\":\"UpdateDate\",\"GetNameAs\":\"UpdateDate\"},{\"Name\":\"IsDelete\",\"GetNameAs\":\"IsDelete\"},{\"Name\":\"SCMPETCO_SupplierEvaluationChecklistId\",\"GetNameAs\":\"SCMPETCO_SupplierEvaluationChecklistId\"},{\"Name\":\"SCMPETCO_SupplierEvaluationTitleId\",\"GetNameAs\":\"SCMPETCO_SupplierEvaluationTitleId\"},{\"Name\":\"SCMPETCO_SupplierEvaluationModelId\",\"GetNameAs\":\"SCMPETCO_SupplierEvaluationModelId\"},{\"Name\":\"Description\",\"GetNameAs\":\"Description\"}],\"Relation\":[]}]}");
+        TableGet = await Utility.JSON.ToObject<Table>("{\"Name\":\"SCMPETCO_SupplierEvaluationChecklist\",\"GetNameAs\":\"SCMPETCO_SupplierEvaluationChecklist\",\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"RequestID\",\"GetNameAs\":\"RequestID\"},{\"Name\":\"CreateUser\",\"GetNameAs\":\"CreateUser\"},{\"Name\":\"UpdateUser\",\"GetNameAs\":\"UpdateUser\"},{\"Name\":\"CreateDate\",\"GetNameAs\":\"CreateDate\"},{\"Name\":\"UpdateDate\",\"GetNameAs\":\"UpdateDate\"},{\"Name\":\"IsDelete\",\"GetNameAs\":\"IsDelete\"},{\"Name\":\"SCMPETCO_SupplierMasterId\",\"GetNameAs\":\"SCMPETCO_SupplierMasterId\"}],\"Relation\":[{\"Name\":\"SCMPETCO_SupplierMaster\",\"GetNameAs\":\"SCMPETCO_SupplierMaster\",\"ModeErtebat\":1,\"Column\":[{\"Name\":\"SupplierName\",\"GetNameAs\":\"SupplierName\"},{\"Name\":\"ServiceName\",\"GetNameAs\":\"ServiceName\"},{\"Name\":\"SupplierBusinessOwner\",\"GetNameAs\":\"SupplierBusinessOwner\"},{\"Name\":\"OfficeAddress\",\"GetNameAs\":\"OfficeAddress\"},{\"Name\":\"ContactPerson\",\"GetNameAs\":\"ContactPerson\"},{\"Name\":\"OfficePhoneNumber\",\"GetNameAs\":\"OfficePhoneNumber\"},{\"Name\":\"OfficeFax\",\"GetNameAs\":\"OfficeFax\"},{\"Name\":\"FactoryAddress\",\"GetNameAs\":\"FactoryAddress\"},{\"Name\":\"FactoryPhoneNumber\",\"GetNameAs\":\"FactoryPhoneNumber\"},{\"Name\":\"FactoryFax\",\"GetNameAs\":\"FactoryFax\"},{\"Name\":\"Email\",\"GetNameAs\":\"Email\"},{\"Name\":\"SCMPETCO_SupplierMaster_Attachments\",\"GetNameAs\":\"SCMPETCO_SupplierMaster_Attachments\"},{\"Name\":\"SystemUser\",\"GetNameAs\":\"SystemUser\"},{\"Name\":\"SystemUnitUser\",\"GetNameAs\":\"SystemUnitUser\"},{\"Name\":\"SystemSectionUser\",\"GetNameAs\":\"SystemSectionUser\"},{\"Name\":\"UserCompanyName\",\"GetNameAs\":\"UserCompanyName\"},{\"Name\":\"RequestTrakingCode\",\"GetNameAs\":\"RequestTrakingCode\"},{\"Name\":\"ProcessVersionID\",\"GetNameAs\":\"ProcessVersionID\"},{\"Name\":\"ProcurementSupervisorDesc\",\"GetNameAs\":\"ProcurementSupervisorDesc\"},{\"Name\":\"QCManagerDec\",\"GetNameAs\":\"QCManagerDec\"},{\"Name\":\"SystemsMethodsDesc\",\"GetNameAs\":\"SystemsMethodsDesc\"},{\"Name\":\"HSEDesc\",\"GetNameAs\":\"HSEDesc\"},{\"Name\":\"FactoryManagerDesc\",\"GetNameAs\":\"FactoryManagerDesc\"},{\"Name\":\"CEODesc\",\"GetNameAs\":\"CEODesc\"},{\"Name\":\"FinalScore\",\"GetNameAs\":\"FinalScore\"},{\"Name\":\"SCMPETCO_GradTypeId\",\"GetNameAs\":\"SCMPETCO_GradTypeId\"},{\"Name\":\"GradType\",\"GetNameAs\":\"GradType\"},{\"Name\":\"TestingSkillsDesc\",\"GetNameAs\":\"TestingSkillsDesc\"}],\"Relation\":[]},{\"Name\":\"SCMPETCO_SupplierEvaluationItems\",\"GetNameAs\":\"SCMPETCO_SupplierEvaluationItems\",\"ModeErtebat\":2,\"Column\":[{\"Name\":\"SCMPETCO_ScoringMethod_SupplierId\",\"GetNameAs\":\"SCMPETCO_ScoringMethod_SupplierId\"},{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"RequestID\",\"GetNameAs\":\"RequestID\"},{\"Name\":\"CreateUser\",\"GetNameAs\":\"CreateUser\"},{\"Name\":\"UpdateUser\",\"GetNameAs\":\"UpdateUser\"},{\"Name\":\"CreateDate\",\"GetNameAs\":\"CreateDate\"},{\"Name\":\"UpdateDate\",\"GetNameAs\":\"UpdateDate\"},{\"Name\":\"IsDelete\",\"GetNameAs\":\"IsDelete\"},{\"Name\":\"SCMPETCO_SupplierEvaluationTitleId\",\"GetNameAs\":\"SCMPETCO_SupplierEvaluationTitleId\"},{\"Name\":\"SCMPETCO_SupplierEvaluationModelId\",\"GetNameAs\":\"SCMPETCO_SupplierEvaluationModelId\"},{\"Name\":\"Description\",\"GetNameAs\":\"Description\"},{\"Name\":\"SCMPETCO_SupplierEvaluationChecklistId\",\"GetNameAs\":\"SCMPETCO_SupplierEvaluationChecklistId\"}],\"Relation\":[{\"Name\":\"SCMPETCO_ScoringMethod_Supplier\",\"GetNameAs\":\"SCMPETCO_ScoringMethod_Supplier\",\"ModeErtebat\":1,\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"Code\",\"GetNameAs\":\"Code\"},{\"Name\":\"Title\",\"GetNameAs\":\"Title\"},{\"Name\":\"ScoringNo\",\"GetNameAs\":\"ScoringNo\"}]},{\"Name\":\"SCMPETCO_SupplierEvaluationTitle\",\"GetNameAs\":\"SCMPETCO_SupplierEvaluationTitle\",\"ModeErtebat\":1,\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"Code\",\"GetNameAs\":\"Code\"},{\"Name\":\"Title\",\"GetNameAs\":\"Title\"},{\"Name\":\"Status\",\"GetNameAs\":\"Status\"}]},{\"Name\":\"SCMPETCO_SupplierEvaluationModel\",\"GetNameAs\":\"SCMPETCO_SupplierEvaluationModel\",\"ModeErtebat\":1,\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"Title\",\"GetNameAs\":\"Title\"},{\"Name\":\"Code\",\"GetNameAs\":\"Code\"}]},{\"Name\":\"SCMPETCO_SupplierEvaluationChecklist\",\"GetNameAs\":\"SCMPETCO_SupplierEvaluationChecklist\",\"ModeErtebat\":1,\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"SCMPETCO_SupplierMasterId\",\"GetNameAs\":\"SCMPETCO_SupplierMasterId\"}]}]}]}");
+        TablePost = await Utility.JSON.ToObject<Table>("{\"Name\":\"SCMPETCO_SupplierEvaluationChecklist\",\"GetNameAs\":\"SCMPETCO_SupplierEvaluationChecklist\",\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"RequestID\",\"GetNameAs\":\"RequestID\"},{\"Name\":\"CreateUser\",\"GetNameAs\":\"CreateUser\"},{\"Name\":\"UpdateUser\",\"GetNameAs\":\"UpdateUser\"},{\"Name\":\"CreateDate\",\"GetNameAs\":\"CreateDate\"},{\"Name\":\"UpdateDate\",\"GetNameAs\":\"UpdateDate\"},{\"Name\":\"IsDelete\",\"GetNameAs\":\"IsDelete\"},{\"Name\":\"SCMPETCO_SupplierMasterId\",\"GetNameAs\":\"SCMPETCO_SupplierMasterId\"}],\"Relation\":[{\"Name\":\"SCMPETCO_SupplierEvaluationItems\",\"GetNameAs\":\"SCMPETCO_SupplierEvaluationItems\",\"ModeErtebat\":2,\"Column\":[{\"Name\":\"SCMPETCO_ScoringMethod_SupplierId\",\"GetNameAs\":\"SCMPETCO_ScoringMethod_SupplierId\"},{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"RequestID\",\"GetNameAs\":\"RequestID\"},{\"Name\":\"CreateUser\",\"GetNameAs\":\"CreateUser\"},{\"Name\":\"UpdateUser\",\"GetNameAs\":\"UpdateUser\"},{\"Name\":\"CreateDate\",\"GetNameAs\":\"CreateDate\"},{\"Name\":\"UpdateDate\",\"GetNameAs\":\"UpdateDate\"},{\"Name\":\"IsDelete\",\"GetNameAs\":\"IsDelete\"},{\"Name\":\"SCMPETCO_SupplierEvaluationTitleId\",\"GetNameAs\":\"SCMPETCO_SupplierEvaluationTitleId\"},{\"Name\":\"SCMPETCO_SupplierEvaluationModelId\",\"GetNameAs\":\"SCMPETCO_SupplierEvaluationModelId\"},{\"Name\":\"Description\",\"GetNameAs\":\"Description\"},{\"Name\":\"SCMPETCO_SupplierEvaluationChecklistId\",\"GetNameAs\":\"SCMPETCO_SupplierEvaluationChecklistId\"}],\"Relation\":[]}]}");
 
         config = CKEditorBundleOptions.DefaultConfig.WithHtmlEditing();
         config.Language = "fa";

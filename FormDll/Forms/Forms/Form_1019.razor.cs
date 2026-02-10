@@ -254,38 +254,38 @@ namespace Forms.Forms
 		{
 			bool IsValid = true;
 
-			if (Item.IDMS_ProductCategoriesId == null)
-			{
-				IsValid = false;
-				await _MSG.ShowError("لطفاً دسته‌بندی محصول را انتخاب کنید.");
-			}
-			if (Item.IDMS_ProductsId == null)
-			{
-				IsValid = false;
-				await _MSG.ShowError("لطفاً محصول را انتخاب کنید.");
-			}
-			if (Item.IDMS_CustomerId == null)
-			{
-				IsValid = false;
-				await _MSG.ShowError("لطفاً مشتری را انتخاب کنید.");
-			}
-			if (Item.IDMS_ResultingFromId == null)
-			{
-				IsValid = false;
-				await _MSG.ShowError("لطفاً گزینه «منتج از» را انتخاب کنید.");
-			}
+			// if (Item.IDMS_ProductCategoriesId == null)
+			// {
+			// 	IsValid = false;
+			// 	await _MSG.ShowError("لطفاً دسته‌بندی کلی را انتخاب کنید.");
+			// }
+			// if (Item.IDMS_ProductsId == null)
+			// {
+			// 	IsValid = false;
+			// 	await _MSG.ShowError("لطفاً محصول را انتخاب کنید.");
+			// }
+			// if (Item.IDMS_CustomerId == null)
+			// {
+			// 	IsValid = false;
+			// 	await _MSG.ShowError("لطفاً مشتری را انتخاب کنید.");
+			// }
+			// if (Item.IDMS_ResultingFromId == null)
+			// {
+			// 	IsValid = false;
+			// 	await _MSG.ShowError("لطفاً گزینه «منتج از» را انتخاب کنید.");
+			// }
 
-			// تاریخ پیشنهادی انجام کار (شمسی)
-			if (string.IsNullOrWhiteSpace(Item.RequestedDueDate_Fa))
-			{
-				IsValid = false;
-				await _MSG.ShowError("لطفاً تاریخ پیشنهادی انجام کار را وارد کنید.");
-			}
-			else if (!PersianDateUtils.TryParseDateString(Item.RequestedDueDate_Fa, out _))
-			{
-				IsValid = false;
-				await _MSG.ShowError("لطفاً تاریخ پیشنهادی انجام کار را با فرمت صحیح شمسی (مثال: 1403/01/01) وارد کنید.");
-			}
+			// // تاریخ پیشنهادی انجام کار (شمسی)
+			// if (string.IsNullOrWhiteSpace(Item.RequestedDueDate_Fa))
+			// {
+			// 	IsValid = false;
+			// 	await _MSG.ShowError("لطفاً تاریخ پیشنهادی انجام کار را وارد کنید.");
+			// }
+			// else if (!PersianDateUtils.TryParseDateString(Item.RequestedDueDate_Fa, out _))
+			// {
+			// 	IsValid = false;
+			// 	await _MSG.ShowError("لطفاً تاریخ پیشنهادی انجام کار را با فرمت صحیح شمسی (مثال: 1403/01/01) وارد کنید.");
+			// }
 
 			return IsValid;
 		}

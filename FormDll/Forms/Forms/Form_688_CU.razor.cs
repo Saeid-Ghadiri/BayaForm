@@ -268,7 +268,7 @@ namespace Forms.Forms
 		}
 
 
-		#region متد دسته بندی حساب بانکی
+		#region HR_Base_BankAcountCategory Selected
 		public async Task HR_Base_BankAcountCategoryId_onitemselected(dynamic Selected)
 		{
 			Console.WriteLine("#Log :: BankAcountCategoryId_onitemselected :: ");
@@ -351,228 +351,11 @@ namespace Forms.Forms
 		/// </summary>
 		public async Task HR_EMP_EmployeesId_onitemselected(dynamic Selected)
 		{
-			Console.WriteLine("======================================");
-			Console.WriteLine("### HR_EMP_EmployeesId_onitemselected CALLED");
-
-			if (Selected == null)
-			{
-				Console.WriteLine("#Log: Selected is null - dropdown reset");
-				return;
-			}
-
-			var jsonSelected = await Utility.JSON.ToJson(Selected);
-			Console.WriteLine("#Log: Selected JSON = " + jsonSelected);
-
-			string employeeId = Selected.Id?.ToString();
-			Console.WriteLine("#Log: EmployeeId = " + employeeId);
-
-			if (string.IsNullOrWhiteSpace(employeeId))
-			{
-				Console.WriteLine("#Log: EmployeeId is empty");
-				return;
-			}
-
-			// =====================
-			// بررسی نوع صاحب حساب - نرمال‌سازی به حروف بزرگ
-			// =====================
-			string accType = _Entity.HR_Base_AccountHolderTypeId?.ToString()?.ToUpper();
-			Console.WriteLine("#Log: AccHolderType (normalized) = " + accType);
-
-			// فقط اگر صاحب حساب مشخص باشد ادامه می‌دهیم
-			if (string.IsNullOrWhiteSpace(accType))
-			{
-				Console.WriteLine("#Log: AccHolderType not set, exit");
-				return;
-			}
-
-			// تعریف ثابت‌ها با حروف بزرگ
-			const string EmpHusband = "117F1A3A-3BFB-F011-A50E-005056A2B6BD"; // کارمند
-			const string EmpWife = "4C395B47-3BFB-F011-A50E-005056A2B6BD";     // همسر
-
-			// =====================
-			// نوع کارمند
-			// =====================
-			if (accType == EmpHusband)
-			{
-				Console.WriteLine("#Log: AccHolderType = Employee -> only set Employee dropdown");
-				Ref_HR_EMP_EmployeesId?.SetVisible(true);
-				Ref_HR_EMP_EmployeeFamileisId?.SetVisible(false);
-				await InvokeAsync(StateHasChanged);
-				return;
-			}
-
-			// =====================
-			// نوع همسر
-			// =====================
-			if (accType == EmpWife)
-			{
-				Console.WriteLine("#Log: AccHolderType = Spouse -> load Spouse data");
-
-				// مطمئن شویم که دراپ‌دان‌ها نمایش داده می‌شوند
-				Ref_HR_EMP_EmployeesId?.SetVisible(true);
-				Ref_HR_EMP_EmployeeFamileisId?.SetVisible(true);
-				await InvokeAsync(StateHasChanged);
-
-				// شناسه رابطه "همسر"
-				string WifeRelationId = "F6710783-B11E-F011-A502-005056A2B6BD";
-				Console.WriteLine($"#Log: WifeRelationId = {WifeRelationId}");
-
-				// Table مجازی (با Relation)
-				var TablePost = new Baya.Models.ORM.Table
-				{
-					Name = "HR_EMP_EmployeeFamileis",
-					NameAs = "HR_EMP_EmployeeFamileis",
-					Column = new List<Coulmn>
-					{
-						new Coulmn { Name = "Id", NameAs = "Id" },
-						new Coulmn { Name = "HR_EMP_EmployeesId", NameAs = "HR_EMP_EmployeesId" },
-						new Coulmn { Name = "HR_FamilyRelationshipId", NameAs = "HR_FamilyRelationshipId" },
-						new Coulmn { Name = "FirstName", NameAs = "FirstName" },
-						new Coulmn { Name = "LastName", NameAs = "LastName" },
-						new Coulmn { Name = "NationalCode", NameAs = "NationalCode" },
-					},
-					Relation = new List<Baya.Models.ORM.Table>
-					{
-						new Baya.Models.ORM.Table
-						{
-							Name = "HR_FamilyRelationship",
-							NameAs = "HR_FamilyRelationship",
-							ModeErtebat = ModeErtebat._1N,
-							Column = new List<Coulmn>
-							{
-								new Coulmn { Name = "Id", NameAs = "Id" },
-								new Coulmn { Name = "Title", NameAs = "Title" },
-							}
-						}
-					}
-				};
-
-				// Query
-				var Filter = new QueryBuilderFilterRule
-				{
-					Condition = "AND",
-					Rules = new List<QueryBuilderFilterRule>
-					{
-						new QueryBuilderFilterRule
-						{
-							Field = "HR_EMP_EmployeesId",
-							Operator = "equal",
-							Type = "string",
-							Value = new[] { employeeId }
-						},
-						new QueryBuilderFilterRule
-						{
-							Field = "HR_FamilyRelationshipId",
-							Operator = "equal",
-							Type = "string",
-							Value = new[] { WifeRelationId }
-						}
-					}
-				};
-
-				Console.WriteLine("#Log: Filter = " + await Utility.JSON.ToJson(Filter));
-
-				Baya.Models.ORM.PagedResult Pager = new()
-				{
-					PageSize = 1000,
-					PageNumber = 1,
-				};
-
-				//Entity.HR_EMP_EmployeeFamileis fam = new();
-				
-				try
-				{
-					string tableJson = await Utility.JSON.ToJson(TablePost);
-					string filterJson = await Utility.JSON.ToJson(Filter);
-
-					Console.WriteLine("======================================");
-					Console.WriteLine("📤 API REQUEST DETAILS:");
-					Console.WriteLine("======================================");
-					Console.WriteLine($"Table JSON: {tableJson}");
-					Console.WriteLine($"Filter JSON: {filterJson}");
-					Console.WriteLine($"Entity: HR_EMP_EmployeeFamileis");
-					Console.WriteLine("======================================");
-
-					var Model = await ApiServer.External.Services.Data.GetListPost(
-						Table: TablePost,
-						Filter: Filter,
-						Pagination: Pager,
-						Entity: "HR_EMP_EmployeeFamileis"
-					);
-
-					Console.WriteLine($"#Log: Model Status = {Model.Status}");
-					Console.WriteLine($"#Log: Model Content = {Model.Content}");
-					Console.WriteLine($"#Log: Model Message = {Model.Message}");
-
-					// ✅ بررسی کامل پاسخ API
-					if (Model == null)
-					{
-						Console.WriteLine("#Log: ❌ Model is NULL - API call failed completely");
-						await _MSG.ShowError("خطا در برقراری ارتباط با سرور");
-						return;
-					}
-
-					if (Model.Status == HttpStatusCode.OK)
-					{
-						if (string.IsNullOrEmpty(Model.Content?.ToString()))
-						{
-							Console.WriteLine("#Log: ⚠️ No spouse data found (empty content)");
-							await _MSG.ShowWarning("هیچ همسری برای این کارمند پیدا نشد");
-							return;
-						}
-
-						try
-						{
-							Console.WriteLine("#Log: ✅ Spouse data received, loading into dropdown");
-							//Ref_HR_EMP_EmployeeFamileisId?.LoadData(Model.Content.ToString());
-							//Ref_HR_EMP_EmployeeFamileisId?.LoadData();
-							Ref_HR_EMP_EmployeeFamileisId?.Search(Filter);
-							await InvokeAsync(StateHasChanged);
-						}
-						catch (Exception ex)
-						{
-							Console.WriteLine($"💥 Error loading spouse data into dropdown: {ex.Message}");
-							Console.WriteLine($"Stack Trace: {ex.StackTrace}");
-							await _MSG.ShowError("خطا در نمایش داده‌های همسر");
-						}
-					}
-					else
-					{
-						Console.WriteLine($"❌ API returned error status: {Model.Status}");
-						await _MSG.ShowError($"خطا از سرور: {Model.Status}");
-					}
-				}
-				catch (Exception ex)
-				{
-					// ✅ لاگ کامل خطا
-					Console.WriteLine("======================================");
-					Console.WriteLine("💥 API ERROR DETAILS:");
-					Console.WriteLine("======================================");
-					Console.WriteLine($"Exception Message: {ex.Message}");
-					Console.WriteLine($"Inner Exception: {ex.InnerException?.Message}");
-					Console.WriteLine($"Stack Trace: {ex.StackTrace}");
-					Console.WriteLine("======================================");
-
-
-					//Console.WriteLine($"💥 Exception during API call: {ex.Message}");
-					//Console.WriteLine($"Stack Trace: {ex.StackTrace}");
-					await _MSG.ShowError("خطا در دریافت داده‌ها از سرور");
-				}
-
-				return;
-			}
-
-			// =====================
-			// سایر نوع‌ها
-			// =====================
-			Console.WriteLine($"#Log: AccHolderType not handled: {accType}");
-
-			Ref_HR_EMP_EmployeesId?.SetVisible(false);
-			Ref_HR_EMP_EmployeeFamileisId?.SetVisible(false);
-			await InvokeAsync(StateHasChanged);
+			Ref_HR_EMP_EmployeeFamileisId?.LoadData();
 		}
 		#endregion
 
+		#region AccountHolder Method
 		/// <summary>
 		/// این متد مسئول نمایش یا مخفی کردن فیلدهای مربوط به صاحب حساب است.
 		/// اگر showFields = false باشد، هر دو دراپ‌دان کارمند و همسر مخفی می‌شوند.
@@ -648,12 +431,12 @@ namespace Forms.Forms
 				Ref_HR_EMP_EmployeesId?.SetVisible(true);
 				Ref_HR_EMP_EmployeeFamileisId?.SetVisible(true);
 
-				// اگر کارمند قبلاً انتخاب شده، همسرانش را لود کن
-				if (!string.IsNullOrWhiteSpace(_Entity.HR_EMP_EmployeesId?.ToString()))
-				{
-					Console.WriteLine("→ Employee already selected, loading spouses...");
-					await HR_EMP_EmployeesId_onitemselected(new { Id = _Entity.HR_EMP_EmployeesId });
-				}
+				// // اگر کارمند قبلاً انتخاب شده، همسرانش را لود کن
+				// if (!string.IsNullOrWhiteSpace(_Entity.HR_EMP_EmployeesId?.ToString()))
+				// {
+				// 	Console.WriteLine("→ Employee already selected, loading spouses...");
+				// 	await HR_EMP_EmployeesId_onitemselected(new { Id = _Entity.HR_EMP_EmployeesId });
+				// }
 			}
 			else
 			{
@@ -667,6 +450,9 @@ namespace Forms.Forms
 			Console.WriteLine("======================================");
 		}
 
+		#endregion
+
+	
 
 		#endregion FunctionEvents
 

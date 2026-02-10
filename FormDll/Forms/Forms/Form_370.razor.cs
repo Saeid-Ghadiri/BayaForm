@@ -8,160 +8,206 @@ using Microsoft.AspNetCore.Components.Web;
 using Sitko.Blazor.CKEditor;
 namespace Forms.Forms
 {
-    public class Form_370Base : Form_370Peropeties
-    {
-      
-    
+	public class Form_370Base : Form_370Peropeties
+	{
 
 
-    /// <summary>
-    /// آماده سازی فرم
-    /// </summary>
-    /// <returns></returns>
-    protected override async Task OnInitializedAsync()
-    {
 
-    }
 
-    /// <summary>
-    /// رندر شدن فرم
-    /// </summary>
-    /// <param name="firstRender"></param>
-    /// <returns></returns>
-    protected override async Task OnAfterRenderAsync(bool firstRender)
-    {
-        if (firstRender)
-        {
+		/// <summary>
+		/// آماده سازی فرم
+		/// </summary>
+		/// <returns></returns>
+		protected override async Task OnInitializedAsync()
+		{
 
-        }
-    }
+		}
 
-    /// <summary>
-    /// اعتبار سنجی فرم
-    /// </summary>
-    /// <returns></returns>
-    public override async Task<bool> FormValidator()
-    {
-        bool IsValid = true;
+		/// <summary>
+		/// رندر شدن فرم
+		/// </summary>
+		/// <param name="firstRender"></param>
+		/// <returns></returns>
+		protected override async Task OnAfterRenderAsync(bool firstRender)
+		{
+			if (firstRender)
+			{
 
-        // if (_Entity.ReqCount != 5)
-        // {
-        //     IsValid = false;
-        //     SumaryMessage += "تعداد درخواست مخالف 5 باشد";
-        // }
+			}
+		}
 
-        return IsValid;
-    }
+		/// <summary>
+		/// اعتبار سنجی فرم
+		/// </summary>
+		/// <returns></returns>
+		public override async Task<bool> FormValidator()
+		{
+			bool IsValid = true;
 
-    /// <summary>
-    /// ارسال داده
-    /// </summary>
-    /// <returns></returns>
-    public override async Task<Baya.Models.Utility.Result> Submit()
-    {
-        SumaryMessage = "";
-        Baya.Models.Utility.Result Result = new Baya.Models.Utility.Result();
+			// if (_Entity.ReqCount != 5)
+			// {
+			//     IsValid = false;
+			//     SumaryMessage += "تعداد درخواست مخالف 5 باشد";
+			// }
 
-        if (!await FormValidator())
-        {
-            StateHasChanged();
-            Result.Status = HttpStatusCode.InternalServerError;
-            return Result;
-        }
+			return IsValid;
+		}
 
-        await BeforSubmit();
+		/// <summary>
+		/// ارسال داده
+		/// </summary>
+		/// <returns></returns>
+		public override async Task<Baya.Models.Utility.Result> Submit()
+		{
+			SumaryMessage = "";
+			Baya.Models.Utility.Result Result = new Baya.Models.Utility.Result();
 
-        var Resualt = await PostData();
+			if (!await FormValidator())
+			{
+				StateHasChanged();
+				Result.Status = HttpStatusCode.InternalServerError;
+				return Result;
+			}
 
-        if (Resualt)
-        {
-            Result.Status = HttpStatusCode.OK;
+			await BeforSubmit();
 
-            SumaryMessage = "داده ها با موفقیت ثبت شد";
-        }
-        else
-        {
-            Result.Status = HttpStatusCode.InternalServerError;
-            SumaryMessage = "ذخیره داده با مشکل مواجه شد";
-        }
+			var Resualt = await PostData();
 
-        Result.Message = SumaryMessage;
+			if (Resualt)
+			{
+				Result.Status = HttpStatusCode.OK;
 
-        switch ((int)Result.Status)
-        {
-            case 200:
-                toastService.ShowSuccess(Result.Message);
-                break;
-            case 500:
-                toastService.ShowError(Result.Message);
-                break;
-            default:
-                break;
-        }
+				SumaryMessage = "داده ها با موفقیت ثبت شد";
+			}
+			else
+			{
+				Result.Status = HttpStatusCode.InternalServerError;
+				SumaryMessage = "ذخیره داده با مشکل مواجه شد";
+			}
 
-        await AfterSubmit();
+			Result.Message = SumaryMessage;
 
-        return Result;
-    }
+			switch ((int)Result.Status)
+			{
+				case 200:
+					toastService.ShowSuccess(Result.Message);
+					break;
+				case 500:
+					toastService.ShowError(Result.Message);
+					break;
+				default:
+					break;
+			}
 
-    /// <summary>
-    /// ارسال داده
-    /// </summary>
-    /// <returns></returns>
-    private async Task<bool> PostData()
-    {
-        string Data = await Utility.JSON.ToJson(_Entity);
+			await AfterSubmit();
 
-        bool IsOk = false;
-        var Model = await ApiServer.External.Services.Data.Put(Data, TablePost.Name, TablePost, RequestID?.ToString(), _User.UserID.ToString());
-        if (Model?.Status == HttpStatusCode.OK)
-        {
-            IsOk = true;
-        }
+			return Result;
+		}
 
-        return IsOk;
-    }
+		/// <summary>
+		/// ارسال داده
+		/// </summary>
+		/// <returns></returns>
+		private async Task<bool> PostData()
+		{
+			string Data = await Utility.JSON.ToJson(_Entity);
 
-    /// <summary>
-    /// تابع قبل اجرا شدن ارسال داده
-    /// </summary>
-    /// <returns></returns>
-    public override async Task<Result> BeforSubmit()
-    {
+			bool IsOk = false;
+			var Model = await ApiServer.External.Services.Data.Put(Data, TablePost.Name, TablePost, RequestID?.ToString(), _User.UserID.ToString());
+			if (Model?.Status == HttpStatusCode.OK)
+			{
+				IsOk = true;
+			}
 
-return new Result() { Status = HttpStatusCode.OK };
-    }
+			return IsOk;
+		}
 
-    /// <summary>
-    /// تابع بعد اجرا شدن ارسال داده
-    /// </summary>
-    /// <returns></returns>
-    public override async Task AfterSubmit()
-    {
+		/// <summary>
+		/// تابع قبل اجرا شدن ارسال داده
+		/// </summary>
+		/// <returns></returns>
+		public override async Task<Result> BeforSubmit()
+		{
 
-    }
+			return new Result() { Status = HttpStatusCode.OK };
+		}
 
-    /// <summary>
-    /// تابع قبل دریافت داده
-    /// </summary>
-    /// <returns></returns>
-    public override async Task BeforGetData()
-    {
+		/// <summary>
+		/// تابع بعد اجرا شدن ارسال داده
+		/// </summary>
+		/// <returns></returns>
+		public override async Task AfterSubmit()
+		{
 
-    }
+		}
 
-    /// <summary>
-    /// تابع بعد دریافت داده
-    /// </summary>
-    /// <returns></returns>
-    public override async Task AfterGetData()
-    {
+		/// <summary>
+		/// تابع قبل دریافت داده
+		/// </summary>
+		/// <returns></returns>
+		public override async Task BeforGetData()
+		{
 
-    }
+		}
 
-    #region FunctionEvents
+		/// <summary>
+		/// تابع بعد دریافت داده
+		/// </summary>
+		/// <returns></returns>
+		public override async Task AfterGetData()
+		{
 
-    #endregion FunctionEvents
+		}
 
-}
+		#region FunctionEvents
+
+		public async Task ProductName_NotMapped_onitemselected(dynamic Selected, Entity.SCMNFP_ProductRequestDetails Item)
+		{
+			/// <summary>
+			/// فیلدهای زیر فیلدهای اصلی برای نمایش در فرم هستند.
+			///
+			///</summary>
+
+			//  نام کالا
+			Item.ProductName = Selected.DESC;
+
+			// کد کالا
+			Item.ProductCode = Selected.PARTNO;
+
+			// واحد کالا
+			Item.ProductUnit = Selected.UNIT;
+
+			//  نام دسته بندی فرعی
+			Item.ProductSubCategory = Selected.SubGroupName;
+
+			// شناسه دسته بندی فرعی
+			Item.ProductSubCategoryId = Selected.SubGroupName;
+
+			//دسته بندی اصلی کالا
+			Item.ProductMainCategory = Selected.GroupName;
+
+			// شناسه دسته بندی اصلی کالا
+			Item.ProductMainCategoryId = Selected.GRCODE;
+
+			// سال مالی شماران
+			Item.ShomaranFiscalYear = Selected.YEAR;
+
+			//کالا موجود است یا خیر
+			Item.IsExistProduct = Selected.IsExist;
+
+			// موجودی کالا در شماران
+			if (Selected.Amount > -1)
+			{
+				Item.ProductInventory = (double)Selected.Amount;
+			}
+			
+			// Console.WriteLine("Selected.PARTCODE : " + Selected.PARTCODE);
+
+			// این فیلد به درخواست آقای کلهر برای انتقال داده از فرم به فرم خای لیستی ثبت اطلاعات در شماران ایجاد شده است - 14040714
+			// Item.PARTCODE = Selected.PARTCODE;
+		}
+
+		#endregion FunctionEvents
+
+	}
 }

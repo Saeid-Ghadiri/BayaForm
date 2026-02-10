@@ -144,7 +144,7 @@ namespace Forms.Forms
     /// <summary>
     ///  ورژنی که فرم باهاش ساخته شده
     /// </summary>
-    public string? VersionForm { get; set; } = "5622";
+    public string? VersionForm { get; set; } = "5671";
 
     /// <summary>
     ///  موجودیت
@@ -192,6 +192,26 @@ public Input<string?> Ref_ConfirmDate;
 public Input<string?> Ref_Person;
 public Input<string?> Ref_Description;
 public Input<int?> Ref_YEAR;
+public DxGrid? Grid_Shomaran_AnnarrDetail;
+
+public Dropdown Ref_Shomaran_AnnarrDetail_ProductSearch;
+public Input<string?> Ref_Shomaran_AnnarrDetail_PARTCODE;
+public Input<string?> Ref_Shomaran_AnnarrDetail_ProductName;
+public Input<string?> Ref_Shomaran_AnnarrDetail_ShomareFani;
+public Input<decimal?> Ref_Shomaran_AnnarrDetail_ARRAMOUNT;
+public Input<string?> Ref_Shomaran_AnnarrDetail_Unit;
+public Input<string?> Ref_Shomaran_AnnarrDetail_DESC2;
+public Input<string?> Ref_Shomaran_AnnarrDetail_SEFARESH;
+public Input<string?> Ref_Shomaran_AnnarrDetail_RADYABI;
+public Input<int?> Ref_Shomaran_AnnarrDetail_YEAR;
+public Input<Guid> Ref_Shomaran_AnnarrDetail_Id;
+public Input<Guid?> Ref_Shomaran_AnnarrDetail_RequestID;
+public Input<Guid?> Ref_Shomaran_AnnarrDetail_CreateUser;
+public Input<Guid?> Ref_Shomaran_AnnarrDetail_UpdateUser;
+public Input<DateTime?> Ref_Shomaran_AnnarrDetail_CreateDate;
+public Input<DateTime?> Ref_Shomaran_AnnarrDetail_UpdateDate;
+public Input<bool?> Ref_Shomaran_AnnarrDetail_IsDelete;
+public Input<string?> Ref_Shomaran_AnnarrDetail_RowId;
 public Input<string?> Ref_ApiResult;
 public Input<Guid> Ref_Id;
 public Input<Guid?> Ref_RequestID;
@@ -200,26 +220,6 @@ public Input<Guid?> Ref_UpdateUser;
 public Input<DateTime?> Ref_CreateDate;
 public Input<DateTime?> Ref_UpdateDate;
 public Input<bool?> Ref_IsDelete;
-public DxGrid? Grid_Shomaran_AnnarrDetail;
-
-public Input<Guid> Ref_Shomaran_AnnarrDetail_Id;
-public Input<Guid?> Ref_Shomaran_AnnarrDetail_RequestID;
-public Input<Guid?> Ref_Shomaran_AnnarrDetail_CreateUser;
-public Input<Guid?> Ref_Shomaran_AnnarrDetail_UpdateUser;
-public Input<DateTime?> Ref_Shomaran_AnnarrDetail_CreateDate;
-public Input<DateTime?> Ref_Shomaran_AnnarrDetail_UpdateDate;
-public Input<bool?> Ref_Shomaran_AnnarrDetail_IsDelete;
-public Input<decimal?> Ref_Shomaran_AnnarrDetail_ARRAMOUNT;
-public Input<string?> Ref_Shomaran_AnnarrDetail_PARTCODE;
-public Input<string?> Ref_Shomaran_AnnarrDetail_RADYABI;
-public Input<string?> Ref_Shomaran_AnnarrDetail_SEFARESH;
-public Input<string?> Ref_Shomaran_AnnarrDetail_RowId;
-public Input<int?> Ref_Shomaran_AnnarrDetail_YEAR;
-public Input<string?> Ref_Shomaran_AnnarrDetail_DESC2;
-public Dropdown Ref_Shomaran_AnnarrDetail_ProductSearch;
-public Input<string?> Ref_Shomaran_AnnarrDetail_ProductName;
-public Input<string?> Ref_Shomaran_AnnarrDetail_ShomareFani;
-public Input<string?> Ref_Shomaran_AnnarrDetail_Unit;
 
 
     #endregion

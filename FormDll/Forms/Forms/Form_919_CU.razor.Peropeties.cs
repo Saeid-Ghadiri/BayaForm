@@ -144,7 +144,7 @@ namespace Forms.Forms
     /// <summary>
     ///  ورژنی که فرم باهاش ساخته شده
     /// </summary>
-    public string? VersionForm { get; set; } = "5622";
+    public string? VersionForm { get; set; } = "5671";
 
     /// <summary>
     ///  موجودیت
@@ -182,12 +182,6 @@ namespace Forms.Forms
 public Input<int?> Ref_Code;
 public Input<string?> Ref_Title;
 public Input<Guid> Ref_Id;
-public Input<Guid?> Ref_RequestID;
-public Input<Guid?> Ref_CreateUser;
-public Input<Guid?> Ref_UpdateUser;
-public Input<DateTime?> Ref_CreateDate;
-public Input<DateTime?> Ref_UpdateDate;
-public Input<bool?> Ref_IsDelete;
 public DxGrid? Grid_BaseInfo_Banks;
 
 public Input<Guid> Ref_BaseInfo_Banks_Id;
@@ -201,7 +195,13 @@ public Input<string?> Ref_BaseInfo_Banks_Title;
 public Input<string?> Ref_BaseInfo_Banks_CNAPSE_Code;
 public Input<bool?> Ref_BaseInfo_Banks_IsActive;
 public Input<string?> Ref_BaseInfo_Banks_ExtCode;
-public Dropdown Ref_BaseInfo_Banks_BaseInfo_BankType;
+public Input<Guid?> Ref_BaseInfo_Banks_BaseInfo_BankType;
+public Input<Guid?> Ref_RequestID;
+public Input<Guid?> Ref_CreateUser;
+public Input<Guid?> Ref_UpdateUser;
+public Input<DateTime?> Ref_CreateDate;
+public Input<DateTime?> Ref_UpdateDate;
+public Input<bool?> Ref_IsDelete;
 
 
     #endregion

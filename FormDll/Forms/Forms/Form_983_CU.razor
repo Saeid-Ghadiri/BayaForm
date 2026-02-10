@@ -103,15 +103,35 @@
 <Input Id="OrdPoint" @ref="Ref_OrdPoint" Label="نقطه سفارش"     @bind-Value="_Entity.OrdPoint" type="number"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"step\":\"any\"}").Result))></Input>
 
 <Input Id="MaxAmount" @ref="Ref_MaxAmount" Label="حداکثر موجودی"     @bind-Value="_Entity.MaxAmount" type="number"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"step\":\"any\"}").Result))></Input>
-
-<Input Id="PartNo" @ref="Ref_PartNo" Label="کد کالا"     @bind-Value="_Entity.PartNo" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"maxlength\":\"150\"}").Result))></Input>
  
  
 @code {
-    Baya.Models.ViewEngine.View_Component Component_Shomaran_SefareshPointInvCode = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"EntityName\":\"SefareshPoint\",\"primaryKey\":false,\"EntityID\":732,\"FieldId\":30315,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":983,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":true,\"RelationParentName\":\"\",\"RelationParentModel\":\"\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://shomaran.workcv.ir:2010/fa-ir/api/v1/view_INV/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"inputFormat\":\"DropDown\",\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"INVCODE\",\"template\":\"<span>{{item.INVNAME}} {{item.INVCODE}} </span>\",\"FieldsTemplate\":[],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"searchField\":\"INVNAME,INVCODE\",\"disabled\":false,\"modal\":true,\"label\":\"انبار\",\"tableView\":true,\"key\":\"InvCode\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"30315?EId=732&SubId=28\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
+    Baya.Models.ViewEngine.View_Component Component_Shomaran_SefareshPointPartNo = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"EntityName\":\"SefareshPoint\",\"primaryKey\":false,\"EntityID\":732,\"FieldId\":30314,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":983,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":true,\"RelationParentName\":\"\",\"RelationParentModel\":\"\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://shomaran.workcv.ir:2010/fa-ir/api/v1/view_cardpart/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"inputFormat\":\"DropDown\",\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"partno\",\"template\":\"<span>{{item.desc}} {{item.partno}} {{item.partcode}} </span>\",\"FieldsTemplate\":[],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"searchField\":\"desc,partno,partcode\",\"disabled\":false,\"modal\":true,\"label\":\"کد کالا\",\"tableView\":true,\"key\":\"PartNo\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"30314?EId=732&SubId=28\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
 }
 
-    <Dropdown Id=InvCode  @ref="Ref_InvCode" Label="انبار" CssClass=""  DisplayFormat="DropDown" ExternalApi=true NotMapped=false TextGrid=false  Value="@_Entity.InvCode" FieldName="InvCode" OnItemSelected="ItemSelected_Shomaran_SefareshPointInvCode" Component="Component_Shomaran_SefareshPointInvCode" _Entity="_Entity" >
+    <Dropdown Id=PartNo  @ref="Ref_PartNo" Label="کد کالا" CssClass=""  DisplayFormat="DropDown" ExternalApi=true NotMapped=false TextGrid=false  Value="@_Entity.PartNo" FieldName="PartNo" OnItemSelected="ItemSelected_Shomaran_SefareshPointPartNo" Component="Component_Shomaran_SefareshPointPartNo" _Entity="_Entity" >
+</Dropdown>
+@code {
+    public async Task ItemSelected_Shomaran_SefareshPointPartNo(object _Item)
+    {
+        var Selected = Utility.JSON.ToObject<dynamic>(Utility.JSON.ToJson(_Item).Result).Result;
+     var Item = _Entity;
+
+    Item.PartNo = Selected.partno;
+
+
+    
+
+    
+    }
+} 
+ 
+ 
+@code {
+    Baya.Models.ViewEngine.View_Component Component_Shomaran_SefareshPointInvCode = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"EntityName\":\"SefareshPoint\",\"primaryKey\":false,\"EntityID\":732,\"FieldId\":30315,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":983,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":true,\"RelationParentName\":\"\",\"RelationParentModel\":\"\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://shomaran.workcv.ir:2010/fa-ir/api/v1/view_INV/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"inputFormat\":\"DropDown\",\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"INVCODE\",\"template\":\"<span>{{item.INVNAME}} {{item.INVCODE}} </span>\",\"FieldsTemplate\":[],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"searchField\":\"INVNAME,INVCODE\",\"disabled\":false,\"modal\":true,\"label\":\"کد انبار\",\"tableView\":true,\"key\":\"InvCode\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"30315?EId=732&SubId=28\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
+}
+
+    <Dropdown Id=InvCode  @ref="Ref_InvCode" Label="کد انبار" CssClass=""  DisplayFormat="DropDown" ExternalApi=true NotMapped=false TextGrid=false  Value="@_Entity.InvCode" FieldName="InvCode" OnItemSelected="ItemSelected_Shomaran_SefareshPointInvCode" Component="Component_Shomaran_SefareshPointInvCode" _Entity="_Entity" >
 </Dropdown>
 @code {
     public async Task ItemSelected_Shomaran_SefareshPointInvCode(object _Item)

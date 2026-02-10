@@ -144,7 +144,7 @@ namespace Forms.Forms
     /// <summary>
     ///  ورژنی که فرم باهاش ساخته شده
     /// </summary>
-    public string? VersionForm { get; set; } = "5622";
+    public string? VersionForm { get; set; } = "5671";
 
     /// <summary>
     ///  موجودیت
@@ -180,12 +180,6 @@ namespace Forms.Forms
     #region FormProperty
 
 public Input<Guid> Ref_Id;
-public Input<Guid?> Ref_RequestID;
-public Input<Guid?> Ref_CreateUser;
-public Input<Guid?> Ref_UpdateUser;
-public Input<DateTime?> Ref_CreateDate;
-public Input<DateTime?> Ref_UpdateDate;
-public Input<bool?> Ref_IsDelete;
 public DxGrid? Grid_FileUploads_FileUploads;
 
 public Input<Guid> Ref_FileUploads_FileUploads_Id;
@@ -197,6 +191,12 @@ public Input<DateTime?> Ref_FileUploads_FileUploads_UpdateDate;
 public Input<bool?> Ref_FileUploads_FileUploads_IsDelete;
 public Input<string?> Ref_FileUploads_FileUploads_FileTitle;
 public FileUploadPage.Uploader<Entity.FileUploads_FileUploads_FileUpload> Ref_FileUploads_FileUploads_FileUploads_FileUploads_FileUpload;
+public Input<Guid?> Ref_RequestID;
+public Input<Guid?> Ref_CreateUser;
+public Input<Guid?> Ref_UpdateUser;
+public Input<DateTime?> Ref_CreateDate;
+public Input<DateTime?> Ref_UpdateDate;
+public Input<bool?> Ref_IsDelete;
 
 
     #endregion

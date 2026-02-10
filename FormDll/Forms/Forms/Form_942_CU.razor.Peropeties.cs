@@ -144,7 +144,7 @@ namespace Forms.Forms
     /// <summary>
     ///  ورژنی که فرم باهاش ساخته شده
     /// </summary>
-    public string? VersionForm { get; set; } = "5622";
+    public string? VersionForm { get; set; } = "5671";
 
     /// <summary>
     ///  موجودیت
@@ -179,6 +179,21 @@ namespace Forms.Forms
 
     #region FormProperty
 
+public DxGrid? Grid_Shomaran_FactBuyDetail;
+
+public Input<Guid> Ref_Shomaran_FactBuyDetail_Id;
+public Input<Guid?> Ref_Shomaran_FactBuyDetail_RequestID;
+public Input<Guid?> Ref_Shomaran_FactBuyDetail_CreateUser;
+public Input<Guid?> Ref_Shomaran_FactBuyDetail_UpdateUser;
+public Input<DateTime?> Ref_Shomaran_FactBuyDetail_CreateDate;
+public Input<DateTime?> Ref_Shomaran_FactBuyDetail_UpdateDate;
+public Input<bool?> Ref_Shomaran_FactBuyDetail_IsDelete;
+public Input<decimal?> Ref_Shomaran_FactBuyDetail_AMOUNT;
+public Input<string?> Ref_Shomaran_FactBuyDetail_RADYABI;
+public Input<string?> Ref_Shomaran_FactBuyDetail_SEFARESH;
+public Input<int?> Ref_Shomaran_FactBuyDetail_ROW_ID;
+public Input<short?> Ref_Shomaran_FactBuyDetail_YEAR;
+public Dropdown Ref_Shomaran_FactBuyDetail_PARTCODE;
 public Input<string?> Ref_FACTNO;
 public Input<string?> Ref_FACTDATE;
 public Dropdown Ref_ORDERNO;
@@ -199,21 +214,6 @@ public Input<DateTime?> Ref_CreateDate;
 public Input<DateTime?> Ref_UpdateDate;
 public Input<bool?> Ref_IsDelete;
 public Input<string?> Ref_ApiResult;
-public DxGrid? Grid_Shomaran_FactBuyDetail;
-
-public Input<Guid> Ref_Shomaran_FactBuyDetail_Id;
-public Input<Guid?> Ref_Shomaran_FactBuyDetail_RequestID;
-public Input<Guid?> Ref_Shomaran_FactBuyDetail_CreateUser;
-public Input<Guid?> Ref_Shomaran_FactBuyDetail_UpdateUser;
-public Input<DateTime?> Ref_Shomaran_FactBuyDetail_CreateDate;
-public Input<DateTime?> Ref_Shomaran_FactBuyDetail_UpdateDate;
-public Input<bool?> Ref_Shomaran_FactBuyDetail_IsDelete;
-public Input<decimal?> Ref_Shomaran_FactBuyDetail_AMOUNT;
-public Dropdown Ref_Shomaran_FactBuyDetail_PARTCODE;
-public Input<string?> Ref_Shomaran_FactBuyDetail_RADYABI;
-public Input<string?> Ref_Shomaran_FactBuyDetail_SEFARESH;
-public Input<int?> Ref_Shomaran_FactBuyDetail_ROW_ID;
-public Input<short?> Ref_Shomaran_FactBuyDetail_YEAR;
 
 
     #endregion

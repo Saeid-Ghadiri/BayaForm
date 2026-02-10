@@ -144,7 +144,7 @@ namespace Forms.Forms
     /// <summary>
     ///  ورژنی که فرم باهاش ساخته شده
     /// </summary>
-    public string? VersionForm { get; set; } = "5622";
+    public string? VersionForm { get; set; } = "5671";
 
     /// <summary>
     ///  موجودیت
@@ -183,12 +183,6 @@ public Input<Guid> Ref_Id;
 public Input<string?> Ref_ProductGroupName;
 public Input<string?> Ref_ProductGroupLatinName;
 public Input<string?> Ref_CertificateNo;
-public Input<Guid?> Ref_RequestID;
-public Input<Guid?> Ref_CreateUser;
-public Input<Guid?> Ref_UpdateUser;
-public Input<DateTime?> Ref_CreateDate;
-public Input<DateTime?> Ref_UpdateDate;
-public Input<bool?> Ref_IsDelete;
 public DxGrid? Grid_PPCAtlasBobbin_Product;
 
 public Input<Guid> Ref_PPCAtlasBobbin_Product_Id;
@@ -202,6 +196,12 @@ public Input<string?> Ref_PPCAtlasBobbin_Product_ProductCode;
 public Input<string?> Ref_PPCAtlasBobbin_Product_ProductName;
 public Input<string?> Ref_PPCAtlasBobbin_Product_ProductLatinName;
 public Input<bool?> Ref_PPCAtlasBobbin_Product_IsTestProduct;
+public Input<Guid?> Ref_RequestID;
+public Input<Guid?> Ref_CreateUser;
+public Input<Guid?> Ref_UpdateUser;
+public Input<DateTime?> Ref_CreateDate;
+public Input<DateTime?> Ref_UpdateDate;
+public Input<bool?> Ref_IsDelete;
 
 
     #endregion

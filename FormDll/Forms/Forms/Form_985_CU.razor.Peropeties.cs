@@ -144,7 +144,7 @@ namespace Forms.Forms
     /// <summary>
     ///  ورژنی که فرم باهاش ساخته شده
     /// </summary>
-    public string? VersionForm { get; set; } = "5622";
+    public string? VersionForm { get; set; } = "5671";
 
     /// <summary>
     ///  موجودیت
@@ -180,6 +180,24 @@ namespace Forms.Forms
     #region FormProperty
 
 public Input<Guid> Ref_Id;
+public DxGrid? Grid_Shomaran_TransDetail;
+
+public Input<Guid> Ref_Shomaran_TransDetail_Id;
+public Input<Guid?> Ref_Shomaran_TransDetail_RequestID;
+public Input<Guid?> Ref_Shomaran_TransDetail_CreateUser;
+public Input<Guid?> Ref_Shomaran_TransDetail_UpdateUser;
+public Input<DateTime?> Ref_Shomaran_TransDetail_CreateDate;
+public Input<DateTime?> Ref_Shomaran_TransDetail_UpdateDate;
+public Input<bool?> Ref_Shomaran_TransDetail_IsDelete;
+public Input<decimal?> Ref_Shomaran_TransDetail_Amount;
+public Input<decimal?> Ref_Shomaran_TransDetail_Amount2;
+public Input<string?> Ref_Shomaran_TransDetail_Note;
+public Dropdown Ref_Shomaran_TransDetail_PartCode;
+public Input<string?> Ref_Shomaran_TransDetail_Radyabi;
+public Input<string?> Ref_Shomaran_TransDetail_Sefaresh;
+public Input<string?> Ref_Shomaran_TransDetail_RowOrder;
+public Input<int?> Ref_Shomaran_TransDetail_Year;
+public Dropdown Ref_Shomaran_TransDetail_Shomaran_TransId;
 public Input<Guid?> Ref_RequestID;
 public Input<Guid?> Ref_CreateUser;
 public Input<Guid?> Ref_UpdateUser;
@@ -194,24 +212,6 @@ public Input<string?> Ref_TDesc;
 public Input<string?> Ref_TempNo;
 public Input<string?> Ref_WUser;
 public Input<int?> Ref_Year;
-public DxGrid? Grid_Shomaran_TransDetail;
-
-public Input<Guid> Ref_Shomaran_TransDetail_Id;
-public Input<Guid?> Ref_Shomaran_TransDetail_RequestID;
-public Input<Guid?> Ref_Shomaran_TransDetail_CreateUser;
-public Input<Guid?> Ref_Shomaran_TransDetail_UpdateUser;
-public Input<DateTime?> Ref_Shomaran_TransDetail_CreateDate;
-public Input<DateTime?> Ref_Shomaran_TransDetail_UpdateDate;
-public Input<bool?> Ref_Shomaran_TransDetail_IsDelete;
-public Input<decimal?> Ref_Shomaran_TransDetail_Amount;
-public Input<decimal?> Ref_Shomaran_TransDetail_Amount2;
-public Input<string?> Ref_Shomaran_TransDetail_Note;
-public Input<string?> Ref_Shomaran_TransDetail_PartCode;
-public Input<string?> Ref_Shomaran_TransDetail_Radyabi;
-public Input<string?> Ref_Shomaran_TransDetail_Sefaresh;
-public Input<string?> Ref_Shomaran_TransDetail_RowOrder;
-public Input<int?> Ref_Shomaran_TransDetail_Year;
-public Dropdown Ref_Shomaran_TransDetail_Shomaran_TransId;
 
 
     #endregion

@@ -144,7 +144,7 @@ namespace Forms.Forms
     /// <summary>
     ///  ورژنی که فرم باهاش ساخته شده
     /// </summary>
-    public string? VersionForm { get; set; } = "5622";
+    public string? VersionForm { get; set; } = "5671";
 
     /// <summary>
     ///  موجودیت
@@ -184,14 +184,18 @@ public Input<string?> Ref_UserStarterCompanyName;
 public Input<string?> Ref_UserStarterUnitName;
 public Input<string?> Ref_UserStarterSectionName;
 public Input<string?> Ref_UserStarterFullName;
-public Input<Guid?> Ref_RequestID;
-public Input<Guid?> Ref_CreateUser;
-public Input<Guid?> Ref_UpdateUser;
-public Input<DateTime?> Ref_CreateDate;
-public Input<DateTime?> Ref_UpdateDate;
-public Input<bool?> Ref_IsDelete;
 public DxGrid? Grid_SCMNFP_ProductRequestDetails;
 
+public Dropdown Ref_SCMNFP_ProductRequestDetails_ProductName_NotMapped;
+public Input<string?> Ref_SCMNFP_ProductRequestDetails_ProductName;
+public Input<string?> Ref_SCMNFP_ProductRequestDetails_ProductUnit;
+public Input<double?> Ref_SCMNFP_ProductRequestDetails_ProductInventory;
+public Input<double?> Ref_SCMNFP_ProductRequestDetails_ProductRequestingQTY;
+public Dropdown Ref_SCMNFP_ProductRequestDetails_SCMNFP_PriorityId;
+public Dropdown Ref_SCMNFP_ProductRequestDetails_SCMNFP_CostCenterId;
+public Input<string?> Ref_SCMNFP_ProductRequestDetails_DescriptionApplicant;
+public RadioBoolean Ref_SCMNFP_ProductRequestDetails_RequestIsConfirmed;
+public RadioBoolean Ref_SCMNFP_ProductRequestDetails_IsEnableCheckInventory;
 public Input<Guid> Ref_SCMNFP_ProductRequestDetails_Id;
 public Input<Guid?> Ref_SCMNFP_ProductRequestDetails_RequestID;
 public Input<Guid?> Ref_SCMNFP_ProductRequestDetails_CreateUser;
@@ -199,16 +203,12 @@ public Input<Guid?> Ref_SCMNFP_ProductRequestDetails_UpdateUser;
 public Input<DateTime?> Ref_SCMNFP_ProductRequestDetails_CreateDate;
 public Input<DateTime?> Ref_SCMNFP_ProductRequestDetails_UpdateDate;
 public Input<bool?> Ref_SCMNFP_ProductRequestDetails_IsDelete;
-public Dropdown Ref_SCMNFP_ProductRequestDetails_ProductName_NotMapped;
-public Input<string?> Ref_SCMNFP_ProductRequestDetails_ProductName;
-public Input<string?> Ref_SCMNFP_ProductRequestDetails_ProductUnit;
-public Input<double?> Ref_SCMNFP_ProductRequestDetails_ProductInventory;
-public Input<double?> Ref_SCMNFP_ProductRequestDetails_ProductRequestingQTY;
-public Dropdown Ref_SCMNFP_ProductRequestDetails_SCMNFP_PriorityId;
-public Input<string?> Ref_SCMNFP_ProductRequestDetails_DescriptionApplicant;
-public Dropdown Ref_SCMNFP_ProductRequestDetails_SCMNFP_CostCenterId;
-public RadioBoolean Ref_SCMNFP_ProductRequestDetails_RequestIsConfirmed;
-public RadioBoolean Ref_SCMNFP_ProductRequestDetails_IsEnableCheckInventory;
+public Input<Guid?> Ref_RequestID;
+public Input<Guid?> Ref_CreateUser;
+public Input<Guid?> Ref_UpdateUser;
+public Input<DateTime?> Ref_CreateDate;
+public Input<DateTime?> Ref_UpdateDate;
+public Input<bool?> Ref_IsDelete;
 
 
     #endregion

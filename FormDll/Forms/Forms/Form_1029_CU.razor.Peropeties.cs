@@ -144,7 +144,7 @@ namespace Forms.Forms
     /// <summary>
     ///  ورژنی که فرم باهاش ساخته شده
     /// </summary>
-    public string? VersionForm { get; set; } = "5622";
+    public string? VersionForm { get; set; } = "5671";
 
     /// <summary>
     ///  موجودیت
@@ -189,6 +189,18 @@ public Dropdown Ref_CentCode;
 public Dropdown Ref_InvCode;
 public Input<string?> Ref_Note;
 public Input<int?> Ref_Year;
+public DxGrid? Grid_SH_Petco_ReturnHavaleDetail;
+
+public Dropdown Ref_SH_Petco_ReturnHavaleDetail_ProductSearch;
+public Input<string?> Ref_SH_Petco_ReturnHavaleDetail_PartCode;
+public Input<string?> Ref_SH_Petco_ReturnHavaleDetail_ProductName;
+public Input<string?> Ref_SH_Petco_ReturnHavaleDetail_ShomareFani;
+public Input<string?> Ref_SH_Petco_ReturnHavaleDetail_Unit;
+public Input<decimal?> Ref_SH_Petco_ReturnHavaleDetail_Amount;
+public Input<string?> Ref_SH_Petco_ReturnHavaleDetail_Radyabi;
+public Input<string?> Ref_SH_Petco_ReturnHavaleDetail_Sefaresh;
+public Input<int?> Ref_SH_Petco_ReturnHavaleDetail_Year;
+public Input<int?> Ref_SH_Petco_ReturnHavaleDetail_RowOrder;
 public Input<string?> Ref_ApiResult;
 public Input<Guid?> Ref_RequestID;
 public Input<Guid?> Ref_CreateUser;
@@ -196,18 +208,6 @@ public Input<Guid?> Ref_UpdateUser;
 public Input<DateTime?> Ref_CreateDate;
 public Input<DateTime?> Ref_UpdateDate;
 public Input<bool?> Ref_IsDelete;
-public DxGrid? Grid_SH_Petco_ReturnHavaleDetail;
-
-public Dropdown Ref_SH_Petco_ReturnHavaleDetail_ProductSearch;
-public Input<string?> Ref_SH_Petco_ReturnHavaleDetail_PartCode;
-public Input<string?> Ref_SH_Petco_ReturnHavaleDetail_ShomareFani;
-public Input<string?> Ref_SH_Petco_ReturnHavaleDetail_ProductName;
-public Input<string?> Ref_SH_Petco_ReturnHavaleDetail_Unit;
-public Input<decimal?> Ref_SH_Petco_ReturnHavaleDetail_Amount;
-public Input<string?> Ref_SH_Petco_ReturnHavaleDetail_Radyabi;
-public Input<string?> Ref_SH_Petco_ReturnHavaleDetail_Sefaresh;
-public Input<int?> Ref_SH_Petco_ReturnHavaleDetail_RowOrder;
-public Input<int?> Ref_SH_Petco_ReturnHavaleDetail_Year;
 
 
     #endregion

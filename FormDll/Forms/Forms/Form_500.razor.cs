@@ -137,7 +137,9 @@ namespace Forms.Forms
         /// <returns></returns>
         public override async Task<Result> BeforSubmit()
         {
-
+            if(!await TempNoNum()){
+                return new Result() { Status = HttpStatusCode.BadRequest };
+            }
             return new Result() { Status = HttpStatusCode.OK };
         }
 
@@ -258,24 +260,74 @@ namespace Forms.Forms
 
         //**********************************************************************************************************************
 
-        public async Task<bool> SCMPETCO_ProductRequestDetails_editmodelsaving(object e)
+       
+
+      
+
+        public async Task Global_ShomaranInfoId_onitemselected(Entity.Global_ShomaranInfo Selected, Entity.SCMPETCO_ProductRequestDetails Item)
         {
-            bool IsCancelled = false;
-            // Item
-            var Item = (Entity.SCMPETCO_ProductRequestDetails)e;
-
-            // انتخاب نوع ثبت عطف در شماران
-            
-
-            if (Item.Global_ShomaranInfoId.HasValue)
+            // انتخاب نوع ثبت عطف در شماران      
+            if (Selected.Id.ToString() == null)
             {
+                await HavaleMasrafIsVisible(false);
+            }
+            else
+            {
+                //Console.WriteLine("#Log 3-dropdown" + " is " + Selected.Id.ToString());
 
-                if ((Item.Global_ShomaranInfoId.Value.ToString() == "a5b1bc7b-8bb7-ef11-a4fa-005056a2b6bd" && !Item.T_FACTNO_GUID.HasValue) 
-                // ||(Item.Global_ShomaranInfoId.Value.ToString() == "09cf6986-8bb7-ef11-a4fa-005056a2b6bd" && !Item.KH_CENTCODE_GUID.HasValue) ||
-                //(Item.Global_ShomaranInfoId.Value.ToString() == "0acf6986-8bb7-ef11-a4fa-005056a2b6bd" && !Item.FB_FACTNO_GUID.HasValue)
-                )
+                // حواله مصرف
+                if (Selected.Id.ToString() == "a5b1bc7b-8bb7-ef11-a4fa-005056a2b6bd")
                 {
-                    IsCancelled = true;
+                    await HavaleMasrafIsVisible(true);
+                }
+
+                // // خرید کالا 
+                // if (Selected.Id.ToString() == "09cf6986-8bb7-ef11-a4fa-005056a2b6bd")
+                // {
+                //     await HavaleMasrafIsVisible(false);
+                //     await KharidIsVisible(true);
+                //     await ResidAnbarIsVisible(false);
+                // }
+                
+                // رسید انبار
+                if (Selected.Id.ToString() == "0acf6986-8bb7-ef11-a4fa-005056a2b6bd")
+                {
+                    //Console.WriteLine("#Log 3.1-dropdown" + Ref_SCMPETCO_ProductRequestDetails_FB_Search_NotMapped.Value);
+
+                    await HavaleMasrafIsVisible(false);
+                }
+            }
+        }
+
+        public async Task T_Search_NotMapped_onitemselected1(dynamic Selected, Entity.SCMPETCO_ProductRequestDetails Item)
+        {
+            await HavaleMasrafSetShomaran(Selected, Item);
+        }
+
+        public async Task KH_Search_NotMapped_onitemselected(dynamic Selected, Entity.SCMPETCO_ProductRequestDetails Item)
+        {
+        }
+
+        public async Task FB_Search_NotMapped_onitemselected(dynamic Selected, Entity.SCMPETCO_ProductRequestDetails Item)
+        {
+        }
+
+        public async Task TempNoNum_NotMapped_onitemselected(dynamic Selected)
+        {
+            foreach (var item in _Entity.SCMPETCO_ProductRequestDetails)
+            {
+                await HavaleMasrafSetShomaran(Selected, item);
+            }
+
+            StateHasChanged();
+        }
+
+
+        public async Task <bool> TempNoNum()
+        {
+            foreach (var item in _Entity.SCMPETCO_ProductRequestDetails)
+            {
+               if(!item.T_FACTNO_GUID.HasValue){
 
                     toastService.ShowError("لطفا گزینه جستجوی عطف را تکمیل نمایید.",
                         settings =>
@@ -284,14 +336,63 @@ namespace Forms.Forms
                             settings.ShowProgressBar = true;
                             settings.PauseProgressOnHover = true;
                         });
+
+
+                        return false;
                 }
+            }
+            return true;
+        }
+
+	
+
+		public async Task <bool> GridSCMPETCO_ProductRequestId_200_editmodelsaving(object e   )
+        {
+            Console.WriteLine("200_editmodelsaving");
+            bool IsCancelled = false;
+            // Item
+            var Item = (Entity.SCMPETCO_ProductRequestDetails)e;
+
+            // انتخاب نوع ثبت عطف در شماران
+            
+
+            // if (Item.Global_ShomaranInfoId.HasValue)
+            // {
+
+            //     if ((Item.Global_ShomaranInfoId.Value.ToString() == "a5b1bc7b-8bb7-ef11-a4fa-005056a2b6bd" && !Item.T_FACTNO_GUID.HasValue) 
+            //     // ||(Item.Global_ShomaranInfoId.Value.ToString() == "09cf6986-8bb7-ef11-a4fa-005056a2b6bd" && !Item.KH_CENTCODE_GUID.HasValue) ||
+            //     //(Item.Global_ShomaranInfoId.Value.ToString() == "0acf6986-8bb7-ef11-a4fa-005056a2b6bd" && !Item.FB_FACTNO_GUID.HasValue)
+            //     )
+            //     {
+            //         IsCancelled = true;
+
+            //         toastService.ShowError("لطفا گزینه جستجوی عطف را تکمیل نمایید.",
+            //             settings =>
+            //             {
+            //                 settings.Timeout = 4;
+            //                 settings.ShowProgressBar = true;
+            //                 settings.PauseProgressOnHover = true;
+            //             });
+            //     }
+            // }
+
+            if(!Item.T_FACTNO_GUID.HasValue){
+                IsCancelled = true;
+
+                    toastService.ShowError("لطفا گزینه جستجوی عطف را تکمیل نمایید.",
+                        settings =>
+                        {
+                            settings.Timeout = 4;
+                            settings.ShowProgressBar = true;
+                            settings.PauseProgressOnHover = true;
+                        });
             }
 
             return IsCancelled;
         }
-
-        public async Task SCMPETCO_ProductRequestDetails_afterrendermodal(Entity.SCMPETCO_ProductRequestDetails Item)
+public async Task  GridSCMPETCO_ProductRequestId_200_afterrendermodal(Entity.SCMPETCO_ProductRequestDetails Item   )
         {
+             Console.WriteLine("200_afterrendermodal");
             // // انتخاب نوع ثبت عطف در شماران
             // if (Item.Global_ShomaranInfoId == null)
             // {
@@ -362,64 +463,7 @@ namespace Forms.Forms
                 Ref_SCMPETCO_ProductRequestDetails_SH_Tahvil_DTL.SetEntity(Item);
                 Ref_SCMPETCO_ProductRequestDetails_SH_Tahvil_DTL.LoadData();
             }
-        }
-
-        public async Task Global_ShomaranInfoId_onitemselected(Entity.Global_ShomaranInfo Selected, Entity.SCMPETCO_ProductRequestDetails Item)
-        {
-            // انتخاب نوع ثبت عطف در شماران      
-            if (Selected.Id.ToString() == null)
-            {
-                await HavaleMasrafIsVisible(false);
-            }
-            else
-            {
-                //Console.WriteLine("#Log 3-dropdown" + " is " + Selected.Id.ToString());
-
-                // حواله مصرف
-                if (Selected.Id.ToString() == "a5b1bc7b-8bb7-ef11-a4fa-005056a2b6bd")
-                {
-                    await HavaleMasrafIsVisible(true);
-                }
-
-                // // خرید کالا 
-                // if (Selected.Id.ToString() == "09cf6986-8bb7-ef11-a4fa-005056a2b6bd")
-                // {
-                //     await HavaleMasrafIsVisible(false);
-                //     await KharidIsVisible(true);
-                //     await ResidAnbarIsVisible(false);
-                // }
-                
-                // رسید انبار
-                if (Selected.Id.ToString() == "0acf6986-8bb7-ef11-a4fa-005056a2b6bd")
-                {
-                    //Console.WriteLine("#Log 3.1-dropdown" + Ref_SCMPETCO_ProductRequestDetails_FB_Search_NotMapped.Value);
-
-                    await HavaleMasrafIsVisible(false);
-                }
-            }
-        }
-
-        public async Task T_Search_NotMapped_onitemselected1(dynamic Selected, Entity.SCMPETCO_ProductRequestDetails Item)
-        {
-            await HavaleMasrafSetShomaran(Selected, Item);
-        }
-
-        public async Task KH_Search_NotMapped_onitemselected(dynamic Selected, Entity.SCMPETCO_ProductRequestDetails Item)
-        {
-        }
-
-        public async Task FB_Search_NotMapped_onitemselected(dynamic Selected, Entity.SCMPETCO_ProductRequestDetails Item)
-        {
-        }
-
-        public async Task TempNoNum_NotMapped_onitemselected(dynamic Selected)
-        {
-            foreach (var item in _Entity.SCMPETCO_ProductRequestDetails)
-            {
-                await HavaleMasrafSetShomaran(Selected, item);
-            }
-
-            StateHasChanged();
+            
         }
 
 		#endregion FunctionEvents

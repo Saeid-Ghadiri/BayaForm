@@ -52,20 +52,6 @@
 </div>
 
 </div>
-
-<Input Id="CreateDate" @ref="Ref_CreateDate"   CssClass="d-none d-none d-none d-none d-none"   @bind-Value="_Entity.CreateDate" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
-
-<Input Id="IsDelete" @ref="Ref_IsDelete"   CssClass="d-none d-none d-none d-none d-none"   @bind-Value="_Entity.IsDelete" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
-
-<Input Id="Id" @ref="Ref_Id"   CssClass="d-none"   @bind-Value="_Entity.Id" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
-
-<Input Id="RequestID" @ref="Ref_RequestID"      @bind-Value="_Entity.RequestID" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
-
-<Input Id="CreateUser" @ref="Ref_CreateUser"      @bind-Value="_Entity.CreateUser" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
-
-<Input Id="UpdateUser" @ref="Ref_UpdateUser"      @bind-Value="_Entity.UpdateUser" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
-
-<Input Id="UpdateDate" @ref="Ref_UpdateDate"   CssClass="d-none"   @bind-Value="_Entity.UpdateDate" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
 <label for="FU_FU_Files_GridFU_FU_MainId_185">بارگذاری فایل
    
     
@@ -79,7 +65,7 @@
         EditFormButtonsVisible="false"
         CustomizeEditModel="CustomizeEditGrid_FU_FU_Files"
         CustomizeElement="CustomizeRowsGrid_FU_FU_Files" 
-        Component="@((Utility.JSON.ToObject<View_Component>("{\"primaryKey\":false,\"EntityID\":185,\"FieldId\":185,\"TypeCSharp\":\"\",\"NotNull\":false,\"ViewId\":0,\"NotMapped\":false,\"Relation\":false,\"RelationExternal\":false,\"RelationParentName\":\"\",\"RelationParentModel\":\"\",\"RelationChildModel\":\"FU_FU_Files\",\"GridMainModel\":\"FU_FU_Files\",\"widget\":{\"altInput\":false,\"allowInput\":false,\"clickOpens\":false,\"enableDate\":false,\"enableTime\":false,\"noCalendar\":false,\"useLocaleSettings\":false,\"hourIncrement\":0,\"minuteIncrement\":0,\"time_24hr\":false},\"wysiwyg\":false,\"data\":{},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"FieldsTemplate\":[],\"refreshOn\":\"data\",\"reorder\":false,\"addAnotherPosition\":\"bottom\",\"layoutFixed\":false,\"enableRowGroups\":false,\"initEmpty\":false,\"disabled\":true,\"modal\":true,\"label\":\"بارگذاری فایل\",\"tableView\":true,\"key\":\"GridFU_FU_MainId_185\",\"type\":\"datagrid\",\"input\":true,\"placeholder\":\"GridFU_FU_MainId_185\",\"modalEdit\":true,\"FieldUrl\":\"185?EId=185&SubId=14\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result))"
+        Component="@((Utility.JSON.ToObject<View_Component>("{\"primaryKey\":false,\"EntityID\":185,\"FieldId\":185,\"NotNull\":false,\"ViewId\":0,\"NotMapped\":false,\"Relation\":false,\"RelationExternal\":false,\"RelationChildModel\":\"FU_FU_Files\",\"GridMainModel\":\"FU_FU_Files\",\"widget\":{\"altInput\":false,\"allowInput\":false,\"clickOpens\":false,\"enableDate\":false,\"enableTime\":false,\"noCalendar\":false,\"useLocaleSettings\":false,\"hourIncrement\":0,\"minuteIncrement\":0,\"time_24hr\":false},\"wysiwyg\":false,\"data\":{},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"FieldsTemplate\":[],\"refreshOn\":\"data\",\"reorder\":false,\"addAnotherPosition\":\"bottom\",\"layoutFixed\":false,\"enableRowGroups\":false,\"initEmpty\":false,\"disabled\":true,\"modal\":true,\"label\":\"بارگذاری فایل\",\"tableView\":true,\"key\":\"GridFU_FU_MainId_185\",\"type\":\"datagrid\",\"input\":true,\"modalEdit\":true,\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":false,\"AccessEdit\":true,\"AccessNew\":true}").Result))"
          >
     <Columns>
     
@@ -99,10 +85,6 @@
 </a>
 
        
-<a class="btn btn-sm btn-red-light btnDeleteGridData" @onclick="@(() => OnDeleteButtonClickGrid_FU_FU_Files(CellContext))" style="text-decoration: none;" href="javascript:void(0);">
-    <span class="fal fa-times-circle btnicon"></span>
-</a>
-
     </CellDisplayTemplate>
 </DxGridCommandColumn>
 
@@ -122,21 +104,7 @@
           
            </CellDisplayTemplate>
      </DxGridCommandColumn>
-    <DxGridDataColumn  Caption="Id" Visible=false FieldName="Id" />
-
-<DxGridDataColumn  Caption="RequestID" Visible=false FieldName="RequestID" />
-
-<DxGridDataColumn  Caption="CreateUser" Visible=false FieldName="CreateUser" />
-
-<DxGridDataColumn  Caption="UpdateUser" Visible=false FieldName="UpdateUser" />
-
-<DxGridDataColumn  Caption="CreateDate" Visible=false FieldName="CreateDate" />
-
-<DxGridDataColumn  Caption="UpdateDate" Visible=false FieldName="UpdateDate" />
-
-<DxGridDataColumn  Caption="IsDelete" Visible=false FieldName="IsDelete" />
-
-<DxGridDataColumn  Caption="عنوان فایل"  FieldName="FileTitle" />
+    <DxGridDataColumn  Caption="عنوان فایل"  FieldName="FileTitle" />
 
 <DxGridDataColumn Context="FU_FU_Files_FileUpload_" Caption="بارگذاری فایل" >
     <CellDisplayTemplate>
@@ -160,6 +128,20 @@
 
     </CellDisplayTemplate>
 </DxGridDataColumn>
+<DxGridDataColumn  Caption="Id" Visible=false FieldName="Id" />
+
+<DxGridDataColumn  Caption="RequestID" Visible=false FieldName="RequestID" />
+
+<DxGridDataColumn  Caption="CreateUser" Visible=false FieldName="CreateUser" />
+
+<DxGridDataColumn  Caption="UpdateUser" Visible=false FieldName="UpdateUser" />
+
+<DxGridDataColumn  Caption="CreateDate" Visible=false FieldName="CreateDate" />
+
+<DxGridDataColumn  Caption="UpdateDate" Visible=false FieldName="UpdateDate" />
+
+<DxGridDataColumn  Caption="IsDelete" Visible=false FieldName="IsDelete" />
+
 
 </Columns>
 
@@ -169,6 +151,17 @@
     }
     <DxFormLayout>
         <DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextFU_FU_Files">
+    
+<Input Id="FU_FU_Files_FileTitle" @ref="Ref_FU_FU_Files_FileTitle" Label="عنوان فایل" placeholder="عنوان فایل"    @bind-Value="FU_FU_Files.FileTitle" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+</DxFormLayoutItem>
+
+<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextFU_FU_Files">
+    <Uploader Id=FU_FU_Files_FU_FU_Files_FileUpload  @ref="Ref_FU_FU_Files_FU_FU_Files_FileUpload"   Accept="image/* , application/pdf" MinSize="1KB" MaxSize="10MB" Caption="بارگذاری فایل" Data="FU_FU_Files.FU_FU_Files_FileUpload" Url="https://File.workcv.ir/fa/api/v1/File/Post" TItem="Entity.FU_FU_Files_FileUpload"></Uploader>
+
+</DxFormLayoutItem>
+
+<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextFU_FU_Files">
     
 <Input Id="FU_FU_Files_Id" @ref="Ref_FU_FU_Files_Id"   CssClass="d-none"   @bind-Value="FU_FU_Files.Id" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
 
@@ -207,17 +200,6 @@
 <DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextFU_FU_Files">
     
 <Input Id="FU_FU_Files_IsDelete" @ref="Ref_FU_FU_Files_IsDelete"   CssClass="d-none"   @bind-Value="FU_FU_Files.IsDelete" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
-
-</DxFormLayoutItem>
-
-<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextFU_FU_Files">
-    
-<Input Id="FU_FU_Files_FileTitle" @ref="Ref_FU_FU_Files_FileTitle" Label="عنوان فایل" placeholder="عنوان فایل"    @bind-Value="FU_FU_Files.FileTitle" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
-
-</DxFormLayoutItem>
-
-<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextFU_FU_Files">
-    <Uploader Id=FU_FU_Files_FU_FU_Files_FileUpload  @ref="Ref_FU_FU_Files_FU_FU_Files_FileUpload"   Accept="image/* , application/pdf" MinSize="1KB" MaxSize="10MB" Caption="بارگذاری فایل" Data="FU_FU_Files.FU_FU_Files_FileUpload" Url="https://File.workcv.ir/fa/api/v1/File/Post" TItem="Entity.FU_FU_Files_FileUpload"></Uploader>
 
 </DxFormLayoutItem>
 
@@ -506,6 +488,7 @@ public void SaveGrid_FU_FU_Files(object DataItem, object EditModel)
     var MainModel = (Entity.FU_FU_Files)DataItem;
     if (MainModel != null)
     {
+MainModel.FileTitle = ((Entity.FU_FU_Files)EditModel).FileTitle;
 MainModel.Id = ((Entity.FU_FU_Files)EditModel).Id;
 MainModel.RequestID = ((Entity.FU_FU_Files)EditModel).RequestID;
 MainModel.CreateUser = ((Entity.FU_FU_Files)EditModel).CreateUser;
@@ -513,7 +496,6 @@ MainModel.UpdateUser = ((Entity.FU_FU_Files)EditModel).UpdateUser;
 MainModel.CreateDate = ((Entity.FU_FU_Files)EditModel).CreateDate;
 MainModel.UpdateDate = ((Entity.FU_FU_Files)EditModel).UpdateDate;
 MainModel.IsDelete = ((Entity.FU_FU_Files)EditModel).IsDelete;
-MainModel.FileTitle = ((Entity.FU_FU_Files)EditModel).FileTitle;
 
     }
     else
@@ -627,6 +609,20 @@ public async void RowDubbleClickGrid_FU_FU_Files(GridRowClickEventArgs e)
 
 }
 }
+
+<Input Id="CreateDate" @ref="Ref_CreateDate"   CssClass="d-none d-none d-none d-none d-none"   @bind-Value="_Entity.CreateDate" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+<Input Id="IsDelete" @ref="Ref_IsDelete"   CssClass="d-none d-none d-none d-none d-none"   @bind-Value="_Entity.IsDelete" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+<Input Id="Id" @ref="Ref_Id"   CssClass="d-none"   @bind-Value="_Entity.Id" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+<Input Id="RequestID" @ref="Ref_RequestID"      @bind-Value="_Entity.RequestID" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+<Input Id="CreateUser" @ref="Ref_CreateUser"      @bind-Value="_Entity.CreateUser" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+<Input Id="UpdateUser" @ref="Ref_UpdateUser"      @bind-Value="_Entity.UpdateUser" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+<Input Id="UpdateDate" @ref="Ref_UpdateDate"   CssClass="d-none"   @bind-Value="_Entity.UpdateDate" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
 
     </EditForm>
 </div>

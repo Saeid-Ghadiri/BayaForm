@@ -18,7 +18,7 @@ namespace Forms.Forms
 		[Inject]
 		public IToastService toastService { get; set; }
 
-		
+
 
 		public async Task GenerateAndCheckDeliveryCode()
 		{
@@ -37,7 +37,7 @@ namespace Forms.Forms
 			await GenerateAndCheckDeliveryCode();
 		}
 
-		
+
 
 		/// <summary>
 		/// رندر شدن فرم
@@ -49,7 +49,7 @@ namespace Forms.Forms
 			if (firstRender)
 			{
 				//Console.WriteLine("#log OnAfterRenderAsync   _RequestParameters:");
-                //Console.WriteLine(await Utility.JSON.ToJson(_RequestParameters));
+				//Console.WriteLine(await Utility.JSON.ToJson(_RequestParameters));
 			}
 		}
 
@@ -60,48 +60,48 @@ namespace Forms.Forms
 		public override async Task<bool> FormValidator()
 		{
 			bool IsValid = true;
-			
-			var List = _Entity.SCM_ProductRequestDetails.ToList();
-        
-        	int ListCount = List.Count();
 
-        	if(ListCount==0)
-        	{
-        	    IsValid = false;
-	
-        	    var options = new ConfirmDialogOptions
+			var List = _Entity.SCM_ProductRequestDetails.ToList();
+
+			int ListCount = List.Count();
+
+			if (ListCount == 0)
+			{
+				IsValid = false;
+
+				var options = new ConfirmDialogOptions
 				{
 					YesButtonText = "بازگشت به درخواست",
 					YesButtonColor = ButtonColor.Danger,
 					NoButtonText = "",
 				};
 
-				string htmlString = 
-        	    "<div>"+
-        	        "<picture>"+
-        	            "<img src='https://file.workcv.ir/fa/api/v1/File/Get?FileID=6e5b6fb8-a5b2-490c-f83f-08dbea5b8061' class='' alt='لوگو پل فیلم' width='96px;'>"+
-        	        "</picture>"+
-        	        "<hr class='hrdash border-success-subtle'>"+
-        	    "</div>"+
-        	    "<div class='fw-bold text-center'>" + 
-        	    "<span class='fs-5'>کد پیگیری این درخواست: </span>" + 
-				"<span class='fs-3' style='color: #1ba156'>" + _Entity.RequestTrakingCode + "</span><div>"+
-        	    "<span><i class='fal fa-exclamation-triangle' style='font-size:24px; color:red;'></i>&nbsp;</span>" +
+				string htmlString =
+				"<div>" +
+					"<picture>" +
+						"<img src='https://file.workcv.ir/fa/api/v1/File/Get?FileID=6e5b6fb8-a5b2-490c-f83f-08dbea5b8061' class='' alt='لوگو پل فیلم' width='96px;'>" +
+					"</picture>" +
+					"<hr class='hrdash border-success-subtle'>" +
+				"</div>" +
+				"<div class='fw-bold text-center'>" +
+				"<span class='fs-5'>کد پیگیری این درخواست: </span>" +
+				"<span class='fs-3' style='color: #1ba156'>" + _Entity.RequestTrakingCode + "</span><div>" +
+				"<span><i class='fal fa-exclamation-triangle' style='font-size:24px; color:red;'></i>&nbsp;</span>" +
 				"<span class='fs-6 text-secondary text-right'>تا کنون هیچ ردیف درخواستی تکمیل نشده است. لطفا برای ثبت و ادامه به مرحله بعد حداقل یک ردیف در درخواست خود ثبت نمایید.	<span></div>" +
-        	    "</div>"; 
+				"</div>";
 
 				var confirmation = await Confirm.ShowAsync(
 					title: "",
 					message1: htmlString,
 					confirmDialogOptions: options);
-        	}
+			}
 
-			foreach(var Item in List)
+			foreach (var Item in List)
 			{
 				// Global_SCMRequestTypeId - نوع درخواست
-            	if(Item.Global_SCMRequestTypeId == null)
-        		{
-        		    IsValid = false;
+				if (Item.Global_SCMRequestTypeId == null)
+				{
+					IsValid = false;
 
 					toastService.ShowError("لطفا گزینه نوع درخواست را انتخاب نمایید.",
 					settings => {
@@ -109,95 +109,95 @@ namespace Forms.Forms
 						settings.ShowProgressBar = true;
 						settings.PauseProgressOnHover = true;
 					});
-        		}
+				}
 
 				// در صورتی که خرید یا تحویل و خرید باشد گزینه تعداد تامین کسری ضروری گردد.
-				if(Item.Global_SCMRequestTypeId.ToString() =="73f6c459-d99c-ef11-8354-005056a02a64" ||
-				  Item.Global_SCMRequestTypeId.ToString() =="3b9e934d-d99c-ef11-8354-005056a02a64")
+				if (Item.Global_SCMRequestTypeId.ToString() == "73f6c459-d99c-ef11-8354-005056a02a64" ||
+				  Item.Global_SCMRequestTypeId.ToString() == "3b9e934d-d99c-ef11-8354-005056a02a64")
 				{
 					if (Item.DeficitSupplyNumber == null)
 					{
 						IsValid = false;
 						toastService.ShowError("لطفا گزینه تعداد تامین کسری تکمیل گردد.",
-		    			settings =>
-		    			{
-		    				settings.Timeout = 4;
-		    				settings.ShowProgressBar = true;
-		    				settings.PauseProgressOnHover = true;
-		    			});
+						settings =>
+						{
+							settings.Timeout = 4;
+							settings.ShowProgressBar = true;
+							settings.PauseProgressOnHover = true;
+						});
 					}
 				}
 
 				// در صورتی که خرید یا تحویل و خرید باشد گزینه حدود هزینه خرید ضروری گردد.
-				if(Item.Global_SCMRequestTypeId.ToString() =="73f6c459-d99c-ef11-8354-005056a02a64" ||
-				  Item.Global_SCMRequestTypeId.ToString() =="3b9e934d-d99c-ef11-8354-005056a02a64")
+				if (Item.Global_SCMRequestTypeId.ToString() == "73f6c459-d99c-ef11-8354-005056a02a64" ||
+				  Item.Global_SCMRequestTypeId.ToString() == "3b9e934d-d99c-ef11-8354-005056a02a64")
 				{
 					if (Item.PurchasePrice == null)
 					{
 						IsValid = false;
 						toastService.ShowError("لطفا گزینه حدود قیمت کالا تکمیل گردد.",
-		    			settings =>
-		    			{
-		    				settings.Timeout = 4;
-		    				settings.ShowProgressBar = true;
-		    				settings.PauseProgressOnHover = true;
-		    			});
+						settings =>
+						{
+							settings.Timeout = 4;
+							settings.ShowProgressBar = true;
+							settings.PauseProgressOnHover = true;
+						});
 					}
 				}
 
 				if (Item.ResultingFrom_ITIL == null)
-            	{
-            	    IsValid = false;
-            	    toastService.ShowError("لطفا گزینه منتج از ITIL تکمیل گردد",
-            	    settings => {
-            	        settings.Timeout = 4;
-            	        settings.ShowProgressBar = true;
-            	        settings.PauseProgressOnHover = true;
-            	    });
-            	}
-            	//Iآیا کد ITIL دارد؟ 
-            	// if (Item.ITILCodeIsEnable == null)
-            	// {
-            	//     IsValid = false;
-            	//     toastService.ShowError("لطفا گزینه آیا ITIL  دارد؟ را تکمیل نمایید.",
-            	//     settings => {
-            	//         settings.Timeout = 4;
-            	//         settings.ShowProgressBar = true;
-            	//         settings.PauseProgressOnHover = true;
-            	//     });
-            	// }
+				{
+					IsValid = false;
+					toastService.ShowError("لطفا گزینه منتج از ITIL تکمیل گردد",
+					settings => {
+						settings.Timeout = 4;
+						settings.ShowProgressBar = true;
+						settings.PauseProgressOnHover = true;
+					});
+				}
+				//Iآیا کد ITIL دارد؟ 
+				// if (Item.ITILCodeIsEnable == null)
+				// {
+				//     IsValid = false;
+				//     toastService.ShowError("لطفا گزینه آیا ITIL  دارد؟ را تکمیل نمایید.",
+				//     settings => {
+				//         settings.Timeout = 4;
+				//         settings.ShowProgressBar = true;
+				//         settings.PauseProgressOnHover = true;
+				//     });
+				// }
 
-            	// منتج از ITIL
-            	// if(Item.ITILCodeIsEnable.HasValue && Item.ITILCodeIsEnable.Value)
-            	// {                
-            	//     if (Item.ITILCodeIsEnable == null)
-            	//     {
-            	//         IsValid = false;
+				// منتج از ITIL
+				// if(Item.ITILCodeIsEnable.HasValue && Item.ITILCodeIsEnable.Value)
+				// {                
+				//     if (Item.ITILCodeIsEnable == null)
+				//     {
+				//         IsValid = false;
 
-            	//         toastService.ShowError("لطفا گزینه  منتج از ITIL را تکمیل نمایید.",
-            	//         settings => {
-            	//             settings.Timeout = 4;
-            	//             settings.ShowProgressBar = true;
-            	//             settings.PauseProgressOnHover = true;
-            	//         });
-            	//     }
-            	// }
+				//         toastService.ShowError("لطفا گزینه  منتج از ITIL را تکمیل نمایید.",
+				//         settings => {
+				//             settings.Timeout = 4;
+				//             settings.ShowProgressBar = true;
+				//             settings.PauseProgressOnHover = true;
+				//         });
+				//     }
+				// }
 
-				
+
 			}
 
 			// SCM_ICT_DepartmentsId - بخش‌های فناوری اطلاعات
-        	if(_Entity.SCM_ICT_DepartmentsId == null)
-        	{
-        	    IsValid = false;
-	
+			if (_Entity.SCM_ICT_DepartmentsId == null)
+			{
+				IsValid = false;
+
 				toastService.ShowError("لطفا گزینه بخش‌های فناوری اطلاعات را انتخاب نمایید.",
 				settings => {
 					settings.Timeout = 4;
 					settings.ShowProgressBar = true;
 					settings.PauseProgressOnHover = true;
 				});
-        	}
+			}
 
 			return IsValid;
 		}
@@ -288,17 +288,17 @@ namespace Forms.Forms
 				NoButtonText = "",
 			};
 
-			string htmlString = 
-            "<div class='text-center'>" + 
-            "<span>کد پیگیری درخواست: </span>" + 
-			"<span class='fs-4 fw-bold'>" + _Entity.RequestTrakingCode + "</span><hr class='hrdash'><div>"+
-			"<div><span class='fw-normal'>کد تحویل کالا: </span>" + 
+			string htmlString =
+			"<div class='text-center'>" +
+			"<span>کد پیگیری درخواست: </span>" +
+			"<span class='fs-4 fw-bold'>" + _Entity.RequestTrakingCode + "</span><hr class='hrdash'><div>" +
+			"<div><span class='fw-normal'>کد تحویل کالا: </span>" +
 			"<span class='fs-3 text-green fw-bold'>" + RandomDeliveryCode + "</span>" +
-            "<span class='btn btn-yellow-light btn-sm mx-2 mb-2' onclick=\"navigator.clipboard.writeText('" + RandomDeliveryCode + "'); $('#copylable').removeClass('d-none');\"><i class='fal fa-copy'></i><span class='px-1'>کپی</span></span></div>" +
-            "<p id='copylable' class='d-none text-green mt-3'>کد تحویل کالا کپی شد.</p>" +  
-            "<div><hr class='hrdash'><span class='fal fa-exclamation-circle text-red btnicon mx-1' style='font-size: 24px;'></span>"+
+			"<span class='btn btn-yellow-light btn-sm mx-2 mb-2' onclick=\"navigator.clipboard.writeText('" + RandomDeliveryCode + "'); $('#copylable').removeClass('d-none');\"><i class='fal fa-copy'></i><span class='px-1'>کپی</span></span></div>" +
+			"<p id='copylable' class='d-none text-green mt-3'>کد تحویل کالا کپی شد.</p>" +
+			"<div><hr class='hrdash'><span class='fal fa-exclamation-circle text-red btnicon mx-1' style='font-size: 24px;'></span>" +
 			"<span>لطفا در زمان دریافت کالا از انبار، کد فوق را به انباردار اعلام نمایید.</span>" +
-            "</div>";
+			"</div>";
 
 			var confirmation = await Confirm.ShowAsync(
 				title: "",
@@ -335,7 +335,7 @@ namespace Forms.Forms
 		public override async Task AfterGetData()
 		{
 			//Console.WriteLine("#log _RequestParameters:");
-            //Console.WriteLine(await Utility.JSON.ToJson(_RequestParameters));
+			//Console.WriteLine(await Utility.JSON.ToJson(_RequestParameters));
 		}
 
 		#region FunctionEvents
@@ -348,33 +348,33 @@ namespace Forms.Forms
 
 		// نمایش فیلد itil
 		public async Task ITILVisible(bool Visible)
-    	{
-    	    Ref_SCM_ProductRequestDetails_ResultingFrom_ITIL.SetVisible(Visible);
-    	}
+		{
+			Ref_SCM_ProductRequestDetails_ResultingFrom_ITIL.SetVisible(Visible);
+		}
 
 		// نمایش فیلد جزئیات itil
 		public async Task ITILDetailsVisible(bool Visible)
-    	{
-    	    Ref_SCM_ProductRequestDetails_RequestIdITIL.SetVisible(Visible);
-    	    Ref_SCM_ProductRequestDetails_RequestIdITIL.SetDisabled(true);
+		{
+			Ref_SCM_ProductRequestDetails_RequestIdITIL.SetVisible(Visible);
+			Ref_SCM_ProductRequestDetails_RequestIdITIL.SetDisabled(true);
 
-    	    Ref_SCM_ProductRequestDetails_RequesterUserITIL.SetVisible(Visible);
-    	    Ref_SCM_ProductRequestDetails_RequesterUserITIL.SetDisabled(true);
-	
-    	    Ref_SCM_ProductRequestDetails_CreatedAtITIL.SetVisible(Visible);
-    	    Ref_SCM_ProductRequestDetails_CreatedAtITIL.SetDisabled(true);
-	
-    	    Ref_SCM_ProductRequestDetails_ITILDetails.SetVisible(Visible);
-    	}
+			Ref_SCM_ProductRequestDetails_RequesterUserITIL.SetVisible(Visible);
+			Ref_SCM_ProductRequestDetails_RequesterUserITIL.SetDisabled(true);
+
+			Ref_SCM_ProductRequestDetails_CreatedAtITIL.SetVisible(Visible);
+			Ref_SCM_ProductRequestDetails_CreatedAtITIL.SetDisabled(true);
+
+			Ref_SCM_ProductRequestDetails_ITILDetails.SetVisible(Visible);
+		}
 
 		public async Task ITILNull(Entity.SCM_ProductRequestDetails Item)
-    	{
-    	    Item.ResultingFrom_ITIL = null;
+		{
+			Item.ResultingFrom_ITIL = null;
 			Item.RequestIdITIL = null;
 			Item.RequesterUserITIL = null;
 			Item.CreatedAtITIL = null;
 			Item.ITILDetails = null;
-    	}
+		}
 
 		// تحویل
 		public async Task TahvilIsVisible(bool Visible, bool Value, Entity.SCM_ProductRequestDetails Item)
@@ -382,7 +382,7 @@ namespace Forms.Forms
 			Ref_SCM_ProductRequestDetails_ProductDelivery.SetVisible(Visible);
 			Item.ProductDelivery = Value;
 		}
-		
+
 		// خرید
 		public async Task KharidIsVisible(bool Visible, bool Value, Entity.SCM_ProductRequestDetails Item)
 		{
@@ -392,18 +392,18 @@ namespace Forms.Forms
 			Ref_SCM_ProductRequestDetails_DeficitSupplyNumber.SetVisible(Visible);
 			Ref_SCM_ProductRequestDetails_PurchasePrice.SetVisible(Visible);
 		}
-		
+
 		// تحویل و خرید
 		public async Task TahvilKharidIsVisible(bool Visible, bool Value, Entity.SCM_ProductRequestDetails Item)
 		{
 			// تحویل
-			Ref_SCM_ProductRequestDetails_ProductDelivery.SetVisible (Visible);
+			Ref_SCM_ProductRequestDetails_ProductDelivery.SetVisible(Visible);
 			Item.ProductDelivery = Value;
 			// خرید
 			Ref_SCM_ProductRequestDetails_FutureActionTrueFalse.SetVisible(Visible);
 			Item.FutureActionTrueFalse = Value;
 			// تعداد تامین کسری
-			Ref_SCM_ProductRequestDetails_DeficitSupplyNumber.SetVisible (Visible);
+			Ref_SCM_ProductRequestDetails_DeficitSupplyNumber.SetVisible(Visible);
 			Ref_SCM_ProductRequestDetails_PurchasePrice.SetVisible(Visible);
 		}
 
@@ -444,22 +444,22 @@ namespace Forms.Forms
 			}
 			//Console.WriteLine("End");
 
-			 Console.WriteLine("Selected.PARTCODE : " + Selected.PARTCODE);
-             Item.PARTCODE = Selected.PARTCODE;
+			Console.WriteLine("Selected.PARTCODE : " + Selected.PARTCODE);
+			Item.PARTCODE = Selected.PARTCODE;
 		}
 
-		public async Task<bool> SCM_ProductRequestDetails_editmodelsaving(object e)
+		public async Task<bool> GridSCM_ProductRequestId_182_editmodelsaving(object e)
 		{
 			bool IsCancelled = false;
-			
+
 			// Item = Detail Model
 			var Item = (Entity.SCM_ProductRequestDetails)e;
 
 			// بررسی کد تحویل
-			if(!Item.DeliveryCode.HasValue)
-            {
-                Item.DeliveryCode = RandomDeliveryCode;
-            }
+			if (!Item.DeliveryCode.HasValue)
+			{
+				Item.DeliveryCode = RandomDeliveryCode;
+			}
 
 			// شرط پُر بودن فیلد نام کالا دیزیبل
 			if (Item.ProductNameText == null)
@@ -475,10 +475,10 @@ namespace Forms.Forms
 			}
 
 			// شرط نوع درخواست بر اساس تحویل و خرید کالا
-            if(Item.Global_SCMRequestTypeId.HasValue && Item.Global_SCMRequestTypeId.Value.ToString() == "73f6c459-d99c-ef11-8354-005056a02a64")
-            {
+			if (Item.Global_SCMRequestTypeId.HasValue && Item.Global_SCMRequestTypeId.Value.ToString() == "73f6c459-d99c-ef11-8354-005056a02a64")
+			{
 				// در صورتی که موجودی کالا 0 باشد و یا نال باشد خطا نمایش داده شود.
-                if(!Item.ProductInventoryText.HasValue || Item.ProductInventoryText==0)
+				if (!Item.ProductInventoryText.HasValue || Item.ProductInventoryText == 0)
 				{
 					IsCancelled = true;
 
@@ -490,18 +490,18 @@ namespace Forms.Forms
 							settings.PauseProgressOnHover = true;
 						});
 				}
-            }
+			}
 
-				if (Item.ResultingFrom_ITIL == null)
-            	{
-            	    IsCancelled = true;
-            	    toastService.ShowError("لطفا گزینه منتج از ITIL تکمیل گردد",
-            	    settings => {
-            	        settings.Timeout = 4;
-            	        settings.ShowProgressBar = true;
-            	        settings.PauseProgressOnHover = true;
-            	    });
-            	}
+			if (Item.ResultingFrom_ITIL == null)
+			{
+				IsCancelled = true;
+				toastService.ShowError("لطفا گزینه منتج از ITIL تکمیل گردد",
+				settings => {
+					settings.Timeout = 4;
+					settings.ShowProgressBar = true;
+					settings.PauseProgressOnHover = true;
+				});
+			}
 			// شرط پُر بودن فیلد تعداد یا مقدار درخواستی
 			if (Item.ProductRequestingQTY == null || Item.ProductRequestingQTY == 0)
 			{
@@ -542,153 +542,129 @@ namespace Forms.Forms
 			}
 
 			// در صورتی که خرید یا تحویل و خرید باشد گزینه حدود هزینه خرید ضروری گردد.
-			if(Item.Global_SCMRequestTypeId.ToString() =="73f6c459-d99c-ef11-8354-005056a02a64" ||
-			  Item.Global_SCMRequestTypeId.ToString() =="3b9e934d-d99c-ef11-8354-005056a02a64")
+			if (Item.Global_SCMRequestTypeId.ToString() == "73f6c459-d99c-ef11-8354-005056a02a64" ||
+			  Item.Global_SCMRequestTypeId.ToString() == "3b9e934d-d99c-ef11-8354-005056a02a64")
 			{
 				if (Item.PurchasePrice == null)
 				{
 					IsCancelled = true;
 					toastService.ShowError("لطفا گزینه حدود قیمت کالا تکمیل گردد.",
-		    		settings =>
-		    		{
-		    			settings.Timeout = 4;
-		    			settings.ShowProgressBar = true;
-		    			settings.PauseProgressOnHover = true;
-		    		});
+					settings =>
+					{
+						settings.Timeout = 4;
+						settings.ShowProgressBar = true;
+						settings.PauseProgressOnHover = true;
+					});
 				}
 			}
-			
+
 			return IsCancelled;
 		}
 
-	
-	public async Task  SCM_ProductRequestDetails_afterrendermodal(Entity.SCM_ProductRequestDetails Item   )
-    {
-		// فیلد نوع درخواست
-        if (Item.Global_SCMRequestTypeId == null)
-        {
-            await TahvilKharidIsVisible(false,false,Item);
-        }
-		else
-		{
-			// شرط اینکه آیا فرآیند تحویل اجرا گردد؟
-        	if(Item.Global_SCMRequestTypeId.ToString() =="a9c5df1c-d99c-ef11-8354-005056a02a64")
-        	{
-        	    await TahvilIsVisible(true,true,Item);
-				await KharidIsVisible(false,false,Item);
-        	}
 
-        	// شرط نوع درخواست بر اساس خرید کالا
-        	if(Item.Global_SCMRequestTypeId.ToString() =="3b9e934d-d99c-ef11-8354-005056a02a64")
-        	{
-        	    await TahvilIsVisible(false,false,Item);
-				await KharidIsVisible(true,true,Item);
-        	}
-
-        	// شرط نوع درخواست بر اساس تحویل و خرید کالا
-        	if(Item.Global_SCMRequestTypeId.ToString() =="73f6c459-d99c-ef11-8354-005056a02a64")
-        	{
-        	    await TahvilKharidIsVisible(true,true,Item);
-        	}
-		}
-		
-		// Show ITIL
-        // if (Item.ITILCodeIsEnable.HasValue && Item.ITILCodeIsEnable.Value)
-		// {
-        //     await ITILVisible(true); 
-		// }
-		// else
-		// {
-        //     await ITILVisible(false);
-		// 	await ITILNull(Item);
-		// 	await SetITILDetailsVisible(false,null,Item);
-		// }
-		await ITILVisible(true); 
-        // Show ITIL Details
-        if (!string.IsNullOrEmpty(Item.ResultingFrom_ITIL))
+		public async Task GridSCM_ProductRequestId_182_afterrendermodal(Entity.SCM_ProductRequestDetails Item)
 		{
-            await ITILDetailsVisible(true);
-		}
-		else
-		{
-            await ITILDetailsVisible(false);
-		}
-        // نمایش جزئیات ITIL
-        //if (!string.IsNullOrEmpty(Item.ResultingFrom_ITIL))
-        if (Item.ResultingFrom_ITIL != null)
-		{
-			await Task.Delay(300);
-     		Ref_SCM_ProductRequestDetails_ITILDetails.SetEntity(Item);
-			Ref_SCM_ProductRequestDetails_ITILDetails.LoadData();
- 		}
-    }
-	// public async Task  ITILCodeIsEnable_oninput(ChangeEventArgs Selected ,Entity.SCM_ProductRequestDetails Item  )
-    // {
-    //     // نمایش / عدم نمایش فیلد منتج از ITIL
-    //     if (Selected.Value.ToString() == "true")
-	//     {
-    //         await ITILVisible(true);
-	//     }
-	//     else
-	//     {
-    //         await ITILVisible(false);
-	// 		await SetITILDetailsVisible(false,null,Item);
-	// 		await ITILNull(Item); 
-	//     } 
-    // }
-	public async Task  ResultingFrom_ITIL_onitemselected(dynamic Selected ,Entity.SCM_ProductRequestDetails Item  )
-    {
-		await SetITILDetailsVisible(true,Selected,Item);
-    }
-	public async Task  SetITILDetailsVisible(bool Visible,dynamic? Selected,Entity.SCM_ProductRequestDetails Item  )
-    {
-		// await Task.Delay(100);
-		// نمایش / عدم نمایش فیلد ITIL Detail
-    	
-    	if (Item.ResultingFrom_ITIL != null)
-		{
-			await ITILDetailsVisible(Visible);
-			if(Visible)
-			{ 
-			// await Task.Delay(300);
-				Item.RequestIdITIL = Selected.RequestID;
-				Item.RequesterUserITIL = Selected.UserName;
-				Item.CreatedAtITIL = Selected.CreateDate;
-				Ref_SCM_ProductRequestDetails_ITILDetails.SetEntity(Item);
-				Ref_SCM_ProductRequestDetails_ITILDetails.LoadData();
+			// فیلد نوع درخواست
+			if (Item.Global_SCMRequestTypeId == null)
+			{
+				await TahvilKharidIsVisible(false, false, Item);
 			}
 			else
 			{
-				Item.RequestIdITIL = null;
-				Item.RequesterUserITIL = null;
-				Item.CreatedAtITIL = null;
+				// شرط اینکه آیا فرآیند تحویل اجرا گردد؟
+				if (Item.Global_SCMRequestTypeId.ToString() == "a9c5df1c-d99c-ef11-8354-005056a02a64")
+				{
+					await TahvilIsVisible(true, true, Item);
+					await KharidIsVisible(false, false, Item);
+				}
+
+				// شرط نوع درخواست بر اساس خرید کالا
+				if (Item.Global_SCMRequestTypeId.ToString() == "3b9e934d-d99c-ef11-8354-005056a02a64")
+				{
+					await TahvilIsVisible(false, false, Item);
+					await KharidIsVisible(true, true, Item);
+				}
+
+				// شرط نوع درخواست بر اساس تحویل و خرید کالا
+				if (Item.Global_SCMRequestTypeId.ToString() == "73f6c459-d99c-ef11-8354-005056a02a64")
+				{
+					await TahvilKharidIsVisible(true, true, Item);
+				}
+			}
+
+			await ITILVisible(true);
+			// Show ITIL Details
+			if (!string.IsNullOrEmpty(Item.ResultingFrom_ITIL))
+			{
+				await ITILDetailsVisible(true);
+			}
+			else
+			{
+				await ITILDetailsVisible(false);
+			}
+			// نمایش جزئیات ITIL
+			//if (!string.IsNullOrEmpty(Item.ResultingFrom_ITIL))
+			if (Item.ResultingFrom_ITIL != null)
+			{
+				await Task.Delay(300);
 				Ref_SCM_ProductRequestDetails_ITILDetails.SetEntity(Item);
 				Ref_SCM_ProductRequestDetails_ITILDetails.LoadData();
 			}
-		}   
-    }
-	public async Task  Global_SCMRequestTypeId_onitemselected(Entity.Global_SCMRequestType Selected ,Entity.SCM_ProductRequestDetails Item  )
-    {
-        // Console.WriteLine(await Utility.JSON.ToJson(Selected));
+		}
 
-        // شرط اینکه آیا فرآیند تحویل اجرا گردد؟
-        if(Item.Global_SCMRequestTypeId.ToString() == "a9c5df1c-d99c-ef11-8354-005056a02a64")
-        {
-            await TahvilIsVisible(true,true,Item);
-			await KharidIsVisible(false,false,Item);
-        }
-        // شرط نوع درخواست بر اساس خرید کالا
-        if(Item.Global_SCMRequestTypeId.ToString() == "3b9e934d-d99c-ef11-8354-005056a02a64")
-        {
-            await TahvilIsVisible(false,false,Item);
-			await KharidIsVisible(true,true,Item);
-        }
-        // شرط نوع درخواست بر اساس تحویل و خرید کالا
-        if(Item.Global_SCMRequestTypeId.ToString() == "73f6c459-d99c-ef11-8354-005056a02a64")
-        {
-            await TahvilKharidIsVisible(true,true,Item);
-        }
-    }
+		public async Task ResultingFrom_ITIL_onitemselected(dynamic Selected, Entity.SCM_ProductRequestDetails Item)
+		{
+			await SetITILDetailsVisible(true, Selected, Item);
+		}
+		public async Task SetITILDetailsVisible(bool Visible, dynamic? Selected, Entity.SCM_ProductRequestDetails Item)
+		{
+			// await Task.Delay(100);
+			// نمایش / عدم نمایش فیلد ITIL Detail
+
+			if (Item.ResultingFrom_ITIL != null)
+			{
+				await ITILDetailsVisible(Visible);
+				if (Visible)
+				{
+					// await Task.Delay(300);
+					Item.RequestIdITIL = Selected.RequestID;
+					Item.RequesterUserITIL = Selected.UserName;
+					Item.CreatedAtITIL = Selected.CreateDate;
+					Ref_SCM_ProductRequestDetails_ITILDetails.SetEntity(Item);
+					Ref_SCM_ProductRequestDetails_ITILDetails.LoadData();
+				}
+				else
+				{
+					Item.RequestIdITIL = null;
+					Item.RequesterUserITIL = null;
+					Item.CreatedAtITIL = null;
+					Ref_SCM_ProductRequestDetails_ITILDetails.SetEntity(Item);
+					Ref_SCM_ProductRequestDetails_ITILDetails.LoadData();
+				}
+			}
+		}
+		public async Task Global_SCMRequestTypeId_onitemselected(Entity.Global_SCMRequestType Selected, Entity.SCM_ProductRequestDetails Item)
+		{
+			// Console.WriteLine(await Utility.JSON.ToJson(Selected));
+
+			// شرط اینکه آیا فرآیند تحویل اجرا گردد؟
+			if (Item.Global_SCMRequestTypeId.ToString() == "a9c5df1c-d99c-ef11-8354-005056a02a64")
+			{
+				await TahvilIsVisible(true, true, Item);
+				await KharidIsVisible(false, false, Item);
+			}
+			// شرط نوع درخواست بر اساس خرید کالا
+			if (Item.Global_SCMRequestTypeId.ToString() == "3b9e934d-d99c-ef11-8354-005056a02a64")
+			{
+				await TahvilIsVisible(false, false, Item);
+				await KharidIsVisible(true, true, Item);
+			}
+			// شرط نوع درخواست بر اساس تحویل و خرید کالا
+			if (Item.Global_SCMRequestTypeId.ToString() == "73f6c459-d99c-ef11-8354-005056a02a64")
+			{
+				await TahvilKharidIsVisible(true, true, Item);
+			}
+		}
 
 		#endregion FunctionEvents
 

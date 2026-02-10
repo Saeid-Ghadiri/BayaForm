@@ -98,7 +98,7 @@ namespace Forms.Forms
         /// <summary>
         ///  ورژنی که فرم باهاش ساخته شده
         /// </summary>
-        public string? VersionForm { get; set; } = "5622";
+        public string? VersionForm { get; set; } = "5671";
 
         /// <summary>
         /// لیست داده های گرید

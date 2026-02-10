@@ -144,7 +144,7 @@ namespace Forms.Forms
     /// <summary>
     ///  ورژنی که فرم باهاش ساخته شده
     /// </summary>
-    public string? VersionForm { get; set; } = "5622";
+    public string? VersionForm { get; set; } = "5671";
 
     /// <summary>
     ///  موجودیت
@@ -186,24 +186,10 @@ public Input<string?> Ref_UserStarterFullName;
 public Input<string?> Ref_UserStarterCompanyName;
 public Input<string?> Ref_UserStarterUnitName;
 public Input<string?> Ref_UserStarterSectionName;
-public Input<Guid> Ref_Id;
-public Input<Guid?> Ref_UpdateUser;
-public Input<Guid?> Ref_RequestID;
-public Input<Guid?> Ref_CreateUser;
-public Input<DateTime?> Ref_CreateDate;
-public Input<DateTime?> Ref_UpdateDate;
-public Input<bool?> Ref_IsDelete;
 public DxGrid? Grid_SCMPLATE_ProductRequestDetails;
 
-public Input<Guid> Ref_SCMPLATE_ProductRequestDetails_Id;
-public Input<Guid?> Ref_SCMPLATE_ProductRequestDetails_RequestID;
-public Input<Guid?> Ref_SCMPLATE_ProductRequestDetails_CreateUser;
-public Input<Guid?> Ref_SCMPLATE_ProductRequestDetails_UpdateUser;
-public Input<DateTime?> Ref_SCMPLATE_ProductRequestDetails_CreateDate;
-public Input<DateTime?> Ref_SCMPLATE_ProductRequestDetails_UpdateDate;
-public Input<bool?> Ref_SCMPLATE_ProductRequestDetails_IsDelete;
-public Input<string?> Ref_SCMPLATE_ProductRequestDetails_SH_PARTNO;
 public Input<string?> Ref_SCMPLATE_ProductRequestDetails_SH_DESC;
+public Input<string?> Ref_SCMPLATE_ProductRequestDetails_SH_PARTNO;
 public Input<string?> Ref_SCMPLATE_ProductRequestDetails_SH_UNIT;
 public Input<double?> Ref_SCMPLATE_ProductRequestDetails_SH_Amount;
 public Dropdown Ref_SCMPLATE_ProductRequestDetails_Global_PriorityId;
@@ -214,18 +200,32 @@ public Input<string?> Ref_SCMPLATE_ProductRequestDetails_DescriptionWarehouseKee
 public Input<double?> Ref_SCMPLATE_ProductRequestDetails_NumberofGoodsDelivery;
 public Input<int?> Ref_SCMPLATE_ProductRequestDetails_DeliveryCode;
 public Input<string?> Ref_SCMPLATE_ProductRequestDetails_DateTimeDeliveryCode;
+public Dropdown Ref_SCMPLATE_ProductRequestDetails_T_Search_NotMapped;
+public Input<string?> Ref_SCMPLATE_ProductRequestDetails_T_TEMPNO;
+public Input<int?> Ref_SCMPLATE_ProductRequestDetails_T_TempNoNum;
 public Input<Guid?> Ref_SCMPLATE_ProductRequestDetails_T_CENTCODE_GUID;
 public Input<string?> Ref_SCMPLATE_ProductRequestDetails_T_PAYCENTName;
 public Input<string?> Ref_SCMPLATE_ProductRequestDetails_T_CREATOR;
 public Input<string?> Ref_SCMPLATE_ProductRequestDetails_T_FACTDATE;
 public Input<string?> Ref_SCMPLATE_ProductRequestDetails_T_FACTNO;
 public Input<Guid?> Ref_SCMPLATE_ProductRequestDetails_T_FACTNO_GUID;
-public Input<string?> Ref_SCMPLATE_ProductRequestDetails_T_TEMPNO;
-public Input<int?> Ref_SCMPLATE_ProductRequestDetails_T_TempNoNum;
-public Input<int?> Ref_SCMPLATE_ProductRequestDetails_T_YEAR;
-public Dropdown Ref_SCMPLATE_ProductRequestDetails_T_Search_NotMapped;
-public Dropdown Ref_SCMPLATE_ProductRequestDetails_SH_Tahvil_DTL;
 public Input<string?> Ref_SCMPLATE_ProductRequestDetails_T_CENTCODE;
+public Input<int?> Ref_SCMPLATE_ProductRequestDetails_T_YEAR;
+public Dropdown Ref_SCMPLATE_ProductRequestDetails_SH_Tahvil_DTL;
+public Input<Guid> Ref_SCMPLATE_ProductRequestDetails_Id;
+public Input<Guid?> Ref_SCMPLATE_ProductRequestDetails_RequestID;
+public Input<Guid?> Ref_SCMPLATE_ProductRequestDetails_CreateUser;
+public Input<Guid?> Ref_SCMPLATE_ProductRequestDetails_UpdateUser;
+public Input<DateTime?> Ref_SCMPLATE_ProductRequestDetails_CreateDate;
+public Input<DateTime?> Ref_SCMPLATE_ProductRequestDetails_UpdateDate;
+public Input<bool?> Ref_SCMPLATE_ProductRequestDetails_IsDelete;
+public Input<Guid> Ref_Id;
+public Input<Guid?> Ref_UpdateUser;
+public Input<Guid?> Ref_RequestID;
+public Input<Guid?> Ref_CreateUser;
+public Input<DateTime?> Ref_CreateDate;
+public Input<DateTime?> Ref_UpdateDate;
+public Input<bool?> Ref_IsDelete;
 
 
     #endregion

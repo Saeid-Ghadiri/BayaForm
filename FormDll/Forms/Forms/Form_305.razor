@@ -146,20 +146,6 @@
 </div>
 
 </div>
-
-<Input Id="Id" @ref="Ref_Id"   CssClass="d-none"   @bind-Value="_Entity.Id" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
-
-<Input Id="RequestID" @ref="Ref_RequestID"      @bind-Value="_Entity.RequestID" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
-
-<Input Id="CreateUser" @ref="Ref_CreateUser"      @bind-Value="_Entity.CreateUser" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
-
-<Input Id="UpdateUser" @ref="Ref_UpdateUser"      @bind-Value="_Entity.UpdateUser" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
-
-<Input Id="CreateDate" @ref="Ref_CreateDate"   CssClass="d-none"   @bind-Value="_Entity.CreateDate" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
-
-<Input Id="UpdateDate" @ref="Ref_UpdateDate"   CssClass="d-none"   @bind-Value="_Entity.UpdateDate" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
-
-<Input Id="IsDelete" @ref="Ref_IsDelete"   CssClass="d-none"   @bind-Value="_Entity.IsDelete" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
 <label for="SCM_ProductRequestDetails_GridSCM_ProductRequestId_182">جزییات درخواست کالا
    
     
@@ -173,7 +159,7 @@
         EditFormButtonsVisible="false"
         CustomizeEditModel="CustomizeEditGrid_SCM_ProductRequestDetails"
         CustomizeElement="CustomizeRowsGrid_SCM_ProductRequestDetails" 
-        Component="@((Utility.JSON.ToObject<View_Component>("{\"primaryKey\":false,\"EntityID\":182,\"FieldId\":182,\"TypeCSharp\":\"\",\"NotNull\":false,\"ViewId\":0,\"NotMapped\":false,\"Relation\":false,\"RelationExternal\":false,\"RelationParentName\":\"\",\"RelationParentModel\":\"\",\"RelationChildModel\":\"SCM_ProductRequestDetails\",\"GridMainModel\":\"SCM_ProductRequestDetails\",\"widget\":{\"altInput\":false,\"allowInput\":false,\"clickOpens\":false,\"enableDate\":false,\"enableTime\":false,\"noCalendar\":false,\"useLocaleSettings\":false,\"hourIncrement\":0,\"minuteIncrement\":0,\"time_24hr\":false},\"wysiwyg\":false,\"data\":{},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"FieldsTemplate\":[],\"refreshOn\":\"data\",\"reorder\":false,\"addAnotherPosition\":\"bottom\",\"layoutFixed\":false,\"enableRowGroups\":false,\"initEmpty\":false,\"disabled\":true,\"modal\":true,\"label\":\"جزییات درخواست کالا\",\"tableView\":true,\"key\":\"GridSCM_ProductRequestId_182\",\"type\":\"datagrid\",\"input\":true,\"placeholder\":\"GridSCM_ProductRequestId_182\",\"modalEdit\":true,\"FieldUrl\":\"182?EId=182&SubId=8\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result))"
+        Component="@((Utility.JSON.ToObject<View_Component>("{\"primaryKey\":false,\"EntityID\":182,\"FieldId\":182,\"NotNull\":false,\"ViewId\":0,\"NotMapped\":false,\"Relation\":false,\"RelationExternal\":false,\"RelationChildModel\":\"SCM_ProductRequestDetails\",\"GridMainModel\":\"SCM_ProductRequestDetails\",\"widget\":{\"altInput\":false,\"allowInput\":false,\"clickOpens\":false,\"enableDate\":false,\"enableTime\":false,\"noCalendar\":false,\"useLocaleSettings\":false,\"hourIncrement\":0,\"minuteIncrement\":0,\"time_24hr\":false},\"wysiwyg\":false,\"data\":{},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"FieldsTemplate\":[],\"refreshOn\":\"data\",\"reorder\":false,\"addAnotherPosition\":\"bottom\",\"layoutFixed\":false,\"enableRowGroups\":false,\"initEmpty\":false,\"disabled\":true,\"modal\":true,\"label\":\"جزییات درخواست کالا\",\"tableView\":true,\"key\":\"GridSCM_ProductRequestId_182\",\"type\":\"datagrid\",\"input\":true,\"modalEdit\":true,\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":false,\"AccessEdit\":true,\"AccessNew\":true}").Result))"
          >
     <Columns>
     
@@ -193,10 +179,6 @@
 </a>
 
        
-<a class="btn btn-sm btn-red-light btnDeleteGridData" @onclick="@(() => OnDeleteButtonClickGrid_SCM_ProductRequestDetails(CellContext))" style="text-decoration: none;" href="javascript:void(0);">
-    <span class="fal fa-times-circle btnicon"></span>
-</a>
-
     </CellDisplayTemplate>
 </DxGridCommandColumn>
 
@@ -216,19 +198,7 @@
           
            </CellDisplayTemplate>
      </DxGridCommandColumn>
-    <DxGridDataColumn  Caption="Id" Visible=false FieldName="Id" />
-
-<DxGridDataColumn  Caption="RequestID" Visible=false FieldName="RequestID" />
-
-<DxGridDataColumn  Caption="CreateUser" Visible=false FieldName="CreateUser" />
-
-<DxGridDataColumn  Caption="UpdateUser" Visible=false FieldName="UpdateUser" />
-
-<DxGridDataColumn  Caption="CreateDate" Visible=false FieldName="CreateDate" />
-
-<DxGridDataColumn  Caption="UpdateDate" Visible=false FieldName="UpdateDate" />
-
-<DxGridDataColumn  Caption="IsDelete" Visible=false FieldName="IsDelete" />
+    <DxGridDataColumn  Caption="نام کالا شماران"  FieldName="ProductNameText" />
 
 <DxGridDataColumn  Caption="واحد کالا"  FieldName="ProductUnitText" />
 
@@ -236,11 +206,11 @@
     <CellDisplayTemplate>
        
 @{
-    Baya.Models.ViewEngine.View_Component HeaderSCM_PriorityId = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"primaryKey\":false,\"EntityID\":182,\"FieldId\":1882,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":305,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":false,\"RelationParentName\":\"SCM_Priority\",\"RelationParentModel\":\"SCM_Priority\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/SCM_Priority/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.PriorityTitle}} </span>\",\"FieldsTemplate\":[{\"key\":\"PriorityTitle\",\"value\":\"int\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"searchField\":\"\",\"disabled\":true,\"modal\":true,\"label\":\"اولویت\",\"tableView\":true,\"key\":\"SCM_PriorityId\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"1882?EId=182&SubId=8\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
+    Baya.Models.ViewEngine.View_Component HeaderSCM_PriorityId = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"primaryKey\":false,\"EntityID\":182,\"FieldId\":1882,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":305,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":false,\"RelationParentName\":\"SCM_Priority\",\"RelationParentModel\":\"SCM_Priority\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/SCM_Priority/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.PriorityTitle}} </span>\",\"FieldsTemplate\":[],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"disableLimit\":false,\"noRefreshOnScroll\":false,\"disabled\":true,\"modal\":true,\"label\":\"اولویت\",\"tableView\":true,\"key\":\"SCM_PriorityId\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"customClass\":\"Width10rem\",\"FieldUrl\":\"1882?EId=182&SubId=8\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
     var RowSCM_PriorityId = ((Entity.SCM_ProductRequestDetails)SCM_PriorityId_.DataItem).SCM_PriorityId;
 }
 
-<Dropdown ExternalApi=false CssClass="" NotMapped=false TextGrid=true Value="@RowSCM_PriorityId"   FieldName="SCM_PriorityId" OnItemSelected="ItemSelected_SCM_ProductRequestDetailsSCM_PriorityId_Header" Component="HeaderSCM_PriorityId">
+<Dropdown ExternalApi=false CssClass="Width10rem" NotMapped=false TextGrid=true Value="@RowSCM_PriorityId"   FieldName="SCM_PriorityId" OnItemSelected="ItemSelected_SCM_ProductRequestDetailsSCM_PriorityId_Header" Component="HeaderSCM_PriorityId">
 </Dropdown>
 @code {
     public async Task ItemSelected_SCM_ProductRequestDetailsSCM_PriorityId_Header(object _Item)
@@ -261,8 +231,6 @@
 <DxGridDataColumn  Caption="محل مصرف کالا"  FieldName="PlaceOfUseProduct" />
 
 <DxGridDataColumn  Caption="توضیحات درخواست کننده"  FieldName="ProductRowDescription" />
-
-<DxGridDataColumn  Caption="نام کالا شماران"  FieldName="ProductNameText" />
 
 <DxGridDataColumn Context="ForeignMachineryProductTrueFasle_" Caption="نحوه تامین کالا" >
     <CellDisplayTemplate>
@@ -426,6 +394,20 @@
 
 <DxGridDataColumn  Caption="مبلغ فاکتور تدارکات 3"  FieldName="InvoiceAmount6" />
 
+<DxGridDataColumn  Caption="Id" Visible=false FieldName="Id" />
+
+<DxGridDataColumn  Caption="RequestID" Visible=false FieldName="RequestID" />
+
+<DxGridDataColumn  Caption="CreateUser" Visible=false FieldName="CreateUser" />
+
+<DxGridDataColumn  Caption="UpdateUser" Visible=false FieldName="UpdateUser" />
+
+<DxGridDataColumn  Caption="CreateDate" Visible=false FieldName="CreateDate" />
+
+<DxGridDataColumn  Caption="UpdateDate" Visible=false FieldName="UpdateDate" />
+
+<DxGridDataColumn  Caption="IsDelete" Visible=false FieldName="IsDelete" />
+
 
 </Columns>
 
@@ -435,6 +417,155 @@
     }
     <DxFormLayout>
         <DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextSCM_ProductRequestDetails">
+    
+<Input Id="SCM_ProductRequestDetails_ProductNameText" @ref="Ref_SCM_ProductRequestDetails_ProductNameText" Label="نام کالا شماران"  CssClass="WidthAuto" Disabled=true  @bind-Value="SCM_ProductRequestDetails.ProductNameText" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+</DxFormLayoutItem>
+
+<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextSCM_ProductRequestDetails">
+    
+<Input Id="SCM_ProductRequestDetails_ProductUnitText" @ref="Ref_SCM_ProductRequestDetails_ProductUnitText" Label="واحد کالا"  CssClass="Width10rem" Disabled=true  @bind-Value="SCM_ProductRequestDetails.ProductUnitText" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+</DxFormLayoutItem>
+
+<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextSCM_ProductRequestDetails">
+     
+ 
+@code {
+    Baya.Models.ViewEngine.View_Component Component_SCM_ProductRequestDetailsSCM_PriorityId = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"primaryKey\":false,\"EntityID\":182,\"FieldId\":1882,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":305,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":false,\"RelationParentName\":\"SCM_Priority\",\"RelationParentModel\":\"SCM_Priority\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/SCM_Priority/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.PriorityTitle}} </span>\",\"FieldsTemplate\":[],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"disableLimit\":false,\"noRefreshOnScroll\":false,\"disabled\":true,\"modal\":true,\"label\":\"اولویت\",\"tableView\":true,\"key\":\"SCM_PriorityId\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"customClass\":\"Width10rem\",\"FieldUrl\":\"1882?EId=182&SubId=8\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
+}
+
+    <Dropdown Id=SCM_ProductRequestDetails_SCM_PriorityId Disabled=true @ref="Ref_SCM_ProductRequestDetails_SCM_PriorityId" Label="اولویت" CssClass="Width10rem"  DisplayFormat="DropDown" ExternalApi=false NotMapped=false TextGrid=false Text="" Value="@SCM_ProductRequestDetails.SCM_PriorityId" FieldName="SCM_PriorityId" OnItemSelected="ItemSelected_SCM_ProductRequestDetailsSCM_PriorityId" Component="Component_SCM_ProductRequestDetailsSCM_PriorityId" _Entity="_Entity" _EntityRow=SCM_ProductRequestDetails>
+</Dropdown>
+@code {
+    public async Task ItemSelected_SCM_ProductRequestDetailsSCM_PriorityId(object _Item)
+    {
+        var Selected = Utility.JSON.ToObject<dynamic>(Utility.JSON.ToJson(_Item).Result).Result;
+     var Item = SCM_ProductRequestDetails;
+
+      //Todo
+ //برای اینکه آی دی تغییر کند اینجا نیز باید تغییر کند
+ //بهتر است از پرایمیری کی استفاده شود
+ if (_Item != null)
+ {
+     Console.WriteLine(" Item Is Not Null");
+    Item.SCM_PriorityId = Selected.Id;
+    
+ }
+ else
+ {
+     Console.WriteLine(" Item Is Null");
+      Item.SCM_PriorityId =EntityHelper.SetPropertyNull(Item.SCM_PriorityId);
+ }
+ Item.SCM_Priority = await Utility.JSON.ToObject<Entity.SCM_Priority>(await Utility.JSON.ToJson(_Item));
+    StateHasChanged();
+
+
+    
+
+    
+    }
+} 
+
+</DxFormLayoutItem>
+
+<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextSCM_ProductRequestDetails">
+    
+<Input Id="SCM_ProductRequestDetails_PlaceOfUseProduct" @ref="Ref_SCM_ProductRequestDetails_PlaceOfUseProduct" Label="محل مصرف کالا"  CssClass="Width12rem" Disabled=true  @bind-Value="SCM_ProductRequestDetails.PlaceOfUseProduct" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+</DxFormLayoutItem>
+
+<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextSCM_ProductRequestDetails">
+    
+<Input Id="SCM_ProductRequestDetails_ProductRowDescription" @ref="Ref_SCM_ProductRequestDetails_ProductRowDescription" Label="توضیحات درخواست کننده"  CssClass="Width12rem" Disabled=true  @bind-Value="SCM_ProductRequestDetails.ProductRowDescription" type="textarea"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+</DxFormLayoutItem>
+
+<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextSCM_ProductRequestDetails">
+    
+<RadioBoolean @ref="Ref_SCM_ProductRequestDetails_ForeignMachineryProductTrueFasle" InLine=true Id="SCM_ProductRequestDetails_ForeignMachineryProductTrueFasle"   LabelTrue="داخلی" LabelFalse="خارجی" Label="نحوه تامین کالا" @bind-Value="SCM_ProductRequestDetails.ForeignMachineryProductTrueFasle" CssClass="" Disabled=true></RadioBoolean>
+
+</DxFormLayoutItem>
+
+<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextSCM_ProductRequestDetails">
+    
+<Input Id="SCM_ProductRequestDetails_DeficitSupplyNumber" @ref="Ref_SCM_ProductRequestDetails_DeficitSupplyNumber" Label="تعداد تامین کسری"  CssClass="Width10rem" Disabled=true  @bind-Value="SCM_ProductRequestDetails.DeficitSupplyNumber" type="number"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"step\":\"any\"}").Result))></Input>
+
+</DxFormLayoutItem>
+
+<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextSCM_ProductRequestDetails">
+    <Uploader Id=SCM_ProductRequestDetails_SCM_ProductRequestDetails_InquiryFirst  @ref="Ref_SCM_ProductRequestDetails_SCM_ProductRequestDetails_InquiryFirst" Disabled=true CssClass="Width12rem" Accept="image/* , application/pdf , .doc,.docx , .xls,.xlsx" MinSize="1KB" MaxSize="5MB" Caption="استعلام تدراکات 1" Data="SCM_ProductRequestDetails.SCM_ProductRequestDetails_InquiryFirst" Url="https://File.workcv.ir/fa/api/v1/File/Post" TItem="Entity.SCM_ProductRequestDetails_InquiryFirst"></Uploader>
+
+</DxFormLayoutItem>
+
+<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextSCM_ProductRequestDetails">
+    <Uploader Id=SCM_ProductRequestDetails_SCM_ProductRequestDetails_InquirySecondFile  @ref="Ref_SCM_ProductRequestDetails_SCM_ProductRequestDetails_InquirySecondFile" Disabled=true CssClass="Width12rem" Accept="image/* , application/pdf , .doc,.docx , .xls,.xlsx" MinSize="1KB" MaxSize="5MB" Caption="استعلام تدارکات 2" Data="SCM_ProductRequestDetails.SCM_ProductRequestDetails_InquirySecondFile" Url="https://File.workcv.ir/fa/api/v1/File/Post" TItem="Entity.SCM_ProductRequestDetails_InquirySecondFile"></Uploader>
+
+</DxFormLayoutItem>
+
+<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextSCM_ProductRequestDetails">
+    <Uploader Id=SCM_ProductRequestDetails_SCM_ProductRequestDetails_InquiryThirdFile  @ref="Ref_SCM_ProductRequestDetails_SCM_ProductRequestDetails_InquiryThirdFile" Disabled=true CssClass="Width12rem" Accept="image/* , application/pdf , .doc,.docx , .xls,.xlsx" MinSize="1KB" MaxSize="5MB" Caption="استعلام تدارکات 3" Data="SCM_ProductRequestDetails.SCM_ProductRequestDetails_InquiryThirdFile" Url="https://File.workcv.ir/fa/api/v1/File/Post" TItem="Entity.SCM_ProductRequestDetails_InquiryThirdFile"></Uploader>
+
+</DxFormLayoutItem>
+
+<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextSCM_ProductRequestDetails">
+    <Uploader Id=SCM_ProductRequestDetails_SCM_ProductRequestDetails_InquiryofTechnicalOffice1stFile  @ref="Ref_SCM_ProductRequestDetails_SCM_ProductRequestDetails_InquiryofTechnicalOffice1stFile" Disabled=true CssClass="Width12rem" Accept="image/* , application/pdf , .doc,.docx , .xls,.xlsx" MinSize="1KB" MaxSize="5MB" Caption="استعلام دفتر فنی 1" Data="SCM_ProductRequestDetails.SCM_ProductRequestDetails_InquiryofTechnicalOffice1stFile" Url="https://File.workcv.ir/fa/api/v1/File/Post" TItem="Entity.SCM_ProductRequestDetails_InquiryofTechnicalOffice1stFile"></Uploader>
+
+</DxFormLayoutItem>
+
+<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextSCM_ProductRequestDetails">
+    <Uploader Id=SCM_ProductRequestDetails_SCM_ProductRequestDetails_InquiryofTechnicalOffice3rdFile  @ref="Ref_SCM_ProductRequestDetails_SCM_ProductRequestDetails_InquiryofTechnicalOffice3rdFile" Disabled=true CssClass="Width12rem" Accept="image/* , application/pdf , .doc,.docx , .xls,.xlsx" MinSize="1KB" MaxSize="5MB" Caption="استعلام دفتر فنی 3" Data="SCM_ProductRequestDetails.SCM_ProductRequestDetails_InquiryofTechnicalOffice3rdFile" Url="https://File.workcv.ir/fa/api/v1/File/Post" TItem="Entity.SCM_ProductRequestDetails_InquiryofTechnicalOffice3rdFile"></Uploader>
+
+</DxFormLayoutItem>
+
+<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextSCM_ProductRequestDetails">
+    <Uploader Id=SCM_ProductRequestDetails_SCM_ProductRequestDetails_InquiryofTechnicalOffice2ndFile  @ref="Ref_SCM_ProductRequestDetails_SCM_ProductRequestDetails_InquiryofTechnicalOffice2ndFile" Disabled=true CssClass="Width12rem" Accept="image/* , application/pdf , .doc,.docx , .xls,.xlsx" MinSize="1KB" MaxSize="5MB" Caption="استعلام دفتر فنی 2" Data="SCM_ProductRequestDetails.SCM_ProductRequestDetails_InquiryofTechnicalOffice2ndFile" Url="https://File.workcv.ir/fa/api/v1/File/Post" TItem="Entity.SCM_ProductRequestDetails_InquiryofTechnicalOffice2ndFile"></Uploader>
+
+</DxFormLayoutItem>
+
+<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextSCM_ProductRequestDetails">
+    
+<Input Id="SCM_ProductRequestDetails_ConfirmationOfTheInquiryExecutiveHeads" @ref="Ref_SCM_ProductRequestDetails_ConfirmationOfTheInquiryExecutiveHeads" Label="توضیحات تایید استعلام روئسای اجرایی"  CssClass="Width12rem"  Required=true @bind-Value="SCM_ProductRequestDetails.ConfirmationOfTheInquiryExecutiveHeads" type="textarea"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+</DxFormLayoutItem>
+
+<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextSCM_ProductRequestDetails">
+    
+<Input Id="SCM_ProductRequestDetails_InvoiceAmount1" @ref="Ref_SCM_ProductRequestDetails_InvoiceAmount1" Label="مبلغ فاکتور 1"  CssClass="Width10rem" Disabled=true  @bind-Value="SCM_ProductRequestDetails.InvoiceAmount1" type="number" ActiveSeperator=true    Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+</DxFormLayoutItem>
+
+<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextSCM_ProductRequestDetails">
+    
+<Input Id="SCM_ProductRequestDetails_InvoiceAmount2" @ref="Ref_SCM_ProductRequestDetails_InvoiceAmount2" Label="مبلغ فاکتور 2"  CssClass="Width10rem" Disabled=true  @bind-Value="SCM_ProductRequestDetails.InvoiceAmount2" type="number" ActiveSeperator=true    Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+</DxFormLayoutItem>
+
+<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextSCM_ProductRequestDetails">
+    
+<Input Id="SCM_ProductRequestDetails_InvoiceAmount3" @ref="Ref_SCM_ProductRequestDetails_InvoiceAmount3" Label="مبلغ فاکتور 3"  CssClass="Width10rem" Disabled=true  @bind-Value="SCM_ProductRequestDetails.InvoiceAmount3" type="number" ActiveSeperator=true    Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+</DxFormLayoutItem>
+
+<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextSCM_ProductRequestDetails">
+    
+<Input Id="SCM_ProductRequestDetails_InvoiceAmount4" @ref="Ref_SCM_ProductRequestDetails_InvoiceAmount4" Label="مبلغ فاکتور تدارکات 1"  CssClass="Width10rem" Disabled=true  @bind-Value="SCM_ProductRequestDetails.InvoiceAmount4" type="number" ActiveSeperator=true    Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+</DxFormLayoutItem>
+
+<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextSCM_ProductRequestDetails">
+    
+<Input Id="SCM_ProductRequestDetails_InvoiceAmount5" @ref="Ref_SCM_ProductRequestDetails_InvoiceAmount5" Label="مبلغ فاکتور تدارکات 2"  CssClass="Width10rem" Disabled=true  @bind-Value="SCM_ProductRequestDetails.InvoiceAmount5" type="number" ActiveSeperator=true    Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+</DxFormLayoutItem>
+
+<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextSCM_ProductRequestDetails">
+    
+<Input Id="SCM_ProductRequestDetails_InvoiceAmount6" @ref="Ref_SCM_ProductRequestDetails_InvoiceAmount6" Label="مبلغ فاکتور تدارکات 3"  CssClass="Width10rem" Disabled=true  @bind-Value="SCM_ProductRequestDetails.InvoiceAmount6" type="number" ActiveSeperator=true    Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+</DxFormLayoutItem>
+
+<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextSCM_ProductRequestDetails">
     
 <Input Id="SCM_ProductRequestDetails_Id" @ref="Ref_SCM_ProductRequestDetails_Id"   CssClass="d-none"   @bind-Value="SCM_ProductRequestDetails.Id" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
 
@@ -473,155 +604,6 @@
 <DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextSCM_ProductRequestDetails">
     
 <Input Id="SCM_ProductRequestDetails_IsDelete" @ref="Ref_SCM_ProductRequestDetails_IsDelete"   CssClass="d-none"   @bind-Value="SCM_ProductRequestDetails.IsDelete" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
-
-</DxFormLayoutItem>
-
-<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextSCM_ProductRequestDetails">
-    
-<Input Id="SCM_ProductRequestDetails_ProductUnitText" @ref="Ref_SCM_ProductRequestDetails_ProductUnitText" Label="واحد کالا"   Disabled=true  @bind-Value="SCM_ProductRequestDetails.ProductUnitText" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
-
-</DxFormLayoutItem>
-
-<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextSCM_ProductRequestDetails">
-     
- 
-@code {
-    Baya.Models.ViewEngine.View_Component Component_SCM_ProductRequestDetailsSCM_PriorityId = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"primaryKey\":false,\"EntityID\":182,\"FieldId\":1882,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":305,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":false,\"RelationParentName\":\"SCM_Priority\",\"RelationParentModel\":\"SCM_Priority\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/SCM_Priority/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.PriorityTitle}} </span>\",\"FieldsTemplate\":[{\"key\":\"PriorityTitle\",\"value\":\"int\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"searchField\":\"\",\"disabled\":true,\"modal\":true,\"label\":\"اولویت\",\"tableView\":true,\"key\":\"SCM_PriorityId\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"1882?EId=182&SubId=8\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
-}
-
-    <Dropdown Id=SCM_ProductRequestDetails_SCM_PriorityId Disabled=true @ref="Ref_SCM_ProductRequestDetails_SCM_PriorityId" Label="اولویت" CssClass=""  DisplayFormat="DropDown" ExternalApi=false NotMapped=false TextGrid=false Text="" Value="@SCM_ProductRequestDetails.SCM_PriorityId" FieldName="SCM_PriorityId" OnItemSelected="ItemSelected_SCM_ProductRequestDetailsSCM_PriorityId" Component="Component_SCM_ProductRequestDetailsSCM_PriorityId" _Entity="_Entity" _EntityRow=SCM_ProductRequestDetails>
-</Dropdown>
-@code {
-    public async Task ItemSelected_SCM_ProductRequestDetailsSCM_PriorityId(object _Item)
-    {
-        var Selected = Utility.JSON.ToObject<dynamic>(Utility.JSON.ToJson(_Item).Result).Result;
-     var Item = SCM_ProductRequestDetails;
-
-      //Todo
- //برای اینکه آی دی تغییر کند اینجا نیز باید تغییر کند
- //بهتر است از پرایمیری کی استفاده شود
- if (_Item != null)
- {
-     Console.WriteLine(" Item Is Not Null");
-    Item.SCM_PriorityId = Selected.Id;
-    
- }
- else
- {
-     Console.WriteLine(" Item Is Null");
-      Item.SCM_PriorityId =EntityHelper.SetPropertyNull(Item.SCM_PriorityId);
- }
- Item.SCM_Priority = await Utility.JSON.ToObject<Entity.SCM_Priority>(await Utility.JSON.ToJson(_Item));
-    StateHasChanged();
-
-
-    
-
-    
-    }
-} 
-
-</DxFormLayoutItem>
-
-<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextSCM_ProductRequestDetails">
-    
-<Input Id="SCM_ProductRequestDetails_PlaceOfUseProduct" @ref="Ref_SCM_ProductRequestDetails_PlaceOfUseProduct" Label="محل مصرف کالا"   Disabled=true  @bind-Value="SCM_ProductRequestDetails.PlaceOfUseProduct" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
-
-</DxFormLayoutItem>
-
-<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextSCM_ProductRequestDetails">
-    
-<Input Id="SCM_ProductRequestDetails_ProductRowDescription" @ref="Ref_SCM_ProductRequestDetails_ProductRowDescription" Label="توضیحات درخواست کننده"   Disabled=true  @bind-Value="SCM_ProductRequestDetails.ProductRowDescription" type="textarea"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
-
-</DxFormLayoutItem>
-
-<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextSCM_ProductRequestDetails">
-    
-<Input Id="SCM_ProductRequestDetails_ProductNameText" @ref="Ref_SCM_ProductRequestDetails_ProductNameText" Label="نام کالا شماران"   Disabled=true  @bind-Value="SCM_ProductRequestDetails.ProductNameText" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
-
-</DxFormLayoutItem>
-
-<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextSCM_ProductRequestDetails">
-    
-<RadioBoolean @ref="Ref_SCM_ProductRequestDetails_ForeignMachineryProductTrueFasle" InLine=true Id="SCM_ProductRequestDetails_ForeignMachineryProductTrueFasle"   LabelTrue="داخلی" LabelFalse="خارجی" Label="نحوه تامین کالا" @bind-Value="SCM_ProductRequestDetails.ForeignMachineryProductTrueFasle" CssClass="" Disabled=true></RadioBoolean>
-
-</DxFormLayoutItem>
-
-<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextSCM_ProductRequestDetails">
-    
-<Input Id="SCM_ProductRequestDetails_DeficitSupplyNumber" @ref="Ref_SCM_ProductRequestDetails_DeficitSupplyNumber" Label="تعداد تامین کسری"   Disabled=true  @bind-Value="SCM_ProductRequestDetails.DeficitSupplyNumber" type="number"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"step\":\"any\"}").Result))></Input>
-
-</DxFormLayoutItem>
-
-<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextSCM_ProductRequestDetails">
-    <Uploader Id=SCM_ProductRequestDetails_SCM_ProductRequestDetails_InquiryFirst  @ref="Ref_SCM_ProductRequestDetails_SCM_ProductRequestDetails_InquiryFirst" Disabled=true  Accept="image/* , application/pdf , .doc,.docx , .xls,.xlsx" MinSize="1KB" MaxSize="5MB" Caption="استعلام تدراکات 1" Data="SCM_ProductRequestDetails.SCM_ProductRequestDetails_InquiryFirst" Url="https://File.workcv.ir/fa/api/v1/File/Post" TItem="Entity.SCM_ProductRequestDetails_InquiryFirst"></Uploader>
-
-</DxFormLayoutItem>
-
-<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextSCM_ProductRequestDetails">
-    <Uploader Id=SCM_ProductRequestDetails_SCM_ProductRequestDetails_InquirySecondFile  @ref="Ref_SCM_ProductRequestDetails_SCM_ProductRequestDetails_InquirySecondFile" Disabled=true  Accept="image/* , application/pdf , .doc,.docx , .xls,.xlsx" MinSize="1KB" MaxSize="5MB" Caption="استعلام تدارکات 2" Data="SCM_ProductRequestDetails.SCM_ProductRequestDetails_InquirySecondFile" Url="https://File.workcv.ir/fa/api/v1/File/Post" TItem="Entity.SCM_ProductRequestDetails_InquirySecondFile"></Uploader>
-
-</DxFormLayoutItem>
-
-<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextSCM_ProductRequestDetails">
-    <Uploader Id=SCM_ProductRequestDetails_SCM_ProductRequestDetails_InquiryThirdFile  @ref="Ref_SCM_ProductRequestDetails_SCM_ProductRequestDetails_InquiryThirdFile" Disabled=true  Accept="image/* , application/pdf , .doc,.docx , .xls,.xlsx" MinSize="1KB" MaxSize="5MB" Caption="استعلام تدارکات 3" Data="SCM_ProductRequestDetails.SCM_ProductRequestDetails_InquiryThirdFile" Url="https://File.workcv.ir/fa/api/v1/File/Post" TItem="Entity.SCM_ProductRequestDetails_InquiryThirdFile"></Uploader>
-
-</DxFormLayoutItem>
-
-<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextSCM_ProductRequestDetails">
-    <Uploader Id=SCM_ProductRequestDetails_SCM_ProductRequestDetails_InquiryofTechnicalOffice1stFile  @ref="Ref_SCM_ProductRequestDetails_SCM_ProductRequestDetails_InquiryofTechnicalOffice1stFile" Disabled=true  Accept="image/* , application/pdf , .doc,.docx , .xls,.xlsx" MinSize="1KB" MaxSize="5MB" Caption="استعلام دفتر فنی 1" Data="SCM_ProductRequestDetails.SCM_ProductRequestDetails_InquiryofTechnicalOffice1stFile" Url="https://File.workcv.ir/fa/api/v1/File/Post" TItem="Entity.SCM_ProductRequestDetails_InquiryofTechnicalOffice1stFile"></Uploader>
-
-</DxFormLayoutItem>
-
-<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextSCM_ProductRequestDetails">
-    <Uploader Id=SCM_ProductRequestDetails_SCM_ProductRequestDetails_InquiryofTechnicalOffice3rdFile  @ref="Ref_SCM_ProductRequestDetails_SCM_ProductRequestDetails_InquiryofTechnicalOffice3rdFile" Disabled=true  Accept="image/* , application/pdf , .doc,.docx , .xls,.xlsx" MinSize="1KB" MaxSize="5MB" Caption="استعلام دفتر فنی 3" Data="SCM_ProductRequestDetails.SCM_ProductRequestDetails_InquiryofTechnicalOffice3rdFile" Url="https://File.workcv.ir/fa/api/v1/File/Post" TItem="Entity.SCM_ProductRequestDetails_InquiryofTechnicalOffice3rdFile"></Uploader>
-
-</DxFormLayoutItem>
-
-<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextSCM_ProductRequestDetails">
-    <Uploader Id=SCM_ProductRequestDetails_SCM_ProductRequestDetails_InquiryofTechnicalOffice2ndFile  @ref="Ref_SCM_ProductRequestDetails_SCM_ProductRequestDetails_InquiryofTechnicalOffice2ndFile" Disabled=true  Accept="image/* , application/pdf , .doc,.docx , .xls,.xlsx" MinSize="1KB" MaxSize="5MB" Caption="استعلام دفتر فنی 2" Data="SCM_ProductRequestDetails.SCM_ProductRequestDetails_InquiryofTechnicalOffice2ndFile" Url="https://File.workcv.ir/fa/api/v1/File/Post" TItem="Entity.SCM_ProductRequestDetails_InquiryofTechnicalOffice2ndFile"></Uploader>
-
-</DxFormLayoutItem>
-
-<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextSCM_ProductRequestDetails">
-    
-<Input Id="SCM_ProductRequestDetails_ConfirmationOfTheInquiryExecutiveHeads" @ref="Ref_SCM_ProductRequestDetails_ConfirmationOfTheInquiryExecutiveHeads" Label="توضیحات تایید استعلام روئسای اجرایی"    Required=true @bind-Value="SCM_ProductRequestDetails.ConfirmationOfTheInquiryExecutiveHeads" type="textarea"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
-
-</DxFormLayoutItem>
-
-<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextSCM_ProductRequestDetails">
-    
-<Input Id="SCM_ProductRequestDetails_InvoiceAmount1" @ref="Ref_SCM_ProductRequestDetails_InvoiceAmount1" Label="مبلغ فاکتور 1"   Disabled=true  @bind-Value="SCM_ProductRequestDetails.InvoiceAmount1" type="number" ActiveSeperator=true    Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
-
-</DxFormLayoutItem>
-
-<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextSCM_ProductRequestDetails">
-    
-<Input Id="SCM_ProductRequestDetails_InvoiceAmount2" @ref="Ref_SCM_ProductRequestDetails_InvoiceAmount2" Label="مبلغ فاکتور 2"   Disabled=true  @bind-Value="SCM_ProductRequestDetails.InvoiceAmount2" type="number" ActiveSeperator=true    Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
-
-</DxFormLayoutItem>
-
-<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextSCM_ProductRequestDetails">
-    
-<Input Id="SCM_ProductRequestDetails_InvoiceAmount3" @ref="Ref_SCM_ProductRequestDetails_InvoiceAmount3" Label="مبلغ فاکتور 3"   Disabled=true  @bind-Value="SCM_ProductRequestDetails.InvoiceAmount3" type="number" ActiveSeperator=true    Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
-
-</DxFormLayoutItem>
-
-<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextSCM_ProductRequestDetails">
-    
-<Input Id="SCM_ProductRequestDetails_InvoiceAmount4" @ref="Ref_SCM_ProductRequestDetails_InvoiceAmount4" Label="مبلغ فاکتور تدارکات 1"   Disabled=true  @bind-Value="SCM_ProductRequestDetails.InvoiceAmount4" type="number" ActiveSeperator=true    Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
-
-</DxFormLayoutItem>
-
-<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextSCM_ProductRequestDetails">
-    
-<Input Id="SCM_ProductRequestDetails_InvoiceAmount5" @ref="Ref_SCM_ProductRequestDetails_InvoiceAmount5" Label="مبلغ فاکتور تدارکات 2"   Disabled=true  @bind-Value="SCM_ProductRequestDetails.InvoiceAmount5" type="number" ActiveSeperator=true    Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
-
-</DxFormLayoutItem>
-
-<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextSCM_ProductRequestDetails">
-    
-<Input Id="SCM_ProductRequestDetails_InvoiceAmount6" @ref="Ref_SCM_ProductRequestDetails_InvoiceAmount6" Label="مبلغ فاکتور تدارکات 3"   Disabled=true  @bind-Value="SCM_ProductRequestDetails.InvoiceAmount6" type="number" ActiveSeperator=true    Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
 
 </DxFormLayoutItem>
 
@@ -910,19 +892,12 @@ public void SaveGrid_SCM_ProductRequestDetails(object DataItem, object EditModel
     var MainModel = (Entity.SCM_ProductRequestDetails)DataItem;
     if (MainModel != null)
     {
-MainModel.Id = ((Entity.SCM_ProductRequestDetails)EditModel).Id;
-MainModel.RequestID = ((Entity.SCM_ProductRequestDetails)EditModel).RequestID;
-MainModel.CreateUser = ((Entity.SCM_ProductRequestDetails)EditModel).CreateUser;
-MainModel.UpdateUser = ((Entity.SCM_ProductRequestDetails)EditModel).UpdateUser;
-MainModel.CreateDate = ((Entity.SCM_ProductRequestDetails)EditModel).CreateDate;
-MainModel.UpdateDate = ((Entity.SCM_ProductRequestDetails)EditModel).UpdateDate;
-MainModel.IsDelete = ((Entity.SCM_ProductRequestDetails)EditModel).IsDelete;
+MainModel.ProductNameText = ((Entity.SCM_ProductRequestDetails)EditModel).ProductNameText;
 MainModel.ProductUnitText = ((Entity.SCM_ProductRequestDetails)EditModel).ProductUnitText;
 MainModel.SCM_PriorityId = ((Entity.SCM_ProductRequestDetails)EditModel).SCM_PriorityId;
 MainModel.SCM_Priority = ((Entity.SCM_ProductRequestDetails)EditModel).SCM_Priority;
 MainModel.PlaceOfUseProduct = ((Entity.SCM_ProductRequestDetails)EditModel).PlaceOfUseProduct;
 MainModel.ProductRowDescription = ((Entity.SCM_ProductRequestDetails)EditModel).ProductRowDescription;
-MainModel.ProductNameText = ((Entity.SCM_ProductRequestDetails)EditModel).ProductNameText;
 MainModel.ForeignMachineryProductTrueFasle = ((Entity.SCM_ProductRequestDetails)EditModel).ForeignMachineryProductTrueFasle;
 MainModel.DeficitSupplyNumber = ((Entity.SCM_ProductRequestDetails)EditModel).DeficitSupplyNumber;
 MainModel.ConfirmationOfTheInquiryExecutiveHeads = ((Entity.SCM_ProductRequestDetails)EditModel).ConfirmationOfTheInquiryExecutiveHeads;
@@ -932,6 +907,13 @@ MainModel.InvoiceAmount3 = ((Entity.SCM_ProductRequestDetails)EditModel).Invoice
 MainModel.InvoiceAmount4 = ((Entity.SCM_ProductRequestDetails)EditModel).InvoiceAmount4;
 MainModel.InvoiceAmount5 = ((Entity.SCM_ProductRequestDetails)EditModel).InvoiceAmount5;
 MainModel.InvoiceAmount6 = ((Entity.SCM_ProductRequestDetails)EditModel).InvoiceAmount6;
+MainModel.Id = ((Entity.SCM_ProductRequestDetails)EditModel).Id;
+MainModel.RequestID = ((Entity.SCM_ProductRequestDetails)EditModel).RequestID;
+MainModel.CreateUser = ((Entity.SCM_ProductRequestDetails)EditModel).CreateUser;
+MainModel.UpdateUser = ((Entity.SCM_ProductRequestDetails)EditModel).UpdateUser;
+MainModel.CreateDate = ((Entity.SCM_ProductRequestDetails)EditModel).CreateDate;
+MainModel.UpdateDate = ((Entity.SCM_ProductRequestDetails)EditModel).UpdateDate;
+MainModel.IsDelete = ((Entity.SCM_ProductRequestDetails)EditModel).IsDelete;
 
     }
     else
@@ -1046,6 +1028,20 @@ public async void RowDubbleClickGrid_SCM_ProductRequestDetails(GridRowClickEvent
 }
 }
 
+<Input Id="Id" @ref="Ref_Id"   CssClass="d-none"   @bind-Value="_Entity.Id" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+<Input Id="RequestID" @ref="Ref_RequestID"      @bind-Value="_Entity.RequestID" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+<Input Id="CreateUser" @ref="Ref_CreateUser"      @bind-Value="_Entity.CreateUser" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+<Input Id="UpdateUser" @ref="Ref_UpdateUser"      @bind-Value="_Entity.UpdateUser" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+<Input Id="CreateDate" @ref="Ref_CreateDate"   CssClass="d-none"   @bind-Value="_Entity.CreateDate" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+<Input Id="UpdateDate" @ref="Ref_UpdateDate"   CssClass="d-none"   @bind-Value="_Entity.UpdateDate" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+<Input Id="IsDelete" @ref="Ref_IsDelete"   CssClass="d-none"   @bind-Value="_Entity.IsDelete" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
     </EditForm>
 </div>
 
@@ -1062,8 +1058,8 @@ public async void RowDubbleClickGrid_SCM_ProductRequestDetails(GridRowClickEvent
     {
         Console.WriteLine("#log OnInitializedAsync");
 
-        TableGet = await Utility.JSON.ToObject<Table>("{\"Name\":\"SCM_ProductRequest\",\"GetNameAs\":\"SCM_ProductRequest\",\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"RequestID\",\"GetNameAs\":\"RequestID\"},{\"Name\":\"CreateUser\",\"GetNameAs\":\"CreateUser\"},{\"Name\":\"UpdateUser\",\"GetNameAs\":\"UpdateUser\"},{\"Name\":\"CreateDate\",\"GetNameAs\":\"CreateDate\"},{\"Name\":\"UpdateDate\",\"GetNameAs\":\"UpdateDate\"},{\"Name\":\"IsDelete\",\"GetNameAs\":\"IsDelete\"},{\"Name\":\"SystemUser\",\"GetNameAs\":\"SystemUser\"},{\"Name\":\"SystemUnitUser\",\"GetNameAs\":\"SystemUnitUser\"},{\"Name\":\"SystemSectionUser\",\"GetNameAs\":\"SystemSectionUser\"},{\"Name\":\"UserCompanyName\",\"GetNameAs\":\"UserCompanyName\"}],\"Relation\":[{\"Name\":\"SCM_ICT_Departments\",\"GetNameAs\":\"SCM_ICT_Departments\",\"ModeErtebat\":1,\"Column\":[{\"Name\":\"Code\",\"GetNameAs\":\"Code\"},{\"Name\":\"Title\",\"GetNameAs\":\"Title\"}],\"Relation\":[]},{\"Name\":\"SCM_ProductRequestDetails\",\"GetNameAs\":\"SCM_ProductRequestDetails\",\"ModeErtebat\":2,\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"RequestID\",\"GetNameAs\":\"RequestID\"},{\"Name\":\"CreateUser\",\"GetNameAs\":\"CreateUser\"},{\"Name\":\"UpdateUser\",\"GetNameAs\":\"UpdateUser\"},{\"Name\":\"CreateDate\",\"GetNameAs\":\"CreateDate\"},{\"Name\":\"UpdateDate\",\"GetNameAs\":\"UpdateDate\"},{\"Name\":\"IsDelete\",\"GetNameAs\":\"IsDelete\"},{\"Name\":\"ProductUnitText\",\"GetNameAs\":\"ProductUnitText\"},{\"Name\":\"SCM_PriorityId\",\"GetNameAs\":\"SCM_PriorityId\"},{\"Name\":\"PlaceOfUseProduct\",\"GetNameAs\":\"PlaceOfUseProduct\"},{\"Name\":\"ProductRowDescription\",\"GetNameAs\":\"ProductRowDescription\"},{\"Name\":\"ProductNameText\",\"GetNameAs\":\"ProductNameText\"},{\"Name\":\"ForeignMachineryProductTrueFasle\",\"GetNameAs\":\"ForeignMachineryProductTrueFasle\"},{\"Name\":\"DeficitSupplyNumber\",\"GetNameAs\":\"DeficitSupplyNumber\"},{\"Name\":\"ConfirmationOfTheInquiryExecutiveHeads\",\"GetNameAs\":\"ConfirmationOfTheInquiryExecutiveHeads\"},{\"Name\":\"InvoiceAmount1\",\"GetNameAs\":\"InvoiceAmount1\"},{\"Name\":\"InvoiceAmount2\",\"GetNameAs\":\"InvoiceAmount2\"},{\"Name\":\"InvoiceAmount3\",\"GetNameAs\":\"InvoiceAmount3\"},{\"Name\":\"InvoiceAmount4\",\"GetNameAs\":\"InvoiceAmount4\"},{\"Name\":\"InvoiceAmount5\",\"GetNameAs\":\"InvoiceAmount5\"},{\"Name\":\"InvoiceAmount6\",\"GetNameAs\":\"InvoiceAmount6\"}],\"Relation\":[{\"Name\":\"SCM_Priority\",\"GetNameAs\":\"SCM_Priority\",\"ModeErtebat\":1,\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"PriorityTitle\",\"GetNameAs\":\"PriorityTitle\"},{\"Name\":\"PriorityDateTime\",\"GetNameAs\":\"PriorityDateTime\"},{\"Name\":\"PriorityDescription\",\"GetNameAs\":\"PriorityDescription\"}]},{\"Name\":\"SCM_ProductRequestDetails_InquiryFirst\",\"GetNameAs\":\"SCM_ProductRequestDetails_InquiryFirst\",\"ModeErtebat\":2,\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"SCM_ProductRequestDetailsId\",\"GetNameAs\":\"SCM_ProductRequestDetailsId\"},{\"Name\":\"storage\",\"GetNameAs\":\"storage\"},{\"Name\":\"name\",\"GetNameAs\":\"name\"},{\"Name\":\"url\",\"GetNameAs\":\"url\"},{\"Name\":\"size\",\"GetNameAs\":\"size\"},{\"Name\":\"type\",\"GetNameAs\":\"type\"},{\"Name\":\"originalName\",\"GetNameAs\":\"originalName\"},{\"Name\":\"hash\",\"GetNameAs\":\"hash\"},{\"Name\":\"RequestID\",\"GetNameAs\":\"RequestID\"},{\"Name\":\"CreateUser\",\"GetNameAs\":\"CreateUser\"},{\"Name\":\"UpdateUser\",\"GetNameAs\":\"UpdateUser\"},{\"Name\":\"CreateDate\",\"GetNameAs\":\"CreateDate\"},{\"Name\":\"UpdateDate\",\"GetNameAs\":\"UpdateDate\"},{\"Name\":\"IsDelete\",\"GetNameAs\":\"IsDelete\"}]},{\"Name\":\"SCM_ProductRequestDetails_InquirySecondFile\",\"GetNameAs\":\"SCM_ProductRequestDetails_InquirySecondFile\",\"ModeErtebat\":2,\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"SCM_ProductRequestDetailsId\",\"GetNameAs\":\"SCM_ProductRequestDetailsId\"},{\"Name\":\"storage\",\"GetNameAs\":\"storage\"},{\"Name\":\"name\",\"GetNameAs\":\"name\"},{\"Name\":\"url\",\"GetNameAs\":\"url\"},{\"Name\":\"size\",\"GetNameAs\":\"size\"},{\"Name\":\"type\",\"GetNameAs\":\"type\"},{\"Name\":\"originalName\",\"GetNameAs\":\"originalName\"},{\"Name\":\"hash\",\"GetNameAs\":\"hash\"},{\"Name\":\"RequestID\",\"GetNameAs\":\"RequestID\"},{\"Name\":\"CreateUser\",\"GetNameAs\":\"CreateUser\"},{\"Name\":\"UpdateUser\",\"GetNameAs\":\"UpdateUser\"},{\"Name\":\"CreateDate\",\"GetNameAs\":\"CreateDate\"},{\"Name\":\"UpdateDate\",\"GetNameAs\":\"UpdateDate\"},{\"Name\":\"IsDelete\",\"GetNameAs\":\"IsDelete\"}]},{\"Name\":\"SCM_ProductRequestDetails_InquiryThirdFile\",\"GetNameAs\":\"SCM_ProductRequestDetails_InquiryThirdFile\",\"ModeErtebat\":2,\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"SCM_ProductRequestDetailsId\",\"GetNameAs\":\"SCM_ProductRequestDetailsId\"},{\"Name\":\"storage\",\"GetNameAs\":\"storage\"},{\"Name\":\"name\",\"GetNameAs\":\"name\"},{\"Name\":\"url\",\"GetNameAs\":\"url\"},{\"Name\":\"size\",\"GetNameAs\":\"size\"},{\"Name\":\"type\",\"GetNameAs\":\"type\"},{\"Name\":\"originalName\",\"GetNameAs\":\"originalName\"},{\"Name\":\"hash\",\"GetNameAs\":\"hash\"},{\"Name\":\"RequestID\",\"GetNameAs\":\"RequestID\"},{\"Name\":\"CreateUser\",\"GetNameAs\":\"CreateUser\"},{\"Name\":\"UpdateUser\",\"GetNameAs\":\"UpdateUser\"},{\"Name\":\"CreateDate\",\"GetNameAs\":\"CreateDate\"},{\"Name\":\"UpdateDate\",\"GetNameAs\":\"UpdateDate\"},{\"Name\":\"IsDelete\",\"GetNameAs\":\"IsDelete\"}]},{\"Name\":\"SCM_ProductRequestDetails_InquiryofTechnicalOffice1stFile\",\"GetNameAs\":\"SCM_ProductRequestDetails_InquiryofTechnicalOffice1stFile\",\"ModeErtebat\":2,\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"SCM_ProductRequestDetailsId\",\"GetNameAs\":\"SCM_ProductRequestDetailsId\"},{\"Name\":\"storage\",\"GetNameAs\":\"storage\"},{\"Name\":\"name\",\"GetNameAs\":\"name\"},{\"Name\":\"url\",\"GetNameAs\":\"url\"},{\"Name\":\"size\",\"GetNameAs\":\"size\"},{\"Name\":\"type\",\"GetNameAs\":\"type\"},{\"Name\":\"originalName\",\"GetNameAs\":\"originalName\"},{\"Name\":\"hash\",\"GetNameAs\":\"hash\"},{\"Name\":\"RequestID\",\"GetNameAs\":\"RequestID\"},{\"Name\":\"CreateUser\",\"GetNameAs\":\"CreateUser\"},{\"Name\":\"UpdateUser\",\"GetNameAs\":\"UpdateUser\"},{\"Name\":\"CreateDate\",\"GetNameAs\":\"CreateDate\"},{\"Name\":\"UpdateDate\",\"GetNameAs\":\"UpdateDate\"},{\"Name\":\"IsDelete\",\"GetNameAs\":\"IsDelete\"}]},{\"Name\":\"SCM_ProductRequestDetails_InquiryofTechnicalOffice3rdFile\",\"GetNameAs\":\"SCM_ProductRequestDetails_InquiryofTechnicalOffice3rdFile\",\"ModeErtebat\":2,\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"SCM_ProductRequestDetailsId\",\"GetNameAs\":\"SCM_ProductRequestDetailsId\"},{\"Name\":\"storage\",\"GetNameAs\":\"storage\"},{\"Name\":\"name\",\"GetNameAs\":\"name\"},{\"Name\":\"url\",\"GetNameAs\":\"url\"},{\"Name\":\"size\",\"GetNameAs\":\"size\"},{\"Name\":\"type\",\"GetNameAs\":\"type\"},{\"Name\":\"originalName\",\"GetNameAs\":\"originalName\"},{\"Name\":\"hash\",\"GetNameAs\":\"hash\"},{\"Name\":\"RequestID\",\"GetNameAs\":\"RequestID\"},{\"Name\":\"CreateUser\",\"GetNameAs\":\"CreateUser\"},{\"Name\":\"UpdateUser\",\"GetNameAs\":\"UpdateUser\"},{\"Name\":\"CreateDate\",\"GetNameAs\":\"CreateDate\"},{\"Name\":\"UpdateDate\",\"GetNameAs\":\"UpdateDate\"},{\"Name\":\"IsDelete\",\"GetNameAs\":\"IsDelete\"}]},{\"Name\":\"SCM_ProductRequestDetails_InquiryofTechnicalOffice2ndFile\",\"GetNameAs\":\"SCM_ProductRequestDetails_InquiryofTechnicalOffice2ndFile\",\"ModeErtebat\":2,\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"SCM_ProductRequestDetailsId\",\"GetNameAs\":\"SCM_ProductRequestDetailsId\"},{\"Name\":\"storage\",\"GetNameAs\":\"storage\"},{\"Name\":\"name\",\"GetNameAs\":\"name\"},{\"Name\":\"url\",\"GetNameAs\":\"url\"},{\"Name\":\"size\",\"GetNameAs\":\"size\"},{\"Name\":\"type\",\"GetNameAs\":\"type\"},{\"Name\":\"originalName\",\"GetNameAs\":\"originalName\"},{\"Name\":\"hash\",\"GetNameAs\":\"hash\"},{\"Name\":\"RequestID\",\"GetNameAs\":\"RequestID\"},{\"Name\":\"CreateUser\",\"GetNameAs\":\"CreateUser\"},{\"Name\":\"UpdateUser\",\"GetNameAs\":\"UpdateUser\"},{\"Name\":\"CreateDate\",\"GetNameAs\":\"CreateDate\"},{\"Name\":\"UpdateDate\",\"GetNameAs\":\"UpdateDate\"},{\"Name\":\"IsDelete\",\"GetNameAs\":\"IsDelete\"}]}]}]}");
-        TablePost = await Utility.JSON.ToObject<Table>("{\"Name\":\"SCM_ProductRequest\",\"GetNameAs\":\"SCM_ProductRequest\",\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"RequestID\",\"GetNameAs\":\"RequestID\"},{\"Name\":\"CreateUser\",\"GetNameAs\":\"CreateUser\"},{\"Name\":\"UpdateUser\",\"GetNameAs\":\"UpdateUser\"},{\"Name\":\"CreateDate\",\"GetNameAs\":\"CreateDate\"},{\"Name\":\"UpdateDate\",\"GetNameAs\":\"UpdateDate\"},{\"Name\":\"IsDelete\",\"GetNameAs\":\"IsDelete\"},{\"Name\":\"SystemUser\",\"GetNameAs\":\"SystemUser\"},{\"Name\":\"SystemUnitUser\",\"GetNameAs\":\"SystemUnitUser\"},{\"Name\":\"SystemSectionUser\",\"GetNameAs\":\"SystemSectionUser\"},{\"Name\":\"UserCompanyName\",\"GetNameAs\":\"UserCompanyName\"}],\"Relation\":[{\"Name\":\"SCM_ProductRequestDetails\",\"GetNameAs\":\"SCM_ProductRequestDetails\",\"ModeErtebat\":2,\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"RequestID\",\"GetNameAs\":\"RequestID\"},{\"Name\":\"CreateUser\",\"GetNameAs\":\"CreateUser\"},{\"Name\":\"UpdateUser\",\"GetNameAs\":\"UpdateUser\"},{\"Name\":\"CreateDate\",\"GetNameAs\":\"CreateDate\"},{\"Name\":\"UpdateDate\",\"GetNameAs\":\"UpdateDate\"},{\"Name\":\"IsDelete\",\"GetNameAs\":\"IsDelete\"},{\"Name\":\"ProductUnitText\",\"GetNameAs\":\"ProductUnitText\"},{\"Name\":\"SCM_PriorityId\",\"GetNameAs\":\"SCM_PriorityId\"},{\"Name\":\"PlaceOfUseProduct\",\"GetNameAs\":\"PlaceOfUseProduct\"},{\"Name\":\"ProductRowDescription\",\"GetNameAs\":\"ProductRowDescription\"},{\"Name\":\"ProductNameText\",\"GetNameAs\":\"ProductNameText\"},{\"Name\":\"ForeignMachineryProductTrueFasle\",\"GetNameAs\":\"ForeignMachineryProductTrueFasle\"},{\"Name\":\"DeficitSupplyNumber\",\"GetNameAs\":\"DeficitSupplyNumber\"},{\"Name\":\"ConfirmationOfTheInquiryExecutiveHeads\",\"GetNameAs\":\"ConfirmationOfTheInquiryExecutiveHeads\"},{\"Name\":\"InvoiceAmount1\",\"GetNameAs\":\"InvoiceAmount1\"},{\"Name\":\"InvoiceAmount2\",\"GetNameAs\":\"InvoiceAmount2\"},{\"Name\":\"InvoiceAmount3\",\"GetNameAs\":\"InvoiceAmount3\"},{\"Name\":\"InvoiceAmount4\",\"GetNameAs\":\"InvoiceAmount4\"},{\"Name\":\"InvoiceAmount5\",\"GetNameAs\":\"InvoiceAmount5\"},{\"Name\":\"InvoiceAmount6\",\"GetNameAs\":\"InvoiceAmount6\"}],\"Relation\":[{\"Name\":\"SCM_ProductRequestDetails_InquiryFirst\",\"GetNameAs\":\"SCM_ProductRequestDetails_InquiryFirst\",\"ModeErtebat\":2,\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"SCM_ProductRequestDetailsId\",\"GetNameAs\":\"SCM_ProductRequestDetailsId\"},{\"Name\":\"storage\",\"GetNameAs\":\"storage\"},{\"Name\":\"name\",\"GetNameAs\":\"name\"},{\"Name\":\"url\",\"GetNameAs\":\"url\"},{\"Name\":\"size\",\"GetNameAs\":\"size\"},{\"Name\":\"type\",\"GetNameAs\":\"type\"},{\"Name\":\"originalName\",\"GetNameAs\":\"originalName\"},{\"Name\":\"hash\",\"GetNameAs\":\"hash\"},{\"Name\":\"RequestID\",\"GetNameAs\":\"RequestID\"},{\"Name\":\"CreateUser\",\"GetNameAs\":\"CreateUser\"},{\"Name\":\"UpdateUser\",\"GetNameAs\":\"UpdateUser\"},{\"Name\":\"CreateDate\",\"GetNameAs\":\"CreateDate\"},{\"Name\":\"UpdateDate\",\"GetNameAs\":\"UpdateDate\"},{\"Name\":\"IsDelete\",\"GetNameAs\":\"IsDelete\"}]},{\"Name\":\"SCM_ProductRequestDetails_InquirySecondFile\",\"GetNameAs\":\"SCM_ProductRequestDetails_InquirySecondFile\",\"ModeErtebat\":2,\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"SCM_ProductRequestDetailsId\",\"GetNameAs\":\"SCM_ProductRequestDetailsId\"},{\"Name\":\"storage\",\"GetNameAs\":\"storage\"},{\"Name\":\"name\",\"GetNameAs\":\"name\"},{\"Name\":\"url\",\"GetNameAs\":\"url\"},{\"Name\":\"size\",\"GetNameAs\":\"size\"},{\"Name\":\"type\",\"GetNameAs\":\"type\"},{\"Name\":\"originalName\",\"GetNameAs\":\"originalName\"},{\"Name\":\"hash\",\"GetNameAs\":\"hash\"},{\"Name\":\"RequestID\",\"GetNameAs\":\"RequestID\"},{\"Name\":\"CreateUser\",\"GetNameAs\":\"CreateUser\"},{\"Name\":\"UpdateUser\",\"GetNameAs\":\"UpdateUser\"},{\"Name\":\"CreateDate\",\"GetNameAs\":\"CreateDate\"},{\"Name\":\"UpdateDate\",\"GetNameAs\":\"UpdateDate\"},{\"Name\":\"IsDelete\",\"GetNameAs\":\"IsDelete\"}]},{\"Name\":\"SCM_ProductRequestDetails_InquiryThirdFile\",\"GetNameAs\":\"SCM_ProductRequestDetails_InquiryThirdFile\",\"ModeErtebat\":2,\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"SCM_ProductRequestDetailsId\",\"GetNameAs\":\"SCM_ProductRequestDetailsId\"},{\"Name\":\"storage\",\"GetNameAs\":\"storage\"},{\"Name\":\"name\",\"GetNameAs\":\"name\"},{\"Name\":\"url\",\"GetNameAs\":\"url\"},{\"Name\":\"size\",\"GetNameAs\":\"size\"},{\"Name\":\"type\",\"GetNameAs\":\"type\"},{\"Name\":\"originalName\",\"GetNameAs\":\"originalName\"},{\"Name\":\"hash\",\"GetNameAs\":\"hash\"},{\"Name\":\"RequestID\",\"GetNameAs\":\"RequestID\"},{\"Name\":\"CreateUser\",\"GetNameAs\":\"CreateUser\"},{\"Name\":\"UpdateUser\",\"GetNameAs\":\"UpdateUser\"},{\"Name\":\"CreateDate\",\"GetNameAs\":\"CreateDate\"},{\"Name\":\"UpdateDate\",\"GetNameAs\":\"UpdateDate\"},{\"Name\":\"IsDelete\",\"GetNameAs\":\"IsDelete\"}]},{\"Name\":\"SCM_ProductRequestDetails_InquiryofTechnicalOffice1stFile\",\"GetNameAs\":\"SCM_ProductRequestDetails_InquiryofTechnicalOffice1stFile\",\"ModeErtebat\":2,\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"SCM_ProductRequestDetailsId\",\"GetNameAs\":\"SCM_ProductRequestDetailsId\"},{\"Name\":\"storage\",\"GetNameAs\":\"storage\"},{\"Name\":\"name\",\"GetNameAs\":\"name\"},{\"Name\":\"url\",\"GetNameAs\":\"url\"},{\"Name\":\"size\",\"GetNameAs\":\"size\"},{\"Name\":\"type\",\"GetNameAs\":\"type\"},{\"Name\":\"originalName\",\"GetNameAs\":\"originalName\"},{\"Name\":\"hash\",\"GetNameAs\":\"hash\"},{\"Name\":\"RequestID\",\"GetNameAs\":\"RequestID\"},{\"Name\":\"CreateUser\",\"GetNameAs\":\"CreateUser\"},{\"Name\":\"UpdateUser\",\"GetNameAs\":\"UpdateUser\"},{\"Name\":\"CreateDate\",\"GetNameAs\":\"CreateDate\"},{\"Name\":\"UpdateDate\",\"GetNameAs\":\"UpdateDate\"},{\"Name\":\"IsDelete\",\"GetNameAs\":\"IsDelete\"}]},{\"Name\":\"SCM_ProductRequestDetails_InquiryofTechnicalOffice3rdFile\",\"GetNameAs\":\"SCM_ProductRequestDetails_InquiryofTechnicalOffice3rdFile\",\"ModeErtebat\":2,\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"SCM_ProductRequestDetailsId\",\"GetNameAs\":\"SCM_ProductRequestDetailsId\"},{\"Name\":\"storage\",\"GetNameAs\":\"storage\"},{\"Name\":\"name\",\"GetNameAs\":\"name\"},{\"Name\":\"url\",\"GetNameAs\":\"url\"},{\"Name\":\"size\",\"GetNameAs\":\"size\"},{\"Name\":\"type\",\"GetNameAs\":\"type\"},{\"Name\":\"originalName\",\"GetNameAs\":\"originalName\"},{\"Name\":\"hash\",\"GetNameAs\":\"hash\"},{\"Name\":\"RequestID\",\"GetNameAs\":\"RequestID\"},{\"Name\":\"CreateUser\",\"GetNameAs\":\"CreateUser\"},{\"Name\":\"UpdateUser\",\"GetNameAs\":\"UpdateUser\"},{\"Name\":\"CreateDate\",\"GetNameAs\":\"CreateDate\"},{\"Name\":\"UpdateDate\",\"GetNameAs\":\"UpdateDate\"},{\"Name\":\"IsDelete\",\"GetNameAs\":\"IsDelete\"}]},{\"Name\":\"SCM_ProductRequestDetails_InquiryofTechnicalOffice2ndFile\",\"GetNameAs\":\"SCM_ProductRequestDetails_InquiryofTechnicalOffice2ndFile\",\"ModeErtebat\":2,\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"SCM_ProductRequestDetailsId\",\"GetNameAs\":\"SCM_ProductRequestDetailsId\"},{\"Name\":\"storage\",\"GetNameAs\":\"storage\"},{\"Name\":\"name\",\"GetNameAs\":\"name\"},{\"Name\":\"url\",\"GetNameAs\":\"url\"},{\"Name\":\"size\",\"GetNameAs\":\"size\"},{\"Name\":\"type\",\"GetNameAs\":\"type\"},{\"Name\":\"originalName\",\"GetNameAs\":\"originalName\"},{\"Name\":\"hash\",\"GetNameAs\":\"hash\"},{\"Name\":\"RequestID\",\"GetNameAs\":\"RequestID\"},{\"Name\":\"CreateUser\",\"GetNameAs\":\"CreateUser\"},{\"Name\":\"UpdateUser\",\"GetNameAs\":\"UpdateUser\"},{\"Name\":\"CreateDate\",\"GetNameAs\":\"CreateDate\"},{\"Name\":\"UpdateDate\",\"GetNameAs\":\"UpdateDate\"},{\"Name\":\"IsDelete\",\"GetNameAs\":\"IsDelete\"}]}]}]}");
+        TableGet = await Utility.JSON.ToObject<Table>("{\"Name\":\"SCM_ProductRequest\",\"GetNameAs\":\"SCM_ProductRequest\",\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"RequestID\",\"GetNameAs\":\"RequestID\"},{\"Name\":\"CreateUser\",\"GetNameAs\":\"CreateUser\"},{\"Name\":\"UpdateUser\",\"GetNameAs\":\"UpdateUser\"},{\"Name\":\"CreateDate\",\"GetNameAs\":\"CreateDate\"},{\"Name\":\"UpdateDate\",\"GetNameAs\":\"UpdateDate\"},{\"Name\":\"IsDelete\",\"GetNameAs\":\"IsDelete\"},{\"Name\":\"SystemUser\",\"GetNameAs\":\"SystemUser\"},{\"Name\":\"SystemUnitUser\",\"GetNameAs\":\"SystemUnitUser\"},{\"Name\":\"SystemSectionUser\",\"GetNameAs\":\"SystemSectionUser\"},{\"Name\":\"UserCompanyName\",\"GetNameAs\":\"UserCompanyName\"}],\"Relation\":[{\"Name\":\"SCM_ICT_Departments\",\"GetNameAs\":\"SCM_ICT_Departments\",\"ModeErtebat\":1,\"Column\":[{\"Name\":\"Code\",\"GetNameAs\":\"Code\"},{\"Name\":\"Title\",\"GetNameAs\":\"Title\"}],\"Relation\":[]},{\"Name\":\"SCM_ProductRequestDetails\",\"GetNameAs\":\"SCM_ProductRequestDetails\",\"ModeErtebat\":2,\"Column\":[{\"Name\":\"InvoiceAmount1\",\"GetNameAs\":\"InvoiceAmount1\"},{\"Name\":\"InvoiceAmount2\",\"GetNameAs\":\"InvoiceAmount2\"},{\"Name\":\"InvoiceAmount3\",\"GetNameAs\":\"InvoiceAmount3\"},{\"Name\":\"InvoiceAmount4\",\"GetNameAs\":\"InvoiceAmount4\"},{\"Name\":\"InvoiceAmount5\",\"GetNameAs\":\"InvoiceAmount5\"},{\"Name\":\"InvoiceAmount6\",\"GetNameAs\":\"InvoiceAmount6\"},{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"RequestID\",\"GetNameAs\":\"RequestID\"},{\"Name\":\"CreateUser\",\"GetNameAs\":\"CreateUser\"},{\"Name\":\"UpdateUser\",\"GetNameAs\":\"UpdateUser\"},{\"Name\":\"CreateDate\",\"GetNameAs\":\"CreateDate\"},{\"Name\":\"UpdateDate\",\"GetNameAs\":\"UpdateDate\"},{\"Name\":\"IsDelete\",\"GetNameAs\":\"IsDelete\"},{\"Name\":\"ProductUnitText\",\"GetNameAs\":\"ProductUnitText\"},{\"Name\":\"ProductNameText\",\"GetNameAs\":\"ProductNameText\"},{\"Name\":\"ForeignMachineryProductTrueFasle\",\"GetNameAs\":\"ForeignMachineryProductTrueFasle\"},{\"Name\":\"DeficitSupplyNumber\",\"GetNameAs\":\"DeficitSupplyNumber\"},{\"Name\":\"SCM_PriorityId\",\"GetNameAs\":\"SCM_PriorityId\"},{\"Name\":\"PlaceOfUseProduct\",\"GetNameAs\":\"PlaceOfUseProduct\"},{\"Name\":\"ProductRowDescription\",\"GetNameAs\":\"ProductRowDescription\"},{\"Name\":\"ConfirmationOfTheInquiryExecutiveHeads\",\"GetNameAs\":\"ConfirmationOfTheInquiryExecutiveHeads\"}],\"Relation\":[{\"Name\":\"SCM_ProductRequestDetails_InquiryFirst\",\"GetNameAs\":\"SCM_ProductRequestDetails_InquiryFirst\",\"ModeErtebat\":2,\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"SCM_ProductRequestDetailsId\",\"GetNameAs\":\"SCM_ProductRequestDetailsId\"},{\"Name\":\"storage\",\"GetNameAs\":\"storage\"},{\"Name\":\"name\",\"GetNameAs\":\"name\"},{\"Name\":\"url\",\"GetNameAs\":\"url\"},{\"Name\":\"size\",\"GetNameAs\":\"size\"},{\"Name\":\"type\",\"GetNameAs\":\"type\"},{\"Name\":\"originalName\",\"GetNameAs\":\"originalName\"},{\"Name\":\"hash\",\"GetNameAs\":\"hash\"},{\"Name\":\"RequestID\",\"GetNameAs\":\"RequestID\"},{\"Name\":\"CreateUser\",\"GetNameAs\":\"CreateUser\"},{\"Name\":\"UpdateUser\",\"GetNameAs\":\"UpdateUser\"},{\"Name\":\"CreateDate\",\"GetNameAs\":\"CreateDate\"},{\"Name\":\"UpdateDate\",\"GetNameAs\":\"UpdateDate\"},{\"Name\":\"IsDelete\",\"GetNameAs\":\"IsDelete\"}]},{\"Name\":\"SCM_ProductRequestDetails_InquirySecondFile\",\"GetNameAs\":\"SCM_ProductRequestDetails_InquirySecondFile\",\"ModeErtebat\":2,\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"SCM_ProductRequestDetailsId\",\"GetNameAs\":\"SCM_ProductRequestDetailsId\"},{\"Name\":\"storage\",\"GetNameAs\":\"storage\"},{\"Name\":\"name\",\"GetNameAs\":\"name\"},{\"Name\":\"url\",\"GetNameAs\":\"url\"},{\"Name\":\"size\",\"GetNameAs\":\"size\"},{\"Name\":\"type\",\"GetNameAs\":\"type\"},{\"Name\":\"originalName\",\"GetNameAs\":\"originalName\"},{\"Name\":\"hash\",\"GetNameAs\":\"hash\"},{\"Name\":\"RequestID\",\"GetNameAs\":\"RequestID\"},{\"Name\":\"CreateUser\",\"GetNameAs\":\"CreateUser\"},{\"Name\":\"UpdateUser\",\"GetNameAs\":\"UpdateUser\"},{\"Name\":\"CreateDate\",\"GetNameAs\":\"CreateDate\"},{\"Name\":\"UpdateDate\",\"GetNameAs\":\"UpdateDate\"},{\"Name\":\"IsDelete\",\"GetNameAs\":\"IsDelete\"}]},{\"Name\":\"SCM_ProductRequestDetails_InquiryThirdFile\",\"GetNameAs\":\"SCM_ProductRequestDetails_InquiryThirdFile\",\"ModeErtebat\":2,\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"SCM_ProductRequestDetailsId\",\"GetNameAs\":\"SCM_ProductRequestDetailsId\"},{\"Name\":\"storage\",\"GetNameAs\":\"storage\"},{\"Name\":\"name\",\"GetNameAs\":\"name\"},{\"Name\":\"url\",\"GetNameAs\":\"url\"},{\"Name\":\"size\",\"GetNameAs\":\"size\"},{\"Name\":\"type\",\"GetNameAs\":\"type\"},{\"Name\":\"originalName\",\"GetNameAs\":\"originalName\"},{\"Name\":\"hash\",\"GetNameAs\":\"hash\"},{\"Name\":\"RequestID\",\"GetNameAs\":\"RequestID\"},{\"Name\":\"CreateUser\",\"GetNameAs\":\"CreateUser\"},{\"Name\":\"UpdateUser\",\"GetNameAs\":\"UpdateUser\"},{\"Name\":\"CreateDate\",\"GetNameAs\":\"CreateDate\"},{\"Name\":\"UpdateDate\",\"GetNameAs\":\"UpdateDate\"},{\"Name\":\"IsDelete\",\"GetNameAs\":\"IsDelete\"}]},{\"Name\":\"SCM_ProductRequestDetails_InquiryofTechnicalOffice1stFile\",\"GetNameAs\":\"SCM_ProductRequestDetails_InquiryofTechnicalOffice1stFile\",\"ModeErtebat\":2,\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"SCM_ProductRequestDetailsId\",\"GetNameAs\":\"SCM_ProductRequestDetailsId\"},{\"Name\":\"storage\",\"GetNameAs\":\"storage\"},{\"Name\":\"name\",\"GetNameAs\":\"name\"},{\"Name\":\"url\",\"GetNameAs\":\"url\"},{\"Name\":\"size\",\"GetNameAs\":\"size\"},{\"Name\":\"type\",\"GetNameAs\":\"type\"},{\"Name\":\"originalName\",\"GetNameAs\":\"originalName\"},{\"Name\":\"hash\",\"GetNameAs\":\"hash\"},{\"Name\":\"RequestID\",\"GetNameAs\":\"RequestID\"},{\"Name\":\"CreateUser\",\"GetNameAs\":\"CreateUser\"},{\"Name\":\"UpdateUser\",\"GetNameAs\":\"UpdateUser\"},{\"Name\":\"CreateDate\",\"GetNameAs\":\"CreateDate\"},{\"Name\":\"UpdateDate\",\"GetNameAs\":\"UpdateDate\"},{\"Name\":\"IsDelete\",\"GetNameAs\":\"IsDelete\"}]},{\"Name\":\"SCM_ProductRequestDetails_InquiryofTechnicalOffice3rdFile\",\"GetNameAs\":\"SCM_ProductRequestDetails_InquiryofTechnicalOffice3rdFile\",\"ModeErtebat\":2,\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"SCM_ProductRequestDetailsId\",\"GetNameAs\":\"SCM_ProductRequestDetailsId\"},{\"Name\":\"storage\",\"GetNameAs\":\"storage\"},{\"Name\":\"name\",\"GetNameAs\":\"name\"},{\"Name\":\"url\",\"GetNameAs\":\"url\"},{\"Name\":\"size\",\"GetNameAs\":\"size\"},{\"Name\":\"type\",\"GetNameAs\":\"type\"},{\"Name\":\"originalName\",\"GetNameAs\":\"originalName\"},{\"Name\":\"hash\",\"GetNameAs\":\"hash\"},{\"Name\":\"RequestID\",\"GetNameAs\":\"RequestID\"},{\"Name\":\"CreateUser\",\"GetNameAs\":\"CreateUser\"},{\"Name\":\"UpdateUser\",\"GetNameAs\":\"UpdateUser\"},{\"Name\":\"CreateDate\",\"GetNameAs\":\"CreateDate\"},{\"Name\":\"UpdateDate\",\"GetNameAs\":\"UpdateDate\"},{\"Name\":\"IsDelete\",\"GetNameAs\":\"IsDelete\"}]},{\"Name\":\"SCM_ProductRequestDetails_InquiryofTechnicalOffice2ndFile\",\"GetNameAs\":\"SCM_ProductRequestDetails_InquiryofTechnicalOffice2ndFile\",\"ModeErtebat\":2,\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"SCM_ProductRequestDetailsId\",\"GetNameAs\":\"SCM_ProductRequestDetailsId\"},{\"Name\":\"storage\",\"GetNameAs\":\"storage\"},{\"Name\":\"name\",\"GetNameAs\":\"name\"},{\"Name\":\"url\",\"GetNameAs\":\"url\"},{\"Name\":\"size\",\"GetNameAs\":\"size\"},{\"Name\":\"type\",\"GetNameAs\":\"type\"},{\"Name\":\"originalName\",\"GetNameAs\":\"originalName\"},{\"Name\":\"hash\",\"GetNameAs\":\"hash\"},{\"Name\":\"RequestID\",\"GetNameAs\":\"RequestID\"},{\"Name\":\"CreateUser\",\"GetNameAs\":\"CreateUser\"},{\"Name\":\"UpdateUser\",\"GetNameAs\":\"UpdateUser\"},{\"Name\":\"CreateDate\",\"GetNameAs\":\"CreateDate\"},{\"Name\":\"UpdateDate\",\"GetNameAs\":\"UpdateDate\"},{\"Name\":\"IsDelete\",\"GetNameAs\":\"IsDelete\"}]},{\"Name\":\"SCM_Priority\",\"GetNameAs\":\"SCM_Priority\",\"ModeErtebat\":1,\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"PriorityTitle\",\"GetNameAs\":\"PriorityTitle\"},{\"Name\":\"PriorityDateTime\",\"GetNameAs\":\"PriorityDateTime\"},{\"Name\":\"PriorityDescription\",\"GetNameAs\":\"PriorityDescription\"}]}]}]}");
+        TablePost = await Utility.JSON.ToObject<Table>("{\"Name\":\"SCM_ProductRequest\",\"GetNameAs\":\"SCM_ProductRequest\",\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"RequestID\",\"GetNameAs\":\"RequestID\"},{\"Name\":\"CreateUser\",\"GetNameAs\":\"CreateUser\"},{\"Name\":\"UpdateUser\",\"GetNameAs\":\"UpdateUser\"},{\"Name\":\"CreateDate\",\"GetNameAs\":\"CreateDate\"},{\"Name\":\"UpdateDate\",\"GetNameAs\":\"UpdateDate\"},{\"Name\":\"IsDelete\",\"GetNameAs\":\"IsDelete\"},{\"Name\":\"SystemUser\",\"GetNameAs\":\"SystemUser\"},{\"Name\":\"SystemUnitUser\",\"GetNameAs\":\"SystemUnitUser\"},{\"Name\":\"SystemSectionUser\",\"GetNameAs\":\"SystemSectionUser\"},{\"Name\":\"UserCompanyName\",\"GetNameAs\":\"UserCompanyName\"}],\"Relation\":[{\"Name\":\"SCM_ProductRequestDetails\",\"GetNameAs\":\"SCM_ProductRequestDetails\",\"ModeErtebat\":2,\"Column\":[{\"Name\":\"InvoiceAmount1\",\"GetNameAs\":\"InvoiceAmount1\"},{\"Name\":\"InvoiceAmount2\",\"GetNameAs\":\"InvoiceAmount2\"},{\"Name\":\"InvoiceAmount3\",\"GetNameAs\":\"InvoiceAmount3\"},{\"Name\":\"InvoiceAmount4\",\"GetNameAs\":\"InvoiceAmount4\"},{\"Name\":\"InvoiceAmount5\",\"GetNameAs\":\"InvoiceAmount5\"},{\"Name\":\"InvoiceAmount6\",\"GetNameAs\":\"InvoiceAmount6\"},{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"RequestID\",\"GetNameAs\":\"RequestID\"},{\"Name\":\"CreateUser\",\"GetNameAs\":\"CreateUser\"},{\"Name\":\"UpdateUser\",\"GetNameAs\":\"UpdateUser\"},{\"Name\":\"CreateDate\",\"GetNameAs\":\"CreateDate\"},{\"Name\":\"UpdateDate\",\"GetNameAs\":\"UpdateDate\"},{\"Name\":\"IsDelete\",\"GetNameAs\":\"IsDelete\"},{\"Name\":\"ProductUnitText\",\"GetNameAs\":\"ProductUnitText\"},{\"Name\":\"ProductNameText\",\"GetNameAs\":\"ProductNameText\"},{\"Name\":\"ForeignMachineryProductTrueFasle\",\"GetNameAs\":\"ForeignMachineryProductTrueFasle\"},{\"Name\":\"DeficitSupplyNumber\",\"GetNameAs\":\"DeficitSupplyNumber\"},{\"Name\":\"SCM_PriorityId\",\"GetNameAs\":\"SCM_PriorityId\"},{\"Name\":\"PlaceOfUseProduct\",\"GetNameAs\":\"PlaceOfUseProduct\"},{\"Name\":\"ProductRowDescription\",\"GetNameAs\":\"ProductRowDescription\"},{\"Name\":\"ConfirmationOfTheInquiryExecutiveHeads\",\"GetNameAs\":\"ConfirmationOfTheInquiryExecutiveHeads\"}],\"Relation\":[{\"Name\":\"SCM_ProductRequestDetails_InquiryFirst\",\"GetNameAs\":\"SCM_ProductRequestDetails_InquiryFirst\",\"ModeErtebat\":2,\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"SCM_ProductRequestDetailsId\",\"GetNameAs\":\"SCM_ProductRequestDetailsId\"},{\"Name\":\"storage\",\"GetNameAs\":\"storage\"},{\"Name\":\"name\",\"GetNameAs\":\"name\"},{\"Name\":\"url\",\"GetNameAs\":\"url\"},{\"Name\":\"size\",\"GetNameAs\":\"size\"},{\"Name\":\"type\",\"GetNameAs\":\"type\"},{\"Name\":\"originalName\",\"GetNameAs\":\"originalName\"},{\"Name\":\"hash\",\"GetNameAs\":\"hash\"},{\"Name\":\"RequestID\",\"GetNameAs\":\"RequestID\"},{\"Name\":\"CreateUser\",\"GetNameAs\":\"CreateUser\"},{\"Name\":\"UpdateUser\",\"GetNameAs\":\"UpdateUser\"},{\"Name\":\"CreateDate\",\"GetNameAs\":\"CreateDate\"},{\"Name\":\"UpdateDate\",\"GetNameAs\":\"UpdateDate\"},{\"Name\":\"IsDelete\",\"GetNameAs\":\"IsDelete\"}]},{\"Name\":\"SCM_ProductRequestDetails_InquirySecondFile\",\"GetNameAs\":\"SCM_ProductRequestDetails_InquirySecondFile\",\"ModeErtebat\":2,\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"SCM_ProductRequestDetailsId\",\"GetNameAs\":\"SCM_ProductRequestDetailsId\"},{\"Name\":\"storage\",\"GetNameAs\":\"storage\"},{\"Name\":\"name\",\"GetNameAs\":\"name\"},{\"Name\":\"url\",\"GetNameAs\":\"url\"},{\"Name\":\"size\",\"GetNameAs\":\"size\"},{\"Name\":\"type\",\"GetNameAs\":\"type\"},{\"Name\":\"originalName\",\"GetNameAs\":\"originalName\"},{\"Name\":\"hash\",\"GetNameAs\":\"hash\"},{\"Name\":\"RequestID\",\"GetNameAs\":\"RequestID\"},{\"Name\":\"CreateUser\",\"GetNameAs\":\"CreateUser\"},{\"Name\":\"UpdateUser\",\"GetNameAs\":\"UpdateUser\"},{\"Name\":\"CreateDate\",\"GetNameAs\":\"CreateDate\"},{\"Name\":\"UpdateDate\",\"GetNameAs\":\"UpdateDate\"},{\"Name\":\"IsDelete\",\"GetNameAs\":\"IsDelete\"}]},{\"Name\":\"SCM_ProductRequestDetails_InquiryThirdFile\",\"GetNameAs\":\"SCM_ProductRequestDetails_InquiryThirdFile\",\"ModeErtebat\":2,\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"SCM_ProductRequestDetailsId\",\"GetNameAs\":\"SCM_ProductRequestDetailsId\"},{\"Name\":\"storage\",\"GetNameAs\":\"storage\"},{\"Name\":\"name\",\"GetNameAs\":\"name\"},{\"Name\":\"url\",\"GetNameAs\":\"url\"},{\"Name\":\"size\",\"GetNameAs\":\"size\"},{\"Name\":\"type\",\"GetNameAs\":\"type\"},{\"Name\":\"originalName\",\"GetNameAs\":\"originalName\"},{\"Name\":\"hash\",\"GetNameAs\":\"hash\"},{\"Name\":\"RequestID\",\"GetNameAs\":\"RequestID\"},{\"Name\":\"CreateUser\",\"GetNameAs\":\"CreateUser\"},{\"Name\":\"UpdateUser\",\"GetNameAs\":\"UpdateUser\"},{\"Name\":\"CreateDate\",\"GetNameAs\":\"CreateDate\"},{\"Name\":\"UpdateDate\",\"GetNameAs\":\"UpdateDate\"},{\"Name\":\"IsDelete\",\"GetNameAs\":\"IsDelete\"}]},{\"Name\":\"SCM_ProductRequestDetails_InquiryofTechnicalOffice1stFile\",\"GetNameAs\":\"SCM_ProductRequestDetails_InquiryofTechnicalOffice1stFile\",\"ModeErtebat\":2,\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"SCM_ProductRequestDetailsId\",\"GetNameAs\":\"SCM_ProductRequestDetailsId\"},{\"Name\":\"storage\",\"GetNameAs\":\"storage\"},{\"Name\":\"name\",\"GetNameAs\":\"name\"},{\"Name\":\"url\",\"GetNameAs\":\"url\"},{\"Name\":\"size\",\"GetNameAs\":\"size\"},{\"Name\":\"type\",\"GetNameAs\":\"type\"},{\"Name\":\"originalName\",\"GetNameAs\":\"originalName\"},{\"Name\":\"hash\",\"GetNameAs\":\"hash\"},{\"Name\":\"RequestID\",\"GetNameAs\":\"RequestID\"},{\"Name\":\"CreateUser\",\"GetNameAs\":\"CreateUser\"},{\"Name\":\"UpdateUser\",\"GetNameAs\":\"UpdateUser\"},{\"Name\":\"CreateDate\",\"GetNameAs\":\"CreateDate\"},{\"Name\":\"UpdateDate\",\"GetNameAs\":\"UpdateDate\"},{\"Name\":\"IsDelete\",\"GetNameAs\":\"IsDelete\"}]},{\"Name\":\"SCM_ProductRequestDetails_InquiryofTechnicalOffice3rdFile\",\"GetNameAs\":\"SCM_ProductRequestDetails_InquiryofTechnicalOffice3rdFile\",\"ModeErtebat\":2,\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"SCM_ProductRequestDetailsId\",\"GetNameAs\":\"SCM_ProductRequestDetailsId\"},{\"Name\":\"storage\",\"GetNameAs\":\"storage\"},{\"Name\":\"name\",\"GetNameAs\":\"name\"},{\"Name\":\"url\",\"GetNameAs\":\"url\"},{\"Name\":\"size\",\"GetNameAs\":\"size\"},{\"Name\":\"type\",\"GetNameAs\":\"type\"},{\"Name\":\"originalName\",\"GetNameAs\":\"originalName\"},{\"Name\":\"hash\",\"GetNameAs\":\"hash\"},{\"Name\":\"RequestID\",\"GetNameAs\":\"RequestID\"},{\"Name\":\"CreateUser\",\"GetNameAs\":\"CreateUser\"},{\"Name\":\"UpdateUser\",\"GetNameAs\":\"UpdateUser\"},{\"Name\":\"CreateDate\",\"GetNameAs\":\"CreateDate\"},{\"Name\":\"UpdateDate\",\"GetNameAs\":\"UpdateDate\"},{\"Name\":\"IsDelete\",\"GetNameAs\":\"IsDelete\"}]},{\"Name\":\"SCM_ProductRequestDetails_InquiryofTechnicalOffice2ndFile\",\"GetNameAs\":\"SCM_ProductRequestDetails_InquiryofTechnicalOffice2ndFile\",\"ModeErtebat\":2,\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"SCM_ProductRequestDetailsId\",\"GetNameAs\":\"SCM_ProductRequestDetailsId\"},{\"Name\":\"storage\",\"GetNameAs\":\"storage\"},{\"Name\":\"name\",\"GetNameAs\":\"name\"},{\"Name\":\"url\",\"GetNameAs\":\"url\"},{\"Name\":\"size\",\"GetNameAs\":\"size\"},{\"Name\":\"type\",\"GetNameAs\":\"type\"},{\"Name\":\"originalName\",\"GetNameAs\":\"originalName\"},{\"Name\":\"hash\",\"GetNameAs\":\"hash\"},{\"Name\":\"RequestID\",\"GetNameAs\":\"RequestID\"},{\"Name\":\"CreateUser\",\"GetNameAs\":\"CreateUser\"},{\"Name\":\"UpdateUser\",\"GetNameAs\":\"UpdateUser\"},{\"Name\":\"CreateDate\",\"GetNameAs\":\"CreateDate\"},{\"Name\":\"UpdateDate\",\"GetNameAs\":\"UpdateDate\"},{\"Name\":\"IsDelete\",\"GetNameAs\":\"IsDelete\"}]}]}]}");
 
         config = CKEditorBundleOptions.DefaultConfig.WithHtmlEditing();
         config.Language = "fa";

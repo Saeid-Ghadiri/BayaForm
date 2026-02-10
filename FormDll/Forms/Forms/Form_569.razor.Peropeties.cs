@@ -144,7 +144,7 @@ namespace Forms.Forms
     /// <summary>
     ///  ورژنی که فرم باهاش ساخته شده
     /// </summary>
-    public string? VersionForm { get; set; } = "5622";
+    public string? VersionForm { get; set; } = "5671";
 
     /// <summary>
     ///  موجودیت
@@ -179,19 +179,24 @@ namespace Forms.Forms
 
     #region FormProperty
 
-public Input<Guid> Ref_Id;
-public Input<Guid?> Ref_RequestID;
-public Input<Guid?> Ref_CreateUser;
-public Input<Guid?> Ref_UpdateUser;
-public Input<DateTime?> Ref_CreateDate;
-public Input<DateTime?> Ref_UpdateDate;
-public Input<bool?> Ref_IsDelete;
-public Input<string?> Ref_UserStarterFullName;
-public Input<string?> Ref_UserStarterCompanyName;
-public Input<string?> Ref_UserStarterUnitName;
-public Input<string?> Ref_UserStarterSectionName;
 public DxGrid? Grid_SCMPLATE_ProductRequestDetails;
 
+public Input<string?> Ref_SCMPLATE_ProductRequestDetails_SH_DESC;
+public Input<string?> Ref_SCMPLATE_ProductRequestDetails_SH_PARTNO;
+public Input<string?> Ref_SCMPLATE_ProductRequestDetails_SH_UNIT;
+public Input<double?> Ref_SCMPLATE_ProductRequestDetails_SH_Amount;
+public Input<double?> Ref_SCMPLATE_ProductRequestDetails_ProductRequestingQTY;
+public Input<string?> Ref_SCMPLATE_ProductRequestDetails_PlaceOfUse;
+public Dropdown Ref_SCMPLATE_ProductRequestDetails_Global_PriorityId;
+public Input<string?> Ref_SCMPLATE_ProductRequestDetails_SR_Desc;
+public RadioBoolean Ref_SCMPLATE_ProductRequestDetails_SupplyGoodsIsEnable;
+public Dropdown Ref_SCMPLATE_ProductRequestDetails_Global_SCMRequestTypeId;
+public Input<double?> Ref_SCMPLATE_ProductRequestDetails_DeficitSupplyNumber;
+public Input<double?> Ref_SCMPLATE_ProductRequestDetails_NumberofGoodsDelivery;
+public Input<string?> Ref_SCMPLATE_ProductRequestDetails_DescriptionWarehouseKeeper;
+public RadioBoolean Ref_SCMPLATE_ProductRequestDetails_GoodsDeliveryIsEnable;
+public RadioBoolean Ref_SCMPLATE_ProductRequestDetails_DeficitSupplyIsEnable;
+public Input<int?> Ref_SCMPLATE_ProductRequestDetails_DeliveryCode;
 public Input<Guid> Ref_SCMPLATE_ProductRequestDetails_Id;
 public Input<Guid?> Ref_SCMPLATE_ProductRequestDetails_RequestID;
 public Input<Guid?> Ref_SCMPLATE_ProductRequestDetails_CreateUser;
@@ -199,23 +204,12 @@ public Input<Guid?> Ref_SCMPLATE_ProductRequestDetails_UpdateUser;
 public Input<DateTime?> Ref_SCMPLATE_ProductRequestDetails_CreateDate;
 public Input<DateTime?> Ref_SCMPLATE_ProductRequestDetails_UpdateDate;
 public Input<bool?> Ref_SCMPLATE_ProductRequestDetails_IsDelete;
-public Input<string?> Ref_SCMPLATE_ProductRequestDetails_SH_PARTNO;
+public Dropdown Ref_SCMPLATE_ProductRequestDetails_Global_ShomaranInfoId;
+public Dropdown Ref_SCMPLATE_ProductRequestDetails_T_Search_NotMapped;
+public Dropdown Ref_SCMPLATE_ProductRequestDetails_KH_Search_NotMapped;
+public Dropdown Ref_SCMPLATE_ProductRequestDetails_FB_Search_NotMapped;
 public Input<string?> Ref_SCMPLATE_ProductRequestDetails_SH_PARTCODE;
-public Input<string?> Ref_SCMPLATE_ProductRequestDetails_SH_DESC;
-public Input<string?> Ref_SCMPLATE_ProductRequestDetails_SH_UNIT;
-public Input<double?> Ref_SCMPLATE_ProductRequestDetails_SH_Amount;
-public Dropdown Ref_SCMPLATE_ProductRequestDetails_Global_PriorityId;
-public Input<double?> Ref_SCMPLATE_ProductRequestDetails_ProductRequestingQTY;
-public Input<string?> Ref_SCMPLATE_ProductRequestDetails_PlaceOfUse;
-public Input<string?> Ref_SCMPLATE_ProductRequestDetails_SR_Desc;
-public RadioBoolean Ref_SCMPLATE_ProductRequestDetails_SupplyGoodsIsEnable;
-public RadioBoolean Ref_SCMPLATE_ProductRequestDetails_GoodsDeliveryIsEnable;
-public RadioBoolean Ref_SCMPLATE_ProductRequestDetails_DeficitSupplyIsEnable;
-public Input<double?> Ref_SCMPLATE_ProductRequestDetails_DeficitSupplyNumber;
-public Input<string?> Ref_SCMPLATE_ProductRequestDetails_DescriptionWarehouseKeeper;
-public Input<double?> Ref_SCMPLATE_ProductRequestDetails_NumberofGoodsDelivery;
-public Input<int?> Ref_SCMPLATE_ProductRequestDetails_DeliveryCode;
-public Dropdown Ref_SCMPLATE_ProductRequestDetails_Global_SCMRequestTypeId;
+public Input<string?> Ref_SCMPLATE_ProductRequestDetails_T_CENTCODE;
 public Input<Guid?> Ref_SCMPLATE_ProductRequestDetails_T_CENTCODE_GUID;
 public Input<string?> Ref_SCMPLATE_ProductRequestDetails_T_PAYCENTName;
 public Input<string?> Ref_SCMPLATE_ProductRequestDetails_T_CREATOR;
@@ -225,6 +219,7 @@ public Input<Guid?> Ref_SCMPLATE_ProductRequestDetails_T_FACTNO_GUID;
 public Input<string?> Ref_SCMPLATE_ProductRequestDetails_T_TEMPNO;
 public Input<int?> Ref_SCMPLATE_ProductRequestDetails_T_TempNoNum;
 public Input<int?> Ref_SCMPLATE_ProductRequestDetails_T_YEAR;
+public Dropdown Ref_SCMPLATE_ProductRequestDetails_SH_Tahvil_DTL;
 public Input<string?> Ref_SCMPLATE_ProductRequestDetails_KH_APPROVER;
 public Input<string?> Ref_SCMPLATE_ProductRequestDetails_KH_CENTCODE;
 public Input<Guid?> Ref_SCMPLATE_ProductRequestDetails_KH_CENTCODE_GUID;
@@ -239,6 +234,7 @@ public Input<string?> Ref_SCMPLATE_ProductRequestDetails_KH_OKFACTDATE;
 public Input<string?> Ref_SCMPLATE_ProductRequestDetails_KH_INVCODE;
 public Input<string?> Ref_SCMPLATE_ProductRequestDetails_KH_REQPERSON;
 public Input<int?> Ref_SCMPLATE_ProductRequestDetails_KH_YEAR;
+public Dropdown Ref_SCMPLATE_ProductRequestDetails_SH_Kharid_DTL;
 public Input<string?> Ref_SCMPLATE_ProductRequestDetails_FB_ACCCODE;
 public Input<string?> Ref_SCMPLATE_ProductRequestDetails_FB_ACTCODE;
 public Input<int?> Ref_SCMPLATE_ProductRequestDetails_FB_ACTYEAR;
@@ -367,14 +363,18 @@ public Input<string?> Ref_SCMPLATE_ProductRequestDetails_FB_WUSER;
 public Input<int?> Ref_SCMPLATE_ProductRequestDetails_FB_YEAR;
 public Input<Guid?> Ref_SCMPLATE_ProductRequestDetails_FB_FACTNO_GUID;
 public Input<int?> Ref_SCMPLATE_ProductRequestDetails_FB_FactorNum;
-public Dropdown Ref_SCMPLATE_ProductRequestDetails_T_Search_NotMapped;
-public Dropdown Ref_SCMPLATE_ProductRequestDetails_KH_Search_NotMapped;
-public Dropdown Ref_SCMPLATE_ProductRequestDetails_FB_Search_NotMapped;
-public Dropdown Ref_SCMPLATE_ProductRequestDetails_SH_Tahvil_DTL;
-public Dropdown Ref_SCMPLATE_ProductRequestDetails_SH_Kharid_DTL;
 public Dropdown Ref_SCMPLATE_ProductRequestDetails_SH_FactBuy_DTL;
-public Dropdown Ref_SCMPLATE_ProductRequestDetails_Global_ShomaranInfoId;
-public Input<string?> Ref_SCMPLATE_ProductRequestDetails_T_CENTCODE;
+public Input<Guid> Ref_Id;
+public Input<Guid?> Ref_RequestID;
+public Input<Guid?> Ref_CreateUser;
+public Input<Guid?> Ref_UpdateUser;
+public Input<DateTime?> Ref_CreateDate;
+public Input<DateTime?> Ref_UpdateDate;
+public Input<bool?> Ref_IsDelete;
+public Input<string?> Ref_UserStarterFullName;
+public Input<string?> Ref_UserStarterCompanyName;
+public Input<string?> Ref_UserStarterUnitName;
+public Input<string?> Ref_UserStarterSectionName;
 
 
     #endregion
