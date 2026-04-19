@@ -144,7 +144,7 @@ namespace Forms.Forms
     /// <summary>
     ///  ورژنی که فرم باهاش ساخته شده
     /// </summary>
-    public string? VersionForm { get; set; } = "5671";
+    public string? VersionForm { get; set; } = "5823";
 
     /// <summary>
     ///  موجودیت
@@ -237,11 +237,11 @@ public Dropdown Ref_HR_EMP_EmployeeInfos_HR_Base_TransportServiceId;
 public Dropdown Ref_HR_EMP_EmployeeInfos_BaseInfo_MilitaryStatusId;
 public Input<string?> Ref_HR_EMP_EmployeeInfos_Mobile;
 public Input<string?> Ref_HR_EMP_EmployeeInfos_Phone;
-public Dropdown Ref_HR_EMP_EmployeeInfos_BaseInfo_CitiesAreasId;
+public Dropdown Ref_HR_EMP_EmployeeInfos_BaseInfo_CitiesIds;
 public Input<string?> Ref_HR_EMP_EmployeeInfos_Address;
+public Dropdown Ref_HR_EMP_EmployeeInfos_HR_Base_ContactEmployeeRelativeId;
 public Input<string?> Ref_HR_EMP_EmployeeInfos_ContactEmployee_FullName;
 public Input<string?> Ref_HR_EMP_EmployeeInfos_ContactEmployee_Tel;
-public Dropdown Ref_HR_EMP_EmployeeInfos_HR_Base_ContactEmployeeRelativeId;
 public Input<string?> Ref_HR_EMP_EmployeeInfos_ContactEmployee_Address;
 public Input<Guid> Ref_HR_EMP_EmployeeInfos_Id;
 public Input<Guid?> Ref_HR_EMP_EmployeeInfos_CreateUser;
@@ -322,6 +322,25 @@ public Input<Guid?> Ref_HR_EMP_Documents_UpdateUser;
 public Input<DateTime?> Ref_HR_EMP_Documents_CreateDate;
 public Input<DateTime?> Ref_HR_EMP_Documents_UpdateDate;
 public Input<bool?> Ref_HR_EMP_Documents_IsDelete;
+public DxGrid? Grid_HR_EMP_EmployeeDetails;
+
+public Dropdown Ref_HR_EMP_EmployeeDetails_HR_EMP_EmployeesId;
+public Input<string?> Ref_HR_EMP_EmployeeDetails_OrgTel1;
+public Input<string?> Ref_HR_EMP_EmployeeDetails_OrgTel2;
+public Input<string?> Ref_HR_EMP_EmployeeDetails_OrgTel3;
+public Input<string?> Ref_HR_EMP_EmployeeDetails_OrgTel4;
+public Input<string?> Ref_HR_EMP_EmployeeDetails_OrgTel5;
+public Input<string?> Ref_HR_EMP_EmployeeDetails_OrgMobile1;
+public Input<string?> Ref_HR_EMP_EmployeeDetails_OrgMobile2;
+public Input<string?> Ref_HR_EMP_EmployeeDetails_InsideEmail;
+public Input<string?> Ref_HR_EMP_EmployeeDetails_OutsideEmail;
+public Input<Guid> Ref_HR_EMP_EmployeeDetails_Id;
+public Input<Guid?> Ref_HR_EMP_EmployeeDetails_RequestID;
+public Input<Guid?> Ref_HR_EMP_EmployeeDetails_CreateUser;
+public Input<Guid?> Ref_HR_EMP_EmployeeDetails_UpdateUser;
+public Input<DateTime?> Ref_HR_EMP_EmployeeDetails_CreateDate;
+public Input<DateTime?> Ref_HR_EMP_EmployeeDetails_UpdateDate;
+public Input<bool?> Ref_HR_EMP_EmployeeDetails_IsDelete;
 public DxGrid? Grid_HR_EMP_AcademicDocuments;
 
 public Dropdown Ref_HR_EMP_AcademicDocuments_HR_EMP_EmployeesId;
@@ -343,25 +362,6 @@ public Input<Guid?> Ref_HR_EMP_AcademicDocuments_UpdateUser;
 public Input<DateTime?> Ref_HR_EMP_AcademicDocuments_CreateDate;
 public Input<DateTime?> Ref_HR_EMP_AcademicDocuments_UpdateDate;
 public Input<bool?> Ref_HR_EMP_AcademicDocuments_IsDelete;
-public DxGrid? Grid_HR_EMP_EmployeeDetails;
-
-public Dropdown Ref_HR_EMP_EmployeeDetails_HR_EMP_EmployeesId;
-public Input<string?> Ref_HR_EMP_EmployeeDetails_OrgTel1;
-public Input<string?> Ref_HR_EMP_EmployeeDetails_OrgTel2;
-public Input<string?> Ref_HR_EMP_EmployeeDetails_OrgTel3;
-public Input<string?> Ref_HR_EMP_EmployeeDetails_OrgTel4;
-public Input<string?> Ref_HR_EMP_EmployeeDetails_OrgTel5;
-public Input<string?> Ref_HR_EMP_EmployeeDetails_OrgMobile1;
-public Input<string?> Ref_HR_EMP_EmployeeDetails_OrgMobile2;
-public Input<string?> Ref_HR_EMP_EmployeeDetails_InsideEmail;
-public Input<string?> Ref_HR_EMP_EmployeeDetails_OutsideEmail;
-public Input<Guid> Ref_HR_EMP_EmployeeDetails_Id;
-public Input<Guid?> Ref_HR_EMP_EmployeeDetails_RequestID;
-public Input<Guid?> Ref_HR_EMP_EmployeeDetails_CreateUser;
-public Input<Guid?> Ref_HR_EMP_EmployeeDetails_UpdateUser;
-public Input<DateTime?> Ref_HR_EMP_EmployeeDetails_CreateDate;
-public Input<DateTime?> Ref_HR_EMP_EmployeeDetails_UpdateDate;
-public Input<bool?> Ref_HR_EMP_EmployeeDetails_IsDelete;
 public Input<Guid> Ref_Id;
 public Input<Guid?> Ref_RequestID;
 public Input<Guid?> Ref_CreateUser;

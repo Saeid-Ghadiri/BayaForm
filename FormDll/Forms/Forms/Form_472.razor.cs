@@ -691,6 +691,35 @@ namespace Forms.Forms
 
         
 
+
+
+		public async Task <bool> GridSCM_ProductRequestId_182_editmodelsaving(object e   )
+        {
+            bool IsCancelled = false;
+
+            var ListCount = _Entity.SCM_ProductRequestDetails.Count();
+            if (ListCount > 4)
+            {
+                IsCancelled = true;
+
+                toastService.ShowError("تعداد ردیف‌ها نمی‌تواند بیشتر از 5 باشد",
+                    settings =>
+                    {
+                        settings.Timeout = 4;
+                        settings.ShowProgressBar = true;
+                        settings.PauseProgressOnHover = true;
+                    });
+
+                return IsCancelled;
+            }
+
+            var Item = (Entity.SCM_ProductRequestDetails)e;
+
+            IsCancelled = !await CheckFieldValidation(Item);
+
+            return IsCancelled;
+        }
+
 		#endregion FunctionEvents
 
     }

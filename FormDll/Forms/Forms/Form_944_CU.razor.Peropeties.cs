@@ -144,7 +144,7 @@ namespace Forms.Forms
     /// <summary>
     ///  ورژنی که فرم باهاش ساخته شده
     /// </summary>
-    public string? VersionForm { get; set; } = "5671";
+    public string? VersionForm { get; set; } = "5823";
 
     /// <summary>
     ///  موجودیت
@@ -180,13 +180,13 @@ namespace Forms.Forms
     #region FormProperty
 
 public Dropdown Ref_BaseInfo_ORG_CompaniesId;
-public Input<string?> Ref_NationalCode;
-public Input<string?> Ref_EmployeePersonelNo;
 public Input<string?> Ref_FirstName;
-public Input<string?> Ref_EmployeeNo;
-public Input<string?> Ref_EmployeeLastPersonelNo;
 public Input<string?> Ref_LastName;
+public Input<string?> Ref_NationalCode;
+public Input<string?> Ref_EmployeeNo;
 public Input<string?> Ref_LastEmployeeNo;
+public Input<string?> Ref_EmployeePersonelNo;
+public Input<string?> Ref_EmployeeLastPersonelNo;
 public Dropdown Ref_HR_EMP_StatusId;
 public SingleUploader Ref_ProfilePicture;
 public ElementReference Ref_ExportToXLSEpmloees;

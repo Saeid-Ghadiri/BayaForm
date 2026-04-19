@@ -1,0 +1,1127 @@
+@inherits Forms.Forms.Form_1067Base
+@namespace FormsPage
+
+@using AKSoftware.Localization.MultiLanguages.Blazor
+@using Baya.Models.Utility;
+@using Baya.Models.ORM
+@using Microsoft.AspNetCore.Components.Forms
+@using Microsoft.AspNetCore.Components.Authorization;
+@using System.Security.Claims
+@using System.Net
+@using Microsoft.JSInterop
+@using Baya.Models.ViewEngine
+@using Forms.Domain.Utility
+@using Castle.DynamicLinqQueryBuilder
+<style>
+    
+</style>
+
+<Plugins.Tools.ConfirmDialog @ref="Confirm" />
+
+<span class="d-none">VersionForm:@VersionForm</span>
+@*
+@if (!string.IsNullOrEmpty(SumaryMessage))
+{
+    <div>
+        @SumaryMessage
+    </div>
+} *@
+
+@* <EditForm @ref="_Form" Model="_Entity" OnValidSubmit="ValidFormSubmitted" OnInvalidSubmit="InvalidFormSubmitted" OnSubmit="Submit"> *@
+<div class="@(ReadOnly?"FormReadOnly":"")">
+    <EditForm @ref="_Form" Model="_Entity" OnSubmit="Submit">
+        
+<div class="row ">
+    
+<div class="col-md-3">
+    <div  class="">
+    <div style="">
+  <p>
+    <picture>
+      <img src="https://File.workcv.ir/fa/api/v1/File/Get?FileID=6e5b6fb8-a5b2-490c-f83f-08dbea5b8061" class="" alt="لوگو پل فیلم" width="230px;">
+    </picture>
+  </p>
+</div>
+</div>
+
+<Input Id="UserStarterCompanyName" @ref="Ref_UserStarterCompanyName" Label="شرکت سازمانی کاربر"   Disabled=true  @bind-Value="_Entity.UserStarterCompanyName" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+</div>
+
+<div class="col-md-3">
+    
+<Input Id="UserStarterFullName" @ref="Ref_UserStarterFullName" Label="کاربر درخواست کننده"   Disabled=true  @bind-Value="_Entity.UserStarterFullName" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+</div>
+
+<div class="col-md-3">
+    
+<Input Id="UserStarterUnitName" @ref="Ref_UserStarterUnitName" Label="واحد سازمانی کاربر"   Disabled=true  @bind-Value="_Entity.UserStarterUnitName" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+<Input Id="UserStarterSectionName" @ref="Ref_UserStarterSectionName" Label="قسمت سازمانی کاربر"   Disabled=true  @bind-Value="_Entity.UserStarterSectionName" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+</div>
+
+<div class="col-md-3">
+    
+<Input Id="ProcessVersionID" @ref="Ref_ProcessVersionID" Label="شناسه نسخه فرآیند جاری"   Disabled=true  @bind-Value="_Entity.ProcessVersionID" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+<Input Id="RequestTrakingCode" @ref="Ref_RequestTrakingCode" Label="کد پیگیری"   Disabled=true  @bind-Value="_Entity.RequestTrakingCode" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+</div>
+
+<div class="col-md-12">
+    
+</div>
+
+</div>
+
+<Input Id="Id" @ref="Ref_Id"   CssClass="d-none"   @bind-Value="_Entity.Id" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+<label for="ITIL_RequestDetail_GridITIL_RequestId_798">جزئیات درخواست
+   
+    
+</label>
+
+<DxGrid @ref="Grid_ITIL_RequestDetail" Data="_Entity.ITIL_RequestDetail" KeyFieldName="_Id" EditMode="GridEditMode.PopupEditForm"
+        EditModelSaving="OnEditModelSavingITIL_RequestDetail"
+        DataItemDeleting="OnDataItemDeletingITIL_RequestDetail"
+        PopupEditFormCssClass="ModalWidth"
+        PopupEditFormHeaderText="جزئیات درخواست"
+        EditFormButtonsVisible="false"
+        CustomizeEditModel="CustomizeEditGrid_ITIL_RequestDetail"
+        CustomizeElement="CustomizeRowsGrid_ITIL_RequestDetail" 
+        Component="@((Utility.JSON.ToObject<View_Component>("{\"primaryKey\":false,\"EntityID\":798,\"FieldId\":798,\"NotNull\":false,\"ViewId\":0,\"NotMapped\":false,\"Relation\":false,\"RelationExternal\":false,\"RelationChildModel\":\"ITIL_RequestDetail\",\"GridMainModel\":\"ITIL_RequestDetail\",\"widget\":{\"altInput\":false,\"allowInput\":false,\"clickOpens\":false,\"enableDate\":false,\"enableTime\":false,\"noCalendar\":false,\"useLocaleSettings\":false,\"hourIncrement\":0,\"minuteIncrement\":0,\"time_24hr\":false},\"wysiwyg\":false,\"data\":{},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"FieldsTemplate\":[],\"refreshOn\":\"data\",\"reorder\":false,\"addAnotherPosition\":\"bottom\",\"layoutFixed\":false,\"enableRowGroups\":false,\"initEmpty\":false,\"disabled\":true,\"modal\":true,\"label\":\"جزئیات درخواست\",\"tableView\":true,\"key\":\"GridITIL_RequestId_798\",\"type\":\"datagrid\",\"input\":true,\"placeholder\":\"GridITIL_RequestId_798\",\"modalEdit\":true,\"FieldUrl\":\"798?EId=798&SubId=35\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result))"
+         >
+    <Columns>
+    
+<DxGridCommandColumn Width="70px">
+    <HeaderTemplate Context="HeaderContext">
+       
+<a id=ITIL_RequestDetail_GridITIL_RequestId_798ButtonNew class="btn btn-sm btn-green btnGridAddData" @onclick="@(() => StartEditNewRowAsync_Grid_ITIL_RequestDetail())" style="text-decoration: none;" href="javascript:void(0);">
+    <span class="fal fa-plus-circle btnicon"></span>
+    <span>@languageContainer.Keys["DXGrid:New"]</span>
+</a>
+
+    </HeaderTemplate>
+    <CellDisplayTemplate Context="CellContext">
+       
+<a id=ITIL_RequestDetail_GridITIL_RequestId_798ButtonEdit class="btn btn-sm btn-yellow-light btnEditGridData" @onclick="@(() => StartModalGrid_ITIL_RequestDetail(CellContext))" style="text-decoration: none;" href="javascript:void(0);">
+    <span class="fal fa-pencil btnicon"></span>
+</a>
+
+       
+<a class="btn btn-sm btn-red-light btnDeleteGridData" @onclick="@(() => OnDeleteButtonClickGrid_ITIL_RequestDetail(CellContext))" style="text-decoration: none;" href="javascript:void(0);">
+    <span class="fal fa-times-circle btnicon"></span>
+</a>
+
+    </CellDisplayTemplate>
+</DxGridCommandColumn>
+
+    <DxGridCommandColumn   Width="60px">
+           <HeaderTemplate Context="HeaderContext">
+               <a    style="text-decoration: none;"  >
+                
+                   <span>ردیف</span>
+               </a>
+           </HeaderTemplate>
+           <CellDisplayTemplate Context="CellContext">
+            @if (CellContext.VisibleIndex > 9){
+                <p>@(CellContext.VisibleIndex + 1)</p>
+            }else{
+                <p>@(((CellContext.Grid.PageIndex * CellContext.Grid.PageSize) + (CellContext.VisibleIndex + 1)))</p>
+            }
+          
+           </CellDisplayTemplate>
+     </DxGridCommandColumn>
+    <DxGridDataColumn Context="ITIL_RequestTypeId_" Caption="نوع درخواست" >
+    <CellDisplayTemplate>
+       
+@{
+    Baya.Models.ViewEngine.View_Component HeaderITIL_RequestTypeId = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"primaryKey\":false,\"EntityID\":798,\"FieldId\":31683,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":1067,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":false,\"RelationParentName\":\"ITIL_RequestType\",\"RelationParentModel\":\"ITIL_RequestType\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/ITIL_RequestType/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"inputFormat\":\"DropDown\",\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.SoftwareHardware}} </span>\",\"FieldsTemplate\":[{\"key\":\"SoftwareHardware\",\"value\":\"nvarchar(Max)\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"searchField\":\"SoftwareHardware\",\"disabled\":false,\"modal\":true,\"label\":\"نوع درخواست\",\"tableView\":true,\"key\":\"ITIL_RequestTypeId\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"31683?EId=798&SubId=35\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true,\"onitemselected\":\"ITIL_RequestTypeId_onitemselected\"}").Result;
+    var RowITIL_RequestTypeId = ((Entity.ITIL_RequestDetail)ITIL_RequestTypeId_.DataItem).ITIL_RequestTypeId;
+}
+
+<Dropdown ExternalApi=false CssClass="" NotMapped=false TextGrid=true Value="@RowITIL_RequestTypeId"   FieldName="ITIL_RequestTypeId" OnItemSelected="ItemSelected_ITIL_RequestDetailITIL_RequestTypeId_Header" Component="HeaderITIL_RequestTypeId">
+</Dropdown>
+@code {
+    public async Task ItemSelected_ITIL_RequestDetailITIL_RequestTypeId_Header(object _Item)
+    {
+      //  var Selected = Utility.JSON.ToObject<dynamic>(Utility.JSON.ToJson(_Item).Result).Result;
+  //   ITIL_RequestTypeId
+
+  //  #CustomCode
+
+ //   
+
+  //  #OnItemSelected
+    }
+}
+
+    </CellDisplayTemplate>
+</DxGridDataColumn>
+<DxGridDataColumn Context="ITIL_RequestProblemId_" Caption="شرح مشکل" >
+    <CellDisplayTemplate>
+       
+@{
+    Baya.Models.ViewEngine.View_Component HeaderITIL_RequestProblemId = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"primaryKey\":false,\"EntityID\":798,\"FieldId\":31684,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":1067,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":false,\"RelationParentName\":\"ITIL_RequestProblem\",\"RelationParentModel\":\"ITIL_RequestProblem\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/ITIL_RequestProblem/GetList?ParentCode={{row.ParentCode}}\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"inputFormat\":\"DropDown\",\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.ProblemName}} </span>\",\"FieldsTemplate\":[{\"key\":\"ProblemName\",\"value\":\"nvarchar(Max)\"}],\"dataSrc\":\"url\",\"refreshOn\":\"ITIL_RequestDetail.ParentCode\",\"searchField\":\"ProblemName\",\"clearOnRefresh\":true,\"disabled\":false,\"modal\":true,\"label\":\"شرح مشکل\",\"tableView\":true,\"key\":\"ITIL_RequestProblemId\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"31684?EId=798&SubId=35\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true,\"onitemselected\":\"ITIL_RequestProblemId_onitemselected\"}").Result;
+    var RowITIL_RequestProblemId = ((Entity.ITIL_RequestDetail)ITIL_RequestProblemId_.DataItem).ITIL_RequestProblemId;
+}
+
+<Dropdown ExternalApi=false CssClass="" NotMapped=false TextGrid=true Value="@RowITIL_RequestProblemId"   FieldName="ITIL_RequestProblemId" OnItemSelected="ItemSelected_ITIL_RequestDetailITIL_RequestProblemId_Header" Component="HeaderITIL_RequestProblemId">
+</Dropdown>
+@code {
+    public async Task ItemSelected_ITIL_RequestDetailITIL_RequestProblemId_Header(object _Item)
+    {
+      //  var Selected = Utility.JSON.ToObject<dynamic>(Utility.JSON.ToJson(_Item).Result).Result;
+  //   ITIL_RequestProblemId
+
+  //  #CustomCode
+
+ //   
+
+  //  #OnItemSelected
+    }
+}
+
+    </CellDisplayTemplate>
+</DxGridDataColumn>
+<DxGridDataColumn Context="ITIL_OperationId_" Caption="عملیات" >
+    <CellDisplayTemplate>
+       
+@{
+    Baya.Models.ViewEngine.View_Component HeaderITIL_OperationId = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"primaryKey\":false,\"EntityID\":798,\"FieldId\":31693,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":1067,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":false,\"RelationParentName\":\"ITIL_Operation\",\"RelationParentModel\":\"ITIL_Operation\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/ITIL_Operation/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.Title}} </span>\",\"FieldsTemplate\":[{\"key\":\"Title\",\"value\":\"nvarchar(Max)\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"searchField\":\"Title\",\"disabled\":false,\"modal\":true,\"label\":\"عملیات\",\"tableView\":true,\"key\":\"ITIL_OperationId\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"31693?EId=798&SubId=35\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
+    var RowITIL_OperationId = ((Entity.ITIL_RequestDetail)ITIL_OperationId_.DataItem).ITIL_OperationId;
+}
+
+<Dropdown ExternalApi=false CssClass="" NotMapped=false TextGrid=true Value="@RowITIL_OperationId"   FieldName="ITIL_OperationId" OnItemSelected="ItemSelected_ITIL_RequestDetailITIL_OperationId_Header" Component="HeaderITIL_OperationId">
+</Dropdown>
+@code {
+    public async Task ItemSelected_ITIL_RequestDetailITIL_OperationId_Header(object _Item)
+    {
+      //  var Selected = Utility.JSON.ToObject<dynamic>(Utility.JSON.ToJson(_Item).Result).Result;
+  //   ITIL_OperationId
+
+  //  #CustomCode
+
+ //   
+
+  //  #OnItemSelected
+    }
+}
+
+    </CellDisplayTemplate>
+</DxGridDataColumn>
+<DxGridDataColumn  Caption="توضیحات"  FieldName="Description" />
+
+<DxGridDataColumn DisplayFormat="0" Caption="کد مجری"  FieldName="ProblemSolver" />
+
+<DxGridDataColumn DisplayFormat="0" Caption="کد نوع فرایند"  FieldName="ProccessLevel" />
+
+<DxGridDataColumn DisplayFormat="0" Caption="ParentCode"  FieldName="ParentCode" />
+
+<DxGridDataColumn  Caption="RequestID" Visible=false FieldName="RequestID" />
+
+<DxGridDataColumn  Caption="CreateUser" Visible=false FieldName="CreateUser" />
+
+<DxGridDataColumn  Caption="UpdateUser" Visible=false FieldName="UpdateUser" />
+
+<DxGridDataColumn  Caption="CreateDate" Visible=false FieldName="CreateDate" />
+
+<DxGridDataColumn  Caption="UpdateDate" Visible=false FieldName="UpdateDate" />
+
+<DxGridDataColumn  Caption="IsDelete" Visible=false FieldName="IsDelete" />
+
+<DxGridDataColumn  Caption="Id" Visible=false FieldName="Id" />
+
+
+</Columns>
+
+    <EditFormTemplate Context="EditFormContextITIL_RequestDetail">
+    @{
+        ITIL_RequestDetail  = (Entity.ITIL_RequestDetail)EditFormContextITIL_RequestDetail.EditModel;
+    }
+    <DxFormLayout>
+        <DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextITIL_RequestDetail">
+     
+ 
+@code {
+    Baya.Models.ViewEngine.View_Component Component_ITIL_RequestDetailITIL_RequestTypeId = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"primaryKey\":false,\"EntityID\":798,\"FieldId\":31683,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":1067,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":false,\"RelationParentName\":\"ITIL_RequestType\",\"RelationParentModel\":\"ITIL_RequestType\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/ITIL_RequestType/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"inputFormat\":\"DropDown\",\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.SoftwareHardware}} </span>\",\"FieldsTemplate\":[{\"key\":\"SoftwareHardware\",\"value\":\"nvarchar(Max)\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"searchField\":\"SoftwareHardware\",\"disabled\":false,\"modal\":true,\"label\":\"نوع درخواست\",\"tableView\":true,\"key\":\"ITIL_RequestTypeId\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"31683?EId=798&SubId=35\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true,\"onitemselected\":\"ITIL_RequestTypeId_onitemselected\"}").Result;
+}
+
+    <Dropdown Id=ITIL_RequestDetail_ITIL_RequestTypeId  @ref="Ref_ITIL_RequestDetail_ITIL_RequestTypeId" Label="نوع درخواست" CssClass=""  DisplayFormat="DropDown" ExternalApi=false NotMapped=false TextGrid=false Text="" Value="@ITIL_RequestDetail.ITIL_RequestTypeId" FieldName="ITIL_RequestTypeId" OnItemSelected="ItemSelected_ITIL_RequestDetailITIL_RequestTypeId" Component="Component_ITIL_RequestDetailITIL_RequestTypeId" _Entity="_Entity" _EntityRow=ITIL_RequestDetail>
+</Dropdown>
+@code {
+    public async Task ItemSelected_ITIL_RequestDetailITIL_RequestTypeId(object _Item)
+    {
+        var Selected = Utility.JSON.ToObject<dynamic>(Utility.JSON.ToJson(_Item).Result).Result;
+     var Item = ITIL_RequestDetail;
+
+      //Todo
+ //برای اینکه آی دی تغییر کند اینجا نیز باید تغییر کند
+ //بهتر است از پرایمیری کی استفاده شود
+ if (_Item != null)
+ {
+     Console.WriteLine(" Item Is Not Null");
+    Item.ITIL_RequestTypeId = Selected.Id;
+    
+ }
+ else
+ {
+     Console.WriteLine(" Item Is Null");
+      Item.ITIL_RequestTypeId =EntityHelper.SetPropertyNull(Item.ITIL_RequestTypeId);
+ }
+ Item.ITIL_RequestType = await Utility.JSON.ToObject<Entity.ITIL_RequestType>(await Utility.JSON.ToJson(_Item));
+    StateHasChanged();
+
+
+    
+
+    await ITIL_RequestTypeId_onitemselected(Item.ITIL_RequestType , ITIL_RequestDetail);
+    }
+} 
+
+</DxFormLayoutItem>
+
+<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextITIL_RequestDetail">
+     
+ 
+@code {
+    Baya.Models.ViewEngine.View_Component Component_ITIL_RequestDetailITIL_RequestProblemId = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"primaryKey\":false,\"EntityID\":798,\"FieldId\":31684,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":1067,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":false,\"RelationParentName\":\"ITIL_RequestProblem\",\"RelationParentModel\":\"ITIL_RequestProblem\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/ITIL_RequestProblem/GetList?ParentCode={{row.ParentCode}}\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"inputFormat\":\"DropDown\",\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.ProblemName}} </span>\",\"FieldsTemplate\":[{\"key\":\"ProblemName\",\"value\":\"nvarchar(Max)\"}],\"dataSrc\":\"url\",\"refreshOn\":\"ITIL_RequestDetail.ParentCode\",\"searchField\":\"ProblemName\",\"clearOnRefresh\":true,\"disabled\":false,\"modal\":true,\"label\":\"شرح مشکل\",\"tableView\":true,\"key\":\"ITIL_RequestProblemId\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"31684?EId=798&SubId=35\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true,\"onitemselected\":\"ITIL_RequestProblemId_onitemselected\"}").Result;
+}
+
+    <Dropdown Id=ITIL_RequestDetail_ITIL_RequestProblemId  @ref="Ref_ITIL_RequestDetail_ITIL_RequestProblemId" Label="شرح مشکل" CssClass=""  DisplayFormat="DropDown" ExternalApi=false NotMapped=false TextGrid=false Text="" Value="@ITIL_RequestDetail.ITIL_RequestProblemId" FieldName="ITIL_RequestProblemId" OnItemSelected="ItemSelected_ITIL_RequestDetailITIL_RequestProblemId" Component="Component_ITIL_RequestDetailITIL_RequestProblemId" _Entity="_Entity" _EntityRow=ITIL_RequestDetail>
+</Dropdown>
+@code {
+    public async Task ItemSelected_ITIL_RequestDetailITIL_RequestProblemId(object _Item)
+    {
+        var Selected = Utility.JSON.ToObject<dynamic>(Utility.JSON.ToJson(_Item).Result).Result;
+     var Item = ITIL_RequestDetail;
+
+      //Todo
+ //برای اینکه آی دی تغییر کند اینجا نیز باید تغییر کند
+ //بهتر است از پرایمیری کی استفاده شود
+ if (_Item != null)
+ {
+     Console.WriteLine(" Item Is Not Null");
+    Item.ITIL_RequestProblemId = Selected.Id;
+    
+ }
+ else
+ {
+     Console.WriteLine(" Item Is Null");
+      Item.ITIL_RequestProblemId =EntityHelper.SetPropertyNull(Item.ITIL_RequestProblemId);
+ }
+ Item.ITIL_RequestProblem = await Utility.JSON.ToObject<Entity.ITIL_RequestProblem>(await Utility.JSON.ToJson(_Item));
+    StateHasChanged();
+
+
+    
+
+    await ITIL_RequestProblemId_onitemselected(Item.ITIL_RequestProblem , ITIL_RequestDetail);
+    }
+} 
+
+</DxFormLayoutItem>
+
+<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextITIL_RequestDetail">
+     
+ 
+@code {
+    Baya.Models.ViewEngine.View_Component Component_ITIL_RequestDetailITIL_OperationId = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"primaryKey\":false,\"EntityID\":798,\"FieldId\":31693,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":1067,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":false,\"RelationParentName\":\"ITIL_Operation\",\"RelationParentModel\":\"ITIL_Operation\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/ITIL_Operation/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.Title}} </span>\",\"FieldsTemplate\":[{\"key\":\"Title\",\"value\":\"nvarchar(Max)\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"searchField\":\"Title\",\"disabled\":false,\"modal\":true,\"label\":\"عملیات\",\"tableView\":true,\"key\":\"ITIL_OperationId\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"31693?EId=798&SubId=35\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
+}
+
+    <Dropdown Id=ITIL_RequestDetail_ITIL_OperationId  @ref="Ref_ITIL_RequestDetail_ITIL_OperationId" Label="عملیات" CssClass=""  DisplayFormat="DropDown" ExternalApi=false NotMapped=false TextGrid=false Text="" Value="@ITIL_RequestDetail.ITIL_OperationId" FieldName="ITIL_OperationId" OnItemSelected="ItemSelected_ITIL_RequestDetailITIL_OperationId" Component="Component_ITIL_RequestDetailITIL_OperationId" _Entity="_Entity" _EntityRow=ITIL_RequestDetail>
+</Dropdown>
+@code {
+    public async Task ItemSelected_ITIL_RequestDetailITIL_OperationId(object _Item)
+    {
+        var Selected = Utility.JSON.ToObject<dynamic>(Utility.JSON.ToJson(_Item).Result).Result;
+     var Item = ITIL_RequestDetail;
+
+      //Todo
+ //برای اینکه آی دی تغییر کند اینجا نیز باید تغییر کند
+ //بهتر است از پرایمیری کی استفاده شود
+ if (_Item != null)
+ {
+     Console.WriteLine(" Item Is Not Null");
+    Item.ITIL_OperationId = Selected.Id;
+    
+ }
+ else
+ {
+     Console.WriteLine(" Item Is Null");
+      Item.ITIL_OperationId =EntityHelper.SetPropertyNull(Item.ITIL_OperationId);
+ }
+ Item.ITIL_Operation = await Utility.JSON.ToObject<Entity.ITIL_Operation>(await Utility.JSON.ToJson(_Item));
+    StateHasChanged();
+
+
+    
+
+    
+    }
+} 
+
+</DxFormLayoutItem>
+
+<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextITIL_RequestDetail">
+    
+<Input Id="ITIL_RequestDetail_Description" @ref="Ref_ITIL_RequestDetail_Description" Label="توضیحات"     @bind-Value="ITIL_RequestDetail.Description" type="textarea"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+</DxFormLayoutItem>
+
+<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextITIL_RequestDetail">
+    
+<Input Id="ITIL_RequestDetail_ProblemSolver" @ref="Ref_ITIL_RequestDetail_ProblemSolver" Label="کد مجری"     @bind-Value="ITIL_RequestDetail.ProblemSolver" type="number"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+</DxFormLayoutItem>
+
+<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextITIL_RequestDetail">
+    
+<Input Id="ITIL_RequestDetail_ProccessLevel" @ref="Ref_ITIL_RequestDetail_ProccessLevel" Label="کد نوع فرایند"     @bind-Value="ITIL_RequestDetail.ProccessLevel" type="number"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+</DxFormLayoutItem>
+
+<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextITIL_RequestDetail">
+    
+<Input Id="ITIL_RequestDetail_ParentCode" @ref="Ref_ITIL_RequestDetail_ParentCode" Label="ParentCode"     @bind-Value="ITIL_RequestDetail.ParentCode" type="number"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+</DxFormLayoutItem>
+
+<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextITIL_RequestDetail">
+    
+<Input Id="ITIL_RequestDetail_RequestID" @ref="Ref_ITIL_RequestDetail_RequestID"      @bind-Value="ITIL_RequestDetail.RequestID" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+</DxFormLayoutItem>
+
+<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextITIL_RequestDetail">
+    
+<Input Id="ITIL_RequestDetail_CreateUser" @ref="Ref_ITIL_RequestDetail_CreateUser"      @bind-Value="ITIL_RequestDetail.CreateUser" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+</DxFormLayoutItem>
+
+<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextITIL_RequestDetail">
+    
+<Input Id="ITIL_RequestDetail_UpdateUser" @ref="Ref_ITIL_RequestDetail_UpdateUser"      @bind-Value="ITIL_RequestDetail.UpdateUser" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+</DxFormLayoutItem>
+
+<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextITIL_RequestDetail">
+    
+<Input Id="ITIL_RequestDetail_CreateDate" @ref="Ref_ITIL_RequestDetail_CreateDate"   CssClass="d-none"   @bind-Value="ITIL_RequestDetail.CreateDate" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+</DxFormLayoutItem>
+
+<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextITIL_RequestDetail">
+    
+<Input Id="ITIL_RequestDetail_UpdateDate" @ref="Ref_ITIL_RequestDetail_UpdateDate"   CssClass="d-none"   @bind-Value="ITIL_RequestDetail.UpdateDate" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+</DxFormLayoutItem>
+
+<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextITIL_RequestDetail">
+    
+<Input Id="ITIL_RequestDetail_IsDelete" @ref="Ref_ITIL_RequestDetail_IsDelete"   CssClass="d-none"   @bind-Value="ITIL_RequestDetail.IsDelete" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+</DxFormLayoutItem>
+
+<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextITIL_RequestDetail">
+    
+<Input Id="ITIL_RequestDetail_Id" @ref="Ref_ITIL_RequestDetail_Id"   CssClass="d-none"   @bind-Value="ITIL_RequestDetail.Id" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+</DxFormLayoutItem>
+
+
+        <DxFormLayoutItem ColSpanMd="12" Context="FormLayoutContextITIL_RequestDetail" CssClass="btn-modal-custom">
+            <DxButton Id="ITIL_RequestDetail_GridITIL_RequestId_798ButtonSave" Click="@(() => SaveModalGrid_ITIL_RequestDetail(EditFormContextITIL_RequestDetail))" Text="@languageContainer.Keys["DXGrid:Ok"]" CssClass="btn btn-green px-5" />
+            
+<DxButton id="ITIL_RequestDetail_GridITIL_RequestId_798ButtonSaveAndNew"    Text="@languageContainer.Keys["DXGrid:OkAndNew"]" Click="@(() => SaveAndNewGrid_ITIL_RequestDetail(EditFormContextITIL_RequestDetail))" CssClass="btn btn-green" />
+
+
+            <DxButton Id="ITIL_RequestDetail_GridITIL_RequestId_798ButtonCancel" Click="@(() => Grid_ITIL_RequestDetail.CancelEditAsync())" Text="@languageContainer.Keys["DXGrid:Cancel"]" CssClass="btn btn-red" />
+            <button id="click_s"  hidden>submit</button>
+             <span>|</span>
+           
+            <DxButton Id="ITIL_RequestDetail_GridITIL_RequestId_798ButtonBefore" Click="@(() => Dialog_Grid_ITIL_RequestDetail(0,IndexGrid_ITIL_RequestDetail,EditFormContextITIL_RequestDetail))" Text="@languageContainer.Keys["DXGrid:Prev"]" CssClass="btn btn-purple" />@* @languageContainer.Keys["DXGrid:??"] *@
+         
+            <DxButton Id="ITIL_RequestDetail_GridITIL_RequestId_798ButtonNext" Click="@(() => Dialog_Grid_ITIL_RequestDetail(1,IndexGrid_ITIL_RequestDetail,EditFormContextITIL_RequestDetail))" Text="@languageContainer.Keys["DXGrid:Next"]" CssClass="btn btn-purple" />
+
+        </DxFormLayoutItem>
+    </DxFormLayout>
+
+</EditFormTemplate>
+
+</DxGrid>
+
+<DxPopup @bind-Visible="@ConfirmationShownITIL_RequestDetail" HeaderText="@languageContainer.Keys["DXGrid:DeleteItem"]" Width="350px" CloseOnOutsideClick="false">
+
+    <BodyContentTemplate Context="EditFormContext">
+        <div class="py-3 px-5 text-center">
+            <p>@languageContainer.Keys["DXGrid:DeleteItemHint"]</p>
+            <div class="confirm-dialog-buttons">
+                <DxButton Text="@languageContainer.Keys["DXGrid:Yes"]" CssClass="btn btn-red px-4" Click="@OnYesButtonClickGrid_ITIL_RequestDetail" />
+                <DxButton Text="@languageContainer.Keys["DXGrid:No"]" CssClass="btn btn-purple-light px-4" Click="@OnNoButtonClickGrid_ITIL_RequestDetail" />
+            </div>
+        </div>
+    </BodyContentTemplate>
+</DxPopup>
+
+<DxPopup @bind-Visible="@ConfirmationITIL_RequestDetail" HeaderText="هشدار" Width="350px" CloseOnOutsideClick="false">
+    <BodyContentTemplate Context="EditFormContext">
+        <div class="py-3 px-5 text-center"> 
+            <p>اطلاعات این فرم تغییر کرده است آیا تغییرات ذخیره شود؟</p>
+            <div class="confirm-dialog-buttons">
+                <DxButton Text="بله" CssClass="btn btn-red px-4" Click="@OnYesButtonITIL_RequestDetail" />
+                <DxButton Text="خیر" CssClass="btn btn-purple-light px-4" Click="@OnNoButtonITIL_RequestDetail" />
+            </div>
+        </div>
+    </BodyContentTemplate>
+</DxPopup>
+@code {
+    // DxGrid? Grid_ITIL_RequestDetail;
+    Entity.ITIL_RequestDetail ITIL_RequestDetail;
+    bool ConfirmationShownITIL_RequestDetail { get; set; } = false;
+    public Entity.ITIL_RequestDetail SelectedItemGrid_ITIL_RequestDetail { get; set; } = new Entity.ITIL_RequestDetail();
+    /// <summary>
+    /// شماره ستون
+    /// </summary>
+    public int IndexGrid_ITIL_RequestDetail { get; set; }
+
+    ///////////////////////
+    bool ConfirmationITIL_RequestDetail { get; set; } = false;
+    GridEditFormTemplateContext? _ContextFormTemplateITIL_RequestDetail { get; set; }
+    public int OpenDialogCodeITIL_RequestDetail { get; set; } = 0;
+    ////////////////////////
+
+    async Task OnEditModelSavingITIL_RequestDetail(GridEditModelSavingEventArgs arg)
+    {
+        var e = arg.EditModel;
+    bool NotValid = false;
+    //events
+       
+        
+      if (!NotValid)
+     {
+      SaveGrid_ITIL_RequestDetail(arg.DataItem, arg.EditModel);
+     }
+}
+
+async void Dialog_Grid_ITIL_RequestDetail(int _OpenDialogCode, int VisibleIndex, GridEditFormTemplateContext e)
+{
+    OpenDialogCodeITIL_RequestDetail = _OpenDialogCode;
+    if (!CheckChangedData(await Utility.JSON.ToJson(e.EditModel)))
+    {
+    _ContextFormTemplateITIL_RequestDetail = e;
+    ConfirmationITIL_RequestDetail = true;
+    }
+    else
+    {
+    await OnNoButtonITIL_RequestDetail();
+    }
+}
+async Task OnYesButtonITIL_RequestDetail()
+{
+
+    ConfirmationITIL_RequestDetail = false;
+    await Task.Delay(1500);
+    //bool FormValidate = await JSO.InvokeAsync<bool>("submitForm");
+    bool FormValidate =  await JS.InvokeAsync<bool>("submitForm");
+    if (FormValidate)
+    {
+        bool NotValid = false;
+    var e = _ContextFormTemplateITIL_RequestDetail.EditModel;
+         //events
+         
+
+        if (!NotValid)
+         {
+        SaveGrid_ITIL_RequestDetail(_ContextFormTemplateITIL_RequestDetail.DataItem, _ContextFormTemplateITIL_RequestDetail.EditModel);
+            await Grid_ITIL_RequestDetail.CancelEditAsync();
+         await ChangePageGrid_ITIL_RequestDetail();
+         await SetEditFormContextGrid_ITIL_RequestDetail();
+         }
+          
+    }
+
+}
+async Task OnNoButtonITIL_RequestDetail()
+{
+    ConfirmationITIL_RequestDetail = false;
+    await ChangePageGrid_ITIL_RequestDetail();
+    await SetEditFormContextGrid_ITIL_RequestDetail();
+
+}
+async Task SetEditFormContextGrid_ITIL_RequestDetail()
+{
+    var e = (Entity.ITIL_RequestDetail)Grid_ITIL_RequestDetail.GetDataItem(IndexGrid_ITIL_RequestDetail);
+    JsonData = await Utility.JSON.ToJson(e);
+}
+
+async Task ChangePageGrid_ITIL_RequestDetail()
+{
+    int VisibleIndex = IndexGrid_ITIL_RequestDetail;
+    try
+    {
+    if (OpenDialogCodeITIL_RequestDetail == 1)
+    {
+        if (VisibleIndex != (Grid_ITIL_RequestDetail.GetVisibleRowCount() - 1))
+    { 
+            Grid_ITIL_RequestDetail.CancelEditAsync();
+            IndexGrid_ITIL_RequestDetail = VisibleIndex + 1;
+    Grid_ITIL_RequestDetail.StartEditRowAsync(IndexGrid_ITIL_RequestDetail);
+    }
+    }
+    else if (OpenDialogCodeITIL_RequestDetail == 0)
+    {
+        if (VisibleIndex != 0)
+        {
+
+            Grid_ITIL_RequestDetail.CancelEditAsync();
+            IndexGrid_ITIL_RequestDetail = VisibleIndex - 1;
+    Grid_ITIL_RequestDetail.StartEditRowAsync(IndexGrid_ITIL_RequestDetail);
+    }
+
+    }
+    var e = (Entity.ITIL_RequestDetail)Grid_ITIL_RequestDetail.GetDataItem(IndexGrid_ITIL_RequestDetail);
+    JsonData = await Utility.JSON.ToJson(e);
+    await Task.Delay(300);
+    
+    StateHasChanged();
+    }
+    catch (Exception ex)
+    {
+
+    Console.WriteLine("error in ChagePage" + ex.Message);
+    }
+
+}
+
+async Task StartEditNewRowAsync_Grid_ITIL_RequestDetail()
+{
+    IndexGrid_ITIL_RequestDetail = Grid_ITIL_RequestDetail.GetVisibleRowCount();
+Grid_ITIL_RequestDetail.StartEditNewRowAsync().GetAwaiter();
+var e = new Entity.ITIL_RequestDetail();
+JsonData = await Utility.JSON.ToJson(e);
+await Task.Delay(300);
+
+}
+
+async Task StartModalGrid_ITIL_RequestDetail(GridCommandColumnCellDisplayTemplateContext Context)
+{
+    IndexGrid_ITIL_RequestDetail = Context.VisibleIndex;
+Grid_ITIL_RequestDetail.StartEditRowAsync(Context.VisibleIndex).GetAwaiter();
+var e = (Entity.ITIL_RequestDetail)Context.DataItem;
+JsonData = await Utility.JSON.ToJson(e);
+await Task.Delay(300);
+
+   // await Task.Delay(500);
+}
+public async Task SaveModalGrid_ITIL_RequestDetail(GridEditFormTemplateContext arg)
+{
+     //bool FormValidate = await JSO.InvokeAsync<bool>("submitForm");
+     bool FormValidate =  await JS.InvokeAsync<bool>("submitForm");
+
+    if(FormValidate){
+
+    var e = arg.EditModel;
+    bool NotValid = false;
+    //events
+    
+    if (!NotValid)
+    {
+        SaveGrid_ITIL_RequestDetail(arg.DataItem, arg.EditModel);
+
+     await arg.Grid.CancelEditAsync(); 
+
+    }
+
+    }
+
+}
+public async Task SaveAndNewGrid_ITIL_RequestDetail(GridEditFormTemplateContext arg)
+{ 
+     //bool FormValidate = await JSO.InvokeAsync<bool>("submitForm");
+     bool FormValidate = await JS.InvokeAsync<bool>("submitForm");
+     
+    if(FormValidate){
+       
+         var e = arg.EditModel;
+          bool NotValid = false;
+     //events
+    
+    if (!NotValid)
+    {
+        SaveGrid_ITIL_RequestDetail(arg.DataItem, arg.EditModel);
+
+         await arg.Grid.CancelEditAsync();
+        await StartEditNewRowAsync_Grid_ITIL_RequestDetail();
+
+    }
+          
+    }
+   
+}
+
+void PerviousPageGrid_ITIL_RequestDetail(int VisibleIndex)
+{
+    try
+     {
+    if (VisibleIndex == 0)
+    {
+        Console.WriteLine(VisibleIndex.ToString());
+    }
+    else
+    {
+Grid_ITIL_RequestDetail.CancelEditAsync();
+        IndexGrid_ITIL_RequestDetail = VisibleIndex - 1;
+         Grid_ITIL_RequestDetail.StartEditRowAsync(IndexGrid_ITIL_RequestDetail);
+     }
+    }
+     catch (Exception e)
+     {
+    Console.WriteLine("PerviousPage Message");
+    Console.WriteLine(e.Message);
+    }
+
+}
+
+void NextPageGrid_ITIL_RequestDetail(int VisibleIndex)
+{
+
+    if (VisibleIndex == Grid_ITIL_RequestDetail.GetVisibleRowCount() - 1)
+    {
+    Console.WriteLine(VisibleIndex.ToString());
+    }
+    else
+    {
+    Console.WriteLine("NextPage Start Grid_ITIL_RequestDetail ");
+    try
+    {
+Grid_ITIL_RequestDetail.CancelEditAsync();
+        IndexGrid_ITIL_RequestDetail = VisibleIndex + 1;
+         Grid_ITIL_RequestDetail.StartEditRowAsync(IndexGrid_ITIL_RequestDetail);
+     }
+    catch (Exception e)
+    {
+        Console.WriteLine("NextPage Message");
+        Console.WriteLine(e.Message);
+    }
+
+    }
+}
+
+public void SaveGrid_ITIL_RequestDetail(object DataItem, object EditModel)
+{
+    var ListEntity = _Entity.ITIL_RequestDetail;
+    var MainModel = (Entity.ITIL_RequestDetail)DataItem;
+    if (MainModel != null)
+    {
+MainModel.ITIL_RequestTypeId = ((Entity.ITIL_RequestDetail)EditModel).ITIL_RequestTypeId;
+MainModel.ITIL_RequestType = ((Entity.ITIL_RequestDetail)EditModel).ITIL_RequestType;
+MainModel.ITIL_RequestProblemId = ((Entity.ITIL_RequestDetail)EditModel).ITIL_RequestProblemId;
+MainModel.ITIL_RequestProblem = ((Entity.ITIL_RequestDetail)EditModel).ITIL_RequestProblem;
+MainModel.ITIL_OperationId = ((Entity.ITIL_RequestDetail)EditModel).ITIL_OperationId;
+MainModel.ITIL_Operation = ((Entity.ITIL_RequestDetail)EditModel).ITIL_Operation;
+MainModel.Description = ((Entity.ITIL_RequestDetail)EditModel).Description;
+MainModel.ProblemSolver = ((Entity.ITIL_RequestDetail)EditModel).ProblemSolver;
+MainModel.ProccessLevel = ((Entity.ITIL_RequestDetail)EditModel).ProccessLevel;
+MainModel.ParentCode = ((Entity.ITIL_RequestDetail)EditModel).ParentCode;
+MainModel.RequestID = ((Entity.ITIL_RequestDetail)EditModel).RequestID;
+MainModel.CreateUser = ((Entity.ITIL_RequestDetail)EditModel).CreateUser;
+MainModel.UpdateUser = ((Entity.ITIL_RequestDetail)EditModel).UpdateUser;
+MainModel.CreateDate = ((Entity.ITIL_RequestDetail)EditModel).CreateDate;
+MainModel.UpdateDate = ((Entity.ITIL_RequestDetail)EditModel).UpdateDate;
+MainModel.IsDelete = ((Entity.ITIL_RequestDetail)EditModel).IsDelete;
+MainModel.Id = ((Entity.ITIL_RequestDetail)EditModel).Id;
+
+    }
+    else
+    {
+    ListEntity.Add((Entity.ITIL_RequestDetail)EditModel);
+    }
+}
+
+async Task OnDataItemDeletingITIL_RequestDetail(GridDataItemDeletingEventArgs e)
+    {
+    var ListEntity = _Entity.ITIL_RequestDetail;
+    ListEntity.Remove((Entity.ITIL_RequestDetail)e.DataItem);
+}
+async void OnDeleteButtonClickGrid_ITIL_RequestDetail (GridCommandColumnCellDisplayTemplateContext ex)
+{
+    SelectedItemGrid_ITIL_RequestDetail = (ex.DataItem as Entity.ITIL_RequestDetail);
+    var e =SelectedItemGrid_ITIL_RequestDetail;
+    
+     
+    Console.WriteLine("end OnDeleteButtonClickGrid_test_OrderBody 0");
+    ConfirmationShownITIL_RequestDetail = true;
+    await Task.Yield();
+     await InvokeAsync(StateHasChanged);
+    
+    Console.WriteLine("end OnDeleteButtonClickGrid_test_OrderBody 1");
+}
+async void OnYesButtonClickGrid_ITIL_RequestDetail ()
+{
+       if (SelectedItemGrid_ITIL_RequestDetail != null)
+    {
+      if (SelectedItemGrid_ITIL_RequestDetail.Id == Guid.Empty)
+      {
+          var ListEntity = _Entity.ITIL_RequestDetail;
+        ListEntity.Remove((Entity.ITIL_RequestDetail)SelectedItemGrid_ITIL_RequestDetail);
+     
+      }
+      else
+      {
+        var cleanModel = new Entity.ITIL_RequestDetail();
+      // چک کن آیا پراپرتی IsDelete در این نوع وجود دارد؟
+        var prop = typeof(Entity.ITIL_RequestDetail).GetProperty("IsDelete");
+        if (prop != null && prop.CanRead && prop.CanWrite)
+        {
+            // مقدار فعلی را بگیر
+            var currentValue = prop.GetValue(SelectedItemGrid_ITIL_RequestDetail);
+
+            if (currentValue is bool boolValue)
+            {
+                // مقدار را معکوس کن
+                var newValue = !boolValue;
+
+                // روی هر دو شیء تنظیم کن
+                prop.SetValue(SelectedItemGrid_ITIL_RequestDetail, newValue);
+                prop.SetValue(cleanModel, newValue);
+            }
+        }
+        EntityHelper.SetPropertyValue(cleanModel, cleanModel._GetIdName, SelectedItemGrid_ITIL_RequestDetail._Id);
+    
+       
+       
+      }
+    }
+    var e= SelectedItemGrid_ITIL_RequestDetail;
+    
+    Grid_ITIL_RequestDetail.Reload();
+    ConfirmationShownITIL_RequestDetail = false;
+     await Task.Yield();
+    await InvokeAsync(StateHasChanged);
+
+}
+void OnNoButtonClickGrid_ITIL_RequestDetail ()
+{
+    ConfirmationShownITIL_RequestDetail = false;
+}
+
+void CustomizeRowsGrid_ITIL_RequestDetail(GridCustomizeElementEventArgs e)
+{
+    ///استایل سطر
+    if (e.ElementType == GridElementType.DataRow)
+    {
+    var item = ((Entity.ITIL_RequestDetail)e.Grid.GetDataItem(e.VisibleIndex));
+
+       if (item.IsDelete == true)
+       {
+           e.CssClass = "bg-lightred disablediv";
+       }
+    }
+}
+
+async void CustomizeEditGrid_ITIL_RequestDetail(GridCustomizeEditModelEventArgs e)
+{
+
+    if (e.IsNew)
+    {
+
+    var newRow = (Entity.ITIL_RequestDetail)e.EditModel;
+
+     
+
+    }
+
+
+}
+public async void RowClickGrid_ITIL_RequestDetail(GridRowClickEventArgs e)
+{
+
+}
+
+public async void RowDubbleClickGrid_ITIL_RequestDetail(GridRowClickEventArgs e)
+{
+
+}
+}
+
+<Input Id="RequestID" @ref="Ref_RequestID"      @bind-Value="_Entity.RequestID" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+<Input Id="CreateUser" @ref="Ref_CreateUser"      @bind-Value="_Entity.CreateUser" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+<Input Id="UpdateUser" @ref="Ref_UpdateUser"      @bind-Value="_Entity.UpdateUser" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+<Input Id="CreateDate" @ref="Ref_CreateDate"   CssClass="d-none"   @bind-Value="_Entity.CreateDate" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+<Input Id="UpdateDate" @ref="Ref_UpdateDate"   CssClass="d-none"   @bind-Value="_Entity.UpdateDate" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+<Input Id="IsDelete" @ref="Ref_IsDelete"   CssClass="d-none"   @bind-Value="_Entity.IsDelete" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+    </EditForm>
+</div>
+
+@if (ShowSubmit)
+{
+    <button class="btn btn-sm btn-green" @onclick=Submit>ذخیره</button>
+}
+
+@code {
+    #region Function
+
+    //todo  جا به جا شود برده شود تو فایل  Peropeties
+    protected override async Task OnInitializedAsync()
+    {
+        Console.WriteLine("#log OnInitializedAsync");
+
+        TableGet = await Utility.JSON.ToObject<Table>("{\"Name\":\"ITIL_Request\",\"GetNameAs\":\"ITIL_Request\",\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"RequestID\",\"GetNameAs\":\"RequestID\"},{\"Name\":\"CreateUser\",\"GetNameAs\":\"CreateUser\"},{\"Name\":\"UpdateUser\",\"GetNameAs\":\"UpdateUser\"},{\"Name\":\"CreateDate\",\"GetNameAs\":\"CreateDate\"},{\"Name\":\"UpdateDate\",\"GetNameAs\":\"UpdateDate\"},{\"Name\":\"IsDelete\",\"GetNameAs\":\"IsDelete\"},{\"Name\":\"UserStarterCompanyName\",\"GetNameAs\":\"UserStarterCompanyName\"},{\"Name\":\"UserStarterUnitName\",\"GetNameAs\":\"UserStarterUnitName\"},{\"Name\":\"UserStarterSectionName\",\"GetNameAs\":\"UserStarterSectionName\"},{\"Name\":\"UserStarterFullName\",\"GetNameAs\":\"UserStarterFullName\"},{\"Name\":\"RequestTrakingCode\",\"GetNameAs\":\"RequestTrakingCode\"},{\"Name\":\"ProcessVersionID\",\"GetNameAs\":\"ProcessVersionID\"}],\"Relation\":[{\"Name\":\"ITIL_RequestDetail\",\"GetNameAs\":\"ITIL_RequestDetail\",\"ModeErtebat\":2,\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"RequestID\",\"GetNameAs\":\"RequestID\"},{\"Name\":\"CreateUser\",\"GetNameAs\":\"CreateUser\"},{\"Name\":\"UpdateUser\",\"GetNameAs\":\"UpdateUser\"},{\"Name\":\"CreateDate\",\"GetNameAs\":\"CreateDate\"},{\"Name\":\"UpdateDate\",\"GetNameAs\":\"UpdateDate\"},{\"Name\":\"IsDelete\",\"GetNameAs\":\"IsDelete\"},{\"Name\":\"ITIL_RequestTypeId\",\"GetNameAs\":\"ITIL_RequestTypeId\"},{\"Name\":\"ITIL_RequestProblemId\",\"GetNameAs\":\"ITIL_RequestProblemId\"},{\"Name\":\"ITIL_OperationId\",\"GetNameAs\":\"ITIL_OperationId\"},{\"Name\":\"Description\",\"GetNameAs\":\"Description\"},{\"Name\":\"ProblemSolver\",\"GetNameAs\":\"ProblemSolver\"},{\"Name\":\"ProccessLevel\",\"GetNameAs\":\"ProccessLevel\"},{\"Name\":\"ParentCode\",\"GetNameAs\":\"ParentCode\"}],\"Relation\":[{\"Name\":\"ITIL_RequestType\",\"GetNameAs\":\"ITIL_RequestType\",\"ModeErtebat\":1,\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"SoftwareHardware\",\"GetNameAs\":\"SoftwareHardware\"},{\"Name\":\"ParentCode\",\"GetNameAs\":\"ParentCode\"}]},{\"Name\":\"ITIL_RequestProblem\",\"GetNameAs\":\"ITIL_RequestProblem\",\"ModeErtebat\":1,\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"ProblemName\",\"GetNameAs\":\"ProblemName\"},{\"Name\":\"ParentCode\",\"GetNameAs\":\"ParentCode\"},{\"Name\":\"ProblemSolver\",\"GetNameAs\":\"ProblemSolver\"},{\"Name\":\"ProblemSolverName\",\"GetNameAs\":\"ProblemSolverName\"},{\"Name\":\"ProccessLevel\",\"GetNameAs\":\"ProccessLevel\"},{\"Name\":\"ProccessLevelName\",\"GetNameAs\":\"ProccessLevelName\"}]},{\"Name\":\"ITIL_Operation\",\"GetNameAs\":\"ITIL_Operation\",\"ModeErtebat\":1,\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"Title\",\"GetNameAs\":\"Title\"}]}]}]}");
+        TablePost = await Utility.JSON.ToObject<Table>("{\"Name\":\"ITIL_Request\",\"GetNameAs\":\"ITIL_Request\",\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"RequestID\",\"GetNameAs\":\"RequestID\"},{\"Name\":\"CreateUser\",\"GetNameAs\":\"CreateUser\"},{\"Name\":\"UpdateUser\",\"GetNameAs\":\"UpdateUser\"},{\"Name\":\"CreateDate\",\"GetNameAs\":\"CreateDate\"},{\"Name\":\"UpdateDate\",\"GetNameAs\":\"UpdateDate\"},{\"Name\":\"IsDelete\",\"GetNameAs\":\"IsDelete\"},{\"Name\":\"UserStarterCompanyName\",\"GetNameAs\":\"UserStarterCompanyName\"},{\"Name\":\"UserStarterUnitName\",\"GetNameAs\":\"UserStarterUnitName\"},{\"Name\":\"UserStarterSectionName\",\"GetNameAs\":\"UserStarterSectionName\"},{\"Name\":\"UserStarterFullName\",\"GetNameAs\":\"UserStarterFullName\"},{\"Name\":\"RequestTrakingCode\",\"GetNameAs\":\"RequestTrakingCode\"},{\"Name\":\"ProcessVersionID\",\"GetNameAs\":\"ProcessVersionID\"}],\"Relation\":[{\"Name\":\"ITIL_RequestDetail\",\"GetNameAs\":\"ITIL_RequestDetail\",\"ModeErtebat\":2,\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"RequestID\",\"GetNameAs\":\"RequestID\"},{\"Name\":\"CreateUser\",\"GetNameAs\":\"CreateUser\"},{\"Name\":\"UpdateUser\",\"GetNameAs\":\"UpdateUser\"},{\"Name\":\"CreateDate\",\"GetNameAs\":\"CreateDate\"},{\"Name\":\"UpdateDate\",\"GetNameAs\":\"UpdateDate\"},{\"Name\":\"IsDelete\",\"GetNameAs\":\"IsDelete\"},{\"Name\":\"ITIL_RequestTypeId\",\"GetNameAs\":\"ITIL_RequestTypeId\"},{\"Name\":\"ITIL_RequestProblemId\",\"GetNameAs\":\"ITIL_RequestProblemId\"},{\"Name\":\"ITIL_OperationId\",\"GetNameAs\":\"ITIL_OperationId\"},{\"Name\":\"Description\",\"GetNameAs\":\"Description\"},{\"Name\":\"ProblemSolver\",\"GetNameAs\":\"ProblemSolver\"},{\"Name\":\"ProccessLevel\",\"GetNameAs\":\"ProccessLevel\"},{\"Name\":\"ParentCode\",\"GetNameAs\":\"ParentCode\"}],\"Relation\":[]}]}");
+
+        config = CKEditorBundleOptions.DefaultConfig.WithHtmlEditing();
+        config.Language = "fa";
+
+        //بعداد اگه نیاز شد فرمی رو تو حالت غیر لاگین شده نمایش بدیم باید این  کد تغیر کنه
+        var user = (await _authenticationStateProvider.GetAuthenticationStateAsync()).User;
+        string UserID = user.FindFirst(c => c.Type == ClaimTypes.NameIdentifier).Value;
+        //داینامیک بشه
+        Dictionary<string, object> List = new Dictionary<string, object>();
+        //List.Add("UserID", Guid.Parse(UserID));
+        List.Add("UserID", UserID);
+        _User = await Domain.Utility.ConvertParameter.ConvertToObject(List);
+
+        Console.WriteLine("#log OnInitializedAsync End");
+
+        await base.OnInitializedAsync();
+    }
+
+    //todo  جا به جا شود برده شود تو فایل  Peropeties
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            Console.WriteLine("#log OnAfterRenderAsync");
+            await base.BeforGetData();
+
+            var Result = await GetData();
+
+            await base.AfterGetData();
+
+            StateHasChanged();
+
+            await OnFormloaded.InvokeAsync(Result);
+        }
+
+        await base.OnAfterRenderAsync(firstRender);
+    }
+
+    /// <summary>
+    /// دریافت داده
+    /// </summary>
+    /// <returns></returns>
+    public async Task<Baya.Models.Utility.Result> GetData()
+    {
+        await BeforGetData();
+
+        var DataResult = await ApiServer.External.Services.Data.Get(TableGet, QueryFilter, TableGet.Name, null);
+        
+        Baya.Models.Utility.Result Result = new Baya.Models.Utility.Result();
+
+        if (DataResult != null && DataResult.Status == HttpStatusCode.OK)
+        {
+            if (DataResult.Content != null)
+            {
+                string Data = DataResult.Content.ToString();
+                if (Data is not null)
+                {
+                    _Entity = await Utility.JSON.ToObject < Entity.ITIL_Request>(Data);
+        }
+            }
+            else
+            {
+                _Entity = new Entity.ITIL_Request();
+            //todo تشخیص دهد که داده ای وجود ندارد و دفه اول هست که فرم لود میشود
+            //todo اگه نیاز شد دالخ ORm خروجیش متفاوت باشه
+            //ست کردن دیفالت های فرم
+            if (true)
+                {//
+_Entity.UserStarterCompanyName = _RequestParameters.UserStarterCompanyName;
+_Entity.UserStarterFullName = _RequestParameters.UserStarterFullName;
+_Entity.UserStarterUnitName = _RequestParameters.UserStarterUnitName;
+_Entity.UserStarterSectionName = _RequestParameters.UserStarterSectionName;
+_Entity.ProcessVersionID = _RequestParameters.ProcessVersionID;
+_Entity.RequestTrakingCode = _RequestParameters.RequestTrakingCode;
+
+
+                    //نمونه ست کردن پارامتر روش اول
+                    //_Entity.InstantDelivery = _RequestParameters.UserId;
+
+                    //نمونه کد برای ست کردن پارامتر روش دوم
+                    //_Entity.InstantDelivery = await GetParameter("@@UserId@@");
+                }
+
+                SumaryMessage = "داده لود شده معتبر نمی باشد";
+                Result.Status = HttpStatusCode.InternalServerError;
+            }
+        }
+        else
+        {
+            SumaryMessage = "داده لود نشد";
+            Result.Status = HttpStatusCode.InternalServerError;
+        }
+
+        Result.Message = SumaryMessage;
+
+        StateHasChanged();
+
+        await AfterGetData();
+
+        return Result;
+    }
+
+    public override async Task SetParametersAsync(ParameterView parameters)
+    {
+        await base.SetParametersAsync(parameters);
+    }
+
+    protected override void OnInitialized()
+    {
+        //todo این خط برده شود داخل تابع پاینی ببینیم خطا داره یا نه
+        languageContainer.InitLocalizedComponent(this);
+    }
+
+
+    /// <summary>
+    /// بررسی تغییر دیتا
+    /// </summary>
+    /// <param name="Json"></param>
+    /// <returns></returns>
+    public bool CheckChangedData(string? Json)
+    {
+        if (string.Equals(JsonData, Json)) return true;
+        return false;
+    }
+
+    /// <summary>
+    /// ارسال داده
+    /// </summary>
+    /// <returns></returns>
+    public override async Task<Baya.Models.Utility.Result> Submit()
+    {
+        SumaryMessage = "";
+        Baya.Models.Utility.Result Result = new Baya.Models.Utility.Result();
+
+        if (!await FormValidator())
+        {
+            StateHasChanged();
+            Result.Status = HttpStatusCode.InternalServerError;
+            return Result;
+        }
+
+        if ((await BeforSubmit()).Status != HttpStatusCode.OK)
+        {
+            StateHasChanged();
+            Result.Status = HttpStatusCode.InternalServerError;
+            return Result;
+        }
+
+        _loadingService.Show();
+        var Resualt = await PostData();
+
+        if (Resualt)
+        {
+            Result.Status = HttpStatusCode.OK;
+
+            SumaryMessage = "داده ها با موفقیت ثبت شد";
+        }
+        else
+        {
+            Result.Status = HttpStatusCode.InternalServerError;
+            SumaryMessage = "ذخیره داده با مشکل مواجه شد";
+        }
+
+        Result.Message = SumaryMessage;
+
+        switch ((int)Result.Status)
+        {
+            case 200:
+                toastService.ShowSuccess(Result.Message);
+                break;
+            case 500:
+                toastService.ShowError(Result.Message);
+                break;
+            default:
+                break;
+        } 
+        _loadingService.Hide();
+        await AfterSubmit();
+
+        return Result;
+    }
+
+    /// <summary>
+    /// ارسال داده
+    /// </summary>
+    /// <returns></returns>
+    private async Task<bool> PostData()
+    {
+        string Data = await Utility.JSON.ToJson(_Entity);
+
+        bool IsOk = false;
+        var Model = await ApiServer.External.Services.Data.Put(Data, TablePost.Name, TablePost, RequestID?.ToString(), _User.UserID.ToString());
+        // بررسی وضعیت پاسخ
+        if (Model?.Status == HttpStatusCode.OK)
+        {
+            if (Model.Content != null && !IndependentForm)
+                { 
+                    string NewData = Model.Content.ToString();
+                    if (NewData is not null)
+                    {
+                        var NewEntity = await Utility.JSON.ToObject < Entity.ITIL_Request>(NewData);
+                     await  GetDataForm(NewEntity._Id);
+                    }
+
+                }
+                IsOk = true;
+
+        }
+        return IsOk;
+    }
+
+
+    void SetLanguage(string language)
+    {
+        languageContainer.SetLanguage(System.Globalization.CultureInfo.GetCultureInfo(language));
+    }
+
+    // public void ValidFormSubmitted(EditContext editContext)
+    // {
+
+    // }
+
+    // public void InvalidFormSubmitted(EditContext editContext)
+    // {
+
+    // }
+    public async Task GetDataForm(object Id)
+    {
+        Type type = Id.GetType();
+        string TypeToQueryBuilder = Utility.TypeConverterQueryBuilder.ConvertCSharpTypeToQueryBuilder(type);
+        var NewQuery = new QueryBuilderFilterRule() { Condition = "AND" };
+        NewQuery.Rules = new List<QueryBuilderFilterRule>
+            {
+                    new QueryBuilderFilterRule()
+                    {
+                        Field = _Entity._GetIdName,
+                        Id = _Entity._GetIdName,
+                        Input = "text",
+                        Operator = "equal",
+                        Type =  TypeToQueryBuilder,
+                        Value = new string[]{ Id.ToString() },
+                    }
+            };
+        QueryFilter = NewQuery;
+        await GetData();
+        StateHasChanged();
+    }
+    #endregion
+}

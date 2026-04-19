@@ -5,7 +5,9 @@ using Baya.Models.Utility.Menu;
 using Baya.Models.Utility.Pagination.Pagings;
 using BlazorBootstrap;
 using Blazored.Toast.Services;
+using Castle.DynamicLinqQueryBuilder;
 using DevExpress.Blazor;
+using Entity;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.JSInterop;
@@ -15,6 +17,8 @@ using System;
 using System.Net;
 using System.Web;
 using Utility;
+using System.Net;
+using System.Text.RegularExpressions;
 
 namespace Forms.Forms
 {
@@ -73,51 +77,54 @@ namespace Forms.Forms
 		{
 			bool IsValid = true;
 
-			// بررسی اطلاعات تماس
-			if (!await HasValidCountEmployeeDetails())
-			{
-				// بررسی اینکه آیا رکوردی در بخش اطلاعات تماس وجود دارد یا خیر
-				await EmployeeDetailsShowRecordDialog();
-				return false;
-			}
+			// // بررسی اطلاعات تماس
+			// if (!await HasValidCountEmployeeDetails())
+			// {
+			// 	await EmployeeDetailsShowRecordDialog();
+			// 	return false;
+			// }
 
-			#region CheckFieldsValidation
+			// #region CheckFieldsValidation
 
-			List<Entity.HR_EMP_EmployeeInfos> EmployeeInfosList = _Entity.HR_EMP_EmployeeInfos.Where(x => x.IsDelete != true).ToList();
-			List<Entity.HR_EMP_EmployeeDetails> EmployeeFamileissList = _Entity.HR_EMP_EmployeeDetails.Where(x => x.IsDelete != true).ToList();
-			List<Entity.HR_EMP_EmployeeDetails> EmpBankAccounts = _Entity.HR_EMP_EmployeeDetails.Where(x => x.IsDelete != true).ToList();
-			List<Entity.HR_EMP_Documents> EmployeeDocsList = _Entity.HR_EMP_Documents.Where(x => x.IsDelete != true).ToList();
-			List<Entity.HR_EMP_EmployeeDetails> EmployeeContactsList = _Entity.HR_EMP_EmployeeDetails.Where(x => x.IsDelete != true).ToList();
+			// // اعتبارسنجی کارمند اصلی
+			// IsValid = await CheckFieldsValidation_Employees(_Entity);
 
-			IsValid = IsValid && await CheckFieldsValidation_Employees(_Entity);
+			// // جزئیات اطلاعات کارمند
+			// foreach (var item in _Entity.HR_EMP_EmployeeInfos.Where(x => x.IsDelete != true))
+			// {
+			// 	if (!await CheckFieldsValidation_EmployeeInfos(item))
+			// 		IsValid = false;
+			// }
 
-			foreach (var Item in EmployeeInfosList)
-			{
-				IsValid = IsValid && await CheckFieldsValidation_EmployeeInfos();
-			}
+			// // خانواده کارمند
+			// foreach (var item in _Entity.HR_EMP_EmployeeFamileis.Where(x => x.IsDelete != true))
+			// {
+			// 	if (!await CheckFieldsValidation_EmployeeFamilies(item))
+			// 		IsValid = false;
+			// }
 
-			foreach (var Item in EmployeeFamileissList)
-			{
-				IsValid = IsValid && await CheckFieldsValidation_EmployeeFamilies();
-			}
+			// // حساب بانکی
+			// foreach (var item in _Entity.HR_Base_BankAccount.Where(x => x.IsDelete != true))
+			// {
+			// 	if (!await CheckFieldsValidation_EmpBankAccounts(item))
+			// 		IsValid = false;
+			// }
 
-			foreach (var Item in EmpBankAccounts)
-			{
-				IsValid = IsValid && await CheckFieldsValidation_EmpBankAccounts();
-			}
+			// // مدارک
+			// foreach (var item in _Entity.HR_EMP_Documents.Where(x => x.IsDelete != true))
+			// {
+			// 	if (!await CheckFieldsValidation_EmpDocuments(item))
+			// 		IsValid = false;
+			// }
 
-			foreach (var Item in EmployeeDocsList)
-			{
-				IsValid = IsValid && await CheckFieldsValidation_EmpDocuments();
-			}
+			// // اطلاعات تماس
+			// foreach (var item in _Entity.HR_EMP_EmployeeDetails.Where(x => x.IsDelete != true))
+			// {
+			// 	if (!await CheckFieldsValidation_EmpContacts(item))
+			// 		IsValid = false;
+			// }
 
-			//بررسی اعتبار سنجی فیلدها برای هر ردیف جزئیات یک به یک
-			foreach (var Item in EmployeeContactsList)
-			{
-				IsValid = IsValid && await CheckFieldsValidation_EmpContacts();
-			}
-
-			#endregion
+			// #endregion
 
 			return IsValid;
 		}
@@ -239,360 +246,323 @@ namespace Forms.Forms
 			return IsValid;
 		}
 
-		public async Task<bool> CheckFieldsValidation_EmployeeInfos()
+		public async Task<bool> CheckFieldsValidation_EmployeeInfos(Entity.HR_EMP_EmployeeInfos item)
 		{
 			bool IsValid = true;
 
-			// **************************************************
-			// اطلاعات جزئیات کارمند
-			foreach (var item in _Entity.HR_EMP_EmployeeInfos)
+			// فیلد نام پدر
+			if (string.IsNullOrWhiteSpace(item?.FatherName))
 			{
-				// فیلد نام پدر
-				if (item.FatherName == null)
-				{
-					IsValid = false;
-					await _MSG.ShowError("لطفا گزینه نام پدر را تکمیل نمایید.");
-				}
-
-				// شماره شناسنامه
-				if (item.IdCardNo == null)
-				{
-					IsValid = false;
-					await _MSG.ShowError("لطفا گزینه شماره شناسنامه را تکمیل نمایید.");
-				}
-
-				// سریال شماره شناسنامه
-				if (item.IdCardSerialNoSection1 == null)
-				{
-					IsValid = false;
-					await _MSG.ShowError("لطفا گزینه سریال شماره شناسنامه را تکمیل نمایید.");
-				}
-
-				// سریال شماره شناسنامه
-				if (item.IdCardSerialNoSection2 == null)
-				{
-					IsValid = false;
-					await _MSG.ShowError("لطفا گزینه سریال شماره شناسنامه را تکمیل نمایید.");
-				}
-
-				// سریال شماره شناسنامه
-				if (item.IdCardSerialNoSection3 == null)
-				{
-					IsValid = false;
-					await _MSG.ShowError("لطفا گزینه سریال شماره شناسنامه را تکمیل نمایید.");
-				}
-
-				// وضعیت تاهل
-				if (item.BaseInfo_MaritalStatusId == null)
-				{
-					IsValid = false;
-					await _MSG.ShowError("لطفا گزینه وضعیت تاهل را تکمیل نمایید.");
-				}
-
-				// شهر محل صدور
-				if (item.CityOfIssue == null)
-				{
-					IsValid = false;
-					await _MSG.ShowError("لطفا گزینه شهر محل صدور را تکمیل نمایید.");
-				}
-
-				// شهر محل تولد
-				if (item.CityOfBirth == null)
-				{
-					IsValid = false;
-					await _MSG.ShowError("لطفا گزینه شهر محل تولد را تکمیل نمایید.");
-				}
-
-				// تاریخ تولد
-				if (item.BirthDate_Fa == null)
-				{
-					IsValid = false;
-					await _MSG.ShowError("لطفا گزینه تاریخ تولد را تکمیل نمایید.");
-				}
-
-				// فایل سابقه کار بیمه
-				if (item.EmployeeWorkExperienceFile == null)
-				{
-					IsValid = false;
-					await _MSG.ShowError("لطفا گزینه فایل سابقه کار بیمه را تکمیل نمایید.");
-				}
-
-				// سابقه کار کارمند به روز
-				if (item.EmployeeWorkExperience == null)
-				{
-					IsValid = false;
-					await _MSG.ShowError("لطفا گزینه سابقه کار کارمند به روز را تکمیل نمایید.");
-				}
-
-				// جنسیت
-				if (item.BaseInfo_GenderId == null)
-				{
-					IsValid = false;
-					await _MSG.ShowError("لطفا گزینه جنسیت را تکمیل نمایید.");
-				}
-
-				// وضعیت گروه خونی
-				if (item.BaseInfo_BloodGroupId == null)
-				{
-					IsValid = false;
-					await _MSG.ShowError("لطفا گزینه وضعیت گروه خونی را تکمیل نمایید.");
-				}
-
-				// دین
-				if (item.BaseInfo_ReligionId == null)
-				{
-					IsValid = false;
-					await _MSG.ShowError("لطفا گزینه دین را تکمیل نمایید.");
-				}
-
-				// مذهب
-				if (item.BaseInfo_DenominationsId == null)
-				{
-					IsValid = false;
-					await _MSG.ShowError("لطفا گزینه مذهب را تکمیل نمایید.");
-				}
-
-				// وضعیت نظام وظیفه
-				if (item.BaseInfo_MilitaryStatusId == null)
-				{
-					IsValid = false;
-					await _MSG.ShowError("لطفا گزینه وضعیت نظام وظیفه را تکمیل نمایید.");
-				}
-
-				// تلفن همراه
-				if (item.Mobile == null)
-				{
-					IsValid = false;
-					await _MSG.ShowError("لطفا گزینه تلفن همراه را تکمیل نمایید.");
-				}
-
-				// نشانی
-				if (item.Address == null)
-				{
-					IsValid = false;
-					await _MSG.ShowError("لطفا گزینه نشانی را تکمیل نمایید.");
-				}
+				IsValid = false;
+				await _MSG.ShowError("لطفاً گزینه نام پدر را تکمیل نمایید.");
 			}
-			
-			// **************************************************
+
+			// شماره شناسنامه
+			if (string.IsNullOrWhiteSpace(item?.IdCardNo))
+			{
+				IsValid = false;
+				await _MSG.ShowError("لطفاً گزینه شماره شناسنامه را تکمیل نمایید.");
+			}
+
+			// سریال شماره شناسنامه (3 بخش)
+			if (string.IsNullOrWhiteSpace(item?.IdCardSerialNoSection1))
+			{
+				IsValid = false;
+				await _MSG.ShowError("لطفاً گزینه سریال شماره شناسنامه (بخش اول) را تکمیل نمایید.");
+			}
+			if (string.IsNullOrWhiteSpace(item?.IdCardSerialNoSection2))
+			{
+				IsValid = false;
+				await _MSG.ShowError("لطفاً گزینه سریال شماره شناسنامه (بخش دوم) را تکمیل نمایید.");
+			}
+			if (string.IsNullOrWhiteSpace(item?.IdCardSerialNoSection3))
+			{
+				IsValid = false;
+				await _MSG.ShowError("لطفاً گزینه سریال شماره شناسنامه (بخش سوم) را تکمیل نمایید.");
+			}
+
+			// وضعیت تاهل
+			if (item?.BaseInfo_MaritalStatusId == null || item.BaseInfo_MaritalStatusId == Guid.Empty)
+			{
+				IsValid = false;
+				await _MSG.ShowError("لطفاً گزینه وضعیت تاهل را تکمیل نمایید.");
+			}
+
+			// شهر محل صدور
+			if (item?.CityOfIssue == null || item.CityOfIssue == Guid.Empty)
+			{
+				IsValid = false;
+				await _MSG.ShowError("لطفاً گزینه شهر محل صدور را تکمیل نمایید.");
+			}
+
+			// شهر محل تولد
+			if (item?.CityOfBirth == null || item.CityOfBirth == Guid.Empty)
+			{
+				IsValid = false;
+				await _MSG.ShowError("لطفاً گزینه شهر محل تولد را تکمیل نمایید.");
+			}
+
+			// تاریخ تولد
+			if (string.IsNullOrWhiteSpace(item?.BirthDate_Fa))
+			{
+				IsValid = false;
+				await _MSG.ShowError("لطفاً گزینه تاریخ تولد را تکمیل نمایید.");
+			}
+
+			// // فایل سابقه کار بیمه
+			// if (string.IsNullOrWhiteSpace(item?.EmployeeWorkExperienceFile))
+			// {
+			// 	IsValid = false;
+			// 	await _MSG.ShowError("لطفاً گزینه فایل سابقه کار بیمه را تکمیل نمایید.");
+			// }
+
+			// // سابقه کار کارمند به روز
+			// if (item?.EmployeeWorkExperience == null || item.EmployeeWorkExperience <= 0)
+			// {
+			// 	IsValid = false;
+			// 	await _MSG.ShowError("لطفاً گزینه سابقه کار کارمند به روز را تکمیل نمایید.");
+			// }
+
+			// جنسیت
+			if (item?.BaseInfo_GenderId == null || item.BaseInfo_GenderId == Guid.Empty)
+			{
+				IsValid = false;
+				await _MSG.ShowError("لطفاً گزینه جنسیت را تکمیل نمایید.");
+			}
+
+			// وضعیت گروه خونی
+			if (item?.BaseInfo_BloodGroupId == null || item.BaseInfo_BloodGroupId == Guid.Empty)
+			{
+				IsValid = false;
+				await _MSG.ShowError("لطفاً گزینه وضعیت گروه خونی را تکمیل نمایید.");
+			}
+
+			// دین
+			if (item?.BaseInfo_ReligionId == null || item.BaseInfo_ReligionId == Guid.Empty)
+			{
+				IsValid = false;
+				await _MSG.ShowError("لطفاً گزینه دین را تکمیل نمایید.");
+			}
+
+			// مذهب
+			if (item?.BaseInfo_DenominationsId == null || item.BaseInfo_DenominationsId == Guid.Empty)
+			{
+				IsValid = false;
+				await _MSG.ShowError("لطفاً گزینه مذهب را تکمیل نمایید.");
+			}
+
+			// وضعیت نظام وظیفه
+			if (item?.BaseInfo_MilitaryStatusId == null || item.BaseInfo_MilitaryStatusId == Guid.Empty)
+			{
+				IsValid = false;
+				await _MSG.ShowError("لطفاً گزینه وضعیت نظام وظیفه را تکمیل نمایید.");
+			}
+
+			// تلفن همراه
+			if (string.IsNullOrWhiteSpace(item?.Mobile))
+			{
+				IsValid = false;
+				await _MSG.ShowError("لطفاً گزینه تلفن همراه را تکمیل نمایید.");
+			}
+
+			// نشانی
+			if (string.IsNullOrWhiteSpace(item?.Address))
+			{
+				IsValid = false;
+				await _MSG.ShowError("لطفاً گزینه نشانی را تکمیل نمایید.");
+			}
 
 			return IsValid;
 		}
 
-		public async Task<bool> CheckFieldsValidation_EmployeeFamilies()
+		public async Task<bool> CheckFieldsValidation_EmployeeFamilies(Entity.HR_EMP_EmployeeFamileis item)
 		{
+			if (item == null) return false;
+
 			bool IsValid = true;
 
-			// **************************************************
-			// اطلاعات خانواده کارمند
-			foreach (var item in _Entity.HR_EMP_EmployeeFamileis)
+			// نسبت
+			if (item.HR_FamilyRelationshipId == null || item.HR_FamilyRelationshipId == Guid.Empty)
 			{
-				// نسبت
-				if (item.HR_FamilyRelationshipId == null)
-				{
-					IsValid = false;
-					await _MSG.ShowError("لطفا گزینه نسبت را تکمیل نمایید.");
-				}
-
-				// تحت تکفل
-				if (item.HR_Base_DependentId == null)
-				{
-					IsValid = false;
-					await _MSG.ShowError("لطفا گزینه تحت تکفل را تکمیل نمایید.");
-				}
-
-				// نام
-				if (item.FirstName == null)
-				{
-					IsValid = false;
-					await _MSG.ShowError("لطفا گزینه نام را تکمیل نمایید.");
-				}
-
-				// نام خانوادگی
-				if (item.LastName == null)
-				{
-					IsValid = false;
-					await _MSG.ShowError("لطفا گزینه نام خانوادگی را تکمیل نمایید.");
-				}
-
-				// کد ملی
-				if (item.NationalCode == null)
-				{
-					IsValid = false;
-					await _MSG.ShowError("لطفا گزینه کد ملی را تکمیل نمایید.");
-				}
-
-				// نام پدر
-				if (item.FatherName == null)
-				{
-					IsValid = false;
-					await _MSG.ShowError("لطفا گزینه نام پدر را تکمیل نمایید.");
-				}
-
-				// شماره شناسنامه
-				if (item.IdCardNo == null)
-				{
-					IsValid = false;
-					await _MSG.ShowError("لطفا گزینه شماره شناسنامه را تکمیل نمایید.");
-				}
-
-				// تاریخ تولد
-				if (item.BirthDate_Fa == null)
-				{
-					IsValid = false;
-					await _MSG.ShowError("لطفا گزینه تاریخ تولد را تکمیل نمایید.");
-				}
-
-				// جنسیت
-				if (item.BaseInfo_GenderId == null)
-				{
-					IsValid = false;
-					await _MSG.ShowError("لطفا گزینه جنسیت را تکمیل نمایید.");
-				}
-
-				// وضعیت تاهل
-				if (item.BaseInfo_MaritalStatusId == null)
-				{
-					IsValid = false;
-					await _MSG.ShowError("لطفا گزینه وضعیت تاهل را تکمیل نمایید.");
-				}
-
+				IsValid = false;
+				await _MSG.ShowError("لطفاً گزینه نسبت را تکمیل نمایید.");
 			}
 
-			// **************************************************
+			// تحت تکفل
+			if (item.HR_Base_DependentId == null || item.HR_Base_DependentId == Guid.Empty)
+			{
+				IsValid = false;
+				await _MSG.ShowError("لطفاً گزینه تحت تکفل را تکمیل نمایید.");
+			}
+
+			// نام
+			if (string.IsNullOrWhiteSpace(item.FirstName))
+			{
+				IsValid = false;
+				await _MSG.ShowError("لطفاً گزینه نام را تکمیل نمایید.");
+			}
+
+			// نام خانوادگی
+			if (string.IsNullOrWhiteSpace(item.LastName))
+			{
+				IsValid = false;
+				await _MSG.ShowError("لطفاً گزینه نام خانوادگی را تکمیل نمایید.");
+			}
+
+			// کد ملی
+			if (string.IsNullOrWhiteSpace(item.NationalCode))
+			{
+				IsValid = false;
+				await _MSG.ShowError("لطفاً گزینه کد ملی را تکمیل نمایید.");
+			}
+
+			// نام پدر
+			if (string.IsNullOrWhiteSpace(item.FatherName))
+			{
+				IsValid = false;
+				await _MSG.ShowError("لطفاً گزینه نام پدر را تکمیل نمایید.");
+			}
+
+			// شماره شناسنامه
+			if (string.IsNullOrWhiteSpace(item.IdCardNo))
+			{
+				IsValid = false;
+				await _MSG.ShowError("لطفاً گزینه شماره شناسنامه را تکمیل نمایید.");
+			}
+
+			// تاریخ تولد
+			if (string.IsNullOrWhiteSpace(item.BirthDate_Fa))
+			{
+				IsValid = false;
+				await _MSG.ShowError("لطفاً گزینه تاریخ تولد را تکمیل نمایید.");
+			}
+
+			// جنسیت
+			if (item.BaseInfo_GenderId == null || item.BaseInfo_GenderId == Guid.Empty)
+			{
+				IsValid = false;
+				await _MSG.ShowError("لطفاً گزینه جنسیت را تکمیل نمایید.");
+			}
+
+			// وضعیت تاهل
+			if (item.BaseInfo_MaritalStatusId == null || item.BaseInfo_MaritalStatusId == Guid.Empty)
+			{
+				IsValid = false;
+				await _MSG.ShowError("لطفاً گزینه وضعیت تاهل را تکمیل نمایید.");
+			}
 
 			return IsValid;
 		}
 
-		public async Task<bool> CheckFieldsValidation_EmpBankAccounts()
+		public async Task<bool> CheckFieldsValidation_EmpBankAccounts(Entity.HR_Base_BankAccount item)
 		{
+			if (item == null) return false;
+
 			bool IsValid = true;
-			
-			// **************************************************
-			// اطلاعات حساب بانکی
-			foreach (var item in _Entity.HR_Base_BankAccount)
+
+			// دسته‌بندی حساب بانکی
+			if (item.HR_Base_BankAcountCategoryId == null || item.HR_Base_BankAcountCategoryId == Guid.Empty)
 			{
-				// سته بندی حساب های بانکی کارمند
-				if (item.HR_Base_BankAcountCategoryId == null)
-				{
-					IsValid = false;
-					await _MSG.ShowError("لطفا گزینه سته بندی حساب های بانکی کارمند را تکمیل نمایید.");
-				}
-
-				// نوع حساب بانکی
-				if (item.BaseInfo_BankAccountTypeId == null)
-				{
-					IsValid = false;
-					await _MSG.ShowError("لطفا گزینه نوع حساب بانکی را تکمیل نمایید.");
-				}
-
-				// بانک
-				if (item.BaseInfo_BankId == null)
-				{
-					IsValid = false;
-					await _MSG.ShowError("لطفا گزینه بانک را تکمیل نمایید.");
-				}
-
-				// شعبه بانک
-				if (item.BaseInfo_BankBranchesId == null)
-				{
-					IsValid = false;
-					await _MSG.ShowError("لطفا گزینه شعبه بانک را تکمیل نمایید.");
-				}
-
-				// شماره حساب بانکی
-				if (item.BankAccountNumber == null)
-				{
-					IsValid = false;
-					await _MSG.ShowError("لطفا گزینه شماره حساب بانکی را تکمیل نمایید.");
-				}
-
-				// شبا بانکی
-				if (item.IBAN == null)
-				{
-					IsValid = false;
-					await _MSG.ShowError("لطفا گزینه شبا بانکی را تکمیل نمایید.");
-				}
-
-				// شماره کارت بانکی
-				if (item.CartNo == null)
-				{
-					IsValid = false;
-					await _MSG.ShowError("لطفا گزینه شماره کارت بانکی را تکمیل نمایید.");
-				}
+				IsValid = false;
+				await _MSG.ShowError("لطفاً گزینه دسته‌بندی حساب های بانکی کارمند را تکمیل نمایید.");
 			}
-			// **************************************************
+
+			// نوع حساب بانکی
+			if (item.BaseInfo_BankAccountTypeId == null || item.BaseInfo_BankAccountTypeId == Guid.Empty)
+			{
+				IsValid = false;
+				await _MSG.ShowError("لطفاً گزینه نوع حساب بانکی را تکمیل نمایید.");
+			}
+
+			// بانک
+			if (item.BaseInfo_BankId == null || item.BaseInfo_BankId == Guid.Empty)
+			{
+				IsValid = false;
+				await _MSG.ShowError("لطفاً گزینه بانک را تکمیل نمایید.");
+			}
+
+			// شعبه بانک
+			if (item.BaseInfo_BankBranchesId == null || item.BaseInfo_BankBranchesId == Guid.Empty)
+			{
+				IsValid = false;
+				await _MSG.ShowError("لطفاً گزینه شعبه بانک را تکمیل نمایید.");
+			}
+
+			// شماره حساب بانکی
+			if (string.IsNullOrWhiteSpace(item.BankAccountNumber))
+			{
+				IsValid = false;
+				await _MSG.ShowError("لطفاً گزینه شماره حساب بانکی را تکمیل نمایید.");
+			}
+
+			// شبا بانکی
+			if (string.IsNullOrWhiteSpace(item.IBAN))
+			{
+				IsValid = false;
+				await _MSG.ShowError("لطفاً گزینه شبا بانکی را تکمیل نمایید.");
+			}
+
+			// شماره کارت بانکی
+			if (string.IsNullOrWhiteSpace(item.CartNo))
+			{
+				IsValid = false;
+				await _MSG.ShowError("لطفاً گزینه شماره کارت بانکی را تکمیل نمایید.");
+			}
 
 			return IsValid;
 		}
 
-		public async Task<bool> CheckFieldsValidation_EmpDocuments()
+		public async Task<bool> CheckFieldsValidation_EmpDocuments(Entity.HR_EMP_Documents item)
 		{
+			if (item == null) return false;
+
 			bool IsValid = true;
 
-			// **************************************************
-			// اطلاعات تماس
-			foreach (var item in _Entity.HR_EMP_Documents)
-			{
-				// 
-			}
-			// **************************************************
+			// // عنوان مدرک
+			// if (string.IsNullOrWhiteSpace(item.Title))
+			// {
+			// 	IsValid = false;
+			// 	await _MSG.ShowError("لطفاً گزینه عنوان مدرک را تکمیل نمایید.");
+			// }
+
+			// // نوع مدرک
+			// if (item.HR_Base_DocumentTypesId == null || item.HR_Base_DocumentTypesId == Guid.Empty)
+			// {
+			// 	IsValid = false;
+			// 	await _MSG.ShowError("لطفاً گزینه نوع مدرک را تکمیل نمایید.");
+			// }
+
+			// فعال بودن
+			// (اختیاری - بسته به نیاز)
 
 			return IsValid;
 		}
 
-		public async Task<bool> CheckFieldsValidation_EmpContacts()
+		public async Task<bool> CheckFieldsValidation_EmpContacts(Entity.HR_EMP_EmployeeDetails item)
 		{
+			if (item == null) return false;
+
 			bool IsValid = true;
 
-			// **************************************************
-			// اطلاعات تماس
-			foreach (var item in _Entity.HR_EMP_EmployeeDetails)
-			{
-				// 
-			}
-			// **************************************************
+			//// حداقل یکی از فیلدها باید پر باشد
+			//bool hasAnyValue = !string.IsNullOrWhiteSpace(item.OrgTel1) ||
+			//				   !string.IsNullOrWhiteSpace(item.OrgTel2) ||
+			//				   !string.IsNullOrWhiteSpace(item.OrgMobile1) ||
+			//				   !string.IsNullOrWhiteSpace(item.InsideEmail) ||
+			//				   !string.IsNullOrWhiteSpace(item.OutsideEmail);
+
+			//if (!hasAnyValue)
+			//{
+			//	IsValid = false;
+			//	await _MSG.ShowError("لطفاً حداقل یکی از فیلدهای تماس سازمانی را تکمیل نمایید.");
+			//}
 
 			return IsValid;
 		}
 
 		#endregion
 
-		#region Grid EmployeeInfos
-		public async Task<bool> GridHR_EMP_EmployeesId_382_editmodelsaving(object e)
-		{
-			return false;
-		}
-		public async Task GridHR_EMP_EmployeesId_382_afterrendermodal(Entity.HR_EMP_EmployeeInfos Item)
-		{
-			//await CheckedRowGrid_EmployeeInfos(Item);
-
-			//await ToggleDetails_Grid_EmployeeInfos_Button(true);
-
-			// انتظار کوتاه برای رندر کامل مودال
-			await Task.Delay(300);
-
-			if (await WaitComponentLoaded(Ref_HR_EMP_EmployeeInfos_HR_EMP_EmployeesId))
-			{
-				Ref_HR_EMP_EmployeeInfos_HR_EMP_EmployeesId.SetDisabled(true);
-
-				// انتظار برای وجود دکمه‌ها در DOM
-				bool beforeButtonExists = await WaitElementExists("#HR_EMP_EmployeeInfos_GridHR_EMP_EmployeesId_382ButtonBefore", 2000);
-				bool nextButtonExists = await WaitElementExists("#HR_EMP_EmployeeInfos_GridHR_EMP_EmployeesId_382ButtonNext", 2000);
-
-				if (beforeButtonExists)
-				{
-					// دکمه قبلی - مخفی می‌شود چون فقط یک ردیف وجود دارد
-					await JS.InvokeVoidAsync("ModalAddClass", "#HR_EMP_EmployeeInfos_GridHR_EMP_EmployeesId_382ButtonBefore", "d-none");
-				}
-
-				if (nextButtonExists)
-				{
-					// دکمه بعدی - مخفی می‌شود چون فقط یک ردیف وجود دارد
-					await JS.InvokeVoidAsync("ModalAddClass", "#HR_EMP_EmployeeInfos_GridHR_EMP_EmployeesId_382ButtonNext", "d-none");
-				}
-			}
-		}
+		#region Wait Loaded
 
 		#region Wait Element Exists
 		/// <summary>
@@ -623,49 +593,97 @@ namespace Forms.Forms
 		}
 		#endregion
 
-		#region WaitComponentLoaded
+		#region Wait Component Loaded
 		/// <summary>
 		/// منتظر می‌ماند تا کامپوننت لود شود و سپس SetDisabled را فراخوانی می‌کند
 		/// </summary>
 		/// <param name="componentRef">مرجع کامپوننت</param>
 		/// <param name="maxWaitTimeMs">حداکثر زمان انتظار به میلی‌ثانیه (پیش‌فرض: 5000)</param>
 		/// <returns></returns>
-		private async Task<bool> WaitComponentLoaded(dynamic componentRef, int maxWaitTimeMs = 5000)
+		// Waits until the component reference getter returns a non-null value.
+		// Using a Func allows re-evaluating the field as Blazor sets the ref after render.
+		private async Task<bool> WaitComponentLoaded(Func<dynamic> componentRefGetter, int maxWaitTimeMs = 5000)
 		{
-			if (componentRef != null)
+			try
 			{
-				return true;
-			}
+				var current = componentRefGetter?.Invoke();
+				if (current != null)
+				{
+					return true;
+				}
 
-			// منتظر می‌مانیم تا کامپوننت لود شود
-			int waitedTime = 0;
-			int delayInterval = 50; // هر 50 میلی‌ثانیه چک می‌کنیم
+				int waitedTime = 0;
+				int delayInterval = 50;
 
-			while (componentRef == null && waitedTime < maxWaitTimeMs)
-			{
-				await Task.Delay(delayInterval);
-				waitedTime += delayInterval;
-				StateHasChanged(); // برای به‌روزرسانی UI
-			}
+				while (waitedTime < maxWaitTimeMs)
+				{
+					await Task.Delay(delayInterval);
+					waitedTime += delayInterval;
+					StateHasChanged();
 
-			if (componentRef != null)
-			{
-				return true;
-			}
-			else
-			{
+					current = componentRefGetter?.Invoke();
+					if (current != null)
+					{
+						return true;
+					}
+				}
+
 				Console.WriteLine($"⚠️ Warning: Component was not loaded after waiting {maxWaitTimeMs}ms");
+				return false;
+			}
+			catch (Exception ex)
+			{
+				Console.WriteLine($"Error in WaitComponentLoaded: {ex.Message}");
 				return false;
 			}
 		}
 		#endregion
 
-		#region EmployeeInfos_btn
+		#endregion
 
-		//// حذف دکمه های ذخیره، قبلی، بعدی در گرید جزئیات اطلاعات کارمند
-		//await JS.InvokeVoidAsync("ModalAddClass", "#HR_EMP_EmployeeInfos_GridHR_EMP_EmployeesId_382ButtonSave", "d-none");
-		//await JS.InvokeVoidAsync("ModalAddClass", "#HR_EMP_EmployeeInfos_GridHR_EMP_EmployeesId_382ButtonBefore", "d-none");
-		//await JS.InvokeVoidAsync("ModalAddClass", "#HR_EMP_EmployeeInfos_GridHR_EMP_EmployeesId_382ButtonNext", "d-none");
+		#region Grid EmployeeInfos
+		public async Task<bool> GridHR_EMP_EmployeesId_382_editmodelsaving(object e)
+		{
+			// Validate EmployeeInfos when saving a row in its modal grid
+			bool IsCancelled = false;
+
+			var item = e as Entity.HR_EMP_EmployeeInfos;
+			IsCancelled = !await CheckFieldsValidation_EmployeeInfos(item);
+
+			return IsCancelled;
+		}
+		public async Task GridHR_EMP_EmployeesId_382_afterrendermodal(Entity.HR_EMP_EmployeeInfos Item)
+		{
+			//await CheckedRowGrid_EmployeeInfos(Item);
+
+			//await ToggleDetails_Grid_EmployeeInfos_Button(true);
+
+			// انتظار کوتاه برای رندر کامل مودال
+			await Task.Delay(300);
+
+			if (await WaitComponentLoaded(() => Ref_HR_EMP_EmployeeInfos_HR_EMP_EmployeesId))
+			{
+				Ref_HR_EMP_EmployeeInfos_HR_EMP_EmployeesId.SetDisabled(true);
+
+				// انتظار برای وجود دکمه‌ها در DOM
+				bool beforeButtonExists = await WaitElementExists("#HR_EMP_EmployeeInfos_GridHR_EMP_EmployeesId_382ButtonBefore", 2000);
+				bool nextButtonExists = await WaitElementExists("#HR_EMP_EmployeeInfos_GridHR_EMP_EmployeesId_382ButtonNext", 2000);
+
+				if (beforeButtonExists)
+				{
+					// دکمه قبلی - مخفی می‌شود چون فقط یک ردیف وجود دارد
+					await JS.InvokeVoidAsync("ModalAddClass", "#HR_EMP_EmployeeInfos_GridHR_EMP_EmployeesId_382ButtonBefore", "d-none");
+				}
+
+				if (nextButtonExists)
+				{
+					// دکمه بعدی - مخفی می‌شود چون فقط یک ردیف وجود دارد
+					await JS.InvokeVoidAsync("ModalAddClass", "#HR_EMP_EmployeeInfos_GridHR_EMP_EmployeesId_382ButtonNext", "d-none");
+				}
+			}
+		}
+
+		#region EmployeeInfos_btn
 
 		private async Task ToggleDetails_Grid_EmployeeInfos_Button(bool hasSavedRecord = false, bool isInModal = false)
 		{
@@ -677,19 +695,6 @@ namespace Forms.Forms
 			{
 				hasSavedRecord = _Entity.HR_EMP_EmployeeInfos?.Any(x => x.IsDelete != true) == true;
 			}
-
-			// اگر یک ردیف ذخیره شده وجود دارد، دکمه افزودن را مخفی می‌کنیم
-			// چون فقط یک ردیف مجاز است
-			//if (hasSavedRecord)
-			//{
-			//	// ردیف وجود دارد → دکمه جدید را مخفی می‌کنیم
-			//	await JS.InvokeVoidAsync("AddClass", "#", "d-none");
-			//}
-			//else
-			//{
-			//	// ردیف وجود ندارد → دکمه جدید را نمایش می‌دهیم
-			//	await JS.InvokeVoidAsync("RemoveClass", "#", "d-none");
-			//}
 
 			// فقط اگر در مودال باشیم، دکمه‌های مودال را مخفی کن
 			if (isInModal)
@@ -754,14 +759,27 @@ namespace Forms.Forms
 
 		#endregion
 
-
-
 		#endregion Grid EmployeeInfos
 
 		#region Grid EmployeeFamilies
 		public async Task<bool> GridHR_EMP_EmployeesId_381_editmodelsaving(object e)
 		{
-			return false;
+			bool IsCancelled = false;
+
+			var item = e as Entity.HR_EMP_EmployeeFamileis;
+			IsCancelled = !await CheckFieldsValidation_EmployeeFamilies(item);
+
+
+			//if (!IsCancelled)
+			//{
+			//	Console.WriteLine("### Grid EmployeeFamilies ### :: Start Saving");
+			//	await Submit();
+			//	Console.WriteLine("### Grid EmployeeFamilies ### :: End Saving");
+			//}
+
+			return IsCancelled;
+
+
 		}
 		public async Task GridHR_EMP_EmployeesId_381_afterrendermodal(Entity.HR_EMP_EmployeeFamileis Item)
 		{
@@ -775,11 +793,23 @@ namespace Forms.Forms
 		{
 			bool IsCancelled = false;
 
-			//var CheckDataBankAccount = _Entity.HR_Base_BankAccount;
-			//Console.WriteLine("#Log:: DataBankAccount ::>>" + _Entity.HR_Base_BankAccount.Count());
 
-			//// بررسی اطلاعات حساب بانکی
-			//IsCancelled = !await DataBankAccount(_Entity.HR_Base_BankAccount);
+			var item = e as Entity.HR_Base_BankAccount;
+			IsCancelled = !await CheckFieldsValidation_EmpBankAccounts(item);
+
+			if (!ValidateIR(item.IBAN))
+			{
+				await _MSG.ShowInfo(" شماره شبا با IR ثبت شود");
+				await _MSG.ShowError(" شماره شبا ثبت شده اشتباه است");
+				IsCancelled = true;
+			}
+
+			if (!IsValidCardNumber(item.CartNo))
+			{
+				await _MSG.ShowInfo(" شماره کارت با 16 رقم ثبت شود");
+				await _MSG.ShowError(" شماره کارت ثبت شده اشتباه است");
+				IsCancelled = true;
+			}
 
 			return IsCancelled;
 		}
@@ -787,60 +817,245 @@ namespace Forms.Forms
 		// ایونت After Render Modal: برای رندر کردن در حالت مودال گرید اطلاعات حساب بانکی در جدول کارمند است
 		public async Task GridHR_EMP_EmployeesId_357_afterrendermodal(Entity.HR_Base_BankAccount Item)
 		{
-			#region BankAccount BTN
-			//// حذف دکمه های ذخیره، قبلی، بعدی در گرید اطلاعات حساب بانکی
-			//await JS.InvokeVoidAsync("ModalAddClass", "#HR_Base_BankAccount_GridHR_EMP_EmployeesId_357ButtonSaveAndNew", "d-none");
-			//await JS.InvokeVoidAsync("ModalAddClass", "#HR_Base_BankAccount_GridHR_EMP_EmployeesId_357ButtonBefore", "d-none");
-			//await JS.InvokeVoidAsync("ModalAddClass", "#HR_Base_BankAccount_GridHR_EMP_EmployeesId_357ButtonNext", "d-none");
-			#endregion
+			Console.WriteLine("### GridHR_EMP_EmployeesId_357_afterrendermodal TRIGGERED");
+
+			// تأخیر کوتاه برای اطمینان از رندر کامل کامپوننت‌ها
+			await Task.Delay(50);
+
+			if (Item == null)
+			{
+				Console.WriteLine("### Item is NULL - hiding all dropdowns");
+				await ManageAccountHolderTypeFields(null);
+				return;
+			}
+
+			// دریافت مقدار فعلی نوع دارنده حساب از ردیف
+			string currentTypeId = Item.HR_Base_AccountHolderTypeId?.ToString();
+			Console.WriteLine($"→ Current AccountHolderType ID: {currentTypeId}");
+
+			// مدیریت نمایش دراپ‌دان‌ها بر اساس مقدار فعلی
+			await ManageAccountHolderTypeFields(currentTypeId, Item.HR_EMP_EmployeesId);
+
+			Console.WriteLine("### GridHR_EMP_EmployeesId_357_afterrendermodal FINISHED");
+
 		}
 
-		#region متدهای وابسته به حساب بانکی
+		#region HR_EMP_EmployeesId Selected
 		/// <summary>
-		///  تابعی برای بررسی تعداد ردیف‌های جزئیات
+		/// وقتی کارمند انتخاب می‌شود، فقط همسر همان کارمند را در دراپ‌دان خانواده لود می‌کند.
 		/// </summary>
-		/// <param name="Item"></param>
-		/// <returns></returns>
-		//public async Task<bool> DataBankAccount(ICollection<Entity.HR_Base_BankAccount> Item)
-		//{
-		//    // دکمه جدید در گرید حساب بانکی - HR_Base_BankAccount_GridHR_EMP_EmployeesId_357ButtonNew
-		//    //await JS.InvokeVoidAsync("ModalAddClass", "#HR_Base_BankAccount_GridHR_EMP_EmployeesId_357ButtonNew", "d-none");
+		public async Task HR_EMP_EmployeesId_onitemselected(dynamic Selected, Entity.HR_Base_BankAccount Item)
+		{
+			Ref_HR_Base_BankAccount_HR_EMP_EmployeeFamileisId?.LoadData();
+		}
+		#endregion
 
+		#region BankAccount_Validation
 
-		//    if (Item != null && Item.Count > 1)
-		//    {
-		//        await _MSG.ShowError("شما مجاز به ثبت یک ردیف بیشتر نیستید!!");
-		//        return false;
-		//    }
-		//    return true;
-		//}
+		//FK 14040520
+		private bool ValidateIR(string iBAN)
+		{
+			if (string.IsNullOrWhiteSpace(iBAN))
+				return false;
 
+			if (iBAN.Length != 26)
+				return false;
+
+			if (!iBAN.StartsWith("IR"))
+				return false;
+
+			string numberPart = iBAN.Substring(2);
+			if (!Regex.IsMatch(numberPart, @"^\d{24}$"))
+				return false;
+
+			return true;
+		}
+
+		private bool ValidateIR2(string iBAN)
+		{
+			if (string.IsNullOrWhiteSpace(iBAN))
+				return false;
+
+			if (iBAN.Length != 24)
+				return false;
+
+			if (!Regex.IsMatch(iBAN, @"^\d{24}$"))
+				return false;
+
+			return true;
+		}
+
+		private bool IsValidCardNumber(string cartNo)
+		{
+
+			if (string.IsNullOrWhiteSpace(cartNo))
+				return false;
+
+			// باید دقیقاً 16 رقم باشد
+			if (!System.Text.RegularExpressions.Regex.IsMatch(cartNo, @"^\d{16}$"))
+				return false;
+
+			return true;
+		}
+		#endregion
+
+		#region HR_Base_AccountHolderType Selected
+		public async Task HR_Base_AccountHolderTypeId_onitemselected(dynamic Selected, Entity.HR_Base_BankAccount Item)
+		{
+			Console.WriteLine("### HR_Base_AccountHolderTypeId_onitemselected TRIGGERED");
+
+			if (Item == null)
+			{
+				Console.WriteLine("### Item is NULL");
+				await ManageAccountHolderTypeFields(null);
+				return;
+			}
+
+			string selectedTypeId = Selected?.Id?.ToString();
+			Console.WriteLine($"✅ Selected AccountHolderType ID: {selectedTypeId}");
+
+			// مدیریت نمایش دراپ‌دان‌ها
+			await ManageAccountHolderTypeFields(selectedTypeId, Item.HR_EMP_EmployeesId);
+
+			Console.WriteLine("### HR_Base_AccountHolderTypeId_onitemselected FINISHED");
+		}
+		#endregion
+
+		#region AccountHolderType - Shared Methods
 
 		/// <summary>
-		/// نمایش و حذف دکمه جدید گرید حساب بانکی کاربر
+		/// مدیریت نمایش/مخفی کردن دراپ‌دان‌های کارمند و خانواده بر اساس نوع دارنده حساب
 		/// </summary>
-		/// <returns></returns>
-		//private async Task CheckGridDataAndToggleButton()
-		//{
-		//    StateHasChanged();
+		/// <param name="accountHolderTypeId">شناسه نوع دارنده حساب</param>
+		/// <param name="employeeId">شناسه کارمند (اختیاری - فقط برای لود همسران)</param>
+		private async Task ManageAccountHolderTypeFields(string accountHolderTypeId, Guid? employeeId = null)
+		{
+			const string EmpHusband = "117F1A3A-3BFB-F011-A50E-005056A2B6BD";
+			const string EmpWife = "4C395B47-3BFB-F011-A50E-005056A2B6BD";
 
-		//    Console.WriteLine("Log HR_Base_BankAccount:::" + _Entity.HR_Base_BankAccount.Count);
+			bool showEmployee = false;
+			bool showFamily = false;
 
-		//    //if (_Entity.HR_Base_BankAccount != null && _Entity.HR_Base_BankAccount.Any(x => !x.IsDelete))
-		//    if (_Entity.HR_Base_BankAccount.Count >= 1)
-		//    {
-		//        // اگر داده وجود دارد، دکمه جدید را مخفی کن
-		//        await JS.InvokeVoidAsync("AddClass", "#HR_Base_BankAccount_GridHR_EMP_EmployeesId_357ButtonNew", "d-none");
-		//    }
-		//    else
-		//    {
-		//        // اگر داده وجود ندارد، دکمه جدید را نمایش بده
-		//        await JS.InvokeVoidAsync("RemoveClass", "#HR_Base_BankAccount_GridHR_EMP_EmployeesId_357ButtonNew", "d-none");
-		//    }
+			if (string.IsNullOrWhiteSpace(accountHolderTypeId))
+			{
+				Console.WriteLine("→ نوع دارنده حساب خالی است، همه دراپ‌دان‌ها مخفی می‌شوند");
+			}
+			else if (accountHolderTypeId.ToUpper() == EmpHusband)
+			{
+				Console.WriteLine("→ نمایش فقط دراپ‌دان کارمند");
+				showEmployee = true;
+			}
+			else if (accountHolderTypeId.ToUpper() == EmpWife)
+			{
+				Console.WriteLine("→ نمایش دراپ‌دان کارمند + خانواده (همسر)");
+				showEmployee = true;
+				showFamily = true;
 
-		//    StateHasChanged();
-		//}
+				if (employeeId != null)
+				{
+					Console.WriteLine("→ کارمند انتخاب شده است، در حال لود همسران...");
+					try
+					{
+						await HR_EMP_EmployeesId_onitemselected(
+							new { Id = employeeId.ToString() },
+							null
+						);
+					}
+					catch (Exception ex)
+					{
+						Console.WriteLine($"Error loading spouses: {ex.Message}");
+					}
+				}
+			}
+			else
+			{
+				Console.WriteLine($"⚠️ نوع ناشناخته: {accountHolderTypeId}");
+			}
 
+			// تنظیم نمایش دراپ‌دان‌ها با مدیریت خطا
+			try
+			{
+				Ref_HR_Base_BankAccount_HR_EMP_EmployeesId?.SetVisible(showEmployee);
+			}
+			catch (Exception ex)
+			{
+				Console.WriteLine($"Error setting employee dropdown visibility: {ex.Message}");
+			}
+
+			try
+			{
+				Ref_HR_Base_BankAccount_HR_EMP_EmployeeFamileisId?.SetVisible(showFamily);
+			}
+			catch (Exception ex)
+			{
+				Console.WriteLine($"Error setting family dropdown visibility: {ex.Message}");
+			}
+
+			await InvokeAsync(StateHasChanged);
+		}
+
+		#endregion
+
+		#region HR_Base_BankAcountCategory Selected
+		public async Task HR_Base_BankAcountCategoryId_onitemselected(dynamic Selected, Entity.HR_Base_BankAccount Item)
+		{
+			Console.WriteLine("#Log :: BankAcountCategoryId_onitemselected :: ");
+
+			// شناسه ثابت دسته‌بندی "حقوق و دستمزد"
+			var BankAccCatId = "E8B28475-6FEC-F011-A50E-005056A2B6BD";
+
+			// شناسه ثابت بانک "سپه"
+			var SepahBankId = "6A2FEC9D-9E93-F011-A50E-005056A2B6BD";
+			var SepahBankTitle = "سپه";
+
+			// دریافت مقدار فعلی دسته‌بندی حساب
+			var BankAcountCategoryId = Selected.Id?.ToString();
+
+			foreach (var item in _Entity.HR_Base_BankAccount)
+			{
+				if (BankAcountCategoryId == BankAccCatId.ToLower())
+				{
+					Console.WriteLine("#Log :: BankAccCatId :: " + BankAccCatId.ToLower());
+					Console.WriteLine("#Log :: BankAcountCategoryId :: " + BankAcountCategoryId);
+
+					// ۱. ست کردن مقدار در مدل (دیتابیس)
+					Guid sepahId = Guid.Parse(SepahBankId);
+					string sepahTitle = SepahBankTitle;
+
+					Console.WriteLine("#Log :: sepahId :: " + sepahId);
+
+					// ۲. ست کردن آبجکت کامل بانک در مدل (برای جلوگیری از خطاهای احتمالی در گرید یا فرم)
+					// اگر پراپرتی BaseInfo_Bank در موجودیت شما وجود دارد، بهتر است آن را هم مقداردهی کنید
+					item.BaseInfo_Bank = new Entity.BaseInfo_Banks { Id = sepahId, Title = sepahTitle };
+
+					// ۳. همگام‌سازی با رابط کاربری (UI)
+					// این بخش بسیار مهم است. ما باید به کامپوننت بگوییم که مقدارش تغییر کرده است.
+					// فرض بر این است که Ref_BaseInfo_BankId یک Reference به کامپوننت انتخاب بانک است.
+
+					if (Ref_HR_Base_BankAccount_BaseInfo_BankId != null)
+					{
+						// اگر متد SetEntity در کامپوننت شما وجود دارد، از آن استفاده کنید
+						// این متد معمولاً مقدار را در کامپوننت ست کرده و UI را رفرش می‌کند
+						Ref_HR_Base_BankAccount_BaseInfo_BankId.SetEntity(item.BaseInfo_Bank);
+						Console.WriteLine("#Log :: Ref_BaseInfo_BankId :: ");
+
+						// یا اگر متد خاصی برای ست کردن مقدار (Value) دارید:
+						//Ref_BaseInfo_BankId.Value = sepahGuid;
+
+
+						Ref_HR_Base_BankAccount_BaseInfo_BankId.ItemSelected(item.BaseInfo_Bank);
+
+						await Task.Delay(100);
+						Ref_HR_Base_BankAccount_BaseInfo_BankId.LoadData();
+					}
+
+					// ۴. اطلاع به Blazor برای رندر مجدد صفحه
+					StateHasChanged();
+
+					Console.WriteLine("Log:: Bank set to Sepah successfully.");
+				}
+			}
+		}
 		#endregion
 
 		#endregion
@@ -848,8 +1063,12 @@ namespace Forms.Forms
 		#region Grid EMP_Documents
 		public async Task<bool> GridHR_EMP_EmployeesId_379_editmodelsaving(object e)
 		{
+			bool IsCancelled = false;
 
-			return false;
+			var item = e as Entity.HR_EMP_Documents;
+			IsCancelled = !await CheckFieldsValidation_EmpDocuments(item);
+
+			return IsCancelled;
 		}
 		public async Task GridHR_EMP_EmployeesId_379_afterrendermodal(Entity.HR_EMP_Documents Item)
 		{
@@ -858,11 +1077,30 @@ namespace Forms.Forms
 		}
 		#endregion
 
+		#region Grid HR_EMP_AcademicDocuments
+		public async Task<bool> GridHR_EMP_EmployeesId_378_editmodelsaving(object e)
+		{
+			bool IsCancelled = false;
+
+
+
+			return IsCancelled;
+		}
+		public async Task GridHR_EMP_EmployeesId_378_afterrendermodal(Entity.HR_EMP_AcademicDocuments Item)
+		{
+		}
+		#endregion
+
 		#region Grid EMP_Contacts
 
 		public async Task<bool> GridHR_EMP_EmployeesId_380_editmodelsaving(object e)
 		{
-			return false;
+			bool IsCancelled = false;
+
+			var item = e as Entity.HR_EMP_EmployeeDetails;
+			IsCancelled = !await CheckFieldsValidation_EmpContacts(item);
+
+			return IsCancelled;
 		}
 		public async Task GridHR_EMP_EmployeesId_380_afterrendermodal(Entity.HR_EMP_EmployeeDetails item)
 		{
@@ -879,10 +1117,67 @@ namespace Forms.Forms
 				}
 			}
 
+			// تکمیل خودکار فیلد HR_EMP_EmployeesId در مودال جزئیات اطلاعات تماس بر اساس انتخاب کارمند در فرم اصلی
+			// در حالت رکورد جدید ممکن است ref هنوز تنظیم نشده باشد، چند بار تلاش می‌کنیم
+			bool prefilleed = false;
+			int attempts = 0;
+			while (!prefilleed && attempts < 3)
+			{
+				prefilleed = await PrefillEmployeeDetailsModal(item);
+				if (!prefilleed) await Task.Delay(120);
+				attempts++;
+			}
+
 			await EmployeeDetails_ToggleGridButton(hasSavedRecord, isInModal: true);
 		}
 
+		#region PrefillEmployeeDetailsModal
+		/// <summary>
+		/// تکمیل خودکار فیلد کارمند در مودال اطلاعات تماس بر اساس انتخاب کارمند در فرم اصلی
+		/// </summary>
+		private async Task<bool> PrefillEmployeeDetailsModal(Entity.HR_EMP_EmployeeDetails item)
+		{
+			// بررسی وجود داده‌های ضروری
+			if (item == null || _Entity?.HR_EMP_EmployeesId == null || _Entity.HR_EMP_EmployeesId == Guid.Empty)
+			{
+				return false;
+			}
 
+			try
+			{
+				// 1. ست کردن مقدار در مدل ردیف مودال
+				item.HR_EMP_EmployeesId = _Entity.HR_EMP_EmployeesId.Value;
+
+				await Task.Delay(120);
+
+				// 2. ست کردن مقدار در دراپ‌دان UI (اگر رفرنس موجود است)
+				if (Ref_HR_EMP_EmployeeDetails_HR_EMP_EmployeesId != null)
+				{
+					// بارگذاری داده‌های جدید در دراپ‌دان
+					await Ref_HR_EMP_EmployeeDetails_HR_EMP_EmployeesId.LoadData();
+
+					// انتخاب مقدار فعلی
+					var empObj = new
+					{
+						Id = _Entity.HR_EMP_EmployeesId.Value,
+						Title = $"{_Entity.FirstName} {_Entity.LastName}"
+					};
+					Ref_HR_EMP_EmployeeDetails_HR_EMP_EmployeesId.ItemSelected(empObj);
+				}
+
+				return true;
+			}
+			catch (Exception ex)
+			{
+				Console.WriteLine($"Error in PrefillEmployeeDetailsModal: {ex.Message}");
+				return false;
+			}
+		}
+		#endregion
+
+
+
+		#region EmployeeDetails Validation
 		/// <summary>
 		/// بررسی تعداد آخرین ردیف جزئیات
 		/// بر اساس تعداد ردیف جزئیات انتخاب شده، مشخص می شود که آیا فرم قابل ارسال است یا خیر.
@@ -915,6 +1210,7 @@ namespace Forms.Forms
 
 			return true;
 		}
+		#endregion
 
 		#region EmployeeDetailsShowRecordDialog
 		public string? EmpBy { get; set; }
@@ -936,7 +1232,7 @@ namespace Forms.Forms
 
 			string html = $@"
                 <div>
-                    <picture><img src='https://file.workcv.ir/fa/api/v1/File/Get?FileID=6e5b6fb8-a5b2-490c-f83f-08dbea5b8061  ' width='96px' alt='لوگو سامانه بایا' /></picture>
+                    <picture><img src='https://file.workcv.ir/fa-ir/api/v1/File/Get?FileID=39462980-c664-4271-9f62-08de75e9da22' width='96px' alt='لوگو سامانه بایا' /></picture>
                     <hr class='hrdash border-success-subtle'>
                 </div>
                 <div class='fw-bold text-center'>
@@ -953,31 +1249,11 @@ namespace Forms.Forms
 
 			await Confirm.ShowAsync(title: "", message1: html, confirmDialogOptions: options);
 
-
-			// برای لغو درخواست است.
-
-			//var confirmation = await Confirm.ShowAsync(
-			//	title: "",
-			//	message1: html,
-			//	confirmDialogOptions: options);
-
-			//if (!confirmation)
-			//{
-			//	IsValid = false;
-			//}
-			//else
-			//{
-			//	// کاربر لغو کننده
-			//	EmpBy = _User.UserID.ToString();
-			//	EmpBy = _User.NAME + "" + _User.FAMILY;
-			//	// در بخش Razor فیلد input hidden همین فیلد وجود دارد و از طریق آن داده به فیلد اصلی داده می شود.
-			//	string Value = await JS.InvokeAsync<string>("eval", "document.getElementById('ConfirmEmpText')?.value || ''");
-			//	EmpReason = Value;
-			//}
 		}
 
 		#endregion
 
+		#region EmployeeDetails_ToggleGridButton
 		private async Task EmployeeDetails_ToggleGridButton(bool hasSavedRecord = false, bool isInModal = false)
 		{
 			await Task.Yield();
@@ -1006,13 +1282,58 @@ namespace Forms.Forms
 			if (isInModal)
 			{
 				// دکمه ذخیره و جدید - مخفی می‌شود چون فقط یک ردیف مجاز است
-				await JS.InvokeVoidAsync("ModalAddClass", "#HR_EMP_EmployeeDetails_GridHR_EMP_EmployeesId_380ButtonSaveAndNew", "d-none");
+				try
+				{
+					if (await WaitElementExists("#HR_EMP_EmployeeDetails_GridHR_EMP_EmployeesId_380ButtonSaveAndNew", 1000))
+					{
+						await JS.InvokeVoidAsync("ModalAddClass", "#HR_EMP_EmployeeDetails_GridHR_EMP_EmployeesId_380ButtonSaveAndNew", "d-none");
+					}
+				}
+				catch (JSException jsEx)
+				{
+					Console.WriteLine($"JSException hiding SaveAndNew button: {jsEx.Message}");
+				}
+				catch (Exception ex)
+				{
+					Console.WriteLine($"Error hiding SaveAndNew button: {ex.Message}");
+				}
+
 				// دکمه قبلی - مخفی می‌شود چون فقط یک ردیف وجود دارد
-				await JS.InvokeVoidAsync("ModalAddClass", "#HR_EMP_EmployeeDetails_GridHR_EMP_EmployeesId_380ButtonBefore", "d-none");
+				try
+				{
+					if (await WaitElementExists("#HR_EMP_EmployeeDetails_GridHR_EMP_EmployeesId_380ButtonBefore", 1000))
+					{
+						await JS.InvokeVoidAsync("ModalAddClass", "#HR_EMP_EmployeeDetails_GridHR_EMP_EmployeesId_380ButtonBefore", "d-none");
+					}
+				}
+				catch (JSException jsEx)
+				{
+					Console.WriteLine($"JSException hiding Before button: {jsEx.Message}");
+				}
+				catch (Exception ex)
+				{
+					Console.WriteLine($"Error hiding Before button: {ex.Message}");
+				}
+
 				// دکمه بعدی - مخفی می‌شود چون فقط یک ردیف وجود دارد
-				await JS.InvokeVoidAsync("ModalAddClass", "#HR_EMP_EmployeeDetails_GridHR_EMP_EmployeesId_380ButtonNext", "d-none");
+				try
+				{
+					if (await WaitElementExists("#HR_EMP_EmployeeDetails_GridHR_EMP_EmployeesId_380ButtonNext", 1000))
+					{
+						await JS.InvokeVoidAsync("ModalAddClass", "#HR_EMP_EmployeeDetails_GridHR_EMP_EmployeesId_380ButtonNext", "d-none");
+					}
+				}
+				catch (JSException jsEx)
+				{
+					Console.WriteLine($"JSException hiding Next button: {jsEx.Message}");
+				}
+				catch (Exception ex)
+				{
+					Console.WriteLine($"Error hiding Next button: {ex.Message}");
+				}
 			}
 		}
+		#endregion
 
 		#endregion
 
@@ -1474,12 +1795,7 @@ namespace Forms.Forms
 							</div>
 							<div class='field-desc'>
 								PDF یا تصویر واضح - حداکثر ۵ مگابایت
-								<br>
-								<a href='https://file.workcv.ir/fa-ir/api/v1/File/Get?FileID=9d42e517-edad-4d69-5aca-08ddf67735ff ' 
-								   class='download-btn mt-2'>
-									<i class='bi bi-cloud-download'></i>
-									دانلود نمونه فایل
-								</a>
+								<b>
 							</div>
 						</div>
             
@@ -1857,33 +2173,6 @@ namespace Forms.Forms
 
 		#region
 		#endregion
-
-		public async Task <bool> GridHR_EMP_EmployeesId_378_editmodelsaving(object e   )
-        {
-
-            return false;
-        }
-public async Task  GridHR_EMP_EmployeesId_378_afterrendermodal(Entity.HR_EMP_AcademicDocuments Item   )
-        {
-
-            
-        }
-
-		public async Task  HR_Base_AccountHolderTypeId_onitemselected(Entity.HR_Base_AccountHolderType Selected ,Entity.HR_Base_BankAccount Item  )
-        {
-
-            
-        }
-public async Task  HR_EMP_EmployeesId_onitemselected(Entity.HR_EMP_Employees Selected ,Entity.HR_Base_BankAccount Item  )
-        {
-
-            
-        }
-public async Task  HR_Base_BankAcountCategoryId_onitemselected(Entity.HR_Base_BankAcountCategory Selected ,Entity.HR_Base_BankAccount Item  )
-        {
-
-            
-        }
 
 		#endregion FunctionEvents
 

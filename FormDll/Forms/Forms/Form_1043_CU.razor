@@ -13,7 +13,155 @@
 @using Forms.Domain.Utility
 @using Castle.DynamicLinqQueryBuilder
 <style>
-    
+    .itemOld {
+    color: var(--red) !important;
+    background: linear-gradient(90deg, #e826460f, transparent);
+}
+
+.itemNew {
+    color: #1a9a4a !important;
+    background: linear-gradient(270deg, #29b39c17, transparent);
+}
+
+/* ************************************************** */
+.input-string input {
+    display: inline-block;
+    max-width: 240px !important;
+    background: none !important;
+    border: none;
+    text-align: start !important;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+/* ************************************************** */
+/*  تنظیمات کلی دکمه چاپ */
+.print-btn-container {
+    padding-top: 1rem;
+    display: inline-block;
+}
+
+.print-btn {
+    position: relative;
+    padding: 6px 6px;
+    border: none;
+    border-radius: 6px;
+    background: linear-gradient(135deg, #4361ee, #3a0ca3);
+    color: white;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 8px rgba(67, 97, 238, 0.2);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+/* افکت های تعاملی */
+.print-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(67, 97, 238, 0.3);
+    background: linear-gradient(135deg, #4895ef, #4361ee);
+}
+
+.print-btn:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 4px rgba(67, 97, 238, 0.2);
+}
+
+/* استایل آیکون */
+.print-icon {
+    display: flex;
+    align-items: center;
+    transition: transform 0.3s ease;
+}
+
+.print-btn:hover .print-icon {
+    transform: translateX(3px);
+}
+
+/* افکت موجی هنگام کلیک */
+.print-wave {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.6) 10%, transparent 10.01%) no-repeat 50%;
+    transform: scale(10, 10);
+    opacity: 0;
+    transition: transform 0.5s, opacity 1s;
+    pointer-events: none;
+}
+
+.print-btn:active .print-wave {
+    transform: scale(0, 0);
+    opacity: 0.4;
+    transition: 0s;
+}
+
+/* ************************************************** */
+
+@@media print {
+    body {
+        padding-top: 3px;
+        font-size: 12px !important;
+        font-weight: bold;
+        line-height: 1.2 !important;
+        color: #000 !important;
+        background: none !important;
+    }
+
+    main {
+        height: unset !important;
+        min-height: unset !important;
+        max-height: unset !important;
+    }
+
+    .dxbl-grid-table th,
+    .dxbl-grid-table td {
+        font-size: 12px !important;
+        font-weight: bold;
+        color: #000 !important;
+    }
+
+    h1 {
+        font-size: 18px !important;
+    }
+
+    h2 {
+        font-size: 16px !important;
+    }
+
+    h3 {
+        font-size: 14px !important;
+    }
+
+    a {
+        color: #000 !important;
+        text-decoration: underline !important;
+    }
+
+    /* ستون 1 و 3 نمایش داده نشود در پرینت */
+    table tr>*:nth-child(1),
+    table tr>*:nth-child(3) {
+        display: none;
+    }
+
+    /* از ستون 9 به بعد نمایش داده نشود در پرینت */
+    table tr>*:nth-child(n+9) {
+        display: none;
+    }
+
+    /* @@page {
+        size: A4 landscape;
+        margin: 0.5cm !important;
+    } */
+}
+
+/* ************************************************** */
 </style>
 
 <Plugins.Tools.ConfirmDialog @ref="Confirm" />
@@ -33,61 +181,150 @@
         
 <div class="row ">
     
+<div class="col-md-12">
+    
+<div class="row ">
+    
 <div class="col-md-3">
     
-<Input Id="Emp_No" @ref="Ref_Emp_No" Label="شماره کارت"     @bind-Value="_Entity.Emp_No" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
-
 <Input Id="CodeMelli" @ref="Ref_CodeMelli" Label="کد ملی"     @bind-Value="_Entity.CodeMelli" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+<Input Id="Centname" @ref="Ref_Centname" Label="واحد"   Disabled=true  @bind-Value="_Entity.Centname" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
 
 <Input Id="Year" @ref="Ref_Year" Label="سال"     @bind-Value="_Entity.Year" type="number"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
 
+</div>
+
+<div class="col-md-3">
+    
+<Input Id="Emp_Name" @ref="Ref_Emp_Name" Label="نام"   Disabled=true  @bind-Value="_Entity.Emp_Name" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+<Input Id="WorkName" @ref="Ref_WorkName" Label="محل کار"   Disabled=true  @bind-Value="_Entity.WorkName" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
 <Input Id="Month" @ref="Ref_Month" Label="ماه"     @bind-Value="_Entity.Month" type="number"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
 
-<Button Label="Submit" Id="submit" CssClass=" btn btn-info" onclick="@(e => submit_onclick(e ))"   ></Button>
+</div>
+
+<div class="col-md-3">
+    
+<Input Id="Emp_Family" @ref="Ref_Emp_Family" Label="نام خانوادگی"   Disabled=true  @bind-Value="_Entity.Emp_Family" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+<Input Id="Company" @ref="Ref_Company" Label="شرکت"   Disabled=true  @bind-Value="_Entity.Company" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+<div  class="">
+    
+</div>
+
+<Button Label="مشاهده فیش حقوقی" Id="submit" CssClass=" btn btn-info" onclick="@(e => submit_onclick(e ))"   ></Button>
 
 </div>
 
 <div class="col-md-3">
     
-<Input Id="Emp_Name" @ref="Ref_Emp_Name" Label="نام"     @bind-Value="_Entity.Emp_Name" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+<Input Id="Emp_No" @ref="Ref_Emp_No" Label="شماره کارت"   Disabled=true  @bind-Value="_Entity.Emp_No" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
 
-<Input Id="Emp_Family" @ref="Ref_Emp_Family" Label="نام خانوادگی"     @bind-Value="_Entity.Emp_Family" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+<Input Id="JobName" @ref="Ref_JobName" Label="عنوان شغلی"   Disabled=true  @bind-Value="_Entity.JobName" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
 
-<Input Id="WorkName" @ref="Ref_WorkName" Label="محل کار"     @bind-Value="_Entity.WorkName" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+</div>
 
-<Input Id="Sum_v_day" @ref="Ref_Sum_v_day" Label="جمع روز"     @bind-Value="_Entity.Sum_v_day" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
-
-<Input Id="Sum_v_hour" @ref="Ref_Sum_v_hour" Label="جمع ساعت"     @bind-Value="_Entity.Sum_v_hour" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+</div>
 
 </div>
 
 <div class="col-md-3">
     
-<Input Id="Centname" @ref="Ref_Centname" Label="واحد"     @bind-Value="_Entity.Centname" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+<Input Id="Sum_v_hour" @ref="Ref_Sum_v_hour" Label="جمع ساعت"  CssClass="itemNew" Disabled=true  @bind-Value="_Entity.Sum_v_hour" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
 
-<Input Id="JobName" @ref="Ref_JobName" Label="عنوان شغلی"     @bind-Value="_Entity.JobName" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+<Input Id="Sum_v_day" @ref="Ref_Sum_v_day" Label="جمع روز"  CssClass="itemNew" Disabled=true  @bind-Value="_Entity.Sum_v_day" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
 
-<Input Id="Mazaya" @ref="Ref_Mazaya" Label="مزایا"     @bind-Value="_Entity.Mazaya" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+<Input Id="HaghTaaholPrice" @ref="Ref_HaghTaaholPrice" Label="حق تأهل"  CssClass="itemNew" Disabled=true  @bind-Value="_Entity.HaghTaaholPrice" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
 
-<Input Id="Kosorat" @ref="Ref_Kosorat" Label="کسورات"     @bind-Value="_Entity.Kosorat" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+<Input Id="RavandJari" @ref="Ref_RavandJari" Label="روند ماه جاری"  CssClass="itemNew" Disabled=true  @bind-Value="_Entity.RavandJari" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
 
-<Input Id="Company" @ref="Ref_Company" Label="شرکت"     @bind-Value="_Entity.Company" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+<Input Id="BedehiQbl" @ref="Ref_BedehiQbl" Label="پرداخت بدهي ماه قبل"  CssClass="itemNew" Disabled=true  @bind-Value="_Entity.BedehiQbl" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+<Input Id="HoghoghPaye" @ref="Ref_HoghoghPaye" Label="حقوق پايه"  CssClass="itemNew" Disabled=true  @bind-Value="_Entity.HoghoghPaye" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+<Input Id="KharbarMaskan" @ref="Ref_KharbarMaskan" Label="خواربار و مسکن"  CssClass="itemNew" Disabled=true  @bind-Value="_Entity.KharbarMaskan" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+<Input Id="Refahi" @ref="Ref_Refahi" Label="مزاياي رفاهي انگيزه اي"  CssClass="itemNew" Disabled=true  @bind-Value="_Entity.Refahi" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+<Input Id="PayeSanavat" @ref="Ref_PayeSanavat" Label="پايه سنوات"  CssClass="itemNew" Disabled=true  @bind-Value="_Entity.PayeSanavat" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
 
 </div>
 
 <div class="col-md-3">
     
-<Input Id="Kosoorpname" @ref="Ref_Kosoorpname" Label="کسورات"     @bind-Value="_Entity.Kosoorpname" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+<Input Id="EzafeKariAdi" @ref="Ref_EzafeKariAdi" Label="اضافه کاري عادی"  CssClass="itemNew" Disabled=true  @bind-Value="_Entity.EzafeKariAdi" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
 
-<Input Id="Kosoorprice" @ref="Ref_Kosoorprice" Label="مبلغ کسورات"     @bind-Value="_Entity.Kosoorprice" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+<Input Id="EzafeKariAdiHour" @ref="Ref_EzafeKariAdiHour" Label="ساعت اضافه کار عادی"  CssClass="itemNew" Disabled=true  @bind-Value="_Entity.EzafeKariAdiHour" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
 
-<Input Id="Kosoorphour" @ref="Ref_Kosoorphour" Label="ساعت"     @bind-Value="_Entity.Kosoorphour" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+<Input Id="EzafeKariTatil" @ref="Ref_EzafeKariTatil" Label="اضافه کار تعطیل"  CssClass="itemNew" Disabled=true  @bind-Value="_Entity.EzafeKariTatil" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
 
-<Input Id="Mazayapname" @ref="Ref_Mazayapname" Label="مزایا"     @bind-Value="_Entity.Mazayapname" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+<Input Id="EzafeKariTatilHour" @ref="Ref_EzafeKariTatilHour" Label="ساعت اضافه کار تعطیل"  CssClass="itemNew" Disabled=true  @bind-Value="_Entity.EzafeKariTatilHour" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
 
-<Input Id="Mazayaprice" @ref="Ref_Mazayaprice" Label="مبلغ مزایا"     @bind-Value="_Entity.Mazayaprice" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+<Input Id="Jazb2" @ref="Ref_Jazb2" Label="حق جذب 2"  CssClass="itemNew" Disabled=true  @bind-Value="_Entity.Jazb2" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
 
-<Input Id="Mazayaphour" @ref="Ref_Mazayaphour" Label="ساعت"     @bind-Value="_Entity.Mazayaphour" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+<Input Id="Padash1" @ref="Ref_Padash1" Label="پاداش افزايش توليد1"  CssClass="itemNew" Disabled=true  @bind-Value="_Entity.Padash1" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+<Input Id="Padash2" @ref="Ref_Padash2" Label="پاداش افزايش توليد2"  CssClass="itemNew" Disabled=true  @bind-Value="_Entity.Padash2" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+<Input Id="MaBeOTafavot" @ref="Ref_MaBeOTafavot" Label="ما به التفاوت"  CssClass="itemNew" Disabled=true  @bind-Value="_Entity.MaBeOTafavot" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+</div>
+
+<div class="col-md-3">
+    
+<Input Id="Bime" @ref="Ref_Bime" Label="بيمه اصلي سهم کارمند"  CssClass="itemOld" Disabled=true  @bind-Value="_Entity.Bime" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+<Input Id="BimeTakmili" @ref="Ref_BimeTakmili" Label="بيمه تکميلی"  CssClass="itemOld" Disabled=true  @bind-Value="_Entity.BimeTakmili" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+<Input Id="BimeBazneshastegi" @ref="Ref_BimeBazneshastegi" Label="بيمه بازنشستگي سهم کارمند"  CssClass="itemOld" Disabled=true  @bind-Value="_Entity.BimeBazneshastegi" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+<Input Id="RavandQbl" @ref="Ref_RavandQbl" Label="روند ماه قبل"  CssClass="itemOld" Disabled=true  @bind-Value="_Entity.RavandQbl" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+<Input Id="AlalHesab" @ref="Ref_AlalHesab" Label="علي الحساب پاداش افزايش توليد 1و2"  CssClass="itemOld" Disabled=true  @bind-Value="_Entity.AlalHesab" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+</div>
+
+<div class="col-md-3">
+    
+<Input Id="Maliat" @ref="Ref_Maliat" Label="ماليات"  CssClass="itemOld" Disabled=true  @bind-Value="_Entity.Maliat" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+<Input Id="BedehiMahQbl" @ref="Ref_BedehiMahQbl" Label="بدهي ماه قبل"  CssClass="itemOld" Disabled=true  @bind-Value="_Entity.BedehiMahQbl" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+<Input Id="Tabaee1" @ref="Ref_Tabaee1" Label="تبعي 1"  CssClass="itemOld" Disabled=true  @bind-Value="_Entity.Tabaee1" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+<Input Id="Tabaee2" @ref="Ref_Tabaee2" Label="تبعي 2"  CssClass="itemOld" Disabled=true  @bind-Value="_Entity.Tabaee2" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+<Input Id="Tabaee3" @ref="Ref_Tabaee3" Label="تبعي 3"  CssClass="itemOld" Disabled=true  @bind-Value="_Entity.Tabaee3" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+<Input Id="CurrentCodeMelli" @ref="Ref_CurrentCodeMelli" Label="CurrentCodeMelli"  CssClass="d-none"   @bind-Value="_Entity.CurrentCodeMelli" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+</div>
+
+<div class="col-md-12">
+    
+<div class="row ">
+    
+<div class="col-md-4">
+    
+<Input Id="Nakhales" @ref="Ref_Nakhales" Label="جمع مزایا (ناخالص)"  CssClass="itemNew" Disabled=true  @bind-Value="_Entity.Nakhales" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+</div>
+
+<div class="col-md-4">
+    
+<Input Id="KosoratTotal" @ref="Ref_KosoratTotal" Label="جمع کسورات"  CssClass="itemOld" Disabled=true  @bind-Value="_Entity.KosoratTotal" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+</div>
+
+<div class="col-md-4">
+    
+<Input Id="Pardakhti" @ref="Ref_Pardakhti" Label="خالص پرداختی"  CssClass="itemNew" Disabled=true  @bind-Value="_Entity.Pardakhti" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+</div>
+
+</div>
 
 </div>
 
@@ -106,6 +343,65 @@
 <Input Id="UpdateDate" @ref="Ref_UpdateDate"   CssClass="d-none"   @bind-Value="_Entity.UpdateDate" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
 
 <Input Id="IsDelete" @ref="Ref_IsDelete"   CssClass="d-none"   @bind-Value="_Entity.IsDelete" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+ <!-- ************************************************** -->
+ <div class="print-btn-container">
+    <button type="button" onclick="customPrint()" class="print-btn">
+        <span class="print-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 16 16">
+                <path d="M5 1a2 2 0 0 0-2 2v1h10V3a2 2 0 0 0-2-2H5zm6 8H5a1 1 0 0 0-1 1v3a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1v-3a1 1 0 0 0-1-1z"/>
+                <path d="M0 7a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2h-1v-2a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v2H2a2 2 0 0 1-2-2V7zm2.5 1a.5.5 0 1 0 0-1 .5.5 0 0 0 0 1z"/>
+            </svg>
+        </span>
+        <span class="print-text">چاپ</span>
+        <span class="print-wave"></span>
+    </button>
+</div>
+
+
+<script>
+function customPrint() {
+    // لیست تمام عناصری که می‌خواهید مخفی شوند
+    const elementsToHide = [
+       '.sideArea',                // نوار کناری
+        '.toprow.sticky-top',       // نوار بالایی
+        '.no-print',                // عناصر با کلاس no-print
+        '.btn-back',                // دکمه برگشت
+        '.print-btn-container',     // دکمه چاپ در صفحه
+        '.logo',                    // لوگو
+        '.formTitle',               // تایتل صفحه
+        '.formCode',                // کد فرم بالای صفحه فرم
+        '.tab_Info',                // مخفی کردن تب های اطلاعاتی
+        '.footer'                   // فوتر
+    ];
+    
+    // ذخیره وضعیت اصلی و مخفی کردن
+    const hiddenElements = [];
+    
+    elementsToHide.forEach(selector => {
+        const elements = document.querySelectorAll(selector);
+        elements.forEach(el => {
+            hiddenElements.push({
+                element: el,
+                originalDisplay: el.style.display
+            });
+            //el.style.display = 'none';
+            $(el).addClass("d-print-none");
+        });
+    });
+    
+    // چاپ صفحه
+    window.print();
+    
+    // بازگرداندن عناصر پس از چاپ
+    // setTimeout(() => {
+    //     hiddenElements.forEach(item => {
+    //         item.element.style.display = item.originalDisplay || '';
+    //     });
+    // }, 500);
+}
+</script>
+
+<!-- ************************************************** -->
 
     </EditForm>
 </div>
@@ -123,8 +419,8 @@
     {
         Console.WriteLine("#log OnInitializedAsync");
 
-        TableGet = await Utility.JSON.ToObject<Table>("{\"Name\":\"HR_Salary\",\"GetNameAs\":\"HR_Salary\",\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"RequestID\",\"GetNameAs\":\"RequestID\"},{\"Name\":\"CreateUser\",\"GetNameAs\":\"CreateUser\"},{\"Name\":\"UpdateUser\",\"GetNameAs\":\"UpdateUser\"},{\"Name\":\"CreateDate\",\"GetNameAs\":\"CreateDate\"},{\"Name\":\"UpdateDate\",\"GetNameAs\":\"UpdateDate\"},{\"Name\":\"IsDelete\",\"GetNameAs\":\"IsDelete\"},{\"Name\":\"Emp_No\",\"GetNameAs\":\"Emp_No\"},{\"Name\":\"CodeMelli\",\"GetNameAs\":\"CodeMelli\"},{\"Name\":\"Year\",\"GetNameAs\":\"Year\"},{\"Name\":\"Month\",\"GetNameAs\":\"Month\"},{\"Name\":\"Emp_Name\",\"GetNameAs\":\"Emp_Name\"},{\"Name\":\"Emp_Family\",\"GetNameAs\":\"Emp_Family\"},{\"Name\":\"WorkName\",\"GetNameAs\":\"WorkName\"},{\"Name\":\"Sum_v_day\",\"GetNameAs\":\"Sum_v_day\"},{\"Name\":\"Sum_v_hour\",\"GetNameAs\":\"Sum_v_hour\"},{\"Name\":\"Centname\",\"GetNameAs\":\"Centname\"},{\"Name\":\"JobName\",\"GetNameAs\":\"JobName\"},{\"Name\":\"Mazaya\",\"GetNameAs\":\"Mazaya\"},{\"Name\":\"Kosorat\",\"GetNameAs\":\"Kosorat\"},{\"Name\":\"Company\",\"GetNameAs\":\"Company\"},{\"Name\":\"Kosoorpname\",\"GetNameAs\":\"Kosoorpname\"},{\"Name\":\"Kosoorprice\",\"GetNameAs\":\"Kosoorprice\"},{\"Name\":\"Kosoorphour\",\"GetNameAs\":\"Kosoorphour\"},{\"Name\":\"Mazayapname\",\"GetNameAs\":\"Mazayapname\"},{\"Name\":\"Mazayaprice\",\"GetNameAs\":\"Mazayaprice\"},{\"Name\":\"Mazayaphour\",\"GetNameAs\":\"Mazayaphour\"}],\"Relation\":[]}");
-        TablePost = await Utility.JSON.ToObject<Table>("{\"Name\":\"HR_Salary\",\"GetNameAs\":\"HR_Salary\",\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"RequestID\",\"GetNameAs\":\"RequestID\"},{\"Name\":\"CreateUser\",\"GetNameAs\":\"CreateUser\"},{\"Name\":\"UpdateUser\",\"GetNameAs\":\"UpdateUser\"},{\"Name\":\"CreateDate\",\"GetNameAs\":\"CreateDate\"},{\"Name\":\"UpdateDate\",\"GetNameAs\":\"UpdateDate\"},{\"Name\":\"IsDelete\",\"GetNameAs\":\"IsDelete\"},{\"Name\":\"Emp_No\",\"GetNameAs\":\"Emp_No\"},{\"Name\":\"CodeMelli\",\"GetNameAs\":\"CodeMelli\"},{\"Name\":\"Year\",\"GetNameAs\":\"Year\"},{\"Name\":\"Month\",\"GetNameAs\":\"Month\"},{\"Name\":\"Emp_Name\",\"GetNameAs\":\"Emp_Name\"},{\"Name\":\"Emp_Family\",\"GetNameAs\":\"Emp_Family\"},{\"Name\":\"WorkName\",\"GetNameAs\":\"WorkName\"},{\"Name\":\"Sum_v_day\",\"GetNameAs\":\"Sum_v_day\"},{\"Name\":\"Sum_v_hour\",\"GetNameAs\":\"Sum_v_hour\"},{\"Name\":\"Centname\",\"GetNameAs\":\"Centname\"},{\"Name\":\"JobName\",\"GetNameAs\":\"JobName\"},{\"Name\":\"Mazaya\",\"GetNameAs\":\"Mazaya\"},{\"Name\":\"Kosorat\",\"GetNameAs\":\"Kosorat\"},{\"Name\":\"Company\",\"GetNameAs\":\"Company\"},{\"Name\":\"Kosoorpname\",\"GetNameAs\":\"Kosoorpname\"},{\"Name\":\"Kosoorprice\",\"GetNameAs\":\"Kosoorprice\"},{\"Name\":\"Kosoorphour\",\"GetNameAs\":\"Kosoorphour\"},{\"Name\":\"Mazayapname\",\"GetNameAs\":\"Mazayapname\"},{\"Name\":\"Mazayaprice\",\"GetNameAs\":\"Mazayaprice\"},{\"Name\":\"Mazayaphour\",\"GetNameAs\":\"Mazayaphour\"}],\"Relation\":[]}");
+        TableGet = await Utility.JSON.ToObject<Table>("{\"Name\":\"HR_Salary\",\"GetNameAs\":\"HR_Salary\",\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"RequestID\",\"GetNameAs\":\"RequestID\"},{\"Name\":\"CreateUser\",\"GetNameAs\":\"CreateUser\"},{\"Name\":\"UpdateUser\",\"GetNameAs\":\"UpdateUser\"},{\"Name\":\"CreateDate\",\"GetNameAs\":\"CreateDate\"},{\"Name\":\"UpdateDate\",\"GetNameAs\":\"UpdateDate\"},{\"Name\":\"IsDelete\",\"GetNameAs\":\"IsDelete\"},{\"Name\":\"Emp_No\",\"GetNameAs\":\"Emp_No\"},{\"Name\":\"CodeMelli\",\"GetNameAs\":\"CodeMelli\"},{\"Name\":\"Year\",\"GetNameAs\":\"Year\"},{\"Name\":\"Month\",\"GetNameAs\":\"Month\"},{\"Name\":\"Emp_Name\",\"GetNameAs\":\"Emp_Name\"},{\"Name\":\"Emp_Family\",\"GetNameAs\":\"Emp_Family\"},{\"Name\":\"WorkName\",\"GetNameAs\":\"WorkName\"},{\"Name\":\"Sum_v_day\",\"GetNameAs\":\"Sum_v_day\"},{\"Name\":\"Sum_v_hour\",\"GetNameAs\":\"Sum_v_hour\"},{\"Name\":\"Centname\",\"GetNameAs\":\"Centname\"},{\"Name\":\"JobName\",\"GetNameAs\":\"JobName\"},{\"Name\":\"Company\",\"GetNameAs\":\"Company\"},{\"Name\":\"CurrentCodeMelli\",\"GetNameAs\":\"CurrentCodeMelli\"},{\"Name\":\"Pardakhti\",\"GetNameAs\":\"Pardakhti\"},{\"Name\":\"Nakhales\",\"GetNameAs\":\"Nakhales\"},{\"Name\":\"KosoratTotal\",\"GetNameAs\":\"KosoratTotal\"},{\"Name\":\"HoghoghPaye\",\"GetNameAs\":\"HoghoghPaye\"},{\"Name\":\"EzafeKariAdi\",\"GetNameAs\":\"EzafeKariAdi\"},{\"Name\":\"HaghTaaholPrice\",\"GetNameAs\":\"HaghTaaholPrice\"},{\"Name\":\"Maliat\",\"GetNameAs\":\"Maliat\"},{\"Name\":\"Bime\",\"GetNameAs\":\"Bime\"},{\"Name\":\"RavandJari\",\"GetNameAs\":\"RavandJari\"},{\"Name\":\"BedehiQbl\",\"GetNameAs\":\"BedehiQbl\"},{\"Name\":\"RavandQbl\",\"GetNameAs\":\"RavandQbl\"},{\"Name\":\"KharbarMaskan\",\"GetNameAs\":\"KharbarMaskan\"},{\"Name\":\"Refahi\",\"GetNameAs\":\"Refahi\"},{\"Name\":\"Jazb2\",\"GetNameAs\":\"Jazb2\"},{\"Name\":\"Padash1\",\"GetNameAs\":\"Padash1\"},{\"Name\":\"Padash2\",\"GetNameAs\":\"Padash2\"},{\"Name\":\"PayeSanavat\",\"GetNameAs\":\"PayeSanavat\"},{\"Name\":\"EzafeKariAdiHour\",\"GetNameAs\":\"EzafeKariAdiHour\"},{\"Name\":\"EzafeKariTatil\",\"GetNameAs\":\"EzafeKariTatil\"},{\"Name\":\"EzafeKariTatilHour\",\"GetNameAs\":\"EzafeKariTatilHour\"},{\"Name\":\"MaBeOTafavot\",\"GetNameAs\":\"MaBeOTafavot\"},{\"Name\":\"BimeTakmili\",\"GetNameAs\":\"BimeTakmili\"},{\"Name\":\"BimeBazneshastegi\",\"GetNameAs\":\"BimeBazneshastegi\"},{\"Name\":\"BedehiMahQbl\",\"GetNameAs\":\"BedehiMahQbl\"},{\"Name\":\"AlalHesab\",\"GetNameAs\":\"AlalHesab\"},{\"Name\":\"Tabaee1\",\"GetNameAs\":\"Tabaee1\"},{\"Name\":\"Tabaee2\",\"GetNameAs\":\"Tabaee2\"},{\"Name\":\"Tabaee3\",\"GetNameAs\":\"Tabaee3\"}],\"Relation\":[]}");
+        TablePost = await Utility.JSON.ToObject<Table>("{\"Name\":\"HR_Salary\",\"GetNameAs\":\"HR_Salary\",\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"RequestID\",\"GetNameAs\":\"RequestID\"},{\"Name\":\"CreateUser\",\"GetNameAs\":\"CreateUser\"},{\"Name\":\"UpdateUser\",\"GetNameAs\":\"UpdateUser\"},{\"Name\":\"CreateDate\",\"GetNameAs\":\"CreateDate\"},{\"Name\":\"UpdateDate\",\"GetNameAs\":\"UpdateDate\"},{\"Name\":\"IsDelete\",\"GetNameAs\":\"IsDelete\"},{\"Name\":\"Emp_No\",\"GetNameAs\":\"Emp_No\"},{\"Name\":\"CodeMelli\",\"GetNameAs\":\"CodeMelli\"},{\"Name\":\"Year\",\"GetNameAs\":\"Year\"},{\"Name\":\"Month\",\"GetNameAs\":\"Month\"},{\"Name\":\"Emp_Name\",\"GetNameAs\":\"Emp_Name\"},{\"Name\":\"Emp_Family\",\"GetNameAs\":\"Emp_Family\"},{\"Name\":\"WorkName\",\"GetNameAs\":\"WorkName\"},{\"Name\":\"Sum_v_day\",\"GetNameAs\":\"Sum_v_day\"},{\"Name\":\"Sum_v_hour\",\"GetNameAs\":\"Sum_v_hour\"},{\"Name\":\"Centname\",\"GetNameAs\":\"Centname\"},{\"Name\":\"JobName\",\"GetNameAs\":\"JobName\"},{\"Name\":\"Company\",\"GetNameAs\":\"Company\"},{\"Name\":\"CurrentCodeMelli\",\"GetNameAs\":\"CurrentCodeMelli\"},{\"Name\":\"Pardakhti\",\"GetNameAs\":\"Pardakhti\"},{\"Name\":\"Nakhales\",\"GetNameAs\":\"Nakhales\"},{\"Name\":\"KosoratTotal\",\"GetNameAs\":\"KosoratTotal\"},{\"Name\":\"HoghoghPaye\",\"GetNameAs\":\"HoghoghPaye\"},{\"Name\":\"EzafeKariAdi\",\"GetNameAs\":\"EzafeKariAdi\"},{\"Name\":\"HaghTaaholPrice\",\"GetNameAs\":\"HaghTaaholPrice\"},{\"Name\":\"Maliat\",\"GetNameAs\":\"Maliat\"},{\"Name\":\"Bime\",\"GetNameAs\":\"Bime\"},{\"Name\":\"RavandJari\",\"GetNameAs\":\"RavandJari\"},{\"Name\":\"BedehiQbl\",\"GetNameAs\":\"BedehiQbl\"},{\"Name\":\"RavandQbl\",\"GetNameAs\":\"RavandQbl\"},{\"Name\":\"KharbarMaskan\",\"GetNameAs\":\"KharbarMaskan\"},{\"Name\":\"Refahi\",\"GetNameAs\":\"Refahi\"},{\"Name\":\"Jazb2\",\"GetNameAs\":\"Jazb2\"},{\"Name\":\"Padash1\",\"GetNameAs\":\"Padash1\"},{\"Name\":\"Padash2\",\"GetNameAs\":\"Padash2\"},{\"Name\":\"PayeSanavat\",\"GetNameAs\":\"PayeSanavat\"},{\"Name\":\"EzafeKariAdiHour\",\"GetNameAs\":\"EzafeKariAdiHour\"},{\"Name\":\"EzafeKariTatil\",\"GetNameAs\":\"EzafeKariTatil\"},{\"Name\":\"EzafeKariTatilHour\",\"GetNameAs\":\"EzafeKariTatilHour\"},{\"Name\":\"MaBeOTafavot\",\"GetNameAs\":\"MaBeOTafavot\"},{\"Name\":\"BimeTakmili\",\"GetNameAs\":\"BimeTakmili\"},{\"Name\":\"BimeBazneshastegi\",\"GetNameAs\":\"BimeBazneshastegi\"},{\"Name\":\"BedehiMahQbl\",\"GetNameAs\":\"BedehiMahQbl\"},{\"Name\":\"AlalHesab\",\"GetNameAs\":\"AlalHesab\"},{\"Name\":\"Tabaee1\",\"GetNameAs\":\"Tabaee1\"},{\"Name\":\"Tabaee2\",\"GetNameAs\":\"Tabaee2\"},{\"Name\":\"Tabaee3\",\"GetNameAs\":\"Tabaee3\"}],\"Relation\":[]}");
 
         config = CKEditorBundleOptions.DefaultConfig.WithHtmlEditing();
         config.Language = "fa";

@@ -195,6 +195,41 @@ namespace Forms.Forms
 			//کالا موجود است یا خیر
 			Item.IsExistProduct = Selected.IsExist;
 
+			Console.WriteLine("Selected.PARTCODE : " + Selected.PARTCODE);
+			if(Selected.PARTNO.ToString().StartsWith("1"))
+			{
+					Item.SCMNFP_SCMNFP_AnbarId = Guid.Parse("4CFA2CDA-E60B-F111-A50F-005056A2B6BD");
+			}
+			if(Selected.PARTNO.ToString().StartsWith("2"))
+			{
+					Item.SCMNFP_SCMNFP_AnbarId = Guid.Parse("4820B5CF-E60B-F111-A50F-005056A2B6BD");
+			}
+			if(Selected.PARTNO.ToString().StartsWith("3"))
+			{
+					Item.SCMNFP_SCMNFP_AnbarId = Guid.Parse("4CFA2CDA-E60B-F111-A50F-005056A2B6BD");
+			}
+			if(Selected.PARTNO.ToString().StartsWith("4"))
+			{
+				Console.WriteLine("Selected.PARTCODE : 4");
+					Item.SCMNFP_SCMNFP_AnbarId = Guid.Parse("4820B5CF-E60B-F111-A50F-005056A2B6BD");
+			}
+			if(Selected.PARTNO.ToString().StartsWith("5"))
+			{
+					Item.SCMNFP_SCMNFP_AnbarId = Guid.Parse("4820B5CF-E60B-F111-A50F-005056A2B6BD");
+			}
+			if(Selected.PARTNO.ToString().StartsWith("6"))
+			{
+					Item.SCMNFP_SCMNFP_AnbarId = Guid.Parse("4820B5CF-E60B-F111-A50F-005056A2B6BD");
+			}
+			if(Selected.PARTNO.ToString().StartsWith("7"))
+			{
+					Item.SCMNFP_SCMNFP_AnbarId = Guid.Parse("6BF327B6-E50B-F111-A50F-005056A2B6BD");
+			}
+			if(Selected.PARTNO.ToString().StartsWith("8"))
+			{
+					Item.SCMNFP_SCMNFP_AnbarId = Guid.Parse("6BF327B6-E50B-F111-A50F-005056A2B6BD");
+			}
+			 
 			// موجودی کالا در شماران
 			if (Selected.Amount > -1)
 			{
@@ -203,8 +238,42 @@ namespace Forms.Forms
 			
 			// Console.WriteLine("Selected.PARTCODE : " + Selected.PARTCODE);
 
-			// این فیلد به درخواست آقای کلهر برای انتقال داده از فرم به فرم خای لیستی ثبت اطلاعات در شماران ایجاد شده است - 14040714
 			// Item.PARTCODE = Selected.PARTCODE;
+		}
+
+		public async Task<bool> GridSCMNFP_ProductRequestId_228_editmodelsaving(object e)
+		{
+			bool IsCancelled = false;
+
+			var Item = (Entity.SCMNFP_ProductRequestDetails)e;
+
+			IsCancelled = !await CheckFieldValidation(Item);
+
+			return IsCancelled;
+
+		}
+
+		public async Task<bool> CheckFieldValidation(Entity.SCMNFP_ProductRequestDetails Item)
+		{
+			bool IsValid = true;
+
+			var List = _Entity.SCMNFP_ProductRequestDetails.ToList();
+
+			// - نام کالا
+			if (Item.SCMNFP_SCMNFP_AnbarId == null)
+			{
+				IsValid = false;
+
+				toastService.ShowError("لطفا گزینه انبار را تکمیل نمایید",
+					settings =>
+					{
+						settings.Timeout = 4;
+						settings.ShowProgressBar = true;
+						settings.PauseProgressOnHover = true;
+					});
+			}
+
+			return IsValid;
 		}
 
 		#endregion FunctionEvents

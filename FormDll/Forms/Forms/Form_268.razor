@@ -138,13 +138,37 @@
 
 <DxGridDataColumn  Caption="IsDelete" Visible=false FieldName="IsDelete" />
 
-<DxGridDataColumn  Caption="سفارش"  FieldName="test_OrderId" />
+<DxGridDataColumn Context="test_OrderId_" Caption="سفارش" >
+    <CellDisplayTemplate>
+       
+@{
+    Baya.Models.ViewEngine.View_Component Headertest_OrderId = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"primaryKey\":false,\"EntityID\":167,\"FieldId\":1698,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":268,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":false,\"RelationParentName\":\"test_Order\",\"RelationParentModel\":\"test_Order\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/test_Order/GetList\",\"_Parameters\":[{\"text\":\"f3=333333\",\"Type\":2},{\"text\":\"IsDelete=false\",\"Type\":1},{\"text\":\"Description={{Row.dffff}}\",\"Type\":2},{\"text\":\"F4=444\",\"Type\":2}]},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.OrderNo}} </span>\",\"FieldsTemplate\":[],\"dataSrc\":\"url\",\"refreshOn\":\"test_OrderBody.IsDelete\",\"searchField\":\"UserName\",\"clearOnRefresh\":true,\"disableLimit\":false,\"noRefreshOnScroll\":false,\"modal\":true,\"label\":\"سفارش\",\"tableView\":true,\"key\":\"test_OrderId\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"tooltip\":\"سفارش\",\"description\":\"سفارش\",\"FieldUrl\":\"1698?EId=167&SubId=1\",\"decimalLimit\":0,\"searchEnabled\":true,\"keyModified\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
+    var Rowtest_OrderId = ((Entity.test_OrderBody)test_OrderId_.DataItem).test_OrderId;
+}
 
+<Dropdown ExternalApi=false CssClass="" NotMapped=false TextGrid=true Value="@Rowtest_OrderId"   FieldName="test_OrderId" OnItemSelected="ItemSelected_test_OrderBodytest_OrderId_Header" Component="Headertest_OrderId">
+</Dropdown>
+@code {
+    public async Task ItemSelected_test_OrderBodytest_OrderId_Header(object _Item)
+    {
+      //  var Selected = Utility.JSON.ToObject<dynamic>(Utility.JSON.ToJson(_Item).Result).Result;
+  //   test_OrderId
+
+  //  #CustomCode
+
+ //   
+
+  //  #OnItemSelected
+    }
+}
+
+    </CellDisplayTemplate>
+</DxGridDataColumn>
 <DxGridDataColumn Context="test_ProductId_" Caption="محصول" >
     <CellDisplayTemplate>
        
 @{
-    Baya.Models.ViewEngine.View_Component Headertest_ProductId = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"primaryKey\":false,\"EntityID\":167,\"FieldId\":1699,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":268,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":false,\"RelationParentName\":\"test_Product\",\"RelationParentModel\":\"test_Product\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/test_Product/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.Title}} </span>\",\"FieldsTemplate\":[],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"modal\":true,\"label\":\"محصول\",\"tableView\":true,\"key\":\"test_ProductId\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"tooltip\":\"محصول\",\"description\":\"محصول\",\"FieldUrl\":\"1699?EId=167&SubId=1\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
+    Baya.Models.ViewEngine.View_Component Headertest_ProductId = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"primaryKey\":false,\"EntityID\":167,\"FieldId\":1699,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":268,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":false,\"RelationParentName\":\"test_Product\",\"RelationParentModel\":\"test_Product\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/test_Product/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.Title}} {{item.Title3}} </span>\",\"FieldsTemplate\":[],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"searchField\":\"Title_Num,testttt\",\"modal\":true,\"label\":\"محصول\",\"tableView\":true,\"key\":\"test_ProductId\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"tooltip\":\"محصول\",\"description\":\"محصول\",\"FieldUrl\":\"1699?EId=167&SubId=1\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
     var Rowtest_ProductId = ((Entity.test_OrderBody)test_ProductId_.DataItem).test_ProductId;
 }
 
@@ -170,7 +194,7 @@
     <CellDisplayTemplate>
        
 @{
-    Baya.Models.ViewEngine.View_Component Headertest_UnitId = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"primaryKey\":false,\"EntityID\":167,\"FieldId\":1700,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":268,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":false,\"RelationParentName\":\"test_Unit\",\"RelationParentModel\":\"test_Unit\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://localhost:18367/fa/api/v1/test_Unit/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.Id}} {{item.Title}} </span>\",\"FieldsTemplate\":[],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"modal\":true,\"label\":\"واحد \",\"tableView\":true,\"key\":\"test_UnitId\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"1700?EId=167&SubId=1\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
+    Baya.Models.ViewEngine.View_Component Headertest_UnitId = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"primaryKey\":false,\"EntityID\":167,\"FieldId\":1700,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":268,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":false,\"RelationParentName\":\"test_Unit\",\"RelationParentModel\":\"test_Unit\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/test_Unit/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.Title}} </span>\",\"FieldsTemplate\":[],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"searchField\":\"Title\",\"modal\":true,\"label\":\"واحد \",\"tableView\":true,\"key\":\"test_UnitId\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"1700?EId=167&SubId=1\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
     var Rowtest_UnitId = ((Entity.test_OrderBody)test_UnitId_.DataItem).test_UnitId;
 }
 
@@ -261,8 +285,43 @@
 </DxFormLayoutItem>
 
 <DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContexttest_OrderBody">
+     
+ 
+@code {
+    Baya.Models.ViewEngine.View_Component Component_test_OrderBodytest_OrderId = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"primaryKey\":false,\"EntityID\":167,\"FieldId\":1698,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":268,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":false,\"RelationParentName\":\"test_Order\",\"RelationParentModel\":\"test_Order\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/test_Order/GetList\",\"_Parameters\":[{\"text\":\"f3=333333\",\"Type\":2},{\"text\":\"IsDelete=false\",\"Type\":1},{\"text\":\"Description={{Row.dffff}}\",\"Type\":2},{\"text\":\"F4=444\",\"Type\":2}]},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.OrderNo}} </span>\",\"FieldsTemplate\":[],\"dataSrc\":\"url\",\"refreshOn\":\"test_OrderBody.IsDelete\",\"searchField\":\"UserName\",\"clearOnRefresh\":true,\"disableLimit\":false,\"noRefreshOnScroll\":false,\"modal\":true,\"label\":\"سفارش\",\"tableView\":true,\"key\":\"test_OrderId\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"tooltip\":\"سفارش\",\"description\":\"سفارش\",\"FieldUrl\":\"1698?EId=167&SubId=1\",\"decimalLimit\":0,\"searchEnabled\":true,\"keyModified\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
+}
+
+    <Dropdown Id=test_OrderBody_test_OrderId  @ref="Ref_test_OrderBody_test_OrderId" Label="سفارش" CssClass=""  DisplayFormat="DropDown" ExternalApi=false NotMapped=false TextGrid=false Text="" Value="@test_OrderBody.test_OrderId" FieldName="test_OrderId" OnItemSelected="ItemSelected_test_OrderBodytest_OrderId" Component="Component_test_OrderBodytest_OrderId" _Entity="_Entity" _EntityRow=test_OrderBody>
+</Dropdown>
+@code {
+    public async Task ItemSelected_test_OrderBodytest_OrderId(object _Item)
+    {
+        var Selected = Utility.JSON.ToObject<dynamic>(Utility.JSON.ToJson(_Item).Result).Result;
+     var Item = test_OrderBody;
+
+      //Todo
+ //برای اینکه آی دی تغییر کند اینجا نیز باید تغییر کند
+ //بهتر است از پرایمیری کی استفاده شود
+ if (_Item != null)
+ {
+     Console.WriteLine(" Item Is Not Null");
+    Item.test_OrderId = Selected.Id;
     
-<Input Id="test_OrderBody_test_OrderId" @ref="Ref_test_OrderBody_test_OrderId" Label="سفارش"     @bind-Value="test_OrderBody.test_OrderId" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+ }
+ else
+ {
+     Console.WriteLine(" Item Is Null");
+      Item.test_OrderId =EntityHelper.SetPropertyNull(Item.test_OrderId);
+ }
+ Item.test_Order = await Utility.JSON.ToObject<Entity.test_Order>(await Utility.JSON.ToJson(_Item));
+    StateHasChanged();
+
+
+    
+
+    
+    }
+} 
 
 </DxFormLayoutItem>
 
@@ -270,7 +329,7 @@
      
  
 @code {
-    Baya.Models.ViewEngine.View_Component Component_test_OrderBodytest_ProductId = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"primaryKey\":false,\"EntityID\":167,\"FieldId\":1699,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":268,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":false,\"RelationParentName\":\"test_Product\",\"RelationParentModel\":\"test_Product\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/test_Product/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.Title}} </span>\",\"FieldsTemplate\":[],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"modal\":true,\"label\":\"محصول\",\"tableView\":true,\"key\":\"test_ProductId\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"tooltip\":\"محصول\",\"description\":\"محصول\",\"FieldUrl\":\"1699?EId=167&SubId=1\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
+    Baya.Models.ViewEngine.View_Component Component_test_OrderBodytest_ProductId = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"primaryKey\":false,\"EntityID\":167,\"FieldId\":1699,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":268,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":false,\"RelationParentName\":\"test_Product\",\"RelationParentModel\":\"test_Product\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/test_Product/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.Title}} {{item.Title3}} </span>\",\"FieldsTemplate\":[],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"searchField\":\"Title_Num,testttt\",\"modal\":true,\"label\":\"محصول\",\"tableView\":true,\"key\":\"test_ProductId\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"tooltip\":\"محصول\",\"description\":\"محصول\",\"FieldUrl\":\"1699?EId=167&SubId=1\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
 }
 
     <Dropdown Id=test_OrderBody_test_ProductId  @ref="Ref_test_OrderBody_test_ProductId" Label="محصول" CssClass=""  DisplayFormat="DropDown" ExternalApi=false NotMapped=false TextGrid=false Text="" Value="@test_OrderBody.test_ProductId" FieldName="test_ProductId" OnItemSelected="ItemSelected_test_OrderBodytest_ProductId" Component="Component_test_OrderBodytest_ProductId" _Entity="_Entity" _EntityRow=test_OrderBody>
@@ -311,7 +370,7 @@
      
  
 @code {
-    Baya.Models.ViewEngine.View_Component Component_test_OrderBodytest_UnitId = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"primaryKey\":false,\"EntityID\":167,\"FieldId\":1700,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":268,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":false,\"RelationParentName\":\"test_Unit\",\"RelationParentModel\":\"test_Unit\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://localhost:18367/fa/api/v1/test_Unit/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.Id}} {{item.Title}} </span>\",\"FieldsTemplate\":[],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"modal\":true,\"label\":\"واحد \",\"tableView\":true,\"key\":\"test_UnitId\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"1700?EId=167&SubId=1\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
+    Baya.Models.ViewEngine.View_Component Component_test_OrderBodytest_UnitId = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"primaryKey\":false,\"EntityID\":167,\"FieldId\":1700,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":268,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":false,\"RelationParentName\":\"test_Unit\",\"RelationParentModel\":\"test_Unit\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/test_Unit/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.Title}} </span>\",\"FieldsTemplate\":[],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"searchField\":\"Title\",\"modal\":true,\"label\":\"واحد \",\"tableView\":true,\"key\":\"test_UnitId\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"1700?EId=167&SubId=1\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
 }
 
     <Dropdown Id=test_OrderBody_test_UnitId  @ref="Ref_test_OrderBody_test_UnitId" Label="واحد " CssClass=""  DisplayFormat="DropDown" ExternalApi=false NotMapped=false TextGrid=false Text="" Value="@test_OrderBody.test_UnitId" FieldName="test_UnitId" OnItemSelected="ItemSelected_test_OrderBodytest_UnitId" Component="Component_test_OrderBodytest_UnitId" _Entity="_Entity" _EntityRow=test_OrderBody>
@@ -395,7 +454,7 @@
      
  
 @code {
-    Baya.Models.ViewEngine.View_Component Component_test_OrderBodyShomarankala = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"primaryKey\":false,\"EntityID\":167,\"FieldId\":2584,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":268,\"NotMapped\":true,\"Relation\":true,\"RelationExternal\":true,\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://localhost:18366/fa-ir/api/v1/vw_Parts/GetList\"},\"validate\":{\"required\":true,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"PARTNO_GUID\",\"template\":\"<span>{{item.DESC}} </span>\",\"FieldsTemplate\":[],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"modal\":true,\"label\":\"کالا شماران\",\"tableView\":true,\"key\":\"Shomarankala\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"2584?EId=167&SubId=1\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
+    Baya.Models.ViewEngine.View_Component Component_test_OrderBodyShomarankala = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"primaryKey\":false,\"EntityID\":167,\"FieldId\":2584,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":268,\"NotMapped\":true,\"Relation\":true,\"RelationExternal\":true,\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://shomaran.workcv.ir:2010/fa-ir/api/v1/vw_Parts/GetList\"},\"validate\":{\"required\":true,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"PARTNO_GUID\",\"template\":\"<span>{{item.DESC}} {{item.YEAR}} </span>\",\"FieldsTemplate\":[],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"searchField\":\"DESC\",\"modal\":true,\"label\":\"کالا شماران\",\"tableView\":true,\"key\":\"Shomarankala\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"2584?EId=167&SubId=1\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
 }
 
     <Dropdown Id=test_OrderBody_Shomarankala  @ref="Ref_test_OrderBody_Shomarankala" Label="کالا شماران" CssClass="" Required=true DisplayFormat="DropDown" ExternalApi=true NotMapped=true TextGrid=false   FieldName="Shomarankala" OnItemSelected="ItemSelected_test_OrderBodyShomarankala" Component="Component_test_OrderBodyShomarankala" _Entity="_Entity" _EntityRow=test_OrderBody>
@@ -418,18 +477,18 @@
 
 
         <DxFormLayoutItem ColSpanMd="12" Context="FormLayoutContexttest_OrderBody" CssClass="btn-modal-custom">
-            <DxButton Id="test_OrderBody_Gridtest_OrderId_167ButtonSave" Click="@(() => SaveModalGrid_test_OrderBody(EditFormContexttest_OrderBody))" Text="@languageContainer.Keys["DXGrid:Save"]" CssClass="btn btn-green px-5" />
+            <DxButton Id="test_OrderBody_Gridtest_OrderId_167ButtonSave" Click="@(() => SaveModalGrid_test_OrderBody(EditFormContexttest_OrderBody))" Text="@languageContainer.Keys["DXGrid:Ok"]" CssClass="btn btn-green px-5" />
             
-<DxButton id="test_OrderBody_Gridtest_OrderId_167ButtonSaveAndNew"    Text="ذخیره و جدید" Click="@(() => SaveAndNewGrid_test_OrderBody(EditFormContexttest_OrderBody))" CssClass="btn btn-green" />
+<DxButton id="test_OrderBody_Gridtest_OrderId_167ButtonSaveAndNew"    Text="@languageContainer.Keys["DXGrid:OkAndNew"]" Click="@(() => SaveAndNewGrid_test_OrderBody(EditFormContexttest_OrderBody))" CssClass="btn btn-green" />
 
 
             <DxButton Id="test_OrderBody_Gridtest_OrderId_167ButtonCancel" Click="@(() => Grid_test_OrderBody.CancelEditAsync())" Text="@languageContainer.Keys["DXGrid:Cancel"]" CssClass="btn btn-red" />
             <button id="click_s"  hidden>submit</button>
              <span>|</span>
            
-            <DxButton Id="test_OrderBody_Gridtest_OrderId_167ButtonBefore" Click="@(() => Dialog_Grid_test_OrderBody(0,IndexGrid_test_OrderBody,EditFormContexttest_OrderBody))" Text="قبلی" CssClass="btn btn-purple" />@* @languageContainer.Keys["DXGrid:??"] *@
+            <DxButton Id="test_OrderBody_Gridtest_OrderId_167ButtonBefore" Click="@(() => Dialog_Grid_test_OrderBody(0,IndexGrid_test_OrderBody,EditFormContexttest_OrderBody))" Text="@languageContainer.Keys["DXGrid:Prev"]" CssClass="btn btn-purple" />@* @languageContainer.Keys["DXGrid:??"] *@
          
-            <DxButton Id="test_OrderBody_Gridtest_OrderId_167ButtonNext" Click="@(() => Dialog_Grid_test_OrderBody(1,IndexGrid_test_OrderBody,EditFormContexttest_OrderBody))" Text="بعدی" CssClass="btn btn-purple" />
+            <DxButton Id="test_OrderBody_Gridtest_OrderId_167ButtonNext" Click="@(() => Dialog_Grid_test_OrderBody(1,IndexGrid_test_OrderBody,EditFormContexttest_OrderBody))" Text="@languageContainer.Keys["DXGrid:Next"]" CssClass="btn btn-purple" />
 
         </DxFormLayoutItem>
     </DxFormLayout>
@@ -709,6 +768,7 @@ MainModel.CreateDate = ((Entity.test_OrderBody)EditModel).CreateDate;
 MainModel.UpdateDate = ((Entity.test_OrderBody)EditModel).UpdateDate;
 MainModel.IsDelete = ((Entity.test_OrderBody)EditModel).IsDelete;
 MainModel.test_OrderId = ((Entity.test_OrderBody)EditModel).test_OrderId;
+MainModel.test_Order = ((Entity.test_OrderBody)EditModel).test_Order;
 MainModel.test_ProductId = ((Entity.test_OrderBody)EditModel).test_ProductId;
 MainModel.test_Product = ((Entity.test_OrderBody)EditModel).test_Product;
 MainModel.test_UnitId = ((Entity.test_OrderBody)EditModel).test_UnitId;
@@ -830,6 +890,8 @@ public async void RowDubbleClickGrid_test_OrderBody(GridRowClickEventArgs e)
 }
 }
 
+<Input Id="f4" @ref="Ref_f4" Label="تست 4"     @bind-Value="_Entity.f4" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
     </EditForm>
 </div>
 
@@ -846,8 +908,8 @@ public async void RowDubbleClickGrid_test_OrderBody(GridRowClickEventArgs e)
     {
         Console.WriteLine("#log OnInitializedAsync");
 
-        TableGet = await Utility.JSON.ToObject<Table>("{\"Name\":\"test_Order\",\"GetNameAs\":\"test_Order\",\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"RequestID\",\"GetNameAs\":\"RequestID\"},{\"Name\":\"CreateUser\",\"GetNameAs\":\"CreateUser\"},{\"Name\":\"UpdateUser\",\"GetNameAs\":\"UpdateUser\"},{\"Name\":\"CreateDate\",\"GetNameAs\":\"CreateDate\"},{\"Name\":\"UpdateDate\",\"GetNameAs\":\"UpdateDate\"},{\"Name\":\"IsDelete\",\"GetNameAs\":\"IsDelete\"},{\"Name\":\"UserName\",\"GetNameAs\":\"UserName\"},{\"Name\":\"OrderDate\",\"GetNameAs\":\"OrderDate\"},{\"Name\":\"OrderNo\",\"GetNameAs\":\"OrderNo\"},{\"Name\":\"OrderBodyCount\",\"GetNameAs\":\"OrderBodyCount\"},{\"Name\":\"testdata\",\"GetNameAs\":\"testdata\"},{\"Name\":\"description\",\"GetNameAs\":\"description\"},{\"Name\":\"f4\",\"GetNameAs\":\"f4\"}],\"Relation\":[{\"Name\":\"test_OrderBody\",\"GetNameAs\":\"test_OrderBody\",\"ModeErtebat\":2,\"Column\":[{\"Name\":\"test_ProductId\",\"GetNameAs\":\"test_ProductId\"},{\"Name\":\"test_OrderId\",\"GetNameAs\":\"test_OrderId\"},{\"Name\":\"test_UnitId\",\"GetNameAs\":\"test_UnitId\"},{\"Name\":\"Count\",\"GetNameAs\":\"Count\"},{\"Name\":\"Description\",\"GetNameAs\":\"Description\"},{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"RequestID\",\"GetNameAs\":\"RequestID\"},{\"Name\":\"CreateUser\",\"GetNameAs\":\"CreateUser\"},{\"Name\":\"UpdateUser\",\"GetNameAs\":\"UpdateUser\"},{\"Name\":\"CreateDate\",\"GetNameAs\":\"CreateDate\"},{\"Name\":\"UpdateDate\",\"GetNameAs\":\"UpdateDate\"},{\"Name\":\"IsDelete\",\"GetNameAs\":\"IsDelete\"},{\"Name\":\"IsExist\",\"GetNameAs\":\"IsExist\"}],\"Relation\":[{\"Name\":\"test_Product\",\"GetNameAs\":\"test_Product\",\"ModeErtebat\":1,\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"Title\",\"GetNameAs\":\"Title\"},{\"Name\":\"Test1\",\"GetNameAs\":\"Test1\"},{\"Name\":\"DateTest\",\"GetNameAs\":\"DateTest\"},{\"Name\":\"TestSaeid\",\"GetNameAs\":\"TestSaeid\"},{\"Name\":\"Title2\",\"GetNameAs\":\"Title2\"},{\"Name\":\"Title_Num\",\"GetNameAs\":\"Title_Num\"},{\"Name\":\"Title3\",\"GetNameAs\":\"Title3\"},{\"Name\":\"testttt\",\"GetNameAs\":\"testttt\"}]},{\"Name\":\"test_Order\",\"GetNameAs\":\"test_Order\",\"ModeErtebat\":1,\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"UserName\",\"GetNameAs\":\"UserName\"},{\"Name\":\"OrderDate\",\"GetNameAs\":\"OrderDate\"},{\"Name\":\"OrderNo\",\"GetNameAs\":\"OrderNo\"},{\"Name\":\"OrderBodyCount\",\"GetNameAs\":\"OrderBodyCount\"},{\"Name\":\"testdata\",\"GetNameAs\":\"testdata\"},{\"Name\":\"UserSabtKonandeh\",\"GetNameAs\":\"UserSabtKonandeh\"},{\"Name\":\"description\",\"GetNameAs\":\"description\"},{\"Name\":\"f3\",\"GetNameAs\":\"f3\"},{\"Name\":\"f4\",\"GetNameAs\":\"f4\"}]},{\"Name\":\"test_Unit\",\"GetNameAs\":\"test_Unit\",\"ModeErtebat\":1,\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"Title\",\"GetNameAs\":\"Title\"},{\"Name\":\"Def1\",\"GetNameAs\":\"Def1\"},{\"Name\":\"Def2\",\"GetNameAs\":\"Def2\"},{\"Name\":\"Def3\",\"GetNameAs\":\"Def3\"},{\"Name\":\"Def4\",\"GetNameAs\":\"Def4\"},{\"Name\":\"Hour\",\"GetNameAs\":\"Hour\"}]}]}]}");
-        TablePost = await Utility.JSON.ToObject<Table>("{\"Name\":\"test_Order\",\"GetNameAs\":\"test_Order\",\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"RequestID\",\"GetNameAs\":\"RequestID\"},{\"Name\":\"CreateUser\",\"GetNameAs\":\"CreateUser\"},{\"Name\":\"UpdateUser\",\"GetNameAs\":\"UpdateUser\"},{\"Name\":\"CreateDate\",\"GetNameAs\":\"CreateDate\"},{\"Name\":\"UpdateDate\",\"GetNameAs\":\"UpdateDate\"},{\"Name\":\"IsDelete\",\"GetNameAs\":\"IsDelete\"},{\"Name\":\"UserName\",\"GetNameAs\":\"UserName\"},{\"Name\":\"OrderDate\",\"GetNameAs\":\"OrderDate\"},{\"Name\":\"OrderNo\",\"GetNameAs\":\"OrderNo\"},{\"Name\":\"OrderBodyCount\",\"GetNameAs\":\"OrderBodyCount\"},{\"Name\":\"testdata\",\"GetNameAs\":\"testdata\"},{\"Name\":\"description\",\"GetNameAs\":\"description\"},{\"Name\":\"f4\",\"GetNameAs\":\"f4\"}],\"Relation\":[{\"Name\":\"test_OrderBody\",\"GetNameAs\":\"test_OrderBody\",\"ModeErtebat\":2,\"Column\":[{\"Name\":\"test_ProductId\",\"GetNameAs\":\"test_ProductId\"},{\"Name\":\"test_OrderId\",\"GetNameAs\":\"test_OrderId\"},{\"Name\":\"test_UnitId\",\"GetNameAs\":\"test_UnitId\"},{\"Name\":\"Count\",\"GetNameAs\":\"Count\"},{\"Name\":\"Description\",\"GetNameAs\":\"Description\"},{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"RequestID\",\"GetNameAs\":\"RequestID\"},{\"Name\":\"CreateUser\",\"GetNameAs\":\"CreateUser\"},{\"Name\":\"UpdateUser\",\"GetNameAs\":\"UpdateUser\"},{\"Name\":\"CreateDate\",\"GetNameAs\":\"CreateDate\"},{\"Name\":\"UpdateDate\",\"GetNameAs\":\"UpdateDate\"},{\"Name\":\"IsDelete\",\"GetNameAs\":\"IsDelete\"},{\"Name\":\"IsExist\",\"GetNameAs\":\"IsExist\"}],\"Relation\":[]}]}");
+        TableGet = await Utility.JSON.ToObject<Table>("{\"Name\":\"test_Order\",\"GetNameAs\":\"test_Order\",\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"RequestID\",\"GetNameAs\":\"RequestID\"},{\"Name\":\"CreateUser\",\"GetNameAs\":\"CreateUser\"},{\"Name\":\"UpdateUser\",\"GetNameAs\":\"UpdateUser\"},{\"Name\":\"CreateDate\",\"GetNameAs\":\"CreateDate\"},{\"Name\":\"UpdateDate\",\"GetNameAs\":\"UpdateDate\"},{\"Name\":\"IsDelete\",\"GetNameAs\":\"IsDelete\"},{\"Name\":\"UserName\",\"GetNameAs\":\"UserName\"},{\"Name\":\"OrderDate\",\"GetNameAs\":\"OrderDate\"},{\"Name\":\"OrderNo\",\"GetNameAs\":\"OrderNo\"},{\"Name\":\"OrderBodyCount\",\"GetNameAs\":\"OrderBodyCount\"},{\"Name\":\"testdata\",\"GetNameAs\":\"testdata\"},{\"Name\":\"description\",\"GetNameAs\":\"description\"},{\"Name\":\"f4\",\"GetNameAs\":\"f4\"}],\"Relation\":[{\"Name\":\"test_OrderBody\",\"GetNameAs\":\"test_OrderBody\",\"ModeErtebat\":2,\"Column\":[{\"Name\":\"test_ProductId\",\"GetNameAs\":\"test_ProductId\"},{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"RequestID\",\"GetNameAs\":\"RequestID\"},{\"Name\":\"CreateUser\",\"GetNameAs\":\"CreateUser\"},{\"Name\":\"UpdateUser\",\"GetNameAs\":\"UpdateUser\"},{\"Name\":\"CreateDate\",\"GetNameAs\":\"CreateDate\"},{\"Name\":\"UpdateDate\",\"GetNameAs\":\"UpdateDate\"},{\"Name\":\"IsDelete\",\"GetNameAs\":\"IsDelete\"},{\"Name\":\"test_OrderId\",\"GetNameAs\":\"test_OrderId\"},{\"Name\":\"test_UnitId\",\"GetNameAs\":\"test_UnitId\"},{\"Name\":\"Count\",\"GetNameAs\":\"Count\"},{\"Name\":\"Description\",\"GetNameAs\":\"Description\"},{\"Name\":\"IsExist\",\"GetNameAs\":\"IsExist\"}],\"Relation\":[{\"Name\":\"test_Product\",\"GetNameAs\":\"test_Product\",\"ModeErtebat\":1,\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"Title\",\"GetNameAs\":\"Title\"},{\"Name\":\"Test1\",\"GetNameAs\":\"Test1\"},{\"Name\":\"DateTest\",\"GetNameAs\":\"DateTest\"},{\"Name\":\"TestSaeid\",\"GetNameAs\":\"TestSaeid\"},{\"Name\":\"Title2\",\"GetNameAs\":\"Title2\"},{\"Name\":\"Title_Num\",\"GetNameAs\":\"Title_Num\"},{\"Name\":\"Title3\",\"GetNameAs\":\"Title3\"},{\"Name\":\"testttt\",\"GetNameAs\":\"testttt\"}]},{\"Name\":\"test_Order\",\"GetNameAs\":\"test_Order\",\"ModeErtebat\":1,\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"UserName\",\"GetNameAs\":\"UserName\"},{\"Name\":\"OrderDate\",\"GetNameAs\":\"OrderDate\"},{\"Name\":\"OrderNo\",\"GetNameAs\":\"OrderNo\"},{\"Name\":\"OrderBodyCount\",\"GetNameAs\":\"OrderBodyCount\"},{\"Name\":\"testdata\",\"GetNameAs\":\"testdata\"},{\"Name\":\"UserSabtKonandeh\",\"GetNameAs\":\"UserSabtKonandeh\"},{\"Name\":\"description\",\"GetNameAs\":\"description\"},{\"Name\":\"f3\",\"GetNameAs\":\"f3\"},{\"Name\":\"f4\",\"GetNameAs\":\"f4\"}]},{\"Name\":\"test_Unit\",\"GetNameAs\":\"test_Unit\",\"ModeErtebat\":1,\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"Title\",\"GetNameAs\":\"Title\"},{\"Name\":\"Def1\",\"GetNameAs\":\"Def1\"},{\"Name\":\"Def2\",\"GetNameAs\":\"Def2\"},{\"Name\":\"Def3\",\"GetNameAs\":\"Def3\"},{\"Name\":\"Def4\",\"GetNameAs\":\"Def4\"},{\"Name\":\"Hour\",\"GetNameAs\":\"Hour\"}]}]}]}");
+        TablePost = await Utility.JSON.ToObject<Table>("{\"Name\":\"test_Order\",\"GetNameAs\":\"test_Order\",\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"RequestID\",\"GetNameAs\":\"RequestID\"},{\"Name\":\"CreateUser\",\"GetNameAs\":\"CreateUser\"},{\"Name\":\"UpdateUser\",\"GetNameAs\":\"UpdateUser\"},{\"Name\":\"CreateDate\",\"GetNameAs\":\"CreateDate\"},{\"Name\":\"UpdateDate\",\"GetNameAs\":\"UpdateDate\"},{\"Name\":\"IsDelete\",\"GetNameAs\":\"IsDelete\"},{\"Name\":\"UserName\",\"GetNameAs\":\"UserName\"},{\"Name\":\"OrderDate\",\"GetNameAs\":\"OrderDate\"},{\"Name\":\"OrderNo\",\"GetNameAs\":\"OrderNo\"},{\"Name\":\"OrderBodyCount\",\"GetNameAs\":\"OrderBodyCount\"},{\"Name\":\"testdata\",\"GetNameAs\":\"testdata\"},{\"Name\":\"description\",\"GetNameAs\":\"description\"},{\"Name\":\"f4\",\"GetNameAs\":\"f4\"}],\"Relation\":[{\"Name\":\"test_OrderBody\",\"GetNameAs\":\"test_OrderBody\",\"ModeErtebat\":2,\"Column\":[{\"Name\":\"test_ProductId\",\"GetNameAs\":\"test_ProductId\"},{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"RequestID\",\"GetNameAs\":\"RequestID\"},{\"Name\":\"CreateUser\",\"GetNameAs\":\"CreateUser\"},{\"Name\":\"UpdateUser\",\"GetNameAs\":\"UpdateUser\"},{\"Name\":\"CreateDate\",\"GetNameAs\":\"CreateDate\"},{\"Name\":\"UpdateDate\",\"GetNameAs\":\"UpdateDate\"},{\"Name\":\"IsDelete\",\"GetNameAs\":\"IsDelete\"},{\"Name\":\"test_OrderId\",\"GetNameAs\":\"test_OrderId\"},{\"Name\":\"test_UnitId\",\"GetNameAs\":\"test_UnitId\"},{\"Name\":\"Count\",\"GetNameAs\":\"Count\"},{\"Name\":\"Description\",\"GetNameAs\":\"Description\"},{\"Name\":\"IsExist\",\"GetNameAs\":\"IsExist\"}],\"Relation\":[]}]}");
 
         config = CKEditorBundleOptions.DefaultConfig.WithHtmlEditing();
         config.Language = "fa";
@@ -916,7 +978,7 @@ public async void RowDubbleClickGrid_test_OrderBody(GridRowClickEventArgs e)
             //ست کردن دیفالت های فرم
             if (true)
                 {//
-_Entity.OrderDate = "1404/06/02";
+_Entity.OrderDate = "1404/12/18";
 
 
                     //نمونه ست کردن پارامتر روش اول

@@ -247,11 +247,12 @@ namespace Forms.Forms
             Item.T_FACTNO_GUID = Selected.FACTNO_GUID;
             Console.WriteLine("#Log 2.2");
             // فراخوانی داده از dropdown TempNoNum برای گرید داده های آن
-            Ref_SCMPETCO_ProductRequestDetails_SH_Tahvil_DTL.SetEntity(Item);
+            //Ref_SCMPETCO_ProductRequestDetails_SH_Tahvil_DTL.SetEntity(Item);
             Console.WriteLine(await Utility.JSON.ToJson(Item));
             await Task.Delay(100);
             Console.WriteLine("#Log 2.3");
-            Ref_SCMPETCO_ProductRequestDetails_SH_Tahvil_DTL.LoadData();
+            //Ref_SCMPETCO_ProductRequestDetails_SH_Tahvil_DTL.LoadData();
+            Console.WriteLine("#Log 2.4");
         }
 
         //*******************************************************************************************************************************************************
@@ -465,6 +466,7 @@ public async Task  GridSCMPETCO_ProductRequestId_200_afterrendermodal(Entity.SCM
             }
             
         }
+
 
 		#endregion FunctionEvents
 

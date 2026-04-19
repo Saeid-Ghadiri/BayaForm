@@ -455,6 +455,22 @@ namespace Forms.Forms
 			// Item = Detail Model
 			var Item = (Entity.SCM_ProductRequestDetails)e;
 
+			var ListCount = _Entity.SCM_ProductRequestDetails.Count();
+            if (ListCount > 5)
+            {
+                IsCancelled = true;
+
+                toastService.ShowError("تعداد ردیف‌ها نمی‌تواند بیشتر از 5 باشد",
+                    settings =>
+                    {
+                        settings.Timeout = 4;
+                        settings.ShowProgressBar = true;
+                        settings.PauseProgressOnHover = true;
+                    });
+
+                return IsCancelled;
+            }
+
 			// بررسی کد تحویل
 			if (!Item.DeliveryCode.HasValue)
 			{

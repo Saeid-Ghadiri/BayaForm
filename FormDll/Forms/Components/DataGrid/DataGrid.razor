@@ -247,11 +247,12 @@
             else
             { Url += "&"; }
 
-
-
-            //todo فیلتر
-            //Global_CountryId={{data.Global_CountryId}}
-            //splite =
+            //اضافه کردن  Component.data._Parameters به URL
+            if (Component.data._Parameters != null)
+            {
+                var ParameterToString = Baya.Models.Utility.Entity.Entity.GetFilters(Component.data._Parameters);
+                Url += ParameterToString + "&";
+            }
 
             var QueryString = Url.Split("?")[1];
             // ابتدا با & جدا می‌کنیم تا پارامترها جدا شوند

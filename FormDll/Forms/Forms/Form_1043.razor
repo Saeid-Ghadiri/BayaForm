@@ -14,7 +14,155 @@
 @using Baya.Models.ViewEngine
 @using Forms.Domain.Utility
 <style>
-    
+    .itemOld {
+    color: var(--red) !important;
+    background: linear-gradient(90deg, #e826460f, transparent);
+}
+
+.itemNew {
+    color: #1a9a4a !important;
+    background: linear-gradient(270deg, #29b39c17, transparent);
+}
+
+/* ************************************************** */
+.input-string input {
+    display: inline-block;
+    max-width: 240px !important;
+    background: none !important;
+    border: none;
+    text-align: start !important;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+/* ************************************************** */
+/*  تنظیمات کلی دکمه چاپ */
+.print-btn-container {
+    padding-top: 1rem;
+    display: inline-block;
+}
+
+.print-btn {
+    position: relative;
+    padding: 6px 6px;
+    border: none;
+    border-radius: 6px;
+    background: linear-gradient(135deg, #4361ee, #3a0ca3);
+    color: white;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 8px rgba(67, 97, 238, 0.2);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+/* افکت های تعاملی */
+.print-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(67, 97, 238, 0.3);
+    background: linear-gradient(135deg, #4895ef, #4361ee);
+}
+
+.print-btn:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 4px rgba(67, 97, 238, 0.2);
+}
+
+/* استایل آیکون */
+.print-icon {
+    display: flex;
+    align-items: center;
+    transition: transform 0.3s ease;
+}
+
+.print-btn:hover .print-icon {
+    transform: translateX(3px);
+}
+
+/* افکت موجی هنگام کلیک */
+.print-wave {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.6) 10%, transparent 10.01%) no-repeat 50%;
+    transform: scale(10, 10);
+    opacity: 0;
+    transition: transform 0.5s, opacity 1s;
+    pointer-events: none;
+}
+
+.print-btn:active .print-wave {
+    transform: scale(0, 0);
+    opacity: 0.4;
+    transition: 0s;
+}
+
+/* ************************************************** */
+
+@@media print {
+    body {
+        padding-top: 3px;
+        font-size: 12px !important;
+        font-weight: bold;
+        line-height: 1.2 !important;
+        color: #000 !important;
+        background: none !important;
+    }
+
+    main {
+        height: unset !important;
+        min-height: unset !important;
+        max-height: unset !important;
+    }
+
+    .dxbl-grid-table th,
+    .dxbl-grid-table td {
+        font-size: 12px !important;
+        font-weight: bold;
+        color: #000 !important;
+    }
+
+    h1 {
+        font-size: 18px !important;
+    }
+
+    h2 {
+        font-size: 16px !important;
+    }
+
+    h3 {
+        font-size: 14px !important;
+    }
+
+    a {
+        color: #000 !important;
+        text-decoration: underline !important;
+    }
+
+    /* ستون 1 و 3 نمایش داده نشود در پرینت */
+    table tr>*:nth-child(1),
+    table tr>*:nth-child(3) {
+        display: none;
+    }
+
+    /* از ستون 9 به بعد نمایش داده نشود در پرینت */
+    table tr>*:nth-child(n+9) {
+        display: none;
+    }
+
+    /* @@page {
+        size: A4 landscape;
+        margin: 0.5cm !important;
+    } */
+}
+
+/* ************************************************** */
 </style>
 
 <div class="@(ReadOnly?"FormReadOnly":"")">
@@ -130,23 +278,65 @@
 
 <DxGridDataColumn  Caption="عنوان شغلی"  FieldName="JobName" />
 
-<DxGridDataColumn  Caption="مزایا"  FieldName="Mazaya" />
-
-<DxGridDataColumn  Caption="کسورات"  FieldName="Kosorat" />
-
 <DxGridDataColumn  Caption="شرکت"  FieldName="Company" />
 
-<DxGridDataColumn  Caption="کسورات"  FieldName="Kosoorpname" />
+<DxGridDataColumn  Caption="CurrentCodeMelli" Visible=false FieldName="CurrentCodeMelli" />
 
-<DxGridDataColumn  Caption="مبلغ کسورات"  FieldName="Kosoorprice" />
+<DxGridDataColumn  Caption="خالص پرداختی"  FieldName="Pardakhti" />
 
-<DxGridDataColumn  Caption="ساعت"  FieldName="Kosoorphour" />
+<DxGridDataColumn  Caption="جمع مزایا (ناخالص)"  FieldName="Nakhales" />
 
-<DxGridDataColumn  Caption="مزایا"  FieldName="Mazayapname" />
+<DxGridDataColumn  Caption="جمع کسورات"  FieldName="KosoratTotal" />
 
-<DxGridDataColumn  Caption="مبلغ مزایا"  FieldName="Mazayaprice" />
+<DxGridDataColumn  Caption="حقوق پايه"  FieldName="HoghoghPaye" />
 
-<DxGridDataColumn  Caption="ساعت"  FieldName="Mazayaphour" />
+<DxGridDataColumn  Caption="اضافه کاري عادی"  FieldName="EzafeKariAdi" />
+
+<DxGridDataColumn  Caption="حق تأهل"  FieldName="HaghTaaholPrice" />
+
+<DxGridDataColumn  Caption="ماليات"  FieldName="Maliat" />
+
+<DxGridDataColumn  Caption="بيمه اصلي سهم کارمند"  FieldName="Bime" />
+
+<DxGridDataColumn  Caption="روند ماه جاری"  FieldName="RavandJari" />
+
+<DxGridDataColumn  Caption="پرداخت بدهي ماه قبل"  FieldName="BedehiQbl" />
+
+<DxGridDataColumn  Caption="روند ماه قبل"  FieldName="RavandQbl" />
+
+<DxGridDataColumn  Caption="خواربار و مسکن"  FieldName="KharbarMaskan" />
+
+<DxGridDataColumn  Caption="مزاياي رفاهي انگيزه اي"  FieldName="Refahi" />
+
+<DxGridDataColumn  Caption="حق جذب 2"  FieldName="Jazb2" />
+
+<DxGridDataColumn  Caption="پاداش افزايش توليد1"  FieldName="Padash1" />
+
+<DxGridDataColumn  Caption="پاداش افزايش توليد2"  FieldName="Padash2" />
+
+<DxGridDataColumn  Caption="پايه سنوات"  FieldName="PayeSanavat" />
+
+<DxGridDataColumn  Caption="ساعت اضافه کار عادی"  FieldName="EzafeKariAdiHour" />
+
+<DxGridDataColumn  Caption="اضافه کار تعطیل"  FieldName="EzafeKariTatil" />
+
+<DxGridDataColumn  Caption="ساعت اضافه کار تعطیل"  FieldName="EzafeKariTatilHour" />
+
+<DxGridDataColumn  Caption="ما به التفاوت"  FieldName="MaBeOTafavot" />
+
+<DxGridDataColumn  Caption="بيمه تکميلی"  FieldName="BimeTakmili" />
+
+<DxGridDataColumn  Caption="بيمه بازنشستگي سهم کارمند"  FieldName="BimeBazneshastegi" />
+
+<DxGridDataColumn  Caption="بدهي ماه قبل"  FieldName="BedehiMahQbl" />
+
+<DxGridDataColumn  Caption="علي الحساب پاداش افزايش توليد 1و2"  FieldName="AlalHesab" />
+
+<DxGridDataColumn  Caption="تبعي 1"  FieldName="Tabaee1" />
+
+<DxGridDataColumn  Caption="تبعي 2"  FieldName="Tabaee2" />
+
+<DxGridDataColumn  Caption="تبعي 3"  FieldName="Tabaee3" />
 
 
 </Columns>
@@ -438,15 +628,36 @@ MainModel.Sum_v_day = ((Entity.HR_Salary)EditModel).Sum_v_day;
 MainModel.Sum_v_hour = ((Entity.HR_Salary)EditModel).Sum_v_hour;
 MainModel.Centname = ((Entity.HR_Salary)EditModel).Centname;
 MainModel.JobName = ((Entity.HR_Salary)EditModel).JobName;
-MainModel.Mazaya = ((Entity.HR_Salary)EditModel).Mazaya;
-MainModel.Kosorat = ((Entity.HR_Salary)EditModel).Kosorat;
 MainModel.Company = ((Entity.HR_Salary)EditModel).Company;
-MainModel.Kosoorpname = ((Entity.HR_Salary)EditModel).Kosoorpname;
-MainModel.Kosoorprice = ((Entity.HR_Salary)EditModel).Kosoorprice;
-MainModel.Kosoorphour = ((Entity.HR_Salary)EditModel).Kosoorphour;
-MainModel.Mazayapname = ((Entity.HR_Salary)EditModel).Mazayapname;
-MainModel.Mazayaprice = ((Entity.HR_Salary)EditModel).Mazayaprice;
-MainModel.Mazayaphour = ((Entity.HR_Salary)EditModel).Mazayaphour;
+MainModel.CurrentCodeMelli = ((Entity.HR_Salary)EditModel).CurrentCodeMelli;
+MainModel.Pardakhti = ((Entity.HR_Salary)EditModel).Pardakhti;
+MainModel.Nakhales = ((Entity.HR_Salary)EditModel).Nakhales;
+MainModel.KosoratTotal = ((Entity.HR_Salary)EditModel).KosoratTotal;
+MainModel.HoghoghPaye = ((Entity.HR_Salary)EditModel).HoghoghPaye;
+MainModel.EzafeKariAdi = ((Entity.HR_Salary)EditModel).EzafeKariAdi;
+MainModel.HaghTaaholPrice = ((Entity.HR_Salary)EditModel).HaghTaaholPrice;
+MainModel.Maliat = ((Entity.HR_Salary)EditModel).Maliat;
+MainModel.Bime = ((Entity.HR_Salary)EditModel).Bime;
+MainModel.RavandJari = ((Entity.HR_Salary)EditModel).RavandJari;
+MainModel.BedehiQbl = ((Entity.HR_Salary)EditModel).BedehiQbl;
+MainModel.RavandQbl = ((Entity.HR_Salary)EditModel).RavandQbl;
+MainModel.KharbarMaskan = ((Entity.HR_Salary)EditModel).KharbarMaskan;
+MainModel.Refahi = ((Entity.HR_Salary)EditModel).Refahi;
+MainModel.Jazb2 = ((Entity.HR_Salary)EditModel).Jazb2;
+MainModel.Padash1 = ((Entity.HR_Salary)EditModel).Padash1;
+MainModel.Padash2 = ((Entity.HR_Salary)EditModel).Padash2;
+MainModel.PayeSanavat = ((Entity.HR_Salary)EditModel).PayeSanavat;
+MainModel.EzafeKariAdiHour = ((Entity.HR_Salary)EditModel).EzafeKariAdiHour;
+MainModel.EzafeKariTatil = ((Entity.HR_Salary)EditModel).EzafeKariTatil;
+MainModel.EzafeKariTatilHour = ((Entity.HR_Salary)EditModel).EzafeKariTatilHour;
+MainModel.MaBeOTafavot = ((Entity.HR_Salary)EditModel).MaBeOTafavot;
+MainModel.BimeTakmili = ((Entity.HR_Salary)EditModel).BimeTakmili;
+MainModel.BimeBazneshastegi = ((Entity.HR_Salary)EditModel).BimeBazneshastegi;
+MainModel.BedehiMahQbl = ((Entity.HR_Salary)EditModel).BedehiMahQbl;
+MainModel.AlalHesab = ((Entity.HR_Salary)EditModel).AlalHesab;
+MainModel.Tabaee1 = ((Entity.HR_Salary)EditModel).Tabaee1;
+MainModel.Tabaee2 = ((Entity.HR_Salary)EditModel).Tabaee2;
+MainModel.Tabaee3 = ((Entity.HR_Salary)EditModel).Tabaee3;
 
     }
     else

@@ -144,7 +144,7 @@ namespace Forms.Forms
     /// <summary>
     ///  ورژنی که فرم باهاش ساخته شده
     /// </summary>
-    public string? VersionForm { get; set; } = "5671";
+    public string? VersionForm { get; set; } = "5823";
 
     /// <summary>
     ///  موجودیت
@@ -179,27 +179,48 @@ namespace Forms.Forms
 
     #region FormProperty
 
-public Input<string?> Ref_Emp_No;
 public Input<string?> Ref_CodeMelli;
-public Input<int?> Ref_Year;
-public Input<int?> Ref_Month;
-public ElementReference Ref_submit;
-public Input<string?> Ref_Emp_Name;
-public Input<string?> Ref_Emp_Family;
-public Input<string?> Ref_WorkName;
-public Input<string?> Ref_Sum_v_day;
-public Input<string?> Ref_Sum_v_hour;
 public Input<string?> Ref_Centname;
-public Input<string?> Ref_JobName;
-public Input<string?> Ref_Mazaya;
-public Input<string?> Ref_Kosorat;
+public Input<int?> Ref_Year;
+public Input<string?> Ref_Emp_Name;
+public Input<string?> Ref_WorkName;
+public Input<int?> Ref_Month;
+public Input<string?> Ref_Emp_Family;
 public Input<string?> Ref_Company;
-public Input<string?> Ref_Kosoorpname;
-public Input<string?> Ref_Kosoorprice;
-public Input<string?> Ref_Kosoorphour;
-public Input<string?> Ref_Mazayapname;
-public Input<string?> Ref_Mazayaprice;
-public Input<string?> Ref_Mazayaphour;
+public ElementReference Ref_submit;
+public Input<string?> Ref_Emp_No;
+public Input<string?> Ref_JobName;
+public Input<string?> Ref_Sum_v_hour;
+public Input<string?> Ref_Sum_v_day;
+public Input<string?> Ref_HaghTaaholPrice;
+public Input<string?> Ref_RavandJari;
+public Input<string?> Ref_BedehiQbl;
+public Input<string?> Ref_HoghoghPaye;
+public Input<string?> Ref_KharbarMaskan;
+public Input<string?> Ref_Refahi;
+public Input<string?> Ref_PayeSanavat;
+public Input<string?> Ref_EzafeKariAdi;
+public Input<string?> Ref_EzafeKariAdiHour;
+public Input<string?> Ref_EzafeKariTatil;
+public Input<string?> Ref_EzafeKariTatilHour;
+public Input<string?> Ref_Jazb2;
+public Input<string?> Ref_Padash1;
+public Input<string?> Ref_Padash2;
+public Input<string?> Ref_MaBeOTafavot;
+public Input<string?> Ref_Bime;
+public Input<string?> Ref_BimeTakmili;
+public Input<string?> Ref_BimeBazneshastegi;
+public Input<string?> Ref_RavandQbl;
+public Input<string?> Ref_AlalHesab;
+public Input<string?> Ref_Maliat;
+public Input<string?> Ref_BedehiMahQbl;
+public Input<string?> Ref_Tabaee1;
+public Input<string?> Ref_Tabaee2;
+public Input<string?> Ref_Tabaee3;
+public Input<string?> Ref_CurrentCodeMelli;
+public Input<string?> Ref_Nakhales;
+public Input<string?> Ref_KosoratTotal;
+public Input<string?> Ref_Pardakhti;
 public Input<Guid> Ref_Id;
 public Input<Guid?> Ref_RequestID;
 public Input<Guid?> Ref_CreateUser;

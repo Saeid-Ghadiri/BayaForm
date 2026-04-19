@@ -467,7 +467,7 @@ namespace Forms.Forms
 		public async Task<bool> GridIDMS_RDC_MasterId_753_editmodelsaving(object e)
 		{
 			bool IsCancelled = false;
-
+			StateHasChanged();
 			return IsCancelled;
 		}
 

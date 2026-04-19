@@ -104,7 +104,7 @@ namespace Forms.Forms
 			}
 				// لغو کلی درخواست
             // SequenceFlow_1frbv74
-            if (BtnWorkFlowId == "SequenceFlow_1frbv74")// آیدی دکمه چک شود
+            if (BtnWorkFlowId == "SequenceFlow_1frbv74" || BtnWorkFlowId == "SequenceFlow_1kne5um")// آیدی دکمه چک شود
             {
                 // Console.WriteLine("#Log:: 0");
 
