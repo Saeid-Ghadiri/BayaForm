@@ -256,7 +256,7 @@ namespace Forms.Forms
         {
             //Console.WriteLine("#Log 3");
             //Console.WriteLine(await Utility.JSON.ToJson(Selected));
-
+await Task.Delay(100);
             Item.KH_TEMPNO = Selected.TEMPNO;
             Item.KH_PAYCENTName = Selected.PAYCENTName;
             Item.KH_CENTCODE = Selected.CENTCODE;
@@ -272,9 +272,10 @@ namespace Forms.Forms
             Item.KH_YEAR = Selected.YEAR;
             Item.KH_INVCODE = Selected.INVCODE;
 
+await Task.Delay(100);
             // فراخوانی داده از dropdown TempNoNum برای گرید داده های آن
-            Ref_SCMPLATE_ProductRequestDetails_SH_Kharid_DTL.SetEntity(Item);
-            Ref_SCMPLATE_ProductRequestDetails_SH_Kharid_DTL.LoadData();
+            //Ref_SCMPLATE_ProductRequestDetails_SH_Kharid_DTL.SetEntity(Item);
+            //Ref_SCMPLATE_ProductRequestDetails_SH_Kharid_DTL.LoadData();
         }
 
 		public async Task<bool> SCMPLATE_ProductRequestDetails_editmodelsaving(object e   )

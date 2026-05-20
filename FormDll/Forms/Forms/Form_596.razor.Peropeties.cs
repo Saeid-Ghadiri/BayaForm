@@ -144,7 +144,7 @@ namespace Forms.Forms
     /// <summary>
     ///  ورژنی که فرم باهاش ساخته شده
     /// </summary>
-    public string? VersionForm { get; set; } = "5823";
+    public string? VersionForm { get; set; } = "6067";
 
     /// <summary>
     ///  موجودیت
@@ -193,9 +193,9 @@ public Input<string?> Ref_SCMPLATE_ProductRequestDetails_SH_PARTNO;
 public Input<string?> Ref_SCMPLATE_ProductRequestDetails_SH_UNIT;
 public Input<double?> Ref_SCMPLATE_ProductRequestDetails_SH_Amount;
 public Input<double?> Ref_SCMPLATE_ProductRequestDetails_ProductRequestingQTY;
-public Input<double?> Ref_SCMPLATE_ProductRequestDetails_DeficitSupplyNumber;
 public Dropdown Ref_SCMPLATE_ProductRequestDetails_Global_PriorityId;
 public Dropdown Ref_SCMPLATE_ProductRequestDetails_Global_SCMRequestTypeId;
+public Input<double?> Ref_SCMPLATE_ProductRequestDetails_DeficitSupplyNumber;
 public Input<string?> Ref_SCMPLATE_ProductRequestDetails_PlaceOfUse;
 public Input<string?> Ref_SCMPLATE_ProductRequestDetails_SR_Desc;
 public Dropdown Ref_SCMPLATE_ProductRequestDetails_ResultingFromITIL;

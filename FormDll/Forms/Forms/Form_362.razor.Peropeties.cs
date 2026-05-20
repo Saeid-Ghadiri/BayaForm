@@ -144,7 +144,7 @@ namespace Forms.Forms
     /// <summary>
     ///  ورژنی که فرم باهاش ساخته شده
     /// </summary>
-    public string? VersionForm { get; set; } = "5823";
+    public string? VersionForm { get; set; } = "6067";
 
     /// <summary>
     ///  موجودیت
@@ -185,25 +185,6 @@ public Input<string?> Ref_UserStarterUnitName;
 public Input<string?> Ref_UserStarterSectionName;
 public Input<string?> Ref_ProductBuy_Shomaran_TEMPNOText;
 public Input<string?> Ref_ProductBuy_Shomaran_TEMPNODateTime;
-public DxGrid? Grid_SCMNFP_InquiryPriceProduct;
-
-public Input<Guid> Ref_SCMNFP_InquiryPriceProduct_Id;
-public Input<Guid?> Ref_SCMNFP_InquiryPriceProduct_RequestID;
-public Input<Guid?> Ref_SCMNFP_InquiryPriceProduct_CreateUser;
-public Input<Guid?> Ref_SCMNFP_InquiryPriceProduct_UpdateUser;
-public Input<DateTime?> Ref_SCMNFP_InquiryPriceProduct_CreateDate;
-public Input<DateTime?> Ref_SCMNFP_InquiryPriceProduct_UpdateDate;
-public Input<bool?> Ref_SCMNFP_InquiryPriceProduct_IsDelete;
-public FileUploadPage.Uploader<Entity.SCMNFP_InquiryPriceProduct_PriceInquiryFile> Ref_SCMNFP_InquiryPriceProduct_SCMNFP_InquiryPriceProduct_PriceInquiryFile;
-public Input<double?> Ref_SCMNFP_InquiryPriceProduct_PriceProduct;
-public Dropdown Ref_SCMNFP_InquiryPriceProduct_SCMNFP_FinancialTermsProductPurchaseId;
-public Input<bool?> Ref_SCMNFP_InquiryPriceProduct_WarrantyIsEnable;
-public Dropdown Ref_SCMNFP_InquiryPriceProduct_SCMNFP_WarrantyTermsProductPurchaseId;
-public Input<string?> Ref_SCMNFP_InquiryPriceProduct_DateTimeProductDeliveryToLogistics;
-public Input<string?> Ref_SCMNFP_InquiryPriceProduct_DescriptionInquiry;
-public Input<string?> Ref_SCMNFP_InquiryPriceProduct_DescriptionRequesterInquiry;
-public Input<string?> Ref_SCMNFP_InquiryPriceProduct_DescriptionInquiryFactoryManager;
-public Input<string?> Ref_SCMNFP_InquiryPriceProduct_DescriptionInquiryCEO;
 public Input<Guid> Ref_Id;
 public Input<Guid?> Ref_RequestID;
 public Input<Guid?> Ref_CreateUser;
@@ -232,6 +213,25 @@ public Input<string?> Ref_SCMNFP_ProductRequestDetails_DescriptionApplicant;
 public Input<string?> Ref_SCMNFP_ProductRequestDetails_DescriptionApproverFirst;
 public Input<string?> Ref_SCMNFP_ProductRequestDetails_DescriptionApproverSecond;
 public RadioBoolean Ref_SCMNFP_ProductRequestDetails_ForeignMachineryProductType;
+public DxGrid? Grid_SCMNFP_InquiryPriceProduct;
+
+public Input<Guid> Ref_SCMNFP_InquiryPriceProduct_Id;
+public Input<Guid?> Ref_SCMNFP_InquiryPriceProduct_RequestID;
+public Input<Guid?> Ref_SCMNFP_InquiryPriceProduct_CreateUser;
+public Input<Guid?> Ref_SCMNFP_InquiryPriceProduct_UpdateUser;
+public Input<DateTime?> Ref_SCMNFP_InquiryPriceProduct_CreateDate;
+public Input<DateTime?> Ref_SCMNFP_InquiryPriceProduct_UpdateDate;
+public Input<bool?> Ref_SCMNFP_InquiryPriceProduct_IsDelete;
+public FileUploadPage.Uploader<Entity.SCMNFP_InquiryPriceProduct_PriceInquiryFile> Ref_SCMNFP_InquiryPriceProduct_SCMNFP_InquiryPriceProduct_PriceInquiryFile;
+public Input<double?> Ref_SCMNFP_InquiryPriceProduct_PriceProduct;
+public Dropdown Ref_SCMNFP_InquiryPriceProduct_SCMNFP_FinancialTermsProductPurchaseId;
+public Input<bool?> Ref_SCMNFP_InquiryPriceProduct_WarrantyIsEnable;
+public Dropdown Ref_SCMNFP_InquiryPriceProduct_SCMNFP_WarrantyTermsProductPurchaseId;
+public Input<string?> Ref_SCMNFP_InquiryPriceProduct_DateTimeProductDeliveryToLogistics;
+public Input<string?> Ref_SCMNFP_InquiryPriceProduct_DescriptionInquiry;
+public Input<string?> Ref_SCMNFP_InquiryPriceProduct_DescriptionRequesterInquiry;
+public Input<string?> Ref_SCMNFP_InquiryPriceProduct_DescriptionInquiryFactoryManager;
+public Input<string?> Ref_SCMNFP_InquiryPriceProduct_DescriptionInquiryCEO;
 
 
     #endregion

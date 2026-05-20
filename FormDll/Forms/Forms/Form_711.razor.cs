@@ -242,7 +242,11 @@ return new Result() { Status = HttpStatusCode.OK };
     /// <returns></returns>
     public override async Task AfterGetData()
     {
-
+        foreach (var item in _Entity.SCMPLATE_ProductRequestDetails)
+            {
+                item.EnableLaterPurchace = false;// مهم
+                item.EnableLaterPurchace2 = false;// مهم
+            }
     }
 
     #region FunctionEvents

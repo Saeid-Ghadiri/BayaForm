@@ -144,7 +144,7 @@ namespace Forms.Forms
     /// <summary>
     ///  ورژنی که فرم باهاش ساخته شده
     /// </summary>
-    public string? VersionForm { get; set; } = "5823";
+    public string? VersionForm { get; set; } = "6067";
 
     /// <summary>
     ///  موجودیت
@@ -331,6 +331,7 @@ public Input<string?> Ref_SCMPLATE_ProductRequestDetails_FB_WUSER;
 public Input<int?> Ref_SCMPLATE_ProductRequestDetails_FB_YEAR;
 public Input<Guid?> Ref_SCMPLATE_ProductRequestDetails_FB_FACTNO_GUID;
 public Dropdown Ref_SCMPLATE_ProductRequestDetails_SH_FactBuy_DTL;
+public RadioBoolean Ref_SCMPLATE_ProductRequestDetails_EnableLaterPurchace2;
 public Input<Guid> Ref_Id;
 public Input<Guid?> Ref_RequestID;
 public Input<Guid?> Ref_CreateUser;

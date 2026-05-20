@@ -144,7 +144,7 @@ namespace Forms.Forms
     /// <summary>
     ///  ورژنی که فرم باهاش ساخته شده
     /// </summary>
-    public string? VersionForm { get; set; } = "5823";
+    public string? VersionForm { get; set; } = "6067";
 
     /// <summary>
     ///  موجودیت
@@ -179,10 +179,6 @@ namespace Forms.Forms
 
     #region FormProperty
 
-public Input<Guid> Ref_Id;
-public Input<Guid?> Ref_RequestID;
-public Input<Guid?> Ref_CreateUser;
-public Input<Guid?> Ref_UpdateUser;
 public Input<string?> Ref_UserFullName;
 public Input<int?> Ref_User_EMP_NO;
 public Input<string?> Ref_CompanyName;
@@ -194,9 +190,15 @@ public Input<int?> Ref_InternalCodeTel3;
 public Input<int?> Ref_InternalCodeTel4;
 public Input<string?> Ref_MobCell;
 public Input<string?> Ref_Email;
+public Input<Guid> Ref_Id;
+public Input<Guid?> Ref_RequestID;
+public Input<Guid?> Ref_CreateUser;
+public Input<Guid?> Ref_UpdateUser;
 public Input<DateTime?> Ref_CreateDate;
 public Input<DateTime?> Ref_UpdateDate;
 public Input<bool?> Ref_IsDelete;
+public Input<string?> Ref_Name;
+public Input<string?> Ref_Family;
 
 
     #endregion

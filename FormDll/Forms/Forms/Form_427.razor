@@ -1,0 +1,422 @@
+@inherits Forms.Forms.Form_427Base
+@namespace FormsPage
+
+@using AKSoftware.Localization.MultiLanguages.Blazor
+@using Baya.Models.Utility;
+@using Baya.Models.ORM
+@using Microsoft.AspNetCore.Components.Forms
+@using Microsoft.AspNetCore.Components.Authorization;
+@using System.Security.Claims
+@using System.Net
+@using Microsoft.JSInterop
+@using Baya.Models.ViewEngine
+@using Forms.Domain.Utility
+@using Castle.DynamicLinqQueryBuilder
+<style>
+    
+</style>
+
+<Plugins.Tools.ConfirmDialog @ref="Confirm" />
+
+<span class="d-none">VersionForm:@VersionForm</span>
+@*
+@if (!string.IsNullOrEmpty(SumaryMessage))
+{
+    <div>
+        @SumaryMessage
+    </div>
+} *@
+
+@* <EditForm @ref="_Form" Model="_Entity" OnValidSubmit="ValidFormSubmitted" OnInvalidSubmit="InvalidFormSubmitted" OnSubmit="Submit"> *@
+<div class="@(ReadOnly?"FormReadOnly":"")">
+    <EditForm @ref="_Form" Model="_Entity" OnSubmit="Submit">
+        
+<div class="row container m-auto">
+    
+<div class="col-md-12">
+    
+<div class="row  card flex-row pb-2 m-1 shadow-sm border-0">
+    
+<div class="col-md-12">
+    <div  class="">
+    <div class="card-header fw-black fs-6 border-0" style="background:#005aff0d;">
+  کاربر درخواست دهنده
+</div>
+</div>
+
+</div>
+
+<div class="col-md-3">
+    
+<Input Id="UserStarterFullName" @ref="Ref_UserStarterFullName"   CssClass="  " Disabled=true Required=true @bind-Value="_Entity.UserStarterFullName" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+</div>
+
+<div class="col-md-3">
+    
+<Input Id="UserStarterCompanyName" @ref="Ref_UserStarterCompanyName"   CssClass="  " Disabled=true Required=true @bind-Value="_Entity.UserStarterCompanyName" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+</div>
+
+<div class="col-md-3">
+    
+<Input Id="UserStarterUnitName" @ref="Ref_UserStarterUnitName"   CssClass="  " Disabled=true  @bind-Value="_Entity.UserStarterUnitName" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+</div>
+
+<div class="col-md-3">
+    
+<Input Id="UserStarterSectionName" @ref="Ref_UserStarterSectionName"   CssClass="  " Disabled=true  @bind-Value="_Entity.UserStarterSectionName" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="col-md-12">
+    
+</div>
+
+</div>
+
+<Input Id="CreateUser" @ref="Ref_CreateUser"   CssClass="  "   @bind-Value="_Entity.CreateUser" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+<Input Id="UpdateUser" @ref="Ref_UpdateUser"   CssClass="  "   @bind-Value="_Entity.UpdateUser" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+<Input Id="CreateDate" @ref="Ref_CreateDate"   CssClass="d-none d-none d-none"   @bind-Value="_Entity.CreateDate" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+<Input Id="Id" @ref="Ref_Id"   CssClass="d-none d-none d-none"   @bind-Value="_Entity.Id" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+<Input Id="UpdateDate" @ref="Ref_UpdateDate"   CssClass="d-none d-none d-none"   @bind-Value="_Entity.UpdateDate" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+<Input Id="RequestID" @ref="Ref_RequestID"   CssClass="  "   @bind-Value="_Entity.RequestID" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+<Input Id="IsDelete" @ref="Ref_IsDelete"   CssClass="d-none d-none d-none"   @bind-Value="_Entity.IsDelete" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+<Input Id="Duration" @ref="Ref_Duration"   CssClass="  " Disabled=true  @bind-Value="_Entity.Duration" type="number"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"step\":\"any\"}").Result))></Input>
+
+<Input Id="StartDateEN" @ref="Ref_StartDateEN"   CssClass="  " Disabled=true  @bind-Value="_Entity.StartDateEN" type="datetime-local"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+<Input Id="EndDateEN" @ref="Ref_EndDateEN"   CssClass="  " Disabled=true  @bind-Value="_Entity.EndDateEN" type="datetime-local"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+<Input Id="EmployeeId" @ref="Ref_EmployeeId" Label="شناسه درخواست دهنده"  CssClass="  " Disabled=true Required=true @bind-Value="_Entity.EmployeeId" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+<Input Id="UserStarterCompanyID" @ref="Ref_UserStarterCompanyID" Label="نام شرکت"  CssClass="  " Disabled=true Required=true @bind-Value="_Entity.UserStarterCompanyID" type="number"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+ 
+ 
+@code {
+    Baya.Models.ViewEngine.View_Component Component_HR_LeaveHR_PermissionGroupId = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"EntityName\":\"مرخصی\",\"primaryKey\":false,\"EntityID\":197,\"FieldId\":2101,\"TypeCSharp\":\"string\",\"NotNull\":true,\"ViewId\":427,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":false,\"RelationParentName\":\"HR_PermissionGroup\",\"RelationParentModel\":\"HR_PermissionGroup\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/HR_PermissionGroup/GetList\"},\"validate\":{\"required\":true,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.PermissionGroupName}} </span>\",\"FieldsTemplate\":[],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"modal\":true,\"label\":\"نوع مجوز\",\"tableView\":true,\"key\":\"HR_PermissionGroupId\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"2101?EId=197&SubId=15\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
+}
+
+    <Dropdown Id=HR_PermissionGroupId  @ref="Ref_HR_PermissionGroupId" Label="نوع مجوز" CssClass="" Required=true DisplayFormat="DropDown" ExternalApi=false NotMapped=false TextGrid=false Text="" Value="@_Entity.HR_PermissionGroupId" FieldName="HR_PermissionGroupId" OnItemSelected="ItemSelected_HR_LeaveHR_PermissionGroupId" Component="Component_HR_LeaveHR_PermissionGroupId" _Entity="_Entity" >
+</Dropdown>
+@code {
+    public async Task ItemSelected_HR_LeaveHR_PermissionGroupId(object _Item)
+    {
+        var Selected = Utility.JSON.ToObject<dynamic>(Utility.JSON.ToJson(_Item).Result).Result;
+     var Item = _Entity;
+
+      //Todo
+ //برای اینکه آی دی تغییر کند اینجا نیز باید تغییر کند
+ //بهتر است از پرایمیری کی استفاده شود
+ if (_Item != null)
+ {
+     Console.WriteLine(" Item Is Not Null");
+    Item.HR_PermissionGroupId = Selected.Id;
+    
+ }
+ else
+ {
+     Console.WriteLine(" Item Is Null");
+      Item.HR_PermissionGroupId =EntityHelper.SetPropertyNull(Item.HR_PermissionGroupId);
+ }
+ Item.HR_PermissionGroup = await Utility.JSON.ToObject<Entity.HR_PermissionGroup>(await Utility.JSON.ToJson(_Item));
+    StateHasChanged();
+
+
+    
+
+    
+    }
+} 
+
+<Input Id="StartDate" @ref="Ref_StartDate" Label="تاریخ شروع"  CssClass="PersianDatePicker  PersianDatePicker"  Required=true @bind-Value="_Entity.StartDate" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"data-jdp\":\"  \",\"data-jdp-only-date\":\"   \"}").Result))></Input>
+
+<Time Id="StartTime" DisplayFormat ="HH:mm" @ref="Ref_StartTime" Label="ساعت شروع"  CssClass="PersianDatePicker  PersianDatePicker"   @bind-Value="_Entity.StartTime" type="text"    Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"data-jdp\":\"  \",\"data-jdp-only-time\":\"   \"}").Result))></Time>
+
+<Input Id="EndDate" @ref="Ref_EndDate" Label="تاریخ پایان"  CssClass="PersianDatePicker  PersianDatePicker"  Required=true @bind-Value="_Entity.EndDate" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"data-jdp\":\"  \",\"data-jdp-only-date\":\"   \"}").Result))></Input>
+
+<Time Id="EndTime" DisplayFormat ="HH:mm" @ref="Ref_EndTime" Label="ساعت پایان"  CssClass="PersianDatePicker  PersianDatePicker"   @bind-Value="_Entity.EndTime" type="text"    Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"data-jdp\":\"  \",\"data-jdp-only-time\":\"   \"}").Result))></Time>
+
+<Input Id="Description" @ref="Ref_Description" Label="توضیحات"     @bind-Value="_Entity.Description" type="textarea"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+    </EditForm>
+</div>
+
+@if (ShowSubmit)
+{
+    <button class="btn btn-sm btn-green" @onclick=Submit>ذخیره</button>
+}
+
+@code {
+    #region Function
+
+    //todo  جا به جا شود برده شود تو فایل  Peropeties
+    protected override async Task OnInitializedAsync()
+    {
+        Console.WriteLine("#log OnInitializedAsync");
+
+        TableGet = await Utility.JSON.ToObject<Table>("{\"Name\":\"HR_Leave\",\"GetNameAs\":\"HR_Leave\",\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"RequestID\",\"GetNameAs\":\"RequestID\"},{\"Name\":\"CreateUser\",\"GetNameAs\":\"CreateUser\"},{\"Name\":\"UpdateUser\",\"GetNameAs\":\"UpdateUser\"},{\"Name\":\"CreateDate\",\"GetNameAs\":\"CreateDate\"},{\"Name\":\"UpdateDate\",\"GetNameAs\":\"UpdateDate\"},{\"Name\":\"IsDelete\",\"GetNameAs\":\"IsDelete\"},{\"Name\":\"HR_PermissionGroupId\",\"GetNameAs\":\"HR_PermissionGroupId\"},{\"Name\":\"StartDate\",\"GetNameAs\":\"StartDate\"},{\"Name\":\"StartTime\",\"GetNameAs\":\"StartTime\"},{\"Name\":\"EndDate\",\"GetNameAs\":\"EndDate\"},{\"Name\":\"EndTime\",\"GetNameAs\":\"EndTime\"},{\"Name\":\"Description\",\"GetNameAs\":\"Description\"},{\"Name\":\"Duration\",\"GetNameAs\":\"Duration\"},{\"Name\":\"EmployeeId\",\"GetNameAs\":\"EmployeeId\"},{\"Name\":\"UserStarterFullName\",\"GetNameAs\":\"UserStarterFullName\"},{\"Name\":\"UserStarterCompanyID\",\"GetNameAs\":\"UserStarterCompanyID\"},{\"Name\":\"UserStarterCompanyName\",\"GetNameAs\":\"UserStarterCompanyName\"},{\"Name\":\"StartDateEN\",\"GetNameAs\":\"StartDateEN\"},{\"Name\":\"EndDateEN\",\"GetNameAs\":\"EndDateEN\"},{\"Name\":\"UserStarterUnitName\",\"GetNameAs\":\"UserStarterUnitName\"},{\"Name\":\"UserStarterSectionName\",\"GetNameAs\":\"UserStarterSectionName\"}],\"Relation\":[{\"Name\":\"HR_PermissionGroup\",\"GetNameAs\":\"HR_PermissionGroup\",\"ModeErtebat\":1,\"Column\":[{\"Name\":\"PermissionGroupName\",\"GetNameAs\":\"PermissionGroupName\"},{\"Name\":\"PermissionGroupMode\",\"GetNameAs\":\"PermissionGroupMode\"},{\"Name\":\"HR_PermissionGroupModeId\",\"GetNameAs\":\"HR_PermissionGroupModeId\"}],\"Relation\":[]}]}");
+        TablePost = await Utility.JSON.ToObject<Table>("{\"Name\":\"HR_Leave\",\"GetNameAs\":\"HR_Leave\",\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"RequestID\",\"GetNameAs\":\"RequestID\"},{\"Name\":\"CreateUser\",\"GetNameAs\":\"CreateUser\"},{\"Name\":\"UpdateUser\",\"GetNameAs\":\"UpdateUser\"},{\"Name\":\"CreateDate\",\"GetNameAs\":\"CreateDate\"},{\"Name\":\"UpdateDate\",\"GetNameAs\":\"UpdateDate\"},{\"Name\":\"IsDelete\",\"GetNameAs\":\"IsDelete\"},{\"Name\":\"HR_PermissionGroupId\",\"GetNameAs\":\"HR_PermissionGroupId\"},{\"Name\":\"StartDate\",\"GetNameAs\":\"StartDate\"},{\"Name\":\"StartTime\",\"GetNameAs\":\"StartTime\"},{\"Name\":\"EndDate\",\"GetNameAs\":\"EndDate\"},{\"Name\":\"EndTime\",\"GetNameAs\":\"EndTime\"},{\"Name\":\"Description\",\"GetNameAs\":\"Description\"},{\"Name\":\"Duration\",\"GetNameAs\":\"Duration\"},{\"Name\":\"EmployeeId\",\"GetNameAs\":\"EmployeeId\"},{\"Name\":\"UserStarterFullName\",\"GetNameAs\":\"UserStarterFullName\"},{\"Name\":\"UserStarterCompanyID\",\"GetNameAs\":\"UserStarterCompanyID\"},{\"Name\":\"UserStarterCompanyName\",\"GetNameAs\":\"UserStarterCompanyName\"},{\"Name\":\"StartDateEN\",\"GetNameAs\":\"StartDateEN\"},{\"Name\":\"EndDateEN\",\"GetNameAs\":\"EndDateEN\"},{\"Name\":\"UserStarterUnitName\",\"GetNameAs\":\"UserStarterUnitName\"},{\"Name\":\"UserStarterSectionName\",\"GetNameAs\":\"UserStarterSectionName\"}],\"Relation\":[]}");
+
+        config = CKEditorBundleOptions.DefaultConfig.WithHtmlEditing();
+        config.Language = "fa";
+
+        //بعداد اگه نیاز شد فرمی رو تو حالت غیر لاگین شده نمایش بدیم باید این  کد تغیر کنه
+        var user = (await _authenticationStateProvider.GetAuthenticationStateAsync()).User;
+        string UserID = user.FindFirst(c => c.Type == ClaimTypes.NameIdentifier).Value;
+        //داینامیک بشه
+        Dictionary<string, object> List = new Dictionary<string, object>();
+        //List.Add("UserID", Guid.Parse(UserID));
+        List.Add("UserID", UserID);
+        _User = await Domain.Utility.ConvertParameter.ConvertToObject(List);
+
+        Console.WriteLine("#log OnInitializedAsync End");
+
+        await base.OnInitializedAsync();
+    }
+
+    //todo  جا به جا شود برده شود تو فایل  Peropeties
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            Console.WriteLine("#log OnAfterRenderAsync");
+            await base.BeforGetData();
+
+            var Result = await GetData();
+
+            await base.AfterGetData();
+
+            StateHasChanged();
+
+            await OnFormloaded.InvokeAsync(Result);
+        }
+
+        await base.OnAfterRenderAsync(firstRender);
+    }
+
+    /// <summary>
+    /// دریافت داده
+    /// </summary>
+    /// <returns></returns>
+    public async Task<Baya.Models.Utility.Result> GetData()
+    {
+        await BeforGetData();
+
+        var DataResult = await ApiServer.External.Services.Data.Get(TableGet, QueryFilter, TableGet.Name, null);
+        
+        Baya.Models.Utility.Result Result = new Baya.Models.Utility.Result();
+
+        if (DataResult != null && DataResult.Status == HttpStatusCode.OK)
+        {
+            if (DataResult.Content != null)
+            {
+                string Data = DataResult.Content.ToString();
+                if (Data is not null)
+                {
+                    _Entity = await Utility.JSON.ToObject < Entity.HR_Leave>(Data);
+        }
+            }
+            else
+            {
+                _Entity = new Entity.HR_Leave();
+            //todo تشخیص دهد که داده ای وجود ندارد و دفه اول هست که فرم لود میشود
+            //todo اگه نیاز شد دالخ ORm خروجیش متفاوت باشه
+            //ست کردن دیفالت های فرم
+            if (true)
+                {//
+_Entity.UserStarterFullName = _RequestParameters.UserStarterFullName;
+_Entity.UserStarterCompanyName = _RequestParameters.UserStarterCompanyName;
+_Entity.UserStarterUnitName = _RequestParameters.UserStarterUnitName;
+_Entity.UserStarterSectionName = _RequestParameters.UserStarterSectionName;
+_Entity.EmployeeId = _RequestParameters.UserStarterID;
+_Entity.UserStarterCompanyID = _RequestParameters.UserStarterCompanyID;
+_Entity.StartDate = "1404/04/30";
+_Entity.EndDate = "1404/04/30";
+
+
+                    //نمونه ست کردن پارامتر روش اول
+                    //_Entity.InstantDelivery = _RequestParameters.UserId;
+
+                    //نمونه کد برای ست کردن پارامتر روش دوم
+                    //_Entity.InstantDelivery = await GetParameter("@@UserId@@");
+                }
+
+                SumaryMessage = "داده لود شده معتبر نمی باشد";
+                Result.Status = HttpStatusCode.InternalServerError;
+            }
+        }
+        else
+        {
+            SumaryMessage = "داده لود نشد";
+            Result.Status = HttpStatusCode.InternalServerError;
+        }
+
+        Result.Message = SumaryMessage;
+
+        StateHasChanged();
+
+        await AfterGetData();
+
+        return Result;
+    }
+
+    public override async Task SetParametersAsync(ParameterView parameters)
+    {
+        await base.SetParametersAsync(parameters);
+    }
+
+    protected override void OnInitialized()
+    {
+        //todo این خط برده شود داخل تابع پاینی ببینیم خطا داره یا نه
+        languageContainer.InitLocalizedComponent(this);
+    }
+
+
+    /// <summary>
+    /// بررسی تغییر دیتا
+    /// </summary>
+    /// <param name="Json"></param>
+    /// <returns></returns>
+    public bool CheckChangedData(string? Json)
+    {
+        if (string.Equals(JsonData, Json)) return true;
+        return false;
+    }
+
+    /// <summary>
+    /// ارسال داده
+    /// </summary>
+    /// <returns></returns>
+    public override async Task<Baya.Models.Utility.Result> Submit()
+    {
+        SumaryMessage = "";
+        Baya.Models.Utility.Result Result = new Baya.Models.Utility.Result();
+
+        if (!await FormValidator())
+        {
+            StateHasChanged();
+            Result.Status = HttpStatusCode.InternalServerError;
+            return Result;
+        }
+
+        if ((await BeforSubmit()).Status != HttpStatusCode.OK)
+        {
+            StateHasChanged();
+            Result.Status = HttpStatusCode.InternalServerError;
+            return Result;
+        }
+
+        _loadingService.Show();
+        var Resualt = await PostData();
+
+        if (Resualt)
+        {
+            Result.Status = HttpStatusCode.OK;
+
+            SumaryMessage = "داده ها با موفقیت ثبت شد";
+        }
+        else
+        {
+            Result.Status = HttpStatusCode.InternalServerError;
+            SumaryMessage = "ذخیره داده با مشکل مواجه شد";
+        }
+
+        Result.Message = SumaryMessage;
+
+        switch ((int)Result.Status)
+        {
+            case 200:
+                toastService.ShowSuccess(Result.Message);
+                break;
+            case 500:
+                toastService.ShowError(Result.Message);
+                break;
+            default:
+                break;
+        } 
+        _loadingService.Hide();
+        await AfterSubmit();
+
+        return Result;
+    }
+
+    /// <summary>
+    /// ارسال داده
+    /// </summary>
+    /// <returns></returns>
+    private async Task<bool> PostData()
+    {
+        string Data = await Utility.JSON.ToJson(_Entity);
+
+        bool IsOk = false;
+        var Model = await ApiServer.External.Services.Data.Put(Data, TablePost.Name, TablePost, RequestID?.ToString(), _User.UserID.ToString());
+        // بررسی وضعیت پاسخ
+        if (Model?.Status == HttpStatusCode.OK)
+        {
+            if (Model.Content != null && !IndependentForm)
+                { 
+                    string NewData = Model.Content.ToString();
+                    if (NewData is not null)
+                    {
+                        var NewEntity = await Utility.JSON.ToObject < Entity.HR_Leave>(NewData);
+                     await  GetDataForm(NewEntity._Id);
+                    }
+
+                }
+                IsOk = true;
+
+        }
+        return IsOk;
+    }
+
+
+    void SetLanguage(string language)
+    {
+        languageContainer.SetLanguage(System.Globalization.CultureInfo.GetCultureInfo(language));
+    }
+
+    // public void ValidFormSubmitted(EditContext editContext)
+    // {
+
+    // }
+
+    // public void InvalidFormSubmitted(EditContext editContext)
+    // {
+
+    // }
+    public async Task GetDataForm(object Id)
+    {
+        Type type = Id.GetType();
+        string TypeToQueryBuilder = Utility.TypeConverterQueryBuilder.ConvertCSharpTypeToQueryBuilder(type);
+        var NewQuery = new QueryBuilderFilterRule() { Condition = "AND" };
+        NewQuery.Rules = new List<QueryBuilderFilterRule>
+            {
+                    new QueryBuilderFilterRule()
+                    {
+                        Field = _Entity._GetIdName,
+                        Id = _Entity._GetIdName,
+                        Input = "text",
+                        Operator = "equal",
+                        Type =  TypeToQueryBuilder,
+                        Value = new string[]{ Id.ToString() },
+                    }
+            };
+        QueryFilter = NewQuery;
+        await GetData();
+        StateHasChanged();
+    }
+    #endregion
+}

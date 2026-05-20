@@ -144,7 +144,7 @@ namespace Forms.Forms
     /// <summary>
     ///  ورژنی که فرم باهاش ساخته شده
     /// </summary>
-    public string? VersionForm { get; set; } = "5823";
+    public string? VersionForm { get; set; } = "6067";
 
     /// <summary>
     ///  موجودیت
@@ -194,8 +194,11 @@ public Dropdown Ref_IDMS_RDC_Details_IDMS_CustomerId;
 public Dropdown Ref_IDMS_RDC_Details_IDMS_ResultingFromId;
 public Input<string?> Ref_IDMS_RDC_Details_RequestedDueDate_Fa;
 public Input<string?> Ref_IDMS_RDC_Details_Description;
+public RadioBoolean Ref_IDMS_RDC_Details_IsAgreedDate;
 public Input<string?> Ref_IDMS_RDC_Details_RDC_ActualCompletionDate_Fa;
 public CKEditor Ref_IDMS_RDC_Details_RDC_SUPERVISOR_Description;
+public RadioBoolean Ref_IDMS_RDC_Details_IsAgreedDateByRequester;
+public Input<string?> Ref_IDMS_RDC_Details_RequesterDateDisagreementReason;
 public Input<Guid> Ref_IDMS_RDC_Details_Id;
 public Input<Guid?> Ref_IDMS_RDC_Details_RequestID;
 public Input<Guid?> Ref_IDMS_RDC_Details_CreateUser;
@@ -210,7 +213,7 @@ public DxGrid? Grid_IDMS_TestModel;
 
 public Dropdown Ref_IDMS_TestModel_IDMS_TestModelObjId;
 public Input<string?> Ref_IDMS_TestModel_TesterDescription;
-public Dropdown Ref_IDMS_TestModel_Tester;
+public Dropdown Ref_IDMS_TestModel_IDMS_TesterRequests;
 public Input<Guid> Ref_IDMS_TestModel_Id;
 public Input<Guid?> Ref_IDMS_TestModel_RequestID;
 public Input<Guid?> Ref_IDMS_TestModel_CreateUser;

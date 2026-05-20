@@ -166,6 +166,34 @@
 
     </CellDisplayTemplate>
 </DxGridDataColumn>
+<DxGridDataColumn  Caption="لات نامبر"  FieldName="LotNumber" />
+
+<DxGridDataColumn Context="SCMNFP_AttributeId_" Caption="وضعیت کالا  " >
+    <CellDisplayTemplate>
+       
+@{
+    Baya.Models.ViewEngine.View_Component HeaderSCMNFP_AttributeId = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"primaryKey\":false,\"EntityID\":228,\"FieldId\":32597,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":1047,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":false,\"RelationParentName\":\"SCMNFP_Attribute\",\"RelationParentModel\":\"SCMNFP_Attribute\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/SCMNFP_Attribute/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.Title}} {{item.Code}} </span>\",\"FieldsTemplate\":[{\"key\":\"Title\",\"value\":\"nvarchar(Max)\"},{\"key\":\"Code\",\"value\":\"nvarchar(Max)\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"modal\":true,\"label\":\"وضعیت کالا  \",\"tableView\":true,\"key\":\"SCMNFP_AttributeId\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"32597?EId=228&SubId=20\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
+    var RowSCMNFP_AttributeId = ((Entity.SCMNFP_ProductRequestDetails)SCMNFP_AttributeId_.DataItem).SCMNFP_AttributeId;
+}
+
+<Dropdown ExternalApi=false CssClass="" NotMapped=false TextGrid=true Value="@RowSCMNFP_AttributeId"   FieldName="SCMNFP_AttributeId" OnItemSelected="ItemSelected_SCMNFP_ProductRequestDetailsSCMNFP_AttributeId_Header" Component="HeaderSCMNFP_AttributeId">
+</Dropdown>
+@code {
+    public async Task ItemSelected_SCMNFP_ProductRequestDetailsSCMNFP_AttributeId_Header(object _Item)
+    {
+      //  var Selected = Utility.JSON.ToObject<dynamic>(Utility.JSON.ToJson(_Item).Result).Result;
+  //   SCMNFP_AttributeId
+
+  //  #CustomCode
+
+ //   
+
+  //  #OnItemSelected
+    }
+}
+
+    </CellDisplayTemplate>
+</DxGridDataColumn>
 
 </Columns>
 
@@ -323,6 +351,53 @@
       Item.SCMNFP_CostCenterId =EntityHelper.SetPropertyNull(Item.SCMNFP_CostCenterId);
  }
  Item.SCMNFP_CostCenter = await Utility.JSON.ToObject<Entity.SCMNFP_CostCenter>(await Utility.JSON.ToJson(_Item));
+    StateHasChanged();
+
+
+    
+
+    
+    }
+} 
+
+</DxFormLayoutItem>
+
+<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextSCMNFP_ProductRequestDetails">
+    
+<Input Id="SCMNFP_ProductRequestDetails_LotNumber" @ref="Ref_SCMNFP_ProductRequestDetails_LotNumber" Label="لات نامبر"     @bind-Value="SCMNFP_ProductRequestDetails.LotNumber" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+</DxFormLayoutItem>
+
+<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextSCMNFP_ProductRequestDetails">
+     
+ 
+@code {
+    Baya.Models.ViewEngine.View_Component Component_SCMNFP_ProductRequestDetailsSCMNFP_AttributeId = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"primaryKey\":false,\"EntityID\":228,\"FieldId\":32597,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":1047,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":false,\"RelationParentName\":\"SCMNFP_Attribute\",\"RelationParentModel\":\"SCMNFP_Attribute\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/SCMNFP_Attribute/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.Title}} {{item.Code}} </span>\",\"FieldsTemplate\":[{\"key\":\"Title\",\"value\":\"nvarchar(Max)\"},{\"key\":\"Code\",\"value\":\"nvarchar(Max)\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"modal\":true,\"label\":\"وضعیت کالا  \",\"tableView\":true,\"key\":\"SCMNFP_AttributeId\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"32597?EId=228&SubId=20\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
+}
+
+    <Dropdown Id=SCMNFP_ProductRequestDetails_SCMNFP_AttributeId  @ref="Ref_SCMNFP_ProductRequestDetails_SCMNFP_AttributeId" Label="وضعیت کالا  " CssClass=""  DisplayFormat="DropDown" ExternalApi=false NotMapped=false TextGrid=false Text="" Value="@SCMNFP_ProductRequestDetails.SCMNFP_AttributeId" FieldName="SCMNFP_AttributeId" OnItemSelected="ItemSelected_SCMNFP_ProductRequestDetailsSCMNFP_AttributeId" Component="Component_SCMNFP_ProductRequestDetailsSCMNFP_AttributeId" _Entity="_Entity" _EntityRow=SCMNFP_ProductRequestDetails>
+</Dropdown>
+@code {
+    public async Task ItemSelected_SCMNFP_ProductRequestDetailsSCMNFP_AttributeId(object _Item)
+    {
+        var Selected = Utility.JSON.ToObject<dynamic>(Utility.JSON.ToJson(_Item).Result).Result;
+     var Item = SCMNFP_ProductRequestDetails;
+
+      //Todo
+ //برای اینکه آی دی تغییر کند اینجا نیز باید تغییر کند
+ //بهتر است از پرایمیری کی استفاده شود
+ if (_Item != null)
+ {
+     Console.WriteLine(" Item Is Not Null");
+    Item.SCMNFP_AttributeId = Selected.Id;
+    
+ }
+ else
+ {
+     Console.WriteLine(" Item Is Null");
+      Item.SCMNFP_AttributeId =EntityHelper.SetPropertyNull(Item.SCMNFP_AttributeId);
+ }
+ Item.SCMNFP_Attribute = await Utility.JSON.ToObject<Entity.SCMNFP_Attribute>(await Utility.JSON.ToJson(_Item));
     StateHasChanged();
 
 
@@ -636,6 +711,9 @@ MainModel.SCMNFP_Priority = ((Entity.SCMNFP_ProductRequestDetails)EditModel).SCM
 MainModel.DescriptionApplicant = ((Entity.SCMNFP_ProductRequestDetails)EditModel).DescriptionApplicant;
 MainModel.SCMNFP_CostCenterId = ((Entity.SCMNFP_ProductRequestDetails)EditModel).SCMNFP_CostCenterId;
 MainModel.SCMNFP_CostCenter = ((Entity.SCMNFP_ProductRequestDetails)EditModel).SCMNFP_CostCenter;
+MainModel.LotNumber = ((Entity.SCMNFP_ProductRequestDetails)EditModel).LotNumber;
+MainModel.SCMNFP_AttributeId = ((Entity.SCMNFP_ProductRequestDetails)EditModel).SCMNFP_AttributeId;
+MainModel.SCMNFP_Attribute = ((Entity.SCMNFP_ProductRequestDetails)EditModel).SCMNFP_Attribute;
 
     }
     else
@@ -776,8 +854,8 @@ public async void RowDubbleClickGrid_SCMNFP_ProductRequestDetails(GridRowClickEv
     {
         Console.WriteLine("#log OnInitializedAsync");
 
-        TableGet = await Utility.JSON.ToObject<Table>("{\"Name\":\"SCMNFP_ProductRequest\",\"GetNameAs\":\"SCMNFP_ProductRequest\",\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"RequestID\",\"GetNameAs\":\"RequestID\"},{\"Name\":\"CreateUser\",\"GetNameAs\":\"CreateUser\"},{\"Name\":\"UpdateUser\",\"GetNameAs\":\"UpdateUser\"},{\"Name\":\"CreateDate\",\"GetNameAs\":\"CreateDate\"},{\"Name\":\"UpdateDate\",\"GetNameAs\":\"UpdateDate\"},{\"Name\":\"IsDelete\",\"GetNameAs\":\"IsDelete\"},{\"Name\":\"UserStarterCompanyName\",\"GetNameAs\":\"UserStarterCompanyName\"},{\"Name\":\"UserStarterUnitName\",\"GetNameAs\":\"UserStarterUnitName\"},{\"Name\":\"UserStarterSectionName\",\"GetNameAs\":\"UserStarterSectionName\"},{\"Name\":\"UserStarterFullName\",\"GetNameAs\":\"UserStarterFullName\"}],\"Relation\":[{\"Name\":\"SCMNFP_ProductRequestDetails\",\"GetNameAs\":\"SCMNFP_ProductRequestDetails\",\"ModeErtebat\":2,\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"RequestID\",\"GetNameAs\":\"RequestID\"},{\"Name\":\"CreateUser\",\"GetNameAs\":\"CreateUser\"},{\"Name\":\"UpdateUser\",\"GetNameAs\":\"UpdateUser\"},{\"Name\":\"CreateDate\",\"GetNameAs\":\"CreateDate\"},{\"Name\":\"UpdateDate\",\"GetNameAs\":\"UpdateDate\"},{\"Name\":\"IsDelete\",\"GetNameAs\":\"IsDelete\"},{\"Name\":\"ProductName\",\"GetNameAs\":\"ProductName\"},{\"Name\":\"ProductCode\",\"GetNameAs\":\"ProductCode\"},{\"Name\":\"ProductUnit\",\"GetNameAs\":\"ProductUnit\"},{\"Name\":\"ProductInventory\",\"GetNameAs\":\"ProductInventory\"},{\"Name\":\"ProductRequestingQTY\",\"GetNameAs\":\"ProductRequestingQTY\"},{\"Name\":\"SCMNFP_PriorityId\",\"GetNameAs\":\"SCMNFP_PriorityId\"},{\"Name\":\"DescriptionApplicant\",\"GetNameAs\":\"DescriptionApplicant\"},{\"Name\":\"SCMNFP_CostCenterId\",\"GetNameAs\":\"SCMNFP_CostCenterId\"}],\"Relation\":[{\"Name\":\"SCMNFP_Priority\",\"GetNameAs\":\"SCMNFP_Priority\",\"ModeErtebat\":1,\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"PriorityTitle\",\"GetNameAs\":\"PriorityTitle\"},{\"Name\":\"PriorityDateTime\",\"GetNameAs\":\"PriorityDateTime\"}]},{\"Name\":\"SCMNFP_CostCenter\",\"GetNameAs\":\"SCMNFP_CostCenter\",\"ModeErtebat\":1,\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"CostCenterCode\",\"GetNameAs\":\"CostCenterCode\"},{\"Name\":\"CostCenterTitle\",\"GetNameAs\":\"CostCenterTitle\"}]}]}]}");
-        TablePost = await Utility.JSON.ToObject<Table>("{\"Name\":\"SCMNFP_ProductRequest\",\"GetNameAs\":\"SCMNFP_ProductRequest\",\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"RequestID\",\"GetNameAs\":\"RequestID\"},{\"Name\":\"CreateUser\",\"GetNameAs\":\"CreateUser\"},{\"Name\":\"UpdateUser\",\"GetNameAs\":\"UpdateUser\"},{\"Name\":\"CreateDate\",\"GetNameAs\":\"CreateDate\"},{\"Name\":\"UpdateDate\",\"GetNameAs\":\"UpdateDate\"},{\"Name\":\"IsDelete\",\"GetNameAs\":\"IsDelete\"},{\"Name\":\"UserStarterCompanyName\",\"GetNameAs\":\"UserStarterCompanyName\"},{\"Name\":\"UserStarterUnitName\",\"GetNameAs\":\"UserStarterUnitName\"},{\"Name\":\"UserStarterSectionName\",\"GetNameAs\":\"UserStarterSectionName\"},{\"Name\":\"UserStarterFullName\",\"GetNameAs\":\"UserStarterFullName\"}],\"Relation\":[{\"Name\":\"SCMNFP_ProductRequestDetails\",\"GetNameAs\":\"SCMNFP_ProductRequestDetails\",\"ModeErtebat\":2,\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"RequestID\",\"GetNameAs\":\"RequestID\"},{\"Name\":\"CreateUser\",\"GetNameAs\":\"CreateUser\"},{\"Name\":\"UpdateUser\",\"GetNameAs\":\"UpdateUser\"},{\"Name\":\"CreateDate\",\"GetNameAs\":\"CreateDate\"},{\"Name\":\"UpdateDate\",\"GetNameAs\":\"UpdateDate\"},{\"Name\":\"IsDelete\",\"GetNameAs\":\"IsDelete\"},{\"Name\":\"ProductName\",\"GetNameAs\":\"ProductName\"},{\"Name\":\"ProductCode\",\"GetNameAs\":\"ProductCode\"},{\"Name\":\"ProductUnit\",\"GetNameAs\":\"ProductUnit\"},{\"Name\":\"ProductInventory\",\"GetNameAs\":\"ProductInventory\"},{\"Name\":\"ProductRequestingQTY\",\"GetNameAs\":\"ProductRequestingQTY\"},{\"Name\":\"SCMNFP_PriorityId\",\"GetNameAs\":\"SCMNFP_PriorityId\"},{\"Name\":\"DescriptionApplicant\",\"GetNameAs\":\"DescriptionApplicant\"},{\"Name\":\"SCMNFP_CostCenterId\",\"GetNameAs\":\"SCMNFP_CostCenterId\"}],\"Relation\":[]}]}");
+        TableGet = await Utility.JSON.ToObject<Table>("{\"Name\":\"SCMNFP_ProductRequest\",\"GetNameAs\":\"SCMNFP_ProductRequest\",\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"RequestID\",\"GetNameAs\":\"RequestID\"},{\"Name\":\"CreateUser\",\"GetNameAs\":\"CreateUser\"},{\"Name\":\"UpdateUser\",\"GetNameAs\":\"UpdateUser\"},{\"Name\":\"CreateDate\",\"GetNameAs\":\"CreateDate\"},{\"Name\":\"UpdateDate\",\"GetNameAs\":\"UpdateDate\"},{\"Name\":\"IsDelete\",\"GetNameAs\":\"IsDelete\"},{\"Name\":\"UserStarterCompanyName\",\"GetNameAs\":\"UserStarterCompanyName\"},{\"Name\":\"UserStarterUnitName\",\"GetNameAs\":\"UserStarterUnitName\"},{\"Name\":\"UserStarterSectionName\",\"GetNameAs\":\"UserStarterSectionName\"},{\"Name\":\"UserStarterFullName\",\"GetNameAs\":\"UserStarterFullName\"}],\"Relation\":[{\"Name\":\"SCMNFP_ProductRequestDetails\",\"GetNameAs\":\"SCMNFP_ProductRequestDetails\",\"ModeErtebat\":2,\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"RequestID\",\"GetNameAs\":\"RequestID\"},{\"Name\":\"CreateUser\",\"GetNameAs\":\"CreateUser\"},{\"Name\":\"UpdateUser\",\"GetNameAs\":\"UpdateUser\"},{\"Name\":\"CreateDate\",\"GetNameAs\":\"CreateDate\"},{\"Name\":\"UpdateDate\",\"GetNameAs\":\"UpdateDate\"},{\"Name\":\"IsDelete\",\"GetNameAs\":\"IsDelete\"},{\"Name\":\"ProductName\",\"GetNameAs\":\"ProductName\"},{\"Name\":\"ProductCode\",\"GetNameAs\":\"ProductCode\"},{\"Name\":\"ProductUnit\",\"GetNameAs\":\"ProductUnit\"},{\"Name\":\"ProductInventory\",\"GetNameAs\":\"ProductInventory\"},{\"Name\":\"ProductRequestingQTY\",\"GetNameAs\":\"ProductRequestingQTY\"},{\"Name\":\"SCMNFP_PriorityId\",\"GetNameAs\":\"SCMNFP_PriorityId\"},{\"Name\":\"DescriptionApplicant\",\"GetNameAs\":\"DescriptionApplicant\"},{\"Name\":\"SCMNFP_CostCenterId\",\"GetNameAs\":\"SCMNFP_CostCenterId\"},{\"Name\":\"LotNumber\",\"GetNameAs\":\"LotNumber\"},{\"Name\":\"SCMNFP_AttributeId\",\"GetNameAs\":\"SCMNFP_AttributeId\"}],\"Relation\":[{\"Name\":\"SCMNFP_Priority\",\"GetNameAs\":\"SCMNFP_Priority\",\"ModeErtebat\":1,\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"PriorityTitle\",\"GetNameAs\":\"PriorityTitle\"},{\"Name\":\"PriorityDateTime\",\"GetNameAs\":\"PriorityDateTime\"}]},{\"Name\":\"SCMNFP_CostCenter\",\"GetNameAs\":\"SCMNFP_CostCenter\",\"ModeErtebat\":1,\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"CostCenterCode\",\"GetNameAs\":\"CostCenterCode\"},{\"Name\":\"CostCenterTitle\",\"GetNameAs\":\"CostCenterTitle\"}]},{\"Name\":\"SCMNFP_Attribute\",\"GetNameAs\":\"SCMNFP_Attribute\",\"ModeErtebat\":1,\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"Code\",\"GetNameAs\":\"Code\"},{\"Name\":\"Title\",\"GetNameAs\":\"Title\"}]}]}]}");
+        TablePost = await Utility.JSON.ToObject<Table>("{\"Name\":\"SCMNFP_ProductRequest\",\"GetNameAs\":\"SCMNFP_ProductRequest\",\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"RequestID\",\"GetNameAs\":\"RequestID\"},{\"Name\":\"CreateUser\",\"GetNameAs\":\"CreateUser\"},{\"Name\":\"UpdateUser\",\"GetNameAs\":\"UpdateUser\"},{\"Name\":\"CreateDate\",\"GetNameAs\":\"CreateDate\"},{\"Name\":\"UpdateDate\",\"GetNameAs\":\"UpdateDate\"},{\"Name\":\"IsDelete\",\"GetNameAs\":\"IsDelete\"},{\"Name\":\"UserStarterCompanyName\",\"GetNameAs\":\"UserStarterCompanyName\"},{\"Name\":\"UserStarterUnitName\",\"GetNameAs\":\"UserStarterUnitName\"},{\"Name\":\"UserStarterSectionName\",\"GetNameAs\":\"UserStarterSectionName\"},{\"Name\":\"UserStarterFullName\",\"GetNameAs\":\"UserStarterFullName\"}],\"Relation\":[{\"Name\":\"SCMNFP_ProductRequestDetails\",\"GetNameAs\":\"SCMNFP_ProductRequestDetails\",\"ModeErtebat\":2,\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"RequestID\",\"GetNameAs\":\"RequestID\"},{\"Name\":\"CreateUser\",\"GetNameAs\":\"CreateUser\"},{\"Name\":\"UpdateUser\",\"GetNameAs\":\"UpdateUser\"},{\"Name\":\"CreateDate\",\"GetNameAs\":\"CreateDate\"},{\"Name\":\"UpdateDate\",\"GetNameAs\":\"UpdateDate\"},{\"Name\":\"IsDelete\",\"GetNameAs\":\"IsDelete\"},{\"Name\":\"ProductName\",\"GetNameAs\":\"ProductName\"},{\"Name\":\"ProductCode\",\"GetNameAs\":\"ProductCode\"},{\"Name\":\"ProductUnit\",\"GetNameAs\":\"ProductUnit\"},{\"Name\":\"ProductInventory\",\"GetNameAs\":\"ProductInventory\"},{\"Name\":\"ProductRequestingQTY\",\"GetNameAs\":\"ProductRequestingQTY\"},{\"Name\":\"SCMNFP_PriorityId\",\"GetNameAs\":\"SCMNFP_PriorityId\"},{\"Name\":\"DescriptionApplicant\",\"GetNameAs\":\"DescriptionApplicant\"},{\"Name\":\"SCMNFP_CostCenterId\",\"GetNameAs\":\"SCMNFP_CostCenterId\"},{\"Name\":\"LotNumber\",\"GetNameAs\":\"LotNumber\"},{\"Name\":\"SCMNFP_AttributeId\",\"GetNameAs\":\"SCMNFP_AttributeId\"}],\"Relation\":[]}]}");
 
         config = CKEditorBundleOptions.DefaultConfig.WithHtmlEditing();
         config.Language = "fa";

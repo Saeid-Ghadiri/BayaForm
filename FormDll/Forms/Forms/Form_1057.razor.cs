@@ -223,21 +223,21 @@ namespace Forms.Forms
 		{
 			bool IsValid = true;
 
-			var List = _Entity.SCMNFP_ProductRequestDetails.ToList();
+			// var List = _Entity.SCMNFP_ProductRequestDetails.ToList();
 
-			// - نام کالا
-			if (Item.SCMNFP_SCMNFP_AnbarId == null)
-			{
-				IsValid = false;
+			// // - نام کالا
+			// if (Item.SCMNFP_SCMNFP_AnbarId == null)
+			// {
+			// 	IsValid = false;
 
-				toastService.ShowError("لطفا گزینه انبار را تکمیل نمایید",
-					settings =>
-					{
-						settings.Timeout = 4;
-						settings.ShowProgressBar = true;
-						settings.PauseProgressOnHover = true;
-					});
-			}
+			// 	toastService.ShowError("لطفا گزینه انبار را تکمیل نمایید",
+			// 		settings =>
+			// 		{
+			// 			settings.Timeout = 4;
+			// 			settings.ShowProgressBar = true;
+			// 			settings.PauseProgressOnHover = true;
+			// 		});
+			// }
 
 			return IsValid;
 		}

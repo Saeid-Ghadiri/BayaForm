@@ -13,7 +13,59 @@
 @using Forms.Domain.Utility
 @using Castle.DynamicLinqQueryBuilder
 <style>
-    .form-check-input[type=checkbox] {
+    .custom-class {
+  display: flex;
+  /* معادل d-flex */
+  justify-content: flex-end;
+  /* معادل justify-content-right */
+  text-align: center;
+  /* معادل text-center */
+  padding-top: 0.25rem;
+  /* معادل pt-1 در Bootstrap */
+  font-size: 1.5rem;
+  /* معادل fs-4 */
+  color: #000000;
+  /* معادل text-black */
+}
+
+.bg-requester {
+  background-color: lightblue;
+}
+
+.form-title {
+  font-size: 1.25rem;
+  font-weight: 900;
+  padding: 0.5rem;
+  text-align: center;
+}
+
+.form-serial {
+  text-align: center;
+  font-size: 1.25rem;
+  color: #9d9d9e;
+  background-color: #f4f5f7;
+  border-radius: 0.375rem;
+  padding: 0.2rem;
+}
+
+.userHolderBox {
+  max-width: 700px;
+}
+
+.userboxscroll {
+  width: 680px;
+}
+
+.userInfoBox {
+  width: 165px;
+  display: inline-block;
+}
+
+.userInfoBox .form-control {
+  font-size: 13px;
+}
+
+.form-check-input[type=checkbox] {
   margin-inline-start: 5px !important;
 }
 
@@ -27,61 +79,33 @@
   direction: ltr;
 }
 
-.html-visible {
-  display: none !important;
-}
-
-.dxbl-grid-header .dxbl-grid-action .dxbl-grid-table .html-visible {
-  display: none !important;
-}
-
-.dxbl-grid-table .html-visible {
-  display: none !important;
-}
-
-/* Start Progress */
-/* Loading Overlay Styles */
-.form-loading-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(255, 255, 255, 0.95);
-  z-index: 99999;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: flex-start;
-  padding-top: 15vh;
-  pointer-events: all;
-}
-
-.form-loading-progress-container {
-  background: white;
-  padding: 2.5rem;
-  border-radius: 12px;
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
-  min-width: 450px;
-  max-width: 600px;
-  text-align: center;
-}
-
-.form-content-loading {
-  position: relative;
-  pointer-events: none;
-  opacity: 0.2;
-  user-select: none;
-}
-
-/* End Progress */
-
-.detailtable td * {
+.detailtable1 td * {
   text-wrap: nowrap;
 }
 
-.dxbl-grid-table .html-visible{
-    display: none !important;
+.detailtable2 td * {
+  text-wrap: nowrap;
+}
+
+.detailtable1 table thead tr>*:nth-child(12),
+.detailtable1 table tbody tr>*:nth-child(12) {
+  display: none;
+}
+
+/* .Gsyscol.dxbl-col-md-6:has(.blazor-ck-editor) {
+  -webkit-box-flex: 0;
+  -webkit-flex: 0 0 auto;
+  -ms-flex: 0 0 auto;
+  flex: 0 0 auto;
+  width: 100%
+} */
+
+.Gsyscol:has(.blazor-ck-editor) {
+  -webkit-box-flex: 0;
+  -webkit-flex: 0 0 auto;
+  -ms-flex: 0 0 auto;
+  flex: 0 0 auto;
+  width: 100%
 }
 </style>
 
@@ -104,40 +128,36 @@
     
 </div>
 
-<div class="row ">
-    
-<div class="col-md-6">
-    
-<div class="row  card flex-row pb-2 m-1 border-0 bg-lightblue">
-    
-<div class="col-md-12">
-    <div  class="">
-    <div class="fw-black fs-6 rounded p-2 mt-2" style="background-color: #258999; color: #fff;">
+<div class=" p-2 m-1 border-0 bg-requester rounded userHolderBox">
+    <div  class="pb-2">
+    <div class="bg-light fw-black fs-6 rounded px-2 py-2" style="">
   کاربر درخواست دهنده
 </div>
 </div>
 
-</div>
-
-<div class="col-md-3">
+<div class="overflow-x-auto pb-2">
+    
+<div class="userboxscroll">
+    
+<div class="userInfoBox">
     
 <Input Id="UserStarterFullName" @ref="Ref_UserStarterFullName" Label="کاربر"   Disabled=true  @bind-Value="_Entity.UserStarterFullName" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"maxlength\":\"400\"}").Result))></Input>
 
 </div>
 
-<div class="col-md-3">
+<div class="userInfoBox">
     
 <Input Id="UserStarterCompanyName" @ref="Ref_UserStarterCompanyName" Label="شرکت کاربر	"   Disabled=true  @bind-Value="_Entity.UserStarterCompanyName" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"maxlength\":\"250\"}").Result))></Input>
 
 </div>
 
-<div class="col-md-3">
+<div class="userInfoBox">
     
 <Input Id="UserStarterUnitName" @ref="Ref_UserStarterUnitName" Label="واحد کاربر"   Disabled=true  @bind-Value="_Entity.UserStarterUnitName" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"maxlength\":\"250\"}").Result))></Input>
 
 </div>
 
-<div class="col-md-3">
+<div class="userInfoBox">
     
 <Input Id="UserStarterSectionName" @ref="Ref_UserStarterSectionName" Label="قسمت کاربر"   Disabled=true  @bind-Value="_Entity.UserStarterSectionName" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"maxlength\":\"250\"}").Result))></Input>
 
@@ -145,10 +165,6 @@
 
 </div>
 
-</div>
-
-<div class="col-md-6">
-    
 </div>
 
 </div>
@@ -168,7 +184,7 @@
      
  
 @code {
-    Baya.Models.ViewEngine.View_Component Component_IDMS_RDC_MasterTrackingCode = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"EntityName\":\"بخش اصلی سیستم تحقیق و توسعه\",\"primaryKey\":false,\"EntityID\":740,\"FieldId\":30798,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":1034,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":true,\"RelationParentName\":\"\",\"RelationParentModel\":\"\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/IDMS_RDC_Master/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.RequestTrakingCode}} </span>\",\"FieldsTemplate\":[{\"key\":\"RequestTrakingCode\",\"value\":\"nvarchar(Max)\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"searchField\":\"RequestTrakingCode\",\"disabled\":true,\"modal\":true,\"label\":\"کد پیگیری\",\"tableView\":true,\"key\":\"TrackingCode\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"30798?EId=740&SubId=31\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
+    Baya.Models.ViewEngine.View_Component Component_IDMS_RDC_MasterTrackingCode = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"EntityName\":\"بخش اصلی سیستم تحقیق و توسعه\",\"primaryKey\":false,\"EntityID\":740,\"FieldId\":30798,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":1034,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":true,\"RelationParentName\":\"\",\"RelationParentModel\":\"\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/IDMS_RDC_Master/GetList\",\"_Parameters\":[]},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.RequestTrakingCode}} </span>\",\"FieldsTemplate\":[{\"key\":\"RequestTrakingCode\",\"value\":\"nvarchar(Max)\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"searchField\":\"RequestTrakingCode\",\"disabled\":true,\"modal\":true,\"label\":\"کد پیگیری\",\"tableView\":true,\"key\":\"TrackingCode\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"30798?EId=740&SubId=31\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
 }
 
     <Dropdown Id=TrackingCode Disabled=true @ref="Ref_TrackingCode" Label="کد پیگیری" CssClass=""  DisplayFormat="DropDown" ExternalApi=true NotMapped=false TextGrid=false  Value="@_Entity.TrackingCode" FieldName="TrackingCode" OnItemSelected="ItemSelected_IDMS_RDC_MasterTrackingCode" Component="Component_IDMS_RDC_MasterTrackingCode" _Entity="_Entity" >
@@ -202,7 +218,7 @@
  
  
 @code {
-    Baya.Models.ViewEngine.View_Component Component_IDMS_RDC_MasterIDMS_RDC_AllData = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"EntityName\":\"بخش اصلی سیستم تحقیق و توسعه\",\"primaryKey\":false,\"EntityID\":740,\"FieldId\":30793,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":1034,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":true,\"RelationParentName\":\"\",\"RelationParentModel\":\"\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/IDMS_RDCAllData/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"inputFormat\":\"DataGrid\",\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"MasterId\",\"template\":\"<span>{{item.RequestTrakingCode}} {{item.UserStarterFullName}} {{item.UserStarterCompanyName}} {{item.UserStarterUnitName}} {{item.UserStarterSectionName}} {{item.ProductCategoryTitle}} {{item.ProductTitle}} </span>\",\"FieldsTemplate\":[{\"key\":\"RequestTrakingCode\",\"value\":\"nvarchar(Max)\"},{\"key\":\"UserStarterFullName\",\"value\":\"nvarchar(Max)\"},{\"key\":\"UserStarterCompanyName\",\"value\":\"nvarchar(Max)\"},{\"key\":\"UserStarterUnitName\",\"value\":\"nvarchar(Max)\"},{\"key\":\"UserStarterSectionName\",\"value\":\"nvarchar(Max)\"},{\"key\":\"ProductCategoryTitle\",\"value\":\"nvarchar(Max)\"},{\"key\":\"ProductTitle\",\"value\":\"nvarchar(Max)\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"searchField\":\"MasterId,RequestTrakingCode\",\"disabled\":true,\"modal\":true,\"label\":\"اطلاعات جداول اصلی و جزئیات درخواست\",\"tableView\":true,\"key\":\"IDMS_RDC_AllData\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"30793?EId=740&SubId=31\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
+    Baya.Models.ViewEngine.View_Component Component_IDMS_RDC_MasterIDMS_RDC_AllData = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"EntityName\":\"بخش اصلی سیستم تحقیق و توسعه\",\"primaryKey\":false,\"EntityID\":740,\"FieldId\":30793,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":1034,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":true,\"RelationParentName\":\"\",\"RelationParentModel\":\"\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/IDMS_RDCAllData/GetList\",\"_Parameters\":[]},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"inputFormat\":\"DataGrid\",\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"MasterId\",\"template\":\"<span>{{item.RequestTrakingCode}} {{item.UserStarterFullName}} {{item.UserStarterCompanyName}} {{item.UserStarterUnitName}} {{item.UserStarterSectionName}} {{item.ProductCategoryTitle}} {{item.ProductTitle}} </span>\",\"FieldsTemplate\":[{\"key\":\"RequestTrakingCode\",\"value\":\"nvarchar(Max)\"},{\"key\":\"UserStarterFullName\",\"value\":\"nvarchar(Max)\"},{\"key\":\"UserStarterCompanyName\",\"value\":\"nvarchar(Max)\"},{\"key\":\"UserStarterUnitName\",\"value\":\"nvarchar(Max)\"},{\"key\":\"UserStarterSectionName\",\"value\":\"nvarchar(Max)\"},{\"key\":\"ProductCategoryTitle\",\"value\":\"nvarchar(Max)\"},{\"key\":\"ProductTitle\",\"value\":\"nvarchar(Max)\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"searchField\":\"MasterId,RequestTrakingCode\",\"disabled\":true,\"modal\":true,\"label\":\"اطلاعات جداول اصلی و جزئیات درخواست\",\"tableView\":true,\"key\":\"IDMS_RDC_AllData\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"30793?EId=740&SubId=31\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
 }
 
     <Dropdown Id=IDMS_RDC_AllData Disabled=true @ref="Ref_IDMS_RDC_AllData" Label="اطلاعات جداول اصلی و جزئیات درخواست" CssClass=""  DisplayFormat="DataGrid" ExternalApi=true NotMapped=false TextGrid=false  Value="@_Entity.IDMS_RDC_AllData" FieldName="IDMS_RDC_AllData" OnItemSelected="ItemSelected_IDMS_RDC_MasterIDMS_RDC_AllData" Component="Component_IDMS_RDC_MasterIDMS_RDC_AllData" _Entity="_Entity" >
@@ -237,8 +253,8 @@
         EditFormButtonsVisible="false"
         CustomizeEditModel="CustomizeEditGrid_IDMS_RDC_Details"
         CustomizeElement="CustomizeRowsGrid_IDMS_RDC_Details" 
-        Component="@((Utility.JSON.ToObject<View_Component>("{\"primaryKey\":false,\"EntityID\":741,\"FieldId\":741,\"NotNull\":false,\"ViewId\":0,\"NotMapped\":false,\"Relation\":false,\"RelationExternal\":false,\"RelationChildModel\":\"IDMS_RDC_Details\",\"GridMainModel\":\"IDMS_RDC_Details\",\"widget\":{\"altInput\":false,\"allowInput\":false,\"clickOpens\":false,\"enableDate\":false,\"enableTime\":false,\"noCalendar\":false,\"useLocaleSettings\":false,\"hourIncrement\":0,\"minuteIncrement\":0,\"time_24hr\":false},\"wysiwyg\":false,\"data\":{},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"FieldsTemplate\":[],\"refreshOn\":\"data\",\"reorder\":false,\"addAnotherPosition\":\"bottom\",\"layoutFixed\":false,\"enableRowGroups\":false,\"initEmpty\":false,\"disabled\":true,\"modal\":true,\"label\":\"بخش جزئیات سیستم تحقیق و توسعه\",\"tableView\":true,\"key\":\"GridIDMS_RDC_MasterId_741\",\"type\":\"datagrid\",\"input\":true,\"placeholder\":\"GridIDMS_RDC_MasterId_741\",\"modalEdit\":true,\"customClass\":\"detailtable\",\"FieldUrl\":\"741?EId=741&SubId=31\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":false,\"AccessEdit\":true,\"AccessNew\":true,\"editmodelsaving\":\"GridIDMS_RDC_MasterId_741_editmodelsaving\",\"afterrendermodal\":\"GridIDMS_RDC_MasterId_741_afterrendermodal\"}").Result))"
-        CssClass="detailtable" >
+        Component="@((Utility.JSON.ToObject<View_Component>("{\"primaryKey\":false,\"EntityID\":741,\"FieldId\":741,\"NotNull\":false,\"ViewId\":0,\"NotMapped\":false,\"Relation\":false,\"RelationExternal\":false,\"RelationChildModel\":\"IDMS_RDC_Details\",\"GridMainModel\":\"IDMS_RDC_Details\",\"widget\":{\"altInput\":false,\"allowInput\":false,\"clickOpens\":false,\"enableDate\":false,\"enableTime\":false,\"noCalendar\":false,\"useLocaleSettings\":false,\"hourIncrement\":0,\"minuteIncrement\":0,\"time_24hr\":false},\"wysiwyg\":false,\"data\":{},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"FieldsTemplate\":[],\"refreshOn\":\"data\",\"reorder\":false,\"addAnotherPosition\":\"bottom\",\"layoutFixed\":false,\"enableRowGroups\":false,\"initEmpty\":false,\"disabled\":true,\"modal\":true,\"label\":\"بخش جزئیات سیستم تحقیق و توسعه\",\"tableView\":true,\"key\":\"GridIDMS_RDC_MasterId_741\",\"type\":\"datagrid\",\"input\":true,\"placeholder\":\"GridIDMS_RDC_MasterId_741\",\"modalEdit\":true,\"customClass\":\"detailtable1\",\"FieldUrl\":\"741?EId=741&SubId=31\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":false,\"AccessEdit\":true,\"AccessNew\":true,\"editmodelsaving\":\"GridIDMS_RDC_MasterId_741_editmodelsaving\",\"afterrendermodal\":\"GridIDMS_RDC_MasterId_741_afterrendermodal\"}").Result))"
+        CssClass="detailtable1" >
     <Columns>
     
 <DxGridCommandColumn Width="70px">
@@ -280,11 +296,11 @@
     <CellDisplayTemplate>
        
 @{
-    Baya.Models.ViewEngine.View_Component HeaderIDMS_ProductCategoriesId = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"primaryKey\":false,\"EntityID\":741,\"FieldId\":30701,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":1034,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":false,\"RelationParentName\":\"IDMS_ProductCategories\",\"RelationParentModel\":\"IDMS_ProductCategories\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/View_IDMS_ProductCategories_Root/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.Root}} </span>\",\"FieldsTemplate\":[{\"key\":\"Root\",\"value\":\"nvarchar(Max)\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"searchField\":\"Root\",\"disableLimit\":false,\"noRefreshOnScroll\":false,\"disabled\":false,\"modal\":true,\"label\":\"دسته بندی کلی\",\"tableView\":true,\"key\":\"IDMS_ProductCategoriesId\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"customClass\":\"dir_lrt Gcol-sm-8 Gcol-md-6 Gcol-lg-3\",\"FieldUrl\":\"30701?EId=741&SubId=31\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
+    Baya.Models.ViewEngine.View_Component HeaderIDMS_ProductCategoriesId = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"primaryKey\":false,\"EntityID\":741,\"FieldId\":30701,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":1034,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":true,\"RelationParentName\":\"IDMS_ProductCategories\",\"RelationParentModel\":\"IDMS_ProductCategories\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/View_IDMS_ProductCategories_Root/GetList\",\"_Parameters\":[]},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.RootContent}} </span>\",\"FieldsTemplate\":[{\"key\":\"RootContent\",\"value\":\"nvarchar(Max)\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"searchField\":\"RootContent\",\"disabled\":true,\"modal\":true,\"label\":\"دسته بندی کلی\",\"tableView\":true,\"key\":\"IDMS_ProductCategoriesId\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"30701?EId=741&SubId=31\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
     var RowIDMS_ProductCategoriesId = ((Entity.IDMS_RDC_Details)IDMS_ProductCategoriesId_.DataItem).IDMS_ProductCategoriesId;
 }
 
-<Dropdown ExternalApi=false CssClass="dir_lrt Gcol-sm-8 Gcol-md-6 Gcol-lg-3" NotMapped=false TextGrid=true Value="@RowIDMS_ProductCategoriesId"   FieldName="IDMS_ProductCategoriesId" OnItemSelected="ItemSelected_IDMS_RDC_DetailsIDMS_ProductCategoriesId_Header" Component="HeaderIDMS_ProductCategoriesId">
+<Dropdown ExternalApi=true CssClass="" NotMapped=false TextGrid=true Value="@RowIDMS_ProductCategoriesId"   FieldName="IDMS_ProductCategoriesId" OnItemSelected="ItemSelected_IDMS_RDC_DetailsIDMS_ProductCategoriesId_Header" Component="HeaderIDMS_ProductCategoriesId">
 </Dropdown>
 @code {
     public async Task ItemSelected_IDMS_RDC_DetailsIDMS_ProductCategoriesId_Header(object _Item)
@@ -306,11 +322,11 @@
     <CellDisplayTemplate>
        
 @{
-    Baya.Models.ViewEngine.View_Component HeaderIDMS_ProductTypesId = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"primaryKey\":false,\"EntityID\":741,\"FieldId\":31525,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":1034,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":false,\"RelationParentName\":\"IDMS_ProductTypes\",\"RelationParentModel\":\"IDMS_ProductTypes\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/IDMS_ProductTypes/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.Title}} </span>\",\"FieldsTemplate\":[{\"key\":\"Title\",\"value\":\"nvarchar(Max)\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"searchField\":\"Title\",\"disableLimit\":false,\"noRefreshOnScroll\":false,\"disabled\":false,\"modal\":true,\"label\":\"مشخصات نمونه\",\"tableView\":true,\"key\":\"IDMS_ProductTypesId\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"customClass\":\"Gcol-sm-8 Gcol-md-6 Gcol-lg-3\",\"FieldUrl\":\"31525?EId=741&SubId=31\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
+    Baya.Models.ViewEngine.View_Component HeaderIDMS_ProductTypesId = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"primaryKey\":false,\"EntityID\":741,\"FieldId\":31525,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":1034,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":false,\"RelationParentName\":\"IDMS_ProductTypes\",\"RelationParentModel\":\"IDMS_ProductTypes\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/IDMS_ProductTypes/GetList\",\"_Parameters\":[]},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.Title}} </span>\",\"FieldsTemplate\":[{\"key\":\"Title\",\"value\":\"nvarchar(Max)\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"searchField\":\"Title\",\"disableLimit\":false,\"noRefreshOnScroll\":false,\"disabled\":true,\"modal\":true,\"label\":\"مشخصات نمونه\",\"tableView\":true,\"key\":\"IDMS_ProductTypesId\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"customClass\":\"Gcol-sm-8 Gcol-md-6 Gcol-lg-6\",\"FieldUrl\":\"31525?EId=741&SubId=31\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
     var RowIDMS_ProductTypesId = ((Entity.IDMS_RDC_Details)IDMS_ProductTypesId_.DataItem).IDMS_ProductTypesId;
 }
 
-<Dropdown ExternalApi=false CssClass="Gcol-sm-8 Gcol-md-6 Gcol-lg-3" NotMapped=false TextGrid=true Value="@RowIDMS_ProductTypesId"   FieldName="IDMS_ProductTypesId" OnItemSelected="ItemSelected_IDMS_RDC_DetailsIDMS_ProductTypesId_Header" Component="HeaderIDMS_ProductTypesId">
+<Dropdown ExternalApi=false CssClass="Gcol-sm-8 Gcol-md-6 Gcol-lg-6" NotMapped=false TextGrid=true Value="@RowIDMS_ProductTypesId"   FieldName="IDMS_ProductTypesId" OnItemSelected="ItemSelected_IDMS_RDC_DetailsIDMS_ProductTypesId_Header" Component="HeaderIDMS_ProductTypesId">
 </Dropdown>
 @code {
     public async Task ItemSelected_IDMS_RDC_DetailsIDMS_ProductTypesId_Header(object _Item)
@@ -332,11 +348,11 @@
     <CellDisplayTemplate>
        
 @{
-    Baya.Models.ViewEngine.View_Component HeaderIDMS_CustomerId = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"primaryKey\":false,\"EntityID\":741,\"FieldId\":30712,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":1034,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":false,\"RelationParentName\":\"IDMS_Customer\",\"RelationParentModel\":\"IDMS_Customer\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/IDMS_Customer/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.CustomerTitle}} </span>\",\"FieldsTemplate\":[{\"key\":\"CustomerCode\",\"value\":\"int\"},{\"key\":\"CustomerTitle\",\"value\":\"nvarchar(Max)\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"searchField\":\"CustomerCode,CustomerTitle\",\"disableLimit\":false,\"noRefreshOnScroll\":false,\"disabled\":false,\"modal\":true,\"label\":\"مشتری\",\"tableView\":true,\"key\":\"IDMS_CustomerId\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"customClass\":\"Gcol-sm-8 Gcol-md-6 Gcol-lg-3\",\"FieldUrl\":\"30712?EId=741&SubId=31\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
+    Baya.Models.ViewEngine.View_Component HeaderIDMS_CustomerId = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"primaryKey\":false,\"EntityID\":741,\"FieldId\":30712,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":1034,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":true,\"RelationParentName\":\"IDMS_Customer\",\"RelationParentModel\":\"IDMS_Customer\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/View_IDMS_Customer_Root/GetList\",\"_Parameters\":[]},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.RootContent}} </span>\",\"FieldsTemplate\":[{\"key\":\"RootContent\",\"value\":\"nvarchar(Max)\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"searchField\":\"RootContent\",\"disableLimit\":false,\"noRefreshOnScroll\":false,\"disabled\":true,\"modal\":true,\"label\":\"مشتری\",\"tableView\":true,\"key\":\"IDMS_CustomerId\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"customClass\":\"Gcol-sm-8 Gcol-md-6 Gcol-lg-6\",\"FieldUrl\":\"30712?EId=741&SubId=31\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
     var RowIDMS_CustomerId = ((Entity.IDMS_RDC_Details)IDMS_CustomerId_.DataItem).IDMS_CustomerId;
 }
 
-<Dropdown ExternalApi=false CssClass="Gcol-sm-8 Gcol-md-6 Gcol-lg-3" NotMapped=false TextGrid=true Value="@RowIDMS_CustomerId"   FieldName="IDMS_CustomerId" OnItemSelected="ItemSelected_IDMS_RDC_DetailsIDMS_CustomerId_Header" Component="HeaderIDMS_CustomerId">
+<Dropdown ExternalApi=true CssClass="Gcol-sm-8 Gcol-md-6 Gcol-lg-6" NotMapped=false TextGrid=true Value="@RowIDMS_CustomerId"   FieldName="IDMS_CustomerId" OnItemSelected="ItemSelected_IDMS_RDC_DetailsIDMS_CustomerId_Header" Component="HeaderIDMS_CustomerId">
 </Dropdown>
 @code {
     public async Task ItemSelected_IDMS_RDC_DetailsIDMS_CustomerId_Header(object _Item)
@@ -358,11 +374,11 @@
     <CellDisplayTemplate>
        
 @{
-    Baya.Models.ViewEngine.View_Component HeaderIDMS_ResultingFromId = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"primaryKey\":false,\"EntityID\":741,\"FieldId\":30722,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":1034,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":false,\"RelationParentName\":\"IDMS_ResultingFrom\",\"RelationParentModel\":\"IDMS_ResultingFrom\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/IDMS_ResultingFrom/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.ResultingFromTitle}} </span>\",\"FieldsTemplate\":[{\"key\":\"ResultingFromCode\",\"value\":\"int\"},{\"key\":\"ResultingFromTitle\",\"value\":\"nvarchar(Max)\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"searchField\":\"ResultingFromCode,ResultingFromTitle\",\"disableLimit\":false,\"noRefreshOnScroll\":false,\"disabled\":false,\"modal\":true,\"label\":\"منتج از \",\"tableView\":true,\"key\":\"IDMS_ResultingFromId\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"customClass\":\"Gcol-sm-8 Gcol-md-6 Gcol-lg-3\",\"FieldUrl\":\"30722?EId=741&SubId=31\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
+    Baya.Models.ViewEngine.View_Component HeaderIDMS_ResultingFromId = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"primaryKey\":false,\"EntityID\":741,\"FieldId\":30722,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":1034,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":false,\"RelationParentName\":\"IDMS_ResultingFrom\",\"RelationParentModel\":\"IDMS_ResultingFrom\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/IDMS_ResultingFrom/GetList\",\"_Parameters\":[]},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.ResultingFromTitle}} </span>\",\"FieldsTemplate\":[{\"key\":\"ResultingFromCode\",\"value\":\"int\"},{\"key\":\"ResultingFromTitle\",\"value\":\"nvarchar(Max)\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"searchField\":\"ResultingFromCode,ResultingFromTitle\",\"disableLimit\":false,\"noRefreshOnScroll\":false,\"disabled\":true,\"modal\":true,\"label\":\"منتج از \",\"tableView\":true,\"key\":\"IDMS_ResultingFromId\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"customClass\":\"Gcol-sm-8 Gcol-md-6 Gcol-lg-6\",\"FieldUrl\":\"30722?EId=741&SubId=31\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
     var RowIDMS_ResultingFromId = ((Entity.IDMS_RDC_Details)IDMS_ResultingFromId_.DataItem).IDMS_ResultingFromId;
 }
 
-<Dropdown ExternalApi=false CssClass="Gcol-sm-8 Gcol-md-6 Gcol-lg-3" NotMapped=false TextGrid=true Value="@RowIDMS_ResultingFromId"   FieldName="IDMS_ResultingFromId" OnItemSelected="ItemSelected_IDMS_RDC_DetailsIDMS_ResultingFromId_Header" Component="HeaderIDMS_ResultingFromId">
+<Dropdown ExternalApi=false CssClass="Gcol-sm-8 Gcol-md-6 Gcol-lg-6" NotMapped=false TextGrid=true Value="@RowIDMS_ResultingFromId"   FieldName="IDMS_ResultingFromId" OnItemSelected="ItemSelected_IDMS_RDC_DetailsIDMS_ResultingFromId_Header" Component="HeaderIDMS_ResultingFromId">
 </Dropdown>
 @code {
     public async Task ItemSelected_IDMS_RDC_DetailsIDMS_ResultingFromId_Header(object _Item)
@@ -384,7 +400,25 @@
 
 <DxGridDataColumn  Caption="توضیحات درخواست دهنده"  FieldName="Description" />
 
-<DxGridDataColumn Context="html_" Caption="HTML" >
+<DxGridDataColumn Context="IsAgreedDate_" Caption="آیا تاریخ اعلام شده مورد توافق است؟ " >
+    <CellDisplayTemplate>
+       
+@{
+    var IDMS_RDC_Details_IsAgreedDate = ((Entity.IDMS_RDC_Details)IsAgreedDate_.DataItem).IsAgreedDate;
+}
+
+<p class="text-center " hidden="@(IDMS_RDC_Details_IsAgreedDate !=null ? !IDMS_RDC_Details_IsAgreedDate : true)">بله</p>
+
+<p class="text-center" hidden="@(IDMS_RDC_Details_IsAgreedDate !=null ? IDMS_RDC_Details_IsAgreedDate : true)">خیر</p>
+
+
+    </CellDisplayTemplate>
+</DxGridDataColumn>
+<DxGridDataColumn  Caption="تاریخ واقعی انجام کار درخواستی"  FieldName="RDC_ActualCompletionDate_Fa" />
+
+<DxGridDataColumn  Caption="توضیحات سرپرست RDC"  FieldName="RDC_SUPERVISOR_Description" />
+
+<DxGridDataColumn Context="html51_" Caption="-" >
     <CellDisplayTemplate>
       <div  class="Gcol-sm-8 Gcol-md-6 Gcol-lg-12">
     <hr class="hrdash bg-purple html-visible">
@@ -392,17 +426,21 @@
 
     </CellDisplayTemplate>
 </DxGridDataColumn>
-<DxGridDataColumn  Caption="تاریخ واقعی انجام کار درخواستی"  FieldName="RDC_ActualCompletionDate_Fa" />
-
-<DxGridDataColumn Context="html1_" Caption="HTML" >
+<DxGridDataColumn Context="IsAgreedDateByRequester_" Caption="تاریخ اعلام شده مورد توافق درخواست‌دهنده است؟" >
     <CellDisplayTemplate>
-      <div  class="Gcol-sm-8 Gcol-md-6 Gcol-lg-9">
-    <div class="html-visible d-none"></div>
-</div>
+       
+@{
+    var IDMS_RDC_Details_IsAgreedDateByRequester = ((Entity.IDMS_RDC_Details)IsAgreedDateByRequester_.DataItem).IsAgreedDateByRequester;
+}
+
+<p class="text-center " hidden="@(IDMS_RDC_Details_IsAgreedDateByRequester !=null ? !IDMS_RDC_Details_IsAgreedDateByRequester : true)">بله</p>
+
+<p class="text-center" hidden="@(IDMS_RDC_Details_IsAgreedDateByRequester !=null ? IDMS_RDC_Details_IsAgreedDateByRequester : true)">خیر</p>
+
 
     </CellDisplayTemplate>
 </DxGridDataColumn>
-<DxGridDataColumn  Caption="توضیحات سرپرست RDC"  FieldName="RDC_SUPERVISOR_Description" />
+<DxGridDataColumn  Caption="توضیحات عدم توافق درخواست‌دهنده"  FieldName="RequesterDateDisagreementReason" />
 
 <DxGridDataColumn  Caption="Id" Visible=false FieldName="Id" />
 
@@ -426,7 +464,7 @@
     <CellDisplayTemplate>
        
 @{
-    Baya.Models.ViewEngine.View_Component HeaderIDMS_ProductsId = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"primaryKey\":false,\"EntityID\":741,\"FieldId\":30702,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":1034,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":false,\"RelationParentName\":\"IDMS_Products\",\"RelationParentModel\":\"IDMS_Products\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/IDMS_Products/GetList?IDMS_ProductTypesId={{row.IDMS_ProductTypesId}}\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.ProductTitle}} </span>\",\"FieldsTemplate\":[{\"key\":\"ProductCode\",\"value\":\"int\"},{\"key\":\"ProductTitle\",\"value\":\"nvarchar(Max)\"}],\"dataSrc\":\"url\",\"refreshOn\":\"IDMS_RDC_Details.IDMS_ProductTypesId\",\"searchField\":\"ProductCode,ProductTitle\",\"clearOnRefresh\":true,\"disableLimit\":false,\"noRefreshOnScroll\":false,\"disabled\":false,\"modal\":true,\"label\":\"محصولات\",\"tableView\":true,\"key\":\"IDMS_ProductsId\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"customClass\":\"Gcol-sm-8 Gcol-md-6 Gcol-lg-3 d-none\",\"FieldUrl\":\"30702?EId=741&SubId=31\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
+    Baya.Models.ViewEngine.View_Component HeaderIDMS_ProductsId = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"primaryKey\":false,\"EntityID\":741,\"FieldId\":30702,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":1034,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":false,\"RelationParentName\":\"IDMS_Products\",\"RelationParentModel\":\"IDMS_Products\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/IDMS_Products/GetList\",\"_Parameters\":[{\"text\":\"IDMS_ProductTypesId={{row.IDMS_ProductTypesId}}\",\"Type\":1}]},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.ProductTitle}} </span>\",\"FieldsTemplate\":[{\"key\":\"ProductCode\",\"value\":\"int\"},{\"key\":\"ProductTitle\",\"value\":\"nvarchar(Max)\"}],\"dataSrc\":\"url\",\"refreshOn\":\"IDMS_RDC_Details.IDMS_ProductTypesId\",\"searchField\":\"ProductCode,ProductTitle\",\"clearOnRefresh\":true,\"disableLimit\":false,\"noRefreshOnScroll\":false,\"disabled\":true,\"modal\":true,\"label\":\"محصولات\",\"tableView\":true,\"key\":\"IDMS_ProductsId\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"customClass\":\"Gcol-sm-8 Gcol-md-6 Gcol-lg-3 d-none\",\"FieldUrl\":\"30702?EId=741&SubId=31\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
     var RowIDMS_ProductsId = ((Entity.IDMS_RDC_Details)IDMS_ProductsId_.DataItem).IDMS_ProductsId;
 }
 
@@ -460,10 +498,10 @@
      
  
 @code {
-    Baya.Models.ViewEngine.View_Component Component_IDMS_RDC_DetailsIDMS_ProductCategoriesId = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"primaryKey\":false,\"EntityID\":741,\"FieldId\":30701,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":1034,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":false,\"RelationParentName\":\"IDMS_ProductCategories\",\"RelationParentModel\":\"IDMS_ProductCategories\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/View_IDMS_ProductCategories_Root/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.Root}} </span>\",\"FieldsTemplate\":[{\"key\":\"Root\",\"value\":\"nvarchar(Max)\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"searchField\":\"Root\",\"disableLimit\":false,\"noRefreshOnScroll\":false,\"disabled\":false,\"modal\":true,\"label\":\"دسته بندی کلی\",\"tableView\":true,\"key\":\"IDMS_ProductCategoriesId\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"customClass\":\"dir_lrt Gcol-sm-8 Gcol-md-6 Gcol-lg-3\",\"FieldUrl\":\"30701?EId=741&SubId=31\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
+    Baya.Models.ViewEngine.View_Component Component_IDMS_RDC_DetailsIDMS_ProductCategoriesId = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"primaryKey\":false,\"EntityID\":741,\"FieldId\":30701,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":1034,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":true,\"RelationParentName\":\"IDMS_ProductCategories\",\"RelationParentModel\":\"IDMS_ProductCategories\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/View_IDMS_ProductCategories_Root/GetList\",\"_Parameters\":[]},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.RootContent}} </span>\",\"FieldsTemplate\":[{\"key\":\"RootContent\",\"value\":\"nvarchar(Max)\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"searchField\":\"RootContent\",\"disabled\":true,\"modal\":true,\"label\":\"دسته بندی کلی\",\"tableView\":true,\"key\":\"IDMS_ProductCategoriesId\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"30701?EId=741&SubId=31\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
 }
 
-    <Dropdown Id=IDMS_RDC_Details_IDMS_ProductCategoriesId  @ref="Ref_IDMS_RDC_Details_IDMS_ProductCategoriesId" Label="دسته بندی کلی" CssClass="dir_lrt Gcol-sm-8 Gcol-md-6 Gcol-lg-3"  DisplayFormat="DropDown" ExternalApi=false NotMapped=false TextGrid=false Text="" Value="@IDMS_RDC_Details.IDMS_ProductCategoriesId" FieldName="IDMS_ProductCategoriesId" OnItemSelected="ItemSelected_IDMS_RDC_DetailsIDMS_ProductCategoriesId" Component="Component_IDMS_RDC_DetailsIDMS_ProductCategoriesId" _Entity="_Entity" _EntityRow=IDMS_RDC_Details>
+    <Dropdown Id=IDMS_RDC_Details_IDMS_ProductCategoriesId Disabled=true @ref="Ref_IDMS_RDC_Details_IDMS_ProductCategoriesId" Label="دسته بندی کلی" CssClass=""  DisplayFormat="DropDown" ExternalApi=true NotMapped=false TextGrid=false  Value="@IDMS_RDC_Details.IDMS_ProductCategoriesId" FieldName="IDMS_ProductCategoriesId" OnItemSelected="ItemSelected_IDMS_RDC_DetailsIDMS_ProductCategoriesId" Component="Component_IDMS_RDC_DetailsIDMS_ProductCategoriesId" _Entity="_Entity" _EntityRow=IDMS_RDC_Details>
 </Dropdown>
 @code {
     public async Task ItemSelected_IDMS_RDC_DetailsIDMS_ProductCategoriesId(object _Item)
@@ -471,22 +509,7 @@
         var Selected = Utility.JSON.ToObject<dynamic>(Utility.JSON.ToJson(_Item).Result).Result;
      var Item = IDMS_RDC_Details;
 
-      //Todo
- //برای اینکه آی دی تغییر کند اینجا نیز باید تغییر کند
- //بهتر است از پرایمیری کی استفاده شود
- if (_Item != null)
- {
-     Console.WriteLine(" Item Is Not Null");
     Item.IDMS_ProductCategoriesId = Selected.Id;
-    
- }
- else
- {
-     Console.WriteLine(" Item Is Null");
-      Item.IDMS_ProductCategoriesId =EntityHelper.SetPropertyNull(Item.IDMS_ProductCategoriesId);
- }
- Item.IDMS_ProductCategories = await Utility.JSON.ToObject<Entity.IDMS_ProductCategories>(await Utility.JSON.ToJson(_Item));
-    StateHasChanged();
 
 
     
@@ -501,10 +524,10 @@
      
  
 @code {
-    Baya.Models.ViewEngine.View_Component Component_IDMS_RDC_DetailsIDMS_ProductTypesId = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"primaryKey\":false,\"EntityID\":741,\"FieldId\":31525,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":1034,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":false,\"RelationParentName\":\"IDMS_ProductTypes\",\"RelationParentModel\":\"IDMS_ProductTypes\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/IDMS_ProductTypes/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.Title}} </span>\",\"FieldsTemplate\":[{\"key\":\"Title\",\"value\":\"nvarchar(Max)\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"searchField\":\"Title\",\"disableLimit\":false,\"noRefreshOnScroll\":false,\"disabled\":false,\"modal\":true,\"label\":\"مشخصات نمونه\",\"tableView\":true,\"key\":\"IDMS_ProductTypesId\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"customClass\":\"Gcol-sm-8 Gcol-md-6 Gcol-lg-3\",\"FieldUrl\":\"31525?EId=741&SubId=31\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
+    Baya.Models.ViewEngine.View_Component Component_IDMS_RDC_DetailsIDMS_ProductTypesId = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"primaryKey\":false,\"EntityID\":741,\"FieldId\":31525,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":1034,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":false,\"RelationParentName\":\"IDMS_ProductTypes\",\"RelationParentModel\":\"IDMS_ProductTypes\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/IDMS_ProductTypes/GetList\",\"_Parameters\":[]},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.Title}} </span>\",\"FieldsTemplate\":[{\"key\":\"Title\",\"value\":\"nvarchar(Max)\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"searchField\":\"Title\",\"disableLimit\":false,\"noRefreshOnScroll\":false,\"disabled\":true,\"modal\":true,\"label\":\"مشخصات نمونه\",\"tableView\":true,\"key\":\"IDMS_ProductTypesId\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"customClass\":\"Gcol-sm-8 Gcol-md-6 Gcol-lg-6\",\"FieldUrl\":\"31525?EId=741&SubId=31\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
 }
 
-    <Dropdown Id=IDMS_RDC_Details_IDMS_ProductTypesId  @ref="Ref_IDMS_RDC_Details_IDMS_ProductTypesId" Label="مشخصات نمونه" CssClass="Gcol-sm-8 Gcol-md-6 Gcol-lg-3"  DisplayFormat="DropDown" ExternalApi=false NotMapped=false TextGrid=false Text="" Value="@IDMS_RDC_Details.IDMS_ProductTypesId" FieldName="IDMS_ProductTypesId" OnItemSelected="ItemSelected_IDMS_RDC_DetailsIDMS_ProductTypesId" Component="Component_IDMS_RDC_DetailsIDMS_ProductTypesId" _Entity="_Entity" _EntityRow=IDMS_RDC_Details>
+    <Dropdown Id=IDMS_RDC_Details_IDMS_ProductTypesId Disabled=true @ref="Ref_IDMS_RDC_Details_IDMS_ProductTypesId" Label="مشخصات نمونه" CssClass="Gcol-sm-8 Gcol-md-6 Gcol-lg-6"  DisplayFormat="DropDown" ExternalApi=false NotMapped=false TextGrid=false Text="" Value="@IDMS_RDC_Details.IDMS_ProductTypesId" FieldName="IDMS_ProductTypesId" OnItemSelected="ItemSelected_IDMS_RDC_DetailsIDMS_ProductTypesId" Component="Component_IDMS_RDC_DetailsIDMS_ProductTypesId" _Entity="_Entity" _EntityRow=IDMS_RDC_Details>
 </Dropdown>
 @code {
     public async Task ItemSelected_IDMS_RDC_DetailsIDMS_ProductTypesId(object _Item)
@@ -542,10 +565,10 @@
      
  
 @code {
-    Baya.Models.ViewEngine.View_Component Component_IDMS_RDC_DetailsIDMS_CustomerId = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"primaryKey\":false,\"EntityID\":741,\"FieldId\":30712,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":1034,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":false,\"RelationParentName\":\"IDMS_Customer\",\"RelationParentModel\":\"IDMS_Customer\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/IDMS_Customer/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.CustomerTitle}} </span>\",\"FieldsTemplate\":[{\"key\":\"CustomerCode\",\"value\":\"int\"},{\"key\":\"CustomerTitle\",\"value\":\"nvarchar(Max)\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"searchField\":\"CustomerCode,CustomerTitle\",\"disableLimit\":false,\"noRefreshOnScroll\":false,\"disabled\":false,\"modal\":true,\"label\":\"مشتری\",\"tableView\":true,\"key\":\"IDMS_CustomerId\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"customClass\":\"Gcol-sm-8 Gcol-md-6 Gcol-lg-3\",\"FieldUrl\":\"30712?EId=741&SubId=31\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
+    Baya.Models.ViewEngine.View_Component Component_IDMS_RDC_DetailsIDMS_CustomerId = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"primaryKey\":false,\"EntityID\":741,\"FieldId\":30712,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":1034,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":true,\"RelationParentName\":\"IDMS_Customer\",\"RelationParentModel\":\"IDMS_Customer\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/View_IDMS_Customer_Root/GetList\",\"_Parameters\":[]},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.RootContent}} </span>\",\"FieldsTemplate\":[{\"key\":\"RootContent\",\"value\":\"nvarchar(Max)\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"searchField\":\"RootContent\",\"disableLimit\":false,\"noRefreshOnScroll\":false,\"disabled\":true,\"modal\":true,\"label\":\"مشتری\",\"tableView\":true,\"key\":\"IDMS_CustomerId\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"customClass\":\"Gcol-sm-8 Gcol-md-6 Gcol-lg-6\",\"FieldUrl\":\"30712?EId=741&SubId=31\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
 }
 
-    <Dropdown Id=IDMS_RDC_Details_IDMS_CustomerId  @ref="Ref_IDMS_RDC_Details_IDMS_CustomerId" Label="مشتری" CssClass="Gcol-sm-8 Gcol-md-6 Gcol-lg-3"  DisplayFormat="DropDown" ExternalApi=false NotMapped=false TextGrid=false Text="" Value="@IDMS_RDC_Details.IDMS_CustomerId" FieldName="IDMS_CustomerId" OnItemSelected="ItemSelected_IDMS_RDC_DetailsIDMS_CustomerId" Component="Component_IDMS_RDC_DetailsIDMS_CustomerId" _Entity="_Entity" _EntityRow=IDMS_RDC_Details>
+    <Dropdown Id=IDMS_RDC_Details_IDMS_CustomerId Disabled=true @ref="Ref_IDMS_RDC_Details_IDMS_CustomerId" Label="مشتری" CssClass="Gcol-sm-8 Gcol-md-6 Gcol-lg-6"  DisplayFormat="DropDown" ExternalApi=true NotMapped=false TextGrid=false  Value="@IDMS_RDC_Details.IDMS_CustomerId" FieldName="IDMS_CustomerId" OnItemSelected="ItemSelected_IDMS_RDC_DetailsIDMS_CustomerId" Component="Component_IDMS_RDC_DetailsIDMS_CustomerId" _Entity="_Entity" _EntityRow=IDMS_RDC_Details>
 </Dropdown>
 @code {
     public async Task ItemSelected_IDMS_RDC_DetailsIDMS_CustomerId(object _Item)
@@ -553,22 +576,7 @@
         var Selected = Utility.JSON.ToObject<dynamic>(Utility.JSON.ToJson(_Item).Result).Result;
      var Item = IDMS_RDC_Details;
 
-      //Todo
- //برای اینکه آی دی تغییر کند اینجا نیز باید تغییر کند
- //بهتر است از پرایمیری کی استفاده شود
- if (_Item != null)
- {
-     Console.WriteLine(" Item Is Not Null");
     Item.IDMS_CustomerId = Selected.Id;
-    
- }
- else
- {
-     Console.WriteLine(" Item Is Null");
-      Item.IDMS_CustomerId =EntityHelper.SetPropertyNull(Item.IDMS_CustomerId);
- }
- Item.IDMS_Customer = await Utility.JSON.ToObject<Entity.IDMS_Customer>(await Utility.JSON.ToJson(_Item));
-    StateHasChanged();
 
 
     
@@ -583,10 +591,10 @@
      
  
 @code {
-    Baya.Models.ViewEngine.View_Component Component_IDMS_RDC_DetailsIDMS_ResultingFromId = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"primaryKey\":false,\"EntityID\":741,\"FieldId\":30722,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":1034,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":false,\"RelationParentName\":\"IDMS_ResultingFrom\",\"RelationParentModel\":\"IDMS_ResultingFrom\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/IDMS_ResultingFrom/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.ResultingFromTitle}} </span>\",\"FieldsTemplate\":[{\"key\":\"ResultingFromCode\",\"value\":\"int\"},{\"key\":\"ResultingFromTitle\",\"value\":\"nvarchar(Max)\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"searchField\":\"ResultingFromCode,ResultingFromTitle\",\"disableLimit\":false,\"noRefreshOnScroll\":false,\"disabled\":false,\"modal\":true,\"label\":\"منتج از \",\"tableView\":true,\"key\":\"IDMS_ResultingFromId\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"customClass\":\"Gcol-sm-8 Gcol-md-6 Gcol-lg-3\",\"FieldUrl\":\"30722?EId=741&SubId=31\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
+    Baya.Models.ViewEngine.View_Component Component_IDMS_RDC_DetailsIDMS_ResultingFromId = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"primaryKey\":false,\"EntityID\":741,\"FieldId\":30722,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":1034,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":false,\"RelationParentName\":\"IDMS_ResultingFrom\",\"RelationParentModel\":\"IDMS_ResultingFrom\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/IDMS_ResultingFrom/GetList\",\"_Parameters\":[]},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.ResultingFromTitle}} </span>\",\"FieldsTemplate\":[{\"key\":\"ResultingFromCode\",\"value\":\"int\"},{\"key\":\"ResultingFromTitle\",\"value\":\"nvarchar(Max)\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"searchField\":\"ResultingFromCode,ResultingFromTitle\",\"disableLimit\":false,\"noRefreshOnScroll\":false,\"disabled\":true,\"modal\":true,\"label\":\"منتج از \",\"tableView\":true,\"key\":\"IDMS_ResultingFromId\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"customClass\":\"Gcol-sm-8 Gcol-md-6 Gcol-lg-6\",\"FieldUrl\":\"30722?EId=741&SubId=31\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
 }
 
-    <Dropdown Id=IDMS_RDC_Details_IDMS_ResultingFromId  @ref="Ref_IDMS_RDC_Details_IDMS_ResultingFromId" Label="منتج از " CssClass="Gcol-sm-8 Gcol-md-6 Gcol-lg-3"  DisplayFormat="DropDown" ExternalApi=false NotMapped=false TextGrid=false Text="" Value="@IDMS_RDC_Details.IDMS_ResultingFromId" FieldName="IDMS_ResultingFromId" OnItemSelected="ItemSelected_IDMS_RDC_DetailsIDMS_ResultingFromId" Component="Component_IDMS_RDC_DetailsIDMS_ResultingFromId" _Entity="_Entity" _EntityRow=IDMS_RDC_Details>
+    <Dropdown Id=IDMS_RDC_Details_IDMS_ResultingFromId Disabled=true @ref="Ref_IDMS_RDC_Details_IDMS_ResultingFromId" Label="منتج از " CssClass="Gcol-sm-8 Gcol-md-6 Gcol-lg-6"  DisplayFormat="DropDown" ExternalApi=false NotMapped=false TextGrid=false Text="" Value="@IDMS_RDC_Details.IDMS_ResultingFromId" FieldName="IDMS_ResultingFromId" OnItemSelected="ItemSelected_IDMS_RDC_DetailsIDMS_ResultingFromId" Component="Component_IDMS_RDC_DetailsIDMS_ResultingFromId" _Entity="_Entity" _EntityRow=IDMS_RDC_Details>
 </Dropdown>
 @code {
     public async Task ItemSelected_IDMS_RDC_DetailsIDMS_ResultingFromId(object _Item)
@@ -633,6 +641,24 @@
 </DxFormLayoutItem>
 
 <DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextIDMS_RDC_Details">
+    
+<RadioBoolean @ref="Ref_IDMS_RDC_Details_IsAgreedDate" InLine=true Id="IDMS_RDC_Details_IsAgreedDate"  oninput="@(e => IsAgreedDate_oninput(e ,IDMS_RDC_Details))"  LabelTrue="بله" LabelFalse="خیر" Label="آیا تاریخ اعلام شده مورد توافق است؟ " @bind-Value="IDMS_RDC_Details.IsAgreedDate" CssClass="Gcol-sm-8 Gcol-md-6 Gcol-lg-3" Disabled=true></RadioBoolean>
+
+</DxFormLayoutItem>
+
+<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextIDMS_RDC_Details">
+    
+<Input Id="IDMS_RDC_Details_RDC_ActualCompletionDate_Fa" @ref="Ref_IDMS_RDC_Details_RDC_ActualCompletionDate_Fa" Label="تاریخ واقعی انجام کار درخواستی"  CssClass=" PersianDatePicker Gcol-sm-8 Gcol-md-6 Gcol-lg-3" Disabled=true  @bind-Value="IDMS_RDC_Details.RDC_ActualCompletionDate_Fa" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"data-jdp\":\"  \",\"data-jdp-only-date\":\"   \"}").Result))></Input>
+
+</DxFormLayoutItem>
+
+<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextIDMS_RDC_Details">
+    
+<CKEditor @ref="Ref_IDMS_RDC_Details_RDC_SUPERVISOR_Description" id="IDMS_RDC_Details_RDC_SUPERVISOR_Description" @bind-Value="IDMS_RDC_Details.RDC_SUPERVISOR_Description"    Config="@config" />
+
+</DxFormLayoutItem>
+
+<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextIDMS_RDC_Details">
     <div  class="Gcol-sm-8 Gcol-md-6 Gcol-lg-12">
     <hr class="hrdash bg-purple html-visible">
 </div>
@@ -641,20 +667,13 @@
 
 <DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextIDMS_RDC_Details">
     
-<Input Id="IDMS_RDC_Details_RDC_ActualCompletionDate_Fa" @ref="Ref_IDMS_RDC_Details_RDC_ActualCompletionDate_Fa" Label="تاریخ واقعی انجام کار درخواستی"  CssClass=" PersianDatePicker Gcol-sm-8 Gcol-md-6 Gcol-lg-3"   @bind-Value="IDMS_RDC_Details.RDC_ActualCompletionDate_Fa" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"data-jdp\":\"  \",\"data-jdp-only-date\":\"   \"}").Result))></Input>
-
-</DxFormLayoutItem>
-
-<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextIDMS_RDC_Details">
-    <div  class="Gcol-sm-8 Gcol-md-6 Gcol-lg-9">
-    <div class="html-visible d-none"></div>
-</div>
+<RadioBoolean @ref="Ref_IDMS_RDC_Details_IsAgreedDateByRequester" InLine=true Id="IDMS_RDC_Details_IsAgreedDateByRequester"  oninput="@(e => IsAgreedDateByRequester_oninput(e ,IDMS_RDC_Details))"  LabelTrue="بله" LabelFalse="خیر" Label="تاریخ اعلام شده مورد توافق درخواست‌دهنده است؟" @bind-Value="IDMS_RDC_Details.IsAgreedDateByRequester" CssClass="Gcol-sm-8 Gcol-md-6 Gcol-lg-3" Disabled=true></RadioBoolean>
 
 </DxFormLayoutItem>
 
 <DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextIDMS_RDC_Details">
     
-<CKEditor @ref="Ref_IDMS_RDC_Details_RDC_SUPERVISOR_Description" id="IDMS_RDC_Details_RDC_SUPERVISOR_Description" @bind-Value="IDMS_RDC_Details.RDC_SUPERVISOR_Description"    Config="@config" />
+<Input Id="IDMS_RDC_Details_RequesterDateDisagreementReason" @ref="Ref_IDMS_RDC_Details_RequesterDateDisagreementReason" Label="توضیحات عدم توافق درخواست‌دهنده"  CssClass="Gcol-sm-8 Gcol-md-6 Gcol-lg-12" Disabled=true  @bind-Value="IDMS_RDC_Details.RequesterDateDisagreementReason" type="textarea"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"maxlength\":\"2000\"}").Result))></Input>
 
 </DxFormLayoutItem>
 
@@ -716,10 +735,10 @@
      
  
 @code {
-    Baya.Models.ViewEngine.View_Component Component_IDMS_RDC_DetailsIDMS_ProductsId = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"primaryKey\":false,\"EntityID\":741,\"FieldId\":30702,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":1034,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":false,\"RelationParentName\":\"IDMS_Products\",\"RelationParentModel\":\"IDMS_Products\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/IDMS_Products/GetList?IDMS_ProductTypesId={{row.IDMS_ProductTypesId}}\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.ProductTitle}} </span>\",\"FieldsTemplate\":[{\"key\":\"ProductCode\",\"value\":\"int\"},{\"key\":\"ProductTitle\",\"value\":\"nvarchar(Max)\"}],\"dataSrc\":\"url\",\"refreshOn\":\"IDMS_RDC_Details.IDMS_ProductTypesId\",\"searchField\":\"ProductCode,ProductTitle\",\"clearOnRefresh\":true,\"disableLimit\":false,\"noRefreshOnScroll\":false,\"disabled\":false,\"modal\":true,\"label\":\"محصولات\",\"tableView\":true,\"key\":\"IDMS_ProductsId\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"customClass\":\"Gcol-sm-8 Gcol-md-6 Gcol-lg-3 d-none\",\"FieldUrl\":\"30702?EId=741&SubId=31\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
+    Baya.Models.ViewEngine.View_Component Component_IDMS_RDC_DetailsIDMS_ProductsId = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"primaryKey\":false,\"EntityID\":741,\"FieldId\":30702,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":1034,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":false,\"RelationParentName\":\"IDMS_Products\",\"RelationParentModel\":\"IDMS_Products\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/IDMS_Products/GetList\",\"_Parameters\":[{\"text\":\"IDMS_ProductTypesId={{row.IDMS_ProductTypesId}}\",\"Type\":1}]},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.ProductTitle}} </span>\",\"FieldsTemplate\":[{\"key\":\"ProductCode\",\"value\":\"int\"},{\"key\":\"ProductTitle\",\"value\":\"nvarchar(Max)\"}],\"dataSrc\":\"url\",\"refreshOn\":\"IDMS_RDC_Details.IDMS_ProductTypesId\",\"searchField\":\"ProductCode,ProductTitle\",\"clearOnRefresh\":true,\"disableLimit\":false,\"noRefreshOnScroll\":false,\"disabled\":true,\"modal\":true,\"label\":\"محصولات\",\"tableView\":true,\"key\":\"IDMS_ProductsId\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"customClass\":\"Gcol-sm-8 Gcol-md-6 Gcol-lg-3 d-none\",\"FieldUrl\":\"30702?EId=741&SubId=31\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
 }
 
-    <Dropdown Id=IDMS_RDC_Details_IDMS_ProductsId  @ref="Ref_IDMS_RDC_Details_IDMS_ProductsId" Label="محصولات" CssClass="Gcol-sm-8 Gcol-md-6 Gcol-lg-3 d-none"  DisplayFormat="DropDown" ExternalApi=false NotMapped=false TextGrid=false Text="" Value="@IDMS_RDC_Details.IDMS_ProductsId" FieldName="IDMS_ProductsId" OnItemSelected="ItemSelected_IDMS_RDC_DetailsIDMS_ProductsId" Component="Component_IDMS_RDC_DetailsIDMS_ProductsId" _Entity="_Entity" _EntityRow=IDMS_RDC_Details>
+    <Dropdown Id=IDMS_RDC_Details_IDMS_ProductsId Disabled=true @ref="Ref_IDMS_RDC_Details_IDMS_ProductsId" Label="محصولات" CssClass="Gcol-sm-8 Gcol-md-6 Gcol-lg-3 d-none"  DisplayFormat="DropDown" ExternalApi=false NotMapped=false TextGrid=false Text="" Value="@IDMS_RDC_Details.IDMS_ProductsId" FieldName="IDMS_ProductsId" OnItemSelected="ItemSelected_IDMS_RDC_DetailsIDMS_ProductsId" Component="Component_IDMS_RDC_DetailsIDMS_ProductsId" _Entity="_Entity" _EntityRow=IDMS_RDC_Details>
 </Dropdown>
 @code {
     public async Task ItemSelected_IDMS_RDC_DetailsIDMS_ProductsId(object _Item)
@@ -1039,17 +1058,18 @@ public void SaveGrid_IDMS_RDC_Details(object DataItem, object EditModel)
     if (MainModel != null)
     {
 MainModel.IDMS_ProductCategoriesId = ((Entity.IDMS_RDC_Details)EditModel).IDMS_ProductCategoriesId;
-MainModel.IDMS_ProductCategories = ((Entity.IDMS_RDC_Details)EditModel).IDMS_ProductCategories;
 MainModel.IDMS_ProductTypesId = ((Entity.IDMS_RDC_Details)EditModel).IDMS_ProductTypesId;
 MainModel.IDMS_ProductTypes = ((Entity.IDMS_RDC_Details)EditModel).IDMS_ProductTypes;
 MainModel.IDMS_CustomerId = ((Entity.IDMS_RDC_Details)EditModel).IDMS_CustomerId;
-MainModel.IDMS_Customer = ((Entity.IDMS_RDC_Details)EditModel).IDMS_Customer;
 MainModel.IDMS_ResultingFromId = ((Entity.IDMS_RDC_Details)EditModel).IDMS_ResultingFromId;
 MainModel.IDMS_ResultingFrom = ((Entity.IDMS_RDC_Details)EditModel).IDMS_ResultingFrom;
 MainModel.RequestedDueDate_Fa = ((Entity.IDMS_RDC_Details)EditModel).RequestedDueDate_Fa;
 MainModel.Description = ((Entity.IDMS_RDC_Details)EditModel).Description;
+MainModel.IsAgreedDate = ((Entity.IDMS_RDC_Details)EditModel).IsAgreedDate;
 MainModel.RDC_ActualCompletionDate_Fa = ((Entity.IDMS_RDC_Details)EditModel).RDC_ActualCompletionDate_Fa;
 MainModel.RDC_SUPERVISOR_Description = ((Entity.IDMS_RDC_Details)EditModel).RDC_SUPERVISOR_Description;
+MainModel.IsAgreedDateByRequester = ((Entity.IDMS_RDC_Details)EditModel).IsAgreedDateByRequester;
+MainModel.RequesterDateDisagreementReason = ((Entity.IDMS_RDC_Details)EditModel).RequesterDateDisagreementReason;
 MainModel.Id = ((Entity.IDMS_RDC_Details)EditModel).Id;
 MainModel.RequestID = ((Entity.IDMS_RDC_Details)EditModel).RequestID;
 MainModel.CreateUser = ((Entity.IDMS_RDC_Details)EditModel).CreateUser;
@@ -1187,8 +1207,8 @@ public async void RowDubbleClickGrid_IDMS_RDC_Details(GridRowClickEventArgs e)
         EditFormButtonsVisible="false"
         CustomizeEditModel="CustomizeEditGrid_IDMS_TestModel"
         CustomizeElement="CustomizeRowsGrid_IDMS_TestModel" 
-        Component="@((Utility.JSON.ToObject<View_Component>("{\"primaryKey\":false,\"EntityID\":753,\"FieldId\":753,\"NotNull\":false,\"ViewId\":0,\"NotMapped\":false,\"Relation\":false,\"RelationExternal\":false,\"RelationChildModel\":\"IDMS_TestModel\",\"GridMainModel\":\"IDMS_TestModel\",\"widget\":{\"altInput\":false,\"allowInput\":false,\"clickOpens\":false,\"enableDate\":false,\"enableTime\":false,\"noCalendar\":false,\"useLocaleSettings\":false,\"hourIncrement\":0,\"minuteIncrement\":0,\"time_24hr\":false},\"wysiwyg\":false,\"data\":{},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"FieldsTemplate\":[],\"refreshOn\":\"data\",\"reorder\":false,\"addAnotherPosition\":\"bottom\",\"layoutFixed\":false,\"enableRowGroups\":false,\"initEmpty\":false,\"disabled\":true,\"modal\":true,\"label\":\"مدل آزمون \",\"tableView\":true,\"key\":\"GridIDMS_RDC_MasterId_753\",\"type\":\"datagrid\",\"input\":true,\"placeholder\":\"GridIDMS_RDC_MasterId_753\",\"modalEdit\":true,\"customClass\":\"detailtable\",\"FieldUrl\":\"753?EId=753&SubId=31\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true,\"customizeeditmodel\":\"GridIDMS_RDC_MasterId_753_customizeeditmodel\",\"editmodelsaving\":\"GridIDMS_RDC_MasterId_753_editmodelsaving\",\"afterrendermodal\":\"GridIDMS_RDC_MasterId_753_afterrendermodal\"}").Result))"
-        CssClass="detailtable" >
+        Component="@((Utility.JSON.ToObject<View_Component>("{\"primaryKey\":false,\"EntityID\":753,\"FieldId\":753,\"NotNull\":false,\"ViewId\":0,\"NotMapped\":false,\"Relation\":false,\"RelationExternal\":false,\"RelationChildModel\":\"IDMS_TestModel\",\"GridMainModel\":\"IDMS_TestModel\",\"widget\":{\"altInput\":false,\"allowInput\":false,\"clickOpens\":false,\"enableDate\":false,\"enableTime\":false,\"noCalendar\":false,\"useLocaleSettings\":false,\"hourIncrement\":0,\"minuteIncrement\":0,\"time_24hr\":false},\"wysiwyg\":false,\"data\":{},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"FieldsTemplate\":[],\"refreshOn\":\"data\",\"reorder\":false,\"addAnotherPosition\":\"bottom\",\"layoutFixed\":false,\"enableRowGroups\":false,\"initEmpty\":false,\"disabled\":true,\"modal\":true,\"label\":\"مدل آزمون \",\"tableView\":true,\"key\":\"GridIDMS_RDC_MasterId_753\",\"type\":\"datagrid\",\"input\":true,\"placeholder\":\"GridIDMS_RDC_MasterId_753\",\"modalEdit\":true,\"customClass\":\"detailtable2\",\"FieldUrl\":\"753?EId=753&SubId=31\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true,\"customizeeditmodel\":\"GridIDMS_RDC_MasterId_753_customizeeditmodel\",\"editmodelsaving\":\"GridIDMS_RDC_MasterId_753_editmodelsaving\",\"afterrendermodal\":\"GridIDMS_RDC_MasterId_753_afterrendermodal\"}").Result))"
+        CssClass="detailtable2" >
     <Columns>
     
 <DxGridCommandColumn Width="70px">
@@ -1234,11 +1254,11 @@ public async void RowDubbleClickGrid_IDMS_RDC_Details(GridRowClickEventArgs e)
     <CellDisplayTemplate>
        
 @{
-    Baya.Models.ViewEngine.View_Component HeaderIDMS_TestModelObjId = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"primaryKey\":false,\"EntityID\":753,\"FieldId\":30767,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":1034,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":false,\"RelationParentName\":\"IDMS_TestModelObj\",\"RelationParentModel\":\"IDMS_TestModelObj\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/IDMS_TestModelObj/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.Code}} {{item.Title}} </span>\",\"FieldsTemplate\":[{\"key\":\"Code\",\"value\":\"int\"},{\"key\":\"Title\",\"value\":\"nvarchar(Max)\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"searchField\":\"Code,Title\",\"disableLimit\":false,\"noRefreshOnScroll\":false,\"disabled\":false,\"modal\":true,\"label\":\"عنوان مدل آزمون\",\"tableView\":true,\"key\":\"IDMS_TestModelObjId\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"customClass\":\"Gcol-sm-8 Gcol-md-6 Gcol-lg-6\",\"FieldUrl\":\"30767?EId=753&SubId=31\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
+    Baya.Models.ViewEngine.View_Component HeaderIDMS_TestModelObjId = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"primaryKey\":false,\"EntityID\":753,\"FieldId\":30767,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":1034,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":false,\"RelationParentName\":\"IDMS_TestModelObj\",\"RelationParentModel\":\"IDMS_TestModelObj\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/IDMS_TestModelObj/GetList\",\"_Parameters\":[]},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.Code}} {{item.Title}} </span>\",\"FieldsTemplate\":[{\"key\":\"Code\",\"value\":\"int\"},{\"key\":\"Title\",\"value\":\"nvarchar(Max)\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"searchField\":\"Code,Title\",\"disableLimit\":false,\"noRefreshOnScroll\":false,\"disabled\":false,\"modal\":true,\"label\":\"عنوان مدل آزمون\",\"tableView\":true,\"key\":\"IDMS_TestModelObjId\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"customClass\":\"Gcol-sm-8 Gcol-md-6 Gcol-lg-4\",\"FieldUrl\":\"30767?EId=753&SubId=31\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
     var RowIDMS_TestModelObjId = ((Entity.IDMS_TestModel)IDMS_TestModelObjId_.DataItem).IDMS_TestModelObjId;
 }
 
-<Dropdown ExternalApi=false CssClass="Gcol-sm-8 Gcol-md-6 Gcol-lg-6" NotMapped=false TextGrid=true Value="@RowIDMS_TestModelObjId"   FieldName="IDMS_TestModelObjId" OnItemSelected="ItemSelected_IDMS_TestModelIDMS_TestModelObjId_Header" Component="HeaderIDMS_TestModelObjId">
+<Dropdown ExternalApi=false CssClass="Gcol-sm-8 Gcol-md-6 Gcol-lg-4" NotMapped=false TextGrid=true Value="@RowIDMS_TestModelObjId"   FieldName="IDMS_TestModelObjId" OnItemSelected="ItemSelected_IDMS_TestModelIDMS_TestModelObjId_Header" Component="HeaderIDMS_TestModelObjId">
 </Dropdown>
 @code {
     public async Task ItemSelected_IDMS_TestModelIDMS_TestModelObjId_Header(object _Item)
@@ -1258,21 +1278,29 @@ public async void RowDubbleClickGrid_IDMS_RDC_Details(GridRowClickEventArgs e)
 </DxGridDataColumn>
 <DxGridDataColumn  Caption="توضیحات نسبت به آزمون"  FieldName="TesterDescription" />
 
-<DxGridDataColumn Context="Tester_" Caption="آزمونگر" >
+<DxGridDataColumn Context="html41_" Caption="-" >
+    <CellDisplayTemplate>
+      <div  class="Gcol-sm-8 Gcol-md-6 Gcol-lg-12">
+    <hr class="hrdash bg-purple html-visible">
+</div>
+
+    </CellDisplayTemplate>
+</DxGridDataColumn>
+<DxGridDataColumn Context="IDMS_TesterRequests_" Caption="آزمونگر درخواست" >
     <CellDisplayTemplate>
        
 @{
-    Baya.Models.ViewEngine.View_Component HeaderTester = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"primaryKey\":false,\"EntityID\":753,\"FieldId\":31388,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":1034,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":true,\"RelationParentName\":\"TesterNavigation\",\"RelationParentModel\":\"AspNetUsers\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/vw_aspnetusers/GetList?CompanyID={{row.CompanyID}}\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.CompanyName}} {{item.FullName}} </span>\",\"FieldsTemplate\":[{\"key\":\"CompanyName\",\"value\":\"nvarchar(Max)\"},{\"key\":\"FullName\",\"value\":\"nvarchar(Max)\"}],\"dataSrc\":\"url\",\"refreshOn\":\"IDMS_TestModel.CompanyID\",\"searchField\":\"FullName\",\"clearOnRefresh\":true,\"disabled\":false,\"modal\":true,\"label\":\"آزمونگر\",\"tableView\":true,\"key\":\"Tester\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"31388?EId=753&SubId=31\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
-    var RowTester = ((Entity.IDMS_TestModel)Tester_.DataItem).Tester;
+    Baya.Models.ViewEngine.View_Component HeaderIDMS_TesterRequests = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"primaryKey\":false,\"EntityID\":753,\"FieldId\":32607,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":1034,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":false,\"RelationParentName\":\"IDMS_TesterRequestsNavigation\",\"RelationParentModel\":\"IDMS_TesterRequests\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/IDMS_TesterRequests/GetList\",\"_Parameters\":[]},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.Title}} </span>\",\"FieldsTemplate\":[{\"key\":\"Title\",\"value\":\"nvarchar(Max)\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"searchField\":\"Title\",\"disableLimit\":false,\"noRefreshOnScroll\":false,\"disabled\":false,\"modal\":true,\"label\":\"آزمونگر درخواست\",\"tableView\":true,\"key\":\"IDMS_TesterRequests\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"customClass\":\"Gcol-sm-8 Gcol-md-6 Gcol-lg-4\",\"FieldUrl\":\"32607?EId=753&SubId=31\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
+    var RowIDMS_TesterRequests = ((Entity.IDMS_TestModel)IDMS_TesterRequests_.DataItem).IDMS_TesterRequests;
 }
 
-<Dropdown ExternalApi=true CssClass="" NotMapped=false TextGrid=true Value="@RowTester"   FieldName="Tester" OnItemSelected="ItemSelected_IDMS_TestModelTester_Header" Component="HeaderTester">
+<Dropdown ExternalApi=false CssClass="Gcol-sm-8 Gcol-md-6 Gcol-lg-4" NotMapped=false TextGrid=true Value="@RowIDMS_TesterRequests"   FieldName="IDMS_TesterRequests" OnItemSelected="ItemSelected_IDMS_TestModelIDMS_TesterRequests_Header" Component="HeaderIDMS_TesterRequests">
 </Dropdown>
 @code {
-    public async Task ItemSelected_IDMS_TestModelTester_Header(object _Item)
+    public async Task ItemSelected_IDMS_TestModelIDMS_TesterRequests_Header(object _Item)
     {
       //  var Selected = Utility.JSON.ToObject<dynamic>(Utility.JSON.ToJson(_Item).Result).Result;
-  //   Tester
+  //   IDMS_TesterRequests
 
   //  #CustomCode
 
@@ -1310,10 +1338,10 @@ public async void RowDubbleClickGrid_IDMS_RDC_Details(GridRowClickEventArgs e)
      
  
 @code {
-    Baya.Models.ViewEngine.View_Component Component_IDMS_TestModelIDMS_TestModelObjId = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"primaryKey\":false,\"EntityID\":753,\"FieldId\":30767,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":1034,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":false,\"RelationParentName\":\"IDMS_TestModelObj\",\"RelationParentModel\":\"IDMS_TestModelObj\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/IDMS_TestModelObj/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.Code}} {{item.Title}} </span>\",\"FieldsTemplate\":[{\"key\":\"Code\",\"value\":\"int\"},{\"key\":\"Title\",\"value\":\"nvarchar(Max)\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"searchField\":\"Code,Title\",\"disableLimit\":false,\"noRefreshOnScroll\":false,\"disabled\":false,\"modal\":true,\"label\":\"عنوان مدل آزمون\",\"tableView\":true,\"key\":\"IDMS_TestModelObjId\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"customClass\":\"Gcol-sm-8 Gcol-md-6 Gcol-lg-6\",\"FieldUrl\":\"30767?EId=753&SubId=31\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
+    Baya.Models.ViewEngine.View_Component Component_IDMS_TestModelIDMS_TestModelObjId = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"primaryKey\":false,\"EntityID\":753,\"FieldId\":30767,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":1034,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":false,\"RelationParentName\":\"IDMS_TestModelObj\",\"RelationParentModel\":\"IDMS_TestModelObj\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/IDMS_TestModelObj/GetList\",\"_Parameters\":[]},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.Code}} {{item.Title}} </span>\",\"FieldsTemplate\":[{\"key\":\"Code\",\"value\":\"int\"},{\"key\":\"Title\",\"value\":\"nvarchar(Max)\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"searchField\":\"Code,Title\",\"disableLimit\":false,\"noRefreshOnScroll\":false,\"disabled\":false,\"modal\":true,\"label\":\"عنوان مدل آزمون\",\"tableView\":true,\"key\":\"IDMS_TestModelObjId\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"customClass\":\"Gcol-sm-8 Gcol-md-6 Gcol-lg-4\",\"FieldUrl\":\"30767?EId=753&SubId=31\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
 }
 
-    <Dropdown Id=IDMS_TestModel_IDMS_TestModelObjId  @ref="Ref_IDMS_TestModel_IDMS_TestModelObjId" Label="عنوان مدل آزمون" CssClass="Gcol-sm-8 Gcol-md-6 Gcol-lg-6"  DisplayFormat="DropDown" ExternalApi=false NotMapped=false TextGrid=false Text="" Value="@IDMS_TestModel.IDMS_TestModelObjId" FieldName="IDMS_TestModelObjId" OnItemSelected="ItemSelected_IDMS_TestModelIDMS_TestModelObjId" Component="Component_IDMS_TestModelIDMS_TestModelObjId" _Entity="_Entity" _EntityRow=IDMS_TestModel>
+    <Dropdown Id=IDMS_TestModel_IDMS_TestModelObjId  @ref="Ref_IDMS_TestModel_IDMS_TestModelObjId" Label="عنوان مدل آزمون" CssClass="Gcol-sm-8 Gcol-md-6 Gcol-lg-4"  DisplayFormat="DropDown" ExternalApi=false NotMapped=false TextGrid=false Text="" Value="@IDMS_TestModel.IDMS_TestModelObjId" FieldName="IDMS_TestModelObjId" OnItemSelected="ItemSelected_IDMS_TestModelIDMS_TestModelObjId" Component="Component_IDMS_TestModelIDMS_TestModelObjId" _Entity="_Entity" _EntityRow=IDMS_TestModel>
 </Dropdown>
 @code {
     public async Task ItemSelected_IDMS_TestModelIDMS_TestModelObjId(object _Item)
@@ -1349,7 +1377,14 @@ public async void RowDubbleClickGrid_IDMS_RDC_Details(GridRowClickEventArgs e)
 
 <DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextIDMS_TestModel">
     
-<Input Id="IDMS_TestModel_TesterDescription" @ref="Ref_IDMS_TestModel_TesterDescription" Label="توضیحات نسبت به آزمون"     @bind-Value="IDMS_TestModel.TesterDescription" type="textarea"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"maxlength\":\"1500\"}").Result))></Input>
+<Input Id="IDMS_TestModel_TesterDescription" @ref="Ref_IDMS_TestModel_TesterDescription" Label="توضیحات نسبت به آزمون"  CssClass="Gcol-sm-8 Gcol-md-6 Gcol-lg-12"   @bind-Value="IDMS_TestModel.TesterDescription" type="textarea"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"maxlength\":\"1500\"}").Result))></Input>
+
+</DxFormLayoutItem>
+
+<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextIDMS_TestModel">
+    <div  class="Gcol-sm-8 Gcol-md-6 Gcol-lg-12">
+    <hr class="hrdash bg-purple html-visible">
+</div>
 
 </DxFormLayoutItem>
 
@@ -1357,18 +1392,33 @@ public async void RowDubbleClickGrid_IDMS_RDC_Details(GridRowClickEventArgs e)
      
  
 @code {
-    Baya.Models.ViewEngine.View_Component Component_IDMS_TestModelTester = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"primaryKey\":false,\"EntityID\":753,\"FieldId\":31388,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":1034,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":true,\"RelationParentName\":\"TesterNavigation\",\"RelationParentModel\":\"AspNetUsers\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/vw_aspnetusers/GetList?CompanyID={{row.CompanyID}}\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.CompanyName}} {{item.FullName}} </span>\",\"FieldsTemplate\":[{\"key\":\"CompanyName\",\"value\":\"nvarchar(Max)\"},{\"key\":\"FullName\",\"value\":\"nvarchar(Max)\"}],\"dataSrc\":\"url\",\"refreshOn\":\"IDMS_TestModel.CompanyID\",\"searchField\":\"FullName\",\"clearOnRefresh\":true,\"disabled\":false,\"modal\":true,\"label\":\"آزمونگر\",\"tableView\":true,\"key\":\"Tester\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"31388?EId=753&SubId=31\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
+    Baya.Models.ViewEngine.View_Component Component_IDMS_TestModelIDMS_TesterRequests = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"primaryKey\":false,\"EntityID\":753,\"FieldId\":32607,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":1034,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":false,\"RelationParentName\":\"IDMS_TesterRequestsNavigation\",\"RelationParentModel\":\"IDMS_TesterRequests\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/IDMS_TesterRequests/GetList\",\"_Parameters\":[]},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.Title}} </span>\",\"FieldsTemplate\":[{\"key\":\"Title\",\"value\":\"nvarchar(Max)\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"searchField\":\"Title\",\"disableLimit\":false,\"noRefreshOnScroll\":false,\"disabled\":false,\"modal\":true,\"label\":\"آزمونگر درخواست\",\"tableView\":true,\"key\":\"IDMS_TesterRequests\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"customClass\":\"Gcol-sm-8 Gcol-md-6 Gcol-lg-4\",\"FieldUrl\":\"32607?EId=753&SubId=31\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
 }
 
-    <Dropdown Id=IDMS_TestModel_Tester  @ref="Ref_IDMS_TestModel_Tester" Label="آزمونگر" CssClass=""  DisplayFormat="DropDown" ExternalApi=true NotMapped=false TextGrid=false  Value="@IDMS_TestModel.Tester" FieldName="Tester" OnItemSelected="ItemSelected_IDMS_TestModelTester" Component="Component_IDMS_TestModelTester" _Entity="_Entity" _EntityRow=IDMS_TestModel>
+    <Dropdown Id=IDMS_TestModel_IDMS_TesterRequests  @ref="Ref_IDMS_TestModel_IDMS_TesterRequests" Label="آزمونگر درخواست" CssClass="Gcol-sm-8 Gcol-md-6 Gcol-lg-4"  DisplayFormat="DropDown" ExternalApi=false NotMapped=false TextGrid=false Text="" Value="@IDMS_TestModel.IDMS_TesterRequests" FieldName="IDMS_TesterRequests" OnItemSelected="ItemSelected_IDMS_TestModelIDMS_TesterRequests" Component="Component_IDMS_TestModelIDMS_TesterRequests" _Entity="_Entity" _EntityRow=IDMS_TestModel>
 </Dropdown>
 @code {
-    public async Task ItemSelected_IDMS_TestModelTester(object _Item)
+    public async Task ItemSelected_IDMS_TestModelIDMS_TesterRequests(object _Item)
     {
         var Selected = Utility.JSON.ToObject<dynamic>(Utility.JSON.ToJson(_Item).Result).Result;
      var Item = IDMS_TestModel;
 
-    Item.Tester = Selected.Id;
+      //Todo
+ //برای اینکه آی دی تغییر کند اینجا نیز باید تغییر کند
+ //بهتر است از پرایمیری کی استفاده شود
+ if (_Item != null)
+ {
+     Console.WriteLine(" Item Is Not Null");
+    Item.IDMS_TesterRequests = Selected.Id;
+    
+ }
+ else
+ {
+     Console.WriteLine(" Item Is Null");
+      Item.IDMS_TesterRequests =EntityHelper.SetPropertyNull(Item.IDMS_TesterRequests);
+ }
+ Item.IDMS_TesterRequestsNavigation = await Utility.JSON.ToObject<Entity.IDMS_TesterRequests>(await Utility.JSON.ToJson(_Item));
+    StateHasChanged();
 
 
     
@@ -1709,7 +1759,8 @@ public void SaveGrid_IDMS_TestModel(object DataItem, object EditModel)
 MainModel.IDMS_TestModelObjId = ((Entity.IDMS_TestModel)EditModel).IDMS_TestModelObjId;
 MainModel.IDMS_TestModelObj = ((Entity.IDMS_TestModel)EditModel).IDMS_TestModelObj;
 MainModel.TesterDescription = ((Entity.IDMS_TestModel)EditModel).TesterDescription;
-MainModel.Tester = ((Entity.IDMS_TestModel)EditModel).Tester;
+MainModel.IDMS_TesterRequests = ((Entity.IDMS_TestModel)EditModel).IDMS_TesterRequests;
+MainModel.IDMS_TesterRequestsNavigation = ((Entity.IDMS_TestModel)EditModel).IDMS_TesterRequestsNavigation;
 MainModel.Id = ((Entity.IDMS_TestModel)EditModel).Id;
 MainModel.RequestID = ((Entity.IDMS_TestModel)EditModel).RequestID;
 MainModel.CreateUser = ((Entity.IDMS_TestModel)EditModel).CreateUser;
@@ -1883,8 +1934,8 @@ public async void RowDubbleClickGrid_IDMS_TestModel(GridRowClickEventArgs e)
     {
         Console.WriteLine("#log OnInitializedAsync");
 
-        TableGet = await Utility.JSON.ToObject<Table>("{\"Name\":\"IDMS_RDC_Master\",\"GetNameAs\":\"IDMS_RDC_Master\",\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"RequestID\",\"GetNameAs\":\"RequestID\"},{\"Name\":\"CreateUser\",\"GetNameAs\":\"CreateUser\"},{\"Name\":\"UpdateUser\",\"GetNameAs\":\"UpdateUser\"},{\"Name\":\"CreateDate\",\"GetNameAs\":\"CreateDate\"},{\"Name\":\"UpdateDate\",\"GetNameAs\":\"UpdateDate\"},{\"Name\":\"IsDelete\",\"GetNameAs\":\"IsDelete\"},{\"Name\":\"UserStarterFullName\",\"GetNameAs\":\"UserStarterFullName\"},{\"Name\":\"UserStarterCompanyName\",\"GetNameAs\":\"UserStarterCompanyName\"},{\"Name\":\"UserStarterUnitName\",\"GetNameAs\":\"UserStarterUnitName\"},{\"Name\":\"UserStarterSectionName\",\"GetNameAs\":\"UserStarterSectionName\"},{\"Name\":\"IsResultOfAnotherProcess\",\"GetNameAs\":\"IsResultOfAnotherProcess\"},{\"Name\":\"IDMS_RDC_AllData\",\"GetNameAs\":\"IDMS_RDC_AllData\"},{\"Name\":\"TrackingCode\",\"GetNameAs\":\"TrackingCode\"}],\"Relation\":[{\"Name\":\"IDMS_RDC_Master_TrackingCodeNavigation\",\"GetNameAs\":\"IDMS_RDC_Master_TrackingCodeNavigation\",\"ModeErtebat\":1,\"Column\":[{\"Name\":\"UserStarterFullName\",\"GetNameAs\":\"UserStarterFullName\"},{\"Name\":\"UserStarterCompanyName\",\"GetNameAs\":\"UserStarterCompanyName\"},{\"Name\":\"UserStarterUnitName\",\"GetNameAs\":\"UserStarterUnitName\"},{\"Name\":\"UserStarterSectionName\",\"GetNameAs\":\"UserStarterSectionName\"},{\"Name\":\"RequestTrakingCode\",\"GetNameAs\":\"RequestTrakingCode\"},{\"Name\":\"ProcessVersionID\",\"GetNameAs\":\"ProcessVersionID\"},{\"Name\":\"ProcessInitiator\",\"GetNameAs\":\"ProcessInitiator\"},{\"Name\":\"IsResultOfAnotherProcess\",\"GetNameAs\":\"IsResultOfAnotherProcess\"},{\"Name\":\"IDMS_RDC_Master_TrackingCode\",\"GetNameAs\":\"IDMS_RDC_Master_TrackingCode\"},{\"Name\":\"UserStarterID\",\"GetNameAs\":\"UserStarterID\"},{\"Name\":\"IDMS_RDC_AllData\",\"GetNameAs\":\"IDMS_RDC_AllData\"},{\"Name\":\"TrackingCode\",\"GetNameAs\":\"TrackingCode\"}],\"Relation\":[]},{\"Name\":\"IDMS_RDC_Details\",\"GetNameAs\":\"IDMS_RDC_Details\",\"ModeErtebat\":2,\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"RequestID\",\"GetNameAs\":\"RequestID\"},{\"Name\":\"CreateUser\",\"GetNameAs\":\"CreateUser\"},{\"Name\":\"UpdateUser\",\"GetNameAs\":\"UpdateUser\"},{\"Name\":\"CreateDate\",\"GetNameAs\":\"CreateDate\"},{\"Name\":\"UpdateDate\",\"GetNameAs\":\"UpdateDate\"},{\"Name\":\"IsDelete\",\"GetNameAs\":\"IsDelete\"},{\"Name\":\"IDMS_ProductCategoriesId\",\"GetNameAs\":\"IDMS_ProductCategoriesId\"},{\"Name\":\"IDMS_ProductsId\",\"GetNameAs\":\"IDMS_ProductsId\"},{\"Name\":\"IDMS_CustomerId\",\"GetNameAs\":\"IDMS_CustomerId\"},{\"Name\":\"IDMS_ResultingFromId\",\"GetNameAs\":\"IDMS_ResultingFromId\"},{\"Name\":\"Description\",\"GetNameAs\":\"Description\"},{\"Name\":\"RequestedDueDate_Fa\",\"GetNameAs\":\"RequestedDueDate_Fa\"},{\"Name\":\"RequestedDueDate\",\"GetNameAs\":\"RequestedDueDate\"},{\"Name\":\"RDC_ActualCompletionDate_Fa\",\"GetNameAs\":\"RDC_ActualCompletionDate_Fa\"},{\"Name\":\"RDC_ActualCompletionDate\",\"GetNameAs\":\"RDC_ActualCompletionDate\"},{\"Name\":\"RDC_SUPERVISOR_Description\",\"GetNameAs\":\"RDC_SUPERVISOR_Description\"},{\"Name\":\"IDMS_ProductTypesId\",\"GetNameAs\":\"IDMS_ProductTypesId\"}],\"Relation\":[{\"Name\":\"IDMS_ProductCategories\",\"GetNameAs\":\"IDMS_ProductCategories\",\"ModeErtebat\":1,\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"ProductCategoryCode\",\"GetNameAs\":\"ProductCategoryCode\"},{\"Name\":\"ProductCategoryTitle\",\"GetNameAs\":\"ProductCategoryTitle\"},{\"Name\":\"ParentId\",\"GetNameAs\":\"ParentId\"}]},{\"Name\":\"IDMS_Products\",\"GetNameAs\":\"IDMS_Products\",\"ModeErtebat\":1,\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"ProductCode\",\"GetNameAs\":\"ProductCode\"},{\"Name\":\"ProductTitle\",\"GetNameAs\":\"ProductTitle\"},{\"Name\":\"ParentId\",\"GetNameAs\":\"ParentId\"},{\"Name\":\"IDMS_ProductTypesId\",\"GetNameAs\":\"IDMS_ProductTypesId\"}]},{\"Name\":\"IDMS_Customer\",\"GetNameAs\":\"IDMS_Customer\",\"ModeErtebat\":1,\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"CustomerCode\",\"GetNameAs\":\"CustomerCode\"},{\"Name\":\"CustomerTitle\",\"GetNameAs\":\"CustomerTitle\"}]},{\"Name\":\"IDMS_ResultingFrom\",\"GetNameAs\":\"IDMS_ResultingFrom\",\"ModeErtebat\":1,\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"ResultingFromCode\",\"GetNameAs\":\"ResultingFromCode\"},{\"Name\":\"ResultingFromTitle\",\"GetNameAs\":\"ResultingFromTitle\"}]},{\"Name\":\"IDMS_ProductTypes\",\"GetNameAs\":\"IDMS_ProductTypes\",\"ModeErtebat\":1,\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"Code\",\"GetNameAs\":\"Code\"},{\"Name\":\"Title\",\"GetNameAs\":\"Title\"}]}]},{\"Name\":\"IDMS_TestModel\",\"GetNameAs\":\"IDMS_TestModel\",\"ModeErtebat\":2,\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"RequestID\",\"GetNameAs\":\"RequestID\"},{\"Name\":\"CreateUser\",\"GetNameAs\":\"CreateUser\"},{\"Name\":\"UpdateUser\",\"GetNameAs\":\"UpdateUser\"},{\"Name\":\"CreateDate\",\"GetNameAs\":\"CreateDate\"},{\"Name\":\"UpdateDate\",\"GetNameAs\":\"UpdateDate\"},{\"Name\":\"IsDelete\",\"GetNameAs\":\"IsDelete\"},{\"Name\":\"IDMS_TestModelObjId\",\"GetNameAs\":\"IDMS_TestModelObjId\"},{\"Name\":\"TesterDescription\",\"GetNameAs\":\"TesterDescription\"},{\"Name\":\"Tester\",\"GetNameAs\":\"Tester\"}],\"Relation\":[{\"Name\":\"IDMS_TestModelObj\",\"GetNameAs\":\"IDMS_TestModelObj\",\"ModeErtebat\":1,\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"Code\",\"GetNameAs\":\"Code\"},{\"Name\":\"Title\",\"GetNameAs\":\"Title\"}]},{\"Name\":\"TesterNavigation\",\"GetNameAs\":\"TesterNavigation\",\"ModeErtebat\":1,\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"AccessFailedCount\",\"GetNameAs\":\"AccessFailedCount\"},{\"Name\":\"ConcurrencyStamp\",\"GetNameAs\":\"ConcurrencyStamp\"},{\"Name\":\"Discriminator\",\"GetNameAs\":\"Discriminator\"},{\"Name\":\"Email\",\"GetNameAs\":\"Email\"},{\"Name\":\"EmailConfirmed\",\"GetNameAs\":\"EmailConfirmed\"},{\"Name\":\"LockoutEnabled\",\"GetNameAs\":\"LockoutEnabled\"},{\"Name\":\"LockoutEnd\",\"GetNameAs\":\"LockoutEnd\"},{\"Name\":\"NormalizedEmail\",\"GetNameAs\":\"NormalizedEmail\"},{\"Name\":\"NormalizedUserName\",\"GetNameAs\":\"NormalizedUserName\"},{\"Name\":\"PasswordHash\",\"GetNameAs\":\"PasswordHash\"},{\"Name\":\"PhoneNumber\",\"GetNameAs\":\"PhoneNumber\"},{\"Name\":\"PhoneNumberConfirmed\",\"GetNameAs\":\"PhoneNumberConfirmed\"},{\"Name\":\"SecurityStamp\",\"GetNameAs\":\"SecurityStamp\"},{\"Name\":\"TwoFactorEnabled\",\"GetNameAs\":\"TwoFactorEnabled\"},{\"Name\":\"UserName\",\"GetNameAs\":\"UserName\"},{\"Name\":\"Address\",\"GetNameAs\":\"Address\"},{\"Name\":\"BirthDate\",\"GetNameAs\":\"BirthDate\"},{\"Name\":\"BirthDateString\",\"GetNameAs\":\"BirthDateString\"},{\"Name\":\"BirthPlace\",\"GetNameAs\":\"BirthPlace\"},{\"Name\":\"CodeMelli\",\"GetNameAs\":\"CodeMelli\"},{\"Name\":\"CompanyEmploymentDate\",\"GetNameAs\":\"CompanyEmploymentDate\"},{\"Name\":\"CompanyEmploymentDateString\",\"GetNameAs\":\"CompanyEmploymentDateString\"},{\"Name\":\"CompanyID\",\"GetNameAs\":\"CompanyID\"},{\"Name\":\"EMP_NO\",\"GetNameAs\":\"EMP_NO\"},{\"Name\":\"EmploymentStatus\",\"GetNameAs\":\"EmploymentStatus\"},{\"Name\":\"FAMILY\",\"GetNameAs\":\"FAMILY\"},{\"Name\":\"FatherName\",\"GetNameAs\":\"FatherName\"},{\"Name\":\"IndustrialComplexEmploymentDate\",\"GetNameAs\":\"IndustrialComplexEmploymentDate\"},{\"Name\":\"IndustrialComplexEmploymentDateString\",\"GetNameAs\":\"IndustrialComplexEmploymentDateString\"},{\"Name\":\"IsActive\",\"GetNameAs\":\"IsActive\"},{\"Name\":\"IsCut\",\"GetNameAs\":\"IsCut\"},{\"Name\":\"JobTitle\",\"GetNameAs\":\"JobTitle\"},{\"Name\":\"LastEducationalCertificate\",\"GetNameAs\":\"LastEducationalCertificate\"},{\"Name\":\"MaritalStatus\",\"GetNameAs\":\"MaritalStatus\"},{\"Name\":\"NAME\",\"GetNameAs\":\"NAME\"},{\"Name\":\"OrganizationalUnit\",\"GetNameAs\":\"OrganizationalUnit\"},{\"Name\":\"OstanID\",\"GetNameAs\":\"OstanID\"},{\"Name\":\"PERS_NO\",\"GetNameAs\":\"PERS_NO\"},{\"Name\":\"Part\",\"GetNameAs\":\"Part\"},{\"Name\":\"PlaceofIssue\",\"GetNameAs\":\"PlaceofIssue\"},{\"Name\":\"PostTitle\",\"GetNameAs\":\"PostTitle\"},{\"Name\":\"ResetPassword\",\"GetNameAs\":\"ResetPassword\"},{\"Name\":\"SEX\",\"GetNameAs\":\"SEX\"},{\"Name\":\"SYSUserName\",\"GetNameAs\":\"SYSUserName\"},{\"Name\":\"SectionID\",\"GetNameAs\":\"SectionID\"},{\"Name\":\"ShomareShenasname\",\"GetNameAs\":\"ShomareShenasname\"},{\"Name\":\"Signature\",\"GetNameAs\":\"Signature\"},{\"Name\":\"StudyField\",\"GetNameAs\":\"StudyField\"},{\"Name\":\"UserImage\",\"GetNameAs\":\"UserImage\"}]}]}]}");
-        TablePost = await Utility.JSON.ToObject<Table>("{\"Name\":\"IDMS_RDC_Master\",\"GetNameAs\":\"IDMS_RDC_Master\",\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"RequestID\",\"GetNameAs\":\"RequestID\"},{\"Name\":\"CreateUser\",\"GetNameAs\":\"CreateUser\"},{\"Name\":\"UpdateUser\",\"GetNameAs\":\"UpdateUser\"},{\"Name\":\"CreateDate\",\"GetNameAs\":\"CreateDate\"},{\"Name\":\"UpdateDate\",\"GetNameAs\":\"UpdateDate\"},{\"Name\":\"IsDelete\",\"GetNameAs\":\"IsDelete\"},{\"Name\":\"UserStarterFullName\",\"GetNameAs\":\"UserStarterFullName\"},{\"Name\":\"UserStarterCompanyName\",\"GetNameAs\":\"UserStarterCompanyName\"},{\"Name\":\"UserStarterUnitName\",\"GetNameAs\":\"UserStarterUnitName\"},{\"Name\":\"UserStarterSectionName\",\"GetNameAs\":\"UserStarterSectionName\"},{\"Name\":\"IsResultOfAnotherProcess\",\"GetNameAs\":\"IsResultOfAnotherProcess\"},{\"Name\":\"IDMS_RDC_AllData\",\"GetNameAs\":\"IDMS_RDC_AllData\"},{\"Name\":\"TrackingCode\",\"GetNameAs\":\"TrackingCode\"}],\"Relation\":[{\"Name\":\"IDMS_RDC_Details\",\"GetNameAs\":\"IDMS_RDC_Details\",\"ModeErtebat\":2,\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"RequestID\",\"GetNameAs\":\"RequestID\"},{\"Name\":\"CreateUser\",\"GetNameAs\":\"CreateUser\"},{\"Name\":\"UpdateUser\",\"GetNameAs\":\"UpdateUser\"},{\"Name\":\"CreateDate\",\"GetNameAs\":\"CreateDate\"},{\"Name\":\"UpdateDate\",\"GetNameAs\":\"UpdateDate\"},{\"Name\":\"IsDelete\",\"GetNameAs\":\"IsDelete\"},{\"Name\":\"IDMS_ProductCategoriesId\",\"GetNameAs\":\"IDMS_ProductCategoriesId\"},{\"Name\":\"IDMS_ProductsId\",\"GetNameAs\":\"IDMS_ProductsId\"},{\"Name\":\"IDMS_CustomerId\",\"GetNameAs\":\"IDMS_CustomerId\"},{\"Name\":\"IDMS_ResultingFromId\",\"GetNameAs\":\"IDMS_ResultingFromId\"},{\"Name\":\"Description\",\"GetNameAs\":\"Description\"},{\"Name\":\"RequestedDueDate_Fa\",\"GetNameAs\":\"RequestedDueDate_Fa\"},{\"Name\":\"RequestedDueDate\",\"GetNameAs\":\"RequestedDueDate\"},{\"Name\":\"RDC_ActualCompletionDate_Fa\",\"GetNameAs\":\"RDC_ActualCompletionDate_Fa\"},{\"Name\":\"RDC_ActualCompletionDate\",\"GetNameAs\":\"RDC_ActualCompletionDate\"},{\"Name\":\"RDC_SUPERVISOR_Description\",\"GetNameAs\":\"RDC_SUPERVISOR_Description\"},{\"Name\":\"IDMS_ProductTypesId\",\"GetNameAs\":\"IDMS_ProductTypesId\"}],\"Relation\":[]},{\"Name\":\"IDMS_TestModel\",\"GetNameAs\":\"IDMS_TestModel\",\"ModeErtebat\":2,\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"RequestID\",\"GetNameAs\":\"RequestID\"},{\"Name\":\"CreateUser\",\"GetNameAs\":\"CreateUser\"},{\"Name\":\"UpdateUser\",\"GetNameAs\":\"UpdateUser\"},{\"Name\":\"CreateDate\",\"GetNameAs\":\"CreateDate\"},{\"Name\":\"UpdateDate\",\"GetNameAs\":\"UpdateDate\"},{\"Name\":\"IsDelete\",\"GetNameAs\":\"IsDelete\"},{\"Name\":\"IDMS_TestModelObjId\",\"GetNameAs\":\"IDMS_TestModelObjId\"},{\"Name\":\"TesterDescription\",\"GetNameAs\":\"TesterDescription\"},{\"Name\":\"Tester\",\"GetNameAs\":\"Tester\"}],\"Relation\":[]}]}");
+        TableGet = await Utility.JSON.ToObject<Table>("{\"Name\":\"IDMS_RDC_Master\",\"GetNameAs\":\"IDMS_RDC_Master\",\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"RequestID\",\"GetNameAs\":\"RequestID\"},{\"Name\":\"CreateUser\",\"GetNameAs\":\"CreateUser\"},{\"Name\":\"UpdateUser\",\"GetNameAs\":\"UpdateUser\"},{\"Name\":\"CreateDate\",\"GetNameAs\":\"CreateDate\"},{\"Name\":\"UpdateDate\",\"GetNameAs\":\"UpdateDate\"},{\"Name\":\"IsDelete\",\"GetNameAs\":\"IsDelete\"},{\"Name\":\"UserStarterFullName\",\"GetNameAs\":\"UserStarterFullName\"},{\"Name\":\"UserStarterCompanyName\",\"GetNameAs\":\"UserStarterCompanyName\"},{\"Name\":\"UserStarterUnitName\",\"GetNameAs\":\"UserStarterUnitName\"},{\"Name\":\"UserStarterSectionName\",\"GetNameAs\":\"UserStarterSectionName\"},{\"Name\":\"IsResultOfAnotherProcess\",\"GetNameAs\":\"IsResultOfAnotherProcess\"},{\"Name\":\"IDMS_RDC_AllData\",\"GetNameAs\":\"IDMS_RDC_AllData\"},{\"Name\":\"TrackingCode\",\"GetNameAs\":\"TrackingCode\"}],\"Relation\":[{\"Name\":\"IDMS_RDC_Master_TrackingCodeNavigation\",\"GetNameAs\":\"IDMS_RDC_Master_TrackingCodeNavigation\",\"ModeErtebat\":1,\"Column\":[{\"Name\":\"UserStarterFullName\",\"GetNameAs\":\"UserStarterFullName\"},{\"Name\":\"UserStarterCompanyName\",\"GetNameAs\":\"UserStarterCompanyName\"},{\"Name\":\"UserStarterUnitName\",\"GetNameAs\":\"UserStarterUnitName\"},{\"Name\":\"UserStarterSectionName\",\"GetNameAs\":\"UserStarterSectionName\"},{\"Name\":\"RequestTrakingCode\",\"GetNameAs\":\"RequestTrakingCode\"},{\"Name\":\"ProcessVersionID\",\"GetNameAs\":\"ProcessVersionID\"},{\"Name\":\"ProcessInitiator\",\"GetNameAs\":\"ProcessInitiator\"},{\"Name\":\"IsResultOfAnotherProcess\",\"GetNameAs\":\"IsResultOfAnotherProcess\"},{\"Name\":\"IDMS_RDC_Master_TrackingCode\",\"GetNameAs\":\"IDMS_RDC_Master_TrackingCode\"},{\"Name\":\"UserStarterID\",\"GetNameAs\":\"UserStarterID\"},{\"Name\":\"IDMS_RDC_AllData\",\"GetNameAs\":\"IDMS_RDC_AllData\"},{\"Name\":\"TrackingCode\",\"GetNameAs\":\"TrackingCode\"}],\"Relation\":[]},{\"Name\":\"IDMS_RDC_Details\",\"GetNameAs\":\"IDMS_RDC_Details\",\"ModeErtebat\":2,\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"RequestID\",\"GetNameAs\":\"RequestID\"},{\"Name\":\"CreateUser\",\"GetNameAs\":\"CreateUser\"},{\"Name\":\"UpdateUser\",\"GetNameAs\":\"UpdateUser\"},{\"Name\":\"CreateDate\",\"GetNameAs\":\"CreateDate\"},{\"Name\":\"UpdateDate\",\"GetNameAs\":\"UpdateDate\"},{\"Name\":\"IsDelete\",\"GetNameAs\":\"IsDelete\"},{\"Name\":\"IDMS_ProductCategoriesId\",\"GetNameAs\":\"IDMS_ProductCategoriesId\"},{\"Name\":\"IDMS_ProductsId\",\"GetNameAs\":\"IDMS_ProductsId\"},{\"Name\":\"IDMS_CustomerId\",\"GetNameAs\":\"IDMS_CustomerId\"},{\"Name\":\"IDMS_ResultingFromId\",\"GetNameAs\":\"IDMS_ResultingFromId\"},{\"Name\":\"Description\",\"GetNameAs\":\"Description\"},{\"Name\":\"RequestedDueDate_Fa\",\"GetNameAs\":\"RequestedDueDate_Fa\"},{\"Name\":\"RequestedDueDate\",\"GetNameAs\":\"RequestedDueDate\"},{\"Name\":\"RDC_ActualCompletionDate_Fa\",\"GetNameAs\":\"RDC_ActualCompletionDate_Fa\"},{\"Name\":\"RDC_ActualCompletionDate\",\"GetNameAs\":\"RDC_ActualCompletionDate\"},{\"Name\":\"RDC_SUPERVISOR_Description\",\"GetNameAs\":\"RDC_SUPERVISOR_Description\"},{\"Name\":\"IDMS_ProductTypesId\",\"GetNameAs\":\"IDMS_ProductTypesId\"},{\"Name\":\"IsAgreedDate\",\"GetNameAs\":\"IsAgreedDate\"},{\"Name\":\"IsAgreedDateByRequester\",\"GetNameAs\":\"IsAgreedDateByRequester\"},{\"Name\":\"RequesterDateDisagreementReason\",\"GetNameAs\":\"RequesterDateDisagreementReason\"}],\"Relation\":[{\"Name\":\"IDMS_ProductCategories\",\"GetNameAs\":\"IDMS_ProductCategories\",\"ModeErtebat\":1,\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"ProductCategoryCode\",\"GetNameAs\":\"ProductCategoryCode\"},{\"Name\":\"ProductCategoryTitle\",\"GetNameAs\":\"ProductCategoryTitle\"},{\"Name\":\"ParentId\",\"GetNameAs\":\"ParentId\"}]},{\"Name\":\"IDMS_Products\",\"GetNameAs\":\"IDMS_Products\",\"ModeErtebat\":1,\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"ProductCode\",\"GetNameAs\":\"ProductCode\"},{\"Name\":\"ProductTitle\",\"GetNameAs\":\"ProductTitle\"},{\"Name\":\"ParentId\",\"GetNameAs\":\"ParentId\"},{\"Name\":\"IDMS_ProductTypesId\",\"GetNameAs\":\"IDMS_ProductTypesId\"}]},{\"Name\":\"IDMS_Customer\",\"GetNameAs\":\"IDMS_Customer\",\"ModeErtebat\":1,\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"CustomerCode\",\"GetNameAs\":\"CustomerCode\"},{\"Name\":\"CustomerTitle\",\"GetNameAs\":\"CustomerTitle\"},{\"Name\":\"ParentId\",\"GetNameAs\":\"ParentId\"}]},{\"Name\":\"IDMS_ResultingFrom\",\"GetNameAs\":\"IDMS_ResultingFrom\",\"ModeErtebat\":1,\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"ResultingFromCode\",\"GetNameAs\":\"ResultingFromCode\"},{\"Name\":\"ResultingFromTitle\",\"GetNameAs\":\"ResultingFromTitle\"}]},{\"Name\":\"IDMS_ProductTypes\",\"GetNameAs\":\"IDMS_ProductTypes\",\"ModeErtebat\":1,\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"Code\",\"GetNameAs\":\"Code\"},{\"Name\":\"Title\",\"GetNameAs\":\"Title\"}]}]},{\"Name\":\"IDMS_TestModel\",\"GetNameAs\":\"IDMS_TestModel\",\"ModeErtebat\":2,\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"RequestID\",\"GetNameAs\":\"RequestID\"},{\"Name\":\"CreateUser\",\"GetNameAs\":\"CreateUser\"},{\"Name\":\"UpdateUser\",\"GetNameAs\":\"UpdateUser\"},{\"Name\":\"CreateDate\",\"GetNameAs\":\"CreateDate\"},{\"Name\":\"UpdateDate\",\"GetNameAs\":\"UpdateDate\"},{\"Name\":\"IsDelete\",\"GetNameAs\":\"IsDelete\"},{\"Name\":\"IDMS_TestModelObjId\",\"GetNameAs\":\"IDMS_TestModelObjId\"},{\"Name\":\"TesterDescription\",\"GetNameAs\":\"TesterDescription\"},{\"Name\":\"IDMS_TesterRequests\",\"GetNameAs\":\"IDMS_TesterRequests\"}],\"Relation\":[{\"Name\":\"IDMS_TestModelObj\",\"GetNameAs\":\"IDMS_TestModelObj\",\"ModeErtebat\":1,\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"Code\",\"GetNameAs\":\"Code\"},{\"Name\":\"Title\",\"GetNameAs\":\"Title\"}]},{\"Name\":\"IDMS_TesterRequestsNavigation\",\"GetNameAs\":\"IDMS_TesterRequestsNavigation\",\"ModeErtebat\":1,\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"Code\",\"GetNameAs\":\"Code\"},{\"Name\":\"Title\",\"GetNameAs\":\"Title\"}]}]}]}");
+        TablePost = await Utility.JSON.ToObject<Table>("{\"Name\":\"IDMS_RDC_Master\",\"GetNameAs\":\"IDMS_RDC_Master\",\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"RequestID\",\"GetNameAs\":\"RequestID\"},{\"Name\":\"CreateUser\",\"GetNameAs\":\"CreateUser\"},{\"Name\":\"UpdateUser\",\"GetNameAs\":\"UpdateUser\"},{\"Name\":\"CreateDate\",\"GetNameAs\":\"CreateDate\"},{\"Name\":\"UpdateDate\",\"GetNameAs\":\"UpdateDate\"},{\"Name\":\"IsDelete\",\"GetNameAs\":\"IsDelete\"},{\"Name\":\"UserStarterFullName\",\"GetNameAs\":\"UserStarterFullName\"},{\"Name\":\"UserStarterCompanyName\",\"GetNameAs\":\"UserStarterCompanyName\"},{\"Name\":\"UserStarterUnitName\",\"GetNameAs\":\"UserStarterUnitName\"},{\"Name\":\"UserStarterSectionName\",\"GetNameAs\":\"UserStarterSectionName\"},{\"Name\":\"IsResultOfAnotherProcess\",\"GetNameAs\":\"IsResultOfAnotherProcess\"},{\"Name\":\"IDMS_RDC_AllData\",\"GetNameAs\":\"IDMS_RDC_AllData\"},{\"Name\":\"TrackingCode\",\"GetNameAs\":\"TrackingCode\"}],\"Relation\":[{\"Name\":\"IDMS_RDC_Details\",\"GetNameAs\":\"IDMS_RDC_Details\",\"ModeErtebat\":2,\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"RequestID\",\"GetNameAs\":\"RequestID\"},{\"Name\":\"CreateUser\",\"GetNameAs\":\"CreateUser\"},{\"Name\":\"UpdateUser\",\"GetNameAs\":\"UpdateUser\"},{\"Name\":\"CreateDate\",\"GetNameAs\":\"CreateDate\"},{\"Name\":\"UpdateDate\",\"GetNameAs\":\"UpdateDate\"},{\"Name\":\"IsDelete\",\"GetNameAs\":\"IsDelete\"},{\"Name\":\"IDMS_ProductCategoriesId\",\"GetNameAs\":\"IDMS_ProductCategoriesId\"},{\"Name\":\"IDMS_ProductsId\",\"GetNameAs\":\"IDMS_ProductsId\"},{\"Name\":\"IDMS_CustomerId\",\"GetNameAs\":\"IDMS_CustomerId\"},{\"Name\":\"IDMS_ResultingFromId\",\"GetNameAs\":\"IDMS_ResultingFromId\"},{\"Name\":\"Description\",\"GetNameAs\":\"Description\"},{\"Name\":\"RequestedDueDate_Fa\",\"GetNameAs\":\"RequestedDueDate_Fa\"},{\"Name\":\"RequestedDueDate\",\"GetNameAs\":\"RequestedDueDate\"},{\"Name\":\"RDC_ActualCompletionDate_Fa\",\"GetNameAs\":\"RDC_ActualCompletionDate_Fa\"},{\"Name\":\"RDC_ActualCompletionDate\",\"GetNameAs\":\"RDC_ActualCompletionDate\"},{\"Name\":\"RDC_SUPERVISOR_Description\",\"GetNameAs\":\"RDC_SUPERVISOR_Description\"},{\"Name\":\"IDMS_ProductTypesId\",\"GetNameAs\":\"IDMS_ProductTypesId\"},{\"Name\":\"IsAgreedDate\",\"GetNameAs\":\"IsAgreedDate\"},{\"Name\":\"IsAgreedDateByRequester\",\"GetNameAs\":\"IsAgreedDateByRequester\"},{\"Name\":\"RequesterDateDisagreementReason\",\"GetNameAs\":\"RequesterDateDisagreementReason\"}],\"Relation\":[]},{\"Name\":\"IDMS_TestModel\",\"GetNameAs\":\"IDMS_TestModel\",\"ModeErtebat\":2,\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"RequestID\",\"GetNameAs\":\"RequestID\"},{\"Name\":\"CreateUser\",\"GetNameAs\":\"CreateUser\"},{\"Name\":\"UpdateUser\",\"GetNameAs\":\"UpdateUser\"},{\"Name\":\"CreateDate\",\"GetNameAs\":\"CreateDate\"},{\"Name\":\"UpdateDate\",\"GetNameAs\":\"UpdateDate\"},{\"Name\":\"IsDelete\",\"GetNameAs\":\"IsDelete\"},{\"Name\":\"IDMS_TestModelObjId\",\"GetNameAs\":\"IDMS_TestModelObjId\"},{\"Name\":\"TesterDescription\",\"GetNameAs\":\"TesterDescription\"},{\"Name\":\"IDMS_TesterRequests\",\"GetNameAs\":\"IDMS_TesterRequests\"}],\"Relation\":[]}]}");
 
         config = CKEditorBundleOptions.DefaultConfig.WithHtmlEditing();
         config.Language = "fa";

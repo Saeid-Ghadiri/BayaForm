@@ -144,7 +144,7 @@ namespace Forms.Forms
     /// <summary>
     ///  ورژنی که فرم باهاش ساخته شده
     /// </summary>
-    public string? VersionForm { get; set; } = "5823";
+    public string? VersionForm { get; set; } = "6067";
 
     /// <summary>
     ///  موجودیت
@@ -203,6 +203,7 @@ public Input<Guid?> Ref_SCMPLATE_ProductRequestDetails_UpdateUser;
 public Input<DateTime?> Ref_SCMPLATE_ProductRequestDetails_CreateDate;
 public Input<DateTime?> Ref_SCMPLATE_ProductRequestDetails_UpdateDate;
 public Input<bool?> Ref_SCMPLATE_ProductRequestDetails_IsDelete;
+public RadioBoolean Ref_SCMPLATE_ProductRequestDetails_EnableLaterPurchace;
 public Input<Guid> Ref_Id;
 public Input<Guid?> Ref_RequestID;
 public Input<Guid?> Ref_CreateUser;

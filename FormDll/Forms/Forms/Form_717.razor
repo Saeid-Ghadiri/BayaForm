@@ -119,7 +119,7 @@
 
 <div class="col-md-3">
     
-<Input Id="UserStarterFullName" @ref="Ref_UserStarterFullName"   CssClass="                                    " Disabled=true  @bind-Value="_Entity.UserStarterFullName" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+<Input Id="UserStarterFullName" @ref="Ref_UserStarterFullName"   CssClass="                                    " Disabled=true  @bind-Value="_Entity.UserStarterFullName" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"maxlength\":\"350\"}").Result))></Input>
 
 </div>
 
@@ -280,6 +280,20 @@
 
 <DxGridDataColumn  Caption="IsDelete" Visible=false FieldName="IsDelete" />
 
+<DxGridDataColumn Context="EnableLaterPurchace_" Caption="بعدا خرید" Visible=false>
+    <CellDisplayTemplate>
+       
+@{
+    var SCMPLATE_ProductRequestDetails_EnableLaterPurchace = ((Entity.SCMPLATE_ProductRequestDetails)EnableLaterPurchace_.DataItem).EnableLaterPurchace;
+}
+
+<p class="text-center " hidden="@(SCMPLATE_ProductRequestDetails_EnableLaterPurchace !=null ? !SCMPLATE_ProductRequestDetails_EnableLaterPurchace : true)">بله</p>
+
+<p class="text-center" hidden="@(SCMPLATE_ProductRequestDetails_EnableLaterPurchace !=null ? SCMPLATE_ProductRequestDetails_EnableLaterPurchace : true)">خیر</p>
+
+
+    </CellDisplayTemplate>
+</DxGridDataColumn>
 
 </Columns>
 
@@ -428,6 +442,12 @@
 <DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextSCMPLATE_ProductRequestDetails">
     
 <Input Id="SCMPLATE_ProductRequestDetails_IsDelete" @ref="Ref_SCMPLATE_ProductRequestDetails_IsDelete"   CssClass="d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none"   @bind-Value="SCMPLATE_ProductRequestDetails.IsDelete" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+</DxFormLayoutItem>
+
+<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextSCMPLATE_ProductRequestDetails">
+    
+<RadioBoolean @ref="Ref_SCMPLATE_ProductRequestDetails_EnableLaterPurchace" InLine=true Id="SCMPLATE_ProductRequestDetails_EnableLaterPurchace"   LabelTrue="بله" LabelFalse="خیر" Label="بعدا خرید" @bind-Value="SCMPLATE_ProductRequestDetails.EnableLaterPurchace" CssClass="d-none" ></RadioBoolean>
 
 </DxFormLayoutItem>
 
@@ -733,6 +753,7 @@ MainModel.UpdateUser = ((Entity.SCMPLATE_ProductRequestDetails)EditModel).Update
 MainModel.CreateDate = ((Entity.SCMPLATE_ProductRequestDetails)EditModel).CreateDate;
 MainModel.UpdateDate = ((Entity.SCMPLATE_ProductRequestDetails)EditModel).UpdateDate;
 MainModel.IsDelete = ((Entity.SCMPLATE_ProductRequestDetails)EditModel).IsDelete;
+MainModel.EnableLaterPurchace = ((Entity.SCMPLATE_ProductRequestDetails)EditModel).EnableLaterPurchace;
 
     }
     else
@@ -877,8 +898,8 @@ public async void RowDubbleClickGrid_SCMPLATE_ProductRequestDetails(GridRowClick
     {
         Console.WriteLine("#log OnInitializedAsync");
 
-        TableGet = await Utility.JSON.ToObject<Table>("{\"Name\":\"SCMPLATE_ProductRequest\",\"GetNameAs\":\"SCMPLATE_ProductRequest\",\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"RequestID\",\"GetNameAs\":\"RequestID\"},{\"Name\":\"CreateUser\",\"GetNameAs\":\"CreateUser\"},{\"Name\":\"UpdateUser\",\"GetNameAs\":\"UpdateUser\"},{\"Name\":\"CreateDate\",\"GetNameAs\":\"CreateDate\"},{\"Name\":\"UpdateDate\",\"GetNameAs\":\"UpdateDate\"},{\"Name\":\"IsDelete\",\"GetNameAs\":\"IsDelete\"},{\"Name\":\"UserStarterFullName\",\"GetNameAs\":\"UserStarterFullName\"},{\"Name\":\"UserStarterCompanyName\",\"GetNameAs\":\"UserStarterCompanyName\"},{\"Name\":\"UserStarterUnitName\",\"GetNameAs\":\"UserStarterUnitName\"},{\"Name\":\"UserStarterSectionName\",\"GetNameAs\":\"UserStarterSectionName\"}],\"Relation\":[{\"Name\":\"SCMPLATE_ICT_Departments\",\"GetNameAs\":\"SCMPLATE_ICT_Departments\",\"ModeErtebat\":1,\"Column\":[{\"Name\":\"Code\",\"GetNameAs\":\"Code\"},{\"Name\":\"Title\",\"GetNameAs\":\"Title\"}],\"Relation\":[]},{\"Name\":\"SCMPLATE_ProductRequestDetails\",\"GetNameAs\":\"SCMPLATE_ProductRequestDetails\",\"ModeErtebat\":2,\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"RequestID\",\"GetNameAs\":\"RequestID\"},{\"Name\":\"CreateUser\",\"GetNameAs\":\"CreateUser\"},{\"Name\":\"UpdateUser\",\"GetNameAs\":\"UpdateUser\"},{\"Name\":\"CreateDate\",\"GetNameAs\":\"CreateDate\"},{\"Name\":\"UpdateDate\",\"GetNameAs\":\"UpdateDate\"},{\"Name\":\"IsDelete\",\"GetNameAs\":\"IsDelete\"},{\"Name\":\"SH_PARTNO\",\"GetNameAs\":\"SH_PARTNO\"},{\"Name\":\"SH_DESC\",\"GetNameAs\":\"SH_DESC\"},{\"Name\":\"SH_UNIT\",\"GetNameAs\":\"SH_UNIT\"},{\"Name\":\"SH_Amount\",\"GetNameAs\":\"SH_Amount\"},{\"Name\":\"Global_PriorityId\",\"GetNameAs\":\"Global_PriorityId\"},{\"Name\":\"ProductRequestingQTY\",\"GetNameAs\":\"ProductRequestingQTY\"},{\"Name\":\"PlaceOfUse\",\"GetNameAs\":\"PlaceOfUse\"},{\"Name\":\"SR_Desc\",\"GetNameAs\":\"SR_Desc\"},{\"Name\":\"ApproverDescription\",\"GetNameAs\":\"ApproverDescription\"},{\"Name\":\"GoodsDeliveryApproved\",\"GetNameAs\":\"GoodsDeliveryApproved\"},{\"Name\":\"HasModification\",\"GetNameAs\":\"HasModification\"}],\"Relation\":[{\"Name\":\"Global_Priority\",\"GetNameAs\":\"Global_Priority\",\"ModeErtebat\":1,\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"Title\",\"GetNameAs\":\"Title\"},{\"Name\":\"Code\",\"GetNameAs\":\"Code\"}]}]}]}");
-        TablePost = await Utility.JSON.ToObject<Table>("{\"Name\":\"SCMPLATE_ProductRequest\",\"GetNameAs\":\"SCMPLATE_ProductRequest\",\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"RequestID\",\"GetNameAs\":\"RequestID\"},{\"Name\":\"CreateUser\",\"GetNameAs\":\"CreateUser\"},{\"Name\":\"UpdateUser\",\"GetNameAs\":\"UpdateUser\"},{\"Name\":\"CreateDate\",\"GetNameAs\":\"CreateDate\"},{\"Name\":\"UpdateDate\",\"GetNameAs\":\"UpdateDate\"},{\"Name\":\"IsDelete\",\"GetNameAs\":\"IsDelete\"},{\"Name\":\"UserStarterFullName\",\"GetNameAs\":\"UserStarterFullName\"},{\"Name\":\"UserStarterCompanyName\",\"GetNameAs\":\"UserStarterCompanyName\"},{\"Name\":\"UserStarterUnitName\",\"GetNameAs\":\"UserStarterUnitName\"},{\"Name\":\"UserStarterSectionName\",\"GetNameAs\":\"UserStarterSectionName\"}],\"Relation\":[{\"Name\":\"SCMPLATE_ProductRequestDetails\",\"GetNameAs\":\"SCMPLATE_ProductRequestDetails\",\"ModeErtebat\":2,\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"RequestID\",\"GetNameAs\":\"RequestID\"},{\"Name\":\"CreateUser\",\"GetNameAs\":\"CreateUser\"},{\"Name\":\"UpdateUser\",\"GetNameAs\":\"UpdateUser\"},{\"Name\":\"CreateDate\",\"GetNameAs\":\"CreateDate\"},{\"Name\":\"UpdateDate\",\"GetNameAs\":\"UpdateDate\"},{\"Name\":\"IsDelete\",\"GetNameAs\":\"IsDelete\"},{\"Name\":\"SH_PARTNO\",\"GetNameAs\":\"SH_PARTNO\"},{\"Name\":\"SH_DESC\",\"GetNameAs\":\"SH_DESC\"},{\"Name\":\"SH_UNIT\",\"GetNameAs\":\"SH_UNIT\"},{\"Name\":\"SH_Amount\",\"GetNameAs\":\"SH_Amount\"},{\"Name\":\"Global_PriorityId\",\"GetNameAs\":\"Global_PriorityId\"},{\"Name\":\"ProductRequestingQTY\",\"GetNameAs\":\"ProductRequestingQTY\"},{\"Name\":\"PlaceOfUse\",\"GetNameAs\":\"PlaceOfUse\"},{\"Name\":\"SR_Desc\",\"GetNameAs\":\"SR_Desc\"},{\"Name\":\"ApproverDescription\",\"GetNameAs\":\"ApproverDescription\"},{\"Name\":\"GoodsDeliveryApproved\",\"GetNameAs\":\"GoodsDeliveryApproved\"},{\"Name\":\"HasModification\",\"GetNameAs\":\"HasModification\"}],\"Relation\":[]}]}");
+        TableGet = await Utility.JSON.ToObject<Table>("{\"Name\":\"SCMPLATE_ProductRequest\",\"GetNameAs\":\"SCMPLATE_ProductRequest\",\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"RequestID\",\"GetNameAs\":\"RequestID\"},{\"Name\":\"CreateUser\",\"GetNameAs\":\"CreateUser\"},{\"Name\":\"UpdateUser\",\"GetNameAs\":\"UpdateUser\"},{\"Name\":\"CreateDate\",\"GetNameAs\":\"CreateDate\"},{\"Name\":\"UpdateDate\",\"GetNameAs\":\"UpdateDate\"},{\"Name\":\"IsDelete\",\"GetNameAs\":\"IsDelete\"},{\"Name\":\"UserStarterFullName\",\"GetNameAs\":\"UserStarterFullName\"},{\"Name\":\"UserStarterCompanyName\",\"GetNameAs\":\"UserStarterCompanyName\"},{\"Name\":\"UserStarterUnitName\",\"GetNameAs\":\"UserStarterUnitName\"},{\"Name\":\"UserStarterSectionName\",\"GetNameAs\":\"UserStarterSectionName\"}],\"Relation\":[{\"Name\":\"SCMPLATE_ICT_Departments\",\"GetNameAs\":\"SCMPLATE_ICT_Departments\",\"ModeErtebat\":1,\"Column\":[{\"Name\":\"Code\",\"GetNameAs\":\"Code\"},{\"Name\":\"Title\",\"GetNameAs\":\"Title\"}],\"Relation\":[]},{\"Name\":\"SCMPLATE_ProductRequestDetails\",\"GetNameAs\":\"SCMPLATE_ProductRequestDetails\",\"ModeErtebat\":2,\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"RequestID\",\"GetNameAs\":\"RequestID\"},{\"Name\":\"CreateUser\",\"GetNameAs\":\"CreateUser\"},{\"Name\":\"UpdateUser\",\"GetNameAs\":\"UpdateUser\"},{\"Name\":\"CreateDate\",\"GetNameAs\":\"CreateDate\"},{\"Name\":\"UpdateDate\",\"GetNameAs\":\"UpdateDate\"},{\"Name\":\"IsDelete\",\"GetNameAs\":\"IsDelete\"},{\"Name\":\"SH_PARTNO\",\"GetNameAs\":\"SH_PARTNO\"},{\"Name\":\"SH_DESC\",\"GetNameAs\":\"SH_DESC\"},{\"Name\":\"SH_UNIT\",\"GetNameAs\":\"SH_UNIT\"},{\"Name\":\"SH_Amount\",\"GetNameAs\":\"SH_Amount\"},{\"Name\":\"Global_PriorityId\",\"GetNameAs\":\"Global_PriorityId\"},{\"Name\":\"ProductRequestingQTY\",\"GetNameAs\":\"ProductRequestingQTY\"},{\"Name\":\"PlaceOfUse\",\"GetNameAs\":\"PlaceOfUse\"},{\"Name\":\"SR_Desc\",\"GetNameAs\":\"SR_Desc\"},{\"Name\":\"ApproverDescription\",\"GetNameAs\":\"ApproverDescription\"},{\"Name\":\"GoodsDeliveryApproved\",\"GetNameAs\":\"GoodsDeliveryApproved\"},{\"Name\":\"HasModification\",\"GetNameAs\":\"HasModification\"},{\"Name\":\"EnableLaterPurchace\",\"GetNameAs\":\"EnableLaterPurchace\"}],\"Relation\":[{\"Name\":\"Global_Priority\",\"GetNameAs\":\"Global_Priority\",\"ModeErtebat\":1,\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"Title\",\"GetNameAs\":\"Title\"},{\"Name\":\"Code\",\"GetNameAs\":\"Code\"}]}]}]}");
+        TablePost = await Utility.JSON.ToObject<Table>("{\"Name\":\"SCMPLATE_ProductRequest\",\"GetNameAs\":\"SCMPLATE_ProductRequest\",\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"RequestID\",\"GetNameAs\":\"RequestID\"},{\"Name\":\"CreateUser\",\"GetNameAs\":\"CreateUser\"},{\"Name\":\"UpdateUser\",\"GetNameAs\":\"UpdateUser\"},{\"Name\":\"CreateDate\",\"GetNameAs\":\"CreateDate\"},{\"Name\":\"UpdateDate\",\"GetNameAs\":\"UpdateDate\"},{\"Name\":\"IsDelete\",\"GetNameAs\":\"IsDelete\"},{\"Name\":\"UserStarterFullName\",\"GetNameAs\":\"UserStarterFullName\"},{\"Name\":\"UserStarterCompanyName\",\"GetNameAs\":\"UserStarterCompanyName\"},{\"Name\":\"UserStarterUnitName\",\"GetNameAs\":\"UserStarterUnitName\"},{\"Name\":\"UserStarterSectionName\",\"GetNameAs\":\"UserStarterSectionName\"}],\"Relation\":[{\"Name\":\"SCMPLATE_ProductRequestDetails\",\"GetNameAs\":\"SCMPLATE_ProductRequestDetails\",\"ModeErtebat\":2,\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"RequestID\",\"GetNameAs\":\"RequestID\"},{\"Name\":\"CreateUser\",\"GetNameAs\":\"CreateUser\"},{\"Name\":\"UpdateUser\",\"GetNameAs\":\"UpdateUser\"},{\"Name\":\"CreateDate\",\"GetNameAs\":\"CreateDate\"},{\"Name\":\"UpdateDate\",\"GetNameAs\":\"UpdateDate\"},{\"Name\":\"IsDelete\",\"GetNameAs\":\"IsDelete\"},{\"Name\":\"SH_PARTNO\",\"GetNameAs\":\"SH_PARTNO\"},{\"Name\":\"SH_DESC\",\"GetNameAs\":\"SH_DESC\"},{\"Name\":\"SH_UNIT\",\"GetNameAs\":\"SH_UNIT\"},{\"Name\":\"SH_Amount\",\"GetNameAs\":\"SH_Amount\"},{\"Name\":\"Global_PriorityId\",\"GetNameAs\":\"Global_PriorityId\"},{\"Name\":\"ProductRequestingQTY\",\"GetNameAs\":\"ProductRequestingQTY\"},{\"Name\":\"PlaceOfUse\",\"GetNameAs\":\"PlaceOfUse\"},{\"Name\":\"SR_Desc\",\"GetNameAs\":\"SR_Desc\"},{\"Name\":\"ApproverDescription\",\"GetNameAs\":\"ApproverDescription\"},{\"Name\":\"GoodsDeliveryApproved\",\"GetNameAs\":\"GoodsDeliveryApproved\"},{\"Name\":\"HasModification\",\"GetNameAs\":\"HasModification\"},{\"Name\":\"EnableLaterPurchace\",\"GetNameAs\":\"EnableLaterPurchace\"}],\"Relation\":[]}]}");
 
         config = CKEditorBundleOptions.DefaultConfig.WithHtmlEditing();
         config.Language = "fa";

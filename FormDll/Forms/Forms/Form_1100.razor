@@ -1,0 +1,1385 @@
+@inherits Forms.Forms.Form_1100Base
+@namespace FormsPage
+
+@using AKSoftware.Localization.MultiLanguages.Blazor
+@using Baya.Models.ORM
+@using Castle.DynamicLinqQueryBuilder
+@using Microsoft.AspNetCore.Components.Forms
+@using Microsoft.AspNetCore.Components.Authorization;
+@using System.Security.Claims
+@using System.Net
+@using Microsoft.JSInterop
+@using Forms
+@using Utility
+@using Baya.Models.ViewEngine
+@using Forms.Domain.Utility
+<style>
+    /* ************************************************** */
+.detailArea form div:not(.devdrop) {
+    margin-top: .1rem;
+}
+
+/* ************************************************** */
+.header-form {
+    height: 100px;
+    background: linear-gradient(96deg, #0d3b66, #6a0dad);
+    color: white;
+    border-bottom: 2px solid #ffffff33;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.25);
+    border-radius: 10px;
+    transition: all 0.3s ease-in-out;
+}
+
+.header-icon {
+    font-size: 56px;
+    color: #ffccff;
+    transition: transform 0.3s ease, color 0.3s ease;
+}
+
+.header-icon:hover {
+    transform: scale(1.1) rotate(-5deg);
+    color: #f5baff;
+}
+
+.header-title {
+    font-size: 25px;
+    font-weight: bold;
+    transition: color 0.3s ease;
+}
+
+.header-subtitle {
+    font-size: 14px;
+    opacity: 0.95;
+    transition: opacity 0.3s ease;
+}
+
+.header-text:hover .header-title {
+    color: #ffe0ff;
+}
+
+.header-text:hover .header-subtitle {
+    opacity: 1;
+}
+
+/* ********** */
+
+.col_bg1 {
+    border: 1px dashed rgba(99, 100, 102, 0.3);
+    background-color: rgba(189, 193, 196, 0.488);
+    border-radius: 0.5rem;
+    padding: 0.5rem;
+    margin: 1rem 0.1rem !important;
+    /*align-items: baseline;*/
+}
+
+.col_bg1:hover {
+    /* background-color: rgba(255, 193, 7, 0.03);
+  border-color: rgba(255, 193, 7, 0.5);*/
+}
+
+
+.col_bg {
+    /* border: 1px dashed rgba(88, 89, 104, 0.5);*/
+    /* طوسی خط‌چین */
+    background: #DEDED1;
+    /* background-color: #DEDED1; */
+    /* طوسی خیلی روشن */
+    border-radius: 0.5rem;
+    padding: 0.5rem;
+    margin: 1rem 0.1rem !important;
+}
+
+/* حذف کامل هاور */
+.col_bg:hover {
+    /* خالی بماند تا هیچ تغییری نکند */
+}
+</style>
+
+<div class="@(ReadOnly?"FormReadOnly":"")">
+
+
+    <span class="d-none">VersionForm:@VersionForm</span>
+
+    <div class="formListi mt-3">
+        <div class="masterArea">
+            <div class="p-2 cardbox">
+
+                @*فیلد های مستر اگه نیاز شد اینجا قرار گیرد *@
+
+
+                <Form_1100_Filter @ref="RefListFilter" OnSearch="@(f => SearchFilter(f))" _RequestParameters="@_RequestParameters" _CartablesParameters="@_CartablesParameters"></Form_1100_Filter>
+
+
+                <div class="gridArea">
+
+                    @*
+                    فیلتر و گرید با یک لیست داده کار میکنند
+                    *@
+
+                    <label for="SH_Petco_SefareshPoint_SH_Petco_SefareshPoint">تعیین نقطه سفارش کالا
+   
+    
+</label>
+
+<DxGrid @ref="Grid_SH_Petco_SefareshPoint" Data="_Entity" KeyFieldName="_Id" 
+        EditModelSaving="OnEditModelSavingSH_Petco_SefareshPoint"
+        DataItemDeleting="OnDataItemDeletingSH_Petco_SefareshPoint"
+        PopupEditFormCssClass="ModalWidth"
+        PopupEditFormHeaderText="تعیین نقطه سفارش کالا"
+        EditFormButtonsVisible="false"
+        CustomizeEditModel="CustomizeEditGrid_SH_Petco_SefareshPoint"
+        CustomizeElement="CustomizeRowsGrid_SH_Petco_SefareshPoint" 
+        Component="@((Utility.JSON.ToObject<View_Component>("{\"primaryKey\":false,\"EntityID\":782,\"FieldId\":0,\"ViewId\":1030,\"NotMapped\":false,\"Relation\":false,\"RelationExternal\":false,\"RelationChildModel\":\"SH_Petco_SefareshPoint\",\"GridMainModel\":\"SH_Petco_SefareshPoint\",\"widget\":{\"altInput\":false,\"allowInput\":false,\"clickOpens\":false,\"enableDate\":false,\"enableTime\":false,\"noCalendar\":false,\"useLocaleSettings\":false,\"hourIncrement\":0,\"minuteIncrement\":0,\"time_24hr\":false},\"data\":{},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"FieldsTemplate\":[],\"refreshOn\":\"data\",\"reorder\":false,\"addAnotherPosition\":\"bottom\",\"layoutFixed\":false,\"enableRowGroups\":false,\"initEmpty\":false,\"modal\":true,\"StartCustomDataGrid\":true,\"label\":\"تعیین نقطه سفارش کالا\",\"tableView\":false,\"key\":\"SH_Petco_SefareshPoint\",\"type\":\"datagrid\",\"input\":true,\"modalEdit\":false,\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result))"
+         >
+    <Columns>
+    
+<DxGridCommandColumn Width="70px">
+    <HeaderTemplate Context="HeaderContext">
+       
+<a id=SH_Petco_SefareshPoint_SH_Petco_SefareshPointButtonNew class="btn btn-sm btn-green btnGridAddData" @onclick="@(() => StartEditNewRowAsync_Grid_SH_Petco_SefareshPoint())" style="text-decoration: none;" href="javascript:void(0);">
+    <span class="fal fa-plus-circle btnicon"></span>
+    <span>@languageContainer.Keys["DXGrid:New"]</span>
+</a>
+
+    </HeaderTemplate>
+    <CellDisplayTemplate Context="CellContext">
+       
+<a id=SH_Petco_SefareshPoint_SH_Petco_SefareshPointButtonEdit class="btn btn-sm btn-yellow-light btnEditGridData" @onclick="@(() => StartModalGrid_SH_Petco_SefareshPoint(CellContext))" style="text-decoration: none;" href="javascript:void(0);">
+    <span class="fal fa-pencil btnicon"></span>
+</a>
+
+       
+<a class="btn btn-sm btn-red-light btnDeleteGridData" @onclick="@(() => OnDeleteButtonClickGrid_SH_Petco_SefareshPoint(CellContext))" style="text-decoration: none;" href="javascript:void(0);">
+    <span class="fal fa-times-circle btnicon"></span>
+</a>
+
+    </CellDisplayTemplate>
+</DxGridCommandColumn>
+
+    <DxGridCommandColumn   Width="60px">
+           <HeaderTemplate Context="HeaderContext">
+               <a    style="text-decoration: none;"  >
+                
+                   <span>ردیف</span>
+               </a>
+           </HeaderTemplate>
+           <CellDisplayTemplate Context="CellContext">
+            @if (CellContext.VisibleIndex > 9){
+                <p>@(CellContext.VisibleIndex + 1)</p>
+            }else{
+                <p>@(((CellContext.Grid.PageIndex * CellContext.Grid.PageSize) + (CellContext.VisibleIndex + 1)))</p>
+            }
+          
+           </CellDisplayTemplate>
+     </DxGridCommandColumn>
+    <DxGridDataColumn  Caption="Id" Visible=false FieldName="Id" />
+
+<DxGridDataColumn  Caption="RequestID" Visible=false FieldName="RequestID" />
+
+<DxGridDataColumn  Caption="CreateUser" Visible=false FieldName="CreateUser" />
+
+<DxGridDataColumn  Caption="UpdateUser" Visible=false FieldName="UpdateUser" />
+
+<DxGridDataColumn  Caption="CreateDate" Visible=false FieldName="CreateDate" />
+
+<DxGridDataColumn  Caption="UpdateDate" Visible=false FieldName="UpdateDate" />
+
+<DxGridDataColumn  Caption="IsDelete" Visible=false FieldName="IsDelete" />
+
+<DxGridDataColumn DisplayFormat="G" Caption="نقطه سفارش"  FieldName="OrdPoint" />
+
+<DxGridDataColumn DisplayFormat="G" Caption="مقدار سفارش"  FieldName="OrderAmount" />
+
+<DxGridDataColumn DisplayFormat="G" Caption="حداکثر موجودی"  FieldName="MaxAmount" />
+
+<DxGridDataColumn DisplayFormat="G" Caption="موجودی احتیاطی"  FieldName="EhtiatAmount" />
+
+<DxGridDataColumn  Caption="نام تنظیم کننده"  FieldName="Creator" />
+
+<DxGridDataColumn Context="ProductSearch_" Caption="جستجو کالا" >
+    <CellDisplayTemplate>
+       
+@{
+    Baya.Models.ViewEngine.View_Component HeaderProductSearch = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"primaryKey\":false,\"EntityID\":782,\"FieldId\":31351,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":1100,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":true,\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://shomaran.workcv.ir:2010/fa-ir/api/v1/view_parts/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"partcode\",\"template\":\"<span>{{item.partcode}} {{item.partno}} {{item.desc}} {{item.unit}} </span>\",\"FieldsTemplate\":[{\"key\":\"partcode\",\"value\":\"nvarchar(Max)\"},{\"key\":\"partno\",\"value\":\"nvarchar(Max)\"},{\"key\":\"desc\",\"value\":\"nvarchar(Max)\"},{\"key\":\"unit\",\"value\":\"nvarchar(Max)\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"searchField\":\"partcode,partno,desc\",\"modal\":true,\"label\":\"جستجو کالا\",\"tableView\":true,\"key\":\"ProductSearch\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"31351?EId=782&SubId=33\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
+    var RowProductSearch = ((Entity.SH_Petco_SefareshPoint)ProductSearch_.DataItem).ProductSearch;
+}
+
+<Dropdown ExternalApi=true CssClass="" NotMapped=false TextGrid=true Value="@RowProductSearch"   FieldName="ProductSearch" OnItemSelected="ItemSelected_SH_Petco_SefareshPointProductSearch_Header" Component="HeaderProductSearch">
+</Dropdown>
+@code {
+    public async Task ItemSelected_SH_Petco_SefareshPointProductSearch_Header(object _Item)
+    {
+      //  var Selected = Utility.JSON.ToObject<dynamic>(Utility.JSON.ToJson(_Item).Result).Result;
+  //   ProductSearch
+
+  //  #CustomCode
+
+ //   
+
+  //  #OnItemSelected
+    }
+}
+
+    </CellDisplayTemplate>
+</DxGridDataColumn>
+<DxGridDataColumn  Caption="کد کالا"  FieldName="PartNo" />
+
+<DxGridDataColumn  Caption="نام کالا"  FieldName="ProductName" />
+
+<DxGridDataColumn  Caption="نوع قرارداد" Visible=false FieldName="ContractType" />
+
+<DxGridDataColumn Context="InvCode_" Caption="انبار" >
+    <CellDisplayTemplate>
+       
+@{
+    Baya.Models.ViewEngine.View_Component HeaderInvCode = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"primaryKey\":false,\"EntityID\":782,\"FieldId\":31355,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":1100,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":true,\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://shomaran.workcv.ir:2010/fa-ir/api/v1/view_INV/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"INVCODE\",\"template\":\"<span>{{item.INVNAME}} {{item.INVCODE}} </span>\",\"FieldsTemplate\":[{\"key\":\"INVNAME\",\"value\":\"nvarchar(Max)\"},{\"key\":\"INVCODE\",\"value\":\"nvarchar(Max)\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"searchField\":\"INVCODE,INVNAME\",\"modal\":true,\"label\":\"انبار\",\"tableView\":true,\"key\":\"InvCode\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"31355?EId=782&SubId=33\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
+    var RowInvCode = ((Entity.SH_Petco_SefareshPoint)InvCode_.DataItem).InvCode;
+}
+
+<Dropdown ExternalApi=true CssClass="" NotMapped=false TextGrid=true Value="@RowInvCode"   FieldName="InvCode" OnItemSelected="ItemSelected_SH_Petco_SefareshPointInvCode_Header" Component="HeaderInvCode">
+</Dropdown>
+@code {
+    public async Task ItemSelected_SH_Petco_SefareshPointInvCode_Header(object _Item)
+    {
+      //  var Selected = Utility.JSON.ToObject<dynamic>(Utility.JSON.ToJson(_Item).Result).Result;
+  //   InvCode
+
+  //  #CustomCode
+
+ //   
+
+  //  #OnItemSelected
+    }
+}
+
+    </CellDisplayTemplate>
+</DxGridDataColumn>
+<DxGridDataColumn  Caption="واحد شمارش 1"  FieldName="Unit" />
+
+<DxGridDataColumn  Caption="واحد شمارش 2" Visible=false FieldName="Unit1" />
+
+<DxGridDataColumn  Caption="سفارش"  FieldName="Sefaresh" />
+
+<DxGridDataColumn  Caption="ردیابی"  FieldName="Radyabi" />
+
+<DxGridDataColumn  Caption="شماره فنی"  FieldName="TecNO" />
+
+<DxGridDataColumn DisplayFormat="0" Caption="سال"  FieldName="Year" />
+
+<DxGridDataColumn  Caption="ApiResult"  FieldName="ApiResult" />
+
+<DxGridDataColumn Context="SefareshPoint_List_" Caption="فهرست تعیین نقطه سفارش" >
+    <CellDisplayTemplate>
+       
+@{
+    Baya.Models.ViewEngine.View_Component HeaderSefareshPoint_List = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"primaryKey\":false,\"EntityID\":782,\"FieldId\":31363,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":1100,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":true,\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://shomaran.workcv.ir:2010/fa-ir/api/v1/view_parts/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"inputFormat\":\"DataGrid\",\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"partcode\",\"template\":\"<span>{{item.partcode}} {{item.partno}} {{item.desc}} {{item.unit}} {{item.PKINDNAME}} </span>\",\"FieldsTemplate\":[{\"key\":\"partcode\",\"value\":\"nvarchar(Max)\"},{\"key\":\"partno\",\"value\":\"nvarchar(Max)\"},{\"key\":\"desc\",\"value\":\"nvarchar(Max)\"},{\"key\":\"unit\",\"value\":\"nvarchar(Max)\"},{\"key\":\"PKINDNAME\",\"value\":\"nvarchar(Max)\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"searchField\":\"partcode,partno,desc\",\"modal\":true,\"label\":\"فهرست تعیین نقطه سفارش\",\"tableView\":true,\"key\":\"SefareshPoint_List\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"31363?EId=782&SubId=33\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
+    var RowSefareshPoint_List = ((Entity.SH_Petco_SefareshPoint)SefareshPoint_List_.DataItem).SefareshPoint_List;
+}
+
+<Dropdown ExternalApi=true CssClass="" NotMapped=false TextGrid=true Value="@RowSefareshPoint_List"   FieldName="SefareshPoint_List" OnItemSelected="ItemSelected_SH_Petco_SefareshPointSefareshPoint_List_Header" Component="HeaderSefareshPoint_List">
+</Dropdown>
+@code {
+    public async Task ItemSelected_SH_Petco_SefareshPointSefareshPoint_List_Header(object _Item)
+    {
+      //  var Selected = Utility.JSON.ToObject<dynamic>(Utility.JSON.ToJson(_Item).Result).Result;
+  //   SefareshPoint_List
+
+  //  #CustomCode
+
+ //   
+
+  //  #OnItemSelected
+    }
+}
+
+    </CellDisplayTemplate>
+</DxGridDataColumn>
+
+</Columns>
+
+    
+</DxGrid>
+
+<DxPopup @bind-Visible="@ConfirmationShownSH_Petco_SefareshPoint" HeaderText="@languageContainer.Keys["DXGrid:DeleteItem"]" Width="350px" CloseOnOutsideClick="false">
+
+    <BodyContentTemplate Context="EditFormContext">
+        <div class="py-3 px-5 text-center">
+            <p>@languageContainer.Keys["DXGrid:DeleteItemHint"]</p>
+            <div class="confirm-dialog-buttons">
+                <DxButton Text="@languageContainer.Keys["DXGrid:Yes"]" CssClass="btn btn-red px-4" Click="@OnYesButtonClickGrid_SH_Petco_SefareshPoint" />
+                <DxButton Text="@languageContainer.Keys["DXGrid:No"]" CssClass="btn btn-purple-light px-4" Click="@OnNoButtonClickGrid_SH_Petco_SefareshPoint" />
+            </div>
+        </div>
+    </BodyContentTemplate>
+</DxPopup>
+
+<DxPopup @bind-Visible="@ConfirmationSH_Petco_SefareshPoint" HeaderText="هشدار" Width="350px" CloseOnOutsideClick="false">
+    <BodyContentTemplate Context="EditFormContext">
+        <div class="py-3 px-5 text-center"> 
+            <p>اطلاعات این فرم تغییر کرده است آیا تغییرات ذخیره شود؟</p>
+            <div class="confirm-dialog-buttons">
+                <DxButton Text="بله" CssClass="btn btn-red px-4" Click="@OnYesButtonSH_Petco_SefareshPoint" />
+                <DxButton Text="خیر" CssClass="btn btn-purple-light px-4" Click="@OnNoButtonSH_Petco_SefareshPoint" />
+            </div>
+        </div>
+    </BodyContentTemplate>
+</DxPopup>
+@code {
+    // DxGrid? Grid_SH_Petco_SefareshPoint;
+    Entity.SH_Petco_SefareshPoint SH_Petco_SefareshPoint;
+    bool ConfirmationShownSH_Petco_SefareshPoint { get; set; } = false;
+    public Entity.SH_Petco_SefareshPoint SelectedItemGrid_SH_Petco_SefareshPoint { get; set; } = new Entity.SH_Petco_SefareshPoint();
+    /// <summary>
+    /// شماره ستون
+    /// </summary>
+    public int IndexGrid_SH_Petco_SefareshPoint { get; set; }
+
+    ///////////////////////
+    bool ConfirmationSH_Petco_SefareshPoint { get; set; } = false;
+    GridEditFormTemplateContext? _ContextFormTemplateSH_Petco_SefareshPoint { get; set; }
+    public int OpenDialogCodeSH_Petco_SefareshPoint { get; set; } = 0;
+    ////////////////////////
+
+    async Task OnEditModelSavingSH_Petco_SefareshPoint(GridEditModelSavingEventArgs arg)
+    {
+        var e = arg.EditModel;
+    bool NotValid = false;
+    //events
+       
+        
+      if (!NotValid)
+     {
+      SaveGrid_SH_Petco_SefareshPoint(arg.DataItem, arg.EditModel);
+     }
+}
+
+async void Dialog_Grid_SH_Petco_SefareshPoint(int _OpenDialogCode, int VisibleIndex, GridEditFormTemplateContext e)
+{
+    OpenDialogCodeSH_Petco_SefareshPoint = _OpenDialogCode;
+    if (!CheckChangedData(await Utility.JSON.ToJson(e.EditModel)))
+    {
+    _ContextFormTemplateSH_Petco_SefareshPoint = e;
+    ConfirmationSH_Petco_SefareshPoint = true;
+    }
+    else
+    {
+    await OnNoButtonSH_Petco_SefareshPoint();
+    }
+}
+async Task OnYesButtonSH_Petco_SefareshPoint()
+{
+
+    ConfirmationSH_Petco_SefareshPoint = false;
+    await Task.Delay(1500);
+    //bool FormValidate = await JSO.InvokeAsync<bool>("submitForm");
+    bool FormValidate =  await JS.InvokeAsync<bool>("submitForm");
+    if (FormValidate)
+    {
+        bool NotValid = false;
+    var e = _ContextFormTemplateSH_Petco_SefareshPoint.EditModel;
+         //events
+         
+
+        if (!NotValid)
+         {
+        SaveGrid_SH_Petco_SefareshPoint(_ContextFormTemplateSH_Petco_SefareshPoint.DataItem, _ContextFormTemplateSH_Petco_SefareshPoint.EditModel);
+            await Grid_SH_Petco_SefareshPoint.CancelEditAsync();
+         await ChangePageGrid_SH_Petco_SefareshPoint();
+         await SetEditFormContextGrid_SH_Petco_SefareshPoint();
+         }
+          
+    }
+
+}
+async Task OnNoButtonSH_Petco_SefareshPoint()
+{
+    ConfirmationSH_Petco_SefareshPoint = false;
+    await ChangePageGrid_SH_Petco_SefareshPoint();
+    await SetEditFormContextGrid_SH_Petco_SefareshPoint();
+
+}
+async Task SetEditFormContextGrid_SH_Petco_SefareshPoint()
+{
+    var e = (Entity.SH_Petco_SefareshPoint)Grid_SH_Petco_SefareshPoint.GetDataItem(IndexGrid_SH_Petco_SefareshPoint);
+    JsonData = await Utility.JSON.ToJson(e);
+}
+
+async Task ChangePageGrid_SH_Petco_SefareshPoint()
+{
+    int VisibleIndex = IndexGrid_SH_Petco_SefareshPoint;
+    try
+    {
+    if (OpenDialogCodeSH_Petco_SefareshPoint == 1)
+    {
+        if (VisibleIndex != (Grid_SH_Petco_SefareshPoint.GetVisibleRowCount() - 1))
+    { 
+            Grid_SH_Petco_SefareshPoint.CancelEditAsync();
+            IndexGrid_SH_Petco_SefareshPoint = VisibleIndex + 1;
+    Grid_SH_Petco_SefareshPoint.StartEditRowAsync(IndexGrid_SH_Petco_SefareshPoint);
+    }
+    }
+    else if (OpenDialogCodeSH_Petco_SefareshPoint == 0)
+    {
+        if (VisibleIndex != 0)
+        {
+
+            Grid_SH_Petco_SefareshPoint.CancelEditAsync();
+            IndexGrid_SH_Petco_SefareshPoint = VisibleIndex - 1;
+    Grid_SH_Petco_SefareshPoint.StartEditRowAsync(IndexGrid_SH_Petco_SefareshPoint);
+    }
+
+    }
+    var e = (Entity.SH_Petco_SefareshPoint)Grid_SH_Petco_SefareshPoint.GetDataItem(IndexGrid_SH_Petco_SefareshPoint);
+    JsonData = await Utility.JSON.ToJson(e);
+    await Task.Delay(300);
+    
+    StateHasChanged();
+    }
+    catch (Exception ex)
+    {
+
+    Console.WriteLine("error in ChagePage" + ex.Message);
+    }
+
+}
+
+async Task StartEditNewRowAsync_Grid_SH_Petco_SefareshPoint()
+{
+    //تعداد سطرهای کل
+_VisibleIndex = Grid_SH_Petco_SefareshPoint.GetVisibleRowCount();
+setFocusOff();
+IsNew = true;
+await ShowFormCU(null);
+var e = new Entity.SH_Petco_SefareshPoint();
+await Task.Delay(300);
+
+}
+
+async Task StartModalGrid_SH_Petco_SefareshPoint(GridCommandColumnCellDisplayTemplateContext Context)
+{
+    IsNew = false;
+setFocusOn();
+_VisibleIndex = Context.VisibleIndex;
+await ShowFormCU(Context.DataItem);
+var e = (Entity.SH_Petco_SefareshPoint)Context.DataItem;
+await Task.Delay(300);
+
+   // await Task.Delay(500);
+}
+public async Task SaveModalGrid_SH_Petco_SefareshPoint(GridEditFormTemplateContext arg)
+{
+     //bool FormValidate = await JSO.InvokeAsync<bool>("submitForm");
+     bool FormValidate =  await JS.InvokeAsync<bool>("submitForm");
+
+    if(FormValidate){
+
+    var e = arg.EditModel;
+    bool NotValid = false;
+    //events
+    
+    if (!NotValid)
+    {
+        SaveGrid_SH_Petco_SefareshPoint(arg.DataItem, arg.EditModel);
+
+     await arg.Grid.CancelEditAsync(); 
+
+    }
+
+    }
+
+}
+public async Task SaveAndNewGrid_SH_Petco_SefareshPoint(GridEditFormTemplateContext arg)
+{ 
+     //bool FormValidate = await JSO.InvokeAsync<bool>("submitForm");
+     bool FormValidate = await JS.InvokeAsync<bool>("submitForm");
+     
+    if(FormValidate){
+       
+         var e = arg.EditModel;
+          bool NotValid = false;
+     //events
+    
+    if (!NotValid)
+    {
+        SaveGrid_SH_Petco_SefareshPoint(arg.DataItem, arg.EditModel);
+
+         await arg.Grid.CancelEditAsync();
+        await StartEditNewRowAsync_Grid_SH_Petco_SefareshPoint();
+
+    }
+          
+    }
+   
+}
+
+void PerviousPageGrid_SH_Petco_SefareshPoint(int VisibleIndex)
+{
+    try
+     {
+    if (VisibleIndex == 0)
+    {
+        Console.WriteLine(VisibleIndex.ToString());
+    }
+    else
+    {
+Grid_SH_Petco_SefareshPoint.CancelEditAsync();
+        IndexGrid_SH_Petco_SefareshPoint = VisibleIndex - 1;
+         Grid_SH_Petco_SefareshPoint.StartEditRowAsync(IndexGrid_SH_Petco_SefareshPoint);
+     }
+    }
+     catch (Exception e)
+     {
+    Console.WriteLine("PerviousPage Message");
+    Console.WriteLine(e.Message);
+    }
+
+}
+
+void NextPageGrid_SH_Petco_SefareshPoint(int VisibleIndex)
+{
+
+    if (VisibleIndex == Grid_SH_Petco_SefareshPoint.GetVisibleRowCount() - 1)
+    {
+    Console.WriteLine(VisibleIndex.ToString());
+    }
+    else
+    {
+    Console.WriteLine("NextPage Start Grid_SH_Petco_SefareshPoint ");
+    try
+    {
+Grid_SH_Petco_SefareshPoint.CancelEditAsync();
+        IndexGrid_SH_Petco_SefareshPoint = VisibleIndex + 1;
+         Grid_SH_Petco_SefareshPoint.StartEditRowAsync(IndexGrid_SH_Petco_SefareshPoint);
+     }
+    catch (Exception e)
+    {
+        Console.WriteLine("NextPage Message");
+        Console.WriteLine(e.Message);
+    }
+
+    }
+}
+
+public void SaveGrid_SH_Petco_SefareshPoint(object DataItem, object EditModel)
+{
+    var ListEntity = _Entity;
+    var MainModel = (Entity.SH_Petco_SefareshPoint)DataItem;
+    if (MainModel != null)
+    {
+MainModel.Id = ((Entity.SH_Petco_SefareshPoint)EditModel).Id;
+MainModel.RequestID = ((Entity.SH_Petco_SefareshPoint)EditModel).RequestID;
+MainModel.CreateUser = ((Entity.SH_Petco_SefareshPoint)EditModel).CreateUser;
+MainModel.UpdateUser = ((Entity.SH_Petco_SefareshPoint)EditModel).UpdateUser;
+MainModel.CreateDate = ((Entity.SH_Petco_SefareshPoint)EditModel).CreateDate;
+MainModel.UpdateDate = ((Entity.SH_Petco_SefareshPoint)EditModel).UpdateDate;
+MainModel.IsDelete = ((Entity.SH_Petco_SefareshPoint)EditModel).IsDelete;
+MainModel.OrdPoint = ((Entity.SH_Petco_SefareshPoint)EditModel).OrdPoint;
+MainModel.OrderAmount = ((Entity.SH_Petco_SefareshPoint)EditModel).OrderAmount;
+MainModel.MaxAmount = ((Entity.SH_Petco_SefareshPoint)EditModel).MaxAmount;
+MainModel.EhtiatAmount = ((Entity.SH_Petco_SefareshPoint)EditModel).EhtiatAmount;
+MainModel.Creator = ((Entity.SH_Petco_SefareshPoint)EditModel).Creator;
+MainModel.ProductSearch = ((Entity.SH_Petco_SefareshPoint)EditModel).ProductSearch;
+MainModel.PartNo = ((Entity.SH_Petco_SefareshPoint)EditModel).PartNo;
+MainModel.ProductName = ((Entity.SH_Petco_SefareshPoint)EditModel).ProductName;
+MainModel.ContractType = ((Entity.SH_Petco_SefareshPoint)EditModel).ContractType;
+MainModel.InvCode = ((Entity.SH_Petco_SefareshPoint)EditModel).InvCode;
+MainModel.Unit = ((Entity.SH_Petco_SefareshPoint)EditModel).Unit;
+MainModel.Unit1 = ((Entity.SH_Petco_SefareshPoint)EditModel).Unit1;
+MainModel.Sefaresh = ((Entity.SH_Petco_SefareshPoint)EditModel).Sefaresh;
+MainModel.Radyabi = ((Entity.SH_Petco_SefareshPoint)EditModel).Radyabi;
+MainModel.TecNO = ((Entity.SH_Petco_SefareshPoint)EditModel).TecNO;
+MainModel.Year = ((Entity.SH_Petco_SefareshPoint)EditModel).Year;
+MainModel.ApiResult = ((Entity.SH_Petco_SefareshPoint)EditModel).ApiResult;
+MainModel.SefareshPoint_List = ((Entity.SH_Petco_SefareshPoint)EditModel).SefareshPoint_List;
+
+    }
+    else
+    {
+    ListEntity.Add((Entity.SH_Petco_SefareshPoint)EditModel);
+    }
+}
+
+async Task OnDataItemDeletingSH_Petco_SefareshPoint(GridDataItemDeletingEventArgs e)
+    {
+    var ListEntity = _Entity;
+    ListEntity.Remove((Entity.SH_Petco_SefareshPoint)e.DataItem);
+}
+async void OnDeleteButtonClickGrid_SH_Petco_SefareshPoint (GridCommandColumnCellDisplayTemplateContext ex)
+{
+    SelectedItemGrid_SH_Petco_SefareshPoint = (ex.DataItem as Entity.SH_Petco_SefareshPoint);
+    var e =SelectedItemGrid_SH_Petco_SefareshPoint;
+    
+     
+    Console.WriteLine("end OnDeleteButtonClickGrid_test_OrderBody 0");
+    ConfirmationShownSH_Petco_SefareshPoint = true;
+    await Task.Yield();
+     await InvokeAsync(StateHasChanged);
+    
+    Console.WriteLine("end OnDeleteButtonClickGrid_test_OrderBody 1");
+}
+async void OnYesButtonClickGrid_SH_Petco_SefareshPoint ()
+{
+       if (SelectedItemGrid_SH_Petco_SefareshPoint != null)
+    {
+      if (SelectedItemGrid_SH_Petco_SefareshPoint.Id == Guid.Empty)
+      {
+          var ListEntity = _Entity;
+        ListEntity.Remove((Entity.SH_Petco_SefareshPoint)SelectedItemGrid_SH_Petco_SefareshPoint);
+     
+      }
+      else
+      {
+        var cleanModel = new Entity.SH_Petco_SefareshPoint();
+      // چک کن آیا پراپرتی IsDelete در این نوع وجود دارد؟
+        var prop = typeof(Entity.SH_Petco_SefareshPoint).GetProperty("IsDelete");
+        if (prop != null && prop.CanRead && prop.CanWrite)
+        {
+            // مقدار فعلی را بگیر
+            var currentValue = prop.GetValue(SelectedItemGrid_SH_Petco_SefareshPoint);
+
+            if (currentValue is bool boolValue)
+            {
+                // مقدار را معکوس کن
+                var newValue = !boolValue;
+
+                // روی هر دو شیء تنظیم کن
+                prop.SetValue(SelectedItemGrid_SH_Petco_SefareshPoint, newValue);
+                prop.SetValue(cleanModel, newValue);
+            }
+        }
+        EntityHelper.SetPropertyValue(cleanModel, cleanModel._GetIdName, SelectedItemGrid_SH_Petco_SefareshPoint._Id);
+    
+      await PostDataDelete(cleanModel); 
+       
+      }
+    }
+    var e= SelectedItemGrid_SH_Petco_SefareshPoint;
+    
+    Grid_SH_Petco_SefareshPoint.Reload();
+    ConfirmationShownSH_Petco_SefareshPoint = false;
+     await Task.Yield();
+    await InvokeAsync(StateHasChanged);
+
+}
+void OnNoButtonClickGrid_SH_Petco_SefareshPoint ()
+{
+    ConfirmationShownSH_Petco_SefareshPoint = false;
+}
+
+void CustomizeRowsGrid_SH_Petco_SefareshPoint(GridCustomizeElementEventArgs e)
+{
+    ///استایل سطر
+    if (e.ElementType == GridElementType.DataRow)
+    {
+    var item = ((Entity.SH_Petco_SefareshPoint)e.Grid.GetDataItem(e.VisibleIndex));
+
+       if (item.IsDelete == true)
+       {
+           e.CssClass = "bg-lightred disablediv";
+       }
+    }
+}
+
+async void CustomizeEditGrid_SH_Petco_SefareshPoint(GridCustomizeEditModelEventArgs e)
+{
+
+    if (e.IsNew)
+    {
+
+    var newRow = (Entity.SH_Petco_SefareshPoint)e.EditModel;
+
+     
+
+    }
+
+await ShowFormCU(e);
+}
+public async void RowClickGrid_SH_Petco_SefareshPoint(GridRowClickEventArgs e)
+{
+if (!e.Grid.FocusedRowEnabled)
+{
+    setFocusOn();
+}
+IsNew = false;
+_VisibleIndex = e.VisibleIndex;
+ShowFormCU(e.Grid.GetDataItem(e.VisibleIndex));
+e.Grid.SetFocusedRowIndex(e.VisibleIndex);
+}
+
+public async void RowDubbleClickGrid_SH_Petco_SefareshPoint(GridRowClickEventArgs e)
+{
+
+}
+}
+
+
+                    <DxPager @ref=DxPager VisibleNumericButtonCount="1" SwitchToInputBoxButtonCount="3" PageCount="@PageCount" NavigationMode="PagerNavigationMode.NumericButtons" ActivePageIndexChanged="PageIndexChanged" />
+                    @* دیالوگ برای سابمیت *@
+                    <DxPopup @bind-Visible="@Confirmation_Submit" HeaderText="Save" Width="350px" CloseOnOutsideClick="false">
+                        <BodyContentTemplate Context="EditFormContext">
+                            <div class="py-3 px-5 text-center">
+                                <p>آیا از ذخیره این رکورد مطمئن هستید</p>
+                                <div class="confirm-dialog-buttons">
+
+
+                                    <DxButton Text="Yes" Enabled="!isSending" CssClass="btn btn-red px-4" Click="@OnYesSubmitClick">
+                                        @* تبدیل دکمه به لود  *@
+                                        <DxWaitIndicator Visible="isSending" />
+                                        <span class="mx-2">@((isSending ? "Sending..." : "Send"))</span>
+
+                                    </DxButton>
+                                    <DxButton Text="No" CssClass="btn btn-purple-light px-4" Click="@OnNoSubmitClick" />
+                                </div>
+                            </div>
+                        </BodyContentTemplate>
+                    </DxPopup>
+                    @* دیالوگ برای ذخیره و رکورد جدید *@
+                    <DxPopup @bind-Visible="@Confirmation_SubmitNew" HeaderText="Save" Width="350px" CloseOnOutsideClick="false">
+
+                        <BodyContentTemplate Context="EditFormContext">
+                            <div class="py-3 px-5 text-center">
+                                <p>آیا از ذخیره این رکورد مطمئن هستید</p>
+                                <div class="confirm-dialog-buttons">
+                                    <DxButton Text="Yes" Enabled="!isSending" CssClass="btn btn-red px-4" Click="@OnYesSubmitNewClick">
+                                        <DxWaitIndicator Visible="isSending" />
+                                        <span class="mx-2">@((isSending ? "Sending..." : "Send"))</span>
+
+                                    </DxButton>
+                                    <DxButton Text="No" CssClass="btn btn-purple-light px-4" Click="@OnNoSubmitNewClick" />
+                                </div>
+                            </div>
+                        </BodyContentTemplate>
+                    </DxPopup>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="modal fade xyz-in @(ShowForm?"show d-block":"")" id="DetailDialog" tabindex="-1" aria-labelledby="DetailDialog2Label" aria-hidden="true" style="z-index:1049">
+        <div class="modal-dialog modal-fullscreen" style="z-index:1049;">
+            <div class="modal-content" xyz="fade up-25% perspective-2 stagger">
+                <div class="modal-header xyz-nested py-1" xyz="up-100% in-delay-3">
+                    <h1 class="modal-title fs-5 fw-black">جزئیات</h1>
+                    <button type="button" class="btn" @onclick="()=>ShowForm=false">
+                        <span class="fa fa-times"></span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="detailArea">
+                        @*
+            @if (Id != null)
+            {
+            <h3>Row Id: @Id </h3>
+            }
+
+            <div>
+            برای ایجاد هم از همین اصتفاده میشه
+            باید وقتی داخل گرید سطری انتخاب شد برای ویرایش
+            ارسال بشه به این فرم
+            فرم وقتی ویرایش کرد داده رو به ORM ارسال کنه برای ذخیره داده
+            و موجودیت بروز شده رو برگردونه که گرید هم بروز کنه داده رو
+            ***تغیراتی داخل فرم پاین نیاز هست اعمال شود
+            </div> *@
+
+                        <Form_1100_CU @ref="RefForm" IndependentForm=false _CartablesParameters="_CartablesParameters" _RequestParameters="_RequestParameters"></Form_1100_CU>
+                        <div class="mt-3">
+
+                            @if (DtComponent is not null && DtComponent.AccessEdit)
+                            {
+
+                                <DxButton Enabled="!isSending" id="btn_listi_Save" CssClass="btn btn-sm btn-green" Click="@OnYesSubmitClick">
+                                    @* تبدیل دکمه به لود  *@
+                                    <DxWaitIndicator Visible="isSending" />
+                                    <span class="mx-2">@((isSending ? "Sending..." : "ذخیره"))</span>
+
+                                </DxButton>
+
+                                <DxButton Enabled="!isSending" id="btn_listi_Save_close" CssClass="btn btn-sm btn-green" Click="@OnSubmitCloseClick">
+                                    @* تبدیل دکمه به لود  *@
+                                    <DxWaitIndicator Visible="isSending" />
+                                    <span class="mx-2">@((isSending ? "Sending..." : "ذخیره و بستن"))</span>
+
+                                </DxButton>
+                                @if (DtComponent.AccessNew)
+                                {
+                                    <DxButton Enabled="!isSending" id="btn_listi_Save_New" CssClass="btn btn-sm btn-green" Click="@OnYesSubmitNewClick">
+                                        @* تبدیل دکمه به لود  *@
+                                        <DxWaitIndicator Visible="isSending" />
+                                        <span class="mx-2">@((isSending ? "Sending..." : "ذخیره و جدید"))</span>
+
+                                    </DxButton>
+                                }
+                            }
+                            <button class="btn btn-sm btn-red" @onclick=SubmitCancell>انصراف</button>
+                            |
+
+                            <DxButton Text="Yes" Enabled="!isSending" id="btn_listi_Previous" CssClass="btn btn-sm btn-purple" Click="@BackRow">
+                                @* تبدیل دکمه به لود  *@
+                                <DxWaitIndicator Visible="isSending" />
+                                <span class="bi bi-chevron-right btnicon"></span>
+                                <span>@((isSending ? "wait..." : "قبلی"))</span>
+
+                            </DxButton>
+                            <DxButton Text="Yes" Enabled="!isSending" id="btn_listi_Next" CssClass="btn btn-sm btn-purple" Click="@NextRow">
+                                @* تبدیل دکمه به لود  *@
+                                <DxWaitIndicator Visible="isSending" />
+                                <span>@((isSending ? "wait..." : "بعدی"))</span>
+                                <span class="bi bi-chevron-left btnicon"></span>
+                            </DxButton>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal-backdrop fade @(ShowForm?"show":"")" style="z-index:1048"></div>
+    </div>
+
+</div>
+
+
+
+@code {
+    /// <summary>
+    /// مقداردهی بر اساس ایندکس فعال
+    /// </summary>
+    protected int? _VisibleIndex { get; set; }
+    //// <summary>
+    /// نمایش دیالوگ ذخیره
+    /// </summary>
+
+    public bool Confirmation_Submit { get; set; } = false;
+    /// <summary>
+    /// نمایش دیالوگ ذخیره و فرم جدید
+    /// </summary>
+    public bool Confirmation_SubmitNew { get; set; } = false;
+    /// <summary>
+    /// کامپوننت دیتاگرید
+    /// </summary>
+    public View_Component DtComponent { get; set; } = new View_Component();
+
+    //// <summary>
+    /// نمایش لودینگ
+    /// </summary>
+    public bool isSending { get; set; } = false;
+    /// <summary>
+    /// رکورد جدید می باشد یا ویرایش
+    /// </summary>
+
+    public bool IsNew { get; set; }
+
+    protected override void OnInitialized()
+    {
+        //todo این خط برده شود داخل تابع پاینی ببینیم خطا داره یا نه
+        languageContainer.InitLocalizedComponent(this);
+        //   RefListFilter = new();
+    }
+    protected override async Task OnInitializedAsync()
+    {
+        //بعداد اگه نیاز شد فرمی رو تو حالت غیر لاگین شده نمایش بدیم باید این  کد تغیر کنه
+        var user = (await _authenticationStateProvider.GetAuthenticationStateAsync()).User;
+        string UserID = user.FindFirst(c => c.Type == ClaimTypes.NameIdentifier).Value;
+        //داینامیک بشه
+        Dictionary<string, object> List = new Dictionary<string, object>();
+        List.Add("UserID", UserID);
+        _User = await Domain.Utility.ConvertParameter.ConvertToObject(List);
+
+        //     RefListFilter = new();
+        await base.OnInitializedAsync();
+    }
+
+    public override async Task SetParametersAsync(ParameterView parameters)
+    {
+        await base.SetParametersAsync(parameters);
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            await Task.Yield();
+            StateHasChanged();
+            if (Grid_SH_Petco_SefareshPoint is not null)
+    {
+                DtComponent = (View_Component)Grid_SH_Petco_SefareshPoint.Attributes.GetValueOrDefault("Component");
+    }
+
+            //JSO = await JS.InvokeAsync<IJSObjectReference>("import", "./js/FormFunctions.js?ver=1.2");
+
+            /*             var ResultConvert = await Forms.Domain.Utility.ConvertParameter.ConvertParametersToDaunamic(RequestParameters, CartablesParameters);
+            _RequestParameters = ResultConvert._RequestParameters;
+            _CartablesParameters = ResultConvert._CartablesParameters; */
+
+            /*    RefForm.CartablesParameters = CartablesParameters;
+            RefForm.RequestParameters = RequestParameters; */
+
+            await InvokeAsync(StateHasChanged);
+            await Task.Yield();
+            QueryFilter = new QueryBuilderFilterRule();
+            if ("{}" != "null" || "{}" != "{}")
+            {
+                QueryFilter = await JSON.ToObject<QueryBuilderFilterRule>("{}");
+
+            }
+
+
+            if (RefListFilter == null)
+            {
+
+                RefListFilter = new();
+            }
+
+            await InvokeAsync(StateHasChanged);
+            await Task.Yield();
+
+            RefListFilter.QueryFilter = QueryFilter;//برای این گذاشتم که فیلتر نال نره تو پکامپوننتش
+
+            await base.BeforGetData();
+            await InvokeAsync(StateHasChanged);
+            await Task.Yield();
+
+            await RefListFilter.SearchFilter();
+            await base.AfterGetData();
+            //ست کردن شماره صفحه به گرید
+            await SetPageIndex(0);
+
+            //          if (Grid_SH_Petco_SefareshPoint.GetDataItem(0) != null)
+            //  {
+            //              await ShowFormCU(Grid_SH_Petco_SefareshPoint.GetDataItem(0));
+            //  }
+        }
+
+        await base.OnAfterRenderAsync(firstRender);
+    }
+
+
+    public async Task SearchFilter(QueryBuilderFilterRule? Filter)
+    {
+
+        SearchQueryFilter = Filter;
+
+        //ریست پیج بندی
+        if (PageReset)
+            PageIndex = 0;
+        //
+        //فیلتر ارسال بشه برای ORM
+        //لیست ردیافتی بایند بشه تو لیست ListData
+        await LoadData();
+        PageReset = true;
+        StateHasChanged();
+    }
+
+    /// <summary>
+    /// لود دیتا گرید
+    /// </summary>
+    /// <returns></returns>
+    public async Task LoadData()
+    {
+
+        //string Url = "https://bayaorm.workcv.ir/fa/api/v1/SH_Petco_SefareshPoint/GetList";
+        //string Url = "https://testorm.workcv.ir/fa/api/v1/SH_Petco_SefareshPoint/GetList";
+        // string Url = "https://bayaorm.workcv.ir/fa/api/v1/SH_Petco_SefareshPoint/GetList";
+
+        int skip = (PageIndex * PageSize);
+
+        var pagedResult = new PagedResult();
+
+        pagedResult.PageSize = PageSize;
+
+        pagedResult.PageNumber = skip;
+        await FillTableGet();
+
+        var R = await ApiServer.External.Services.Data.GetListPost(TableGet, SearchQueryFilter, pagedResult, "SH_Petco_SefareshPoint");
+
+
+        if (R is not null)
+        {//اگه داده گرفته 
+            if (R.Status == System.Net.HttpStatusCode.OK)
+            {
+
+
+                var page = await Utility.JSON.ToObject<PagedResult>(R.Content?.ToString());
+
+                if (page?.Items != null)
+                {
+                    // مستقیم به لیست مدل تبدیل کن
+                    _Entity = await Utility.JSON.ToObject<List<Entity.SH_Petco_SefareshPoint>>(
+               await Utility.JSON.ToJson(page.Items)
+                    );
+
+
+                }
+                if (page?.PagesCount != null)
+                {
+                    PageCount = page.PagesCount;
+                }
+      
+                //  _Entity = (await Utility.JSON.ToObject<List<Entity.SH_Petco_SefareshPoint>>(R.Content?.ToString()));
+            }
+            else
+            {
+                Console.WriteLine("#Log LoadData Error:");
+              //  Console.WriteLine(R.Status);
+                Console.WriteLine(R.Content);
+                Console.WriteLine(R.Message);
+            }
+          
+            //await OnFormloaded.InvokeAsync(Result);
+        }
+        
+    }
+
+    /// <summary>
+    /// تابع پیج بندی
+    /// </summary>
+    /// <param name="Index"></param>
+    /// <returns></returns>
+    public async Task PageIndexChanged(int Index)
+    {
+        await SetPageIndex(Index);
+
+        await LoadData();
+    }
+
+
+    /// <summary>
+    /// دریافت داده فرم سمت راست CU
+    /// </summary>
+    /// <param name="Id"></param>
+    /// <returns></returns>
+    public async Task GetDataForm(object Id)
+    {
+        ShowForm = true;
+        Type type = Id.GetType();
+        string TypeToQueryBuilder = Utility.TypeConverterQueryBuilder.ConvertCSharpTypeToQueryBuilder(type);
+        var NewQuery = new QueryBuilderFilterRule() { Condition = "AND" };
+        NewQuery.Rules = new List<QueryBuilderFilterRule>
+            {
+                    new QueryBuilderFilterRule()
+                    {
+                        Field = PrimaryFieldName,
+                        Id = PrimaryFieldName,
+                        Input = "text",
+                        Operator = "equal",
+                        Type =  TypeToQueryBuilder,
+                        Value = new string[]{ Id.ToString() },
+                    }
+            };
+        RefForm.QueryFilter = NewQuery;
+        await RefForm.GetData();
+        StateHasChanged();
+    }
+    /// <summary>
+    /// بررسی تغییر دیتا
+    /// </summary>
+    /// <param name="Json"></param>
+    /// <returns></returns>
+    public bool CheckChangedData(string? Json)
+    {
+        if (string.Equals(JsonData, Json)) return true;
+        return false;
+    }
+    /// <summary>
+    /// سامبیت فرم
+    /// </summary>
+    /// <returns></returns>
+    public async Task Submit()
+    {
+        Confirmation_Submit = true;
+        // var R = await RefForm.Submit();
+
+        // if (R.Status != System.Net.HttpStatusCode.OK)
+        // {
+        //     toastService.ShowError("ذخیره سازی دچار خطا شد");
+        // }
+    }
+    /// <summary>
+    /// تایید ذخیره فرم
+    /// </summary>
+    /// <returns></returns>
+    public async Task OnYesSubmitClick()
+    {
+        PageReset = false;
+        await RefForm.Submit();
+        await RefListFilter.SearchFilter();
+        var PageIndex = Grid_SH_Petco_SefareshPoint.PageIndex;
+    //اگر جدید بود برو بر روی خود رکورد جدید
+  // if (IsNew)
+  //     {
+  //         if (_VisibleIndex == (Grid_SH_Petco_SefareshPoint.GetVisibleRowCount() - 1))
+  // {
+  //             PageIndex = PageIndex + 1;
+  //             _VisibleIndex = 0;
+  //         }
+  //         else
+  //         {
+  //             _VisibleIndex = _VisibleIndex.Value + 1;
+  //         }
+  //
+  //     }
+  //     await SelectRecord(PageIndex, _VisibleIndex.Value);
+    }
+
+    /// <summary>
+    /// ذخیره و بستن فرم
+    /// </summary>
+    /// <returns></returns>
+    public async Task OnSubmitCloseClick()
+    {
+        PageReset = false;
+        await SubmitAndRefreshData();
+        ShowForm = false;
+        await InvokeAsync(StateHasChanged);
+    }
+
+    /// <summary>
+    /// تایید ذخیره فرم
+    /// </summary>
+    /// <returns></returns>
+    public async Task OnYesSubmitNewClick()
+    {
+        PageReset = false;
+        await SubmitAndRefreshData();
+        StartEditNewRowAsync_Grid_SH_Petco_SefareshPoint();
+    }
+
+    public async Task SubmitAndRefreshData()
+    {
+        isSending = true;
+        await RefForm.Submit();
+        await RefListFilter.SearchFilter();
+        await InvokeAsync(StateHasChanged);
+        Confirmation_SubmitNew = false;
+        isSending = false;
+    }
+
+    /// <summary>
+    /// انصراف ذخیره فرم
+    /// </summary>
+    /// <returns></returns>
+    public async Task OnNoSubmitClick()
+    {
+        Confirmation_Submit = false;
+    }
+
+    //// <summary>
+    /// فعال شدن دیالوگ ذخیره و فرم جدید
+    /// </summary>
+    /// <returns></returns>
+    public async Task SubmitNew()
+    {
+        Confirmation_SubmitNew = true;
+    }
+
+
+    /// <summary>
+    /// انصراف ذخیره فرم
+    /// </summary>
+    /// <returns></returns>
+    public async Task OnNoSubmitNewClick()
+    {
+        Confirmation_Submit = false;
+    }
+
+    /// <summary>
+    /// انصراف از ذخیره فرم
+    /// </summary>
+    /// <returns></returns>
+    public async Task SubmitCancell()
+    {
+       // await GetDataForm(null);
+        ShowForm = false;
+        PageReset = false;
+        await RefListFilter.SearchFilter();
+    }
+    /// <summary>
+    /// رکورد بعدی
+    /// </summary>
+    /// <returns></returns>
+    public async Task NextRow()
+    {
+
+
+        if (_VisibleIndex is null)
+        {
+            _VisibleIndex = 0;
+        }
+        else if (_VisibleIndex == (Grid_SH_Petco_SefareshPoint.GetVisibleRowCount() - 1))
+    {
+            if (PageIndex < DxPager.PageCount)
+            {
+                PageIndex = PageIndex + 1;
+            }
+            else
+            {
+                PageIndex = 0;
+            }
+            _VisibleIndex = 0;
+        }
+        else
+        {
+            _VisibleIndex = _VisibleIndex.Value + 1;
+        }
+        await SelectRecord(PageIndex, _VisibleIndex.Value);
+
+    }
+    /// <summary>
+    /// رکورد قبلی
+    /// </summary>
+    /// <returns></returns>
+    public async Task BackRow()
+    {
+        if (_VisibleIndex is null)
+        {
+            _VisibleIndex = 0;
+        }
+        if (_VisibleIndex == 0)
+        {
+            if (PageIndex > 0)
+            {
+                PageIndex = PageIndex - 1;
+                _VisibleIndex = Grid_SH_Petco_SefareshPoint.PageSize - 1;
+    }
+        }
+        else
+        {
+
+            _VisibleIndex = _VisibleIndex.Value - 1;
+        }
+        await SelectRecord(PageIndex, _VisibleIndex.Value);
+    }
+
+    void SetLanguage(string language)
+    {
+        languageContainer.SetLanguage(System.Globalization.CultureInfo.GetCultureInfo(language));
+    }
+
+
+    /// <summary>
+    /// نمایش دادن فرم CU برای ویرایش و ضافه کردن رکورد
+    /// </summary>
+    /// <param name="e"></param>
+    // public async Task ShowFormCU(GridCustomizeEditModelEventArgs e)
+    // {
+    //     Guid Id = Guid.Empty;
+    //     if (!e.IsNew)
+    //     {
+    //         var newRow = (Entity.SH_Petco_SefareshPoint)e.EditModel;
+    //         Id = newRow.Id;
+    //     }
+    //     await GetDataForm(Id);
+    // }
+
+    /// <summary>
+    /// نمایش دادن فرم CU برای ویرایش و ضافه کردن رکورد
+    /// </summary>
+    /// <param name="e"></param>
+    public async Task ShowFormCU(object e)
+    {
+        await InvokeAsync(StateHasChanged);
+        await Task.Yield();
+        object Id = null;
+        Type type = null;
+        ShowForm = true;
+        await InvokeAsync(StateHasChanged);
+        await Task.Yield();
+        if (!IsNew)
+        {
+            var newRow = (Entity.SH_Petco_SefareshPoint)e;
+    Id = newRow._Id;
+            await InvokeAsync(StateHasChanged);
+            await Task.Yield();
+        }
+        else
+        {
+            var newRow = new Entity.SH_Petco_SefareshPoint();
+    Id = newRow._Id;
+        }
+        await InvokeAsync(StateHasChanged);
+        await Task.Yield();
+        await GetDataForm(Id);
+    }
+    /// <summary>
+    /// خاموش کردن فوکوس گرید
+    /// </summary>
+    /// <returns></returns>
+    public async Task setFocusOff()
+    {
+        //اگر فوکوس روشن بود خاموشش کن
+        if (Grid_SH_Petco_SefareshPoint.FocusedRowEnabled)
+    {
+            //به علت یروزرسانی دیتاگرید و اینکه فوکوس باید مقدار اولیه داده شود از خط زیر استفاده می شود
+            Grid_SH_Petco_SefareshPoint.BeginUpdate();
+    Grid_SH_Petco_SefareshPoint.FocusedRowEnabled = false;
+    Grid_SH_Petco_SefareshPoint.EndUpdate();
+    }
+
+    }
+    /// <summary>
+    /// فعال کردن فوکوس گرید
+    /// </summary>
+    /// <returns></returns>
+    public async Task setFocusOn()
+    {
+        if (!Grid_SH_Petco_SefareshPoint.FocusedRowEnabled)
+    {
+            Grid_SH_Petco_SefareshPoint.BeginUpdate();
+    Grid_SH_Petco_SefareshPoint.FocusedRowEnabled = true;
+
+    Grid_SH_Petco_SefareshPoint.EndUpdate();
+    }
+
+    }
+
+    public async Task SelectRecord(int PageIndex, int __VisibleIndex)
+    {
+
+        isSending = true;
+        await setFocusOn();
+        PageIndexChanged(PageIndex);
+        await ShowFormCU(Grid_SH_Petco_SefareshPoint.GetDataItem(__VisibleIndex));
+    DxPager.ActivePageIndex = PageIndex;
+        Grid_SH_Petco_SefareshPoint.BeginUpdate();
+    Grid_SH_Petco_SefareshPoint.PageIndex = PageIndex;
+    Grid_SH_Petco_SefareshPoint.EndUpdate();
+    Grid_SH_Petco_SefareshPoint.SetFocusedRowIndex(__VisibleIndex);
+
+    isSending = false;
+    }
+
+    public async Task SetPageIndex(int Index)
+    {
+        PageIndex = Index;
+        Grid_SH_Petco_SefareshPoint.BeginUpdate();
+    Grid_SH_Petco_SefareshPoint.PageIndex = Index;
+    Grid_SH_Petco_SefareshPoint.EndUpdate();
+    }
+    /// <summary>
+    /// ارسال داده
+    /// </summary>
+    /// <returns></returns>
+    private async Task<bool> PostDataDelete(Entity.SH_Petco_SefareshPoint _entity)
+    {
+        string Data = await Utility.JSON.ToJson(_entity);
+
+        var TablePost = new Table();
+        TablePost.Name = "SH_Petco_SefareshPoint";
+        TablePost.Column = new List<Coulmn>
+                    {
+                    new Coulmn {Name=_entity._GetIdName  , NameAs= _entity._GetIdName},
+                    new Coulmn {Name ="IsDelete",NameAs="IsDelete" }
+
+                    };
+        bool IsOk = false;
+        var Model = await ApiServer.External.Services.Data.Put(Data, TablePost.Name, TablePost, null, _User.UserID.ToString());
+        if (Model?.Status == HttpStatusCode.OK)
+        {
+            IsOk = true;
+        }
+
+        return IsOk;
+    }
+}

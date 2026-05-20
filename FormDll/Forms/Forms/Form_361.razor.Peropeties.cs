@@ -144,7 +144,7 @@ namespace Forms.Forms
     /// <summary>
     ///  ورژنی که فرم باهاش ساخته شده
     /// </summary>
-    public string? VersionForm { get; set; } = "5823";
+    public string? VersionForm { get; set; } = "6067";
 
     /// <summary>
     ///  موجودیت
@@ -187,8 +187,22 @@ public Input<string?> Ref_ProductBuy_Shomaran_TEMPNOText;
 public Input<string?> Ref_ProductBuy_Shomaran_TEMPNODateTime;
 public Input<string?> Ref_Shomaran_TEMPNOText;
 public Input<string?> Ref_Shomaran_TEMPNODateTime;
+public Input<Guid> Ref_Id;
+public Input<Guid?> Ref_RequestID;
+public Input<Guid?> Ref_CreateUser;
+public Input<Guid?> Ref_UpdateUser;
+public Input<DateTime?> Ref_CreateDate;
+public Input<DateTime?> Ref_UpdateDate;
+public Input<bool?> Ref_IsDelete;
 public DxGrid? Grid_SCMNFP_ProductRequestDetails;
 
+public Input<Guid> Ref_SCMNFP_ProductRequestDetails_Id;
+public Input<Guid?> Ref_SCMNFP_ProductRequestDetails_RequestID;
+public Input<Guid?> Ref_SCMNFP_ProductRequestDetails_CreateUser;
+public Input<Guid?> Ref_SCMNFP_ProductRequestDetails_UpdateUser;
+public Input<DateTime?> Ref_SCMNFP_ProductRequestDetails_CreateDate;
+public Input<DateTime?> Ref_SCMNFP_ProductRequestDetails_UpdateDate;
+public Input<bool?> Ref_SCMNFP_ProductRequestDetails_IsDelete;
 public Input<string?> Ref_SCMNFP_ProductRequestDetails_ProductName;
 public Input<string?> Ref_SCMNFP_ProductRequestDetails_ProductSubCategory;
 public Input<string?> Ref_SCMNFP_ProductRequestDetails_ProductCode;
@@ -201,7 +215,6 @@ public Input<string?> Ref_SCMNFP_ProductRequestDetails_DescriptionApplicant;
 public Input<string?> Ref_SCMNFP_ProductRequestDetails_DescriptionApproverFirst;
 public Input<string?> Ref_SCMNFP_ProductRequestDetails_DescriptionApproverSecond;
 public Dropdown Ref_SCMNFP_ProductRequestDetails_SCMNFP_CostCenterId;
-public RadioBoolean Ref_SCMNFP_ProductRequestDetails_ForeignMachineryProductType;
 public Input<bool?> Ref_SCMNFP_ProductRequestDetails_ProductIsDelivery;
 public Input<bool?> Ref_SCMNFP_ProductRequestDetails_FutureActionIsEnable;
 public Input<double?> Ref_SCMNFP_ProductRequestDetails_DeficitSupplyNumber;
@@ -209,24 +222,11 @@ public RadioBoolean Ref_SCMNFP_ProductRequestDetails_TypeofProductDelivery;
 public RadioBoolean Ref_SCMNFP_ProductRequestDetails_ProductType;
 public Input<bool?> Ref_SCMNFP_ProductRequestDetails_ProductPartofTheProperty;
 public Input<bool?> Ref_SCMNFP_ProductRequestDetails_RequiredProuductOld;
-public Input<double?> Ref_SCMNFP_ProductRequestDetails_NumberofProductDelivery1;
 public Input<string?> Ref_SCMNFP_ProductRequestDetails_DescriptionWarehouseKeeper;
 public Input<string?> Ref_SCMNFP_ProductRequestDetails_ProductIsDeliveryDateTime;
 public Input<double?> Ref_SCMNFP_ProductRequestDetails_RequesterProductDelivery;
-public Input<Guid> Ref_SCMNFP_ProductRequestDetails_Id;
-public Input<Guid?> Ref_SCMNFP_ProductRequestDetails_RequestID;
-public Input<Guid?> Ref_SCMNFP_ProductRequestDetails_CreateUser;
-public Input<Guid?> Ref_SCMNFP_ProductRequestDetails_UpdateUser;
-public Input<DateTime?> Ref_SCMNFP_ProductRequestDetails_CreateDate;
-public Input<DateTime?> Ref_SCMNFP_ProductRequestDetails_UpdateDate;
-public Input<bool?> Ref_SCMNFP_ProductRequestDetails_IsDelete;
-public Input<Guid> Ref_Id;
-public Input<Guid?> Ref_RequestID;
-public Input<Guid?> Ref_CreateUser;
-public Input<Guid?> Ref_UpdateUser;
-public Input<DateTime?> Ref_CreateDate;
-public Input<DateTime?> Ref_UpdateDate;
-public Input<bool?> Ref_IsDelete;
+public RadioBoolean Ref_SCMNFP_ProductRequestDetails_ForeignMachineryProductType;
+public Input<double?> Ref_SCMNFP_ProductRequestDetails_NumberofProductDelivery1;
 
 
     #endregion

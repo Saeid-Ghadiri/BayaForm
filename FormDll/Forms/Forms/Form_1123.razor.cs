@@ -1,0 +1,269 @@
+using Baya.Models.Utility;
+using BlazorBootstrap;
+using DevExpress.Blazor;
+using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Web;
+using Microsoft.JSInterop;
+using Sitko.Blazor.CKEditor;
+using System;
+using System.Net;
+
+namespace Forms.Forms
+{
+	public class Form_1123Base : Form_1123Peropeties
+	{
+		// تابع پیام تُــست
+		public MSG _MSG { get; set; }
+
+		/// <summary>
+		/// آماده سازی فرم
+		/// </summary>
+		/// <returns></returns>
+		protected override async Task OnInitializedAsync()
+		{
+		}
+
+		/// <summary>
+		/// رندر شدن فرم
+		/// </summary>
+		/// <param name="firstRender"></param>
+		/// <returns></returns>
+		protected override async Task OnAfterRenderAsync(bool firstRender)
+		{
+			if (firstRender)
+			{
+				// فراخوانی سرویس تُست
+				_MSG = new MSG(toastService);
+
+				await ToggleNewButtonBasedOnCount();
+			}
+		}
+
+		/// <summary>
+		/// اعتبار سنجی فرم
+		/// </summary>
+		/// <returns></returns>
+		public override async Task<bool> FormValidator()
+		{
+			bool IsValid = true;
+
+			var List = _Entity.SCMATLASCELL_ProductRequestDetails
+							.Where(p => p.IsDelete != true)
+							.ToList();
+
+			Console.WriteLine($"تعداد ردیف‌های معتبر: {List.Count}");
+
+			if (List.Count == 0)
+			{
+				IsValid = false;
+				await ShowEmptyRequestDialogAsync(_Entity.RequestTrakingCode);
+			}
+
+			foreach (var Item in List)
+			{
+				IsValid = IsValid && await CheckFieldValidation(Item);
+			}
+
+			return IsValid;
+		}
+
+
+		/// <summary>
+		/// تابع قبل اجرا شدن ارسال داده
+		/// </summary>
+		/// <returns></returns>
+		public override async Task<Result> BeforSubmit()
+		{
+			return new Result() { Status = HttpStatusCode.OK };
+		}
+
+		/// <summary>
+		/// تابع بعد اجرا شدن ارسال داده
+		/// </summary>
+		/// <returns></returns>
+		public override async Task AfterSubmit()
+		{
+
+		}
+
+		/// <summary>
+		/// تابع قبل دریافت داده
+		/// </summary>
+		/// <returns></returns>
+		public override async Task BeforGetData()
+		{
+
+		}
+
+		/// <summary>
+		/// تابع بعد دریافت داده
+		/// </summary>
+		/// <returns></returns>
+		public override async Task AfterGetData()
+		{
+
+		}
+
+		#region FunctionEvents
+
+		#region نمایش دیالوگ خطا برای درخواست بدون ردیف
+		/// <summary>
+		/// نمایش دیالوگ خطا برای درخواست بدون ردیف
+		/// </summary>
+		/// <param name="trackingCode">کد پیگیری درخواست</param>
+		private async Task ShowEmptyRequestDialogAsync(string trackingCode)
+		{
+			var options = new ConfirmDialogOptions
+			{
+				YesButtonText = "بازگشت به درخواست",
+				YesButtonColor = ButtonColor.Danger,
+				NoButtonText = "",
+			};
+
+			string htmlString = $@"
+				<div class='request-header'>
+					<picture>
+						<img src='https://file.workcv.ir/fa-ir/api/v1/File/Get?FileID=e35322d0-23f4-4d03-b886-08de9f64ab6f' 
+							 class='logo-image' 
+							 alt='لوگو اطلس سلولز' 
+							 width='96'>
+					</picture>
+					<hr class='hrdash border-success-subtle'>
+				</div>
+
+				<div class='fw-bold text-center'>
+					<div class='mb-3'>
+						<span class='fs-5'>کد پیگیری این درخواست: </span>
+						<span class='fs-3' style='color: #1ba156'>{trackingCode}</span>
+					</div>
+
+					<div class='d-flex justify-content-center align-items-start gap-2'>
+						<i class='fal fa-exclamation-triangle' style='font-size:24px; color:red;' aria-hidden='true'></i>
+						<span class='fs-6 text-secondary text-end'>
+							تا کنون هیچ ردیف درخواستی تکمیل نشده است. لطفا برای ثبت و ادامه به مرحله بعد حداقل یک ردیف در درخواست خود ثبت نمایید.
+						</span>
+					</div>
+				</div>";
+
+			await Confirm.ShowAsync(
+				title: "",
+				message1: htmlString,
+				confirmDialogOptions: options
+				);
+		}
+		#endregion
+
+		#region بررسی تعداد ردیف های جزییات درخواست کالا
+		public async Task<bool> ValidateMaxFiveProductRequestRecords(bool isNewRow = false)
+		{
+			int activeCount = _Entity.SCMATLASCELL_ProductRequestDetails.Count(p => p.IsDelete != true);
+			if (activeCount >= 5)
+			{
+				await _MSG.ShowError("تعداد رکوردها نمی‌تواند بیشتر از ۵ باشد.");
+				return false;
+			}
+			return true;
+		}
+		#endregion
+
+		#region اعتبارسنجی فیلدها
+		public async Task<bool> CheckFieldValidation(Entity.SCMATLASCELL_ProductRequestDetails Item)
+		{
+			bool IsValid = true;
+
+			// شرط پُر بودن فیلد نام کالا (از نوع string)
+			if (string.IsNullOrWhiteSpace(Item.SH_DESC))
+			{
+				IsValid = false;
+				await _MSG.ShowError("لطفا گزینه نام کالا را تکمیل نمایید.");
+			}
+
+			// شرط پُر بودن فیلد تعداد یا مقدار درخواستی (عدد صحیح یا اعشاری)
+			if (Item.ProductRequestingQTY == null || Item.ProductRequestingQTY == 0)
+			{
+				IsValid = false;
+				await _MSG.ShowError("لطفا گزینه تعداد یا مقدار درخواستی را تکمیل نمایید.");
+			}
+
+			// شرط پُر بودن فیلد اولویت (شناسه از نوع nullable)
+			if (Item.Global_PriorityId == null)
+			{
+				IsValid = false;
+				await _MSG.ShowError("لطفا گزینه اولویت را تکمیل نمایید.");
+			}
+
+			// شرط پُر بودن فیلد محل مصرف (از نوع string)
+			if (string.IsNullOrWhiteSpace(Item.PlaceOfUse))
+			{
+				IsValid = false;
+				await _MSG.ShowError("لطفا گزینه محل مصرف را تکمیل نمایید.");
+			}
+
+			return IsValid;
+		}
+		#endregion
+
+		
+
+		public async Task<bool> GridSCMATLASCELL_ProductRequestId_817_editmodelsaving(object e)
+		{
+			bool IsCancelled = false;
+
+			var Item = e as Entity.SCMATLASCELL_ProductRequestDetails;
+
+			if (Item == null)
+			{
+				await _MSG.ShowError("آیتم نامعتبر است");
+				return true;
+			}
+
+			// تشخیص اینکه آیا این یک ردیف جدید است (مثلاً با بررسی کلید اصلی)
+			bool isNewRow = (Item.Id == Guid.Empty); // یا هر کلید اصلی دیگری مثل ProductRequestDetailId
+
+			// بررسی محدودیت تعداد (قبل از هر چیز)
+			if (isNewRow && !await ValidateMaxFiveProductRequestRecords()) 
+				return true;
+
+			// بررسی محدودیت ۵ ردیف فقط برای ردیف‌های جدید
+			if (isNewRow)
+			{
+				Item.IsDelete = false;
+				await ToggleNewButtonBasedOnCount(); // مخفی کردن دکمه New اگر تعداد به 5 رسید
+			}
+
+			// بررسی اعتبارسنجی فیلدها
+			IsCancelled = !await CheckFieldValidation(Item);
+
+			return IsCancelled;
+		}
+
+		// متد کمکی برای کنترل دکمه New
+		private async Task ToggleNewButtonBasedOnCount()
+		{
+			int activeCount = _Entity.SCMATLASCELL_ProductRequestDetails
+								.Count(p => p.IsDelete != true);
+								
+			string buttonId = "SCMATLASCELL_ProductRequestDetails_GridSCMATLASCELL_ProductRequestId_817ButtonNew";
+
+			if (activeCount >= 5)
+				await JS.InvokeVoidAsync("eval", $"document.getElementById('{buttonId}').classList.add('d-none')");
+			else
+				await JS.InvokeVoidAsync("eval", $"document.getElementById('{buttonId}').classList.remove('d-none')");
+		}
+
+		public async Task GridSCMATLASCELL_ProductRequestId_817_afterrendermodal(Entity.SCMATLASCELL_ProductRequestDetails Item)
+		{
+			int activeCount = _Entity.SCMATLASCELL_ProductRequestDetails
+								.Count(p => p.IsDelete != true);
+
+			if (activeCount >= 5)
+			{
+				string saveAndNewId = "SCMATLASCELL_ProductRequestDetails_GridSCMATLASCELL_ProductRequestId_817ButtonSaveAndNew";
+				await JS.InvokeVoidAsync("eval", $"document.getElementById('{saveAndNewId}').classList.add('d-none')");
+			}
+		}
+
+		#endregion FunctionEvents
+
+	}
+}

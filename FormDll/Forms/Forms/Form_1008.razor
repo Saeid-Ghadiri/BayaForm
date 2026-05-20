@@ -112,6 +112,32 @@
 
 <DxGridDataColumn  Caption="عنوان مشتری"  FieldName="CustomerTitle" />
 
+<DxGridDataColumn Context="ParentId_" Caption="والد مشتری" >
+    <CellDisplayTemplate>
+       
+@{
+    Baya.Models.ViewEngine.View_Component HeaderParentId = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"primaryKey\":false,\"EntityID\":750,\"FieldId\":32619,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":1008,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":false,\"RelationParentName\":\"Parent\",\"RelationParentModel\":\"IDMS_Customer\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/IDMS_Customer/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.CustomerTitle}} </span>\",\"FieldsTemplate\":[{\"key\":\"CustomerTitle\",\"value\":\"nvarchar(Max)\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"searchField\":\"CustomerTitle\",\"modal\":true,\"label\":\"والد مشتری\",\"tableView\":true,\"key\":\"ParentId\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"32619?EId=750&SubId=31\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
+    var RowParentId = ((Entity.IDMS_Customer)ParentId_.DataItem).ParentId;
+}
+
+<Dropdown ExternalApi=false CssClass="" NotMapped=false TextGrid=true Value="@RowParentId"   FieldName="ParentId" OnItemSelected="ItemSelected_IDMS_CustomerParentId_Header" Component="HeaderParentId">
+</Dropdown>
+@code {
+    public async Task ItemSelected_IDMS_CustomerParentId_Header(object _Item)
+    {
+      //  var Selected = Utility.JSON.ToObject<dynamic>(Utility.JSON.ToJson(_Item).Result).Result;
+  //   ParentId
+
+  //  #CustomCode
+
+ //   
+
+  //  #OnItemSelected
+    }
+}
+
+    </CellDisplayTemplate>
+</DxGridDataColumn>
 
 </Columns>
 
@@ -393,6 +419,8 @@ MainModel.UpdateDate = ((Entity.IDMS_Customer)EditModel).UpdateDate;
 MainModel.IsDelete = ((Entity.IDMS_Customer)EditModel).IsDelete;
 MainModel.CustomerCode = ((Entity.IDMS_Customer)EditModel).CustomerCode;
 MainModel.CustomerTitle = ((Entity.IDMS_Customer)EditModel).CustomerTitle;
+MainModel.ParentId = ((Entity.IDMS_Customer)EditModel).ParentId;
+MainModel.Parent = ((Entity.IDMS_Customer)EditModel).Parent;
 
     }
     else

@@ -396,7 +396,7 @@
     /// <returns></returns>
     public async Task Search(QueryBuilderFilterRule Filter)
     {
-        // await RefDataGrid.SearchFilter(Filter);
+         await RefDataGrid.SearchFilter(Filter);
     }
 
 
@@ -568,11 +568,13 @@
     public void SetDisabled(bool t)
     {
         _Disabled = t;
+        StateHasChanged();
     }
     public void SetVisible(bool t)
     {
         _Visible = t;
         _Disabled = !t;
+        StateHasChanged();
     }
     public void SetEntity(object t)
     {

@@ -144,7 +144,7 @@ namespace Forms.Forms
     /// <summary>
     ///  ورژنی که فرم باهاش ساخته شده
     /// </summary>
-    public string? VersionForm { get; set; } = "5823";
+    public string? VersionForm { get; set; } = "6067";
 
     /// <summary>
     ///  موجودیت
@@ -183,9 +183,6 @@ public Input<string?> Ref_UserStarterFullName;
 public Input<string?> Ref_UserStarterCompanyName;
 public Input<string?> Ref_UserStarterUnitName;
 public Input<string?> Ref_UserStarterSectionName;
-public Input<string?> Ref_RequestTrakingCode;
-public Input<string?> Ref_ProcessVersionID;
-public Input<string?> Ref_UserStarterID;
 public Input<bool?> Ref_IsResultOfAnotherProcess;
 public Dropdown Ref_TrackingCode;
 public Dropdown Ref_IDMS_RDC_AllData;
@@ -224,6 +221,9 @@ public Input<Guid?> Ref_UpdateUser;
 public Input<DateTime?> Ref_CreateDate;
 public Input<DateTime?> Ref_UpdateDate;
 public Input<bool?> Ref_IsDelete;
+public Input<string?> Ref_RequestTrakingCode;
+public Input<string?> Ref_ProcessVersionID;
+public Input<string?> Ref_UserStarterID;
 
 
     #endregion

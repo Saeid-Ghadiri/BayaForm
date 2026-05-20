@@ -144,7 +144,7 @@ namespace Forms.Forms
     /// <summary>
     ///  ورژنی که فرم باهاش ساخته شده
     /// </summary>
-    public string? VersionForm { get; set; } = "5823";
+    public string? VersionForm { get; set; } = "6067";
 
     /// <summary>
     ///  موجودیت
@@ -179,6 +179,7 @@ namespace Forms.Forms
 
     #region FormProperty
 
+public Dropdown Ref_ParentId;
 public Input<double?> Ref_CustomerCode;
 public Input<string?> Ref_CustomerTitle;
 public Input<Guid> Ref_Id;

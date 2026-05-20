@@ -1,0 +1,1110 @@
+@inherits Forms.Forms.Form_1081_CUBase
+@namespace FormsPage
+
+@using AKSoftware.Localization.MultiLanguages.Blazor
+@using Baya.Models.Utility;
+@using Baya.Models.ORM
+@using Microsoft.AspNetCore.Components.Forms
+@using Microsoft.AspNetCore.Components.Authorization;
+@using System.Security.Claims
+@using System.Net
+@using Microsoft.JSInterop
+@using Baya.Models.ViewEngine
+@using Forms.Domain.Utility
+@using Castle.DynamicLinqQueryBuilder
+<style>
+    
+</style>
+
+<Plugins.Tools.ConfirmDialog @ref="Confirm" />
+
+<span class="d-none">VersionForm:@VersionForm</span>
+@*
+@if (!string.IsNullOrEmpty(SumaryMessage))
+{
+    <div>
+        @SumaryMessage
+    </div>
+} *@
+
+@* <EditForm @ref="_Form" Model="_Entity" OnValidSubmit="ValidFormSubmitted" OnInvalidSubmit="InvalidFormSubmitted" OnSubmit="Submit"> *@
+<div class="@(ReadOnly?"FormReadOnly":"")">
+    <EditForm @ref="_Form" Model="_Entity" OnSubmit="Submit">
+        
+<Input Id="Id" @ref="Ref_Id"   CssClass="d-none"   @bind-Value="_Entity.Id" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+<Input Id="RequestID" @ref="Ref_RequestID"      @bind-Value="_Entity.RequestID" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+<Input Id="CreateUser" @ref="Ref_CreateUser"      @bind-Value="_Entity.CreateUser" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+<Input Id="UpdateUser" @ref="Ref_UpdateUser"      @bind-Value="_Entity.UpdateUser" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+<Input Id="CreateDate" @ref="Ref_CreateDate"   CssClass="d-none"   @bind-Value="_Entity.CreateDate" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+<Input Id="UpdateDate" @ref="Ref_UpdateDate"   CssClass="d-none"   @bind-Value="_Entity.UpdateDate" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+<Input Id="IsDelete" @ref="Ref_IsDelete"   CssClass="d-none"   @bind-Value="_Entity.IsDelete" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+<Input Id="RecNo" @ref="Ref_RecNo" Label="شماره"     @bind-Value="_Entity.RecNo" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+<Input Id="RecDate" @ref="Ref_RecDate" Label="تاریخ"  CssClass=" PersianDatePicker"   @bind-Value="_Entity.RecDate" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"data-jdp\":\"  \",\"data-jdp-only-date\":\"   \"}").Result))></Input>
+
+<Input Id="TempNo" @ref="Ref_TempNo" Label="شماره عطف"     @bind-Value="_Entity.TempNo" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+<Input Id="Creator" @ref="Ref_Creator" Label="تنظیم کننده"     @bind-Value="_Entity.Creator" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+ 
+ 
+@code {
+    Baya.Models.ViewEngine.View_Component Component_SH_ATLASCELL_DepoInInvCode = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"EntityName\":\"دریافت کالا پس از تغییر از سازنده\",\"primaryKey\":false,\"EntityID\":814,\"FieldId\":31893,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":1081,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":true,\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://shomaran.workcv.ir:2010/fa-ir/api/v1/view_INV/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"INVCODE\",\"template\":\"<span>{{item.INVNAME}} {{item.INVCODE}} </span>\",\"FieldsTemplate\":[{\"key\":\"INVNAME\",\"value\":\"nvarchar(Max)\"},{\"key\":\"INVCODE\",\"value\":\"nvarchar(Max)\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"searchField\":\"INVCODE,INVNAME\",\"modal\":true,\"label\":\"نام انبار\",\"tableView\":true,\"key\":\"InvCode\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"31893?EId=814&SubId=38\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
+}
+
+    <Dropdown Id=InvCode  @ref="Ref_InvCode" Label="نام انبار" CssClass=""  DisplayFormat="DropDown" ExternalApi=true NotMapped=false TextGrid=false  Value="@_Entity.InvCode" FieldName="InvCode" OnItemSelected="ItemSelected_SH_ATLASCELL_DepoInInvCode" Component="Component_SH_ATLASCELL_DepoInInvCode" _Entity="_Entity" >
+</Dropdown>
+@code {
+    public async Task ItemSelected_SH_ATLASCELL_DepoInInvCode(object _Item)
+    {
+        var Selected = Utility.JSON.ToObject<dynamic>(Utility.JSON.ToJson(_Item).Result).Result;
+     var Item = _Entity;
+
+    Item.InvCode = Selected.INVCODE;
+
+
+    
+
+    
+    }
+} 
+ 
+ 
+@code {
+    Baya.Models.ViewEngine.View_Component Component_SH_ATLASCELL_DepoInPartCode = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"EntityName\":\"دریافت کالا پس از تغییر از سازنده\",\"primaryKey\":false,\"EntityID\":814,\"FieldId\":31894,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":1081,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":true,\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://shomaran.workcv.ir:2010/fa-ir/api/v1/view_cardpart/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"partcode\",\"template\":\"<span>{{item.desc}} {{item.partno}} {{item.partcode}} </span>\",\"FieldsTemplate\":[{\"key\":\"desc\",\"value\":\"nvarchar(Max)\"},{\"key\":\"partno\",\"value\":\"nvarchar(Max)\"},{\"key\":\"partcode\",\"value\":\"nvarchar(Max)\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"searchField\":\"partcode,partno,desc\",\"modal\":true,\"label\":\"کالای دریافتی\",\"tableView\":true,\"key\":\"PartCode\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"31894?EId=814&SubId=38\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
+}
+
+    <Dropdown Id=PartCode  @ref="Ref_PartCode" Label="کالای دریافتی" CssClass=""  DisplayFormat="DropDown" ExternalApi=true NotMapped=false TextGrid=false  Value="@_Entity.PartCode" FieldName="PartCode" OnItemSelected="ItemSelected_SH_ATLASCELL_DepoInPartCode" Component="Component_SH_ATLASCELL_DepoInPartCode" _Entity="_Entity" >
+</Dropdown>
+@code {
+    public async Task ItemSelected_SH_ATLASCELL_DepoInPartCode(object _Item)
+    {
+        var Selected = Utility.JSON.ToObject<dynamic>(Utility.JSON.ToJson(_Item).Result).Result;
+     var Item = _Entity;
+
+    Item.PartCode = Selected.partcode;
+
+
+    
+
+    
+    }
+} 
+ 
+ 
+@code {
+    Baya.Models.ViewEngine.View_Component Component_SH_ATLASCELL_DepoInProduct = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"EntityName\":\"دریافت کالا پس از تغییر از سازنده\",\"primaryKey\":false,\"EntityID\":814,\"FieldId\":31895,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":1081,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":true,\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://shomaran.workcv.ir:2010/fa-ir/api/v1/View_product/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"code\",\"template\":\"<span>{{item.code}} {{item.title}} </span>\",\"FieldsTemplate\":[{\"key\":\"code\",\"value\":\"int\"},{\"key\":\"title\",\"value\":\"nvarchar(Max)\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"modal\":true,\"label\":\"تولیدی یا غیر تولیدی\",\"tableView\":true,\"key\":\"Product\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"31895?EId=814&SubId=38\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
+}
+
+    <Dropdown Id=Product  @ref="Ref_Product" Label="تولیدی یا غیر تولیدی" CssClass=""  DisplayFormat="DropDown" ExternalApi=true NotMapped=false TextGrid=false  Value="@_Entity.Product" FieldName="Product" OnItemSelected="ItemSelected_SH_ATLASCELL_DepoInProduct" Component="Component_SH_ATLASCELL_DepoInProduct" _Entity="_Entity" >
+</Dropdown>
+@code {
+    public async Task ItemSelected_SH_ATLASCELL_DepoInProduct(object _Item)
+    {
+        var Selected = Utility.JSON.ToObject<dynamic>(Utility.JSON.ToJson(_Item).Result).Result;
+     var Item = _Entity;
+
+    Item.Product = Selected.code;
+
+
+    
+
+    
+    }
+} 
+
+<RadioBoolean @ref="Ref_QC" InLine=true Id="QC"   LabelTrue="بله" LabelFalse="خیر" Label="کنترل کیفی است یا خیر" @bind-Value="_Entity.QC" CssClass="" ></RadioBoolean>
+ 
+ 
+@code {
+    Baya.Models.ViewEngine.View_Component Component_SH_ATLASCELL_DepoInReceipt = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"EntityName\":\"دریافت کالا پس از تغییر از سازنده\",\"primaryKey\":false,\"EntityID\":814,\"FieldId\":31897,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":1081,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":true,\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://shomaran.workcv.ir:2010/fa-ir/api/v1/view_person/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"code\",\"template\":\"<span>{{item.code}} {{item.name}} {{item.HOMEADDR}} {{item.WORKADDR}} </span>\",\"FieldsTemplate\":[{\"key\":\"code\",\"value\":\"int\"},{\"key\":\"name\",\"value\":\"nvarchar(Max)\"},{\"key\":\"HOMEADDR\",\"value\":\"nvarchar(Max)\"},{\"key\":\"WORKADDR\",\"value\":\"nvarchar(Max)\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"searchField\":\"code,name\",\"modal\":true,\"label\":\"سازنده\",\"tableView\":true,\"key\":\"Receipt\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"31897?EId=814&SubId=38\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
+}
+
+    <Dropdown Id=Receipt  @ref="Ref_Receipt" Label="سازنده" CssClass=""  DisplayFormat="DropDown" ExternalApi=true NotMapped=false TextGrid=false  Value="@_Entity.Receipt" FieldName="Receipt" OnItemSelected="ItemSelected_SH_ATLASCELL_DepoInReceipt" Component="Component_SH_ATLASCELL_DepoInReceipt" _Entity="_Entity" >
+</Dropdown>
+@code {
+    public async Task ItemSelected_SH_ATLASCELL_DepoInReceipt(object _Item)
+    {
+        var Selected = Utility.JSON.ToObject<dynamic>(Utility.JSON.ToJson(_Item).Result).Result;
+     var Item = _Entity;
+
+    Item.Receipt = Selected.code;
+
+
+    
+
+    
+    }
+} 
+
+<Input Id="Description" @ref="Ref_Description" Label="توضیحات"     @bind-Value="_Entity.Description" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+<Input Id="Year" @ref="Ref_Year" Label="سال"     @bind-Value="_Entity.Year" type="number"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+<Input Id="ApiResult" @ref="Ref_ApiResult" Label="ApiResult"     @bind-Value="_Entity.ApiResult" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+<Input Id="Amount" @ref="Ref_Amount" Label="مقدار دریافتی"     @bind-Value="_Entity.Amount" type="number"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"step\":\"any\"}").Result))></Input>
+ 
+ 
+@code {
+    Baya.Models.ViewEngine.View_Component Component_SH_ATLASCELL_DepoInOutsourcing_List = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"EntityName\":\"دریافت کالا پس از تغییر از سازنده\",\"primaryKey\":false,\"EntityID\":814,\"FieldId\":31902,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":1081,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":true,\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://shomaran.workcv.ir:2010/fa-ir/api/v1/view_DEPO_IN_DTL/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"RECNO\",\"template\":\"<span>{{item.PRODUCT}} {{item.RECNO}} {{item.RECDATE}} {{item.TEMPNO}} </span>\",\"FieldsTemplate\":[{\"key\":\"PRODUCT\",\"value\":\"nvarchar(Max)\"},{\"key\":\"RECNO\",\"value\":\"nvarchar(Max)\"},{\"key\":\"RECDATE\",\"value\":\"nvarchar(Max)\"},{\"key\":\"TEMPNO\",\"value\":\"nvarchar(Max)\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"searchField\":\"RECNO,TEMPNO\",\"modal\":true,\"label\":\"فهرست اصلی ارسال کالا به سازنده\",\"tableView\":true,\"key\":\"Outsourcing_List\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"31902?EId=814&SubId=38\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
+}
+
+    <Dropdown Id=Outsourcing_List  @ref="Ref_Outsourcing_List" Label="فهرست اصلی ارسال کالا به سازنده" CssClass=""  DisplayFormat="DropDown" ExternalApi=true NotMapped=false TextGrid=false  Value="@_Entity.Outsourcing_List" FieldName="Outsourcing_List" OnItemSelected="ItemSelected_SH_ATLASCELL_DepoInOutsourcing_List" Component="Component_SH_ATLASCELL_DepoInOutsourcing_List" _Entity="_Entity" >
+</Dropdown>
+@code {
+    public async Task ItemSelected_SH_ATLASCELL_DepoInOutsourcing_List(object _Item)
+    {
+        var Selected = Utility.JSON.ToObject<dynamic>(Utility.JSON.ToJson(_Item).Result).Result;
+     var Item = _Entity;
+
+    Item.Outsourcing_List = Selected.RECNO;
+
+
+    
+
+    
+    }
+} 
+<label for="SH_ATLASCELL_DepoInDetail_GridSH_ATLASCELL_DepoInId_815">جزییات دریافت کالا پس از تغییر از سازنده
+   
+    
+</label>
+
+<DxGrid @ref="Grid_SH_ATLASCELL_DepoInDetail" Data="_Entity.SH_ATLASCELL_DepoInDetail" KeyFieldName="_Id" EditMode="GridEditMode.PopupEditForm"
+        EditModelSaving="OnEditModelSavingSH_ATLASCELL_DepoInDetail"
+        DataItemDeleting="OnDataItemDeletingSH_ATLASCELL_DepoInDetail"
+        PopupEditFormCssClass="ModalWidth"
+        PopupEditFormHeaderText="جزییات دریافت کالا پس از تغییر از سازنده"
+        EditFormButtonsVisible="false"
+        CustomizeEditModel="CustomizeEditGrid_SH_ATLASCELL_DepoInDetail"
+        CustomizeElement="CustomizeRowsGrid_SH_ATLASCELL_DepoInDetail" 
+        Component="@((Utility.JSON.ToObject<View_Component>("{\"primaryKey\":false,\"EntityID\":815,\"FieldId\":815,\"NotNull\":false,\"ViewId\":0,\"NotMapped\":false,\"Relation\":false,\"RelationExternal\":false,\"RelationChildModel\":\"SH_ATLASCELL_DepoInDetail\",\"GridMainModel\":\"SH_ATLASCELL_DepoInDetail\",\"widget\":{\"altInput\":false,\"allowInput\":false,\"clickOpens\":false,\"enableDate\":false,\"enableTime\":false,\"noCalendar\":false,\"useLocaleSettings\":false,\"hourIncrement\":0,\"minuteIncrement\":0,\"time_24hr\":false},\"wysiwyg\":false,\"data\":{},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"FieldsTemplate\":[],\"refreshOn\":\"data\",\"reorder\":false,\"addAnotherPosition\":\"bottom\",\"layoutFixed\":false,\"enableRowGroups\":false,\"initEmpty\":false,\"disabled\":true,\"modal\":true,\"label\":\"جزییات دریافت کالا پس از تغییر از سازنده\",\"tableView\":true,\"key\":\"GridSH_ATLASCELL_DepoInId_815\",\"type\":\"datagrid\",\"input\":true,\"placeholder\":\"GridSH_ATLASCELL_DepoInId_815\",\"modalEdit\":true,\"FieldUrl\":\"815?EId=815&SubId=38\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result))"
+         >
+    <Columns>
+    
+<DxGridCommandColumn Width="70px">
+    <HeaderTemplate Context="HeaderContext">
+       
+<a id=SH_ATLASCELL_DepoInDetail_GridSH_ATLASCELL_DepoInId_815ButtonNew class="btn btn-sm btn-green btnGridAddData" @onclick="@(() => StartEditNewRowAsync_Grid_SH_ATLASCELL_DepoInDetail())" style="text-decoration: none;" href="javascript:void(0);">
+    <span class="fal fa-plus-circle btnicon"></span>
+    <span>@languageContainer.Keys["DXGrid:New"]</span>
+</a>
+
+    </HeaderTemplate>
+    <CellDisplayTemplate Context="CellContext">
+       
+<a id=SH_ATLASCELL_DepoInDetail_GridSH_ATLASCELL_DepoInId_815ButtonEdit class="btn btn-sm btn-yellow-light btnEditGridData" @onclick="@(() => StartModalGrid_SH_ATLASCELL_DepoInDetail(CellContext))" style="text-decoration: none;" href="javascript:void(0);">
+    <span class="fal fa-pencil btnicon"></span>
+</a>
+
+       
+<a class="btn btn-sm btn-red-light btnDeleteGridData" @onclick="@(() => OnDeleteButtonClickGrid_SH_ATLASCELL_DepoInDetail(CellContext))" style="text-decoration: none;" href="javascript:void(0);">
+    <span class="fal fa-times-circle btnicon"></span>
+</a>
+
+    </CellDisplayTemplate>
+</DxGridCommandColumn>
+
+    <DxGridCommandColumn   Width="60px">
+           <HeaderTemplate Context="HeaderContext">
+               <a    style="text-decoration: none;"  >
+                
+                   <span>ردیف</span>
+               </a>
+           </HeaderTemplate>
+           <CellDisplayTemplate Context="CellContext">
+            @if (CellContext.VisibleIndex > 9){
+                <p>@(CellContext.VisibleIndex + 1)</p>
+            }else{
+                <p>@(((CellContext.Grid.PageIndex * CellContext.Grid.PageSize) + (CellContext.VisibleIndex + 1)))</p>
+            }
+          
+           </CellDisplayTemplate>
+     </DxGridCommandColumn>
+    <DxGridDataColumn Context="ProductSearch_" Caption="جستجو کالا" >
+    <CellDisplayTemplate>
+       
+@{
+    Baya.Models.ViewEngine.View_Component HeaderProductSearch = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"primaryKey\":false,\"EntityID\":815,\"FieldId\":31910,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":1081,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":true,\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://shomaran.workcv.ir:2010/fa-ir/api/v1/view_parts/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"partcode\",\"template\":\"<span>{{item.partcode}} {{item.partno}} {{item.desc}} {{item.unit}} </span>\",\"FieldsTemplate\":[{\"key\":\"partcode\",\"value\":\"nvarchar(Max)\"},{\"key\":\"partno\",\"value\":\"nvarchar(Max)\"},{\"key\":\"desc\",\"value\":\"nvarchar(Max)\"},{\"key\":\"unit\",\"value\":\"nvarchar(Max)\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"searchField\":\"partcode,partno,desc\",\"modal\":true,\"label\":\"جستجو کالا\",\"tableView\":true,\"key\":\"ProductSearch\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"31910?EId=815&SubId=38\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
+    var RowProductSearch = ((Entity.SH_ATLASCELL_DepoInDetail)ProductSearch_.DataItem).ProductSearch;
+}
+
+<Dropdown ExternalApi=true CssClass="" NotMapped=false TextGrid=true Value="@RowProductSearch"   FieldName="ProductSearch" OnItemSelected="ItemSelected_SH_ATLASCELL_DepoInDetailProductSearch_Header" Component="HeaderProductSearch">
+</Dropdown>
+@code {
+    public async Task ItemSelected_SH_ATLASCELL_DepoInDetailProductSearch_Header(object _Item)
+    {
+      //  var Selected = Utility.JSON.ToObject<dynamic>(Utility.JSON.ToJson(_Item).Result).Result;
+  //   ProductSearch
+
+  //  #CustomCode
+
+ //   
+
+  //  #OnItemSelected
+    }
+}
+
+    </CellDisplayTemplate>
+</DxGridDataColumn>
+<DxGridDataColumn  Caption="نام کالا"  FieldName="ProductName" />
+
+<DxGridDataColumn  Caption="واحد"  FieldName="Unit" />
+
+<DxGridDataColumn  Caption="شماره فنی"  FieldName="ShomareFani" />
+
+<DxGridDataColumn  Caption="کد کالا"  FieldName="PartCode" />
+
+<DxGridDataColumn  Caption="ردیابی"  FieldName="Radyabi" />
+
+<DxGridDataColumn  Caption="سفارش"  FieldName="Sefaresh" />
+
+<DxGridDataColumn  Caption="ردیف"  FieldName="RowId" />
+
+<DxGridDataColumn DisplayFormat="0" Caption="سال"  FieldName="Year" />
+
+<DxGridDataColumn  Caption="توضیحات"  FieldName="Note" />
+
+<DxGridDataColumn DisplayFormat="G" Caption="مقدار1"  FieldName="Amount" />
+
+<DxGridDataColumn Context="SH_ATLASCELL_DepoInId_" Caption="شناسه اصلی SH_ATLASCELL_DepoIn" >
+    <CellDisplayTemplate>
+       
+@{
+    Baya.Models.ViewEngine.View_Component HeaderSH_ATLASCELL_DepoInId = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"primaryKey\":false,\"EntityID\":815,\"FieldId\":32557,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":1081,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":false,\"RelationParentName\":\"SH_ATLASCELL_DepoIn\",\"RelationParentModel\":\"SH_ATLASCELL_DepoIn\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/SH_ATLASCELL_DepoIn/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.Id}} </span>\",\"FieldsTemplate\":[{\"key\":\"Id\",\"value\":\"uniqueidentifier\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"modal\":true,\"label\":\"شناسه اصلی SH_ATLASCELL_DepoIn\",\"tableView\":true,\"key\":\"SH_ATLASCELL_DepoInId\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"32557?EId=815&SubId=38\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
+    var RowSH_ATLASCELL_DepoInId = ((Entity.SH_ATLASCELL_DepoInDetail)SH_ATLASCELL_DepoInId_.DataItem).SH_ATLASCELL_DepoInId;
+}
+
+<Dropdown ExternalApi=false CssClass="" NotMapped=false TextGrid=true Value="@RowSH_ATLASCELL_DepoInId"   FieldName="SH_ATLASCELL_DepoInId" OnItemSelected="ItemSelected_SH_ATLASCELL_DepoInDetailSH_ATLASCELL_DepoInId_Header" Component="HeaderSH_ATLASCELL_DepoInId">
+</Dropdown>
+@code {
+    public async Task ItemSelected_SH_ATLASCELL_DepoInDetailSH_ATLASCELL_DepoInId_Header(object _Item)
+    {
+      //  var Selected = Utility.JSON.ToObject<dynamic>(Utility.JSON.ToJson(_Item).Result).Result;
+  //   SH_ATLASCELL_DepoInId
+
+  //  #CustomCode
+
+ //   
+
+  //  #OnItemSelected
+    }
+}
+
+    </CellDisplayTemplate>
+</DxGridDataColumn>
+
+</Columns>
+
+    <EditFormTemplate Context="EditFormContextSH_ATLASCELL_DepoInDetail">
+    @{
+        SH_ATLASCELL_DepoInDetail  = (Entity.SH_ATLASCELL_DepoInDetail)EditFormContextSH_ATLASCELL_DepoInDetail.EditModel;
+    }
+    <DxFormLayout>
+        <DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextSH_ATLASCELL_DepoInDetail">
+     
+ 
+@code {
+    Baya.Models.ViewEngine.View_Component Component_SH_ATLASCELL_DepoInDetailProductSearch = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"primaryKey\":false,\"EntityID\":815,\"FieldId\":31910,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":1081,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":true,\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://shomaran.workcv.ir:2010/fa-ir/api/v1/view_parts/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"partcode\",\"template\":\"<span>{{item.partcode}} {{item.partno}} {{item.desc}} {{item.unit}} </span>\",\"FieldsTemplate\":[{\"key\":\"partcode\",\"value\":\"nvarchar(Max)\"},{\"key\":\"partno\",\"value\":\"nvarchar(Max)\"},{\"key\":\"desc\",\"value\":\"nvarchar(Max)\"},{\"key\":\"unit\",\"value\":\"nvarchar(Max)\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"searchField\":\"partcode,partno,desc\",\"modal\":true,\"label\":\"جستجو کالا\",\"tableView\":true,\"key\":\"ProductSearch\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"31910?EId=815&SubId=38\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
+}
+
+    <Dropdown Id=SH_ATLASCELL_DepoInDetail_ProductSearch  @ref="Ref_SH_ATLASCELL_DepoInDetail_ProductSearch" Label="جستجو کالا" CssClass=""  DisplayFormat="DropDown" ExternalApi=true NotMapped=false TextGrid=false  Value="@SH_ATLASCELL_DepoInDetail.ProductSearch" FieldName="ProductSearch" OnItemSelected="ItemSelected_SH_ATLASCELL_DepoInDetailProductSearch" Component="Component_SH_ATLASCELL_DepoInDetailProductSearch" _Entity="_Entity" _EntityRow=SH_ATLASCELL_DepoInDetail>
+</Dropdown>
+@code {
+    public async Task ItemSelected_SH_ATLASCELL_DepoInDetailProductSearch(object _Item)
+    {
+        var Selected = Utility.JSON.ToObject<dynamic>(Utility.JSON.ToJson(_Item).Result).Result;
+     var Item = SH_ATLASCELL_DepoInDetail;
+
+    Item.ProductSearch = Selected.partcode;
+
+
+    
+
+    
+    }
+} 
+
+</DxFormLayoutItem>
+
+<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextSH_ATLASCELL_DepoInDetail">
+    
+<Input Id="SH_ATLASCELL_DepoInDetail_ProductName" @ref="Ref_SH_ATLASCELL_DepoInDetail_ProductName" Label="نام کالا"     @bind-Value="SH_ATLASCELL_DepoInDetail.ProductName" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+</DxFormLayoutItem>
+
+<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextSH_ATLASCELL_DepoInDetail">
+    
+<Input Id="SH_ATLASCELL_DepoInDetail_Unit" @ref="Ref_SH_ATLASCELL_DepoInDetail_Unit" Label="واحد"     @bind-Value="SH_ATLASCELL_DepoInDetail.Unit" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+</DxFormLayoutItem>
+
+<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextSH_ATLASCELL_DepoInDetail">
+    
+<Input Id="SH_ATLASCELL_DepoInDetail_ShomareFani" @ref="Ref_SH_ATLASCELL_DepoInDetail_ShomareFani" Label="شماره فنی"     @bind-Value="SH_ATLASCELL_DepoInDetail.ShomareFani" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+</DxFormLayoutItem>
+
+<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextSH_ATLASCELL_DepoInDetail">
+    
+<Input Id="SH_ATLASCELL_DepoInDetail_PartCode" @ref="Ref_SH_ATLASCELL_DepoInDetail_PartCode" Label="کد کالا"     @bind-Value="SH_ATLASCELL_DepoInDetail.PartCode" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+</DxFormLayoutItem>
+
+<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextSH_ATLASCELL_DepoInDetail">
+    
+<Input Id="SH_ATLASCELL_DepoInDetail_Radyabi" @ref="Ref_SH_ATLASCELL_DepoInDetail_Radyabi" Label="ردیابی"     @bind-Value="SH_ATLASCELL_DepoInDetail.Radyabi" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+</DxFormLayoutItem>
+
+<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextSH_ATLASCELL_DepoInDetail">
+    
+<Input Id="SH_ATLASCELL_DepoInDetail_Sefaresh" @ref="Ref_SH_ATLASCELL_DepoInDetail_Sefaresh" Label="سفارش"     @bind-Value="SH_ATLASCELL_DepoInDetail.Sefaresh" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+</DxFormLayoutItem>
+
+<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextSH_ATLASCELL_DepoInDetail">
+    
+<Input Id="SH_ATLASCELL_DepoInDetail_RowId" @ref="Ref_SH_ATLASCELL_DepoInDetail_RowId" Label="ردیف"     @bind-Value="SH_ATLASCELL_DepoInDetail.RowId" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+</DxFormLayoutItem>
+
+<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextSH_ATLASCELL_DepoInDetail">
+    
+<Input Id="SH_ATLASCELL_DepoInDetail_Year" @ref="Ref_SH_ATLASCELL_DepoInDetail_Year" Label="سال"     @bind-Value="SH_ATLASCELL_DepoInDetail.Year" type="number"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+</DxFormLayoutItem>
+
+<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextSH_ATLASCELL_DepoInDetail">
+    
+<Input Id="SH_ATLASCELL_DepoInDetail_Note" @ref="Ref_SH_ATLASCELL_DepoInDetail_Note" Label="توضیحات"     @bind-Value="SH_ATLASCELL_DepoInDetail.Note" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+</DxFormLayoutItem>
+
+<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextSH_ATLASCELL_DepoInDetail">
+    
+<Input Id="SH_ATLASCELL_DepoInDetail_Amount" @ref="Ref_SH_ATLASCELL_DepoInDetail_Amount" Label="مقدار1"     @bind-Value="SH_ATLASCELL_DepoInDetail.Amount" type="number"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"step\":\"any\"}").Result))></Input>
+
+</DxFormLayoutItem>
+
+<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextSH_ATLASCELL_DepoInDetail">
+     
+ 
+@code {
+    Baya.Models.ViewEngine.View_Component Component_SH_ATLASCELL_DepoInDetailSH_ATLASCELL_DepoInId = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"primaryKey\":false,\"EntityID\":815,\"FieldId\":32557,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":1081,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":false,\"RelationParentName\":\"SH_ATLASCELL_DepoIn\",\"RelationParentModel\":\"SH_ATLASCELL_DepoIn\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/SH_ATLASCELL_DepoIn/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.Id}} </span>\",\"FieldsTemplate\":[{\"key\":\"Id\",\"value\":\"uniqueidentifier\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"modal\":true,\"label\":\"شناسه اصلی SH_ATLASCELL_DepoIn\",\"tableView\":true,\"key\":\"SH_ATLASCELL_DepoInId\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"32557?EId=815&SubId=38\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
+}
+
+    <Dropdown Id=SH_ATLASCELL_DepoInDetail_SH_ATLASCELL_DepoInId  @ref="Ref_SH_ATLASCELL_DepoInDetail_SH_ATLASCELL_DepoInId" Label="شناسه اصلی SH_ATLASCELL_DepoIn" CssClass=""  DisplayFormat="DropDown" ExternalApi=false NotMapped=false TextGrid=false Text="" Value="@SH_ATLASCELL_DepoInDetail.SH_ATLASCELL_DepoInId" FieldName="SH_ATLASCELL_DepoInId" OnItemSelected="ItemSelected_SH_ATLASCELL_DepoInDetailSH_ATLASCELL_DepoInId" Component="Component_SH_ATLASCELL_DepoInDetailSH_ATLASCELL_DepoInId" _Entity="_Entity" _EntityRow=SH_ATLASCELL_DepoInDetail>
+</Dropdown>
+@code {
+    public async Task ItemSelected_SH_ATLASCELL_DepoInDetailSH_ATLASCELL_DepoInId(object _Item)
+    {
+        var Selected = Utility.JSON.ToObject<dynamic>(Utility.JSON.ToJson(_Item).Result).Result;
+     var Item = SH_ATLASCELL_DepoInDetail;
+
+      //Todo
+ //برای اینکه آی دی تغییر کند اینجا نیز باید تغییر کند
+ //بهتر است از پرایمیری کی استفاده شود
+ if (_Item != null)
+ {
+     Console.WriteLine(" Item Is Not Null");
+    Item.SH_ATLASCELL_DepoInId = Selected.Id;
+    
+ }
+ else
+ {
+     Console.WriteLine(" Item Is Null");
+      Item.SH_ATLASCELL_DepoInId =EntityHelper.SetPropertyNull(Item.SH_ATLASCELL_DepoInId);
+ }
+ Item.SH_ATLASCELL_DepoIn = await Utility.JSON.ToObject<Entity.SH_ATLASCELL_DepoIn>(await Utility.JSON.ToJson(_Item));
+    StateHasChanged();
+
+
+    
+
+    
+    }
+} 
+
+</DxFormLayoutItem>
+
+
+        <DxFormLayoutItem ColSpanMd="12" Context="FormLayoutContextSH_ATLASCELL_DepoInDetail" CssClass="btn-modal-custom">
+            <DxButton Id="SH_ATLASCELL_DepoInDetail_GridSH_ATLASCELL_DepoInId_815ButtonSave" Click="@(() => SaveModalGrid_SH_ATLASCELL_DepoInDetail(EditFormContextSH_ATLASCELL_DepoInDetail))" Text="@languageContainer.Keys["DXGrid:Ok"]" CssClass="btn btn-green px-5" />
+            
+<DxButton id="SH_ATLASCELL_DepoInDetail_GridSH_ATLASCELL_DepoInId_815ButtonSaveAndNew"    Text="@languageContainer.Keys["DXGrid:OkAndNew"]" Click="@(() => SaveAndNewGrid_SH_ATLASCELL_DepoInDetail(EditFormContextSH_ATLASCELL_DepoInDetail))" CssClass="btn btn-green" />
+
+
+            <DxButton Id="SH_ATLASCELL_DepoInDetail_GridSH_ATLASCELL_DepoInId_815ButtonCancel" Click="@(() => Grid_SH_ATLASCELL_DepoInDetail.CancelEditAsync())" Text="@languageContainer.Keys["DXGrid:Cancel"]" CssClass="btn btn-red" />
+            <button id="click_s"  hidden>submit</button>
+             <span>|</span>
+           
+            <DxButton Id="SH_ATLASCELL_DepoInDetail_GridSH_ATLASCELL_DepoInId_815ButtonBefore" Click="@(() => Dialog_Grid_SH_ATLASCELL_DepoInDetail(0,IndexGrid_SH_ATLASCELL_DepoInDetail,EditFormContextSH_ATLASCELL_DepoInDetail))" Text="@languageContainer.Keys["DXGrid:Prev"]" CssClass="btn btn-purple" />@* @languageContainer.Keys["DXGrid:??"] *@
+         
+            <DxButton Id="SH_ATLASCELL_DepoInDetail_GridSH_ATLASCELL_DepoInId_815ButtonNext" Click="@(() => Dialog_Grid_SH_ATLASCELL_DepoInDetail(1,IndexGrid_SH_ATLASCELL_DepoInDetail,EditFormContextSH_ATLASCELL_DepoInDetail))" Text="@languageContainer.Keys["DXGrid:Next"]" CssClass="btn btn-purple" />
+
+        </DxFormLayoutItem>
+    </DxFormLayout>
+
+</EditFormTemplate>
+
+</DxGrid>
+
+<DxPopup @bind-Visible="@ConfirmationShownSH_ATLASCELL_DepoInDetail" HeaderText="@languageContainer.Keys["DXGrid:DeleteItem"]" Width="350px" CloseOnOutsideClick="false">
+
+    <BodyContentTemplate Context="EditFormContext">
+        <div class="py-3 px-5 text-center">
+            <p>@languageContainer.Keys["DXGrid:DeleteItemHint"]</p>
+            <div class="confirm-dialog-buttons">
+                <DxButton Text="@languageContainer.Keys["DXGrid:Yes"]" CssClass="btn btn-red px-4" Click="@OnYesButtonClickGrid_SH_ATLASCELL_DepoInDetail" />
+                <DxButton Text="@languageContainer.Keys["DXGrid:No"]" CssClass="btn btn-purple-light px-4" Click="@OnNoButtonClickGrid_SH_ATLASCELL_DepoInDetail" />
+            </div>
+        </div>
+    </BodyContentTemplate>
+</DxPopup>
+
+<DxPopup @bind-Visible="@ConfirmationSH_ATLASCELL_DepoInDetail" HeaderText="هشدار" Width="350px" CloseOnOutsideClick="false">
+    <BodyContentTemplate Context="EditFormContext">
+        <div class="py-3 px-5 text-center"> 
+            <p>اطلاعات این فرم تغییر کرده است آیا تغییرات ذخیره شود؟</p>
+            <div class="confirm-dialog-buttons">
+                <DxButton Text="بله" CssClass="btn btn-red px-4" Click="@OnYesButtonSH_ATLASCELL_DepoInDetail" />
+                <DxButton Text="خیر" CssClass="btn btn-purple-light px-4" Click="@OnNoButtonSH_ATLASCELL_DepoInDetail" />
+            </div>
+        </div>
+    </BodyContentTemplate>
+</DxPopup>
+@code {
+    // DxGrid? Grid_SH_ATLASCELL_DepoInDetail;
+    Entity.SH_ATLASCELL_DepoInDetail SH_ATLASCELL_DepoInDetail;
+    bool ConfirmationShownSH_ATLASCELL_DepoInDetail { get; set; } = false;
+    public Entity.SH_ATLASCELL_DepoInDetail SelectedItemGrid_SH_ATLASCELL_DepoInDetail { get; set; } = new Entity.SH_ATLASCELL_DepoInDetail();
+    /// <summary>
+    /// شماره ستون
+    /// </summary>
+    public int IndexGrid_SH_ATLASCELL_DepoInDetail { get; set; }
+
+    ///////////////////////
+    bool ConfirmationSH_ATLASCELL_DepoInDetail { get; set; } = false;
+    GridEditFormTemplateContext? _ContextFormTemplateSH_ATLASCELL_DepoInDetail { get; set; }
+    public int OpenDialogCodeSH_ATLASCELL_DepoInDetail { get; set; } = 0;
+    ////////////////////////
+
+    async Task OnEditModelSavingSH_ATLASCELL_DepoInDetail(GridEditModelSavingEventArgs arg)
+    {
+        var e = arg.EditModel;
+    bool NotValid = false;
+    //events
+       
+        
+      if (!NotValid)
+     {
+      SaveGrid_SH_ATLASCELL_DepoInDetail(arg.DataItem, arg.EditModel);
+     }
+}
+
+async void Dialog_Grid_SH_ATLASCELL_DepoInDetail(int _OpenDialogCode, int VisibleIndex, GridEditFormTemplateContext e)
+{
+    OpenDialogCodeSH_ATLASCELL_DepoInDetail = _OpenDialogCode;
+    if (!CheckChangedData(await Utility.JSON.ToJson(e.EditModel)))
+    {
+    _ContextFormTemplateSH_ATLASCELL_DepoInDetail = e;
+    ConfirmationSH_ATLASCELL_DepoInDetail = true;
+    }
+    else
+    {
+    await OnNoButtonSH_ATLASCELL_DepoInDetail();
+    }
+}
+async Task OnYesButtonSH_ATLASCELL_DepoInDetail()
+{
+
+    ConfirmationSH_ATLASCELL_DepoInDetail = false;
+    await Task.Delay(1500);
+    //bool FormValidate = await JSO.InvokeAsync<bool>("submitForm");
+    bool FormValidate =  await JS.InvokeAsync<bool>("submitForm");
+    if (FormValidate)
+    {
+        bool NotValid = false;
+    var e = _ContextFormTemplateSH_ATLASCELL_DepoInDetail.EditModel;
+         //events
+         
+
+        if (!NotValid)
+         {
+        SaveGrid_SH_ATLASCELL_DepoInDetail(_ContextFormTemplateSH_ATLASCELL_DepoInDetail.DataItem, _ContextFormTemplateSH_ATLASCELL_DepoInDetail.EditModel);
+            await Grid_SH_ATLASCELL_DepoInDetail.CancelEditAsync();
+         await ChangePageGrid_SH_ATLASCELL_DepoInDetail();
+         await SetEditFormContextGrid_SH_ATLASCELL_DepoInDetail();
+         }
+          
+    }
+
+}
+async Task OnNoButtonSH_ATLASCELL_DepoInDetail()
+{
+    ConfirmationSH_ATLASCELL_DepoInDetail = false;
+    await ChangePageGrid_SH_ATLASCELL_DepoInDetail();
+    await SetEditFormContextGrid_SH_ATLASCELL_DepoInDetail();
+
+}
+async Task SetEditFormContextGrid_SH_ATLASCELL_DepoInDetail()
+{
+    var e = (Entity.SH_ATLASCELL_DepoInDetail)Grid_SH_ATLASCELL_DepoInDetail.GetDataItem(IndexGrid_SH_ATLASCELL_DepoInDetail);
+    JsonData = await Utility.JSON.ToJson(e);
+}
+
+async Task ChangePageGrid_SH_ATLASCELL_DepoInDetail()
+{
+    int VisibleIndex = IndexGrid_SH_ATLASCELL_DepoInDetail;
+    try
+    {
+    if (OpenDialogCodeSH_ATLASCELL_DepoInDetail == 1)
+    {
+        if (VisibleIndex != (Grid_SH_ATLASCELL_DepoInDetail.GetVisibleRowCount() - 1))
+    { 
+            Grid_SH_ATLASCELL_DepoInDetail.CancelEditAsync();
+            IndexGrid_SH_ATLASCELL_DepoInDetail = VisibleIndex + 1;
+    Grid_SH_ATLASCELL_DepoInDetail.StartEditRowAsync(IndexGrid_SH_ATLASCELL_DepoInDetail);
+    }
+    }
+    else if (OpenDialogCodeSH_ATLASCELL_DepoInDetail == 0)
+    {
+        if (VisibleIndex != 0)
+        {
+
+            Grid_SH_ATLASCELL_DepoInDetail.CancelEditAsync();
+            IndexGrid_SH_ATLASCELL_DepoInDetail = VisibleIndex - 1;
+    Grid_SH_ATLASCELL_DepoInDetail.StartEditRowAsync(IndexGrid_SH_ATLASCELL_DepoInDetail);
+    }
+
+    }
+    var e = (Entity.SH_ATLASCELL_DepoInDetail)Grid_SH_ATLASCELL_DepoInDetail.GetDataItem(IndexGrid_SH_ATLASCELL_DepoInDetail);
+    JsonData = await Utility.JSON.ToJson(e);
+    await Task.Delay(300);
+    
+    StateHasChanged();
+    }
+    catch (Exception ex)
+    {
+
+    Console.WriteLine("error in ChagePage" + ex.Message);
+    }
+
+}
+
+async Task StartEditNewRowAsync_Grid_SH_ATLASCELL_DepoInDetail()
+{
+    IndexGrid_SH_ATLASCELL_DepoInDetail = Grid_SH_ATLASCELL_DepoInDetail.GetVisibleRowCount();
+Grid_SH_ATLASCELL_DepoInDetail.StartEditNewRowAsync().GetAwaiter();
+var e = new Entity.SH_ATLASCELL_DepoInDetail();
+JsonData = await Utility.JSON.ToJson(e);
+await Task.Delay(300);
+
+}
+
+async Task StartModalGrid_SH_ATLASCELL_DepoInDetail(GridCommandColumnCellDisplayTemplateContext Context)
+{
+    IndexGrid_SH_ATLASCELL_DepoInDetail = Context.VisibleIndex;
+Grid_SH_ATLASCELL_DepoInDetail.StartEditRowAsync(Context.VisibleIndex).GetAwaiter();
+var e = (Entity.SH_ATLASCELL_DepoInDetail)Context.DataItem;
+JsonData = await Utility.JSON.ToJson(e);
+await Task.Delay(300);
+
+   // await Task.Delay(500);
+}
+public async Task SaveModalGrid_SH_ATLASCELL_DepoInDetail(GridEditFormTemplateContext arg)
+{
+     //bool FormValidate = await JSO.InvokeAsync<bool>("submitForm");
+     bool FormValidate =  await JS.InvokeAsync<bool>("submitForm");
+
+    if(FormValidate){
+
+    var e = arg.EditModel;
+    bool NotValid = false;
+    //events
+    
+    if (!NotValid)
+    {
+        SaveGrid_SH_ATLASCELL_DepoInDetail(arg.DataItem, arg.EditModel);
+
+     await arg.Grid.CancelEditAsync(); 
+
+    }
+
+    }
+
+}
+public async Task SaveAndNewGrid_SH_ATLASCELL_DepoInDetail(GridEditFormTemplateContext arg)
+{ 
+     //bool FormValidate = await JSO.InvokeAsync<bool>("submitForm");
+     bool FormValidate = await JS.InvokeAsync<bool>("submitForm");
+     
+    if(FormValidate){
+       
+         var e = arg.EditModel;
+          bool NotValid = false;
+     //events
+    
+    if (!NotValid)
+    {
+        SaveGrid_SH_ATLASCELL_DepoInDetail(arg.DataItem, arg.EditModel);
+
+         await arg.Grid.CancelEditAsync();
+        await StartEditNewRowAsync_Grid_SH_ATLASCELL_DepoInDetail();
+
+    }
+          
+    }
+   
+}
+
+void PerviousPageGrid_SH_ATLASCELL_DepoInDetail(int VisibleIndex)
+{
+    try
+     {
+    if (VisibleIndex == 0)
+    {
+        Console.WriteLine(VisibleIndex.ToString());
+    }
+    else
+    {
+Grid_SH_ATLASCELL_DepoInDetail.CancelEditAsync();
+        IndexGrid_SH_ATLASCELL_DepoInDetail = VisibleIndex - 1;
+         Grid_SH_ATLASCELL_DepoInDetail.StartEditRowAsync(IndexGrid_SH_ATLASCELL_DepoInDetail);
+     }
+    }
+     catch (Exception e)
+     {
+    Console.WriteLine("PerviousPage Message");
+    Console.WriteLine(e.Message);
+    }
+
+}
+
+void NextPageGrid_SH_ATLASCELL_DepoInDetail(int VisibleIndex)
+{
+
+    if (VisibleIndex == Grid_SH_ATLASCELL_DepoInDetail.GetVisibleRowCount() - 1)
+    {
+    Console.WriteLine(VisibleIndex.ToString());
+    }
+    else
+    {
+    Console.WriteLine("NextPage Start Grid_SH_ATLASCELL_DepoInDetail ");
+    try
+    {
+Grid_SH_ATLASCELL_DepoInDetail.CancelEditAsync();
+        IndexGrid_SH_ATLASCELL_DepoInDetail = VisibleIndex + 1;
+         Grid_SH_ATLASCELL_DepoInDetail.StartEditRowAsync(IndexGrid_SH_ATLASCELL_DepoInDetail);
+     }
+    catch (Exception e)
+    {
+        Console.WriteLine("NextPage Message");
+        Console.WriteLine(e.Message);
+    }
+
+    }
+}
+
+public void SaveGrid_SH_ATLASCELL_DepoInDetail(object DataItem, object EditModel)
+{
+    var ListEntity = _Entity.SH_ATLASCELL_DepoInDetail;
+    var MainModel = (Entity.SH_ATLASCELL_DepoInDetail)DataItem;
+    if (MainModel != null)
+    {
+MainModel.ProductSearch = ((Entity.SH_ATLASCELL_DepoInDetail)EditModel).ProductSearch;
+MainModel.ProductName = ((Entity.SH_ATLASCELL_DepoInDetail)EditModel).ProductName;
+MainModel.Unit = ((Entity.SH_ATLASCELL_DepoInDetail)EditModel).Unit;
+MainModel.ShomareFani = ((Entity.SH_ATLASCELL_DepoInDetail)EditModel).ShomareFani;
+MainModel.PartCode = ((Entity.SH_ATLASCELL_DepoInDetail)EditModel).PartCode;
+MainModel.Radyabi = ((Entity.SH_ATLASCELL_DepoInDetail)EditModel).Radyabi;
+MainModel.Sefaresh = ((Entity.SH_ATLASCELL_DepoInDetail)EditModel).Sefaresh;
+MainModel.RowId = ((Entity.SH_ATLASCELL_DepoInDetail)EditModel).RowId;
+MainModel.Year = ((Entity.SH_ATLASCELL_DepoInDetail)EditModel).Year;
+MainModel.Note = ((Entity.SH_ATLASCELL_DepoInDetail)EditModel).Note;
+MainModel.Amount = ((Entity.SH_ATLASCELL_DepoInDetail)EditModel).Amount;
+MainModel.SH_ATLASCELL_DepoInId = ((Entity.SH_ATLASCELL_DepoInDetail)EditModel).SH_ATLASCELL_DepoInId;
+MainModel.SH_ATLASCELL_DepoIn = ((Entity.SH_ATLASCELL_DepoInDetail)EditModel).SH_ATLASCELL_DepoIn;
+
+    }
+    else
+    {
+    ListEntity.Add((Entity.SH_ATLASCELL_DepoInDetail)EditModel);
+    }
+}
+
+async Task OnDataItemDeletingSH_ATLASCELL_DepoInDetail(GridDataItemDeletingEventArgs e)
+    {
+    var ListEntity = _Entity.SH_ATLASCELL_DepoInDetail;
+    ListEntity.Remove((Entity.SH_ATLASCELL_DepoInDetail)e.DataItem);
+}
+async void OnDeleteButtonClickGrid_SH_ATLASCELL_DepoInDetail (GridCommandColumnCellDisplayTemplateContext ex)
+{
+    SelectedItemGrid_SH_ATLASCELL_DepoInDetail = (ex.DataItem as Entity.SH_ATLASCELL_DepoInDetail);
+    var e =SelectedItemGrid_SH_ATLASCELL_DepoInDetail;
+    
+     
+    Console.WriteLine("end OnDeleteButtonClickGrid_test_OrderBody 0");
+    ConfirmationShownSH_ATLASCELL_DepoInDetail = true;
+    await Task.Yield();
+     await InvokeAsync(StateHasChanged);
+    
+    Console.WriteLine("end OnDeleteButtonClickGrid_test_OrderBody 1");
+}
+async void OnYesButtonClickGrid_SH_ATLASCELL_DepoInDetail ()
+{
+       if (SelectedItemGrid_SH_ATLASCELL_DepoInDetail != null)
+    {
+      if (SelectedItemGrid_SH_ATLASCELL_DepoInDetail.Id == Guid.Empty)
+      {
+          var ListEntity = _Entity.SH_ATLASCELL_DepoInDetail;
+        ListEntity.Remove((Entity.SH_ATLASCELL_DepoInDetail)SelectedItemGrid_SH_ATLASCELL_DepoInDetail);
+     
+      }
+      else
+      {
+        var cleanModel = new Entity.SH_ATLASCELL_DepoInDetail();
+      // چک کن آیا پراپرتی IsDelete در این نوع وجود دارد؟
+        var prop = typeof(Entity.SH_ATLASCELL_DepoInDetail).GetProperty("IsDelete");
+        if (prop != null && prop.CanRead && prop.CanWrite)
+        {
+            // مقدار فعلی را بگیر
+            var currentValue = prop.GetValue(SelectedItemGrid_SH_ATLASCELL_DepoInDetail);
+
+            if (currentValue is bool boolValue)
+            {
+                // مقدار را معکوس کن
+                var newValue = !boolValue;
+
+                // روی هر دو شیء تنظیم کن
+                prop.SetValue(SelectedItemGrid_SH_ATLASCELL_DepoInDetail, newValue);
+                prop.SetValue(cleanModel, newValue);
+            }
+        }
+        EntityHelper.SetPropertyValue(cleanModel, cleanModel._GetIdName, SelectedItemGrid_SH_ATLASCELL_DepoInDetail._Id);
+    
+       
+       
+      }
+    }
+    var e= SelectedItemGrid_SH_ATLASCELL_DepoInDetail;
+    
+    Grid_SH_ATLASCELL_DepoInDetail.Reload();
+    ConfirmationShownSH_ATLASCELL_DepoInDetail = false;
+     await Task.Yield();
+    await InvokeAsync(StateHasChanged);
+
+}
+void OnNoButtonClickGrid_SH_ATLASCELL_DepoInDetail ()
+{
+    ConfirmationShownSH_ATLASCELL_DepoInDetail = false;
+}
+
+void CustomizeRowsGrid_SH_ATLASCELL_DepoInDetail(GridCustomizeElementEventArgs e)
+{
+    ///استایل سطر
+    if (e.ElementType == GridElementType.DataRow)
+    {
+    var item = ((Entity.SH_ATLASCELL_DepoInDetail)e.Grid.GetDataItem(e.VisibleIndex));
+
+       if (item.IsDelete == true)
+       {
+           e.CssClass = "bg-lightred disablediv";
+       }
+    }
+}
+
+async void CustomizeEditGrid_SH_ATLASCELL_DepoInDetail(GridCustomizeEditModelEventArgs e)
+{
+
+    if (e.IsNew)
+    {
+
+    var newRow = (Entity.SH_ATLASCELL_DepoInDetail)e.EditModel;
+
+     
+
+    }
+
+
+}
+public async void RowClickGrid_SH_ATLASCELL_DepoInDetail(GridRowClickEventArgs e)
+{
+
+}
+
+public async void RowDubbleClickGrid_SH_ATLASCELL_DepoInDetail(GridRowClickEventArgs e)
+{
+
+}
+}
+
+    </EditForm>
+</div>
+
+@if (ShowSubmit)
+{
+    <button class="btn btn-sm btn-green" @onclick=Submit>ذخیره</button>
+}
+
+@code {
+    #region Function
+
+    //todo  جا به جا شود برده شود تو فایل  Peropeties
+    protected override async Task OnInitializedAsync()
+    {
+        Console.WriteLine("#log OnInitializedAsync");
+
+        TableGet = await Utility.JSON.ToObject<Table>("{\"Name\":\"SH_ATLASCELL_DepoIn\",\"GetNameAs\":\"SH_ATLASCELL_DepoIn\",\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"RequestID\",\"GetNameAs\":\"RequestID\"},{\"Name\":\"CreateUser\",\"GetNameAs\":\"CreateUser\"},{\"Name\":\"UpdateUser\",\"GetNameAs\":\"UpdateUser\"},{\"Name\":\"CreateDate\",\"GetNameAs\":\"CreateDate\"},{\"Name\":\"UpdateDate\",\"GetNameAs\":\"UpdateDate\"},{\"Name\":\"IsDelete\",\"GetNameAs\":\"IsDelete\"},{\"Name\":\"RecNo\",\"GetNameAs\":\"RecNo\"},{\"Name\":\"RecDate\",\"GetNameAs\":\"RecDate\"},{\"Name\":\"TempNo\",\"GetNameAs\":\"TempNo\"},{\"Name\":\"Creator\",\"GetNameAs\":\"Creator\"},{\"Name\":\"InvCode\",\"GetNameAs\":\"InvCode\"},{\"Name\":\"PartCode\",\"GetNameAs\":\"PartCode\"},{\"Name\":\"Product\",\"GetNameAs\":\"Product\"},{\"Name\":\"QC\",\"GetNameAs\":\"QC\"},{\"Name\":\"Receipt\",\"GetNameAs\":\"Receipt\"},{\"Name\":\"Description\",\"GetNameAs\":\"Description\"},{\"Name\":\"Year\",\"GetNameAs\":\"Year\"},{\"Name\":\"ApiResult\",\"GetNameAs\":\"ApiResult\"},{\"Name\":\"Amount\",\"GetNameAs\":\"Amount\"},{\"Name\":\"Outsourcing_List\",\"GetNameAs\":\"Outsourcing_List\"}],\"Relation\":[{\"Name\":\"SH_ATLASCELL_DepoInDetail\",\"GetNameAs\":\"SH_ATLASCELL_DepoInDetail\",\"ModeErtebat\":2,\"Column\":[{\"Name\":\"SH_ATLASCELL_DepoInId\",\"GetNameAs\":\"SH_ATLASCELL_DepoInId\"},{\"Name\":\"ProductSearch\",\"GetNameAs\":\"ProductSearch\"},{\"Name\":\"ProductName\",\"GetNameAs\":\"ProductName\"},{\"Name\":\"Unit\",\"GetNameAs\":\"Unit\"},{\"Name\":\"ShomareFani\",\"GetNameAs\":\"ShomareFani\"},{\"Name\":\"PartCode\",\"GetNameAs\":\"PartCode\"},{\"Name\":\"Radyabi\",\"GetNameAs\":\"Radyabi\"},{\"Name\":\"Sefaresh\",\"GetNameAs\":\"Sefaresh\"},{\"Name\":\"RowId\",\"GetNameAs\":\"RowId\"},{\"Name\":\"Year\",\"GetNameAs\":\"Year\"},{\"Name\":\"Note\",\"GetNameAs\":\"Note\"},{\"Name\":\"Amount\",\"GetNameAs\":\"Amount\"}],\"Relation\":[{\"Name\":\"SH_ATLASCELL_DepoIn\",\"GetNameAs\":\"SH_ATLASCELL_DepoIn\",\"ModeErtebat\":1,\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"RecNo\",\"GetNameAs\":\"RecNo\"},{\"Name\":\"RecDate\",\"GetNameAs\":\"RecDate\"},{\"Name\":\"TempNo\",\"GetNameAs\":\"TempNo\"},{\"Name\":\"Creator\",\"GetNameAs\":\"Creator\"},{\"Name\":\"InvCode\",\"GetNameAs\":\"InvCode\"},{\"Name\":\"PartCode\",\"GetNameAs\":\"PartCode\"},{\"Name\":\"Product\",\"GetNameAs\":\"Product\"},{\"Name\":\"QC\",\"GetNameAs\":\"QC\"},{\"Name\":\"Receipt\",\"GetNameAs\":\"Receipt\"},{\"Name\":\"Description\",\"GetNameAs\":\"Description\"},{\"Name\":\"Year\",\"GetNameAs\":\"Year\"},{\"Name\":\"ApiResult\",\"GetNameAs\":\"ApiResult\"},{\"Name\":\"Amount\",\"GetNameAs\":\"Amount\"},{\"Name\":\"Outsourcing_List\",\"GetNameAs\":\"Outsourcing_List\"}]}]}]}");
+        TablePost = await Utility.JSON.ToObject<Table>("{\"Name\":\"SH_ATLASCELL_DepoIn\",\"GetNameAs\":\"SH_ATLASCELL_DepoIn\",\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"RequestID\",\"GetNameAs\":\"RequestID\"},{\"Name\":\"CreateUser\",\"GetNameAs\":\"CreateUser\"},{\"Name\":\"UpdateUser\",\"GetNameAs\":\"UpdateUser\"},{\"Name\":\"CreateDate\",\"GetNameAs\":\"CreateDate\"},{\"Name\":\"UpdateDate\",\"GetNameAs\":\"UpdateDate\"},{\"Name\":\"IsDelete\",\"GetNameAs\":\"IsDelete\"},{\"Name\":\"RecNo\",\"GetNameAs\":\"RecNo\"},{\"Name\":\"RecDate\",\"GetNameAs\":\"RecDate\"},{\"Name\":\"TempNo\",\"GetNameAs\":\"TempNo\"},{\"Name\":\"Creator\",\"GetNameAs\":\"Creator\"},{\"Name\":\"InvCode\",\"GetNameAs\":\"InvCode\"},{\"Name\":\"PartCode\",\"GetNameAs\":\"PartCode\"},{\"Name\":\"Product\",\"GetNameAs\":\"Product\"},{\"Name\":\"QC\",\"GetNameAs\":\"QC\"},{\"Name\":\"Receipt\",\"GetNameAs\":\"Receipt\"},{\"Name\":\"Description\",\"GetNameAs\":\"Description\"},{\"Name\":\"Year\",\"GetNameAs\":\"Year\"},{\"Name\":\"ApiResult\",\"GetNameAs\":\"ApiResult\"},{\"Name\":\"Amount\",\"GetNameAs\":\"Amount\"},{\"Name\":\"Outsourcing_List\",\"GetNameAs\":\"Outsourcing_List\"}],\"Relation\":[{\"Name\":\"SH_ATLASCELL_DepoInDetail\",\"GetNameAs\":\"SH_ATLASCELL_DepoInDetail\",\"ModeErtebat\":2,\"Column\":[{\"Name\":\"SH_ATLASCELL_DepoInId\",\"GetNameAs\":\"SH_ATLASCELL_DepoInId\"},{\"Name\":\"ProductSearch\",\"GetNameAs\":\"ProductSearch\"},{\"Name\":\"ProductName\",\"GetNameAs\":\"ProductName\"},{\"Name\":\"Unit\",\"GetNameAs\":\"Unit\"},{\"Name\":\"ShomareFani\",\"GetNameAs\":\"ShomareFani\"},{\"Name\":\"PartCode\",\"GetNameAs\":\"PartCode\"},{\"Name\":\"Radyabi\",\"GetNameAs\":\"Radyabi\"},{\"Name\":\"Sefaresh\",\"GetNameAs\":\"Sefaresh\"},{\"Name\":\"RowId\",\"GetNameAs\":\"RowId\"},{\"Name\":\"Year\",\"GetNameAs\":\"Year\"},{\"Name\":\"Note\",\"GetNameAs\":\"Note\"},{\"Name\":\"Amount\",\"GetNameAs\":\"Amount\"}],\"Relation\":[]}]}");
+
+        config = CKEditorBundleOptions.DefaultConfig.WithHtmlEditing();
+        config.Language = "fa";
+
+        //بعداد اگه نیاز شد فرمی رو تو حالت غیر لاگین شده نمایش بدیم باید این  کد تغیر کنه
+        var user = (await _authenticationStateProvider.GetAuthenticationStateAsync()).User;
+        string UserID = user.FindFirst(c => c.Type == ClaimTypes.NameIdentifier).Value;
+        //داینامیک بشه
+        Dictionary<string, object> List = new Dictionary<string, object>();
+        //List.Add("UserID", Guid.Parse(UserID));
+        List.Add("UserID", UserID);
+        _User = await Domain.Utility.ConvertParameter.ConvertToObject(List);
+
+        Console.WriteLine("#log OnInitializedAsync End");
+
+        await base.OnInitializedAsync();
+    }
+
+    //todo  جا به جا شود برده شود تو فایل  Peropeties
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            Console.WriteLine("#log OnAfterRenderAsync");
+            await base.BeforGetData();
+
+            var Result = await GetData();
+
+            await base.AfterGetData();
+
+            StateHasChanged();
+
+            await OnFormloaded.InvokeAsync(Result);
+        }
+
+        await base.OnAfterRenderAsync(firstRender);
+    }
+
+    /// <summary>
+    /// دریافت داده
+    /// </summary>
+    /// <returns></returns>
+    public async Task<Baya.Models.Utility.Result> GetData()
+    {
+        await BeforGetData();
+
+        var DataResult = await ApiServer.External.Services.Data.Get(TableGet, QueryFilter, TableGet.Name, null);
+        
+        Baya.Models.Utility.Result Result = new Baya.Models.Utility.Result();
+
+        if (DataResult != null && DataResult.Status == HttpStatusCode.OK)
+        {
+            if (DataResult.Content != null)
+            {
+                string Data = DataResult.Content.ToString();
+                if (Data is not null)
+                {
+                    _Entity = await Utility.JSON.ToObject < Entity.SH_ATLASCELL_DepoIn>(Data);
+        }
+            }
+            else
+            {
+                _Entity = new Entity.SH_ATLASCELL_DepoIn();
+            //todo تشخیص دهد که داده ای وجود ندارد و دفه اول هست که فرم لود میشود
+            //todo اگه نیاز شد دالخ ORm خروجیش متفاوت باشه
+            //ست کردن دیفالت های فرم
+            if (true)
+                {//
+
+
+                    //نمونه ست کردن پارامتر روش اول
+                    //_Entity.InstantDelivery = _RequestParameters.UserId;
+
+                    //نمونه کد برای ست کردن پارامتر روش دوم
+                    //_Entity.InstantDelivery = await GetParameter("@@UserId@@");
+                }
+
+                SumaryMessage = "داده لود شده معتبر نمی باشد";
+                Result.Status = HttpStatusCode.InternalServerError;
+            }
+        }
+        else
+        {
+            SumaryMessage = "داده لود نشد";
+            Result.Status = HttpStatusCode.InternalServerError;
+        }
+
+        Result.Message = SumaryMessage;
+
+        StateHasChanged();
+
+        await AfterGetData();
+
+        return Result;
+    }
+
+    public override async Task SetParametersAsync(ParameterView parameters)
+    {
+        await base.SetParametersAsync(parameters);
+    }
+
+    protected override void OnInitialized()
+    {
+        //todo این خط برده شود داخل تابع پاینی ببینیم خطا داره یا نه
+        languageContainer.InitLocalizedComponent(this);
+    }
+
+
+    /// <summary>
+    /// بررسی تغییر دیتا
+    /// </summary>
+    /// <param name="Json"></param>
+    /// <returns></returns>
+    public bool CheckChangedData(string? Json)
+    {
+        if (string.Equals(JsonData, Json)) return true;
+        return false;
+    }
+
+    /// <summary>
+    /// ارسال داده
+    /// </summary>
+    /// <returns></returns>
+    public override async Task<Baya.Models.Utility.Result> Submit()
+    {
+        SumaryMessage = "";
+        Baya.Models.Utility.Result Result = new Baya.Models.Utility.Result();
+
+        if (!await FormValidator())
+        {
+            StateHasChanged();
+            Result.Status = HttpStatusCode.InternalServerError;
+            return Result;
+        }
+
+        if ((await BeforSubmit()).Status != HttpStatusCode.OK)
+        {
+            StateHasChanged();
+            Result.Status = HttpStatusCode.InternalServerError;
+            return Result;
+        }
+
+        _loadingService.Show();
+        var Resualt = await PostData();
+
+        if (Resualt)
+        {
+            Result.Status = HttpStatusCode.OK;
+
+            SumaryMessage = "داده ها با موفقیت ثبت شد";
+        }
+        else
+        {
+            Result.Status = HttpStatusCode.InternalServerError;
+            SumaryMessage = "ذخیره داده با مشکل مواجه شد";
+        }
+
+        Result.Message = SumaryMessage;
+
+        switch ((int)Result.Status)
+        {
+            case 200:
+                toastService.ShowSuccess(Result.Message);
+                break;
+            case 500:
+                toastService.ShowError(Result.Message);
+                break;
+            default:
+                break;
+        } 
+        _loadingService.Hide();
+        await AfterSubmit();
+
+        return Result;
+    }
+
+    /// <summary>
+    /// ارسال داده
+    /// </summary>
+    /// <returns></returns>
+    private async Task<bool> PostData()
+    {
+        string Data = await Utility.JSON.ToJson(_Entity);
+
+        bool IsOk = false;
+        var Model = await ApiServer.External.Services.Data.Put(Data, TablePost.Name, TablePost, RequestID?.ToString(), _User.UserID.ToString());
+        // بررسی وضعیت پاسخ
+        if (Model?.Status == HttpStatusCode.OK)
+        {
+            if (Model.Content != null && !IndependentForm)
+                { 
+                    string NewData = Model.Content.ToString();
+                    if (NewData is not null)
+                    {
+                        var NewEntity = await Utility.JSON.ToObject < Entity.SH_ATLASCELL_DepoIn>(NewData);
+                     await  GetDataForm(NewEntity._Id);
+                    }
+
+                }
+                IsOk = true;
+
+        }
+        return IsOk;
+    }
+
+
+    void SetLanguage(string language)
+    {
+        languageContainer.SetLanguage(System.Globalization.CultureInfo.GetCultureInfo(language));
+    }
+
+    // public void ValidFormSubmitted(EditContext editContext)
+    // {
+
+    // }
+
+    // public void InvalidFormSubmitted(EditContext editContext)
+    // {
+
+    // }
+    public async Task GetDataForm(object Id)
+    {
+        Type type = Id.GetType();
+        string TypeToQueryBuilder = Utility.TypeConverterQueryBuilder.ConvertCSharpTypeToQueryBuilder(type);
+        var NewQuery = new QueryBuilderFilterRule() { Condition = "AND" };
+        NewQuery.Rules = new List<QueryBuilderFilterRule>
+            {
+                    new QueryBuilderFilterRule()
+                    {
+                        Field = _Entity._GetIdName,
+                        Id = _Entity._GetIdName,
+                        Input = "text",
+                        Operator = "equal",
+                        Type =  TypeToQueryBuilder,
+                        Value = new string[]{ Id.ToString() },
+                    }
+            };
+        QueryFilter = NewQuery;
+        await GetData();
+        StateHasChanged();
+    }
+    #endregion
+}

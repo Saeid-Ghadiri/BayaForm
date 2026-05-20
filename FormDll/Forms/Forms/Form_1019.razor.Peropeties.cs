@@ -144,7 +144,7 @@ namespace Forms.Forms
     /// <summary>
     ///  ورژنی که فرم باهاش ساخته شده
     /// </summary>
-    public string? VersionForm { get; set; } = "5823";
+    public string? VersionForm { get; set; } = "6067";
 
     /// <summary>
     ///  موجودیت
@@ -194,6 +194,7 @@ public Dropdown Ref_IDMS_RDC_Details_IDMS_CustomerId;
 public Dropdown Ref_IDMS_RDC_Details_IDMS_ResultingFromId;
 public Input<string?> Ref_IDMS_RDC_Details_RequestedDueDate_Fa;
 public Input<string?> Ref_IDMS_RDC_Details_Description;
+public RadioBoolean Ref_IDMS_RDC_Details_IsAgreedDate;
 public Input<string?> Ref_IDMS_RDC_Details_RDC_ActualCompletionDate_Fa;
 public CKEditor Ref_IDMS_RDC_Details_RDC_SUPERVISOR_Description;
 public Input<Guid> Ref_IDMS_RDC_Details_Id;

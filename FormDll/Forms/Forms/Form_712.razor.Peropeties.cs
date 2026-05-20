@@ -144,7 +144,7 @@ namespace Forms.Forms
     /// <summary>
     ///  ورژنی که فرم باهاش ساخته شده
     /// </summary>
-    public string? VersionForm { get; set; } = "5823";
+    public string? VersionForm { get; set; } = "6067";
 
     /// <summary>
     ///  موجودیت
@@ -203,6 +203,10 @@ public Input<double?> Ref_SCMPLATE_ProductRequestDetails_Stage2PurchasedQuantity
 public Input<double?> Ref_SCMPLATE_ProductRequestDetails_Stage3PurchasedQuantity;
 public RadioBoolean Ref_SCMPLATE_ProductRequestDetails_IsExcessPurchasedItem;
 public Input<double?> Ref_SCMPLATE_ProductRequestDetails_ExcessPurchasedQuantity;
+public RadioBoolean Ref_SCMPLATE_ProductRequestDetails_IsPostponedPurchase;
+public Input<double?> Ref_SCMPLATE_ProductRequestDetails_CurrentPurchaseQuantity;
+public RadioBoolean Ref_SCMPLATE_ProductRequestDetails_IsMarkedForDeletion;
+public Input<double?> Ref_SCMPLATE_ProductRequestDetails_MarkedForDeletionCount;
 public Input<Guid> Ref_SCMPLATE_ProductRequestDetails_Id;
 public Input<Guid?> Ref_SCMPLATE_ProductRequestDetails_RequestID;
 public Input<Guid?> Ref_SCMPLATE_ProductRequestDetails_CreateUser;
@@ -210,6 +214,9 @@ public Input<Guid?> Ref_SCMPLATE_ProductRequestDetails_UpdateUser;
 public Input<DateTime?> Ref_SCMPLATE_ProductRequestDetails_CreateDate;
 public Input<DateTime?> Ref_SCMPLATE_ProductRequestDetails_UpdateDate;
 public Input<bool?> Ref_SCMPLATE_ProductRequestDetails_IsDelete;
+public RadioBoolean Ref_SCMPLATE_ProductRequestDetails_EnableLaterPurchace;
+public RadioBoolean Ref_SCMPLATE_ProductRequestDetails_EnableLaterPurchace2;
+public Input<string?> Ref_SCMPLATE_ProductRequestDetails_SystemDescription;
 public Input<Guid> Ref_Id;
 public Input<Guid?> Ref_RequestID;
 public Input<Guid?> Ref_CreateUser;

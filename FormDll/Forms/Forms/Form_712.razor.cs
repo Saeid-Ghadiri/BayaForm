@@ -153,7 +153,12 @@ namespace Forms.Forms
         public override async Task<Result> BeforSubmit()
         {
 
-            return new Result() { Status = HttpStatusCode.OK };
+            if (AfterBuyOrRequestCancellRow())
+            {
+                return new Result() { Status = HttpStatusCode.OK };
+
+            }
+            return new Result() { Status = HttpStatusCode.BadRequest };
         }
 
         /// <summary>
@@ -180,7 +185,10 @@ namespace Forms.Forms
         /// <returns></returns>
         public override async Task AfterGetData()
         {
-
+            foreach (var item in _Entity.SCMPLATE_ProductRequestDetails)
+            {
+                item.CurrentPurchaseQuantity = item.ProductRequestingQTY;
+            }
         }
 
         #region FunctionEvents
@@ -730,6 +738,183 @@ namespace Forms.Forms
                 // ps.SetVisible(true);
             }
         }
+
+		public bool AfterBuyOrRequestCancellRow()
+        {
+            List<Entity.SCMPLATE_ProductRequestDetails> newItems = new List<Entity.SCMPLATE_ProductRequestDetails>();
+            foreach (var item in _Entity.SCMPLATE_ProductRequestDetails)
+            {
+                item.EnableLaterPurchace = false;// مهم
+                item.EnableLaterPurchace2 = false;// مهم
+                Console.WriteLine("++");
+                if (item.IsPostponedPurchase.HasValue && item.IsPostponedPurchase.Value && item.CurrentPurchaseQuantity.Value > 0
+                    && item.IsMarkedForDeletion.HasValue && item.IsMarkedForDeletion.Value && item.MarkedForDeletionCount.Value > 0)
+                {
+                    Console.WriteLine("CurrentPurchaseQuantity:" + item.CurrentPurchaseQuantity.Value);
+                    if(item.MarkedForDeletionCount.Value == item.ProductRequestingQTY){
+                        item.IsMarkedForDeletion = true;
+                    }
+                    else if (item.CurrentPurchaseQuantity < item.ProductRequestingQTY)
+                    {
+                        var firstQtt = item.ProductRequestingQTY.ToString();
+                        item.ProductRequestingQTY = item.ProductRequestingQTY - item.MarkedForDeletionCount;
+                        
+
+                        var newDetail = System.Text.Json.JsonSerializer
+                                .Deserialize<Entity.SCMPLATE_ProductRequestDetails>(
+                                    System.Text.Json.JsonSerializer.Serialize(item)
+                                )!;
+                        //
+                        newDetail.Id = Guid.Empty;
+                        var newCount = item.ProductRequestingQTY - item.CurrentPurchaseQuantity;
+                        newDetail.ProductRequestingQTY = newCount;
+                        newDetail.IsPostponedPurchase = true;
+                        newDetail.IsMarkedForDeletion = false;
+                        // آیتم قبلی
+                        //توضیحات
+                        item.SystemDescription = $"این درخواست در بیش از یک نوبت خریداری میشود و تعداد درخواستی کاربر {firstQtt} بوده و اکنون تعداد خریداری توسط تدارکات {item.CurrentPurchaseQuantity} است. پس یک ردیف جدید برای خرید مابقی یا کنسل مابقی ایجاد شد";
+
+                        item.ProductRequestingQTY = item.CurrentPurchaseQuantity;
+                        item.IsPostponedPurchase = false;
+                        item.IsMarkedForDeletion = false;
+
+
+                        var newDetail2 = System.Text.Json.JsonSerializer
+                                .Deserialize<Entity.SCMPLATE_ProductRequestDetails>(
+                                    System.Text.Json.JsonSerializer.Serialize(item)
+                                )!;
+                        newDetail2.Id = Guid.Empty;
+                        newDetail2.ProductRequestingQTY = item.MarkedForDeletionCount;
+                        newDetail2.IsPostponedPurchase = false;
+                        newDetail2.IsMarkedForDeletion = true;
+                        newDetail2.SystemDescription = $"این درخواست به دلیل حذف تعدادی از تعداد درخواستی کاربر دو ردیف شده است. تعداد اصلی : {firstQtt} و تعداد حذفی {item.MarkedForDeletionCount}";
+
+                        
+
+
+                        if(newDetail.ProductRequestingQTY >0){
+                            newItems.Add(newDetail);
+                        }
+                        if(newDetail2.ProductRequestingQTY >0){
+                            newItems.Add(newDetail2);
+                        }
+
+                    }
+                }
+                else if (item.IsPostponedPurchase.HasValue && item.IsPostponedPurchase.Value && item.CurrentPurchaseQuantity.Value > 0
+                    && item.IsMarkedForDeletion.HasValue && !item.IsMarkedForDeletion.Value)
+                {
+                    Console.WriteLine("CurrentPurchaseQuantity:" + item.CurrentPurchaseQuantity.Value);
+                    if(item.MarkedForDeletionCount.Value == item.ProductRequestingQTY){
+                        item.IsMarkedForDeletion = true;
+                    }
+                    else if (item.CurrentPurchaseQuantity < item.ProductRequestingQTY)
+                    {
+
+                        var newDetail = System.Text.Json.JsonSerializer
+                                .Deserialize<Entity.SCMPLATE_ProductRequestDetails>(
+                                    System.Text.Json.JsonSerializer.Serialize(item)
+                                )!;
+                        //
+                        newDetail.Id = Guid.Empty;
+                        var newCount = item.ProductRequestingQTY - item.CurrentPurchaseQuantity;
+                        newDetail.ProductRequestingQTY = newCount;
+                        newDetail.IsPostponedPurchase = true;
+
+                        // آیتم قبلی
+                        //توضیحات
+                        item.SystemDescription = $"این درخواست در بیش از یک نوبت خریداری میشود و تعداد درخواستی کاربر {item.ProductRequestingQTY} بوده و اکنون تعداد خریداری توسط تدارکات {item.CurrentPurchaseQuantity} است. پس یک ردیف جدید برای خرید مابقی یا کنسل مابقی ایجاد شد";
+
+                        item.ProductRequestingQTY = item.CurrentPurchaseQuantity;
+                        item.IsPostponedPurchase = false;
+
+                        if(newDetail.ProductRequestingQTY >0){
+                            newItems.Add(newDetail);
+                        }
+
+                    }
+                }
+                else if (item.IsPostponedPurchase.HasValue && !item.IsPostponedPurchase.Value
+                   && item.IsMarkedForDeletion.HasValue && item.IsMarkedForDeletion.Value && item.MarkedForDeletionCount.Value > 0)
+                {
+                    Console.WriteLine("MarkedForDeletionCount:" + item.MarkedForDeletionCount.Value);
+                    if(item.MarkedForDeletionCount.Value == item.ProductRequestingQTY){
+                        item.IsMarkedForDeletion = true;
+                    }
+                    else
+                    {
+                        var newDetail = System.Text.Json.JsonSerializer
+                            .Deserialize<Entity.SCMPLATE_ProductRequestDetails>(
+                                System.Text.Json.JsonSerializer.Serialize(item)
+                            )!;
+                        //
+                        newDetail.Id = Guid.Empty;
+                        newDetail.ProductRequestingQTY = item.MarkedForDeletionCount;
+                        newDetail.IsMarkedForDeletion = true;
+
+
+                        // آیتم قبلی
+                        //توضیحات/
+                        item.SystemDescription = $"این درخواست به دلیل حذف تعدادی از تعداد درخواستی کاربر دو ردیف شده است. تعداد اصلی : {item.ProductRequestingQTY} و تعداد حذفی {item.MarkedForDeletionCount}";
+                        var newCount = item.ProductRequestingQTY - item.MarkedForDeletionCount;
+
+
+                        item.ProductRequestingQTY = newCount;
+                        item.IsMarkedForDeletion = false;
+                        
+                        if(newDetail.ProductRequestingQTY >0){
+                            newItems.Add(newDetail);
+                        }
+                    }
+                }
+            }
+
+            _Entity.SCMPLATE_ProductRequestDetails = _Entity.SCMPLATE_ProductRequestDetails
+                        .Concat(newItems)
+                        .ToList();
+
+            //StateHasChanged();
+
+            return true;
+        }
+
+
+       
+        public async Task IsPostponedPurchase_oninput(ChangeEventArgs Selected, Entity.SCMPLATE_ProductRequestDetails Item)
+        {
+            if (Selected != null)
+            {
+                if (Convert.ToBoolean(Selected.Value))
+                {
+                    Ref_SCMPLATE_ProductRequestDetails_CurrentPurchaseQuantity.SetVisible(true);
+                    //Ref_SCMPLATE_ProductRequestDetails_IsMarkedForDeletion.SetVisible(false);
+                }
+                else
+                {
+                    Ref_SCMPLATE_ProductRequestDetails_CurrentPurchaseQuantity.SetVisible(false);
+                    //Ref_SCMPLATE_ProductRequestDetails_IsMarkedForDeletion.SetVisible(true);
+                }
+            }
+        }
+
+        public async Task IsMarkedForDeletion_oninput(ChangeEventArgs Selected, Entity.SCMPLATE_ProductRequestDetails Item)
+        {
+
+            if (Selected != null)
+            {
+                if (Convert.ToBoolean(Selected.Value))
+                {
+                    Ref_SCMPLATE_ProductRequestDetails_MarkedForDeletionCount.SetVisible(true);
+                    //Ref_SCMPLATE_ProductRequestDetails_IsPostponedPurchase.SetVisible(false);
+                }
+                else
+                {
+                    Ref_SCMPLATE_ProductRequestDetails_MarkedForDeletionCount.SetVisible(false);
+                    //Ref_SCMPLATE_ProductRequestDetails_IsPostponedPurchase.SetVisible(true);
+                }
+            }
+        }
+
 
 		#endregion FunctionEvents
 

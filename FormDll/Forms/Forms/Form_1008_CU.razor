@@ -31,9 +31,9 @@
 <div class="@(ReadOnly?"FormReadOnly":"")">
     <EditForm @ref="_Form" Model="_Entity" OnSubmit="Submit">
         
-<div class="">
-    <div  class="">
-    <div class="bg-warning rounded p-2 fw-bold">
+<div class="Gcol-sm-8 Gcol-md-6 Gcol-lg-12">
+    <div  class="Gcol-sm-8 Gcol-md-6 Gcol-lg-12">
+    <div class="bg-lightpurple rounded p-2 fs-5 fw-bold">
   مشتریان
 </div>
 </div>
@@ -43,7 +43,44 @@
 <div class="row ">
     
 <div class="col-md-3">
+     
+ 
+@code {
+    Baya.Models.ViewEngine.View_Component Component_IDMS_CustomerParentId = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"EntityName\":\"مشتری\",\"primaryKey\":false,\"EntityID\":750,\"FieldId\":32619,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":1008,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":false,\"RelationParentName\":\"Parent\",\"RelationParentModel\":\"IDMS_Customer\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/IDMS_Customer/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.CustomerTitle}} </span>\",\"FieldsTemplate\":[{\"key\":\"CustomerTitle\",\"value\":\"nvarchar(Max)\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"searchField\":\"CustomerTitle\",\"modal\":true,\"label\":\"والد مشتری\",\"tableView\":true,\"key\":\"ParentId\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"32619?EId=750&SubId=31\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
+}
+
+    <Dropdown Id=ParentId  @ref="Ref_ParentId" Label="والد مشتری" CssClass=""  DisplayFormat="DropDown" ExternalApi=false NotMapped=false TextGrid=false Text="" Value="@_Entity.ParentId" FieldName="ParentId" OnItemSelected="ItemSelected_IDMS_CustomerParentId" Component="Component_IDMS_CustomerParentId" _Entity="_Entity" >
+</Dropdown>
+@code {
+    public async Task ItemSelected_IDMS_CustomerParentId(object _Item)
+    {
+        var Selected = Utility.JSON.ToObject<dynamic>(Utility.JSON.ToJson(_Item).Result).Result;
+     var Item = _Entity;
+
+      //Todo
+ //برای اینکه آی دی تغییر کند اینجا نیز باید تغییر کند
+ //بهتر است از پرایمیری کی استفاده شود
+ if (_Item != null)
+ {
+     Console.WriteLine(" Item Is Not Null");
+    Item.ParentId = Selected.Id;
     
+ }
+ else
+ {
+     Console.WriteLine(" Item Is Null");
+      Item.ParentId =EntityHelper.SetPropertyNull(Item.ParentId);
+ }
+ Item.Parent = await Utility.JSON.ToObject<Entity.IDMS_Customer>(await Utility.JSON.ToJson(_Item));
+    StateHasChanged();
+
+
+    
+
+    
+    }
+} 
+
 <Input Id="CustomerCode" @ref="Ref_CustomerCode" Label="کد مشتری"     @bind-Value="_Entity.CustomerCode" type="number"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"step\":\"any\"}").Result))></Input>
 
 <Input Id="CustomerTitle" @ref="Ref_CustomerTitle" Label="عنوان مشتری"     @bind-Value="_Entity.CustomerTitle" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"maxlength\":\"300\"}").Result))></Input>
@@ -94,8 +131,8 @@
     {
         Console.WriteLine("#log OnInitializedAsync");
 
-        TableGet = await Utility.JSON.ToObject<Table>("{\"Name\":\"IDMS_Customer\",\"GetNameAs\":\"IDMS_Customer\",\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"RequestID\",\"GetNameAs\":\"RequestID\"},{\"Name\":\"CreateUser\",\"GetNameAs\":\"CreateUser\"},{\"Name\":\"UpdateUser\",\"GetNameAs\":\"UpdateUser\"},{\"Name\":\"CreateDate\",\"GetNameAs\":\"CreateDate\"},{\"Name\":\"UpdateDate\",\"GetNameAs\":\"UpdateDate\"},{\"Name\":\"IsDelete\",\"GetNameAs\":\"IsDelete\"},{\"Name\":\"CustomerCode\",\"GetNameAs\":\"CustomerCode\"},{\"Name\":\"CustomerTitle\",\"GetNameAs\":\"CustomerTitle\"}],\"Relation\":[]}");
-        TablePost = await Utility.JSON.ToObject<Table>("{\"Name\":\"IDMS_Customer\",\"GetNameAs\":\"IDMS_Customer\",\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"RequestID\",\"GetNameAs\":\"RequestID\"},{\"Name\":\"CreateUser\",\"GetNameAs\":\"CreateUser\"},{\"Name\":\"UpdateUser\",\"GetNameAs\":\"UpdateUser\"},{\"Name\":\"CreateDate\",\"GetNameAs\":\"CreateDate\"},{\"Name\":\"UpdateDate\",\"GetNameAs\":\"UpdateDate\"},{\"Name\":\"IsDelete\",\"GetNameAs\":\"IsDelete\"},{\"Name\":\"CustomerCode\",\"GetNameAs\":\"CustomerCode\"},{\"Name\":\"CustomerTitle\",\"GetNameAs\":\"CustomerTitle\"}],\"Relation\":[]}");
+        TableGet = await Utility.JSON.ToObject<Table>("{\"Name\":\"IDMS_Customer\",\"GetNameAs\":\"IDMS_Customer\",\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"RequestID\",\"GetNameAs\":\"RequestID\"},{\"Name\":\"CreateUser\",\"GetNameAs\":\"CreateUser\"},{\"Name\":\"UpdateUser\",\"GetNameAs\":\"UpdateUser\"},{\"Name\":\"CreateDate\",\"GetNameAs\":\"CreateDate\"},{\"Name\":\"UpdateDate\",\"GetNameAs\":\"UpdateDate\"},{\"Name\":\"IsDelete\",\"GetNameAs\":\"IsDelete\"},{\"Name\":\"CustomerCode\",\"GetNameAs\":\"CustomerCode\"},{\"Name\":\"CustomerTitle\",\"GetNameAs\":\"CustomerTitle\"},{\"Name\":\"ParentId\",\"GetNameAs\":\"ParentId\"}],\"Relation\":[{\"Name\":\"Parent\",\"GetNameAs\":\"Parent\",\"ModeErtebat\":1,\"Column\":[{\"Name\":\"CustomerCode\",\"GetNameAs\":\"CustomerCode\"},{\"Name\":\"CustomerTitle\",\"GetNameAs\":\"CustomerTitle\"},{\"Name\":\"ParentId\",\"GetNameAs\":\"ParentId\"}],\"Relation\":[]}]}");
+        TablePost = await Utility.JSON.ToObject<Table>("{\"Name\":\"IDMS_Customer\",\"GetNameAs\":\"IDMS_Customer\",\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"RequestID\",\"GetNameAs\":\"RequestID\"},{\"Name\":\"CreateUser\",\"GetNameAs\":\"CreateUser\"},{\"Name\":\"UpdateUser\",\"GetNameAs\":\"UpdateUser\"},{\"Name\":\"CreateDate\",\"GetNameAs\":\"CreateDate\"},{\"Name\":\"UpdateDate\",\"GetNameAs\":\"UpdateDate\"},{\"Name\":\"IsDelete\",\"GetNameAs\":\"IsDelete\"},{\"Name\":\"CustomerCode\",\"GetNameAs\":\"CustomerCode\"},{\"Name\":\"CustomerTitle\",\"GetNameAs\":\"CustomerTitle\"},{\"Name\":\"ParentId\",\"GetNameAs\":\"ParentId\"}],\"Relation\":[]}");
 
         config = CKEditorBundleOptions.DefaultConfig.WithHtmlEditing();
         config.Language = "fa";

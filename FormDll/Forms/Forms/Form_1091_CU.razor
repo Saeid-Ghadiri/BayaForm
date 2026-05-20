@@ -1,0 +1,1327 @@
+@inherits Forms.Forms.Form_1091_CUBase
+@namespace FormsPage
+
+@using AKSoftware.Localization.MultiLanguages.Blazor
+@using Baya.Models.Utility;
+@using Baya.Models.ORM
+@using Microsoft.AspNetCore.Components.Forms
+@using Microsoft.AspNetCore.Components.Authorization;
+@using System.Security.Claims
+@using System.Net
+@using Microsoft.JSInterop
+@using Baya.Models.ViewEngine
+@using Forms.Domain.Utility
+@using Castle.DynamicLinqQueryBuilder
+<style>
+    /* ************************************************** */
+.detailArea form div:not(.devdrop) {
+    margin-top: .1rem;
+}
+
+/* ************************************************** */
+.header-form {
+    height: 100px;
+    background: linear-gradient(96deg, #0d3b66, #6a0dad);
+    color: white;
+    border-bottom: 2px solid #ffffff33;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.25);
+    border-radius: 10px;
+    transition: all 0.3s ease-in-out;
+}
+
+.header-icon {
+    font-size: 56px;
+    color: #ffccff;
+    transition: transform 0.3s ease, color 0.3s ease;
+}
+
+.header-icon:hover {
+    transform: scale(1.1) rotate(-5deg);
+    color: #f5baff;
+}
+
+.header-title {
+    font-size: 25px;
+    font-weight: bold;
+    transition: color 0.3s ease;
+}
+
+.header-subtitle {
+    font-size: 14px;
+    opacity: 0.95;
+    transition: opacity 0.3s ease;
+}
+
+.header-text:hover .header-title {
+    color: #ffe0ff;
+}
+
+.header-text:hover .header-subtitle {
+    opacity: 1;
+}
+
+/* ********** */
+
+.col_bg1 {
+    border: 1px dashed rgba(99, 100, 102, 0.3);
+    background-color: rgba(189, 193, 196, 0.488);
+    border-radius: 0.5rem;
+    padding: 0.5rem;
+    margin: 1rem 0.1rem !important;
+    /*align-items: baseline;*/
+}
+
+.col_bg1:hover {
+    /* background-color: rgba(255, 193, 7, 0.03);
+  border-color: rgba(255, 193, 7, 0.5);*/
+}
+
+
+.col_bg {
+    /* border: 1px dashed rgba(88, 89, 104, 0.5);*/
+    /* طوسی خط‌چین */
+    background: #DEDED1;
+    /* background-color: #DEDED1; */
+    /* طوسی خیلی روشن */
+    border-radius: 0.5rem;
+    padding: 0.5rem;
+    margin: 1rem 0.1rem !important;
+}
+
+/* حذف کامل هاور */
+.col_bg:hover {
+    /* خالی بماند تا هیچ تغییری نکند */
+}
+</style>
+
+<Plugins.Tools.ConfirmDialog @ref="Confirm" />
+
+<span class="d-none">VersionForm:@VersionForm</span>
+@*
+@if (!string.IsNullOrEmpty(SumaryMessage))
+{
+    <div>
+        @SumaryMessage
+    </div>
+} *@
+
+@* <EditForm @ref="_Form" Model="_Entity" OnValidSubmit="ValidFormSubmitted" OnInvalidSubmit="InvalidFormSubmitted" OnSubmit="Submit"> *@
+<div class="@(ReadOnly?"FormReadOnly":"")">
+    <EditForm @ref="_Form" Model="_Entity" OnSubmit="Submit">
+        
+<Input Id="Id" @ref="Ref_Id"   CssClass="d-none"   @bind-Value="_Entity.Id" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+<div  class="">
+    <header class="header-form d-flex align-items-center py-1">
+    <i class="fal fa-box header-icon px-3 fs-1"></i>
+    <div class="header-text">
+      <h4 class="header-title mb-1">دریافت کالا پس از تغییر از سازنده</h4>
+      <p class="header-subtitle">ایجاد و ویرایش دریافت کالا پس از تغییر از سازنده در شماران</p>
+    </div>
+  </header>
+
+</div>
+<div  class="Gcol-sm-8 Gcol-md-6 Gcol-lg-12">
+    <div>
+  &nbsp;
+</div>
+</div>
+
+<div class="bg-light">
+    
+<div class="row ">
+    
+<div class="col-md-5">
+     
+ 
+@code {
+    Baya.Models.ViewEngine.View_Component Component_SH_Petco_DepoInOutsourcing_List = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"EntityName\":\"دریافت کالا پس از تغییر از سازنده\",\"primaryKey\":false,\"EntityID\":766,\"FieldId\":31102,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":1091,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":true,\"RelationParentName\":\"\",\"RelationParentModel\":\"\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://shomaran.workcv.ir:2010/fa-ir/api/v1/view_DEPO_IN_DTL/GetList\",\"_Parameters\":[]},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"inputFormat\":\"DataGrid\",\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"RECNO\",\"template\":\"<span>{{item.PRODUCT}} {{item.RECNO}} {{item.RECDATE}} {{item.TEMPNO}} </span>\",\"FieldsTemplate\":[{\"key\":\"PRODUCT\",\"value\":\"nvarchar(Max)\"},{\"key\":\"RECNO\",\"value\":\"nvarchar(Max)\"},{\"key\":\"RECDATE\",\"value\":\"nvarchar(Max)\"},{\"key\":\"TEMPNO\",\"value\":\"nvarchar(Max)\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"searchField\":\"RECNO,TEMPNO\",\"disabled\":false,\"modal\":true,\"label\":\"فهرست اصلی ارسال کالا به سازنده\",\"tableView\":true,\"key\":\"Outsourcing_List\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"31102?EId=766&SubId=33\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
+}
+
+    <Dropdown Id=Outsourcing_List  @ref="Ref_Outsourcing_List" Label="فهرست اصلی ارسال کالا به سازنده" CssClass=""  DisplayFormat="DataGrid" ExternalApi=true NotMapped=false TextGrid=false  Value="@_Entity.Outsourcing_List" FieldName="Outsourcing_List" OnItemSelected="ItemSelected_SH_Petco_DepoInOutsourcing_List" Component="Component_SH_Petco_DepoInOutsourcing_List" _Entity="_Entity" >
+</Dropdown>
+@code {
+    public async Task ItemSelected_SH_Petco_DepoInOutsourcing_List(object _Item)
+    {
+        var Selected = Utility.JSON.ToObject<dynamic>(Utility.JSON.ToJson(_Item).Result).Result;
+     var Item = _Entity;
+
+    Item.Outsourcing_List = Selected.RECNO;
+
+
+    
+
+    
+    }
+} 
+
+</div>
+
+<div class="col-md-7">
+    
+<div class="row col_bg1 px-2">
+    
+<div class="col-md-3">
+    
+<Input Id="RecNo" @ref="Ref_RecNo" Label="شماره"   Disabled=true  @bind-Value="_Entity.RecNo" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+</div>
+
+<div class="col-md-3">
+    
+<Input Id="RecDate" @ref="Ref_RecDate" Label="تاریخ"  CssClass=" PersianDatePicker"   @bind-Value="_Entity.RecDate" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"data-jdp\":\"  \",\"data-jdp-only-date\":\"   \"}").Result))></Input>
+
+</div>
+
+<div class="col-md-3">
+    
+<Input Id="TempNo" @ref="Ref_TempNo" Label="شماره عطف"     @bind-Value="_Entity.TempNo" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+</div>
+
+<div class="col-md-3">
+    
+<Input Id="Creator" @ref="Ref_Creator" Label="تنظیم کننده"   Disabled=true  @bind-Value="_Entity.Creator" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+</div>
+
+</div>
+<div  class="">
+    <div id="resid_header" 
+     class="rounded rounded-1 border border-0 fs-6 fw-bold p-2 d-flex justify-content-center align-items-center"
+     style="background-color:#b38cff;">
+
+  <span class="text-black">
+    کالای دریافتی از سازنده
+  </span>
+
+</div>
+
+</div>
+
+<div class="row col_bg1 px-2">
+    
+<div class="col-md-6">
+     
+ 
+@code {
+    Baya.Models.ViewEngine.View_Component Component_SH_Petco_DepoInInvCode = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"EntityName\":\"دریافت کالا پس از تغییر از سازنده\",\"primaryKey\":false,\"EntityID\":766,\"FieldId\":31094,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":1091,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":true,\"RelationParentName\":\"\",\"RelationParentModel\":\"\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://shomaran.workcv.ir:2010/fa-ir/api/v1/view_INV/GetList\",\"_Parameters\":[]},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"INVCODE\",\"template\":\"<span>{{item.INVNAME}} {{item.INVCODE}} </span>\",\"FieldsTemplate\":[{\"key\":\"INVNAME\",\"value\":\"nvarchar(Max)\"},{\"key\":\"INVCODE\",\"value\":\"nvarchar(Max)\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"searchField\":\"INVCODE,INVNAME\",\"disabled\":false,\"modal\":true,\"label\":\"نام انبار\",\"tableView\":true,\"key\":\"InvCode\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"31094?EId=766&SubId=33\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
+}
+
+    <Dropdown Id=InvCode  @ref="Ref_InvCode" Label="نام انبار" CssClass=""  DisplayFormat="DropDown" ExternalApi=true NotMapped=false TextGrid=false  Value="@_Entity.InvCode" FieldName="InvCode" OnItemSelected="ItemSelected_SH_Petco_DepoInInvCode" Component="Component_SH_Petco_DepoInInvCode" _Entity="_Entity" >
+</Dropdown>
+@code {
+    public async Task ItemSelected_SH_Petco_DepoInInvCode(object _Item)
+    {
+        var Selected = Utility.JSON.ToObject<dynamic>(Utility.JSON.ToJson(_Item).Result).Result;
+     var Item = _Entity;
+
+    Item.InvCode = Selected.INVCODE;
+
+
+    
+
+    
+    }
+} 
+
+</div>
+
+<div class="col-md-6">
+    
+</div>
+
+</div>
+
+<div class="row col_bg1 px-2">
+    
+<div class="col-md-6">
+     
+ 
+@code {
+    Baya.Models.ViewEngine.View_Component Component_SH_Petco_DepoInReceipt = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"EntityName\":\"دریافت کالا پس از تغییر از سازنده\",\"primaryKey\":false,\"EntityID\":766,\"FieldId\":31098,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":1091,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":true,\"RelationParentName\":\"\",\"RelationParentModel\":\"\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://shomaran.workcv.ir:2010/fa-ir/api/v1/view_person/GetList\",\"_Parameters\":[]},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"code\",\"template\":\"<span>{{item.code}} {{item.name}} {{item.HOMEADDR}} {{item.WORKADDR}} </span>\",\"FieldsTemplate\":[{\"key\":\"code\",\"value\":\"int\"},{\"key\":\"name\",\"value\":\"nvarchar(Max)\"},{\"key\":\"HOMEADDR\",\"value\":\"nvarchar(Max)\"},{\"key\":\"WORKADDR\",\"value\":\"nvarchar(Max)\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"searchField\":\"code,name\",\"disabled\":false,\"modal\":true,\"label\":\"سازنده\",\"tableView\":true,\"key\":\"Receipt\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"31098?EId=766&SubId=33\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
+}
+
+    <Dropdown Id=Receipt  @ref="Ref_Receipt" Label="سازنده" CssClass=""  DisplayFormat="DropDown" ExternalApi=true NotMapped=false TextGrid=false  Value="@_Entity.Receipt" FieldName="Receipt" OnItemSelected="ItemSelected_SH_Petco_DepoInReceipt" Component="Component_SH_Petco_DepoInReceipt" _Entity="_Entity" >
+</Dropdown>
+@code {
+    public async Task ItemSelected_SH_Petco_DepoInReceipt(object _Item)
+    {
+        var Selected = Utility.JSON.ToObject<dynamic>(Utility.JSON.ToJson(_Item).Result).Result;
+     var Item = _Entity;
+
+    Item.Receipt = Selected.code;
+
+
+    
+
+    
+    }
+} 
+
+</div>
+
+<div class="col-md-6">
+    
+</div>
+
+</div>
+
+<div class="row col_bg1 px-2">
+    
+<div class="col-md-6">
+     
+ 
+@code {
+    Baya.Models.ViewEngine.View_Component Component_SH_Petco_DepoInPartCode = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"EntityName\":\"دریافت کالا پس از تغییر از سازنده\",\"primaryKey\":false,\"EntityID\":766,\"FieldId\":31095,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":1091,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":true,\"RelationParentName\":\"\",\"RelationParentModel\":\"\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://shomaran.workcv.ir:2010/fa-ir/api/v1/view_cardpart/GetList\",\"_Parameters\":[]},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"partcode\",\"template\":\"<span>{{item.desc}} {{item.partno}} {{item.partcode}} </span>\",\"FieldsTemplate\":[{\"key\":\"desc\",\"value\":\"nvarchar(Max)\"},{\"key\":\"partno\",\"value\":\"nvarchar(Max)\"},{\"key\":\"partcode\",\"value\":\"nvarchar(Max)\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"searchField\":\"partcode,desc,partno\",\"disabled\":false,\"modal\":true,\"label\":\"کالای دریافتی\",\"tableView\":true,\"key\":\"PartCode\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"31095?EId=766&SubId=33\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
+}
+
+    <Dropdown Id=PartCode  @ref="Ref_PartCode" Label="کالای دریافتی" CssClass=""  DisplayFormat="DropDown" ExternalApi=true NotMapped=false TextGrid=false  Value="@_Entity.PartCode" FieldName="PartCode" OnItemSelected="ItemSelected_SH_Petco_DepoInPartCode" Component="Component_SH_Petco_DepoInPartCode" _Entity="_Entity" >
+</Dropdown>
+@code {
+    public async Task ItemSelected_SH_Petco_DepoInPartCode(object _Item)
+    {
+        var Selected = Utility.JSON.ToObject<dynamic>(Utility.JSON.ToJson(_Item).Result).Result;
+     var Item = _Entity;
+
+    Item.PartCode = Selected.partcode;
+
+
+    
+
+    
+    }
+} 
+
+<Input Id="Amount" @ref="Ref_Amount" Label="مقدار دریافتی"     @bind-Value="_Entity.Amount" type="number"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"step\":\"any\"}").Result))></Input>
+
+</div>
+
+<div class="col-md-6">
+    
+</div>
+
+</div>
+
+<div class="row col_bg1 px-2">
+    
+<div class="col-md-4">
+     
+ 
+@code {
+    Baya.Models.ViewEngine.View_Component Component_SH_Petco_DepoInProduct = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"EntityName\":\"دریافت کالا پس از تغییر از سازنده\",\"primaryKey\":false,\"EntityID\":766,\"FieldId\":31096,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":1091,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":true,\"RelationParentName\":\"\",\"RelationParentModel\":\"\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://shomaran.workcv.ir:2010/fa-ir/api/v1/View_product/GetList\",\"_Parameters\":[]},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"code\",\"template\":\"<span>{{item.code}} {{item.title}} </span>\",\"FieldsTemplate\":[{\"key\":\"code\",\"value\":\"int\"},{\"key\":\"title\",\"value\":\"nvarchar(Max)\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"searchField\":\"\",\"disabled\":false,\"modal\":true,\"label\":\"تولیدی یا غیر تولیدی\",\"tableView\":true,\"key\":\"Product\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"31096?EId=766&SubId=33\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
+}
+
+    <Dropdown Id=Product  @ref="Ref_Product" Label="تولیدی یا غیر تولیدی" CssClass=""  DisplayFormat="DropDown" ExternalApi=true NotMapped=false TextGrid=false  Value="@_Entity.Product" FieldName="Product" OnItemSelected="ItemSelected_SH_Petco_DepoInProduct" Component="Component_SH_Petco_DepoInProduct" _Entity="_Entity" >
+</Dropdown>
+@code {
+    public async Task ItemSelected_SH_Petco_DepoInProduct(object _Item)
+    {
+        var Selected = Utility.JSON.ToObject<dynamic>(Utility.JSON.ToJson(_Item).Result).Result;
+     var Item = _Entity;
+
+    Item.Product = Selected.code;
+
+
+    
+
+    
+    }
+} 
+
+</div>
+
+<div class="col-md-4">
+    
+</div>
+
+<div class="col-md-4">
+    
+</div>
+
+</div>
+
+<div class="row col_bg1 px-2">
+    
+<div class="col-md-4">
+    
+<RadioBoolean @ref="Ref_QC" InLine=true Id="QC"   LabelTrue="بله" LabelFalse="خیر" Label="کنترل کیفی است یا خیر" @bind-Value="_Entity.QC" CssClass="" ></RadioBoolean>
+
+</div>
+
+<div class="col-md-4">
+    
+</div>
+
+<div class="col-md-4">
+    
+</div>
+
+</div>
+
+<div class="row col_bg1 px-2">
+    
+<div class="col-md-6">
+    
+<Input Id="Description" @ref="Ref_Description" Label="توضیحات"     @bind-Value="_Entity.Description" type="textarea"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+</div>
+
+<div class="col-md-6">
+    
+</div>
+
+</div>
+
+<div class="row col_bg1 px-2">
+    
+<div class="col-md-3">
+    
+<Input Id="Year" @ref="Ref_Year" Label="سال"   Disabled=true  @bind-Value="_Entity.Year" type="number"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+</div>
+
+<div class="col-md-3">
+    
+</div>
+
+<div class="col-md-3">
+    
+</div>
+
+<div class="col-md-3">
+    
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+<div  class="">
+    <hr class="hrdash bg-red">
+</div>
+<div  class="Gcol-sm-8 Gcol-md-6 Gcol-lg-12">
+    <div id="resid_header" 
+     class="rounded rounded-1 border border-0 fs-6 fw-bold p-2 d-flex justify-content-center align-items-center"
+     style="background-color:#b38cff;">
+
+  <span class="text-black">
+    اقلام مصرفی توسط سازنده
+  </span>
+
+</div>
+
+</div>
+<label for="SH_Petco_DepoInDetail_GridSH_Petco_DepoInId_767">جزییات دریافت کالا پس از تغییر از سازنده
+   
+    
+</label>
+
+<DxGrid @ref="Grid_SH_Petco_DepoInDetail" Data="_Entity.SH_Petco_DepoInDetail" KeyFieldName="_Id" EditMode="GridEditMode.PopupEditForm"
+        EditModelSaving="OnEditModelSavingSH_Petco_DepoInDetail"
+        DataItemDeleting="OnDataItemDeletingSH_Petco_DepoInDetail"
+        PopupEditFormCssClass="ModalWidth"
+        PopupEditFormHeaderText="جزییات دریافت کالا پس از تغییر از سازنده"
+        EditFormButtonsVisible="false"
+        CustomizeEditModel="CustomizeEditGrid_SH_Petco_DepoInDetail"
+        CustomizeElement="CustomizeRowsGrid_SH_Petco_DepoInDetail" 
+        Component="@((Utility.JSON.ToObject<View_Component>("{\"primaryKey\":false,\"EntityID\":767,\"FieldId\":767,\"NotNull\":false,\"ViewId\":0,\"NotMapped\":false,\"Relation\":false,\"RelationExternal\":false,\"RelationChildModel\":\"SH_Petco_DepoInDetail\",\"GridMainModel\":\"SH_Petco_DepoInDetail\",\"widget\":{\"altInput\":false,\"allowInput\":false,\"clickOpens\":false,\"enableDate\":false,\"enableTime\":false,\"noCalendar\":false,\"useLocaleSettings\":false,\"hourIncrement\":0,\"minuteIncrement\":0,\"time_24hr\":false},\"wysiwyg\":false,\"data\":{},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"FieldsTemplate\":[],\"refreshOn\":\"data\",\"reorder\":false,\"addAnotherPosition\":\"bottom\",\"layoutFixed\":false,\"enableRowGroups\":false,\"initEmpty\":false,\"disabled\":true,\"modal\":true,\"label\":\"جزییات دریافت کالا پس از تغییر از سازنده\",\"tableView\":true,\"key\":\"GridSH_Petco_DepoInId_767\",\"type\":\"datagrid\",\"input\":true,\"placeholder\":\"GridSH_Petco_DepoInId_767\",\"modalEdit\":true,\"FieldUrl\":\"767?EId=767&SubId=33\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true,\"editmodelsaving\":\"GridSH_Petco_DepoInId_767_editmodelsaving\",\"afterrendermodal\":\"GridSH_Petco_DepoInId_767_afterrendermodal\"}").Result))"
+         >
+    <Columns>
+    
+<DxGridCommandColumn Width="70px">
+    <HeaderTemplate Context="HeaderContext">
+       
+<a id=SH_Petco_DepoInDetail_GridSH_Petco_DepoInId_767ButtonNew class="btn btn-sm btn-green btnGridAddData" @onclick="@(() => StartEditNewRowAsync_Grid_SH_Petco_DepoInDetail())" style="text-decoration: none;" href="javascript:void(0);">
+    <span class="fal fa-plus-circle btnicon"></span>
+    <span>@languageContainer.Keys["DXGrid:New"]</span>
+</a>
+
+    </HeaderTemplate>
+    <CellDisplayTemplate Context="CellContext">
+       
+<a id=SH_Petco_DepoInDetail_GridSH_Petco_DepoInId_767ButtonEdit class="btn btn-sm btn-yellow-light btnEditGridData" @onclick="@(() => StartModalGrid_SH_Petco_DepoInDetail(CellContext))" style="text-decoration: none;" href="javascript:void(0);">
+    <span class="fal fa-pencil btnicon"></span>
+</a>
+
+       
+<a class="btn btn-sm btn-red-light btnDeleteGridData" @onclick="@(() => OnDeleteButtonClickGrid_SH_Petco_DepoInDetail(CellContext))" style="text-decoration: none;" href="javascript:void(0);">
+    <span class="fal fa-times-circle btnicon"></span>
+</a>
+
+    </CellDisplayTemplate>
+</DxGridCommandColumn>
+
+    <DxGridCommandColumn   Width="60px">
+           <HeaderTemplate Context="HeaderContext">
+               <a    style="text-decoration: none;"  >
+                
+                   <span>ردیف</span>
+               </a>
+           </HeaderTemplate>
+           <CellDisplayTemplate Context="CellContext">
+            @if (CellContext.VisibleIndex > 9){
+                <p>@(CellContext.VisibleIndex + 1)</p>
+            }else{
+                <p>@(((CellContext.Grid.PageIndex * CellContext.Grid.PageSize) + (CellContext.VisibleIndex + 1)))</p>
+            }
+          
+           </CellDisplayTemplate>
+     </DxGridCommandColumn>
+    <DxGridDataColumn Context="ProductSearch_" Caption="جستجو کالا" >
+    <CellDisplayTemplate>
+       
+@{
+    Baya.Models.ViewEngine.View_Component HeaderProductSearch = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"primaryKey\":false,\"EntityID\":767,\"FieldId\":31103,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":1091,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":true,\"RelationParentName\":\"\",\"RelationParentModel\":\"\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://shomaran.workcv.ir:2010/fa-ir/api/v1/view_parts/GetList\",\"_Parameters\":[]},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"partcode\",\"template\":\"<span>{{item.partcode}} {{item.partno}} {{item.desc}} {{item.unit}} </span>\",\"FieldsTemplate\":[{\"key\":\"partcode\",\"value\":\"nvarchar(Max)\"},{\"key\":\"partno\",\"value\":\"nvarchar(Max)\"},{\"key\":\"desc\",\"value\":\"nvarchar(Max)\"},{\"key\":\"unit\",\"value\":\"nvarchar(Max)\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"searchField\":\"partcode,partno\",\"disableLimit\":false,\"noRefreshOnScroll\":false,\"disabled\":false,\"modal\":true,\"label\":\"جستجو کالا\",\"tableView\":true,\"key\":\"ProductSearch\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"customClass\":\"Gcol-sm-8 Gcol-md-6 Gcol-lg-6\",\"FieldUrl\":\"31103?EId=767&SubId=33\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true,\"onitemselected\":\"ProductSearch_onitemselected\"}").Result;
+    var RowProductSearch = ((Entity.SH_Petco_DepoInDetail)ProductSearch_.DataItem).ProductSearch;
+}
+
+<Dropdown ExternalApi=true CssClass="Gcol-sm-8 Gcol-md-6 Gcol-lg-6" NotMapped=false TextGrid=true Value="@RowProductSearch"   FieldName="ProductSearch" OnItemSelected="ItemSelected_SH_Petco_DepoInDetailProductSearch_Header" Component="HeaderProductSearch">
+</Dropdown>
+@code {
+    public async Task ItemSelected_SH_Petco_DepoInDetailProductSearch_Header(object _Item)
+    {
+      //  var Selected = Utility.JSON.ToObject<dynamic>(Utility.JSON.ToJson(_Item).Result).Result;
+  //   ProductSearch
+
+  //  #CustomCode
+
+ //   
+
+  //  #OnItemSelected
+    }
+}
+
+    </CellDisplayTemplate>
+</DxGridDataColumn>
+<DxGridDataColumn Context="html_" Caption="HTML" >
+    <CellDisplayTemplate>
+      <div  class="Gcol-sm-8 Gcol-md-6 Gcol-lg-6">
+    
+</div>
+
+    </CellDisplayTemplate>
+</DxGridDataColumn>
+<DxGridDataColumn  Caption="نام کالا"  FieldName="ProductName" />
+
+<DxGridDataColumn  Caption="کد کالا"  FieldName="PartCode" />
+
+<DxGridDataColumn  Caption="شماره فنی"  FieldName="ShomareFani" />
+
+<DxGridDataColumn DisplayFormat="G" Caption="مقدار1"  FieldName="Amount" />
+
+<DxGridDataColumn  Caption="واحد"  FieldName="Unit" />
+
+<DxGridDataColumn  Caption="توضیحات"  FieldName="Note" />
+
+<DxGridDataColumn Context="html1_" Caption="HTML" >
+    <CellDisplayTemplate>
+      <div  class="Gcol-sm-8 Gcol-md-6 Gcol-lg-12">
+    <hr class="hrdash bg-black">
+</div>
+
+    </CellDisplayTemplate>
+</DxGridDataColumn>
+<DxGridDataColumn  Caption="سفارش"  FieldName="Sefaresh" />
+
+<DxGridDataColumn  Caption="ردیابی"  FieldName="Radyabi" />
+
+<DxGridDataColumn DisplayFormat="0" Caption="سال"  FieldName="Year" />
+
+<DxGridDataColumn  Caption="ردیف" Visible=false FieldName="RowId" />
+
+
+</Columns>
+
+    <EditFormTemplate Context="EditFormContextSH_Petco_DepoInDetail">
+    @{
+        SH_Petco_DepoInDetail  = (Entity.SH_Petco_DepoInDetail)EditFormContextSH_Petco_DepoInDetail.EditModel;
+    }
+    <DxFormLayout>
+        <DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextSH_Petco_DepoInDetail">
+     
+ 
+@code {
+    Baya.Models.ViewEngine.View_Component Component_SH_Petco_DepoInDetailProductSearch = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"primaryKey\":false,\"EntityID\":767,\"FieldId\":31103,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":1091,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":true,\"RelationParentName\":\"\",\"RelationParentModel\":\"\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://shomaran.workcv.ir:2010/fa-ir/api/v1/view_parts/GetList\",\"_Parameters\":[]},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"partcode\",\"template\":\"<span>{{item.partcode}} {{item.partno}} {{item.desc}} {{item.unit}} </span>\",\"FieldsTemplate\":[{\"key\":\"partcode\",\"value\":\"nvarchar(Max)\"},{\"key\":\"partno\",\"value\":\"nvarchar(Max)\"},{\"key\":\"desc\",\"value\":\"nvarchar(Max)\"},{\"key\":\"unit\",\"value\":\"nvarchar(Max)\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"searchField\":\"partcode,partno\",\"disableLimit\":false,\"noRefreshOnScroll\":false,\"disabled\":false,\"modal\":true,\"label\":\"جستجو کالا\",\"tableView\":true,\"key\":\"ProductSearch\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"customClass\":\"Gcol-sm-8 Gcol-md-6 Gcol-lg-6\",\"FieldUrl\":\"31103?EId=767&SubId=33\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true,\"onitemselected\":\"ProductSearch_onitemselected\"}").Result;
+}
+
+    <Dropdown Id=SH_Petco_DepoInDetail_ProductSearch  @ref="Ref_SH_Petco_DepoInDetail_ProductSearch" Label="جستجو کالا" CssClass="Gcol-sm-8 Gcol-md-6 Gcol-lg-6"  DisplayFormat="DropDown" ExternalApi=true NotMapped=false TextGrid=false  Value="@SH_Petco_DepoInDetail.ProductSearch" FieldName="ProductSearch" OnItemSelected="ItemSelected_SH_Petco_DepoInDetailProductSearch" Component="Component_SH_Petco_DepoInDetailProductSearch" _Entity="_Entity" _EntityRow=SH_Petco_DepoInDetail>
+</Dropdown>
+@code {
+    public async Task ItemSelected_SH_Petco_DepoInDetailProductSearch(object _Item)
+    {
+        var Selected = Utility.JSON.ToObject<dynamic>(Utility.JSON.ToJson(_Item).Result).Result;
+     var Item = SH_Petco_DepoInDetail;
+
+    Item.ProductSearch = Selected.partcode;
+
+
+    
+
+    await ProductSearch_onitemselected( Selected , SH_Petco_DepoInDetail);
+    }
+} 
+
+</DxFormLayoutItem>
+
+<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextSH_Petco_DepoInDetail">
+    <div  class="Gcol-sm-8 Gcol-md-6 Gcol-lg-6">
+    
+</div>
+
+</DxFormLayoutItem>
+
+<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextSH_Petco_DepoInDetail">
+    
+<Input Id="SH_Petco_DepoInDetail_ProductName" @ref="Ref_SH_Petco_DepoInDetail_ProductName" Label="نام کالا"  CssClass="Gcol-sm-8 Gcol-md-6 Gcol-lg-3" Disabled=true  @bind-Value="SH_Petco_DepoInDetail.ProductName" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+</DxFormLayoutItem>
+
+<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextSH_Petco_DepoInDetail">
+    
+<Input Id="SH_Petco_DepoInDetail_PartCode" @ref="Ref_SH_Petco_DepoInDetail_PartCode" Label="کد کالا"  CssClass="Gcol-sm-8 Gcol-md-6 Gcol-lg-3" Disabled=true  @bind-Value="SH_Petco_DepoInDetail.PartCode" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+</DxFormLayoutItem>
+
+<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextSH_Petco_DepoInDetail">
+    
+<Input Id="SH_Petco_DepoInDetail_ShomareFani" @ref="Ref_SH_Petco_DepoInDetail_ShomareFani" Label="شماره فنی"  CssClass="Gcol-sm-8 Gcol-md-6 Gcol-lg-2" Disabled=true  @bind-Value="SH_Petco_DepoInDetail.ShomareFani" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+</DxFormLayoutItem>
+
+<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextSH_Petco_DepoInDetail">
+    
+<Input Id="SH_Petco_DepoInDetail_Amount" @ref="Ref_SH_Petco_DepoInDetail_Amount" Label="مقدار1"  CssClass="Gcol-sm-8 Gcol-md-6 Gcol-lg-2"   @bind-Value="SH_Petco_DepoInDetail.Amount" type="number" ActiveSeperator=false    Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"step\":\"any\"}").Result))></Input>
+
+</DxFormLayoutItem>
+
+<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextSH_Petco_DepoInDetail">
+    
+<Input Id="SH_Petco_DepoInDetail_Unit" @ref="Ref_SH_Petco_DepoInDetail_Unit" Label="واحد"  CssClass="Gcol-sm-8 Gcol-md-6 Gcol-lg-2" Disabled=true  @bind-Value="SH_Petco_DepoInDetail.Unit" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+</DxFormLayoutItem>
+
+<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextSH_Petco_DepoInDetail">
+    
+<Input Id="SH_Petco_DepoInDetail_Note" @ref="Ref_SH_Petco_DepoInDetail_Note" Label="توضیحات"  CssClass="Gcol-sm-8 Gcol-md-6 Gcol-lg-6"   @bind-Value="SH_Petco_DepoInDetail.Note" type="textarea"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+</DxFormLayoutItem>
+
+<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextSH_Petco_DepoInDetail">
+    <div  class="Gcol-sm-8 Gcol-md-6 Gcol-lg-12">
+    <hr class="hrdash bg-black">
+</div>
+
+</DxFormLayoutItem>
+
+<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextSH_Petco_DepoInDetail">
+    
+<Input Id="SH_Petco_DepoInDetail_Sefaresh" @ref="Ref_SH_Petco_DepoInDetail_Sefaresh" Label="سفارش"  CssClass="Gcol-sm-8 Gcol-md-6 Gcol-lg-6"   @bind-Value="SH_Petco_DepoInDetail.Sefaresh" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+</DxFormLayoutItem>
+
+<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextSH_Petco_DepoInDetail">
+    
+<Input Id="SH_Petco_DepoInDetail_Radyabi" @ref="Ref_SH_Petco_DepoInDetail_Radyabi" Label="ردیابی"  CssClass="Gcol-sm-8 Gcol-md-6 Gcol-lg-6"   @bind-Value="SH_Petco_DepoInDetail.Radyabi" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+</DxFormLayoutItem>
+
+<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextSH_Petco_DepoInDetail">
+    
+<Input Id="SH_Petco_DepoInDetail_Year" @ref="Ref_SH_Petco_DepoInDetail_Year" Label="سال"  CssClass="Gcol-sm-8 Gcol-md-6 Gcol-lg-2" Disabled=true  @bind-Value="SH_Petco_DepoInDetail.Year" type="number" ActiveSeperator=false    Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+</DxFormLayoutItem>
+
+<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextSH_Petco_DepoInDetail">
+    
+<Input Id="SH_Petco_DepoInDetail_RowId" @ref="Ref_SH_Petco_DepoInDetail_RowId" Label="ردیف"  CssClass="d-none" Disabled=true  @bind-Value="SH_Petco_DepoInDetail.RowId" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+</DxFormLayoutItem>
+
+
+        <DxFormLayoutItem ColSpanMd="12" Context="FormLayoutContextSH_Petco_DepoInDetail" CssClass="btn-modal-custom">
+            <DxButton Id="SH_Petco_DepoInDetail_GridSH_Petco_DepoInId_767ButtonSave" Click="@(() => SaveModalGrid_SH_Petco_DepoInDetail(EditFormContextSH_Petco_DepoInDetail))" Text="@languageContainer.Keys["DXGrid:Ok"]" CssClass="btn btn-green px-5" />
+            
+<DxButton id="SH_Petco_DepoInDetail_GridSH_Petco_DepoInId_767ButtonSaveAndNew"    Text="@languageContainer.Keys["DXGrid:OkAndNew"]" Click="@(() => SaveAndNewGrid_SH_Petco_DepoInDetail(EditFormContextSH_Petco_DepoInDetail))" CssClass="btn btn-green" />
+
+
+            <DxButton Id="SH_Petco_DepoInDetail_GridSH_Petco_DepoInId_767ButtonCancel" Click="@(() => Grid_SH_Petco_DepoInDetail.CancelEditAsync())" Text="@languageContainer.Keys["DXGrid:Cancel"]" CssClass="btn btn-red" />
+            <button id="click_s"  hidden>submit</button>
+             <span>|</span>
+           
+            <DxButton Id="SH_Petco_DepoInDetail_GridSH_Petco_DepoInId_767ButtonBefore" Click="@(() => Dialog_Grid_SH_Petco_DepoInDetail(0,IndexGrid_SH_Petco_DepoInDetail,EditFormContextSH_Petco_DepoInDetail))" Text="@languageContainer.Keys["DXGrid:Prev"]" CssClass="btn btn-purple" />@* @languageContainer.Keys["DXGrid:??"] *@
+         
+            <DxButton Id="SH_Petco_DepoInDetail_GridSH_Petco_DepoInId_767ButtonNext" Click="@(() => Dialog_Grid_SH_Petco_DepoInDetail(1,IndexGrid_SH_Petco_DepoInDetail,EditFormContextSH_Petco_DepoInDetail))" Text="@languageContainer.Keys["DXGrid:Next"]" CssClass="btn btn-purple" />
+
+        </DxFormLayoutItem>
+    </DxFormLayout>
+
+</EditFormTemplate>
+
+</DxGrid>
+
+<DxPopup @bind-Visible="@ConfirmationShownSH_Petco_DepoInDetail" HeaderText="@languageContainer.Keys["DXGrid:DeleteItem"]" Width="350px" CloseOnOutsideClick="false">
+
+    <BodyContentTemplate Context="EditFormContext">
+        <div class="py-3 px-5 text-center">
+            <p>@languageContainer.Keys["DXGrid:DeleteItemHint"]</p>
+            <div class="confirm-dialog-buttons">
+                <DxButton Text="@languageContainer.Keys["DXGrid:Yes"]" CssClass="btn btn-red px-4" Click="@OnYesButtonClickGrid_SH_Petco_DepoInDetail" />
+                <DxButton Text="@languageContainer.Keys["DXGrid:No"]" CssClass="btn btn-purple-light px-4" Click="@OnNoButtonClickGrid_SH_Petco_DepoInDetail" />
+            </div>
+        </div>
+    </BodyContentTemplate>
+</DxPopup>
+
+<DxPopup @bind-Visible="@ConfirmationSH_Petco_DepoInDetail" HeaderText="هشدار" Width="350px" CloseOnOutsideClick="false">
+    <BodyContentTemplate Context="EditFormContext">
+        <div class="py-3 px-5 text-center"> 
+            <p>اطلاعات این فرم تغییر کرده است آیا تغییرات ذخیره شود؟</p>
+            <div class="confirm-dialog-buttons">
+                <DxButton Text="بله" CssClass="btn btn-red px-4" Click="@OnYesButtonSH_Petco_DepoInDetail" />
+                <DxButton Text="خیر" CssClass="btn btn-purple-light px-4" Click="@OnNoButtonSH_Petco_DepoInDetail" />
+            </div>
+        </div>
+    </BodyContentTemplate>
+</DxPopup>
+@code {
+    // DxGrid? Grid_SH_Petco_DepoInDetail;
+    Entity.SH_Petco_DepoInDetail SH_Petco_DepoInDetail;
+    bool ConfirmationShownSH_Petco_DepoInDetail { get; set; } = false;
+    public Entity.SH_Petco_DepoInDetail SelectedItemGrid_SH_Petco_DepoInDetail { get; set; } = new Entity.SH_Petco_DepoInDetail();
+    /// <summary>
+    /// شماره ستون
+    /// </summary>
+    public int IndexGrid_SH_Petco_DepoInDetail { get; set; }
+
+    ///////////////////////
+    bool ConfirmationSH_Petco_DepoInDetail { get; set; } = false;
+    GridEditFormTemplateContext? _ContextFormTemplateSH_Petco_DepoInDetail { get; set; }
+    public int OpenDialogCodeSH_Petco_DepoInDetail { get; set; } = 0;
+    ////////////////////////
+
+    async Task OnEditModelSavingSH_Petco_DepoInDetail(GridEditModelSavingEventArgs arg)
+    {
+        var e = arg.EditModel;
+    bool NotValid = false;
+    //events
+       NotValid = await GridSH_Petco_DepoInId_767_editmodelsaving(e);
+        
+      if (!NotValid)
+     {
+      SaveGrid_SH_Petco_DepoInDetail(arg.DataItem, arg.EditModel);
+     }
+}
+
+async void Dialog_Grid_SH_Petco_DepoInDetail(int _OpenDialogCode, int VisibleIndex, GridEditFormTemplateContext e)
+{
+    OpenDialogCodeSH_Petco_DepoInDetail = _OpenDialogCode;
+    if (!CheckChangedData(await Utility.JSON.ToJson(e.EditModel)))
+    {
+    _ContextFormTemplateSH_Petco_DepoInDetail = e;
+    ConfirmationSH_Petco_DepoInDetail = true;
+    }
+    else
+    {
+    await OnNoButtonSH_Petco_DepoInDetail();
+    }
+}
+async Task OnYesButtonSH_Petco_DepoInDetail()
+{
+
+    ConfirmationSH_Petco_DepoInDetail = false;
+    await Task.Delay(1500);
+    //bool FormValidate = await JSO.InvokeAsync<bool>("submitForm");
+    bool FormValidate =  await JS.InvokeAsync<bool>("submitForm");
+    if (FormValidate)
+    {
+        bool NotValid = false;
+    var e = _ContextFormTemplateSH_Petco_DepoInDetail.EditModel;
+         //events
+         NotValid = await GridSH_Petco_DepoInId_767_editmodelsaving(e);
+
+        if (!NotValid)
+         {
+        SaveGrid_SH_Petco_DepoInDetail(_ContextFormTemplateSH_Petco_DepoInDetail.DataItem, _ContextFormTemplateSH_Petco_DepoInDetail.EditModel);
+            await Grid_SH_Petco_DepoInDetail.CancelEditAsync();
+         await ChangePageGrid_SH_Petco_DepoInDetail();
+         await SetEditFormContextGrid_SH_Petco_DepoInDetail();
+         }
+          
+    }
+
+}
+async Task OnNoButtonSH_Petco_DepoInDetail()
+{
+    ConfirmationSH_Petco_DepoInDetail = false;
+    await ChangePageGrid_SH_Petco_DepoInDetail();
+    await SetEditFormContextGrid_SH_Petco_DepoInDetail();
+
+}
+async Task SetEditFormContextGrid_SH_Petco_DepoInDetail()
+{
+    var e = (Entity.SH_Petco_DepoInDetail)Grid_SH_Petco_DepoInDetail.GetDataItem(IndexGrid_SH_Petco_DepoInDetail);
+    JsonData = await Utility.JSON.ToJson(e);
+}
+
+async Task ChangePageGrid_SH_Petco_DepoInDetail()
+{
+    int VisibleIndex = IndexGrid_SH_Petco_DepoInDetail;
+    try
+    {
+    if (OpenDialogCodeSH_Petco_DepoInDetail == 1)
+    {
+        if (VisibleIndex != (Grid_SH_Petco_DepoInDetail.GetVisibleRowCount() - 1))
+    { 
+            Grid_SH_Petco_DepoInDetail.CancelEditAsync();
+            IndexGrid_SH_Petco_DepoInDetail = VisibleIndex + 1;
+    Grid_SH_Petco_DepoInDetail.StartEditRowAsync(IndexGrid_SH_Petco_DepoInDetail);
+    }
+    }
+    else if (OpenDialogCodeSH_Petco_DepoInDetail == 0)
+    {
+        if (VisibleIndex != 0)
+        {
+
+            Grid_SH_Petco_DepoInDetail.CancelEditAsync();
+            IndexGrid_SH_Petco_DepoInDetail = VisibleIndex - 1;
+    Grid_SH_Petco_DepoInDetail.StartEditRowAsync(IndexGrid_SH_Petco_DepoInDetail);
+    }
+
+    }
+    var e = (Entity.SH_Petco_DepoInDetail)Grid_SH_Petco_DepoInDetail.GetDataItem(IndexGrid_SH_Petco_DepoInDetail);
+    JsonData = await Utility.JSON.ToJson(e);
+    await Task.Delay(300);
+    await GridSH_Petco_DepoInId_767_afterrendermodal(e);
+    StateHasChanged();
+    }
+    catch (Exception ex)
+    {
+
+    Console.WriteLine("error in ChagePage" + ex.Message);
+    }
+
+}
+
+async Task StartEditNewRowAsync_Grid_SH_Petco_DepoInDetail()
+{
+    IndexGrid_SH_Petco_DepoInDetail = Grid_SH_Petco_DepoInDetail.GetVisibleRowCount();
+Grid_SH_Petco_DepoInDetail.StartEditNewRowAsync().GetAwaiter();
+var e = new Entity.SH_Petco_DepoInDetail();
+JsonData = await Utility.JSON.ToJson(e);
+await Task.Delay(300);
+await GridSH_Petco_DepoInId_767_afterrendermodal(e);
+}
+
+async Task StartModalGrid_SH_Petco_DepoInDetail(GridCommandColumnCellDisplayTemplateContext Context)
+{
+    IndexGrid_SH_Petco_DepoInDetail = Context.VisibleIndex;
+Grid_SH_Petco_DepoInDetail.StartEditRowAsync(Context.VisibleIndex).GetAwaiter();
+var e = (Entity.SH_Petco_DepoInDetail)Context.DataItem;
+JsonData = await Utility.JSON.ToJson(e);
+await Task.Delay(300);
+await GridSH_Petco_DepoInId_767_afterrendermodal(e);
+   // await Task.Delay(500);
+}
+public async Task SaveModalGrid_SH_Petco_DepoInDetail(GridEditFormTemplateContext arg)
+{
+     //bool FormValidate = await JSO.InvokeAsync<bool>("submitForm");
+     bool FormValidate =  await JS.InvokeAsync<bool>("submitForm");
+
+    if(FormValidate){
+
+    var e = arg.EditModel;
+    bool NotValid = false;
+    //events
+    NotValid = await GridSH_Petco_DepoInId_767_editmodelsaving(e);
+    if (!NotValid)
+    {
+        SaveGrid_SH_Petco_DepoInDetail(arg.DataItem, arg.EditModel);
+
+     await arg.Grid.CancelEditAsync(); 
+
+    }
+
+    }
+
+}
+public async Task SaveAndNewGrid_SH_Petco_DepoInDetail(GridEditFormTemplateContext arg)
+{ 
+     //bool FormValidate = await JSO.InvokeAsync<bool>("submitForm");
+     bool FormValidate = await JS.InvokeAsync<bool>("submitForm");
+     
+    if(FormValidate){
+       
+         var e = arg.EditModel;
+          bool NotValid = false;
+     //events
+    NotValid = await GridSH_Petco_DepoInId_767_editmodelsaving(e);
+    if (!NotValid)
+    {
+        SaveGrid_SH_Petco_DepoInDetail(arg.DataItem, arg.EditModel);
+
+         await arg.Grid.CancelEditAsync();
+        await StartEditNewRowAsync_Grid_SH_Petco_DepoInDetail();
+
+    }
+          
+    }
+   
+}
+
+void PerviousPageGrid_SH_Petco_DepoInDetail(int VisibleIndex)
+{
+    try
+     {
+    if (VisibleIndex == 0)
+    {
+        Console.WriteLine(VisibleIndex.ToString());
+    }
+    else
+    {
+Grid_SH_Petco_DepoInDetail.CancelEditAsync();
+        IndexGrid_SH_Petco_DepoInDetail = VisibleIndex - 1;
+         Grid_SH_Petco_DepoInDetail.StartEditRowAsync(IndexGrid_SH_Petco_DepoInDetail);
+     }
+    }
+     catch (Exception e)
+     {
+    Console.WriteLine("PerviousPage Message");
+    Console.WriteLine(e.Message);
+    }
+
+}
+
+void NextPageGrid_SH_Petco_DepoInDetail(int VisibleIndex)
+{
+
+    if (VisibleIndex == Grid_SH_Petco_DepoInDetail.GetVisibleRowCount() - 1)
+    {
+    Console.WriteLine(VisibleIndex.ToString());
+    }
+    else
+    {
+    Console.WriteLine("NextPage Start Grid_SH_Petco_DepoInDetail ");
+    try
+    {
+Grid_SH_Petco_DepoInDetail.CancelEditAsync();
+        IndexGrid_SH_Petco_DepoInDetail = VisibleIndex + 1;
+         Grid_SH_Petco_DepoInDetail.StartEditRowAsync(IndexGrid_SH_Petco_DepoInDetail);
+     }
+    catch (Exception e)
+    {
+        Console.WriteLine("NextPage Message");
+        Console.WriteLine(e.Message);
+    }
+
+    }
+}
+
+public void SaveGrid_SH_Petco_DepoInDetail(object DataItem, object EditModel)
+{
+    var ListEntity = _Entity.SH_Petco_DepoInDetail;
+    var MainModel = (Entity.SH_Petco_DepoInDetail)DataItem;
+    if (MainModel != null)
+    {
+MainModel.ProductSearch = ((Entity.SH_Petco_DepoInDetail)EditModel).ProductSearch;
+MainModel.ProductName = ((Entity.SH_Petco_DepoInDetail)EditModel).ProductName;
+MainModel.PartCode = ((Entity.SH_Petco_DepoInDetail)EditModel).PartCode;
+MainModel.ShomareFani = ((Entity.SH_Petco_DepoInDetail)EditModel).ShomareFani;
+MainModel.Amount = ((Entity.SH_Petco_DepoInDetail)EditModel).Amount;
+MainModel.Unit = ((Entity.SH_Petco_DepoInDetail)EditModel).Unit;
+MainModel.Note = ((Entity.SH_Petco_DepoInDetail)EditModel).Note;
+MainModel.Sefaresh = ((Entity.SH_Petco_DepoInDetail)EditModel).Sefaresh;
+MainModel.Radyabi = ((Entity.SH_Petco_DepoInDetail)EditModel).Radyabi;
+MainModel.Year = ((Entity.SH_Petco_DepoInDetail)EditModel).Year;
+MainModel.RowId = ((Entity.SH_Petco_DepoInDetail)EditModel).RowId;
+
+    }
+    else
+    {
+    ListEntity.Add((Entity.SH_Petco_DepoInDetail)EditModel);
+    }
+}
+
+async Task OnDataItemDeletingSH_Petco_DepoInDetail(GridDataItemDeletingEventArgs e)
+    {
+    var ListEntity = _Entity.SH_Petco_DepoInDetail;
+    ListEntity.Remove((Entity.SH_Petco_DepoInDetail)e.DataItem);
+}
+async void OnDeleteButtonClickGrid_SH_Petco_DepoInDetail (GridCommandColumnCellDisplayTemplateContext ex)
+{
+    SelectedItemGrid_SH_Petco_DepoInDetail = (ex.DataItem as Entity.SH_Petco_DepoInDetail);
+    var e =SelectedItemGrid_SH_Petco_DepoInDetail;
+    
+     
+    Console.WriteLine("end OnDeleteButtonClickGrid_test_OrderBody 0");
+    ConfirmationShownSH_Petco_DepoInDetail = true;
+    await Task.Yield();
+     await InvokeAsync(StateHasChanged);
+    
+    Console.WriteLine("end OnDeleteButtonClickGrid_test_OrderBody 1");
+}
+async void OnYesButtonClickGrid_SH_Petco_DepoInDetail ()
+{
+       if (SelectedItemGrid_SH_Petco_DepoInDetail != null)
+    {
+      if (SelectedItemGrid_SH_Petco_DepoInDetail.Id == Guid.Empty)
+      {
+          var ListEntity = _Entity.SH_Petco_DepoInDetail;
+        ListEntity.Remove((Entity.SH_Petco_DepoInDetail)SelectedItemGrid_SH_Petco_DepoInDetail);
+     
+      }
+      else
+      {
+        var cleanModel = new Entity.SH_Petco_DepoInDetail();
+      // چک کن آیا پراپرتی IsDelete در این نوع وجود دارد؟
+        var prop = typeof(Entity.SH_Petco_DepoInDetail).GetProperty("IsDelete");
+        if (prop != null && prop.CanRead && prop.CanWrite)
+        {
+            // مقدار فعلی را بگیر
+            var currentValue = prop.GetValue(SelectedItemGrid_SH_Petco_DepoInDetail);
+
+            if (currentValue is bool boolValue)
+            {
+                // مقدار را معکوس کن
+                var newValue = !boolValue;
+
+                // روی هر دو شیء تنظیم کن
+                prop.SetValue(SelectedItemGrid_SH_Petco_DepoInDetail, newValue);
+                prop.SetValue(cleanModel, newValue);
+            }
+        }
+        EntityHelper.SetPropertyValue(cleanModel, cleanModel._GetIdName, SelectedItemGrid_SH_Petco_DepoInDetail._Id);
+    
+       
+       
+      }
+    }
+    var e= SelectedItemGrid_SH_Petco_DepoInDetail;
+    
+    Grid_SH_Petco_DepoInDetail.Reload();
+    ConfirmationShownSH_Petco_DepoInDetail = false;
+     await Task.Yield();
+    await InvokeAsync(StateHasChanged);
+
+}
+void OnNoButtonClickGrid_SH_Petco_DepoInDetail ()
+{
+    ConfirmationShownSH_Petco_DepoInDetail = false;
+}
+
+void CustomizeRowsGrid_SH_Petco_DepoInDetail(GridCustomizeElementEventArgs e)
+{
+    ///استایل سطر
+    if (e.ElementType == GridElementType.DataRow)
+    {
+    var item = ((Entity.SH_Petco_DepoInDetail)e.Grid.GetDataItem(e.VisibleIndex));
+
+       if (item.IsDelete == true)
+       {
+           e.CssClass = "bg-lightred disablediv";
+       }
+    }
+}
+
+async void CustomizeEditGrid_SH_Petco_DepoInDetail(GridCustomizeEditModelEventArgs e)
+{
+
+    if (e.IsNew)
+    {
+
+    var newRow = (Entity.SH_Petco_DepoInDetail)e.EditModel;
+
+     
+
+    }
+
+
+}
+public async void RowClickGrid_SH_Petco_DepoInDetail(GridRowClickEventArgs e)
+{
+
+}
+
+public async void RowDubbleClickGrid_SH_Petco_DepoInDetail(GridRowClickEventArgs e)
+{
+
+}
+}
+
+<Input Id="ApiResult" @ref="Ref_ApiResult" Label="ApiResult"     @bind-Value="_Entity.ApiResult" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+<Input Id="RequestID" @ref="Ref_RequestID"      @bind-Value="_Entity.RequestID" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+<Input Id="CreateUser" @ref="Ref_CreateUser"      @bind-Value="_Entity.CreateUser" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+<Input Id="UpdateUser" @ref="Ref_UpdateUser"      @bind-Value="_Entity.UpdateUser" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+<Input Id="CreateDate" @ref="Ref_CreateDate"   CssClass="d-none"   @bind-Value="_Entity.CreateDate" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+<Input Id="UpdateDate" @ref="Ref_UpdateDate"   CssClass="d-none"   @bind-Value="_Entity.UpdateDate" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+<Input Id="IsDelete" @ref="Ref_IsDelete"   CssClass="d-none"   @bind-Value="_Entity.IsDelete" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+    </EditForm>
+</div>
+
+@if (ShowSubmit)
+{
+    <button class="btn btn-sm btn-green" @onclick=Submit>ذخیره</button>
+}
+
+@code {
+    #region Function
+
+    //todo  جا به جا شود برده شود تو فایل  Peropeties
+    protected override async Task OnInitializedAsync()
+    {
+        Console.WriteLine("#log OnInitializedAsync");
+
+        TableGet = await Utility.JSON.ToObject<Table>("{\"Name\":\"SH_Petco_DepoIn\",\"GetNameAs\":\"SH_Petco_DepoIn\",\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"RequestID\",\"GetNameAs\":\"RequestID\"},{\"Name\":\"CreateUser\",\"GetNameAs\":\"CreateUser\"},{\"Name\":\"UpdateUser\",\"GetNameAs\":\"UpdateUser\"},{\"Name\":\"CreateDate\",\"GetNameAs\":\"CreateDate\"},{\"Name\":\"UpdateDate\",\"GetNameAs\":\"UpdateDate\"},{\"Name\":\"IsDelete\",\"GetNameAs\":\"IsDelete\"},{\"Name\":\"RecNo\",\"GetNameAs\":\"RecNo\"},{\"Name\":\"RecDate\",\"GetNameAs\":\"RecDate\"},{\"Name\":\"TempNo\",\"GetNameAs\":\"TempNo\"},{\"Name\":\"Creator\",\"GetNameAs\":\"Creator\"},{\"Name\":\"InvCode\",\"GetNameAs\":\"InvCode\"},{\"Name\":\"PartCode\",\"GetNameAs\":\"PartCode\"},{\"Name\":\"Product\",\"GetNameAs\":\"Product\"},{\"Name\":\"QC\",\"GetNameAs\":\"QC\"},{\"Name\":\"Receipt\",\"GetNameAs\":\"Receipt\"},{\"Name\":\"Description\",\"GetNameAs\":\"Description\"},{\"Name\":\"Year\",\"GetNameAs\":\"Year\"},{\"Name\":\"ApiResult\",\"GetNameAs\":\"ApiResult\"},{\"Name\":\"Outsourcing_List\",\"GetNameAs\":\"Outsourcing_List\"},{\"Name\":\"Amount\",\"GetNameAs\":\"Amount\"}],\"Relation\":[{\"Name\":\"SH_Petco_DepoInDetail\",\"GetNameAs\":\"SH_Petco_DepoInDetail\",\"ModeErtebat\":2,\"Column\":[{\"Name\":\"ProductSearch\",\"GetNameAs\":\"ProductSearch\"},{\"Name\":\"ProductName\",\"GetNameAs\":\"ProductName\"},{\"Name\":\"Unit\",\"GetNameAs\":\"Unit\"},{\"Name\":\"ShomareFani\",\"GetNameAs\":\"ShomareFani\"},{\"Name\":\"PartCode\",\"GetNameAs\":\"PartCode\"},{\"Name\":\"Radyabi\",\"GetNameAs\":\"Radyabi\"},{\"Name\":\"Sefaresh\",\"GetNameAs\":\"Sefaresh\"},{\"Name\":\"RowId\",\"GetNameAs\":\"RowId\"},{\"Name\":\"Year\",\"GetNameAs\":\"Year\"},{\"Name\":\"Note\",\"GetNameAs\":\"Note\"},{\"Name\":\"Amount\",\"GetNameAs\":\"Amount\"}],\"Relation\":[]}]}");
+        TablePost = await Utility.JSON.ToObject<Table>("{\"Name\":\"SH_Petco_DepoIn\",\"GetNameAs\":\"SH_Petco_DepoIn\",\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"RequestID\",\"GetNameAs\":\"RequestID\"},{\"Name\":\"CreateUser\",\"GetNameAs\":\"CreateUser\"},{\"Name\":\"UpdateUser\",\"GetNameAs\":\"UpdateUser\"},{\"Name\":\"CreateDate\",\"GetNameAs\":\"CreateDate\"},{\"Name\":\"UpdateDate\",\"GetNameAs\":\"UpdateDate\"},{\"Name\":\"IsDelete\",\"GetNameAs\":\"IsDelete\"},{\"Name\":\"RecNo\",\"GetNameAs\":\"RecNo\"},{\"Name\":\"RecDate\",\"GetNameAs\":\"RecDate\"},{\"Name\":\"TempNo\",\"GetNameAs\":\"TempNo\"},{\"Name\":\"Creator\",\"GetNameAs\":\"Creator\"},{\"Name\":\"InvCode\",\"GetNameAs\":\"InvCode\"},{\"Name\":\"PartCode\",\"GetNameAs\":\"PartCode\"},{\"Name\":\"Product\",\"GetNameAs\":\"Product\"},{\"Name\":\"QC\",\"GetNameAs\":\"QC\"},{\"Name\":\"Receipt\",\"GetNameAs\":\"Receipt\"},{\"Name\":\"Description\",\"GetNameAs\":\"Description\"},{\"Name\":\"Year\",\"GetNameAs\":\"Year\"},{\"Name\":\"ApiResult\",\"GetNameAs\":\"ApiResult\"},{\"Name\":\"Outsourcing_List\",\"GetNameAs\":\"Outsourcing_List\"},{\"Name\":\"Amount\",\"GetNameAs\":\"Amount\"}],\"Relation\":[{\"Name\":\"SH_Petco_DepoInDetail\",\"GetNameAs\":\"SH_Petco_DepoInDetail\",\"ModeErtebat\":2,\"Column\":[{\"Name\":\"ProductSearch\",\"GetNameAs\":\"ProductSearch\"},{\"Name\":\"ProductName\",\"GetNameAs\":\"ProductName\"},{\"Name\":\"Unit\",\"GetNameAs\":\"Unit\"},{\"Name\":\"ShomareFani\",\"GetNameAs\":\"ShomareFani\"},{\"Name\":\"PartCode\",\"GetNameAs\":\"PartCode\"},{\"Name\":\"Radyabi\",\"GetNameAs\":\"Radyabi\"},{\"Name\":\"Sefaresh\",\"GetNameAs\":\"Sefaresh\"},{\"Name\":\"RowId\",\"GetNameAs\":\"RowId\"},{\"Name\":\"Year\",\"GetNameAs\":\"Year\"},{\"Name\":\"Note\",\"GetNameAs\":\"Note\"},{\"Name\":\"Amount\",\"GetNameAs\":\"Amount\"}],\"Relation\":[]}]}");
+
+        config = CKEditorBundleOptions.DefaultConfig.WithHtmlEditing();
+        config.Language = "fa";
+
+        //بعداد اگه نیاز شد فرمی رو تو حالت غیر لاگین شده نمایش بدیم باید این  کد تغیر کنه
+        var user = (await _authenticationStateProvider.GetAuthenticationStateAsync()).User;
+        string UserID = user.FindFirst(c => c.Type == ClaimTypes.NameIdentifier).Value;
+        //داینامیک بشه
+        Dictionary<string, object> List = new Dictionary<string, object>();
+        //List.Add("UserID", Guid.Parse(UserID));
+        List.Add("UserID", UserID);
+        _User = await Domain.Utility.ConvertParameter.ConvertToObject(List);
+
+        Console.WriteLine("#log OnInitializedAsync End");
+
+        await base.OnInitializedAsync();
+    }
+
+    //todo  جا به جا شود برده شود تو فایل  Peropeties
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            Console.WriteLine("#log OnAfterRenderAsync");
+            await base.BeforGetData();
+
+            var Result = await GetData();
+
+            await base.AfterGetData();
+
+            StateHasChanged();
+
+            await OnFormloaded.InvokeAsync(Result);
+        }
+
+        await base.OnAfterRenderAsync(firstRender);
+    }
+
+    /// <summary>
+    /// دریافت داده
+    /// </summary>
+    /// <returns></returns>
+    public async Task<Baya.Models.Utility.Result> GetData()
+    {
+        await BeforGetData();
+
+        var DataResult = await ApiServer.External.Services.Data.Get(TableGet, QueryFilter, TableGet.Name, null);
+        
+        Baya.Models.Utility.Result Result = new Baya.Models.Utility.Result();
+
+        if (DataResult != null && DataResult.Status == HttpStatusCode.OK)
+        {
+            if (DataResult.Content != null)
+            {
+                string Data = DataResult.Content.ToString();
+                if (Data is not null)
+                {
+                    _Entity = await Utility.JSON.ToObject < Entity.SH_Petco_DepoIn>(Data);
+        }
+            }
+            else
+            {
+                _Entity = new Entity.SH_Petco_DepoIn();
+            //todo تشخیص دهد که داده ای وجود ندارد و دفه اول هست که فرم لود میشود
+            //todo اگه نیاز شد دالخ ORm خروجیش متفاوت باشه
+            //ست کردن دیفالت های فرم
+            if (true)
+                {//
+
+
+                    //نمونه ست کردن پارامتر روش اول
+                    //_Entity.InstantDelivery = _RequestParameters.UserId;
+
+                    //نمونه کد برای ست کردن پارامتر روش دوم
+                    //_Entity.InstantDelivery = await GetParameter("@@UserId@@");
+                }
+
+                SumaryMessage = "داده لود شده معتبر نمی باشد";
+                Result.Status = HttpStatusCode.InternalServerError;
+            }
+        }
+        else
+        {
+            SumaryMessage = "داده لود نشد";
+            Result.Status = HttpStatusCode.InternalServerError;
+        }
+
+        Result.Message = SumaryMessage;
+
+        StateHasChanged();
+
+        await AfterGetData();
+
+        return Result;
+    }
+
+    public override async Task SetParametersAsync(ParameterView parameters)
+    {
+        await base.SetParametersAsync(parameters);
+    }
+
+    protected override void OnInitialized()
+    {
+        //todo این خط برده شود داخل تابع پاینی ببینیم خطا داره یا نه
+        languageContainer.InitLocalizedComponent(this);
+    }
+
+
+    /// <summary>
+    /// بررسی تغییر دیتا
+    /// </summary>
+    /// <param name="Json"></param>
+    /// <returns></returns>
+    public bool CheckChangedData(string? Json)
+    {
+        if (string.Equals(JsonData, Json)) return true;
+        return false;
+    }
+
+    /// <summary>
+    /// ارسال داده
+    /// </summary>
+    /// <returns></returns>
+    public override async Task<Baya.Models.Utility.Result> Submit()
+    {
+        SumaryMessage = "";
+        Baya.Models.Utility.Result Result = new Baya.Models.Utility.Result();
+
+        if (!await FormValidator())
+        {
+            StateHasChanged();
+            Result.Status = HttpStatusCode.InternalServerError;
+            return Result;
+        }
+
+        if ((await BeforSubmit()).Status != HttpStatusCode.OK)
+        {
+            StateHasChanged();
+            Result.Status = HttpStatusCode.InternalServerError;
+            return Result;
+        }
+
+        _loadingService.Show();
+        var Resualt = await PostData();
+
+        if (Resualt)
+        {
+            Result.Status = HttpStatusCode.OK;
+
+            SumaryMessage = "داده ها با موفقیت ثبت شد";
+        }
+        else
+        {
+            Result.Status = HttpStatusCode.InternalServerError;
+            SumaryMessage = "ذخیره داده با مشکل مواجه شد";
+        }
+
+        Result.Message = SumaryMessage;
+
+        switch ((int)Result.Status)
+        {
+            case 200:
+                toastService.ShowSuccess(Result.Message);
+                break;
+            case 500:
+                toastService.ShowError(Result.Message);
+                break;
+            default:
+                break;
+        } 
+        _loadingService.Hide();
+        await AfterSubmit();
+
+        return Result;
+    }
+
+    /// <summary>
+    /// ارسال داده
+    /// </summary>
+    /// <returns></returns>
+    private async Task<bool> PostData()
+    {
+        string Data = await Utility.JSON.ToJson(_Entity);
+
+        bool IsOk = false;
+        var Model = await ApiServer.External.Services.Data.Put(Data, TablePost.Name, TablePost, RequestID?.ToString(), _User.UserID.ToString());
+        // بررسی وضعیت پاسخ
+        if (Model?.Status == HttpStatusCode.OK)
+        {
+            if (Model.Content != null && !IndependentForm)
+                { 
+                    string NewData = Model.Content.ToString();
+                    if (NewData is not null)
+                    {
+                        var NewEntity = await Utility.JSON.ToObject < Entity.SH_Petco_DepoIn>(NewData);
+                     await  GetDataForm(NewEntity._Id);
+                    }
+
+                }
+                IsOk = true;
+
+        }
+        return IsOk;
+    }
+
+
+    void SetLanguage(string language)
+    {
+        languageContainer.SetLanguage(System.Globalization.CultureInfo.GetCultureInfo(language));
+    }
+
+    // public void ValidFormSubmitted(EditContext editContext)
+    // {
+
+    // }
+
+    // public void InvalidFormSubmitted(EditContext editContext)
+    // {
+
+    // }
+    public async Task GetDataForm(object Id)
+    {
+        Type type = Id.GetType();
+        string TypeToQueryBuilder = Utility.TypeConverterQueryBuilder.ConvertCSharpTypeToQueryBuilder(type);
+        var NewQuery = new QueryBuilderFilterRule() { Condition = "AND" };
+        NewQuery.Rules = new List<QueryBuilderFilterRule>
+            {
+                    new QueryBuilderFilterRule()
+                    {
+                        Field = _Entity._GetIdName,
+                        Id = _Entity._GetIdName,
+                        Input = "text",
+                        Operator = "equal",
+                        Type =  TypeToQueryBuilder,
+                        Value = new string[]{ Id.ToString() },
+                    }
+            };
+        QueryFilter = NewQuery;
+        await GetData();
+        StateHasChanged();
+    }
+    #endregion
+}

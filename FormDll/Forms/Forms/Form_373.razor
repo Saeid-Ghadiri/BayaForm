@@ -221,16 +221,16 @@
 
     </CellDisplayTemplate>
 </DxGridDataColumn>
-<DxGridDataColumn Context="TypesAssets_" Caption="نوع دارایی کالا" >
+<DxGridDataColumn Context="TypesAssets_" Caption="کالا تحویل درخواست کننده شد" >
     <CellDisplayTemplate>
        
 @{
     var SCMNFP_ProductRequestDetails_TypesAssets = ((Entity.SCMNFP_ProductRequestDetails)TypesAssets_.DataItem).TypesAssets;
 }
 
-<p class="text-center " hidden="@(SCMNFP_ProductRequestDetails_TypesAssets !=null ? !SCMNFP_ProductRequestDetails_TypesAssets : true)">دارایی ثابت</p>
+<p class="text-center " hidden="@(SCMNFP_ProductRequestDetails_TypesAssets !=null ? !SCMNFP_ProductRequestDetails_TypesAssets : true)">بله</p>
 
-<p class="text-center" hidden="@(SCMNFP_ProductRequestDetails_TypesAssets !=null ? SCMNFP_ProductRequestDetails_TypesAssets : true)">دارایی عمومی</p>
+<p class="text-center" hidden="@(SCMNFP_ProductRequestDetails_TypesAssets !=null ? SCMNFP_ProductRequestDetails_TypesAssets : true)">خیر</p>
 
 
     </CellDisplayTemplate>
@@ -395,7 +395,7 @@
 
 <DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextSCMNFP_ProductRequestDetails">
     
-<RadioBoolean @ref="Ref_SCMNFP_ProductRequestDetails_TypesAssets" InLine=true Id="SCMNFP_ProductRequestDetails_TypesAssets" Required=true  LabelTrue="دارایی ثابت" LabelFalse="دارایی عمومی" Label="نوع دارایی کالا" @bind-Value="SCMNFP_ProductRequestDetails.TypesAssets" CssClass=" " ></RadioBoolean>
+<RadioBoolean @ref="Ref_SCMNFP_ProductRequestDetails_TypesAssets" InLine=true Id="SCMNFP_ProductRequestDetails_TypesAssets" Required=true  LabelTrue="بله" LabelFalse="خیر" Label="کالا تحویل درخواست کننده شد" @bind-Value="SCMNFP_ProductRequestDetails.TypesAssets" CssClass=" " ></RadioBoolean>
 
 </DxFormLayoutItem>
 

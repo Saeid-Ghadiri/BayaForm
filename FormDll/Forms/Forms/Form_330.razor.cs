@@ -221,17 +221,17 @@ return new Result() { Status = HttpStatusCode.OK };
 			var MainModel = (Entity.SCMPETCO_ProductRequestDetails)e;
 
 			// Note: شرط پُر بودن فیلد نام کالا دیزیبل
-			if (MainModel.ProductNameText == null)
-			{
-				IsValid = true;
-				toastService.ShowError("لطفا گزینه نام کالا را تکمیل نمایید",
-						settings =>
-						{
-							settings.Timeout = 4;
-							settings.ShowProgressBar = true;
-							settings.PauseProgressOnHover = true;
-						});
-			}
+			// if (MainModel.ProductNameText == null)
+			// {
+			// 	IsValid = true;
+			// 	toastService.ShowError("لطفا گزینه نام کالا را تکمیل نمایید",
+			// 			settings =>
+			// 			{
+			// 				settings.Timeout = 4;
+			// 				settings.ShowProgressBar = true;
+			// 				settings.PauseProgressOnHover = true;
+			// 			});
+			// }
 
 			// Note: شرط پُر بودن فیلد تعداد یا مقدار درخواستی
 			if (MainModel.ProductRequestingQTY == null || MainModel.ProductRequestingQTY == 0)

@@ -15,7 +15,7 @@ namespace Forms.Forms
     public class Form_596Base : Form_596Peropeties
     {
       
-      // Toast  
+      	// Toast  
 		[Inject]
 	    public IToastService toastService { get; set; }
 

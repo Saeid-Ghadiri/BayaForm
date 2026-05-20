@@ -64,14 +64,6 @@
 <div class="@(ReadOnly?"FormReadOnly":"")">
     <EditForm @ref="_Form" Model="_Entity" OnSubmit="Submit">
         
-<Input Id="Id" @ref="Ref_Id"   CssClass="d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none"   @bind-Value="_Entity.Id" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
-
-<Input Id="RequestID" @ref="Ref_RequestID"   CssClass="                                "   @bind-Value="_Entity.RequestID" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
-
-<Input Id="CreateUser" @ref="Ref_CreateUser"   CssClass="                                "   @bind-Value="_Entity.CreateUser" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
-
-<Input Id="UpdateUser" @ref="Ref_UpdateUser"   CssClass="                                "   @bind-Value="_Entity.UpdateUser" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
-
 <div class="row justify-content-center mt-0">
     
 <div class="col-lg-9">
@@ -167,6 +159,14 @@
 
 </div>
 
+<Input Id="Id" @ref="Ref_Id"   CssClass="d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none"   @bind-Value="_Entity.Id" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+<Input Id="RequestID" @ref="Ref_RequestID"   CssClass="                                "   @bind-Value="_Entity.RequestID" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+<Input Id="CreateUser" @ref="Ref_CreateUser"   CssClass="                                "   @bind-Value="_Entity.CreateUser" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+<Input Id="UpdateUser" @ref="Ref_UpdateUser"   CssClass="                                "   @bind-Value="_Entity.UpdateUser" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
 <Input Id="CreateDate" @ref="Ref_CreateDate"   CssClass="d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none"   @bind-Value="_Entity.CreateDate" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
 <div  class="">
     <hr class="hrdash"/>
@@ -175,6 +175,10 @@
 <Input Id="UpdateDate" @ref="Ref_UpdateDate"   CssClass="d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none"   @bind-Value="_Entity.UpdateDate" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
 
 <Input Id="IsDelete" @ref="Ref_IsDelete"   CssClass="d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none d-none"   @bind-Value="_Entity.IsDelete" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+<Input Id="Name" @ref="Ref_Name" Label="نام"  CssClass="d-none" Disabled=true  @bind-Value="_Entity.Name" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"maxlength\":\"100\"}").Result))></Input>
+
+<Input Id="Family" @ref="Ref_Family" Label="نام خانوادگی"  CssClass="d-none" Disabled=true  @bind-Value="_Entity.Family" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"maxlength\":\"100\"}").Result))></Input>
 
     </EditForm>
 </div>
@@ -192,8 +196,8 @@
     {
         Console.WriteLine("#log OnInitializedAsync");
 
-        TableGet = await Utility.JSON.ToObject<Table>("{\"Name\":\"Global_PHB_Main\",\"GetNameAs\":\"Global_PHB_Main\",\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"RequestID\",\"GetNameAs\":\"RequestID\"},{\"Name\":\"CreateUser\",\"GetNameAs\":\"CreateUser\"},{\"Name\":\"UpdateUser\",\"GetNameAs\":\"UpdateUser\"},{\"Name\":\"CreateDate\",\"GetNameAs\":\"CreateDate\"},{\"Name\":\"UpdateDate\",\"GetNameAs\":\"UpdateDate\"},{\"Name\":\"IsDelete\",\"GetNameAs\":\"IsDelete\"},{\"Name\":\"CompanyName\",\"GetNameAs\":\"CompanyName\"},{\"Name\":\"UnitName\",\"GetNameAs\":\"UnitName\"},{\"Name\":\"SectionName\",\"GetNameAs\":\"SectionName\"},{\"Name\":\"UserFullName\",\"GetNameAs\":\"UserFullName\"},{\"Name\":\"InternalCodeTel\",\"GetNameAs\":\"InternalCodeTel\"},{\"Name\":\"MobCell\",\"GetNameAs\":\"MobCell\"},{\"Name\":\"Email\",\"GetNameAs\":\"Email\"},{\"Name\":\"InternalCodeTe2\",\"GetNameAs\":\"InternalCodeTe2\"},{\"Name\":\"InternalCodeTel3\",\"GetNameAs\":\"InternalCodeTel3\"},{\"Name\":\"InternalCodeTel4\",\"GetNameAs\":\"InternalCodeTel4\"},{\"Name\":\"User_EMP_NO\",\"GetNameAs\":\"User_EMP_NO\"}],\"Relation\":[]}");
-        TablePost = await Utility.JSON.ToObject<Table>("{\"Name\":\"Global_PHB_Main\",\"GetNameAs\":\"Global_PHB_Main\",\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"RequestID\",\"GetNameAs\":\"RequestID\"},{\"Name\":\"CreateUser\",\"GetNameAs\":\"CreateUser\"},{\"Name\":\"UpdateUser\",\"GetNameAs\":\"UpdateUser\"},{\"Name\":\"CreateDate\",\"GetNameAs\":\"CreateDate\"},{\"Name\":\"UpdateDate\",\"GetNameAs\":\"UpdateDate\"},{\"Name\":\"IsDelete\",\"GetNameAs\":\"IsDelete\"},{\"Name\":\"CompanyName\",\"GetNameAs\":\"CompanyName\"},{\"Name\":\"UnitName\",\"GetNameAs\":\"UnitName\"},{\"Name\":\"SectionName\",\"GetNameAs\":\"SectionName\"},{\"Name\":\"UserFullName\",\"GetNameAs\":\"UserFullName\"},{\"Name\":\"InternalCodeTel\",\"GetNameAs\":\"InternalCodeTel\"},{\"Name\":\"MobCell\",\"GetNameAs\":\"MobCell\"},{\"Name\":\"Email\",\"GetNameAs\":\"Email\"},{\"Name\":\"InternalCodeTe2\",\"GetNameAs\":\"InternalCodeTe2\"},{\"Name\":\"InternalCodeTel3\",\"GetNameAs\":\"InternalCodeTel3\"},{\"Name\":\"InternalCodeTel4\",\"GetNameAs\":\"InternalCodeTel4\"},{\"Name\":\"User_EMP_NO\",\"GetNameAs\":\"User_EMP_NO\"}],\"Relation\":[]}");
+        TableGet = await Utility.JSON.ToObject<Table>("{\"Name\":\"Global_PHB_Main\",\"GetNameAs\":\"Global_PHB_Main\",\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"RequestID\",\"GetNameAs\":\"RequestID\"},{\"Name\":\"CreateUser\",\"GetNameAs\":\"CreateUser\"},{\"Name\":\"UpdateUser\",\"GetNameAs\":\"UpdateUser\"},{\"Name\":\"CreateDate\",\"GetNameAs\":\"CreateDate\"},{\"Name\":\"UpdateDate\",\"GetNameAs\":\"UpdateDate\"},{\"Name\":\"IsDelete\",\"GetNameAs\":\"IsDelete\"},{\"Name\":\"CompanyName\",\"GetNameAs\":\"CompanyName\"},{\"Name\":\"UnitName\",\"GetNameAs\":\"UnitName\"},{\"Name\":\"SectionName\",\"GetNameAs\":\"SectionName\"},{\"Name\":\"UserFullName\",\"GetNameAs\":\"UserFullName\"},{\"Name\":\"InternalCodeTel\",\"GetNameAs\":\"InternalCodeTel\"},{\"Name\":\"MobCell\",\"GetNameAs\":\"MobCell\"},{\"Name\":\"Email\",\"GetNameAs\":\"Email\"},{\"Name\":\"InternalCodeTe2\",\"GetNameAs\":\"InternalCodeTe2\"},{\"Name\":\"InternalCodeTel3\",\"GetNameAs\":\"InternalCodeTel3\"},{\"Name\":\"InternalCodeTel4\",\"GetNameAs\":\"InternalCodeTel4\"},{\"Name\":\"User_EMP_NO\",\"GetNameAs\":\"User_EMP_NO\"},{\"Name\":\"Name\",\"GetNameAs\":\"Name\"},{\"Name\":\"Family\",\"GetNameAs\":\"Family\"}],\"Relation\":[]}");
+        TablePost = await Utility.JSON.ToObject<Table>("{\"Name\":\"Global_PHB_Main\",\"GetNameAs\":\"Global_PHB_Main\",\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"RequestID\",\"GetNameAs\":\"RequestID\"},{\"Name\":\"CreateUser\",\"GetNameAs\":\"CreateUser\"},{\"Name\":\"UpdateUser\",\"GetNameAs\":\"UpdateUser\"},{\"Name\":\"CreateDate\",\"GetNameAs\":\"CreateDate\"},{\"Name\":\"UpdateDate\",\"GetNameAs\":\"UpdateDate\"},{\"Name\":\"IsDelete\",\"GetNameAs\":\"IsDelete\"},{\"Name\":\"CompanyName\",\"GetNameAs\":\"CompanyName\"},{\"Name\":\"UnitName\",\"GetNameAs\":\"UnitName\"},{\"Name\":\"SectionName\",\"GetNameAs\":\"SectionName\"},{\"Name\":\"UserFullName\",\"GetNameAs\":\"UserFullName\"},{\"Name\":\"InternalCodeTel\",\"GetNameAs\":\"InternalCodeTel\"},{\"Name\":\"MobCell\",\"GetNameAs\":\"MobCell\"},{\"Name\":\"Email\",\"GetNameAs\":\"Email\"},{\"Name\":\"InternalCodeTe2\",\"GetNameAs\":\"InternalCodeTe2\"},{\"Name\":\"InternalCodeTel3\",\"GetNameAs\":\"InternalCodeTel3\"},{\"Name\":\"InternalCodeTel4\",\"GetNameAs\":\"InternalCodeTel4\"},{\"Name\":\"User_EMP_NO\",\"GetNameAs\":\"User_EMP_NO\"},{\"Name\":\"Name\",\"GetNameAs\":\"Name\"},{\"Name\":\"Family\",\"GetNameAs\":\"Family\"}],\"Relation\":[]}");
 
         config = CKEditorBundleOptions.DefaultConfig.WithHtmlEditing();
         config.Language = "fa";

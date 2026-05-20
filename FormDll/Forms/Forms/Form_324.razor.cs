@@ -368,6 +368,67 @@ namespace Forms.Forms
 
 		}
 
+		public async Task <bool> GridSCMPETCO_ProductRequestId_200_editmodelsaving(object e   )
+        {
+				bool IsCancelled = false;
+			var Item = (Entity.SCMPETCO_ProductRequestDetails)e;
+
+			// شرط پُر بودن فیلد نام کالا 
+			if (Item.ProductNameText == null)
+			{
+				IsCancelled = true;
+
+				toastService.ShowError("لطفا گزینه نام کالا را تکمیل نمایید",
+		    		settings =>
+		    		{
+		    			settings.Timeout = 4;
+		    			settings.ShowProgressBar = true;
+		    			settings.PauseProgressOnHover = true;
+		    		});
+			}
+			// شرط پُر بودن فیلد تعداد یا مقدار درخواستی
+			if (Item.ProductRequestingQTY == null || Item.ProductRequestingQTY == 0)
+			{
+				IsCancelled = true;
+
+				toastService.ShowError("لطفا گزینه تعداد یا مقدار درخواستی را تکمیل نمایید.",
+		    		settings =>
+		    		{
+		    			settings.Timeout = 4;
+		    			settings.ShowProgressBar = true;
+		    			settings.PauseProgressOnHover = true;
+		    		});
+			}
+			// شرط پُر بودن فیلد اولویت
+			if (Item.SCMPETCO_PriorityId == null)
+			{
+				IsCancelled = true;
+
+				toastService.ShowError("لطفا گزینه اولویت را تکمیل نمایید.",
+		    		settings =>
+		    		{
+		    			settings.Timeout = 4;
+		    			settings.ShowProgressBar = true;
+		    			settings.PauseProgressOnHover = true;
+		    		});
+			}
+			// شرط پُر بودن فیلد محل مصرف
+			if (Item.PlaceOfUseProduct == null)
+			{
+				IsCancelled = true;
+
+				toastService.ShowError("لطفا گزینه محل مصرف تکمیل نمایید.",
+		    		settings =>
+		    		{
+		    			settings.Timeout = 4;
+		    			settings.ShowProgressBar = true;
+		    			settings.PauseProgressOnHover = true;
+		    		});
+			}
+
+			return IsCancelled;
+        }
+
 		#endregion FunctionEvents
 
 	}

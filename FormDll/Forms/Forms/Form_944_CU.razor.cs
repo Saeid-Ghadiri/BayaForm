@@ -222,7 +222,7 @@ namespace Forms.Forms
 
 
 			// حذف دکمه های گرید جزئیات اطلاعات کارمند
-			await EmployeeInfos_Grid_Buttons(isInModal: true);
+			//await EmployeeInfos_Grid_Buttons(isInModal: true);
 		}
 
 		#region اعتبارسنجی موجودیت های فرم
@@ -422,17 +422,22 @@ namespace Forms.Forms
 			//if (!hasSavedRecord)
 			//   hasSavedRecord = _Entity.HR_EMP_EmployeeInfos.Any(x => x.IsDelete == false);
 
+			Console.WriteLine("#LOG# :: 1");
+
 			await Task.Yield();
 			if (!hasSavedRecord)
 			{
+				Console.WriteLine("#LOG# :: 2");
 				hasSavedRecord = _Entity.HR_EMP_EmployeeInfos.Any();
 			}
 			if (hasSavedRecord)
 			{
+				Console.WriteLine("#LOG# :: 3");
 				await JS.InvokeVoidAsync("AddClass", "#HR_EMP_EmployeeInfos_GridHR_EMP_EmployeesId_382ButtonNew", "d-none");
 			}
 			else
 			{
+				Console.WriteLine("#LOG# :: 4");
 				await JS.InvokeVoidAsync("RemoveClass", "#HR_EMP_EmployeeInfos_GridHR_EMP_EmployeesId_382ButtonNew", "d-none");
 			}
 			//Console.WriteLine("log-0 ::" + hasSavedRecord);
@@ -440,13 +445,20 @@ namespace Forms.Forms
 			// فقط اگر در مودال باشیم، دکمه‌های مودال را مخفی کن
 			if (isInModal)
 			{
+				Console.WriteLine("#LOG# :: 5");
 				// دکمه ذخیره و جدید
 				await JS.InvokeVoidAsync("ModalAddClass", "#HR_EMP_EmployeeInfos_GridHR_EMP_EmployeesId_382ButtonSaveAndNew", "d-none");
+								Console.WriteLine("#LOG# :: 5.1");
 				// دکمه قبلی
 				await JS.InvokeVoidAsync("ModalAddClass", "#HR_EMP_EmployeeInfos_GridHR_EMP_EmployeesId_382ButtonBefore", "d-none");
+								Console.WriteLine("#LOG# :: 5.2");
 				// دکمه بعدی
 				await JS.InvokeVoidAsync("ModalAddClass", "#HR_EMP_EmployeeInfos_GridHR_EMP_EmployeesId_382ButtonNext", "d-none");
+								Console.WriteLine("#LOG# :: 5.3");
+
 			}
+
+			Console.WriteLine("#LOG# :: 6");
 		}
 		#endregion حذف دکمه های گرید جزئیات اطلاعات کارمند
 
