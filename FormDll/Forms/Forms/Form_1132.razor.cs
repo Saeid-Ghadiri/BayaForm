@@ -99,55 +99,68 @@ namespace Forms.Forms
 
 		#region FunctionEvents
 
-		// عطف خرید کالا در شماران سیستم
-		public async Task KharidIsVisible(bool Visible)
+		#region عطف خرید کالا (شماران)
+
+		/// <summary>
+		/// تنظیم نمایش فیلدهای عطف خرید کالا
+		/// </summary>
+		public void SetPurchaseReferenceFieldsVisibility(bool visible)
 		{
-			// Console.WriteLine("#Log 2");
-			// Console.WriteLine("#Log 2.1" + Ref_SCMATLASCELL_ProductRequestDetails_KH_Search_NotMapped.Value);
-			await Task.Delay(100);
-
-			Ref_SCMATLASCELL_ProductRequestDetails_KH_Search_NotMapped.SetVisible(Visible);
-
-			Ref_SCMATLASCELL_ProductRequestDetails_KH_APPROVER.SetVisible(Visible);
-			Ref_SCMATLASCELL_ProductRequestDetails_KH_CENTCODE.SetVisible(Visible);
-			Ref_SCMATLASCELL_ProductRequestDetails_KH_CENTCODE.SetVisible(Visible);
-			Ref_SCMATLASCELL_ProductRequestDetails_KH_CENTCODE_GUID.SetVisible(Visible);
-			Ref_SCMATLASCELL_ProductRequestDetails_KH_PAYCENTName.SetVisible(Visible);
-			Ref_SCMATLASCELL_ProductRequestDetails_KH_WUSER.SetVisible(Visible);
-			Ref_SCMATLASCELL_ProductRequestDetails_KH_TEMPNO.SetVisible(Visible);
-			Ref_SCMATLASCELL_ProductRequestDetails_KH_TempNoNum.SetVisible(Visible);
-			Ref_SCMATLASCELL_ProductRequestDetails_KH_ORDERNO.SetVisible(Visible);
-			Ref_SCMATLASCELL_ProductRequestDetails_KH_ORDERNO_GUID.SetVisible(Visible);
-			Ref_SCMATLASCELL_ProductRequestDetails_KH_ORDERDATE.SetVisible(Visible);
-			Ref_SCMATLASCELL_ProductRequestDetails_KH_OKFACTDATE.SetVisible(Visible);
-			Ref_SCMATLASCELL_ProductRequestDetails_KH_INVCODE.SetVisible(Visible);
-			Ref_SCMATLASCELL_ProductRequestDetails_KH_REQPERSON.SetVisible(Visible);
-			Ref_SCMATLASCELL_ProductRequestDetails_KH_YEAR.SetVisible(Visible);
-			// جزئیات خرید کالا
-			Ref_SCMATLASCELL_ProductRequestDetails_SH_Kharid_DTL.SetVisible(Visible);
-
-			Ref_SCMATLASCELL_ProductRequestDetails_KH_APPROVER.SetDisabled(true);
-			Ref_SCMATLASCELL_ProductRequestDetails_KH_CENTCODE.SetDisabled(true);
-			Ref_SCMATLASCELL_ProductRequestDetails_KH_CENTCODE.SetDisabled(true);
-			Ref_SCMATLASCELL_ProductRequestDetails_KH_CENTCODE_GUID.SetDisabled(true);
-			Ref_SCMATLASCELL_ProductRequestDetails_KH_PAYCENTName.SetDisabled(true);
-			Ref_SCMATLASCELL_ProductRequestDetails_KH_WUSER.SetDisabled(true);
-			Ref_SCMATLASCELL_ProductRequestDetails_KH_TEMPNO.SetDisabled(true);
-			Ref_SCMATLASCELL_ProductRequestDetails_KH_TempNoNum.SetDisabled(true);
-			Ref_SCMATLASCELL_ProductRequestDetails_KH_ORDERNO.SetDisabled(true);
-			Ref_SCMATLASCELL_ProductRequestDetails_KH_ORDERNO_GUID.SetDisabled(true);
-			Ref_SCMATLASCELL_ProductRequestDetails_KH_ORDERDATE.SetDisabled(true);
-			Ref_SCMATLASCELL_ProductRequestDetails_KH_OKFACTDATE.SetDisabled(true);
-			Ref_SCMATLASCELL_ProductRequestDetails_KH_INVCODE.SetDisabled(true);
-			Ref_SCMATLASCELL_ProductRequestDetails_KH_REQPERSON.SetDisabled(true);
-			Ref_SCMATLASCELL_ProductRequestDetails_KH_YEAR.SetDisabled(true);
+			Ref_SCMATLASCELL_ProductRequestDetails_KH_Search_NotMapped?.SetVisible(visible);
+			Ref_SCMATLASCELL_ProductRequestDetails_KH_APPROVER?.SetVisible(visible);
+			Ref_SCMATLASCELL_ProductRequestDetails_KH_CENTCODE?.SetVisible(visible);
+			Ref_SCMATLASCELL_ProductRequestDetails_KH_CENTCODE_GUID?.SetVisible(visible);
+			Ref_SCMATLASCELL_ProductRequestDetails_KH_PAYCENTName?.SetVisible(visible);
+			Ref_SCMATLASCELL_ProductRequestDetails_KH_WUSER?.SetVisible(visible);
+			Ref_SCMATLASCELL_ProductRequestDetails_KH_TEMPNO?.SetVisible(visible);
+			Ref_SCMATLASCELL_ProductRequestDetails_KH_TempNoNum?.SetVisible(visible);
+			Ref_SCMATLASCELL_ProductRequestDetails_KH_ORDERNO?.SetVisible(visible);
+			Ref_SCMATLASCELL_ProductRequestDetails_KH_ORDERNO_GUID?.SetVisible(visible);
+			Ref_SCMATLASCELL_ProductRequestDetails_KH_ORDERDATE?.SetVisible(visible);
+			Ref_SCMATLASCELL_ProductRequestDetails_KH_OKFACTDATE?.SetVisible(visible);
+			Ref_SCMATLASCELL_ProductRequestDetails_KH_INVCODE?.SetVisible(visible);
+			Ref_SCMATLASCELL_ProductRequestDetails_KH_REQPERSON?.SetVisible(visible);
+			Ref_SCMATLASCELL_ProductRequestDetails_KH_YEAR?.SetVisible(visible);
+			Ref_SCMATLASCELL_ProductRequestDetails_SH_Kharid_DTL?.SetVisible(visible);
 		}
 
-		public async Task KharidIsNull()
+		/// <summary>
+		/// غیرفعال‌سازی فیلدهای عطف خرید (فقط خواندنی؛ جستجو فعال می‌ماند)
+		/// </summary>
+		public void DisablePurchaseReferenceFields()
+		{
+			Ref_SCMATLASCELL_ProductRequestDetails_KH_APPROVER?.SetDisabled(true);
+			Ref_SCMATLASCELL_ProductRequestDetails_KH_CENTCODE?.SetDisabled(true);
+			Ref_SCMATLASCELL_ProductRequestDetails_KH_CENTCODE_GUID?.SetDisabled(true);
+			Ref_SCMATLASCELL_ProductRequestDetails_KH_PAYCENTName?.SetDisabled(true);
+			Ref_SCMATLASCELL_ProductRequestDetails_KH_WUSER?.SetDisabled(true);
+			Ref_SCMATLASCELL_ProductRequestDetails_KH_TEMPNO?.SetDisabled(true);
+			Ref_SCMATLASCELL_ProductRequestDetails_KH_TempNoNum?.SetDisabled(true);
+			Ref_SCMATLASCELL_ProductRequestDetails_KH_ORDERNO?.SetDisabled(true);
+			Ref_SCMATLASCELL_ProductRequestDetails_KH_ORDERNO_GUID?.SetDisabled(true);
+			Ref_SCMATLASCELL_ProductRequestDetails_KH_ORDERDATE?.SetDisabled(true);
+			Ref_SCMATLASCELL_ProductRequestDetails_KH_OKFACTDATE?.SetDisabled(true);
+			Ref_SCMATLASCELL_ProductRequestDetails_KH_INVCODE?.SetDisabled(true);
+			Ref_SCMATLASCELL_ProductRequestDetails_KH_REQPERSON?.SetDisabled(true);
+			Ref_SCMATLASCELL_ProductRequestDetails_KH_YEAR?.SetDisabled(true);
+		}
+
+		/// <summary>
+		/// تنظیم نمایش و غیرفعال‌سازی فیلدهای عطف خرید
+		/// </summary>
+		public void ApplyPurchaseReferenceFieldsState(bool visible)
+		{
+			SetPurchaseReferenceFieldsVisibility(visible);
+			DisablePurchaseReferenceFields();
+		}
+
+		/// <summary>
+		/// پاک‌سازی رفرنس‌های کامپوننت فیلدهای عطف خرید
+		/// </summary>
+		public void ClearPurchaseReferenceFieldReferences()
 		{
 			Ref_SCMATLASCELL_ProductRequestDetails_KH_Search_NotMapped = null;
 			Ref_SCMATLASCELL_ProductRequestDetails_KH_APPROVER = null;
-			Ref_SCMATLASCELL_ProductRequestDetails_KH_CENTCODE = null;
 			Ref_SCMATLASCELL_ProductRequestDetails_KH_CENTCODE = null;
 			Ref_SCMATLASCELL_ProductRequestDetails_KH_CENTCODE_GUID = null;
 			Ref_SCMATLASCELL_ProductRequestDetails_KH_PAYCENTName = null;
@@ -164,31 +177,54 @@ namespace Forms.Forms
 			Ref_SCMATLASCELL_ProductRequestDetails_SH_Kharid_DTL = null;
 		}
 
-		public async Task KharidSetShomaran(dynamic Selected, Entity.SCMATLASCELL_ProductRequestDetails Item)
+		/// <summary>
+		/// پر کردن فیلدهای سطح هدر (درخواست اصلی) از عطف خرید شماران
+		/// </summary>
+		public void FillMasterPurchaseReferenceFromShomaran(dynamic selected)
 		{
-			//Console.WriteLine("#Log 3");
-			//Console.WriteLine(await Utility.JSON.ToJson(Selected));
-			await Task.Delay(100);
-			Item.KH_TEMPNO = Selected.TEMPNO;
-			Item.KH_PAYCENTName = Selected.PAYCENTName;
-			Item.KH_CENTCODE = Selected.CENTCODE;
-			Item.KH_CENTCODE_GUID = Selected.CENTCODE_GUID;
-			Item.KH_REQPERSON = Selected.REQPERSON;
-			Item.KH_WUSER = Selected.WUSER;
-			Item.KH_APPROVER = Selected.APPROVER;
-			Item.KH_ORDERDATE = Selected.ORDERDATE;
-			Item.KH_OKFACTDATE = Selected.OKFACTDATE;
-			Item.KH_ORDERNO = Selected.ORDERNO;
-			Item.KH_ORDERNO_GUID = Selected.ORDERNO_GUID;
-			Item.KH_TempNoNum = Selected.TempNoNum;
-			Item.KH_YEAR = Selected.YEAR;
-			Item.KH_INVCODE = Selected.INVCODE;
+			if (selected == null) return;
 
-			await Task.Delay(100);
-			// فراخوانی داده از dropdown TempNoNum برای گرید داده های آن
-			//Ref_SCMATLASCELL_ProductRequestDetails_SH_Kharid_DTL.SetEntity(Item);
-			//Ref_SCMATLASCELL_ProductRequestDetails_SH_Kharid_DTL.LoadData();
+			_Entity.KH_TEMPNO = selected.TEMPNO;
+			_Entity.KH_TempNoNum = selected.TempNoNum;
+			_Entity.KH_ORDERNO_GUID = selected.ORDERNO_GUID;
 		}
+
+		/// <summary>
+		/// پر کردن فیلدهای عطف خرید ردیف جزئیات از داده انتخاب‌شده در شماران
+		/// </summary>
+		public void FillPurchaseReferenceFieldsFromShomaran(dynamic selected, Entity.SCMATLASCELL_ProductRequestDetails item)
+		{
+			if (selected == null || item == null) return;
+
+			item.KH_Search_NotMapped = selected.ORDERNO_GUID;
+			item.KH_TEMPNO = selected.TEMPNO;
+			item.KH_PAYCENTName = selected.PAYCENTName;
+			item.KH_CENTCODE = selected.CENTCODE;
+			item.KH_CENTCODE_GUID = selected.CENTCODE_GUID;
+			item.KH_REQPERSON = selected.REQPERSON;
+			item.KH_WUSER = selected.WUSER;
+			item.KH_APPROVER = selected.APPROVER;
+			item.KH_ORDERDATE = selected.ORDERDATE;
+			item.KH_OKFACTDATE = selected.OKFACTDATE;
+			item.KH_ORDERNO = selected.ORDERNO;
+			item.KH_ORDERNO_GUID = selected.ORDERNO_GUID;
+			item.KH_TempNoNum = selected.TempNoNum;
+			item.KH_YEAR = selected.YEAR;
+			item.KH_INVCODE = selected.INVCODE;
+		}
+
+		/// <summary>
+		/// بارگذاری جزئیات عطف خرید در گرید
+		/// </summary>
+		public async Task LoadPurchaseReferenceDetailsAsync(Entity.SCMATLASCELL_ProductRequestDetails item)
+		{
+			if (item?.KH_ORDERNO_GUID == null) return;
+
+			Ref_SCMATLASCELL_ProductRequestDetails_SH_Kharid_DTL?.SetEntity(item);
+			await Ref_SCMATLASCELL_ProductRequestDetails_SH_Kharid_DTL?.LoadData();
+		}
+
+		#endregion
 
 
 		#region اعتبارسنجی فیلدها
@@ -259,27 +295,38 @@ namespace Forms.Forms
 			return IsCancelled;
 		}
 
-		public async Task GridSCMATLASCELL_ProductRequestId_817_afterrendermodal(Entity.SCMATLASCELL_ProductRequestDetails Item)
+		public Task GridSCMATLASCELL_ProductRequestId_817_afterrendermodal(Entity.SCMATLASCELL_ProductRequestDetails Item)
 		{
-			if (Item.KH_ORDERNO_GUID.HasValue)
-			{
-				Ref_SCMATLASCELL_ProductRequestDetails_SH_Kharid_DTL.SetEntity(Item);
-				Ref_SCMATLASCELL_ProductRequestDetails_SH_Kharid_DTL.LoadData();
-			}
+			return LoadPurchaseReferenceDetailsAsync(Item);
 		}
 
 		public async Task KH_Search_NotMapped_onitemselected(dynamic Selected, Entity.SCMATLASCELL_ProductRequestDetails Item)
 		{
-			await KharidSetShomaran(Selected, Item);
+			FillPurchaseReferenceFieldsFromShomaran(Selected, Item);
+			await LoadPurchaseReferenceDetailsAsync(Item);
 		}
 
-		public async Task KHMaster_Search_NotMapped_onitemselected(dynamic Selected)
-		{
-			foreach (var item in _Entity.SCMATLASCELL_ProductRequestDetails)
+		public async Task  KH_TempNoNum_NotMapped_onitemselected(dynamic Selected   )
+        {
+			var List = _Entity.SCMATLASCELL_ProductRequestDetails
+							.Where(p => p.IsDelete != true);
+							
+			if (Selected == null) return;
+
+			foreach (var item in List)
 			{
-				await KharidSetShomaran(Selected, item);
+				FillPurchaseReferenceFieldsFromShomaran(Selected, item);
 			}
-		}
+
+			// پر کردن فیلدهای سطح هدر (درخواست اصلی) از عطف خرید شماران
+			FillMasterPurchaseReferenceFromShomaran(Selected);
+			_Entity.KH_TEMPNO = Selected.TEMPNO;
+			Ref_KH_KharidDTL?.SetEntity(_Entity);
+			Ref_KH_KharidDTL?.LoadData();
+			
+			
+			StateHasChanged();
+        }
 
 		#endregion FunctionEvents
 

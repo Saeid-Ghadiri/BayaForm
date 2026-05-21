@@ -144,7 +144,7 @@ namespace Forms.Forms
     /// <summary>
     ///  ورژنی که فرم باهاش ساخته شده
     /// </summary>
-    public string? VersionForm { get; set; } = "6067";
+    public string? VersionForm { get; set; } = "6068";
 
     /// <summary>
     ///  موجودیت
@@ -183,7 +183,7 @@ public Input<string?> Ref_UserStarterFullName;
 public Input<string?> Ref_UserStarterCompanyName;
 public Input<string?> Ref_UserStarterUnitName;
 public Input<string?> Ref_UserStarterSectionName;
-public Dropdown Ref_KHMaster_Search_NotMapped;
+public Dropdown Ref_KH_TempNoNum_NotMapped;
 public Input<string?> Ref_KH_TEMPNO;
 public Input<int?> Ref_KH_TempNoNum;
 public Dropdown Ref_KH_KharidDTL;
