@@ -67,9 +67,12 @@ namespace Forms.Forms
 		/// <returns></returns>
 		public override async Task<Result> BeforSubmit()
 		{
-			// await StampDeliveryDate();
+			if (AfterBuyOrRequestCancellRow())
+			{
+				return new Result() { Status = HttpStatusCode.OK };
+			}
 
-			return new Result() { Status = HttpStatusCode.OK };
+			return new Result() { Status = HttpStatusCode.BadRequest };
 		}
 
 		/// <summary>
@@ -94,6 +97,10 @@ namespace Forms.Forms
 		/// <returns></returns>
 		public override async Task AfterGetData()
 		{
+			foreach (var item in _Entity.SCMATLASCELL_ProductRequestDetails)
+			{
+				item.CurrentPurchaseQuantity = item.ProductRequestingQTY;
+			}
 		}
 
 		#region FunctionEvents
@@ -240,6 +247,7 @@ namespace Forms.Forms
 
 		#region نمایش فیلدها (استعلام / واگذاری انبار)
 
+
 		public bool flage { get; set; } = true;
 
 		public Task InquiryIsVisible(bool visible)
@@ -281,25 +289,157 @@ namespace Forms.Forms
 
 		#endregion
 
+		#region AfterBuyOrRequestCancellRow
+
+		private static Entity.SCMATLASCELL_ProductRequestDetails CloneProductRequestDetail(
+			Entity.SCMATLASCELL_ProductRequestDetails source) =>
+			System.Text.Json.JsonSerializer.Deserialize<Entity.SCMATLASCELL_ProductRequestDetails>(
+				System.Text.Json.JsonSerializer.Serialize(source))!;
+
+		private static void AddNewItemIfPositiveQuantity(
+			List<Entity.SCMATLASCELL_ProductRequestDetails> newItems,
+			Entity.SCMATLASCELL_ProductRequestDetails detail)
+		{
+			if (detail.ProductRequestingQTY > 0)
+				newItems.Add(detail);
+		}
+
+		/// <summary>
+		/// تقسیم/به‌روزرسانی ردیف‌های درخواست پس از خرید جزئی یا کنسل تعدادی (قبل از Submit).
+		/// </summary>
+		private bool AfterBuyOrRequestCancellRow()
+		{
+			var newItems = new List<Entity.SCMATLASCELL_ProductRequestDetails>();
+			foreach (var item in _Entity.SCMATLASCELL_ProductRequestDetails)
+			{
+				item.EnableLaterPurchace = false;// مهم
+				item.EnableLaterPurchace2 = false;// مهم
+				Console.WriteLine("++");
+				if (item.IsPostponedPurchase.HasValue && item.IsPostponedPurchase.Value && item.CurrentPurchaseQuantity.Value > 0
+					&& item.IsMarkedForDeletion.HasValue && item.IsMarkedForDeletion.Value && item.MarkedForDeletionCount.Value > 0)
+				{
+					Console.WriteLine("CurrentPurchaseQuantity:" + item.CurrentPurchaseQuantity.Value);
+					if (item.MarkedForDeletionCount.Value == item.ProductRequestingQTY)
+					{
+						item.IsMarkedForDeletion = true;
+					}
+					else if (item.CurrentPurchaseQuantity < item.ProductRequestingQTY)
+					{
+						var firstQtt = item.ProductRequestingQTY.ToString();
+						item.ProductRequestingQTY = item.ProductRequestingQTY - item.MarkedForDeletionCount;
+
+						var newDetail = CloneProductRequestDetail(item);
+						//
+						newDetail.Id = Guid.Empty;
+						var newCount = item.ProductRequestingQTY - item.CurrentPurchaseQuantity;
+						newDetail.ProductRequestingQTY = newCount;
+						newDetail.IsPostponedPurchase = true;
+						newDetail.IsMarkedForDeletion = false;
+						// آیتم قبلی
+						//توضیحات
+						item.SystemDescription = $"این درخواست در بیش از یک نوبت خریداری میشود و تعداد درخواستی کاربر {firstQtt} بوده و اکنون تعداد خریداری توسط تدارکات {item.CurrentPurchaseQuantity} است. پس یک ردیف جدید برای خرید مابقی یا کنسل مابقی ایجاد شد";
+
+						item.ProductRequestingQTY = item.CurrentPurchaseQuantity;
+						item.IsPostponedPurchase = false;
+						item.IsMarkedForDeletion = false;
+
+						var newDetail2 = CloneProductRequestDetail(item);
+						newDetail2.Id = Guid.Empty;
+						newDetail2.ProductRequestingQTY = item.MarkedForDeletionCount;
+						newDetail2.IsPostponedPurchase = false;
+						newDetail2.IsMarkedForDeletion = true;
+						newDetail2.SystemDescription = $"این درخواست به دلیل حذف تعدادی از تعداد درخواستی کاربر دو ردیف شده است. تعداد اصلی : {firstQtt} و تعداد حذفی {item.MarkedForDeletionCount}";
+
+						AddNewItemIfPositiveQuantity(newItems, newDetail);
+						AddNewItemIfPositiveQuantity(newItems, newDetail2);
+					}
+				}
+				else if (item.IsPostponedPurchase.HasValue && item.IsPostponedPurchase.Value && item.CurrentPurchaseQuantity.Value > 0
+					&& item.IsMarkedForDeletion.HasValue && !item.IsMarkedForDeletion.Value)
+				{
+					Console.WriteLine("CurrentPurchaseQuantity:" + item.CurrentPurchaseQuantity.Value);
+					if (item.MarkedForDeletionCount.Value == item.ProductRequestingQTY)
+					{
+						item.IsMarkedForDeletion = true;
+					}
+					else if (item.CurrentPurchaseQuantity < item.ProductRequestingQTY)
+					{
+						var newDetail = CloneProductRequestDetail(item);
+						//
+						newDetail.Id = Guid.Empty;
+						var newCount = item.ProductRequestingQTY - item.CurrentPurchaseQuantity;
+						newDetail.ProductRequestingQTY = newCount;
+						newDetail.IsPostponedPurchase = true;
+
+						// آیتم قبلی
+						//توضیحات
+						item.SystemDescription = $"این درخواست در بیش از یک نوبت خریداری میشود و تعداد درخواستی کاربر {item.ProductRequestingQTY} بوده و اکنون تعداد خریداری توسط تدارکات {item.CurrentPurchaseQuantity} است. پس یک ردیف جدید برای خرید مابقی یا کنسل مابقی ایجاد شد";
+
+						item.ProductRequestingQTY = item.CurrentPurchaseQuantity;
+						item.IsPostponedPurchase = false;
+
+						AddNewItemIfPositiveQuantity(newItems, newDetail);
+					}
+				}
+				else if (item.IsPostponedPurchase.HasValue && !item.IsPostponedPurchase.Value
+					&& item.IsMarkedForDeletion.HasValue && item.IsMarkedForDeletion.Value && item.MarkedForDeletionCount.Value > 0)
+				{
+					Console.WriteLine("MarkedForDeletionCount:" + item.MarkedForDeletionCount.Value);
+					if (item.MarkedForDeletionCount.Value == item.ProductRequestingQTY)
+					{
+						item.IsMarkedForDeletion = true;
+					}
+					else
+					{
+						var newDetail = CloneProductRequestDetail(item);
+						//
+						newDetail.Id = Guid.Empty;
+						newDetail.ProductRequestingQTY = item.MarkedForDeletionCount;
+						newDetail.IsMarkedForDeletion = true;
+
+						// آیتم قبلی
+						//توضیحات/
+						item.SystemDescription = $"این درخواست به دلیل حذف تعدادی از تعداد درخواستی کاربر دو ردیف شده است. تعداد اصلی : {item.ProductRequestingQTY} و تعداد حذفی {item.MarkedForDeletionCount}";
+						var newCount = item.ProductRequestingQTY - item.MarkedForDeletionCount;
+
+						item.ProductRequestingQTY = newCount;
+						item.IsMarkedForDeletion = false;
+
+						AddNewItemIfPositiveQuantity(newItems, newDetail);
+					}
+				}
+			}
+
+			_Entity.SCMATLASCELL_ProductRequestDetails = _Entity.SCMATLASCELL_ProductRequestDetails
+				.Concat(newItems)
+				.ToList();
+
+			//StateHasChanged();
+
+			return true;
+		}
+
+		#endregion
+
+		#region رویدادهای گرید و فیلدها
 		public async Task<bool> GridSCMATLASCELL_ProductRequestId_817_editmodelsaving(object e)
 		{
-			bool IsCancelled = false;
-
-			var Item = e as Entity.SCMATLASCELL_ProductRequestDetails;
-
-			if (Item == null)
+			if (e is not Entity.SCMATLASCELL_ProductRequestDetails item)
 			{
 				await _MSG.ShowError("آیتم نامعتبر است");
 				return true;
 			}
 
-			// بررسی اعتبارسنجی فیلدها
-			IsCancelled = !await CheckFieldValidation(Item);
-
-			return IsCancelled;
+			return !await CheckFieldValidation(item);
 		}
+
 		public async Task GridSCMATLASCELL_ProductRequestId_817_afterrendermodal(Entity.SCMATLASCELL_ProductRequestDetails Item)
 		{
+			if (Item.IsExcessPurchasedItem.HasValue && Item.IsExcessPurchasedItem.Value)
+				Ref_SCMATLASCELL_ProductRequestDetails_ExcessPurchasedQuantity.SetVisible(true);
+			else
+				Ref_SCMATLASCELL_ProductRequestDetails_ExcessPurchasedQuantity.SetVisible(false);
+
 			if (HasInquirySelected(Item))
 			{
 				await InquiryIsVisible(true);
@@ -321,9 +461,7 @@ namespace Forms.Forms
 
 		public async Task HasInquiry_oninput(ChangeEventArgs Selected, Entity.SCMATLASCELL_ProductRequestDetails Item)
 		{
-			bool inquirySelected = Selected.Value?.ToString() == "true";
-
-			if (inquirySelected)
+			if (Selected?.Value?.ToString() == "true")
 			{
 				await InquiryIsVisible(true);
 				await LogisticDeliveryIsVisible(false);
@@ -332,7 +470,8 @@ namespace Forms.Forms
 			{
 				await InquiryIsVisible(false);
 				await LogisticDeliveryIsVisible(true);
-				await LogisticDeliveryAfterVisible(Item);
+				if (!flage)
+					await LogisticDeliveryAfterVisible(Item);
 			}
 		}
 
@@ -340,25 +479,51 @@ namespace Forms.Forms
 		{
 			/*
 				Id										Code	Title
-				AAB4DF46-6556-F111-A514-005056A2B6BD	1		یک مرحله
-				DD4B304F-6556-F111-A514-005056A2B6BD	2		دو مرحله
-				DE4B304F-6556-F111-A514-005056A2B6BD	3		سه مرحله
+				FDF4C14F-7D56-F111-A514-005056A2B6BD	1		یک مرحله
+				FEF4C14F-7D56-F111-A514-005056A2B6BD	2		دو مرحله
+				FEFB2B57-7D56-F111-A514-005056A2B6BD	3		سه مرحله
 			*/
 			Item.SCMATLASCELL_PurchaseStage = Selected;
 			return LogisticDeliveryAfterVisible(Item);
 		}
 
-		public async Task IsPostponedPurchase_oninput(ChangeEventArgs Selected, Entity.SCMATLASCELL_ProductRequestDetails Item)
+		public Task IsPostponedPurchase_oninput(ChangeEventArgs Selected, Entity.SCMATLASCELL_ProductRequestDetails Item)
 		{
+			if (Selected != null)
+			{
+				if (Convert.ToBoolean(Selected.Value))
+					Ref_SCMATLASCELL_ProductRequestDetails_CurrentPurchaseQuantity.SetVisible(true);
+				else
+					Ref_SCMATLASCELL_ProductRequestDetails_CurrentPurchaseQuantity.SetVisible(false);
+			}
+
+			return Task.CompletedTask;
 		}
 
-		public async Task IsMarkedForDeletion_oninput(ChangeEventArgs Selected, Entity.SCMATLASCELL_ProductRequestDetails Item)
+		public Task IsMarkedForDeletion_oninput(ChangeEventArgs Selected, Entity.SCMATLASCELL_ProductRequestDetails Item)
 		{
+			if (Selected != null)
+			{
+				if (Convert.ToBoolean(Selected.Value))
+					Ref_SCMATLASCELL_ProductRequestDetails_MarkedForDeletionCount.SetVisible(true);
+				else
+					Ref_SCMATLASCELL_ProductRequestDetails_MarkedForDeletionCount.SetVisible(false);
+			}
+
+			return Task.CompletedTask;
 		}
 
-		public async Task  IsExcessPurchasedItem_oninput(ChangeEventArgs Selected ,Entity.SCMATLASCELL_ProductRequestDetails Item  )
-        {
-        }
+		public Task IsExcessPurchasedItem_oninput(ChangeEventArgs Selected, Entity.SCMATLASCELL_ProductRequestDetails Item)
+		{
+			if (Selected?.Value?.ToString() == "true")
+				Ref_SCMATLASCELL_ProductRequestDetails_ExcessPurchasedQuantity.SetVisible(true);
+			else
+				Ref_SCMATLASCELL_ProductRequestDetails_ExcessPurchasedQuantity.SetVisible(false);
+
+			return Task.CompletedTask;
+		}
+
+		#endregion
 
 		#endregion FunctionEvents
 
