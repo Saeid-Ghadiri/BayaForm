@@ -144,7 +144,7 @@ namespace Forms.Forms
     /// <summary>
     ///  ورژنی که فرم باهاش ساخته شده
     /// </summary>
-    public string? VersionForm { get; set; } = "6068";
+    public string? VersionForm { get; set; } = "6088";
 
     /// <summary>
     ///  موجودیت
@@ -184,8 +184,7 @@ public Input<string?> Ref_UserStarterCompanyName;
 public Input<string?> Ref_UserStarterUnitName;
 public Input<string?> Ref_UserStarterSectionName;
 public Dropdown Ref_KH_TempNoNum_NotMapped;
-public Input<string?> Ref_KH_TEMPNO;
-public Input<int?> Ref_KH_TempNoNum;
+public Input<Guid?> Ref_KH_ORDERNO_GUID;
 public Dropdown Ref_KH_KharidDTL;
 public DxGrid? Grid_SCMATLASCELL_ProductRequestDetails;
 

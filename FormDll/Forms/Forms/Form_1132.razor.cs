@@ -320,10 +320,11 @@ namespace Forms.Forms
 
 			// پر کردن فیلدهای سطح هدر (درخواست اصلی) از عطف خرید شماران
 			FillMasterPurchaseReferenceFromShomaran(Selected);
-
+			//_Entity.KH_ORDERNO_GUID = Selected.ORDERNO_GUID;
 			Ref_KH_KharidDTL?.SetEntity(_Entity);
-			await Ref_KH_KharidDTL?.LoadData();
-
+			Ref_KH_KharidDTL?.LoadData();
+			
+			
 			StateHasChanged();
         }
 
