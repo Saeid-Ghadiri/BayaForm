@@ -139,21 +139,18 @@ namespace Forms.Forms
 			}
 
 			// آیا کالای تحویلی مورد تایید است؟
-            if(item.GoodsDeliveryApproved == null)
-            {
-	        	isValid = false;
-	        	await _MSG.ShowError("لطفا گزینه آیا کالای تحویلی مورد تایید است؟ را تکمیل نمایید.");
-            }
+			if (item.GoodsDeliveryApproved == null)
+			{
+				isValid = false;
+				await _MSG.ShowError("لطفا گزینه کالا، مورد تایید است؟ را تکمیل نمایید.");
+			}
 
-            // نیاز به اصلاح دارد یا خیر؟
-            if(!(item.GoodsDeliveryApproved.HasValue && item.GoodsDeliveryApproved.Value))
-            {
-                if(item.HasModification == null)
-                {
-	            	isValid = false;
-	            	toastService.ShowError("لطفا گزینه آیا نیاز به اصلاح دارد؟ را تکمیل نمایید.");
-                }
-            }
+			// آیا اصلاح گردد؟ — فقط وقتی کالا مورد تایید نیست
+			if (item.GoodsDeliveryApproved == false && item.HasModification == null)
+			{
+				isValid = false;
+				await _MSG.ShowError("لطفا گزینه آیا اصلاح گردد؟ را تکمیل نمایید.");
+			}
 
 			return isValid;
 		}
@@ -183,32 +180,18 @@ namespace Forms.Forms
 
 		public async Task GridSCMATLASCELL_ProductRequestId_817_afterrendermodal(Entity.SCMATLASCELL_ProductRequestDetails Item)
 		{
-			// نمایش / عدم نمایش فیلد اصلاح گردد
-            var hasModification = Ref_SCMATLASCELL_ProductRequestDetails_HasModification;
-		    //if(!(Item.GoodsDeliveryApproved.HasValue && Item.GoodsDeliveryApproved.Value))
-		    if(Item.GoodsDeliveryApproved.HasValue && !Item.GoodsDeliveryApproved.Value)
-		    {
-		        hasModification.SetVisible(true);
-		    }
-		    else
-		    {
-		    	hasModification.SetVisible(false); 
-		    }
+			SetHasModificationVisible(Item.GoodsDeliveryApproved == false);
 		}
 
-		public async Task  GoodsDeliveryApproved_oninput(ChangeEventArgs Selected ,Entity.SCMATLASCELL_ProductRequestDetails Item  )
-        {
-			// نمایش / عدم نمایش فیلد فایل مدارک
-            var GoodsDeliveryApproved = Ref_SCMATLASCELL_ProductRequestDetails_HasModification;
-		    if (Selected.Value.ToString() == "false")
-		    {
-		        GoodsDeliveryApproved.SetVisible(true);
-		    }
-		    else
-		    {
-		    	GoodsDeliveryApproved.SetVisible(false); 
-		    }
-        }
+		public async Task GoodsDeliveryApproved_oninput(ChangeEventArgs Selected, Entity.SCMATLASCELL_ProductRequestDetails Item)
+		{
+			SetHasModificationVisible(Selected.Value?.ToString() == "false");
+		}
+
+		private void SetHasModificationVisible(bool visible)
+		{
+			Ref_SCMATLASCELL_ProductRequestDetails_HasModification.SetVisible(visible);
+		}
 
 		#endregion FunctionEvents
 

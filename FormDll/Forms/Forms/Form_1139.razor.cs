@@ -140,6 +140,26 @@ namespace Forms.Forms
 				await _MSG.ShowError("لطفا گزینه آیا نیاز به استعلام دارد؟ را تکمیل نمایید.");
 			}
 
+			if (item.HasInquiryApproved == null)
+			{
+				isValid = false;
+				await _MSG.ShowError("لطفا گزینه استعلام مورد تایید است؟ را تکمیل نمایید.");
+			}
+
+			// در صورت «خیر» بودن استعلام مورد تایید، فیلدهای استعلام 1/2/3 اعمال نمی‌شوند
+			if (item.HasInquiryApproved == true)
+			{
+				bool anyInquiryApproved = item.Inquiry1Approved == true
+					|| item.Inquiry2Approved == true
+					|| item.Inquiry3Approved == true;
+
+				if (!anyInquiryApproved)
+				{
+					isValid = false;
+					await _MSG.ShowError("لطفا حداقل یکی از گزینه‌های استعلام 1، 2 یا 3 را به عنوان مورد تایید انتخاب نمایید.");
+				}
+			}
+
 			return isValid;
 		}
 
@@ -168,8 +188,6 @@ namespace Forms.Forms
 
 		public async Task  GridSCMATLASCELL_ProductRequestId_817_afterrendermodal(Entity.SCMATLASCELL_ProductRequestDetails Item   )
         {
-
-            
         }
 
 		#endregion FunctionEvents

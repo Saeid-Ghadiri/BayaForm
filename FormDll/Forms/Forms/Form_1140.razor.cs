@@ -140,6 +140,26 @@ namespace Forms.Forms
 				await _MSG.ShowError("لطفا گزینه آیا نیاز به استعلام دارد؟ را تکمیل نمایید.");
 			}
 
+			if (item.IsInquiryApprovedByCEO == null)
+			{
+				isValid = false;
+				await _MSG.ShowError("لطفا گزینه تایید استعلام توسط مدیر عامل را تکمیل نمایید.");
+			}
+
+			// در صورت «خیر» بودن تایید مدیر عامل، فیلدهای استعلام 1/2/3 اعمال نمی‌شوند
+			if (item.IsInquiryApprovedByCEO == true)
+			{
+				bool anyInquiryApproved = item.Inquiry1Approved == true
+					|| item.Inquiry2Approved == true
+					|| item.Inquiry3Approved == true;
+
+				if (!anyInquiryApproved)
+				{
+					isValid = false;
+					await _MSG.ShowError("لطفا حداقل یکی از گزینه‌های استعلام 1، 2 یا 3 را به عنوان مورد تایید انتخاب نمایید.");
+				}
+			}
+
 			return isValid;
 		}
 
