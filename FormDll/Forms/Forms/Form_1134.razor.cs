@@ -121,11 +121,20 @@ namespace Forms.Forms
 			if (item.SCMATLASCELL_PurchaseStageId == null)
 				return null;
 
+			/*
+				select Id, Code, Title
+				from SCMATLASCELL_PurchaseStage
+				Id										Code	Title
+				FDF4C14F-7D56-F111-A514-005056A2B6BD	1		یک مرحله
+				FEF4C14F-7D56-F111-A514-005056A2B6BD	2		دو مرحله
+				FEFB2B57-7D56-F111-A514-005056A2B6BD	3		سه مرحله
+			*/
+
 			return item.SCMATLASCELL_PurchaseStageId.Value.ToString() switch
 			{
-				"aab4df46-6556-f111-a514-005056a2b6bd" => "1",
-				"dd4b304f-6556-f111-a514-005056a2b6bd" => "2",
-				"de4b304f-6556-f111-a514-005056a2b6bd" => "3",
+				"fdf4c14f-7d56-f111-a514-005056a2b6bd" => "1",
+				"fef4c14f-7d56-f111-a514-005056a2b6bd" => "2",
+				"fefb2b57-7d56-f111-a514-005056a2b6bd" => "3",
 				_ => null
 			};
 		}

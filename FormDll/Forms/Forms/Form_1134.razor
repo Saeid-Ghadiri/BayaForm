@@ -246,23 +246,23 @@
 
 <DxGridDataColumn  Caption="توضیحات درخواست کننده"  FieldName="SR_Desc" />
 
+<DxGridDataColumn DisplayFormat="G" Caption="تعداد تامین کسری"  FieldName="DeficitSupplyNumber" />
+
+<DxGridDataColumn  Caption="توضیحات انباردار"  FieldName="DescriptionWarehouseKeeper" />
+
 <DxGridDataColumn Context="html13_" Caption="-" >
     <CellDisplayTemplate>
       <div  class="Gcol-sm-8 Gcol-md-6 Gcol-lg-12">
     <div class="bg-lightblue p-2 rounded ">
 <i class="bi bi-exclamation-circle-fill text-purple fs-5"></i>
 <span class="fs-6 fw-bold">
-اطلاعات بخش انبار
+اطلاعات بخش بازرگانی
 </span>
 </div>
 </div>
 
     </CellDisplayTemplate>
 </DxGridDataColumn>
-<DxGridDataColumn DisplayFormat="G" Caption="تعداد تامین کسری"  FieldName="DeficitSupplyNumber" />
-
-<DxGridDataColumn  Caption="توضیحات انباردار"  FieldName="DescriptionWarehouseKeeper" />
-
 <DxGridDataColumn Context="HasInquiry_" Caption="استعلام دارد؟" >
     <CellDisplayTemplate>
        
@@ -274,6 +274,14 @@
 
 <p class="text-center" hidden="@(SCMATLASCELL_ProductRequestDetails_HasInquiry !=null ? SCMATLASCELL_ProductRequestDetails_HasInquiry : true)">خیر</p>
 
+
+    </CellDisplayTemplate>
+</DxGridDataColumn>
+<DxGridDataColumn Context="html71_" Caption="-" >
+    <CellDisplayTemplate>
+      <div  class="Gcol-sm-8 Gcol-md-6 Gcol-lg-9">
+    
+</div>
 
     </CellDisplayTemplate>
 </DxGridDataColumn>
@@ -299,6 +307,14 @@
 
     </CellDisplayTemplate>
 </DxGridDataColumn>
+<DxGridDataColumn Context="html73_" Caption="-" >
+    <CellDisplayTemplate>
+      <div  class="Gcol-sm-8 Gcol-md-6 Gcol-lg-6">
+    
+</div>
+
+    </CellDisplayTemplate>
+</DxGridDataColumn>
 <DxGridDataColumn Context="SCMATLASCELL_ProductRequestDetails_Inquiry_File2_" Caption="فایل استعلام 2" >
     <CellDisplayTemplate>
       
@@ -318,6 +334,14 @@
     </div>
 }
 
+
+    </CellDisplayTemplate>
+</DxGridDataColumn>
+<DxGridDataColumn Context="html72_" Caption="-" >
+    <CellDisplayTemplate>
+      <div  class="Gcol-sm-8 Gcol-md-6 Gcol-lg-6">
+    
+</div>
 
     </CellDisplayTemplate>
 </DxGridDataColumn>
@@ -343,15 +367,23 @@
 
     </CellDisplayTemplate>
 </DxGridDataColumn>
+<DxGridDataColumn Context="html83_" Caption="-" >
+    <CellDisplayTemplate>
+      <div  class="Gcol-sm-8 Gcol-md-6 Gcol-lg-12">
+    <hr class="hrdash bg-info">
+</div>
+
+    </CellDisplayTemplate>
+</DxGridDataColumn>
 <DxGridDataColumn Context="SCMATLASCELL_PurchaseStageId_" Caption="مراحل واگذاری کالا به انبار " >
     <CellDisplayTemplate>
        
 @{
-    Baya.Models.ViewEngine.View_Component HeaderSCMATLASCELL_PurchaseStageId = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"primaryKey\":false,\"EntityID\":817,\"FieldId\":32319,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":1134,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":false,\"RelationParentName\":\"SCMATLASCELL_PurchaseStage\",\"RelationParentModel\":\"SCMATLASCELL_PurchaseStage\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/SCMATLASCELL_PurchaseStage/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.Title}} {{item.Code}} </span>\",\"FieldsTemplate\":[{\"key\":\"Title\",\"value\":\"nvarchar(Max)\"},{\"key\":\"Code\",\"value\":\"int\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"disabled\":true,\"modal\":true,\"label\":\"مراحل واگذاری کالا به انبار \",\"tableView\":true,\"key\":\"SCMATLASCELL_PurchaseStageId\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"32319?EId=817&SubId=37\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true,\"onitemselected\":\"SCMATLASCELL_PurchaseStageId_onitemselected\"}").Result;
+    Baya.Models.ViewEngine.View_Component HeaderSCMATLASCELL_PurchaseStageId = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"primaryKey\":false,\"EntityID\":817,\"FieldId\":32319,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":1134,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":false,\"RelationParentName\":\"SCMATLASCELL_PurchaseStage\",\"RelationParentModel\":\"SCMATLASCELL_PurchaseStage\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/SCMATLASCELL_PurchaseStage/GetList\",\"headers\":[{\"key\":\"\",\"value\":\"\"}],\"_Parameters\":[{\"text\":\"\",\"Type\":1}]},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.Title}} {{item.Code}} </span>\",\"FieldsTemplate\":[{\"key\":\"Title\",\"value\":\"nvarchar(Max)\"},{\"key\":\"Code\",\"value\":\"int\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"disableLimit\":false,\"noRefreshOnScroll\":false,\"disabled\":true,\"modal\":true,\"label\":\"مراحل واگذاری کالا به انبار \",\"tableView\":true,\"key\":\"SCMATLASCELL_PurchaseStageId\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"customClass\":\"Gcol-sm-8 Gcol-md-6 Gcol-lg-3\",\"FieldUrl\":\"32319?EId=817&SubId=37\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true,\"onitemselected\":\"SCMATLASCELL_PurchaseStageId_onitemselected\"}").Result;
     var RowSCMATLASCELL_PurchaseStageId = ((Entity.SCMATLASCELL_ProductRequestDetails)SCMATLASCELL_PurchaseStageId_.DataItem).SCMATLASCELL_PurchaseStageId;
 }
 
-<Dropdown ExternalApi=false CssClass="" NotMapped=false TextGrid=true Value="@RowSCMATLASCELL_PurchaseStageId"   FieldName="SCMATLASCELL_PurchaseStageId" OnItemSelected="ItemSelected_SCMATLASCELL_ProductRequestDetailsSCMATLASCELL_PurchaseStageId_Header" Component="HeaderSCMATLASCELL_PurchaseStageId">
+<Dropdown ExternalApi=false CssClass="Gcol-sm-8 Gcol-md-6 Gcol-lg-3" NotMapped=false TextGrid=true Value="@RowSCMATLASCELL_PurchaseStageId"   FieldName="SCMATLASCELL_PurchaseStageId" OnItemSelected="ItemSelected_SCMATLASCELL_ProductRequestDetailsSCMATLASCELL_PurchaseStageId_Header" Component="HeaderSCMATLASCELL_PurchaseStageId">
 </Dropdown>
 @code {
     public async Task ItemSelected_SCMATLASCELL_ProductRequestDetailsSCMATLASCELL_PurchaseStageId_Header(object _Item)
@@ -375,6 +407,14 @@
 
 <DxGridDataColumn DisplayFormat="G" Caption="تعداد خرید مرحله سوم"  FieldName="Stage3PurchasedQuantity" />
 
+<DxGridDataColumn Context="html81_" Caption="-" >
+    <CellDisplayTemplate>
+      <div  class="Gcol-sm-8 Gcol-md-6 Gcol-lg-12">
+    <hr class="hrdash bg-info">
+</div>
+
+    </CellDisplayTemplate>
+</DxGridDataColumn>
 <DxGridDataColumn Context="IsExcessPurchasedItem_" Caption="آیا کالای خریداری شده مازاد دارد؟" >
     <CellDisplayTemplate>
        
@@ -391,6 +431,14 @@
 </DxGridDataColumn>
 <DxGridDataColumn DisplayFormat="G" Caption="تعداد یا مقدار خرید مازاد"  FieldName="ExcessPurchasedQuantity" />
 
+<DxGridDataColumn Context="html82_" Caption="-" >
+    <CellDisplayTemplate>
+      <div  class="Gcol-sm-8 Gcol-md-6 Gcol-lg-12">
+    <hr class="hrdash bg-info">
+</div>
+
+    </CellDisplayTemplate>
+</DxGridDataColumn>
 <DxGridDataColumn Context="IsPostponedPurchase_" Caption="آیا خرید این ردیف درخواست بعداً انجام می گردد؟" >
     <CellDisplayTemplate>
        
@@ -407,6 +455,14 @@
 </DxGridDataColumn>
 <DxGridDataColumn DisplayFormat="G" Caption="در حال حاضر چه تعداد خرید انجام می‌شود؟"  FieldName="CurrentPurchaseQuantity" />
 
+<DxGridDataColumn Context="html84_" Caption="-" >
+    <CellDisplayTemplate>
+      <div  class="Gcol-sm-8 Gcol-md-6 Gcol-lg-12">
+    <hr class="hrdash bg-info">
+</div>
+
+    </CellDisplayTemplate>
+</DxGridDataColumn>
 <DxGridDataColumn Context="IsMarkedForDeletion_" Caption="قصد حذف یا کنسلی این ردیف را دارید؟" >
     <CellDisplayTemplate>
        
@@ -573,18 +629,6 @@
 </DxFormLayoutItem>
 
 <DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextSCMATLASCELL_ProductRequestDetails">
-    <div  class="Gcol-sm-8 Gcol-md-6 Gcol-lg-12">
-    <div class="bg-lightblue p-2 rounded ">
-<i class="bi bi-exclamation-circle-fill text-purple fs-5"></i>
-<span class="fs-6 fw-bold">
-اطلاعات بخش انبار
-</span>
-</div>
-</div>
-
-</DxFormLayoutItem>
-
-<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextSCMATLASCELL_ProductRequestDetails">
     
 <Input Id="SCMATLASCELL_ProductRequestDetails_DeficitSupplyNumber" @ref="Ref_SCMATLASCELL_ProductRequestDetails_DeficitSupplyNumber" Label="تعداد تامین کسری"  CssClass="Gcol-sm-8 Gcol-md-6 Gcol-lg-3" Disabled=true  @bind-Value="SCMATLASCELL_ProductRequestDetails.DeficitSupplyNumber" type="number" ActiveSeperator=false    Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"step\":\"any\"}").Result))></Input>
 
@@ -597,23 +641,63 @@
 </DxFormLayoutItem>
 
 <DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextSCMATLASCELL_ProductRequestDetails">
+    <div  class="Gcol-sm-8 Gcol-md-6 Gcol-lg-12">
+    <div class="bg-lightblue p-2 rounded ">
+<i class="bi bi-exclamation-circle-fill text-purple fs-5"></i>
+<span class="fs-6 fw-bold">
+اطلاعات بخش بازرگانی
+</span>
+</div>
+</div>
+
+</DxFormLayoutItem>
+
+<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextSCMATLASCELL_ProductRequestDetails">
     
-<RadioBoolean @ref="Ref_SCMATLASCELL_ProductRequestDetails_HasInquiry" InLine=true Id="SCMATLASCELL_ProductRequestDetails_HasInquiry"  oninput="@(e => HasInquiry_oninput(e ,SCMATLASCELL_ProductRequestDetails))"  LabelTrue="بله" LabelFalse="خیر" Label="استعلام دارد؟" @bind-Value="SCMATLASCELL_ProductRequestDetails.HasInquiry" CssClass="" ></RadioBoolean>
+<RadioBoolean @ref="Ref_SCMATLASCELL_ProductRequestDetails_HasInquiry" InLine=true Id="SCMATLASCELL_ProductRequestDetails_HasInquiry"  oninput="@(e => HasInquiry_oninput(e ,SCMATLASCELL_ProductRequestDetails))"  LabelTrue="بله" LabelFalse="خیر" Label="استعلام دارد؟" @bind-Value="SCMATLASCELL_ProductRequestDetails.HasInquiry" CssClass="Gcol-sm-8 Gcol-md-6 Gcol-lg-3" ></RadioBoolean>
 
 </DxFormLayoutItem>
 
 <DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextSCMATLASCELL_ProductRequestDetails">
-    <Uploader Id=SCMATLASCELL_ProductRequestDetails_SCMATLASCELL_ProductRequestDetails_Inquiry_File1  @ref="Ref_SCMATLASCELL_ProductRequestDetails_SCMATLASCELL_ProductRequestDetails_Inquiry_File1"   Accept="image/* , application/pdf , .doc,.docx , .xls,.xlsx , .ppt,.pptx" MinSize="1KB" MaxSize="5MB" Caption="فایل استعلام 1" Data="SCMATLASCELL_ProductRequestDetails.SCMATLASCELL_ProductRequestDetails_Inquiry_File1" Url="https://File.workcv.ir/fa/api/v1/File/Post" TItem="Entity.SCMATLASCELL_ProductRequestDetails_Inquiry_File1"></Uploader>
+    <div  class="Gcol-sm-8 Gcol-md-6 Gcol-lg-9">
+    
+</div>
 
 </DxFormLayoutItem>
 
 <DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextSCMATLASCELL_ProductRequestDetails">
-    <Uploader Id=SCMATLASCELL_ProductRequestDetails_SCMATLASCELL_ProductRequestDetails_Inquiry_File2  @ref="Ref_SCMATLASCELL_ProductRequestDetails_SCMATLASCELL_ProductRequestDetails_Inquiry_File2"   Accept="image/* , application/pdf , .doc,.docx , .xls,.xlsx , .ppt,.pptx" MinSize="1KB" MaxSize="5MB" Caption="فایل استعلام 2" Data="SCMATLASCELL_ProductRequestDetails.SCMATLASCELL_ProductRequestDetails_Inquiry_File2" Url="https://File.workcv.ir/fa/api/v1/File/Post" TItem="Entity.SCMATLASCELL_ProductRequestDetails_Inquiry_File2"></Uploader>
+    <Uploader Id=SCMATLASCELL_ProductRequestDetails_SCMATLASCELL_ProductRequestDetails_Inquiry_File1  @ref="Ref_SCMATLASCELL_ProductRequestDetails_SCMATLASCELL_ProductRequestDetails_Inquiry_File1"  CssClass="Gcol-sm-8 Gcol-md-6 Gcol-lg-6" Accept="image/* , application/pdf , .doc,.docx , .xls,.xlsx , .ppt,.pptx" MinSize="1KB" MaxSize="5MB" Caption="فایل استعلام 1" Data="SCMATLASCELL_ProductRequestDetails.SCMATLASCELL_ProductRequestDetails_Inquiry_File1" Url="https://File.workcv.ir/fa/api/v1/File/Post" TItem="Entity.SCMATLASCELL_ProductRequestDetails_Inquiry_File1"></Uploader>
 
 </DxFormLayoutItem>
 
 <DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextSCMATLASCELL_ProductRequestDetails">
-    <Uploader Id=SCMATLASCELL_ProductRequestDetails_SCMATLASCELL_ProductRequestDetails_Inquiry_File3  @ref="Ref_SCMATLASCELL_ProductRequestDetails_SCMATLASCELL_ProductRequestDetails_Inquiry_File3"   Accept="image/* , application/pdf , .doc,.docx , .xls,.xlsx , .ppt,.pptx" MinSize="1KB" MaxSize="5MB" Caption="فایل استعلام 3" Data="SCMATLASCELL_ProductRequestDetails.SCMATLASCELL_ProductRequestDetails_Inquiry_File3" Url="https://File.workcv.ir/fa/api/v1/File/Post" TItem="Entity.SCMATLASCELL_ProductRequestDetails_Inquiry_File3"></Uploader>
+    <div  class="Gcol-sm-8 Gcol-md-6 Gcol-lg-6">
+    
+</div>
+
+</DxFormLayoutItem>
+
+<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextSCMATLASCELL_ProductRequestDetails">
+    <Uploader Id=SCMATLASCELL_ProductRequestDetails_SCMATLASCELL_ProductRequestDetails_Inquiry_File2  @ref="Ref_SCMATLASCELL_ProductRequestDetails_SCMATLASCELL_ProductRequestDetails_Inquiry_File2"  CssClass="Gcol-sm-8 Gcol-md-6 Gcol-lg-6" Accept="image/* , application/pdf , .doc,.docx , .xls,.xlsx , .ppt,.pptx" MinSize="1KB" MaxSize="5MB" Caption="فایل استعلام 2" Data="SCMATLASCELL_ProductRequestDetails.SCMATLASCELL_ProductRequestDetails_Inquiry_File2" Url="https://File.workcv.ir/fa/api/v1/File/Post" TItem="Entity.SCMATLASCELL_ProductRequestDetails_Inquiry_File2"></Uploader>
+
+</DxFormLayoutItem>
+
+<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextSCMATLASCELL_ProductRequestDetails">
+    <div  class="Gcol-sm-8 Gcol-md-6 Gcol-lg-6">
+    
+</div>
+
+</DxFormLayoutItem>
+
+<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextSCMATLASCELL_ProductRequestDetails">
+    <Uploader Id=SCMATLASCELL_ProductRequestDetails_SCMATLASCELL_ProductRequestDetails_Inquiry_File3  @ref="Ref_SCMATLASCELL_ProductRequestDetails_SCMATLASCELL_ProductRequestDetails_Inquiry_File3"  CssClass="Gcol-sm-8 Gcol-md-6 Gcol-lg-6" Accept="image/* , application/pdf , .doc,.docx , .xls,.xlsx , .ppt,.pptx" MinSize="1KB" MaxSize="5MB" Caption="فایل استعلام 3" Data="SCMATLASCELL_ProductRequestDetails.SCMATLASCELL_ProductRequestDetails_Inquiry_File3" Url="https://File.workcv.ir/fa/api/v1/File/Post" TItem="Entity.SCMATLASCELL_ProductRequestDetails_Inquiry_File3"></Uploader>
+
+</DxFormLayoutItem>
+
+<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextSCMATLASCELL_ProductRequestDetails">
+    <div  class="Gcol-sm-8 Gcol-md-6 Gcol-lg-12">
+    <hr class="hrdash bg-info">
+</div>
 
 </DxFormLayoutItem>
 
@@ -621,10 +705,10 @@
      
  
 @code {
-    Baya.Models.ViewEngine.View_Component Component_SCMATLASCELL_ProductRequestDetailsSCMATLASCELL_PurchaseStageId = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"primaryKey\":false,\"EntityID\":817,\"FieldId\":32319,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":1134,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":false,\"RelationParentName\":\"SCMATLASCELL_PurchaseStage\",\"RelationParentModel\":\"SCMATLASCELL_PurchaseStage\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/SCMATLASCELL_PurchaseStage/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.Title}} {{item.Code}} </span>\",\"FieldsTemplate\":[{\"key\":\"Title\",\"value\":\"nvarchar(Max)\"},{\"key\":\"Code\",\"value\":\"int\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"disabled\":true,\"modal\":true,\"label\":\"مراحل واگذاری کالا به انبار \",\"tableView\":true,\"key\":\"SCMATLASCELL_PurchaseStageId\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"32319?EId=817&SubId=37\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true,\"onitemselected\":\"SCMATLASCELL_PurchaseStageId_onitemselected\"}").Result;
+    Baya.Models.ViewEngine.View_Component Component_SCMATLASCELL_ProductRequestDetailsSCMATLASCELL_PurchaseStageId = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"primaryKey\":false,\"EntityID\":817,\"FieldId\":32319,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":1134,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":false,\"RelationParentName\":\"SCMATLASCELL_PurchaseStage\",\"RelationParentModel\":\"SCMATLASCELL_PurchaseStage\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/SCMATLASCELL_PurchaseStage/GetList\",\"headers\":[{\"key\":\"\",\"value\":\"\"}],\"_Parameters\":[{\"text\":\"\",\"Type\":1}]},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.Title}} {{item.Code}} </span>\",\"FieldsTemplate\":[{\"key\":\"Title\",\"value\":\"nvarchar(Max)\"},{\"key\":\"Code\",\"value\":\"int\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"disableLimit\":false,\"noRefreshOnScroll\":false,\"disabled\":true,\"modal\":true,\"label\":\"مراحل واگذاری کالا به انبار \",\"tableView\":true,\"key\":\"SCMATLASCELL_PurchaseStageId\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"customClass\":\"Gcol-sm-8 Gcol-md-6 Gcol-lg-3\",\"FieldUrl\":\"32319?EId=817&SubId=37\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true,\"onitemselected\":\"SCMATLASCELL_PurchaseStageId_onitemselected\"}").Result;
 }
 
-    <Dropdown Id=SCMATLASCELL_ProductRequestDetails_SCMATLASCELL_PurchaseStageId Disabled=true @ref="Ref_SCMATLASCELL_ProductRequestDetails_SCMATLASCELL_PurchaseStageId" Label="مراحل واگذاری کالا به انبار " CssClass=""  DisplayFormat="DropDown" ExternalApi=false NotMapped=false TextGrid=false Text="" Value="@SCMATLASCELL_ProductRequestDetails.SCMATLASCELL_PurchaseStageId" FieldName="SCMATLASCELL_PurchaseStageId" OnItemSelected="ItemSelected_SCMATLASCELL_ProductRequestDetailsSCMATLASCELL_PurchaseStageId" Component="Component_SCMATLASCELL_ProductRequestDetailsSCMATLASCELL_PurchaseStageId" _Entity="_Entity" _EntityRow=SCMATLASCELL_ProductRequestDetails>
+    <Dropdown Id=SCMATLASCELL_ProductRequestDetails_SCMATLASCELL_PurchaseStageId Disabled=true @ref="Ref_SCMATLASCELL_ProductRequestDetails_SCMATLASCELL_PurchaseStageId" Label="مراحل واگذاری کالا به انبار " CssClass="Gcol-sm-8 Gcol-md-6 Gcol-lg-3"  DisplayFormat="DropDown" ExternalApi=false NotMapped=false TextGrid=false Text="" Value="@SCMATLASCELL_ProductRequestDetails.SCMATLASCELL_PurchaseStageId" FieldName="SCMATLASCELL_PurchaseStageId" OnItemSelected="ItemSelected_SCMATLASCELL_ProductRequestDetailsSCMATLASCELL_PurchaseStageId" Component="Component_SCMATLASCELL_ProductRequestDetailsSCMATLASCELL_PurchaseStageId" _Entity="_Entity" _EntityRow=SCMATLASCELL_ProductRequestDetails>
 </Dropdown>
 @code {
     public async Task ItemSelected_SCMATLASCELL_ProductRequestDetailsSCMATLASCELL_PurchaseStageId(object _Item)
@@ -660,55 +744,76 @@
 
 <DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextSCMATLASCELL_ProductRequestDetails">
     
-<Input Id="SCMATLASCELL_ProductRequestDetails_Stage1PurchasedQuantity" @ref="Ref_SCMATLASCELL_ProductRequestDetails_Stage1PurchasedQuantity" Label="تعداد خرید مرحله اول"   Disabled=true  @bind-Value="SCMATLASCELL_ProductRequestDetails.Stage1PurchasedQuantity" type="number"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"step\":\"any\"}").Result))></Input>
+<Input Id="SCMATLASCELL_ProductRequestDetails_Stage1PurchasedQuantity" @ref="Ref_SCMATLASCELL_ProductRequestDetails_Stage1PurchasedQuantity" Label="تعداد خرید مرحله اول"  CssClass="Gcol-sm-8 Gcol-md-6 Gcol-lg-3" Disabled=true  @bind-Value="SCMATLASCELL_ProductRequestDetails.Stage1PurchasedQuantity" type="number" ActiveSeperator=false    Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"step\":\"any\"}").Result))></Input>
 
 </DxFormLayoutItem>
 
 <DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextSCMATLASCELL_ProductRequestDetails">
     
-<Input Id="SCMATLASCELL_ProductRequestDetails_Stage2PurchasedQuantity" @ref="Ref_SCMATLASCELL_ProductRequestDetails_Stage2PurchasedQuantity" Label="تعداد خرید مرحله دوم"   Disabled=true  @bind-Value="SCMATLASCELL_ProductRequestDetails.Stage2PurchasedQuantity" type="number"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"step\":\"any\"}").Result))></Input>
+<Input Id="SCMATLASCELL_ProductRequestDetails_Stage2PurchasedQuantity" @ref="Ref_SCMATLASCELL_ProductRequestDetails_Stage2PurchasedQuantity" Label="تعداد خرید مرحله دوم"  CssClass="Gcol-sm-8 Gcol-md-6 Gcol-lg-3" Disabled=true  @bind-Value="SCMATLASCELL_ProductRequestDetails.Stage2PurchasedQuantity" type="number" ActiveSeperator=false    Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"step\":\"any\"}").Result))></Input>
 
 </DxFormLayoutItem>
 
 <DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextSCMATLASCELL_ProductRequestDetails">
     
-<Input Id="SCMATLASCELL_ProductRequestDetails_Stage3PurchasedQuantity" @ref="Ref_SCMATLASCELL_ProductRequestDetails_Stage3PurchasedQuantity" Label="تعداد خرید مرحله سوم"   Disabled=true  @bind-Value="SCMATLASCELL_ProductRequestDetails.Stage3PurchasedQuantity" type="number"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"step\":\"any\"}").Result))></Input>
+<Input Id="SCMATLASCELL_ProductRequestDetails_Stage3PurchasedQuantity" @ref="Ref_SCMATLASCELL_ProductRequestDetails_Stage3PurchasedQuantity" Label="تعداد خرید مرحله سوم"  CssClass="Gcol-sm-8 Gcol-md-6 Gcol-lg-3" Disabled=true  @bind-Value="SCMATLASCELL_ProductRequestDetails.Stage3PurchasedQuantity" type="number" ActiveSeperator=false    Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"step\":\"any\"}").Result))></Input>
+
+</DxFormLayoutItem>
+
+<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextSCMATLASCELL_ProductRequestDetails">
+    <div  class="Gcol-sm-8 Gcol-md-6 Gcol-lg-12">
+    <hr class="hrdash bg-info">
+</div>
 
 </DxFormLayoutItem>
 
 <DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextSCMATLASCELL_ProductRequestDetails">
     
-<RadioBoolean @ref="Ref_SCMATLASCELL_ProductRequestDetails_IsExcessPurchasedItem" InLine=true Id="SCMATLASCELL_ProductRequestDetails_IsExcessPurchasedItem"  oninput="@(e => IsExcessPurchasedItem_oninput(e ,SCMATLASCELL_ProductRequestDetails))"  LabelTrue="بله" LabelFalse="خیر" Label="آیا کالای خریداری شده مازاد دارد؟" @bind-Value="SCMATLASCELL_ProductRequestDetails.IsExcessPurchasedItem" CssClass="" ></RadioBoolean>
+<RadioBoolean @ref="Ref_SCMATLASCELL_ProductRequestDetails_IsExcessPurchasedItem" InLine=true Id="SCMATLASCELL_ProductRequestDetails_IsExcessPurchasedItem"  oninput="@(e => IsExcessPurchasedItem_oninput(e ,SCMATLASCELL_ProductRequestDetails))"  LabelTrue="بله" LabelFalse="خیر" Label="آیا کالای خریداری شده مازاد دارد؟" @bind-Value="SCMATLASCELL_ProductRequestDetails.IsExcessPurchasedItem" CssClass="Gcol-sm-8 Gcol-md-6 Gcol-lg-3" ></RadioBoolean>
 
 </DxFormLayoutItem>
 
 <DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextSCMATLASCELL_ProductRequestDetails">
     
-<Input Id="SCMATLASCELL_ProductRequestDetails_ExcessPurchasedQuantity" @ref="Ref_SCMATLASCELL_ProductRequestDetails_ExcessPurchasedQuantity" Label="تعداد یا مقدار خرید مازاد"     @bind-Value="SCMATLASCELL_ProductRequestDetails.ExcessPurchasedQuantity" type="number"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"step\":\"any\"}").Result))></Input>
+<Input Id="SCMATLASCELL_ProductRequestDetails_ExcessPurchasedQuantity" @ref="Ref_SCMATLASCELL_ProductRequestDetails_ExcessPurchasedQuantity" Label="تعداد یا مقدار خرید مازاد"  CssClass="Gcol-sm-8 Gcol-md-6 Gcol-lg-3"   @bind-Value="SCMATLASCELL_ProductRequestDetails.ExcessPurchasedQuantity" type="number" ActiveSeperator=false    Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"step\":\"any\"}").Result))></Input>
+
+</DxFormLayoutItem>
+
+<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextSCMATLASCELL_ProductRequestDetails">
+    <div  class="Gcol-sm-8 Gcol-md-6 Gcol-lg-12">
+    <hr class="hrdash bg-info">
+</div>
 
 </DxFormLayoutItem>
 
 <DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextSCMATLASCELL_ProductRequestDetails">
     
-<RadioBoolean @ref="Ref_SCMATLASCELL_ProductRequestDetails_IsPostponedPurchase" InLine=true Id="SCMATLASCELL_ProductRequestDetails_IsPostponedPurchase"  oninput="@(e => IsPostponedPurchase_oninput(e ,SCMATLASCELL_ProductRequestDetails))"  LabelTrue="بله" LabelFalse="خیر" Label="آیا خرید این ردیف درخواست بعداً انجام می گردد؟" @bind-Value="SCMATLASCELL_ProductRequestDetails.IsPostponedPurchase" CssClass="" ></RadioBoolean>
+<RadioBoolean @ref="Ref_SCMATLASCELL_ProductRequestDetails_IsPostponedPurchase" InLine=true Id="SCMATLASCELL_ProductRequestDetails_IsPostponedPurchase"  oninput="@(e => IsPostponedPurchase_oninput(e ,SCMATLASCELL_ProductRequestDetails))"  LabelTrue="بله" LabelFalse="خیر" Label="آیا خرید این ردیف درخواست بعداً انجام می گردد؟" @bind-Value="SCMATLASCELL_ProductRequestDetails.IsPostponedPurchase" CssClass="Gcol-sm-8 Gcol-md-6 Gcol-lg-3" ></RadioBoolean>
 
 </DxFormLayoutItem>
 
 <DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextSCMATLASCELL_ProductRequestDetails">
     
-<Input Id="SCMATLASCELL_ProductRequestDetails_CurrentPurchaseQuantity" @ref="Ref_SCMATLASCELL_ProductRequestDetails_CurrentPurchaseQuantity" Label="در حال حاضر چه تعداد خرید انجام می‌شود؟"     @bind-Value="SCMATLASCELL_ProductRequestDetails.CurrentPurchaseQuantity" type="number"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"step\":\"any\"}").Result))></Input>
+<Input Id="SCMATLASCELL_ProductRequestDetails_CurrentPurchaseQuantity" @ref="Ref_SCMATLASCELL_ProductRequestDetails_CurrentPurchaseQuantity" Label="در حال حاضر چه تعداد خرید انجام می‌شود؟"  CssClass="Gcol-sm-8 Gcol-md-6 Gcol-lg-3"   @bind-Value="SCMATLASCELL_ProductRequestDetails.CurrentPurchaseQuantity" type="number" ActiveSeperator=false    Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"step\":\"any\"}").Result))></Input>
+
+</DxFormLayoutItem>
+
+<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextSCMATLASCELL_ProductRequestDetails">
+    <div  class="Gcol-sm-8 Gcol-md-6 Gcol-lg-12">
+    <hr class="hrdash bg-info">
+</div>
 
 </DxFormLayoutItem>
 
 <DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextSCMATLASCELL_ProductRequestDetails">
     
-<RadioBoolean @ref="Ref_SCMATLASCELL_ProductRequestDetails_IsMarkedForDeletion" InLine=true Id="SCMATLASCELL_ProductRequestDetails_IsMarkedForDeletion"  oninput="@(e => IsMarkedForDeletion_oninput(e ,SCMATLASCELL_ProductRequestDetails))"  LabelTrue="بله" LabelFalse="خیر" Label="قصد حذف یا کنسلی این ردیف را دارید؟" @bind-Value="SCMATLASCELL_ProductRequestDetails.IsMarkedForDeletion" CssClass="" ></RadioBoolean>
+<RadioBoolean @ref="Ref_SCMATLASCELL_ProductRequestDetails_IsMarkedForDeletion" InLine=true Id="SCMATLASCELL_ProductRequestDetails_IsMarkedForDeletion"  oninput="@(e => IsMarkedForDeletion_oninput(e ,SCMATLASCELL_ProductRequestDetails))"  LabelTrue="بله" LabelFalse="خیر" Label="قصد حذف یا کنسلی این ردیف را دارید؟" @bind-Value="SCMATLASCELL_ProductRequestDetails.IsMarkedForDeletion" CssClass="Gcol-sm-8 Gcol-md-6 Gcol-lg-3" ></RadioBoolean>
 
 </DxFormLayoutItem>
 
 <DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextSCMATLASCELL_ProductRequestDetails">
     
-<Input Id="SCMATLASCELL_ProductRequestDetails_MarkedForDeletionCount" @ref="Ref_SCMATLASCELL_ProductRequestDetails_MarkedForDeletionCount" Label="تعداد حذف یا کنسلی از این ردیف"     @bind-Value="SCMATLASCELL_ProductRequestDetails.MarkedForDeletionCount" type="number"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"step\":\"any\"}").Result))></Input>
+<Input Id="SCMATLASCELL_ProductRequestDetails_MarkedForDeletionCount" @ref="Ref_SCMATLASCELL_ProductRequestDetails_MarkedForDeletionCount" Label="تعداد حذف یا کنسلی از این ردیف"  CssClass="Gcol-sm-8 Gcol-md-6 Gcol-lg-3"   @bind-Value="SCMATLASCELL_ProductRequestDetails.MarkedForDeletionCount" type="number" ActiveSeperator=false    Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"step\":\"any\"}").Result))></Input>
 
 </DxFormLayoutItem>
 
