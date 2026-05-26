@@ -1,56 +1,76 @@
 #!/bin/bash
 
-PROJECT_DIR="C:/Users/s.ghadiri/Documents/Baya/0/FormDll/Forms"
+SOLUTION_DIR="C:/Users/s.ghadiri/Documents/Baya/0/FormDll"
+PROJECT_DIR="$SOLUTION_DIR/Forms"
+CONFIG_FILE="$PROJECT_DIR/NuGet.config"
+
 cd "$PROJECT_DIR" || { echo "خطا: نمی‌توان به مسیر $PROJECT_DIR وارد شد"; exit 1; }
 
-CONFIG_FILE="NuGet.config"
+# بررسی وجود dotnet
+if ! command -v dotnet &> /dev/null; then
+    echo "❌ خطا: dotnet پیدا نشد. لطفاً .NET SDK را نصب کنید یا PATH را تنظیم کنید."
+    exit 1
+fi
+
+echo "dotnet version: $(dotnet --version)"
 
 if [[ ! -f "$CONFIG_FILE" ]]; then
     echo "⚠️  فایل $CONFIG_FILE یافت نشد!"
 else
     echo "✅ فایل $CONFIG_FILE پیدا شد. ایجاد پشتیبان..."
-    cp "$CONFIG_FILE" "$CONFIG_FILE.bak"
-    
-    # حذف خط حاوی Private (کل خط حذف می‌شود)
-    # اما چون نمی‌خواهیم حذف کنیم، کامنت گذاری مطمئن:
-    # با استفاده از perl که دقیق‌تر است
-    perl -pi.bak -e 's/^(\s*<add key="Private" value="C:\\Nuget" \/>\s*)$/<!-- $1 -->/g' "$CONFIG_FILE"
-    
-    # اگر خط پیدا نشد، شاید به خاطر فاصله یا backslash متفاوت است
-    if grep -q '<add key="Private" value="C:\\Nuget" />' "$CONFIG_FILE" && ! grep -q '<!-- <add key="Private"' "$CONFIG_FILE"; then
-        echo "⚠️  خط پیدا شد اما کامنت نشد. شاید فرمت متفاوت است."
-        echo "لطفاً فایل را دستی اصلاح کنید."
+    cp "$CONFIG_FILE" "$CONFIG_FILE.original"
+
+    sed -i 's|^\(\s*<add key="Private" value="C:\\Nuget" />\s*\)$|<!-- \1 -->|' "$CONFIG_FILE"
+
+    if grep -q '<!-- .*<add key="Private"' "$CONFIG_FILE"; then
+        echo "✅ خط Private کامنت شد."
     else
-        echo "✅ خط کامنت شد."
+        echo "⚠️  خط Private کامنت نشد. تلاش با روش جایگزین..."
+        sed -i '/<add key="Private"/s/^\(\s*\)\(.*\)/\1<!-- \2 -->/' "$CONFIG_FILE"
+
+        if grep -q '<!-- .*<add key="Private"' "$CONFIG_FILE"; then
+            echo "✅ خط Private با روش جایگزین کامنت شد."
+        else
+            echo "❌ خط Private کامنت نشد. ادامه بدون تغییر..."
+        fi
     fi
 fi
 
+LOG_FILE="$SOLUTION_DIR/build_log.txt"
+
+echo ""
 echo "=== شروع build ==="
 START_TIME=$(date +%s)
-dotnet build --no-incremental -v:normal
-BUILD_EXIT_CODE=$?
-END_TIME=$(date +%s)
 
+cd "$SOLUTION_DIR" || { echo "خطا: نمی‌توان به مسیر Solution وارد شد"; exit 1; }
+
+dotnet build "FormDllTemplate.sln" --no-incremental --verbosity minimal -consoleloggerparameters:Summary 2>&1 | tee "$LOG_FILE"
+BUILD_EXIT_CODE=${PIPESTATUS[0]}
+
+END_TIME=$(date +%s)
 ELAPSED=$((END_TIME - START_TIME))
 MINUTES=$((ELAPSED / 60))
-SECONDS=$((ELAPSED % 60))
+SECONDS_LEFT=$((ELAPSED % 60))
 
-# بازگردانی فایل (اگر پشتیبان وجود داشته باشد)
-if [[ -f "$CONFIG_FILE.bak" ]]; then
-    # توجه: قبلاً با perl پشتیبان .bak گرفته شده، اما ما می‌خواهیم پس از build برگردانیم
-    # برای جلوگیری از تداخل، پشتیبان اصلی را جدا نگه می‌داریم
-    mv "$CONFIG_FILE.bak" "$CONFIG_FILE"
-    echo "فایل $CONFIG_FILE به حالت اول بازگردانده شد (تغییرات build موقتی بودند)."
+if [[ -f "$CONFIG_FILE.original" ]]; then
+    mv "$CONFIG_FILE.original" "$CONFIG_FILE"
+    echo "✅ فایل NuGet.config به حالت اول بازگردانده شد."
 fi
 
 echo "-----------------------------------"
-echo "✅ زمان اجرای build: ${MINUTES} دقیقه و ${SECONDS} ثانیه"
+echo "✅ زمان اجرای build: ${MINUTES} دقیقه و ${SECONDS_LEFT} ثانیه"
 echo "-----------------------------------"
 
 if [[ $BUILD_EXIT_CODE -eq 0 ]]; then
     echo "✅ Build با موفقیت انجام شد."
 else
+    echo ""
+    echo "========== خطاهای Build =========="
+    grep -i ": error " "$LOG_FILE" || echo "(خطایی در لاگ پیدا نشد)"
+    echo "=================================="
+    echo ""
     echo "❌ Build با خطا مواجه شد (کد: $BUILD_EXIT_CODE)"
+    echo "📄 لاگ کامل در: $LOG_FILE"
 fi
 
 exit $BUILD_EXIT_CODE
