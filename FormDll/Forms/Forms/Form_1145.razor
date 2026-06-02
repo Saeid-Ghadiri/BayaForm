@@ -143,44 +143,7 @@
 <div class="row ">
     
 <div class="col-md-3">
-     
- 
-@code {
-    Baya.Models.ViewEngine.View_Component Component_SCMPLATE_OS_MasterSCMPLATE_OS_ResultingFromId = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"EntityName\":\"برون سپاری پلات - بخش اصلی\",\"primaryKey\":false,\"EntityID\":864,\"FieldId\":33324,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":1145,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":false,\"RelationParentName\":\"SCMPLATE_OS_ResultingFrom\",\"RelationParentModel\":\"SCMPLATE_OS_ResultingFrom\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/SCMPLATE_OS_ResultingFrom/GetList\"},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.Title}} </span>\",\"FieldsTemplate\":[{\"key\":\"Title\",\"value\":\"int\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"disabled\":true,\"modal\":true,\"label\":\"برون سپاری منتج از \",\"tableView\":true,\"key\":\"SCMPLATE_OS_ResultingFromId\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"33324?EId=864&SubId=24\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
-}
-
-    <Dropdown Id=SCMPLATE_OS_ResultingFromId Disabled=true @ref="Ref_SCMPLATE_OS_ResultingFromId" Label="برون سپاری منتج از " CssClass=""  DisplayFormat="DropDown" ExternalApi=false NotMapped=false TextGrid=false Text="" Value="@_Entity.SCMPLATE_OS_ResultingFromId" FieldName="SCMPLATE_OS_ResultingFromId" OnItemSelected="ItemSelected_SCMPLATE_OS_MasterSCMPLATE_OS_ResultingFromId" Component="Component_SCMPLATE_OS_MasterSCMPLATE_OS_ResultingFromId" _Entity="_Entity" >
-</Dropdown>
-@code {
-    public async Task ItemSelected_SCMPLATE_OS_MasterSCMPLATE_OS_ResultingFromId(object _Item)
-    {
-        var Selected = Utility.JSON.ToObject<dynamic>(Utility.JSON.ToJson(_Item).Result).Result;
-     var Item = _Entity;
-
-      //Todo
- //برای اینکه آی دی تغییر کند اینجا نیز باید تغییر کند
- //بهتر است از پرایمیری کی استفاده شود
- if (_Item != null)
- {
-     Console.WriteLine(" Item Is Not Null");
-    Item.SCMPLATE_OS_ResultingFromId = Selected.Id;
     
- }
- else
- {
-     Console.WriteLine(" Item Is Null");
-      Item.SCMPLATE_OS_ResultingFromId =EntityHelper.SetPropertyNull(Item.SCMPLATE_OS_ResultingFromId);
- }
- Item.SCMPLATE_OS_ResultingFrom = await Utility.JSON.ToObject<Entity.SCMPLATE_OS_ResultingFrom>(await Utility.JSON.ToJson(_Item));
-    StateHasChanged();
-
-
-    
-
-    
-    }
-} 
-
 </div>
 
 <div class="col-md-3">
@@ -211,18 +174,13 @@
         EditFormButtonsVisible="false"
         CustomizeEditModel="CustomizeEditGrid_SCMPLATE_OS_Details"
         CustomizeElement="CustomizeRowsGrid_SCMPLATE_OS_Details" 
-        Component="@((Utility.JSON.ToObject<View_Component>("{\"primaryKey\":false,\"EntityID\":863,\"FieldId\":863,\"NotNull\":false,\"ViewId\":0,\"NotMapped\":false,\"Relation\":false,\"RelationExternal\":false,\"RelationChildModel\":\"SCMPLATE_OS_Details\",\"GridMainModel\":\"SCMPLATE_OS_Details\",\"widget\":{\"altInput\":false,\"allowInput\":false,\"clickOpens\":false,\"enableDate\":false,\"enableTime\":false,\"noCalendar\":false,\"useLocaleSettings\":false,\"hourIncrement\":0,\"minuteIncrement\":0,\"time_24hr\":false},\"wysiwyg\":false,\"data\":{},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"FieldsTemplate\":[],\"refreshOn\":\"data\",\"reorder\":false,\"addAnotherPosition\":\"bottom\",\"layoutFixed\":false,\"enableRowGroups\":false,\"initEmpty\":false,\"disabled\":true,\"modal\":true,\"label\":\"برون سپاری پلات - بخش جزئیات\",\"tableView\":true,\"key\":\"GridSCMPLATE_OS_MasterId_863\",\"type\":\"datagrid\",\"input\":true,\"placeholder\":\"GridSCMPLATE_OS_MasterId_863\",\"modalEdit\":true,\"FieldUrl\":\"863?EId=863&SubId=24\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result))"
+        Component="@((Utility.JSON.ToObject<View_Component>("{\"primaryKey\":false,\"EntityID\":863,\"FieldId\":863,\"NotNull\":false,\"ViewId\":0,\"NotMapped\":false,\"Relation\":false,\"RelationExternal\":false,\"RelationChildModel\":\"SCMPLATE_OS_Details\",\"GridMainModel\":\"SCMPLATE_OS_Details\",\"widget\":{\"altInput\":false,\"allowInput\":false,\"clickOpens\":false,\"enableDate\":false,\"enableTime\":false,\"noCalendar\":false,\"useLocaleSettings\":false,\"hourIncrement\":0,\"minuteIncrement\":0,\"time_24hr\":false},\"wysiwyg\":false,\"data\":{},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"FieldsTemplate\":[],\"refreshOn\":\"data\",\"reorder\":false,\"addAnotherPosition\":\"bottom\",\"layoutFixed\":false,\"enableRowGroups\":false,\"initEmpty\":false,\"disabled\":true,\"modal\":true,\"label\":\"برون سپاری پلات - بخش جزئیات\",\"tableView\":true,\"key\":\"GridSCMPLATE_OS_MasterId_863\",\"type\":\"datagrid\",\"input\":true,\"placeholder\":\"GridSCMPLATE_OS_MasterId_863\",\"modalEdit\":true,\"FieldUrl\":\"863?EId=863&SubId=24\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":false,\"AccessEdit\":true,\"AccessNew\":false,\"editmodelsaving\":\"GridSCMPLATE_OS_MasterId_863_editmodelsaving\",\"afterrendermodal\":\"GridSCMPLATE_OS_MasterId_863_afterrendermodal\"}").Result))"
          >
     <Columns>
     
 <DxGridCommandColumn Width="70px">
     <HeaderTemplate Context="HeaderContext">
        
-<a id=SCMPLATE_OS_Details_GridSCMPLATE_OS_MasterId_863ButtonNew class="btn btn-sm btn-green btnGridAddData" @onclick="@(() => StartEditNewRowAsync_Grid_SCMPLATE_OS_Details())" style="text-decoration: none;" href="javascript:void(0);">
-    <span class="fal fa-plus-circle btnicon"></span>
-    <span>@languageContainer.Keys["DXGrid:New"]</span>
-</a>
-
     </HeaderTemplate>
     <CellDisplayTemplate Context="CellContext">
        
@@ -231,10 +189,6 @@
 </a>
 
        
-<a class="btn btn-sm btn-red-light btnDeleteGridData" @onclick="@(() => OnDeleteButtonClickGrid_SCMPLATE_OS_Details(CellContext))" style="text-decoration: none;" href="javascript:void(0);">
-    <span class="fal fa-times-circle btnicon"></span>
-</a>
-
     </CellDisplayTemplate>
 </DxGridCommandColumn>
 
@@ -618,8 +572,6 @@
         <DxFormLayoutItem ColSpanMd="12" Context="FormLayoutContextSCMPLATE_OS_Details" CssClass="btn-modal-custom">
             <DxButton Id="SCMPLATE_OS_Details_GridSCMPLATE_OS_MasterId_863ButtonSave" Click="@(() => SaveModalGrid_SCMPLATE_OS_Details(EditFormContextSCMPLATE_OS_Details))" Text="@languageContainer.Keys["DXGrid:Ok"]" CssClass="btn btn-green px-5" />
             
-<DxButton id="SCMPLATE_OS_Details_GridSCMPLATE_OS_MasterId_863ButtonSaveAndNew"    Text="@languageContainer.Keys["DXGrid:OkAndNew"]" Click="@(() => SaveAndNewGrid_SCMPLATE_OS_Details(EditFormContextSCMPLATE_OS_Details))" CssClass="btn btn-green" />
-
 
             <DxButton Id="SCMPLATE_OS_Details_GridSCMPLATE_OS_MasterId_863ButtonCancel" Click="@(() => Grid_SCMPLATE_OS_Details.CancelEditAsync())" Text="@languageContainer.Keys["DXGrid:Cancel"]" CssClass="btn btn-red" />
             <button id="click_s"  hidden>submit</button>
@@ -681,7 +633,7 @@
         var e = arg.EditModel;
     bool NotValid = false;
     //events
-       
+       NotValid = await GridSCMPLATE_OS_MasterId_863_editmodelsaving(e);
         
       if (!NotValid)
      {
@@ -714,7 +666,7 @@ async Task OnYesButtonSCMPLATE_OS_Details()
         bool NotValid = false;
     var e = _ContextFormTemplateSCMPLATE_OS_Details.EditModel;
          //events
-         
+         NotValid = await GridSCMPLATE_OS_MasterId_863_editmodelsaving(e);
 
         if (!NotValid)
          {
@@ -768,7 +720,7 @@ async Task ChangePageGrid_SCMPLATE_OS_Details()
     var e = (Entity.SCMPLATE_OS_Details)Grid_SCMPLATE_OS_Details.GetDataItem(IndexGrid_SCMPLATE_OS_Details);
     JsonData = await Utility.JSON.ToJson(e);
     await Task.Delay(300);
-    
+    await GridSCMPLATE_OS_MasterId_863_afterrendermodal(e);
     StateHasChanged();
     }
     catch (Exception ex)
@@ -786,7 +738,7 @@ Grid_SCMPLATE_OS_Details.StartEditNewRowAsync().GetAwaiter();
 var e = new Entity.SCMPLATE_OS_Details();
 JsonData = await Utility.JSON.ToJson(e);
 await Task.Delay(300);
-
+await GridSCMPLATE_OS_MasterId_863_afterrendermodal(e);
 }
 
 async Task StartModalGrid_SCMPLATE_OS_Details(GridCommandColumnCellDisplayTemplateContext Context)
@@ -796,7 +748,7 @@ Grid_SCMPLATE_OS_Details.StartEditRowAsync(Context.VisibleIndex).GetAwaiter();
 var e = (Entity.SCMPLATE_OS_Details)Context.DataItem;
 JsonData = await Utility.JSON.ToJson(e);
 await Task.Delay(300);
-
+await GridSCMPLATE_OS_MasterId_863_afterrendermodal(e);
    // await Task.Delay(500);
 }
 public async Task SaveModalGrid_SCMPLATE_OS_Details(GridEditFormTemplateContext arg)
@@ -809,7 +761,7 @@ public async Task SaveModalGrid_SCMPLATE_OS_Details(GridEditFormTemplateContext 
     var e = arg.EditModel;
     bool NotValid = false;
     //events
-    
+    NotValid = await GridSCMPLATE_OS_MasterId_863_editmodelsaving(e);
     if (!NotValid)
     {
         SaveGrid_SCMPLATE_OS_Details(arg.DataItem, arg.EditModel);
@@ -831,7 +783,7 @@ public async Task SaveAndNewGrid_SCMPLATE_OS_Details(GridEditFormTemplateContext
          var e = arg.EditModel;
           bool NotValid = false;
      //events
-    
+    NotValid = await GridSCMPLATE_OS_MasterId_863_editmodelsaving(e);
     if (!NotValid)
     {
         SaveGrid_SCMPLATE_OS_Details(arg.DataItem, arg.EditModel);
@@ -1061,7 +1013,7 @@ public async void RowDubbleClickGrid_SCMPLATE_OS_Details(GridRowClickEventArgs e
     {
         Console.WriteLine("#log OnInitializedAsync");
 
-        TableGet = await Utility.JSON.ToObject<Table>("{\"Name\":\"SCMPLATE_OS_Master\",\"GetNameAs\":\"SCMPLATE_OS_Master\",\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"RequestID\",\"GetNameAs\":\"RequestID\"},{\"Name\":\"CreateUser\",\"GetNameAs\":\"CreateUser\"},{\"Name\":\"UpdateUser\",\"GetNameAs\":\"UpdateUser\"},{\"Name\":\"CreateDate\",\"GetNameAs\":\"CreateDate\"},{\"Name\":\"UpdateDate\",\"GetNameAs\":\"UpdateDate\"},{\"Name\":\"IsDelete\",\"GetNameAs\":\"IsDelete\"},{\"Name\":\"UserStarterFullName\",\"GetNameAs\":\"UserStarterFullName\"},{\"Name\":\"UserStarterCompanyName\",\"GetNameAs\":\"UserStarterCompanyName\"},{\"Name\":\"UserStarterUnitName\",\"GetNameAs\":\"UserStarterUnitName\"},{\"Name\":\"UserStarterSectionName\",\"GetNameAs\":\"UserStarterSectionName\"}],\"Relation\":[{\"Name\":\"SCMPLATE_ICT_Departments\",\"GetNameAs\":\"SCMPLATE_ICT_Departments\",\"ModeErtebat\":1,\"Column\":[{\"Name\":\"Code\",\"GetNameAs\":\"Code\"},{\"Name\":\"Title\",\"GetNameAs\":\"Title\"}],\"Relation\":[]},{\"Name\":\"\",\"GetNameAs\":\"\",\"ModeErtebat\":1,\"Column\":[{\"Name\":\"Code\",\"GetNameAs\":\"Code\"},{\"Name\":\"Title\",\"GetNameAs\":\"Title\"}],\"Relation\":[]},{\"Name\":\"SCMPLATE_OS_Details\",\"GetNameAs\":\"SCMPLATE_OS_Details\",\"ModeErtebat\":2,\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"RequestID\",\"GetNameAs\":\"RequestID\"},{\"Name\":\"CreateUser\",\"GetNameAs\":\"CreateUser\"},{\"Name\":\"UpdateUser\",\"GetNameAs\":\"UpdateUser\"},{\"Name\":\"CreateDate\",\"GetNameAs\":\"CreateDate\"},{\"Name\":\"UpdateDate\",\"GetNameAs\":\"UpdateDate\"},{\"Name\":\"IsDelete\",\"GetNameAs\":\"IsDelete\"},{\"Name\":\"OS_JobTitle\",\"GetNameAs\":\"OS_JobTitle\"},{\"Name\":\"Global_UnitsId\",\"GetNameAs\":\"Global_UnitsId\"},{\"Name\":\"Amount\",\"GetNameAs\":\"Amount\"},{\"Name\":\"Global_PriorityId\",\"GetNameAs\":\"Global_PriorityId\"},{\"Name\":\"AreaUse\",\"GetNameAs\":\"AreaUse\"},{\"Name\":\"RequsterDesc\",\"GetNameAs\":\"RequsterDesc\"},{\"Name\":\"UploadFileIsEnable\",\"GetNameAs\":\"UploadFileIsEnable\"},{\"Name\":\"TO_Decs\",\"GetNameAs\":\"TO_Decs\"},{\"Name\":\"FM_Desc\",\"GetNameAs\":\"FM_Desc\"},{\"Name\":\"IsEnableSampleGoods\",\"GetNameAs\":\"IsEnableSampleGoods\"},{\"Name\":\"IsEnableDemolitionAndRenovation\",\"GetNameAs\":\"IsEnableDemolitionAndRenovation\"}],\"Relation\":[{\"Name\":\"Global_Units\",\"GetNameAs\":\"Global_Units\",\"ModeErtebat\":1,\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"Code\",\"GetNameAs\":\"Code\"},{\"Name\":\"Title\",\"GetNameAs\":\"Title\"}]},{\"Name\":\"Global_Priority\",\"GetNameAs\":\"Global_Priority\",\"ModeErtebat\":1,\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"Title\",\"GetNameAs\":\"Title\"},{\"Name\":\"Code\",\"GetNameAs\":\"Code\"}]},{\"Name\":\"SCMPLATE_OS_Details_UploadFiles\",\"GetNameAs\":\"SCMPLATE_OS_Details_UploadFiles\",\"ModeErtebat\":2,\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"SCMPLATE_OS_DetailsId\",\"GetNameAs\":\"SCMPLATE_OS_DetailsId\"},{\"Name\":\"storage\",\"GetNameAs\":\"storage\"},{\"Name\":\"name\",\"GetNameAs\":\"name\"},{\"Name\":\"url\",\"GetNameAs\":\"url\"},{\"Name\":\"size\",\"GetNameAs\":\"size\"},{\"Name\":\"type\",\"GetNameAs\":\"type\"},{\"Name\":\"originalName\",\"GetNameAs\":\"originalName\"},{\"Name\":\"hash\",\"GetNameAs\":\"hash\"},{\"Name\":\"RequestID\",\"GetNameAs\":\"RequestID\"},{\"Name\":\"CreateUser\",\"GetNameAs\":\"CreateUser\"},{\"Name\":\"UpdateUser\",\"GetNameAs\":\"UpdateUser\"},{\"Name\":\"CreateDate\",\"GetNameAs\":\"CreateDate\"},{\"Name\":\"UpdateDate\",\"GetNameAs\":\"UpdateDate\"},{\"Name\":\"IsDelete\",\"GetNameAs\":\"IsDelete\"}]},{\"Name\":\"SCMPLATE_OS_Details_SampleGoodsFiles\",\"GetNameAs\":\"SCMPLATE_OS_Details_SampleGoodsFiles\",\"ModeErtebat\":2,\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"SCMPLATE_OS_DetailsId\",\"GetNameAs\":\"SCMPLATE_OS_DetailsId\"},{\"Name\":\"storage\",\"GetNameAs\":\"storage\"},{\"Name\":\"name\",\"GetNameAs\":\"name\"},{\"Name\":\"url\",\"GetNameAs\":\"url\"},{\"Name\":\"size\",\"GetNameAs\":\"size\"},{\"Name\":\"type\",\"GetNameAs\":\"type\"},{\"Name\":\"originalName\",\"GetNameAs\":\"originalName\"},{\"Name\":\"hash\",\"GetNameAs\":\"hash\"},{\"Name\":\"RequestID\",\"GetNameAs\":\"RequestID\"},{\"Name\":\"CreateUser\",\"GetNameAs\":\"CreateUser\"},{\"Name\":\"UpdateUser\",\"GetNameAs\":\"UpdateUser\"},{\"Name\":\"CreateDate\",\"GetNameAs\":\"CreateDate\"},{\"Name\":\"UpdateDate\",\"GetNameAs\":\"UpdateDate\"},{\"Name\":\"IsDelete\",\"GetNameAs\":\"IsDelete\"}]}]}]}");
+        TableGet = await Utility.JSON.ToObject<Table>("{\"Name\":\"SCMPLATE_OS_Master\",\"GetNameAs\":\"SCMPLATE_OS_Master\",\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"RequestID\",\"GetNameAs\":\"RequestID\"},{\"Name\":\"CreateUser\",\"GetNameAs\":\"CreateUser\"},{\"Name\":\"UpdateUser\",\"GetNameAs\":\"UpdateUser\"},{\"Name\":\"CreateDate\",\"GetNameAs\":\"CreateDate\"},{\"Name\":\"UpdateDate\",\"GetNameAs\":\"UpdateDate\"},{\"Name\":\"IsDelete\",\"GetNameAs\":\"IsDelete\"},{\"Name\":\"UserStarterFullName\",\"GetNameAs\":\"UserStarterFullName\"},{\"Name\":\"UserStarterCompanyName\",\"GetNameAs\":\"UserStarterCompanyName\"},{\"Name\":\"UserStarterUnitName\",\"GetNameAs\":\"UserStarterUnitName\"},{\"Name\":\"UserStarterSectionName\",\"GetNameAs\":\"UserStarterSectionName\"}],\"Relation\":[{\"Name\":\"SCMPLATE_OS_ResultingFrom\",\"GetNameAs\":\"SCMPLATE_OS_ResultingFrom\",\"ModeErtebat\":1,\"Column\":[{\"Name\":\"Code\",\"GetNameAs\":\"Code\"},{\"Name\":\"Title\",\"GetNameAs\":\"Title\"}],\"Relation\":[]},{\"Name\":\"SCMPLATE_ICT_Departments\",\"GetNameAs\":\"SCMPLATE_ICT_Departments\",\"ModeErtebat\":1,\"Column\":[{\"Name\":\"Code\",\"GetNameAs\":\"Code\"},{\"Name\":\"Title\",\"GetNameAs\":\"Title\"}],\"Relation\":[]},{\"Name\":\"SCMPLATE_OS_Details\",\"GetNameAs\":\"SCMPLATE_OS_Details\",\"ModeErtebat\":2,\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"RequestID\",\"GetNameAs\":\"RequestID\"},{\"Name\":\"CreateUser\",\"GetNameAs\":\"CreateUser\"},{\"Name\":\"UpdateUser\",\"GetNameAs\":\"UpdateUser\"},{\"Name\":\"CreateDate\",\"GetNameAs\":\"CreateDate\"},{\"Name\":\"UpdateDate\",\"GetNameAs\":\"UpdateDate\"},{\"Name\":\"IsDelete\",\"GetNameAs\":\"IsDelete\"},{\"Name\":\"OS_JobTitle\",\"GetNameAs\":\"OS_JobTitle\"},{\"Name\":\"Global_UnitsId\",\"GetNameAs\":\"Global_UnitsId\"},{\"Name\":\"Amount\",\"GetNameAs\":\"Amount\"},{\"Name\":\"Global_PriorityId\",\"GetNameAs\":\"Global_PriorityId\"},{\"Name\":\"AreaUse\",\"GetNameAs\":\"AreaUse\"},{\"Name\":\"RequsterDesc\",\"GetNameAs\":\"RequsterDesc\"},{\"Name\":\"UploadFileIsEnable\",\"GetNameAs\":\"UploadFileIsEnable\"},{\"Name\":\"TO_Decs\",\"GetNameAs\":\"TO_Decs\"},{\"Name\":\"FM_Desc\",\"GetNameAs\":\"FM_Desc\"},{\"Name\":\"IsEnableSampleGoods\",\"GetNameAs\":\"IsEnableSampleGoods\"},{\"Name\":\"IsEnableDemolitionAndRenovation\",\"GetNameAs\":\"IsEnableDemolitionAndRenovation\"}],\"Relation\":[{\"Name\":\"Global_Units\",\"GetNameAs\":\"Global_Units\",\"ModeErtebat\":1,\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"Code\",\"GetNameAs\":\"Code\"},{\"Name\":\"Title\",\"GetNameAs\":\"Title\"}]},{\"Name\":\"Global_Priority\",\"GetNameAs\":\"Global_Priority\",\"ModeErtebat\":1,\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"Title\",\"GetNameAs\":\"Title\"},{\"Name\":\"Code\",\"GetNameAs\":\"Code\"}]},{\"Name\":\"SCMPLATE_OS_Details_UploadFiles\",\"GetNameAs\":\"SCMPLATE_OS_Details_UploadFiles\",\"ModeErtebat\":2,\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"SCMPLATE_OS_DetailsId\",\"GetNameAs\":\"SCMPLATE_OS_DetailsId\"},{\"Name\":\"storage\",\"GetNameAs\":\"storage\"},{\"Name\":\"name\",\"GetNameAs\":\"name\"},{\"Name\":\"url\",\"GetNameAs\":\"url\"},{\"Name\":\"size\",\"GetNameAs\":\"size\"},{\"Name\":\"type\",\"GetNameAs\":\"type\"},{\"Name\":\"originalName\",\"GetNameAs\":\"originalName\"},{\"Name\":\"hash\",\"GetNameAs\":\"hash\"},{\"Name\":\"RequestID\",\"GetNameAs\":\"RequestID\"},{\"Name\":\"CreateUser\",\"GetNameAs\":\"CreateUser\"},{\"Name\":\"UpdateUser\",\"GetNameAs\":\"UpdateUser\"},{\"Name\":\"CreateDate\",\"GetNameAs\":\"CreateDate\"},{\"Name\":\"UpdateDate\",\"GetNameAs\":\"UpdateDate\"},{\"Name\":\"IsDelete\",\"GetNameAs\":\"IsDelete\"}]},{\"Name\":\"SCMPLATE_OS_Details_SampleGoodsFiles\",\"GetNameAs\":\"SCMPLATE_OS_Details_SampleGoodsFiles\",\"ModeErtebat\":2,\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"SCMPLATE_OS_DetailsId\",\"GetNameAs\":\"SCMPLATE_OS_DetailsId\"},{\"Name\":\"storage\",\"GetNameAs\":\"storage\"},{\"Name\":\"name\",\"GetNameAs\":\"name\"},{\"Name\":\"url\",\"GetNameAs\":\"url\"},{\"Name\":\"size\",\"GetNameAs\":\"size\"},{\"Name\":\"type\",\"GetNameAs\":\"type\"},{\"Name\":\"originalName\",\"GetNameAs\":\"originalName\"},{\"Name\":\"hash\",\"GetNameAs\":\"hash\"},{\"Name\":\"RequestID\",\"GetNameAs\":\"RequestID\"},{\"Name\":\"CreateUser\",\"GetNameAs\":\"CreateUser\"},{\"Name\":\"UpdateUser\",\"GetNameAs\":\"UpdateUser\"},{\"Name\":\"CreateDate\",\"GetNameAs\":\"CreateDate\"},{\"Name\":\"UpdateDate\",\"GetNameAs\":\"UpdateDate\"},{\"Name\":\"IsDelete\",\"GetNameAs\":\"IsDelete\"}]}]}]}");
         TablePost = await Utility.JSON.ToObject<Table>("{\"Name\":\"SCMPLATE_OS_Master\",\"GetNameAs\":\"SCMPLATE_OS_Master\",\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"RequestID\",\"GetNameAs\":\"RequestID\"},{\"Name\":\"CreateUser\",\"GetNameAs\":\"CreateUser\"},{\"Name\":\"UpdateUser\",\"GetNameAs\":\"UpdateUser\"},{\"Name\":\"CreateDate\",\"GetNameAs\":\"CreateDate\"},{\"Name\":\"UpdateDate\",\"GetNameAs\":\"UpdateDate\"},{\"Name\":\"IsDelete\",\"GetNameAs\":\"IsDelete\"},{\"Name\":\"UserStarterFullName\",\"GetNameAs\":\"UserStarterFullName\"},{\"Name\":\"UserStarterCompanyName\",\"GetNameAs\":\"UserStarterCompanyName\"},{\"Name\":\"UserStarterUnitName\",\"GetNameAs\":\"UserStarterUnitName\"},{\"Name\":\"UserStarterSectionName\",\"GetNameAs\":\"UserStarterSectionName\"}],\"Relation\":[{\"Name\":\"SCMPLATE_OS_Details\",\"GetNameAs\":\"SCMPLATE_OS_Details\",\"ModeErtebat\":2,\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"RequestID\",\"GetNameAs\":\"RequestID\"},{\"Name\":\"CreateUser\",\"GetNameAs\":\"CreateUser\"},{\"Name\":\"UpdateUser\",\"GetNameAs\":\"UpdateUser\"},{\"Name\":\"CreateDate\",\"GetNameAs\":\"CreateDate\"},{\"Name\":\"UpdateDate\",\"GetNameAs\":\"UpdateDate\"},{\"Name\":\"IsDelete\",\"GetNameAs\":\"IsDelete\"},{\"Name\":\"OS_JobTitle\",\"GetNameAs\":\"OS_JobTitle\"},{\"Name\":\"Global_UnitsId\",\"GetNameAs\":\"Global_UnitsId\"},{\"Name\":\"Amount\",\"GetNameAs\":\"Amount\"},{\"Name\":\"Global_PriorityId\",\"GetNameAs\":\"Global_PriorityId\"},{\"Name\":\"AreaUse\",\"GetNameAs\":\"AreaUse\"},{\"Name\":\"RequsterDesc\",\"GetNameAs\":\"RequsterDesc\"},{\"Name\":\"UploadFileIsEnable\",\"GetNameAs\":\"UploadFileIsEnable\"},{\"Name\":\"TO_Decs\",\"GetNameAs\":\"TO_Decs\"},{\"Name\":\"FM_Desc\",\"GetNameAs\":\"FM_Desc\"},{\"Name\":\"IsEnableSampleGoods\",\"GetNameAs\":\"IsEnableSampleGoods\"},{\"Name\":\"IsEnableDemolitionAndRenovation\",\"GetNameAs\":\"IsEnableDemolitionAndRenovation\"}],\"Relation\":[{\"Name\":\"SCMPLATE_OS_Details_UploadFiles\",\"GetNameAs\":\"SCMPLATE_OS_Details_UploadFiles\",\"ModeErtebat\":2,\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"SCMPLATE_OS_DetailsId\",\"GetNameAs\":\"SCMPLATE_OS_DetailsId\"},{\"Name\":\"storage\",\"GetNameAs\":\"storage\"},{\"Name\":\"name\",\"GetNameAs\":\"name\"},{\"Name\":\"url\",\"GetNameAs\":\"url\"},{\"Name\":\"size\",\"GetNameAs\":\"size\"},{\"Name\":\"type\",\"GetNameAs\":\"type\"},{\"Name\":\"originalName\",\"GetNameAs\":\"originalName\"},{\"Name\":\"hash\",\"GetNameAs\":\"hash\"},{\"Name\":\"RequestID\",\"GetNameAs\":\"RequestID\"},{\"Name\":\"CreateUser\",\"GetNameAs\":\"CreateUser\"},{\"Name\":\"UpdateUser\",\"GetNameAs\":\"UpdateUser\"},{\"Name\":\"CreateDate\",\"GetNameAs\":\"CreateDate\"},{\"Name\":\"UpdateDate\",\"GetNameAs\":\"UpdateDate\"},{\"Name\":\"IsDelete\",\"GetNameAs\":\"IsDelete\"}]},{\"Name\":\"SCMPLATE_OS_Details_SampleGoodsFiles\",\"GetNameAs\":\"SCMPLATE_OS_Details_SampleGoodsFiles\",\"ModeErtebat\":2,\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"SCMPLATE_OS_DetailsId\",\"GetNameAs\":\"SCMPLATE_OS_DetailsId\"},{\"Name\":\"storage\",\"GetNameAs\":\"storage\"},{\"Name\":\"name\",\"GetNameAs\":\"name\"},{\"Name\":\"url\",\"GetNameAs\":\"url\"},{\"Name\":\"size\",\"GetNameAs\":\"size\"},{\"Name\":\"type\",\"GetNameAs\":\"type\"},{\"Name\":\"originalName\",\"GetNameAs\":\"originalName\"},{\"Name\":\"hash\",\"GetNameAs\":\"hash\"},{\"Name\":\"RequestID\",\"GetNameAs\":\"RequestID\"},{\"Name\":\"CreateUser\",\"GetNameAs\":\"CreateUser\"},{\"Name\":\"UpdateUser\",\"GetNameAs\":\"UpdateUser\"},{\"Name\":\"CreateDate\",\"GetNameAs\":\"CreateDate\"},{\"Name\":\"UpdateDate\",\"GetNameAs\":\"UpdateDate\"},{\"Name\":\"IsDelete\",\"GetNameAs\":\"IsDelete\"}]}]}]}");
 
         config = CKEditorBundleOptions.DefaultConfig.WithHtmlEditing();

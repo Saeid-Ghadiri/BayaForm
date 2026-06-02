@@ -14,7 +14,8 @@ namespace Forms.Forms
     public class Form_1142Base : Form_1142Peropeties
     {
 
-
+[Inject]
+	    public IToastService toastService { get; set; }
 
     /// <summary>
     /// آماده سازی فرم
@@ -208,11 +209,11 @@ namespace Forms.Forms
     /// <returns></returns>
     public override async Task<Result> BeforSubmit()
     {
-        if (!await FormValidator())
-        {
-            StateHasChanged();
-            return new Result() { Status = HttpStatusCode.InternalServerError };
-        }
+        // if (!await FormValidator())
+        // {
+        //     StateHasChanged();
+        //     return new Result() { Status = HttpStatusCode.InternalServerError };
+        // }
         return new Result() { Status = HttpStatusCode.OK };
     }
 

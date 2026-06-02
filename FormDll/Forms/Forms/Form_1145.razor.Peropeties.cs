@@ -144,7 +144,7 @@ namespace Forms.Forms
     /// <summary>
     ///  ورژنی که فرم باهاش ساخته شده
     /// </summary>
-    public string? VersionForm { get; set; } = "6113";
+    public string? VersionForm { get; set; } = "6131";
 
     /// <summary>
     ///  موجودیت
@@ -183,7 +183,6 @@ public Input<string?> Ref_UserStarterFullName;
 public Input<string?> Ref_UserStarterCompanyName;
 public Input<string?> Ref_UserStarterUnitName;
 public Input<string?> Ref_UserStarterSectionName;
-public Dropdown Ref_SCMPLATE_OS_ResultingFromId;
 public Input<Guid> Ref_Id;
 public DxGrid? Grid_SCMPLATE_OS_Details;
 

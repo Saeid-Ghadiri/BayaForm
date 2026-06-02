@@ -1,0 +1,1307 @@
+@inherits Forms.Forms.Form_1163Base
+@namespace FormsPage
+
+@using AKSoftware.Localization.MultiLanguages.Blazor
+@using Baya.Models.Utility;
+@using Baya.Models.ORM
+@using Microsoft.AspNetCore.Components.Forms
+@using Microsoft.AspNetCore.Components.Authorization;
+@using System.Security.Claims
+@using System.Net
+@using Microsoft.JSInterop
+@using Baya.Models.ViewEngine
+@using Forms.Domain.Utility
+@using Castle.DynamicLinqQueryBuilder
+<style>
+    .bg-col {
+    background-color: #52c5cd;
+}
+
+.form-title {
+    font-size: 1.25rem;
+    font-weight: 900;
+    padding: 0.5rem;
+    text-align: center;
+}
+
+.form-serial {
+    text-align: center;
+    font-size: 1.25rem;
+    color: #9d9d9e;
+    background-color: #f4f5f7;
+    border-radius: 0.375rem;
+    padding: 0.2rem;
+}
+
+.userHolderBox {
+    max-width: 700px;
+}
+
+.userboxscroll {
+    width: 680px;
+}
+
+.userInfoBox {
+    width: 165px;
+    display: inline-block;
+}
+
+.userInfoBox .form-control {
+    font-size: 13px;
+}
+
+.GridPRD table thead tr>*:nth-child(4),
+.GridPRD table tbody tr>*:nth-child(4) {
+    display: none;
+}
+</style>
+
+<Plugins.Tools.ConfirmDialog @ref="Confirm" />
+
+<span class="d-none">VersionForm:@VersionForm</span>
+@*
+@if (!string.IsNullOrEmpty(SumaryMessage))
+{
+    <div>
+        @SumaryMessage
+    </div>
+} *@
+
+@* <EditForm @ref="_Form" Model="_Entity" OnValidSubmit="ValidFormSubmitted" OnInvalidSubmit="InvalidFormSubmitted" OnSubmit="Submit"> *@
+<div class="@(ReadOnly?"FormReadOnly":"")">
+    <EditForm @ref="_Form" Model="_Entity" OnSubmit="Submit">
+        <div  class="">
+    <div class="row">
+  
+
+<div class="col-md-3 col-6 order-md-1">
+  <img src="https://file.workcv.ir/fa-ir/api/v1/File/Get?FileID=e35322d0-23f4-4d03-b886-08de9f64ab6f" class="img-fluid" alt="لوگو اطلس سلولز" width="75">
+</div>
+
+<div class="col-md-6 col-12 order-md-2 order-3">
+  <div class="form-title">
+    درخواست برون سپاری یا خرید خدمات
+  </div>
+</div>
+
+<div class="col-md-3 col-6 order-md-3">
+  <div class="form-serial">
+  کد فرم: FPL02600
+</div>
+</div>
+</div>
+</div>
+
+<div class=" p-2 m-1 border-0 bg-col rounded userHolderBox">
+    <div  class="pb-2">
+    <div class="bg-light fw-black fs-6 rounded px-2 py-2" style="">
+  کاربر درخواست دهنده
+</div>
+</div>
+
+<div class="overflow-x-auto pb-2">
+    
+<div class="userboxscroll">
+    
+<div class="userInfoBox">
+    
+<Input Id="UserStarterFullName" @ref="Ref_UserStarterFullName" Label="کاربر"   Disabled=true  @bind-Value="_Entity.UserStarterFullName" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"maxlength\":\"70\"}").Result))></Input>
+
+</div>
+
+<div class="userInfoBox">
+    
+<Input Id="UserStarterCompanyName" @ref="Ref_UserStarterCompanyName" Label="شرکت کاربر	"   Disabled=true  @bind-Value="_Entity.UserStarterCompanyName" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"maxlength\":\"50\"}").Result))></Input>
+
+</div>
+
+<div class="userInfoBox">
+    
+<Input Id="UserStarterUnitName" @ref="Ref_UserStarterUnitName" Label="واحد کاربر"   Disabled=true  @bind-Value="_Entity.UserStarterUnitName" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"maxlength\":\"50\"}").Result))></Input>
+
+</div>
+
+<div class="userInfoBox">
+    
+<Input Id="UserStarterSectionName" @ref="Ref_UserStarterSectionName" Label="قسمت کاربر"   Disabled=true  @bind-Value="_Entity.UserStarterSectionName" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"maxlength\":\"50\"}").Result))></Input>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+<div  class="">
+    <hr class="hrdash bg-info">
+</div>
+
+<div class="row ">
+    
+<div class="col-md-3">
+     
+ 
+@code {
+    Baya.Models.ViewEngine.View_Component Component_SCMATLASCELL_OS_MasterSCMATLASCELL_OS_ResultingFromId = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"EntityName\":\"برون سپاری اطلس سلولز - بخش اصلی\",\"primaryKey\":false,\"EntityID\":873,\"FieldId\":33483,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":1163,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":false,\"RelationParentName\":\"SCMATLASCELL_OS_ResultingFrom\",\"RelationParentModel\":\"SCMATLASCELL_OS_ResultingFrom\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/SCMATLASCELL_OS_ResultingFrom/GetList\",\"_Parameters\":[]},\"validate\":{\"required\":true,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.Title}} </span>\",\"FieldsTemplate\":[{\"key\":\"Title\",\"value\":\"int\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"searchField\":\"\",\"disabled\":false,\"modal\":true,\"label\":\"برون سپاری منتج از \",\"tableView\":true,\"key\":\"SCMATLASCELL_OS_ResultingFromId\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"FieldUrl\":\"33483?EId=873&SubId=37\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
+}
+
+    <Dropdown Id=SCMATLASCELL_OS_ResultingFromId  @ref="Ref_SCMATLASCELL_OS_ResultingFromId" Label="برون سپاری منتج از " CssClass="" Required=true DisplayFormat="DropDown" ExternalApi=false NotMapped=false TextGrid=false Text="" Value="@_Entity.SCMATLASCELL_OS_ResultingFromId" FieldName="SCMATLASCELL_OS_ResultingFromId" OnItemSelected="ItemSelected_SCMATLASCELL_OS_MasterSCMATLASCELL_OS_ResultingFromId" Component="Component_SCMATLASCELL_OS_MasterSCMATLASCELL_OS_ResultingFromId" _Entity="_Entity" >
+</Dropdown>
+@code {
+    public async Task ItemSelected_SCMATLASCELL_OS_MasterSCMATLASCELL_OS_ResultingFromId(object _Item)
+    {
+        var Selected = Utility.JSON.ToObject<dynamic>(Utility.JSON.ToJson(_Item).Result).Result;
+     var Item = _Entity;
+
+      //Todo
+ //برای اینکه آی دی تغییر کند اینجا نیز باید تغییر کند
+ //بهتر است از پرایمیری کی استفاده شود
+ if (_Item != null)
+ {
+     Console.WriteLine(" Item Is Not Null");
+    Item.SCMATLASCELL_OS_ResultingFromId = Selected.Id;
+    
+ }
+ else
+ {
+     Console.WriteLine(" Item Is Null");
+      Item.SCMATLASCELL_OS_ResultingFromId =EntityHelper.SetPropertyNull(Item.SCMATLASCELL_OS_ResultingFromId);
+ }
+ Item.SCMATLASCELL_OS_ResultingFrom = await Utility.JSON.ToObject<Entity.SCMATLASCELL_OS_ResultingFrom>(await Utility.JSON.ToJson(_Item));
+    StateHasChanged();
+
+
+    
+
+    
+    }
+} 
+
+</div>
+
+<div class="col-md-3">
+    
+</div>
+
+<div class="col-md-3">
+    
+</div>
+
+<div class="col-md-3">
+    
+<Input Id="RequestTrakingCode" @ref="Ref_RequestTrakingCode" Label="کد پیگیری سیستمی"  CssClass="d-none" Disabled=true  @bind-Value="_Entity.RequestTrakingCode" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"maxlength\":\"50\"}").Result))></Input>
+
+<Input Id="ProcessVersionID" @ref="Ref_ProcessVersionID" Label="شناسه نسخه فرآیند جاری"  CssClass="d-none" Disabled=true  @bind-Value="_Entity.ProcessVersionID" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"maxlength\":\"50\"}").Result))></Input>
+
+</div>
+
+</div>
+
+<DxGrid @ref="Grid_SCMATLASCELL_OS_Details" Data="_Entity.SCMATLASCELL_OS_Details" KeyFieldName="_Id" EditMode="GridEditMode.PopupEditForm"
+        EditModelSaving="OnEditModelSavingSCMATLASCELL_OS_Details"
+        DataItemDeleting="OnDataItemDeletingSCMATLASCELL_OS_Details"
+        PopupEditFormCssClass="ModalWidth"
+        PopupEditFormHeaderText="برون سپاری اطلس سلولز - بخش جزئیات"
+        EditFormButtonsVisible="false"
+        CustomizeEditModel="CustomizeEditGrid_SCMATLASCELL_OS_Details"
+        CustomizeElement="CustomizeRowsGrid_SCMATLASCELL_OS_Details" 
+        Component="@((Utility.JSON.ToObject<View_Component>("{\"primaryKey\":false,\"EntityID\":872,\"FieldId\":872,\"NotNull\":false,\"ViewId\":0,\"NotMapped\":false,\"Relation\":false,\"RelationExternal\":false,\"RelationChildModel\":\"SCMATLASCELL_OS_Details\",\"GridMainModel\":\"SCMATLASCELL_OS_Details\",\"widget\":{\"altInput\":false,\"allowInput\":false,\"clickOpens\":false,\"enableDate\":false,\"enableTime\":false,\"noCalendar\":false,\"useLocaleSettings\":false,\"hourIncrement\":0,\"minuteIncrement\":0,\"time_24hr\":false},\"wysiwyg\":false,\"data\":{},\"validate\":{\"required\":false,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"FieldsTemplate\":[],\"refreshOn\":\"data\",\"reorder\":false,\"addAnotherPosition\":\"bottom\",\"layoutFixed\":false,\"enableRowGroups\":false,\"initEmpty\":false,\"disabled\":true,\"modal\":true,\"label\":\"برون سپاری اطلس سلولز - بخش جزئیات\",\"tableView\":true,\"key\":\"GridSCMATLASCELL_OS_MasterId_872\",\"type\":\"datagrid\",\"input\":true,\"placeholder\":\"GridSCMATLASCELL_OS_MasterId_872\",\"hideLabel\":true,\"modalEdit\":true,\"customClass\":\"pt-3\",\"FieldUrl\":\"872?EId=872&SubId=37\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true,\"editmodelsaving\":\"GridSCMATLASCELL_OS_MasterId_872_editmodelsaving\",\"afterrendermodal\":\"GridSCMATLASCELL_OS_MasterId_872_afterrendermodal\"}").Result))"
+        CssClass="pt-3" >
+    <Columns>
+    
+<DxGridCommandColumn Width="70px">
+    <HeaderTemplate Context="HeaderContext">
+       
+<a id=SCMATLASCELL_OS_Details_GridSCMATLASCELL_OS_MasterId_872ButtonNew class="btn btn-sm btn-green btnGridAddData" @onclick="@(() => StartEditNewRowAsync_Grid_SCMATLASCELL_OS_Details())" style="text-decoration: none;" href="javascript:void(0);">
+    <span class="fal fa-plus-circle btnicon"></span>
+    <span>@languageContainer.Keys["DXGrid:New"]</span>
+</a>
+
+    </HeaderTemplate>
+    <CellDisplayTemplate Context="CellContext">
+       
+<a id=SCMATLASCELL_OS_Details_GridSCMATLASCELL_OS_MasterId_872ButtonEdit class="btn btn-sm btn-yellow-light btnEditGridData" @onclick="@(() => StartModalGrid_SCMATLASCELL_OS_Details(CellContext))" style="text-decoration: none;" href="javascript:void(0);">
+    <span class="fal fa-pencil btnicon"></span>
+</a>
+
+       
+<a class="btn btn-sm btn-red-light btnDeleteGridData" @onclick="@(() => OnDeleteButtonClickGrid_SCMATLASCELL_OS_Details(CellContext))" style="text-decoration: none;" href="javascript:void(0);">
+    <span class="fal fa-times-circle btnicon"></span>
+</a>
+
+    </CellDisplayTemplate>
+</DxGridCommandColumn>
+
+    <DxGridCommandColumn   Width="60px">
+           <HeaderTemplate Context="HeaderContext">
+               <a    style="text-decoration: none;"  >
+                
+                   <span>ردیف</span>
+               </a>
+           </HeaderTemplate>
+           <CellDisplayTemplate Context="CellContext">
+            @if (CellContext.VisibleIndex > 9){
+                <p>@(CellContext.VisibleIndex + 1)</p>
+            }else{
+                <p>@(((CellContext.Grid.PageIndex * CellContext.Grid.PageSize) + (CellContext.VisibleIndex + 1)))</p>
+            }
+          
+           </CellDisplayTemplate>
+     </DxGridCommandColumn>
+    <DxGridDataColumn  Caption="عنوان کار"  FieldName="OS_JobTitle" />
+
+<DxGridDataColumn Context="html115_" Caption="-" >
+    <CellDisplayTemplate>
+      <div  class="Gcol-sm-8 Gcol-md-6 Gcol-lg-8">
+    
+</div>
+
+    </CellDisplayTemplate>
+</DxGridDataColumn>
+<DxGridDataColumn Context="Global_UnitsId_" Caption="واحد کالا" >
+    <CellDisplayTemplate>
+       
+@{
+    Baya.Models.ViewEngine.View_Component HeaderGlobal_UnitsId = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"primaryKey\":false,\"EntityID\":872,\"FieldId\":33386,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":1163,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":false,\"RelationParentName\":\"Global_Units\",\"RelationParentModel\":\"Global_Units\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/Global_Units/GetList\",\"_Parameters\":[]},\"validate\":{\"required\":true,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.Title}} </span>\",\"FieldsTemplate\":[{\"key\":\"Title\",\"value\":\"int\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"searchField\":\"\",\"disableLimit\":false,\"noRefreshOnScroll\":false,\"disabled\":false,\"modal\":true,\"label\":\"واحد کالا\",\"tableView\":true,\"key\":\"Global_UnitsId\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"customClass\":\"Gcol-sm-8 Gcol-md-6 Gcol-lg-4\",\"FieldUrl\":\"33386?EId=872&SubId=37\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
+    var RowGlobal_UnitsId = ((Entity.SCMATLASCELL_OS_Details)Global_UnitsId_.DataItem).Global_UnitsId;
+}
+
+<Dropdown ExternalApi=false CssClass="Gcol-sm-8 Gcol-md-6 Gcol-lg-4" NotMapped=false TextGrid=true Value="@RowGlobal_UnitsId"   FieldName="Global_UnitsId" OnItemSelected="ItemSelected_SCMATLASCELL_OS_DetailsGlobal_UnitsId_Header" Component="HeaderGlobal_UnitsId">
+</Dropdown>
+@code {
+    public async Task ItemSelected_SCMATLASCELL_OS_DetailsGlobal_UnitsId_Header(object _Item)
+    {
+      //  var Selected = Utility.JSON.ToObject<dynamic>(Utility.JSON.ToJson(_Item).Result).Result;
+  //   Global_UnitsId
+
+  //  #CustomCode
+
+ //   
+
+  //  #OnItemSelected
+    }
+}
+
+    </CellDisplayTemplate>
+</DxGridDataColumn>
+<DxGridDataColumn DisplayFormat="0" Caption="تعداد"  FieldName="Amount" />
+
+<DxGridDataColumn Context="Global_PriorityId_" Caption="اولویت" >
+    <CellDisplayTemplate>
+       
+@{
+    Baya.Models.ViewEngine.View_Component HeaderGlobal_PriorityId = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"primaryKey\":false,\"EntityID\":872,\"FieldId\":33388,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":1163,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":false,\"RelationParentName\":\"Global_Priority\",\"RelationParentModel\":\"Global_Priority\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/Global_Priority/GetList\",\"_Parameters\":[]},\"validate\":{\"required\":true,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.Title}} </span>\",\"FieldsTemplate\":[{\"key\":\"Title\",\"value\":\"int\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"searchField\":\"\",\"disableLimit\":false,\"noRefreshOnScroll\":false,\"disabled\":false,\"modal\":true,\"label\":\"اولویت\",\"tableView\":true,\"key\":\"Global_PriorityId\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"customClass\":\"Gcol-sm-8 Gcol-md-6 Gcol-lg-4\",\"FieldUrl\":\"33388?EId=872&SubId=37\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
+    var RowGlobal_PriorityId = ((Entity.SCMATLASCELL_OS_Details)Global_PriorityId_.DataItem).Global_PriorityId;
+}
+
+<Dropdown ExternalApi=false CssClass="Gcol-sm-8 Gcol-md-6 Gcol-lg-4" NotMapped=false TextGrid=true Value="@RowGlobal_PriorityId"   FieldName="Global_PriorityId" OnItemSelected="ItemSelected_SCMATLASCELL_OS_DetailsGlobal_PriorityId_Header" Component="HeaderGlobal_PriorityId">
+</Dropdown>
+@code {
+    public async Task ItemSelected_SCMATLASCELL_OS_DetailsGlobal_PriorityId_Header(object _Item)
+    {
+      //  var Selected = Utility.JSON.ToObject<dynamic>(Utility.JSON.ToJson(_Item).Result).Result;
+  //   Global_PriorityId
+
+  //  #CustomCode
+
+ //   
+
+  //  #OnItemSelected
+    }
+}
+
+    </CellDisplayTemplate>
+</DxGridDataColumn>
+<DxGridDataColumn  Caption="محل مصرف"  FieldName="AreaUse" />
+
+<DxGridDataColumn Context="UploadFileIsEnable_" Caption="آیا مدارک پیوست دارد؟" >
+    <CellDisplayTemplate>
+       
+@{
+    var SCMATLASCELL_OS_Details_UploadFileIsEnable = ((Entity.SCMATLASCELL_OS_Details)UploadFileIsEnable_.DataItem).UploadFileIsEnable;
+}
+
+<p class="text-center " hidden="@(SCMATLASCELL_OS_Details_UploadFileIsEnable !=null ? !SCMATLASCELL_OS_Details_UploadFileIsEnable : true)">بله</p>
+
+<p class="text-center" hidden="@(SCMATLASCELL_OS_Details_UploadFileIsEnable !=null ? SCMATLASCELL_OS_Details_UploadFileIsEnable : true)">خیر</p>
+
+
+    </CellDisplayTemplate>
+</DxGridDataColumn>
+<DxGridDataColumn Context="SCMATLASCELL_OS_Details_UploadFiles_" Caption="مدارک پیوست" >
+    <CellDisplayTemplate>
+      
+@{
+    var SCMATLASCELL_OS_Details_SCMATLASCELL_OS_Details_UploadFiles = (Entity.SCMATLASCELL_OS_Details)SCMATLASCELL_OS_Details_UploadFiles_.DataItem;
+}
+@foreach (var item_SCMATLASCELL_OS_Details in SCMATLASCELL_OS_Details_SCMATLASCELL_OS_Details_UploadFiles.SCMATLASCELL_OS_Details_UploadFiles.Where(p=>!p.IsDelete.HasValue || !p.IsDelete.Value))
+{
+
+    <div class="bg-lightblue rounded p-1 d-inline-block m-1">
+        <span>@item_SCMATLASCELL_OS_Details.originalName</span>
+        <hr class="hrdash mt-1 mb-0">
+        <div class="btn-group align-items-center">
+            <button type="button" class="btn btn-sm text-yellow p-0" onclick="ShowImageNewTab('@item_SCMATLASCELL_OS_Details.url')">@languageContainer.Keys["DXGrid:View"]</button>
+            <a href="@item_SCMATLASCELL_OS_Details.url" class="btn btn-sm text-green p-0">@languageContainer.Keys["DXGrid:Download"]</a>
+        </div>
+    </div>
+}
+
+
+    </CellDisplayTemplate>
+</DxGridDataColumn>
+<DxGridDataColumn Context="IsEnableSampleGoods_" Caption="آیا این درخواست نمونه دارد؟" >
+    <CellDisplayTemplate>
+       
+@{
+    var SCMATLASCELL_OS_Details_IsEnableSampleGoods = ((Entity.SCMATLASCELL_OS_Details)IsEnableSampleGoods_.DataItem).IsEnableSampleGoods;
+}
+
+<p class="text-center " hidden="@(SCMATLASCELL_OS_Details_IsEnableSampleGoods !=null ? !SCMATLASCELL_OS_Details_IsEnableSampleGoods : true)">بله</p>
+
+<p class="text-center" hidden="@(SCMATLASCELL_OS_Details_IsEnableSampleGoods !=null ? SCMATLASCELL_OS_Details_IsEnableSampleGoods : true)">خیر</p>
+
+
+    </CellDisplayTemplate>
+</DxGridDataColumn>
+<DxGridDataColumn Context="SCMATLASCELL_OS_Details_SampleGoodsFiles_" Caption="فایل نمونه" >
+    <CellDisplayTemplate>
+      
+@{
+    var SCMATLASCELL_OS_Details_SCMATLASCELL_OS_Details_SampleGoodsFiles = (Entity.SCMATLASCELL_OS_Details)SCMATLASCELL_OS_Details_SampleGoodsFiles_.DataItem;
+}
+@foreach (var item_SCMATLASCELL_OS_Details in SCMATLASCELL_OS_Details_SCMATLASCELL_OS_Details_SampleGoodsFiles.SCMATLASCELL_OS_Details_SampleGoodsFiles.Where(p=>!p.IsDelete.HasValue || !p.IsDelete.Value))
+{
+
+    <div class="bg-lightblue rounded p-1 d-inline-block m-1">
+        <span>@item_SCMATLASCELL_OS_Details.originalName</span>
+        <hr class="hrdash mt-1 mb-0">
+        <div class="btn-group align-items-center">
+            <button type="button" class="btn btn-sm text-yellow p-0" onclick="ShowImageNewTab('@item_SCMATLASCELL_OS_Details.url')">@languageContainer.Keys["DXGrid:View"]</button>
+            <a href="@item_SCMATLASCELL_OS_Details.url" class="btn btn-sm text-green p-0">@languageContainer.Keys["DXGrid:Download"]</a>
+        </div>
+    </div>
+}
+
+
+    </CellDisplayTemplate>
+</DxGridDataColumn>
+<DxGridDataColumn Context="IsEnableDemolitionAndRenovation_" Caption="آیا نیاز به عملیات تخریب و نوسازی دارد؟" >
+    <CellDisplayTemplate>
+       
+@{
+    var SCMATLASCELL_OS_Details_IsEnableDemolitionAndRenovation = ((Entity.SCMATLASCELL_OS_Details)IsEnableDemolitionAndRenovation_.DataItem).IsEnableDemolitionAndRenovation;
+}
+
+<p class="text-center " hidden="@(SCMATLASCELL_OS_Details_IsEnableDemolitionAndRenovation !=null ? !SCMATLASCELL_OS_Details_IsEnableDemolitionAndRenovation : true)">بله</p>
+
+<p class="text-center" hidden="@(SCMATLASCELL_OS_Details_IsEnableDemolitionAndRenovation !=null ? SCMATLASCELL_OS_Details_IsEnableDemolitionAndRenovation : true)">خیر</p>
+
+
+    </CellDisplayTemplate>
+</DxGridDataColumn>
+<DxGridDataColumn  Caption="توضیحات درخواست کننده"  FieldName="RequsterDesc" />
+
+<DxGridDataColumn  Caption="Id" Visible=false FieldName="Id" />
+
+<DxGridDataColumn  Caption="RequestID" Visible=false FieldName="RequestID" />
+
+<DxGridDataColumn  Caption="CreateUser" Visible=false FieldName="CreateUser" />
+
+<DxGridDataColumn  Caption="UpdateUser" Visible=false FieldName="UpdateUser" />
+
+<DxGridDataColumn  Caption="CreateDate" Visible=false FieldName="CreateDate" />
+
+<DxGridDataColumn  Caption="UpdateDate" Visible=false FieldName="UpdateDate" />
+
+<DxGridDataColumn  Caption="IsDelete" Visible=false FieldName="IsDelete" />
+
+
+</Columns>
+
+    <EditFormTemplate Context="EditFormContextSCMATLASCELL_OS_Details">
+    @{
+        SCMATLASCELL_OS_Details  = (Entity.SCMATLASCELL_OS_Details)EditFormContextSCMATLASCELL_OS_Details.EditModel;
+    }
+    <DxFormLayout>
+        <DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextSCMATLASCELL_OS_Details">
+    
+<Input Id="SCMATLASCELL_OS_Details_OS_JobTitle" @ref="Ref_SCMATLASCELL_OS_Details_OS_JobTitle" Label="عنوان کار"  CssClass="Gcol-sm-8 Gcol-md-6 Gcol-lg-4"  Required=true @bind-Value="SCMATLASCELL_OS_Details.OS_JobTitle" type="text"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"maxlength\":\"100\"}").Result))></Input>
+
+</DxFormLayoutItem>
+
+<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextSCMATLASCELL_OS_Details">
+    <div  class="Gcol-sm-8 Gcol-md-6 Gcol-lg-8">
+    
+</div>
+
+</DxFormLayoutItem>
+
+<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextSCMATLASCELL_OS_Details">
+     
+ 
+@code {
+    Baya.Models.ViewEngine.View_Component Component_SCMATLASCELL_OS_DetailsGlobal_UnitsId = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"primaryKey\":false,\"EntityID\":872,\"FieldId\":33386,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":1163,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":false,\"RelationParentName\":\"Global_Units\",\"RelationParentModel\":\"Global_Units\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/Global_Units/GetList\",\"_Parameters\":[]},\"validate\":{\"required\":true,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.Title}} </span>\",\"FieldsTemplate\":[{\"key\":\"Title\",\"value\":\"int\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"searchField\":\"\",\"disableLimit\":false,\"noRefreshOnScroll\":false,\"disabled\":false,\"modal\":true,\"label\":\"واحد کالا\",\"tableView\":true,\"key\":\"Global_UnitsId\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"customClass\":\"Gcol-sm-8 Gcol-md-6 Gcol-lg-4\",\"FieldUrl\":\"33386?EId=872&SubId=37\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
+}
+
+    <Dropdown Id=SCMATLASCELL_OS_Details_Global_UnitsId  @ref="Ref_SCMATLASCELL_OS_Details_Global_UnitsId" Label="واحد کالا" CssClass="Gcol-sm-8 Gcol-md-6 Gcol-lg-4" Required=true DisplayFormat="DropDown" ExternalApi=false NotMapped=false TextGrid=false Text="" Value="@SCMATLASCELL_OS_Details.Global_UnitsId" FieldName="Global_UnitsId" OnItemSelected="ItemSelected_SCMATLASCELL_OS_DetailsGlobal_UnitsId" Component="Component_SCMATLASCELL_OS_DetailsGlobal_UnitsId" _Entity="_Entity" _EntityRow=SCMATLASCELL_OS_Details>
+</Dropdown>
+@code {
+    public async Task ItemSelected_SCMATLASCELL_OS_DetailsGlobal_UnitsId(object _Item)
+    {
+        var Selected = Utility.JSON.ToObject<dynamic>(Utility.JSON.ToJson(_Item).Result).Result;
+     var Item = SCMATLASCELL_OS_Details;
+
+      //Todo
+ //برای اینکه آی دی تغییر کند اینجا نیز باید تغییر کند
+ //بهتر است از پرایمیری کی استفاده شود
+ if (_Item != null)
+ {
+     Console.WriteLine(" Item Is Not Null");
+    Item.Global_UnitsId = Selected.Id;
+    
+ }
+ else
+ {
+     Console.WriteLine(" Item Is Null");
+      Item.Global_UnitsId =EntityHelper.SetPropertyNull(Item.Global_UnitsId);
+ }
+ Item.Global_Units = await Utility.JSON.ToObject<Entity.Global_Units>(await Utility.JSON.ToJson(_Item));
+    StateHasChanged();
+
+
+    
+
+    
+    }
+} 
+
+</DxFormLayoutItem>
+
+<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextSCMATLASCELL_OS_Details">
+    
+<Input Id="SCMATLASCELL_OS_Details_Amount" @ref="Ref_SCMATLASCELL_OS_Details_Amount" Label="تعداد"  CssClass="Gcol-sm-8 Gcol-md-6 Gcol-lg-4"  Required=true @bind-Value="SCMATLASCELL_OS_Details.Amount" type="number" ActiveSeperator=false    Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+</DxFormLayoutItem>
+
+<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextSCMATLASCELL_OS_Details">
+     
+ 
+@code {
+    Baya.Models.ViewEngine.View_Component Component_SCMATLASCELL_OS_DetailsGlobal_PriorityId = Utility.JSON.ToObject<Baya.Models.ViewEngine.View_Component>("{\"primaryKey\":false,\"EntityID\":872,\"FieldId\":33388,\"TypeCSharp\":\"string\",\"NotNull\":false,\"ViewId\":1163,\"NotMapped\":false,\"Relation\":true,\"RelationExternal\":false,\"RelationParentName\":\"Global_Priority\",\"RelationParentModel\":\"Global_Priority\",\"widget\":\"choicesjs\",\"wysiwyg\":false,\"data\":{\"url\":\"https://bayaorm.workcv.ir/fa/api/v1/Global_Priority/GetList\",\"_Parameters\":[]},\"validate\":{\"required\":true,\"customPrivate\":false,\"strictDateValidation\":false,\"multiple\":false,\"unique\":false,\"max\":0,\"min\":0},\"components\":[],\"bind\":true,\"dataType\":\"string\",\"valueProperty\":\"Id\",\"template\":\"<span>{{item.Title}} </span>\",\"FieldsTemplate\":[{\"key\":\"Title\",\"value\":\"int\"}],\"dataSrc\":\"url\",\"refreshOn\":\"data\",\"searchField\":\"\",\"disableLimit\":false,\"noRefreshOnScroll\":false,\"disabled\":false,\"modal\":true,\"label\":\"اولویت\",\"tableView\":true,\"key\":\"Global_PriorityId\",\"type\":\"select\",\"input\":true,\"modalEdit\":false,\"customClass\":\"Gcol-sm-8 Gcol-md-6 Gcol-lg-4\",\"FieldUrl\":\"33388?EId=872&SubId=37\",\"decimalLimit\":0,\"searchEnabled\":true,\"AccessDelete\":true,\"AccessEdit\":true,\"AccessNew\":true}").Result;
+}
+
+    <Dropdown Id=SCMATLASCELL_OS_Details_Global_PriorityId  @ref="Ref_SCMATLASCELL_OS_Details_Global_PriorityId" Label="اولویت" CssClass="Gcol-sm-8 Gcol-md-6 Gcol-lg-4" Required=true DisplayFormat="DropDown" ExternalApi=false NotMapped=false TextGrid=false Text="" Value="@SCMATLASCELL_OS_Details.Global_PriorityId" FieldName="Global_PriorityId" OnItemSelected="ItemSelected_SCMATLASCELL_OS_DetailsGlobal_PriorityId" Component="Component_SCMATLASCELL_OS_DetailsGlobal_PriorityId" _Entity="_Entity" _EntityRow=SCMATLASCELL_OS_Details>
+</Dropdown>
+@code {
+    public async Task ItemSelected_SCMATLASCELL_OS_DetailsGlobal_PriorityId(object _Item)
+    {
+        var Selected = Utility.JSON.ToObject<dynamic>(Utility.JSON.ToJson(_Item).Result).Result;
+     var Item = SCMATLASCELL_OS_Details;
+
+      //Todo
+ //برای اینکه آی دی تغییر کند اینجا نیز باید تغییر کند
+ //بهتر است از پرایمیری کی استفاده شود
+ if (_Item != null)
+ {
+     Console.WriteLine(" Item Is Not Null");
+    Item.Global_PriorityId = Selected.Id;
+    
+ }
+ else
+ {
+     Console.WriteLine(" Item Is Null");
+      Item.Global_PriorityId =EntityHelper.SetPropertyNull(Item.Global_PriorityId);
+ }
+ Item.Global_Priority = await Utility.JSON.ToObject<Entity.Global_Priority>(await Utility.JSON.ToJson(_Item));
+    StateHasChanged();
+
+
+    
+
+    
+    }
+} 
+
+</DxFormLayoutItem>
+
+<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextSCMATLASCELL_OS_Details">
+    
+<Input Id="SCMATLASCELL_OS_Details_AreaUse" @ref="Ref_SCMATLASCELL_OS_Details_AreaUse" Label="محل مصرف"  CssClass="Gcol-sm-8 Gcol-md-6 Gcol-lg-12"  Required=true @bind-Value="SCMATLASCELL_OS_Details.AreaUse" type="textarea"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"maxlength\":\"1000\"}").Result))></Input>
+
+</DxFormLayoutItem>
+
+<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextSCMATLASCELL_OS_Details">
+    
+<RadioBoolean @ref="Ref_SCMATLASCELL_OS_Details_UploadFileIsEnable" InLine=true Id="SCMATLASCELL_OS_Details_UploadFileIsEnable"  oninput="@(e => UploadFileIsEnable_oninput(e ,SCMATLASCELL_OS_Details))"  LabelTrue="بله" LabelFalse="خیر" Label="آیا مدارک پیوست دارد؟" @bind-Value="SCMATLASCELL_OS_Details.UploadFileIsEnable" CssClass="Gcol-sm-8 Gcol-md-6 Gcol-lg-4" ></RadioBoolean>
+
+</DxFormLayoutItem>
+
+<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextSCMATLASCELL_OS_Details">
+    <Uploader Id=SCMATLASCELL_OS_Details_SCMATLASCELL_OS_Details_UploadFiles  @ref="Ref_SCMATLASCELL_OS_Details_SCMATLASCELL_OS_Details_UploadFiles"  CssClass="Gcol-sm-8 Gcol-md-6 Gcol-lg-8" Accept="image/* , application/pdf , .doc,.docx , .xls,.xlsx , .ppt,.pptx" MinSize="1KB" MaxSize="5MB" Caption="مدارک پیوست" Data="SCMATLASCELL_OS_Details.SCMATLASCELL_OS_Details_UploadFiles" Url="https://File.workcv.ir/fa/api/v1/File/Post" TItem="Entity.SCMATLASCELL_OS_Details_UploadFiles"></Uploader>
+
+</DxFormLayoutItem>
+
+<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextSCMATLASCELL_OS_Details">
+    
+<RadioBoolean @ref="Ref_SCMATLASCELL_OS_Details_IsEnableSampleGoods" InLine=true Id="SCMATLASCELL_OS_Details_IsEnableSampleGoods"  oninput="@(e => IsEnableSampleGoods_oninput(e ,SCMATLASCELL_OS_Details))"  LabelTrue="بله" LabelFalse="خیر" Label="آیا این درخواست نمونه دارد؟" @bind-Value="SCMATLASCELL_OS_Details.IsEnableSampleGoods" CssClass="Gcol-sm-8 Gcol-md-6 Gcol-lg-4" ></RadioBoolean>
+
+</DxFormLayoutItem>
+
+<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextSCMATLASCELL_OS_Details">
+    <Uploader Id=SCMATLASCELL_OS_Details_SCMATLASCELL_OS_Details_SampleGoodsFiles  @ref="Ref_SCMATLASCELL_OS_Details_SCMATLASCELL_OS_Details_SampleGoodsFiles"  CssClass="Gcol-sm-8 Gcol-md-6 Gcol-lg-8" Accept="image/* , application/pdf , .doc,.docx , .xls,.xlsx" MinSize="1KB" MaxSize="5MB" Caption="فایل نمونه" Data="SCMATLASCELL_OS_Details.SCMATLASCELL_OS_Details_SampleGoodsFiles" Url="https://File.workcv.ir/fa/api/v1/File/Post" TItem="Entity.SCMATLASCELL_OS_Details_SampleGoodsFiles"></Uploader>
+
+</DxFormLayoutItem>
+
+<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextSCMATLASCELL_OS_Details">
+    
+<RadioBoolean @ref="Ref_SCMATLASCELL_OS_Details_IsEnableDemolitionAndRenovation" InLine=true Id="SCMATLASCELL_OS_Details_IsEnableDemolitionAndRenovation"  oninput="@(e => IsEnableDemolitionAndRenovation_oninput(e ,SCMATLASCELL_OS_Details))"  LabelTrue="بله" LabelFalse="خیر" Label="آیا نیاز به عملیات تخریب و نوسازی دارد؟" @bind-Value="SCMATLASCELL_OS_Details.IsEnableDemolitionAndRenovation" CssClass="Gcol-sm-8 Gcol-md-6 Gcol-lg-4" ></RadioBoolean>
+
+</DxFormLayoutItem>
+
+<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextSCMATLASCELL_OS_Details">
+    
+<Input Id="SCMATLASCELL_OS_Details_RequsterDesc" @ref="Ref_SCMATLASCELL_OS_Details_RequsterDesc" Label="توضیحات درخواست کننده"  CssClass="Gcol-sm-8 Gcol-md-6 Gcol-lg-12"   @bind-Value="SCMATLASCELL_OS_Details.RequsterDesc" type="textarea"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{\"maxlength\":\"300\"}").Result))></Input>
+
+</DxFormLayoutItem>
+
+<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextSCMATLASCELL_OS_Details">
+    
+<Input Id="SCMATLASCELL_OS_Details_Id" @ref="Ref_SCMATLASCELL_OS_Details_Id"   CssClass="d-none"   @bind-Value="SCMATLASCELL_OS_Details.Id" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+</DxFormLayoutItem>
+
+<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextSCMATLASCELL_OS_Details">
+    
+<Input Id="SCMATLASCELL_OS_Details_RequestID" @ref="Ref_SCMATLASCELL_OS_Details_RequestID"      @bind-Value="SCMATLASCELL_OS_Details.RequestID" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+</DxFormLayoutItem>
+
+<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextSCMATLASCELL_OS_Details">
+    
+<Input Id="SCMATLASCELL_OS_Details_CreateUser" @ref="Ref_SCMATLASCELL_OS_Details_CreateUser"      @bind-Value="SCMATLASCELL_OS_Details.CreateUser" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+</DxFormLayoutItem>
+
+<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextSCMATLASCELL_OS_Details">
+    
+<Input Id="SCMATLASCELL_OS_Details_UpdateUser" @ref="Ref_SCMATLASCELL_OS_Details_UpdateUser"      @bind-Value="SCMATLASCELL_OS_Details.UpdateUser" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+</DxFormLayoutItem>
+
+<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextSCMATLASCELL_OS_Details">
+    
+<Input Id="SCMATLASCELL_OS_Details_CreateDate" @ref="Ref_SCMATLASCELL_OS_Details_CreateDate"   CssClass="d-none"   @bind-Value="SCMATLASCELL_OS_Details.CreateDate" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+</DxFormLayoutItem>
+
+<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextSCMATLASCELL_OS_Details">
+    
+<Input Id="SCMATLASCELL_OS_Details_UpdateDate" @ref="Ref_SCMATLASCELL_OS_Details_UpdateDate"   CssClass="d-none"   @bind-Value="SCMATLASCELL_OS_Details.UpdateDate" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+</DxFormLayoutItem>
+
+<DxFormLayoutItem CssClass="Gsyscol"  ColSpanMd="6" Context="FormLayoutContextSCMATLASCELL_OS_Details">
+    
+<Input Id="SCMATLASCELL_OS_Details_IsDelete" @ref="Ref_SCMATLASCELL_OS_Details_IsDelete"   CssClass="d-none"   @bind-Value="SCMATLASCELL_OS_Details.IsDelete" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+</DxFormLayoutItem>
+
+
+        <DxFormLayoutItem ColSpanMd="12" Context="FormLayoutContextSCMATLASCELL_OS_Details" CssClass="btn-modal-custom">
+            <DxButton Id="SCMATLASCELL_OS_Details_GridSCMATLASCELL_OS_MasterId_872ButtonSave" Click="@(() => SaveModalGrid_SCMATLASCELL_OS_Details(EditFormContextSCMATLASCELL_OS_Details))" Text="@languageContainer.Keys["DXGrid:Ok"]" CssClass="btn btn-green px-5" />
+            
+<DxButton id="SCMATLASCELL_OS_Details_GridSCMATLASCELL_OS_MasterId_872ButtonSaveAndNew"    Text="@languageContainer.Keys["DXGrid:OkAndNew"]" Click="@(() => SaveAndNewGrid_SCMATLASCELL_OS_Details(EditFormContextSCMATLASCELL_OS_Details))" CssClass="btn btn-green" />
+
+
+            <DxButton Id="SCMATLASCELL_OS_Details_GridSCMATLASCELL_OS_MasterId_872ButtonCancel" Click="@(() => Grid_SCMATLASCELL_OS_Details.CancelEditAsync())" Text="@languageContainer.Keys["DXGrid:Cancel"]" CssClass="btn btn-red" />
+            <button id="click_s"  hidden>submit</button>
+             <span>|</span>
+           
+            <DxButton Id="SCMATLASCELL_OS_Details_GridSCMATLASCELL_OS_MasterId_872ButtonBefore" Click="@(() => Dialog_Grid_SCMATLASCELL_OS_Details(0,IndexGrid_SCMATLASCELL_OS_Details,EditFormContextSCMATLASCELL_OS_Details))" Text="@languageContainer.Keys["DXGrid:Prev"]" CssClass="btn btn-purple" />@* @languageContainer.Keys["DXGrid:??"] *@
+         
+            <DxButton Id="SCMATLASCELL_OS_Details_GridSCMATLASCELL_OS_MasterId_872ButtonNext" Click="@(() => Dialog_Grid_SCMATLASCELL_OS_Details(1,IndexGrid_SCMATLASCELL_OS_Details,EditFormContextSCMATLASCELL_OS_Details))" Text="@languageContainer.Keys["DXGrid:Next"]" CssClass="btn btn-purple" />
+
+        </DxFormLayoutItem>
+    </DxFormLayout>
+
+</EditFormTemplate>
+
+</DxGrid>
+
+<DxPopup @bind-Visible="@ConfirmationShownSCMATLASCELL_OS_Details" HeaderText="@languageContainer.Keys["DXGrid:DeleteItem"]" Width="350px" CloseOnOutsideClick="false">
+
+    <BodyContentTemplate Context="EditFormContext">
+        <div class="py-3 px-5 text-center">
+            <p>@languageContainer.Keys["DXGrid:DeleteItemHint"]</p>
+            <div class="confirm-dialog-buttons">
+                <DxButton Text="@languageContainer.Keys["DXGrid:Yes"]" CssClass="btn btn-red px-4" Click="@OnYesButtonClickGrid_SCMATLASCELL_OS_Details" />
+                <DxButton Text="@languageContainer.Keys["DXGrid:No"]" CssClass="btn btn-purple-light px-4" Click="@OnNoButtonClickGrid_SCMATLASCELL_OS_Details" />
+            </div>
+        </div>
+    </BodyContentTemplate>
+</DxPopup>
+
+<DxPopup @bind-Visible="@ConfirmationSCMATLASCELL_OS_Details" HeaderText="هشدار" Width="350px" CloseOnOutsideClick="false">
+    <BodyContentTemplate Context="EditFormContext">
+        <div class="py-3 px-5 text-center"> 
+            <p>اطلاعات این فرم تغییر کرده است آیا تغییرات ذخیره شود؟</p>
+            <div class="confirm-dialog-buttons">
+                <DxButton Text="بله" CssClass="btn btn-red px-4" Click="@OnYesButtonSCMATLASCELL_OS_Details" />
+                <DxButton Text="خیر" CssClass="btn btn-purple-light px-4" Click="@OnNoButtonSCMATLASCELL_OS_Details" />
+            </div>
+        </div>
+    </BodyContentTemplate>
+</DxPopup>
+@code {
+    // DxGrid? Grid_SCMATLASCELL_OS_Details;
+    Entity.SCMATLASCELL_OS_Details SCMATLASCELL_OS_Details;
+    bool ConfirmationShownSCMATLASCELL_OS_Details { get; set; } = false;
+    public Entity.SCMATLASCELL_OS_Details SelectedItemGrid_SCMATLASCELL_OS_Details { get; set; } = new Entity.SCMATLASCELL_OS_Details();
+    /// <summary>
+    /// شماره ستون
+    /// </summary>
+    public int IndexGrid_SCMATLASCELL_OS_Details { get; set; }
+
+    ///////////////////////
+    bool ConfirmationSCMATLASCELL_OS_Details { get; set; } = false;
+    GridEditFormTemplateContext? _ContextFormTemplateSCMATLASCELL_OS_Details { get; set; }
+    public int OpenDialogCodeSCMATLASCELL_OS_Details { get; set; } = 0;
+    ////////////////////////
+
+    async Task OnEditModelSavingSCMATLASCELL_OS_Details(GridEditModelSavingEventArgs arg)
+    {
+        var e = arg.EditModel;
+    bool NotValid = false;
+    //events
+       NotValid = await GridSCMATLASCELL_OS_MasterId_872_editmodelsaving(e);
+        
+      if (!NotValid)
+     {
+      SaveGrid_SCMATLASCELL_OS_Details(arg.DataItem, arg.EditModel);
+     }
+}
+
+async void Dialog_Grid_SCMATLASCELL_OS_Details(int _OpenDialogCode, int VisibleIndex, GridEditFormTemplateContext e)
+{
+    OpenDialogCodeSCMATLASCELL_OS_Details = _OpenDialogCode;
+    if (!CheckChangedData(await Utility.JSON.ToJson(e.EditModel)))
+    {
+    _ContextFormTemplateSCMATLASCELL_OS_Details = e;
+    ConfirmationSCMATLASCELL_OS_Details = true;
+    }
+    else
+    {
+    await OnNoButtonSCMATLASCELL_OS_Details();
+    }
+}
+async Task OnYesButtonSCMATLASCELL_OS_Details()
+{
+
+    ConfirmationSCMATLASCELL_OS_Details = false;
+    await Task.Delay(1500);
+    //bool FormValidate = await JSO.InvokeAsync<bool>("submitForm");
+    bool FormValidate =  await JS.InvokeAsync<bool>("submitForm");
+    if (FormValidate)
+    {
+        bool NotValid = false;
+    var e = _ContextFormTemplateSCMATLASCELL_OS_Details.EditModel;
+         //events
+         NotValid = await GridSCMATLASCELL_OS_MasterId_872_editmodelsaving(e);
+
+        if (!NotValid)
+         {
+        SaveGrid_SCMATLASCELL_OS_Details(_ContextFormTemplateSCMATLASCELL_OS_Details.DataItem, _ContextFormTemplateSCMATLASCELL_OS_Details.EditModel);
+            await Grid_SCMATLASCELL_OS_Details.CancelEditAsync();
+         await ChangePageGrid_SCMATLASCELL_OS_Details();
+         await SetEditFormContextGrid_SCMATLASCELL_OS_Details();
+         }
+          
+    }
+
+}
+async Task OnNoButtonSCMATLASCELL_OS_Details()
+{
+    ConfirmationSCMATLASCELL_OS_Details = false;
+    await ChangePageGrid_SCMATLASCELL_OS_Details();
+    await SetEditFormContextGrid_SCMATLASCELL_OS_Details();
+
+}
+async Task SetEditFormContextGrid_SCMATLASCELL_OS_Details()
+{
+    var e = (Entity.SCMATLASCELL_OS_Details)Grid_SCMATLASCELL_OS_Details.GetDataItem(IndexGrid_SCMATLASCELL_OS_Details);
+    JsonData = await Utility.JSON.ToJson(e);
+}
+
+async Task ChangePageGrid_SCMATLASCELL_OS_Details()
+{
+    int VisibleIndex = IndexGrid_SCMATLASCELL_OS_Details;
+    try
+    {
+    if (OpenDialogCodeSCMATLASCELL_OS_Details == 1)
+    {
+        if (VisibleIndex != (Grid_SCMATLASCELL_OS_Details.GetVisibleRowCount() - 1))
+    { 
+            Grid_SCMATLASCELL_OS_Details.CancelEditAsync();
+            IndexGrid_SCMATLASCELL_OS_Details = VisibleIndex + 1;
+    Grid_SCMATLASCELL_OS_Details.StartEditRowAsync(IndexGrid_SCMATLASCELL_OS_Details);
+    }
+    }
+    else if (OpenDialogCodeSCMATLASCELL_OS_Details == 0)
+    {
+        if (VisibleIndex != 0)
+        {
+
+            Grid_SCMATLASCELL_OS_Details.CancelEditAsync();
+            IndexGrid_SCMATLASCELL_OS_Details = VisibleIndex - 1;
+    Grid_SCMATLASCELL_OS_Details.StartEditRowAsync(IndexGrid_SCMATLASCELL_OS_Details);
+    }
+
+    }
+    var e = (Entity.SCMATLASCELL_OS_Details)Grid_SCMATLASCELL_OS_Details.GetDataItem(IndexGrid_SCMATLASCELL_OS_Details);
+    JsonData = await Utility.JSON.ToJson(e);
+    await Task.Delay(300);
+    await GridSCMATLASCELL_OS_MasterId_872_afterrendermodal(e);
+    StateHasChanged();
+    }
+    catch (Exception ex)
+    {
+
+    Console.WriteLine("error in ChagePage" + ex.Message);
+    }
+
+}
+
+async Task StartEditNewRowAsync_Grid_SCMATLASCELL_OS_Details()
+{
+    IndexGrid_SCMATLASCELL_OS_Details = Grid_SCMATLASCELL_OS_Details.GetVisibleRowCount();
+Grid_SCMATLASCELL_OS_Details.StartEditNewRowAsync().GetAwaiter();
+var e = new Entity.SCMATLASCELL_OS_Details();
+JsonData = await Utility.JSON.ToJson(e);
+await Task.Delay(300);
+await GridSCMATLASCELL_OS_MasterId_872_afterrendermodal(e);
+}
+
+async Task StartModalGrid_SCMATLASCELL_OS_Details(GridCommandColumnCellDisplayTemplateContext Context)
+{
+    IndexGrid_SCMATLASCELL_OS_Details = Context.VisibleIndex;
+Grid_SCMATLASCELL_OS_Details.StartEditRowAsync(Context.VisibleIndex).GetAwaiter();
+var e = (Entity.SCMATLASCELL_OS_Details)Context.DataItem;
+JsonData = await Utility.JSON.ToJson(e);
+await Task.Delay(300);
+await GridSCMATLASCELL_OS_MasterId_872_afterrendermodal(e);
+   // await Task.Delay(500);
+}
+public async Task SaveModalGrid_SCMATLASCELL_OS_Details(GridEditFormTemplateContext arg)
+{
+     //bool FormValidate = await JSO.InvokeAsync<bool>("submitForm");
+     bool FormValidate =  await JS.InvokeAsync<bool>("submitForm");
+
+    if(FormValidate){
+
+    var e = arg.EditModel;
+    bool NotValid = false;
+    //events
+    NotValid = await GridSCMATLASCELL_OS_MasterId_872_editmodelsaving(e);
+    if (!NotValid)
+    {
+        SaveGrid_SCMATLASCELL_OS_Details(arg.DataItem, arg.EditModel);
+
+     await arg.Grid.CancelEditAsync(); 
+
+    }
+
+    }
+
+}
+public async Task SaveAndNewGrid_SCMATLASCELL_OS_Details(GridEditFormTemplateContext arg)
+{ 
+     //bool FormValidate = await JSO.InvokeAsync<bool>("submitForm");
+     bool FormValidate = await JS.InvokeAsync<bool>("submitForm");
+     
+    if(FormValidate){
+       
+         var e = arg.EditModel;
+          bool NotValid = false;
+     //events
+    NotValid = await GridSCMATLASCELL_OS_MasterId_872_editmodelsaving(e);
+    if (!NotValid)
+    {
+        SaveGrid_SCMATLASCELL_OS_Details(arg.DataItem, arg.EditModel);
+
+         await arg.Grid.CancelEditAsync();
+        await StartEditNewRowAsync_Grid_SCMATLASCELL_OS_Details();
+
+    }
+          
+    }
+   
+}
+
+void PerviousPageGrid_SCMATLASCELL_OS_Details(int VisibleIndex)
+{
+    try
+     {
+    if (VisibleIndex == 0)
+    {
+        Console.WriteLine(VisibleIndex.ToString());
+    }
+    else
+    {
+Grid_SCMATLASCELL_OS_Details.CancelEditAsync();
+        IndexGrid_SCMATLASCELL_OS_Details = VisibleIndex - 1;
+         Grid_SCMATLASCELL_OS_Details.StartEditRowAsync(IndexGrid_SCMATLASCELL_OS_Details);
+     }
+    }
+     catch (Exception e)
+     {
+    Console.WriteLine("PerviousPage Message");
+    Console.WriteLine(e.Message);
+    }
+
+}
+
+void NextPageGrid_SCMATLASCELL_OS_Details(int VisibleIndex)
+{
+
+    if (VisibleIndex == Grid_SCMATLASCELL_OS_Details.GetVisibleRowCount() - 1)
+    {
+    Console.WriteLine(VisibleIndex.ToString());
+    }
+    else
+    {
+    Console.WriteLine("NextPage Start Grid_SCMATLASCELL_OS_Details ");
+    try
+    {
+Grid_SCMATLASCELL_OS_Details.CancelEditAsync();
+        IndexGrid_SCMATLASCELL_OS_Details = VisibleIndex + 1;
+         Grid_SCMATLASCELL_OS_Details.StartEditRowAsync(IndexGrid_SCMATLASCELL_OS_Details);
+     }
+    catch (Exception e)
+    {
+        Console.WriteLine("NextPage Message");
+        Console.WriteLine(e.Message);
+    }
+
+    }
+}
+
+public void SaveGrid_SCMATLASCELL_OS_Details(object DataItem, object EditModel)
+{
+    var ListEntity = _Entity.SCMATLASCELL_OS_Details;
+    var MainModel = (Entity.SCMATLASCELL_OS_Details)DataItem;
+    if (MainModel != null)
+    {
+MainModel.OS_JobTitle = ((Entity.SCMATLASCELL_OS_Details)EditModel).OS_JobTitle;
+MainModel.Global_UnitsId = ((Entity.SCMATLASCELL_OS_Details)EditModel).Global_UnitsId;
+MainModel.Global_Units = ((Entity.SCMATLASCELL_OS_Details)EditModel).Global_Units;
+MainModel.Amount = ((Entity.SCMATLASCELL_OS_Details)EditModel).Amount;
+MainModel.Global_PriorityId = ((Entity.SCMATLASCELL_OS_Details)EditModel).Global_PriorityId;
+MainModel.Global_Priority = ((Entity.SCMATLASCELL_OS_Details)EditModel).Global_Priority;
+MainModel.AreaUse = ((Entity.SCMATLASCELL_OS_Details)EditModel).AreaUse;
+MainModel.UploadFileIsEnable = ((Entity.SCMATLASCELL_OS_Details)EditModel).UploadFileIsEnable;
+MainModel.IsEnableSampleGoods = ((Entity.SCMATLASCELL_OS_Details)EditModel).IsEnableSampleGoods;
+MainModel.IsEnableDemolitionAndRenovation = ((Entity.SCMATLASCELL_OS_Details)EditModel).IsEnableDemolitionAndRenovation;
+MainModel.RequsterDesc = ((Entity.SCMATLASCELL_OS_Details)EditModel).RequsterDesc;
+MainModel.Id = ((Entity.SCMATLASCELL_OS_Details)EditModel).Id;
+MainModel.RequestID = ((Entity.SCMATLASCELL_OS_Details)EditModel).RequestID;
+MainModel.CreateUser = ((Entity.SCMATLASCELL_OS_Details)EditModel).CreateUser;
+MainModel.UpdateUser = ((Entity.SCMATLASCELL_OS_Details)EditModel).UpdateUser;
+MainModel.CreateDate = ((Entity.SCMATLASCELL_OS_Details)EditModel).CreateDate;
+MainModel.UpdateDate = ((Entity.SCMATLASCELL_OS_Details)EditModel).UpdateDate;
+MainModel.IsDelete = ((Entity.SCMATLASCELL_OS_Details)EditModel).IsDelete;
+
+    }
+    else
+    {
+    ListEntity.Add((Entity.SCMATLASCELL_OS_Details)EditModel);
+    }
+}
+
+async Task OnDataItemDeletingSCMATLASCELL_OS_Details(GridDataItemDeletingEventArgs e)
+    {
+    var ListEntity = _Entity.SCMATLASCELL_OS_Details;
+    ListEntity.Remove((Entity.SCMATLASCELL_OS_Details)e.DataItem);
+}
+async void OnDeleteButtonClickGrid_SCMATLASCELL_OS_Details (GridCommandColumnCellDisplayTemplateContext ex)
+{
+    SelectedItemGrid_SCMATLASCELL_OS_Details = (ex.DataItem as Entity.SCMATLASCELL_OS_Details);
+    var e =SelectedItemGrid_SCMATLASCELL_OS_Details;
+    
+     
+    Console.WriteLine("end OnDeleteButtonClickGrid_test_OrderBody 0");
+    ConfirmationShownSCMATLASCELL_OS_Details = true;
+    await Task.Yield();
+     await InvokeAsync(StateHasChanged);
+    
+    Console.WriteLine("end OnDeleteButtonClickGrid_test_OrderBody 1");
+}
+async void OnYesButtonClickGrid_SCMATLASCELL_OS_Details ()
+{
+       if (SelectedItemGrid_SCMATLASCELL_OS_Details != null)
+    {
+      if (SelectedItemGrid_SCMATLASCELL_OS_Details.Id == Guid.Empty)
+      {
+          var ListEntity = _Entity.SCMATLASCELL_OS_Details;
+        ListEntity.Remove((Entity.SCMATLASCELL_OS_Details)SelectedItemGrid_SCMATLASCELL_OS_Details);
+     
+      }
+      else
+      {
+        var cleanModel = new Entity.SCMATLASCELL_OS_Details();
+      // چک کن آیا پراپرتی IsDelete در این نوع وجود دارد؟
+        var prop = typeof(Entity.SCMATLASCELL_OS_Details).GetProperty("IsDelete");
+        if (prop != null && prop.CanRead && prop.CanWrite)
+        {
+            // مقدار فعلی را بگیر
+            var currentValue = prop.GetValue(SelectedItemGrid_SCMATLASCELL_OS_Details);
+
+            if (currentValue is bool boolValue)
+            {
+                // مقدار را معکوس کن
+                var newValue = !boolValue;
+
+                // روی هر دو شیء تنظیم کن
+                prop.SetValue(SelectedItemGrid_SCMATLASCELL_OS_Details, newValue);
+                prop.SetValue(cleanModel, newValue);
+            }
+        }
+        EntityHelper.SetPropertyValue(cleanModel, cleanModel._GetIdName, SelectedItemGrid_SCMATLASCELL_OS_Details._Id);
+    
+       
+       
+      }
+    }
+    var e= SelectedItemGrid_SCMATLASCELL_OS_Details;
+    
+    Grid_SCMATLASCELL_OS_Details.Reload();
+    ConfirmationShownSCMATLASCELL_OS_Details = false;
+     await Task.Yield();
+    await InvokeAsync(StateHasChanged);
+
+}
+void OnNoButtonClickGrid_SCMATLASCELL_OS_Details ()
+{
+    ConfirmationShownSCMATLASCELL_OS_Details = false;
+}
+
+void CustomizeRowsGrid_SCMATLASCELL_OS_Details(GridCustomizeElementEventArgs e)
+{
+    ///استایل سطر
+    if (e.ElementType == GridElementType.DataRow)
+    {
+    var item = ((Entity.SCMATLASCELL_OS_Details)e.Grid.GetDataItem(e.VisibleIndex));
+
+       if (item.IsDelete == true)
+       {
+           e.CssClass = "bg-lightred disablediv";
+       }
+    }
+}
+
+async void CustomizeEditGrid_SCMATLASCELL_OS_Details(GridCustomizeEditModelEventArgs e)
+{
+
+    if (e.IsNew)
+    {
+
+    var newRow = (Entity.SCMATLASCELL_OS_Details)e.EditModel;
+
+     
+
+    }
+
+
+}
+public async void RowClickGrid_SCMATLASCELL_OS_Details(GridRowClickEventArgs e)
+{
+
+}
+
+public async void RowDubbleClickGrid_SCMATLASCELL_OS_Details(GridRowClickEventArgs e)
+{
+
+}
+}
+
+<Input Id="Id" @ref="Ref_Id"   CssClass="d-none"   @bind-Value="_Entity.Id" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+<Input Id="RequestID" @ref="Ref_RequestID"      @bind-Value="_Entity.RequestID" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+<Input Id="CreateUser" @ref="Ref_CreateUser"      @bind-Value="_Entity.CreateUser" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+<Input Id="UpdateUser" @ref="Ref_UpdateUser"      @bind-Value="_Entity.UpdateUser" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+<Input Id="CreateDate" @ref="Ref_CreateDate"   CssClass="d-none"   @bind-Value="_Entity.CreateDate" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+<Input Id="UpdateDate" @ref="Ref_UpdateDate"   CssClass="d-none"   @bind-Value="_Entity.UpdateDate" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+<Input Id="IsDelete" @ref="Ref_IsDelete"   CssClass="d-none"   @bind-Value="_Entity.IsDelete" type="hidden"     Attributes=@((Utility.JSON.ToObject<Dictionary<string,object>>("{}").Result))></Input>
+
+    </EditForm>
+</div>
+
+@if (ShowSubmit)
+{
+    <button class="btn btn-sm btn-green" @onclick=Submit>ذخیره</button>
+}
+
+@code {
+    #region Function
+
+    //todo  جا به جا شود برده شود تو فایل  Peropeties
+    protected override async Task OnInitializedAsync()
+    {
+        Console.WriteLine("#log OnInitializedAsync");
+
+        TableGet = await Utility.JSON.ToObject<Table>("{\"Name\":\"SCMATLASCELL_OS_Master\",\"GetNameAs\":\"SCMATLASCELL_OS_Master\",\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"RequestID\",\"GetNameAs\":\"RequestID\"},{\"Name\":\"CreateUser\",\"GetNameAs\":\"CreateUser\"},{\"Name\":\"UpdateUser\",\"GetNameAs\":\"UpdateUser\"},{\"Name\":\"CreateDate\",\"GetNameAs\":\"CreateDate\"},{\"Name\":\"UpdateDate\",\"GetNameAs\":\"UpdateDate\"},{\"Name\":\"IsDelete\",\"GetNameAs\":\"IsDelete\"},{\"Name\":\"UserStarterFullName\",\"GetNameAs\":\"UserStarterFullName\"},{\"Name\":\"UserStarterCompanyName\",\"GetNameAs\":\"UserStarterCompanyName\"},{\"Name\":\"UserStarterUnitName\",\"GetNameAs\":\"UserStarterUnitName\"},{\"Name\":\"UserStarterSectionName\",\"GetNameAs\":\"UserStarterSectionName\"},{\"Name\":\"RequestTrakingCode\",\"GetNameAs\":\"RequestTrakingCode\"},{\"Name\":\"ProcessVersionID\",\"GetNameAs\":\"ProcessVersionID\"},{\"Name\":\"SCMATLASCELL_OS_ResultingFromId\",\"GetNameAs\":\"SCMATLASCELL_OS_ResultingFromId\"}],\"Relation\":[{\"Name\":\"SCMATLASCELL_OS_ResultingFrom\",\"GetNameAs\":\"SCMATLASCELL_OS_ResultingFrom\",\"ModeErtebat\":1,\"Column\":[{\"Name\":\"Code\",\"GetNameAs\":\"Code\"},{\"Name\":\"Title\",\"GetNameAs\":\"Title\"}],\"Relation\":[]},{\"Name\":\"SCMATLASCELL_ICT_Departments\",\"GetNameAs\":\"SCMATLASCELL_ICT_Departments\",\"ModeErtebat\":1,\"Column\":[{\"Name\":\"Code\",\"GetNameAs\":\"Code\"},{\"Name\":\"Title\",\"GetNameAs\":\"Title\"}],\"Relation\":[]},{\"Name\":\"SCMATLASCELL_OS_Details\",\"GetNameAs\":\"SCMATLASCELL_OS_Details\",\"ModeErtebat\":2,\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"RequestID\",\"GetNameAs\":\"RequestID\"},{\"Name\":\"CreateUser\",\"GetNameAs\":\"CreateUser\"},{\"Name\":\"UpdateUser\",\"GetNameAs\":\"UpdateUser\"},{\"Name\":\"CreateDate\",\"GetNameAs\":\"CreateDate\"},{\"Name\":\"UpdateDate\",\"GetNameAs\":\"UpdateDate\"},{\"Name\":\"IsDelete\",\"GetNameAs\":\"IsDelete\"},{\"Name\":\"OS_JobTitle\",\"GetNameAs\":\"OS_JobTitle\"},{\"Name\":\"Global_UnitsId\",\"GetNameAs\":\"Global_UnitsId\"},{\"Name\":\"Amount\",\"GetNameAs\":\"Amount\"},{\"Name\":\"Global_PriorityId\",\"GetNameAs\":\"Global_PriorityId\"},{\"Name\":\"AreaUse\",\"GetNameAs\":\"AreaUse\"},{\"Name\":\"RequsterDesc\",\"GetNameAs\":\"RequsterDesc\"},{\"Name\":\"UploadFileIsEnable\",\"GetNameAs\":\"UploadFileIsEnable\"},{\"Name\":\"IsEnableSampleGoods\",\"GetNameAs\":\"IsEnableSampleGoods\"},{\"Name\":\"IsEnableDemolitionAndRenovation\",\"GetNameAs\":\"IsEnableDemolitionAndRenovation\"}],\"Relation\":[{\"Name\":\"Global_Units\",\"GetNameAs\":\"Global_Units\",\"ModeErtebat\":1,\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"Code\",\"GetNameAs\":\"Code\"},{\"Name\":\"Title\",\"GetNameAs\":\"Title\"}]},{\"Name\":\"Global_Priority\",\"GetNameAs\":\"Global_Priority\",\"ModeErtebat\":1,\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"Title\",\"GetNameAs\":\"Title\"},{\"Name\":\"Code\",\"GetNameAs\":\"Code\"}]},{\"Name\":\"SCMATLASCELL_OS_Details_UploadFiles\",\"GetNameAs\":\"SCMATLASCELL_OS_Details_UploadFiles\",\"ModeErtebat\":2,\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"SCMATLASCELL_OS_DetailsId\",\"GetNameAs\":\"SCMATLASCELL_OS_DetailsId\"},{\"Name\":\"storage\",\"GetNameAs\":\"storage\"},{\"Name\":\"name\",\"GetNameAs\":\"name\"},{\"Name\":\"url\",\"GetNameAs\":\"url\"},{\"Name\":\"size\",\"GetNameAs\":\"size\"},{\"Name\":\"type\",\"GetNameAs\":\"type\"},{\"Name\":\"originalName\",\"GetNameAs\":\"originalName\"},{\"Name\":\"hash\",\"GetNameAs\":\"hash\"},{\"Name\":\"RequestID\",\"GetNameAs\":\"RequestID\"},{\"Name\":\"CreateUser\",\"GetNameAs\":\"CreateUser\"},{\"Name\":\"UpdateUser\",\"GetNameAs\":\"UpdateUser\"},{\"Name\":\"CreateDate\",\"GetNameAs\":\"CreateDate\"},{\"Name\":\"UpdateDate\",\"GetNameAs\":\"UpdateDate\"},{\"Name\":\"IsDelete\",\"GetNameAs\":\"IsDelete\"}]},{\"Name\":\"SCMATLASCELL_OS_Details_SampleGoodsFiles\",\"GetNameAs\":\"SCMATLASCELL_OS_Details_SampleGoodsFiles\",\"ModeErtebat\":2,\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"SCMATLASCELL_OS_DetailsId\",\"GetNameAs\":\"SCMATLASCELL_OS_DetailsId\"},{\"Name\":\"storage\",\"GetNameAs\":\"storage\"},{\"Name\":\"name\",\"GetNameAs\":\"name\"},{\"Name\":\"url\",\"GetNameAs\":\"url\"},{\"Name\":\"size\",\"GetNameAs\":\"size\"},{\"Name\":\"type\",\"GetNameAs\":\"type\"},{\"Name\":\"originalName\",\"GetNameAs\":\"originalName\"},{\"Name\":\"hash\",\"GetNameAs\":\"hash\"},{\"Name\":\"RequestID\",\"GetNameAs\":\"RequestID\"},{\"Name\":\"CreateUser\",\"GetNameAs\":\"CreateUser\"},{\"Name\":\"UpdateUser\",\"GetNameAs\":\"UpdateUser\"},{\"Name\":\"CreateDate\",\"GetNameAs\":\"CreateDate\"},{\"Name\":\"UpdateDate\",\"GetNameAs\":\"UpdateDate\"},{\"Name\":\"IsDelete\",\"GetNameAs\":\"IsDelete\"}]}]}]}");
+        TablePost = await Utility.JSON.ToObject<Table>("{\"Name\":\"SCMATLASCELL_OS_Master\",\"GetNameAs\":\"SCMATLASCELL_OS_Master\",\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"RequestID\",\"GetNameAs\":\"RequestID\"},{\"Name\":\"CreateUser\",\"GetNameAs\":\"CreateUser\"},{\"Name\":\"UpdateUser\",\"GetNameAs\":\"UpdateUser\"},{\"Name\":\"CreateDate\",\"GetNameAs\":\"CreateDate\"},{\"Name\":\"UpdateDate\",\"GetNameAs\":\"UpdateDate\"},{\"Name\":\"IsDelete\",\"GetNameAs\":\"IsDelete\"},{\"Name\":\"UserStarterFullName\",\"GetNameAs\":\"UserStarterFullName\"},{\"Name\":\"UserStarterCompanyName\",\"GetNameAs\":\"UserStarterCompanyName\"},{\"Name\":\"UserStarterUnitName\",\"GetNameAs\":\"UserStarterUnitName\"},{\"Name\":\"UserStarterSectionName\",\"GetNameAs\":\"UserStarterSectionName\"},{\"Name\":\"RequestTrakingCode\",\"GetNameAs\":\"RequestTrakingCode\"},{\"Name\":\"ProcessVersionID\",\"GetNameAs\":\"ProcessVersionID\"},{\"Name\":\"SCMATLASCELL_OS_ResultingFromId\",\"GetNameAs\":\"SCMATLASCELL_OS_ResultingFromId\"}],\"Relation\":[{\"Name\":\"SCMATLASCELL_OS_Details\",\"GetNameAs\":\"SCMATLASCELL_OS_Details\",\"ModeErtebat\":2,\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"RequestID\",\"GetNameAs\":\"RequestID\"},{\"Name\":\"CreateUser\",\"GetNameAs\":\"CreateUser\"},{\"Name\":\"UpdateUser\",\"GetNameAs\":\"UpdateUser\"},{\"Name\":\"CreateDate\",\"GetNameAs\":\"CreateDate\"},{\"Name\":\"UpdateDate\",\"GetNameAs\":\"UpdateDate\"},{\"Name\":\"IsDelete\",\"GetNameAs\":\"IsDelete\"},{\"Name\":\"OS_JobTitle\",\"GetNameAs\":\"OS_JobTitle\"},{\"Name\":\"Global_UnitsId\",\"GetNameAs\":\"Global_UnitsId\"},{\"Name\":\"Amount\",\"GetNameAs\":\"Amount\"},{\"Name\":\"Global_PriorityId\",\"GetNameAs\":\"Global_PriorityId\"},{\"Name\":\"AreaUse\",\"GetNameAs\":\"AreaUse\"},{\"Name\":\"RequsterDesc\",\"GetNameAs\":\"RequsterDesc\"},{\"Name\":\"UploadFileIsEnable\",\"GetNameAs\":\"UploadFileIsEnable\"},{\"Name\":\"IsEnableSampleGoods\",\"GetNameAs\":\"IsEnableSampleGoods\"},{\"Name\":\"IsEnableDemolitionAndRenovation\",\"GetNameAs\":\"IsEnableDemolitionAndRenovation\"}],\"Relation\":[{\"Name\":\"SCMATLASCELL_OS_Details_UploadFiles\",\"GetNameAs\":\"SCMATLASCELL_OS_Details_UploadFiles\",\"ModeErtebat\":2,\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"SCMATLASCELL_OS_DetailsId\",\"GetNameAs\":\"SCMATLASCELL_OS_DetailsId\"},{\"Name\":\"storage\",\"GetNameAs\":\"storage\"},{\"Name\":\"name\",\"GetNameAs\":\"name\"},{\"Name\":\"url\",\"GetNameAs\":\"url\"},{\"Name\":\"size\",\"GetNameAs\":\"size\"},{\"Name\":\"type\",\"GetNameAs\":\"type\"},{\"Name\":\"originalName\",\"GetNameAs\":\"originalName\"},{\"Name\":\"hash\",\"GetNameAs\":\"hash\"},{\"Name\":\"RequestID\",\"GetNameAs\":\"RequestID\"},{\"Name\":\"CreateUser\",\"GetNameAs\":\"CreateUser\"},{\"Name\":\"UpdateUser\",\"GetNameAs\":\"UpdateUser\"},{\"Name\":\"CreateDate\",\"GetNameAs\":\"CreateDate\"},{\"Name\":\"UpdateDate\",\"GetNameAs\":\"UpdateDate\"},{\"Name\":\"IsDelete\",\"GetNameAs\":\"IsDelete\"}]},{\"Name\":\"SCMATLASCELL_OS_Details_SampleGoodsFiles\",\"GetNameAs\":\"SCMATLASCELL_OS_Details_SampleGoodsFiles\",\"ModeErtebat\":2,\"Column\":[{\"Name\":\"Id\",\"GetNameAs\":\"Id\"},{\"Name\":\"SCMATLASCELL_OS_DetailsId\",\"GetNameAs\":\"SCMATLASCELL_OS_DetailsId\"},{\"Name\":\"storage\",\"GetNameAs\":\"storage\"},{\"Name\":\"name\",\"GetNameAs\":\"name\"},{\"Name\":\"url\",\"GetNameAs\":\"url\"},{\"Name\":\"size\",\"GetNameAs\":\"size\"},{\"Name\":\"type\",\"GetNameAs\":\"type\"},{\"Name\":\"originalName\",\"GetNameAs\":\"originalName\"},{\"Name\":\"hash\",\"GetNameAs\":\"hash\"},{\"Name\":\"RequestID\",\"GetNameAs\":\"RequestID\"},{\"Name\":\"CreateUser\",\"GetNameAs\":\"CreateUser\"},{\"Name\":\"UpdateUser\",\"GetNameAs\":\"UpdateUser\"},{\"Name\":\"CreateDate\",\"GetNameAs\":\"CreateDate\"},{\"Name\":\"UpdateDate\",\"GetNameAs\":\"UpdateDate\"},{\"Name\":\"IsDelete\",\"GetNameAs\":\"IsDelete\"}]}]}]}");
+
+        config = CKEditorBundleOptions.DefaultConfig.WithHtmlEditing();
+        config.Language = "fa";
+
+        //بعداد اگه نیاز شد فرمی رو تو حالت غیر لاگین شده نمایش بدیم باید این  کد تغیر کنه
+        var user = (await _authenticationStateProvider.GetAuthenticationStateAsync()).User;
+        string UserID = user.FindFirst(c => c.Type == ClaimTypes.NameIdentifier).Value;
+        //داینامیک بشه
+        Dictionary<string, object> List = new Dictionary<string, object>();
+        //List.Add("UserID", Guid.Parse(UserID));
+        List.Add("UserID", UserID);
+        _User = await Domain.Utility.ConvertParameter.ConvertToObject(List);
+
+        Console.WriteLine("#log OnInitializedAsync End");
+
+        await base.OnInitializedAsync();
+    }
+
+    //todo  جا به جا شود برده شود تو فایل  Peropeties
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            Console.WriteLine("#log OnAfterRenderAsync");
+            await base.BeforGetData();
+
+            var Result = await GetData();
+
+            await base.AfterGetData();
+
+            StateHasChanged();
+
+            await OnFormloaded.InvokeAsync(Result);
+        }
+
+        await base.OnAfterRenderAsync(firstRender);
+    }
+
+    /// <summary>
+    /// دریافت داده
+    /// </summary>
+    /// <returns></returns>
+    public async Task<Baya.Models.Utility.Result> GetData()
+    {
+        await BeforGetData();
+
+        var DataResult = await ApiServer.External.Services.Data.Get(TableGet, QueryFilter, TableGet.Name, null);
+        
+        Baya.Models.Utility.Result Result = new Baya.Models.Utility.Result();
+
+        if (DataResult != null && DataResult.Status == HttpStatusCode.OK)
+        {
+            if (DataResult.Content != null)
+            {
+                string Data = DataResult.Content.ToString();
+                if (Data is not null)
+                {
+                    _Entity = await Utility.JSON.ToObject < Entity.SCMATLASCELL_OS_Master>(Data);
+        }
+            }
+            else
+            {
+                _Entity = new Entity.SCMATLASCELL_OS_Master();
+            //todo تشخیص دهد که داده ای وجود ندارد و دفه اول هست که فرم لود میشود
+            //todo اگه نیاز شد دالخ ORm خروجیش متفاوت باشه
+            //ست کردن دیفالت های فرم
+            if (true)
+                {//
+_Entity.UserStarterFullName = _RequestParameters.UserStarterFullName;
+_Entity.UserStarterCompanyName = _RequestParameters.UserStarterCompanyName;
+_Entity.UserStarterUnitName = _RequestParameters.UserStarterUnitName;
+_Entity.UserStarterSectionName = _RequestParameters.UserStarterSectionName;
+_Entity.RequestTrakingCode = _RequestParameters.RequestTrakingCode;
+_Entity.ProcessVersionID = _RequestParameters.ProcessVersionID;
+
+
+                    //نمونه ست کردن پارامتر روش اول
+                    //_Entity.InstantDelivery = _RequestParameters.UserId;
+
+                    //نمونه کد برای ست کردن پارامتر روش دوم
+                    //_Entity.InstantDelivery = await GetParameter("@@UserId@@");
+                }
+
+                SumaryMessage = "داده لود شده معتبر نمی باشد";
+                Result.Status = HttpStatusCode.InternalServerError;
+            }
+        }
+        else
+        {
+            SumaryMessage = "داده لود نشد";
+            Result.Status = HttpStatusCode.InternalServerError;
+        }
+
+        Result.Message = SumaryMessage;
+
+        StateHasChanged();
+
+        await AfterGetData();
+
+        return Result;
+    }
+
+    public override async Task SetParametersAsync(ParameterView parameters)
+    {
+        await base.SetParametersAsync(parameters);
+    }
+
+    protected override void OnInitialized()
+    {
+        //todo این خط برده شود داخل تابع پاینی ببینیم خطا داره یا نه
+        languageContainer.InitLocalizedComponent(this);
+    }
+
+
+    /// <summary>
+    /// بررسی تغییر دیتا
+    /// </summary>
+    /// <param name="Json"></param>
+    /// <returns></returns>
+    public bool CheckChangedData(string? Json)
+    {
+        if (string.Equals(JsonData, Json)) return true;
+        return false;
+    }
+
+    /// <summary>
+    /// ارسال داده
+    /// </summary>
+    /// <returns></returns>
+    public override async Task<Baya.Models.Utility.Result> Submit()
+    {
+        SumaryMessage = "";
+        Baya.Models.Utility.Result Result = new Baya.Models.Utility.Result();
+
+        if (!await FormValidator())
+        {
+            StateHasChanged();
+            Result.Status = HttpStatusCode.InternalServerError;
+            return Result;
+        }
+
+        if ((await BeforSubmit()).Status != HttpStatusCode.OK)
+        {
+            StateHasChanged();
+            Result.Status = HttpStatusCode.InternalServerError;
+            return Result;
+        }
+
+        _loadingService.Show();
+        var Resualt = await PostData();
+
+        if (Resualt)
+        {
+            Result.Status = HttpStatusCode.OK;
+
+            SumaryMessage = "داده ها با موفقیت ثبت شد";
+        }
+        else
+        {
+            Result.Status = HttpStatusCode.InternalServerError;
+            SumaryMessage = "ذخیره داده با مشکل مواجه شد";
+        }
+
+        Result.Message = SumaryMessage;
+
+        switch ((int)Result.Status)
+        {
+            case 200:
+                toastService.ShowSuccess(Result.Message);
+                break;
+            case 500:
+                toastService.ShowError(Result.Message);
+                break;
+            default:
+                break;
+        } 
+        _loadingService.Hide();
+        await AfterSubmit();
+
+        return Result;
+    }
+
+    /// <summary>
+    /// ارسال داده
+    /// </summary>
+    /// <returns></returns>
+    private async Task<bool> PostData()
+    {
+        string Data = await Utility.JSON.ToJson(_Entity);
+
+        bool IsOk = false;
+        var Model = await ApiServer.External.Services.Data.Put(Data, TablePost.Name, TablePost, RequestID?.ToString(), _User.UserID.ToString());
+        // بررسی وضعیت پاسخ
+        if (Model?.Status == HttpStatusCode.OK)
+        {
+            if (Model.Content != null && !IndependentForm)
+                { 
+                    string NewData = Model.Content.ToString();
+                    if (NewData is not null)
+                    {
+                        var NewEntity = await Utility.JSON.ToObject < Entity.SCMATLASCELL_OS_Master>(NewData);
+                     await  GetDataForm(NewEntity._Id);
+                    }
+
+                }
+                IsOk = true;
+
+        }
+        return IsOk;
+    }
+
+
+    void SetLanguage(string language)
+    {
+        languageContainer.SetLanguage(System.Globalization.CultureInfo.GetCultureInfo(language));
+    }
+
+    // public void ValidFormSubmitted(EditContext editContext)
+    // {
+
+    // }
+
+    // public void InvalidFormSubmitted(EditContext editContext)
+    // {
+
+    // }
+    public async Task GetDataForm(object Id)
+    {
+        Type type = Id.GetType();
+        string TypeToQueryBuilder = Utility.TypeConverterQueryBuilder.ConvertCSharpTypeToQueryBuilder(type);
+        var NewQuery = new QueryBuilderFilterRule() { Condition = "AND" };
+        NewQuery.Rules = new List<QueryBuilderFilterRule>
+            {
+                    new QueryBuilderFilterRule()
+                    {
+                        Field = _Entity._GetIdName,
+                        Id = _Entity._GetIdName,
+                        Input = "text",
+                        Operator = "equal",
+                        Type =  TypeToQueryBuilder,
+                        Value = new string[]{ Id.ToString() },
+                    }
+            };
+        QueryFilter = NewQuery;
+        await GetData();
+        StateHasChanged();
+    }
+    #endregion
+}

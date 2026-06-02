@@ -6,13 +6,16 @@ using Microsoft.JSInterop;
 using DevExpress.Blazor;
 using Microsoft.AspNetCore.Components.Web;
 using Sitko.Blazor.CKEditor;
+using BlazorBootstrap;
+using Blazored.Toast.Services;
 
 namespace Forms.Forms
 {
     public class Form_1143Base : Form_1143Peropeties
     {
 
-
+[Inject]
+	    public IToastService toastService { get; set; }
 
     /// <summary>
     /// آماده سازی فرم
@@ -174,11 +177,11 @@ namespace Forms.Forms
     /// <returns></returns>
     public override async Task<Result> BeforSubmit()
     {
-        if (!await FormValidator())
-        {
-            StateHasChanged();
-            return new Result() { Status = HttpStatusCode.InternalServerError };
-        }
+        // if (!await FormValidator())
+        // {
+        //     StateHasChanged();
+        //     return new Result() { Status = HttpStatusCode.InternalServerError };
+        // }
 
         return new Result() { Status = HttpStatusCode.OK };
     }

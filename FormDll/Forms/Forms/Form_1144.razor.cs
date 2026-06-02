@@ -14,7 +14,8 @@ namespace Forms.Forms
     public class Form_1144Base : Form_1144Peropeties
     {
 
-
+[Inject]
+	    public IToastService toastService { get; set; }
 
     /// <summary>
     /// آماده سازی فرم
